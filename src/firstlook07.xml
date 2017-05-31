@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="firstlook07" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Bifurcations</title>
+
+    <introduction>
+        <p>Many of the equations that we have examined have a <term>parameter</term><index><main>parameter</main></index>, which means that we actually have a family of differential equations. For example,
+            <me>\frac{dx}{dt} = kx</me>
+        has the growth rate parameter <m>k</m>. The logistic equation
+            <me>\frac{dP}{dt} = kP\left( 1 - \frac{P}{N} \right)</me>
+        has two parameters, <m>k</m> and <m>N</m>. In this section we will investigate how the solutions of a differential equation vary as we change the value of a parameter.</p>
+    </introduction>
+    
+    <subsection xml:id="subsection-firstlook07-logisitic-harvesting">
+    	<title>The Logistic Model with Harvesting Revisited</title>
+
+        <p>Recall how we modeled logistic growth in a trout pond in Example<nbsp /><xref ref="example-firstlook03-harvesting" /> with the equation
+            <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right).</me>
+        If we allowed fishing in our pond at a rate of 32 fish per year, then the equation became
+            <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.</me>
+        There are two equilibrium solutions for this equation, <m>P_1 = 160</m> (a sink) and <m>P_2 = 40</m> (a source). If the population of the pond falls below 40, then the fish will die out unless the pond is restocked or fishing is banned (Figure<nbsp /><xref ref="figure-firstlook07-logistic-harvesting-sink-source" />).</p>
+
+        <figure xml:id="figure-firstlook07-logistic-harvesting-sink-source">
+
+            <image width="60%" xml:id="firstlook07-harvesting-sink-source">
+                <sageplot>
+                    k=1
+                    N = 200
+                    H = 32
+                    P, t=var('P, t')
+                    p = plot_slope_field(k*P*(1 - P/N) - H, (t,-0,10), (P,0,200), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,200],ivar=t,output='plot',end_points=[0, 10],thickness=2, color='blue')
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 10],thickness=2, color='red')
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,39],ivar=t,output='plot',end_points=[0, 5.8],thickness=2, color='green')
+                    p
+                </sageplot>
+            </image>
+            <caption>Harvesting with <m>H = 32</m></caption>
+        </figure>
+
+        <p>Now let us see what happens when we allow more fishing in our pond, say <m>H = 100</m>. Our differential equation now becomes
+            <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 100.</me>
+        To determine the equilibrium solutions, we must solve
+            <men xml:id="equation-firstlook07-over-harvesting">\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 100 = 0</men>
+        for <m>P</m>. This last equation can be rewritten as <m>P^2 - 200P - 20000 = 0</m>. Thus, 
+            <me>P = \frac{200 \pm \sqrt{200^2 - 4 \cdot 20000}}{2} = 100 \pm \sqrt{-10000},</me>
+        which means that equation <xref ref="equation-firstlook07-over-harvesting" /> has no real solutions and that we have no equilbrium solutions. Furthermore, <m>dP/dt \lt 0</m> for all values of <m>P</m>.  This means that no matter how many fish are in the pond initially, the trout population will eventually die out due to over fishing  (Figure<nbsp /><xref ref="figure-firstlook07-over-harvesting" />).</p>
+
+        <figure xml:id="figure-firstlook07-over-harvesting">
+
+            <image width="60%" xml:id="firstlook07-over-harvesting">
+                <sageplot>
+                    k=1
+                    N = 200
+                    H = 100
+                    P, t=var('P, t')
+                    p=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,150],ivar=t,output='slope_field',end_points=[0, 2.5],thickness=2, color='blue',axes_labels=['$t$','$P(t)$'], fontsize=12)
+                    q=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 1.55],thickness=2, color='red')
+                    r=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,50],ivar=t,output='plot',end_points=[0, 0.65],thickness=2, color='green')
+                    p + q + r
+                </sageplot>
+            </image>
+            <caption>Harvesting with <m>H = 100</m></caption>
+            
+        </figure>
+
+        <p>Finally, we will let <m>H = 50</m>. In this case, we must solve 
+            <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 50 = 0</me>
+        in order to determine any equilibrium solutions. We now obtain a single equilibrium solution at <m>P = 50</m>. In fact, <m>P = 100</m> will be a node. For values of <m>P \gt 100</m> as well as values of <m>P \lt 100</m>, we have <m>dP/dt \lt 0</m>, and the number of fish in the pond will decrease (Figure<nbsp /><xref ref="figure-firstlook07-logistic-harvesting-bifurcation" />).</p>
+
+        <figure xml:id="figure-firstlook07-logistic-harvesting-bifurcation">
+             <image width="60%" xml:id="firstlook07-harvesting-bifurcation">
+                <sageplot>
+                    k=1
+                    N = 200
+                    H = 50
+                    N^2/4 - H*N/k
+                    P, t=var('P, t')
+                    p = plot_slope_field(k*P*(1 - P/N) - H, (t,0,20), (P,0,200), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,200],ivar=t,output='plot',end_points=[0, 20],thickness=2, color='blue')
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 20],thickness=2, color='red')
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,90],ivar=t,output='plot',end_points=[0, 18],thickness=2, color='green')
+                    p
+                </sageplot>
+            </image>
+
+            <caption>Harvesting with <m>H = 50</m></caption>
+
+        </figure>
+
+        <p>To better understand what is happening, we will generalize our model. Suppose that a population with a limited carrying capacity <m>N</m> is modeled with the logistic equation
+            <me>\frac{dP}{dt} = kP\left(1 - \frac{P}{N}\right).</me>
+        If we allow harvesting at a constant rate <m>H</m>, our model now becomes
+            <me>\frac{dP}{dt} = kP\left(1 - \frac{P}{N}\right) - H.</me>
+        To analyze our model, we will first find the equilibrium solutions. If we will let
+            <me>f_H(P) = kP\left(1 - \frac{P}{N}\right) - H,</me>
+        each equilibrium solution must satisfy <m>f_H(P) = 0</m> or
+            <me>-k P^2 + kNP - H  N = 0.</me>
+        Therefore, our equilibrium solutions are given by
+            <me>P = \frac{-kN \pm \sqrt{k^2N^2 - 4kHN}}{-2k} = \frac{N}{2} \pm  \sqrt{\frac{N^2}{4} - \frac{HN}{k}}.</me></p>
+
+		<p>The explanation of how our model behaves lies in the discriminant,
+            <me>\frac{N^2}{4} - \frac{HN}{k}.</me>
+        If 
+            <me>\frac{N^2}{4} - \frac{HN}{k} \lt 0</me>
+        or, equivalently if <m>H \gt kN/4</m>, there are no equilibrium solutions and 
+            <me>\frac{dP}{dt} = f_H(P) \lt 0</me>
+        for all values of <m>P</m>. In particular, all solutions of <m>dP/dt = f_H(P)</m> tend towards negative infinity as <m>t \to \infty</m>. In this case, the population is doomed to extinction no matter how large the initial population is. Since negative populations do not make sense, we say that the population is extinct when <m>P = 0</m>.</p>
+
+        <p>On the other hand, if <m>H \lt kN/4</m>, we have equilibrium solutions at
+            <me>P_1 =\frac{N}{2} + \sqrt{\frac{N^2}{4} - \frac{HN}{k}}</me>
+        and 
+            <me>P_2 = \frac{N}{2} - \sqrt{\frac{N^2}{4} - \frac{HN}{k}}.</me>
+        The first equilibrium solution, <m>P_1</m> is a sink, while the second, <m>P_2</m> is a source.</p>
+
+		<p>Finally, if <m>H = kN/4</m>, then we will have exactly one equilibrium solution at <m>P = N/2</m>. Although <m>dP/dt \lt 0</m> for all <m>P \neq N/2</m>, we see that <m>P \to N/2</m> as <m>t \to \infty</m> for all initial values of <m>P</m> greater than <m>N/2</m>. For initial values of <m>P</m> less than <m>N/2</m>, solutions tend towards <m>- \infty</m> as <m>t \to \infty</m>. Thus, the initial population of fish must be at least <m>kN/4</m>; otherwise, the fish will go extinct.</p>
+
+		<p>In our example, we have a family of differential equations<mdash />one for each value of <m>H</m>,
+            <men xml:id="equation-firstlook07-fishing">\frac{dP}{dt} = P\left( 1 - \frac{P}{200}\right) - H.</men>
+        A small change in <m>H</m> can have a dramatic effect on how the solutions of the differential equation behave. Changing the value of <m>H</m> from 50 to 50.1 will doom the population of fish to extinction no matter what the initial population is. As we increase the value of <m>H</m>, the number of equilibrium solutions changes from two to one and then to none. This change occurs exactly at <m>H = 50</m>. We say that a <term>bifurcation</term><index><main>bifurcation</main></index> occurs at <m>H = 50</m> for equation <xref ref="equation-firstlook07-fishing" />.</p>
+
+	</subsection>
+	
+    <subsection xml:id="subsection-firstlook07-one-parameter-families">
+    	<title>One-Parameter Families</title>
+
+		<p>Let us consider the equation
+            <men xml:id="equation-firstlook07-one-parameter-bifurcation">\frac{dx}{dt} = x^2 - 4x + \lambda</men>
+        as a family of differential equations indexed by the parameter <m>\lambda</m>. If we let <m>f_\lambda(x) = x^2 - 4x + \lambda</m>, then
+            <me>\frac{dx}{dt} = f_\lambda(x)</me>
+        is a called <term>one-parameter family</term><index><main>differential equation</main><sub>one-parameter family</sub></index> of differential equations. For each value of <m>\lambda</m>, we obtain an autonomous differential equation, and for each value of <m>\lambda</m>, we have a different phase line to examine.</p>
+
+        <p>For <m>\lambda = 0</m>, the differential equation
+            <me>\frac{dx}{dt} = f_0(x) = x^2 - 4x = x(x-4),</me>
+        there is a sink at <m>x = 0</m> and a source at <m>x = 4</m> (Figure<nbsp /><xref ref="figure-firstlook07-one-parameter-bifurcation-0" />).</p>
+
+		<figure xml:id="figure-firstlook07-one-parameter-bifurcation-0">
+
+            <image width="60%" xml:id="firstlook07-one-parameter-bifurcation-0">
+                <sageplot>
+					lam=0
+					x, t = var('x, t')
+					p = plot_slope_field(x^2 - 2*x + lam, (t,-4,4), (x,-4,4), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
+					p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,1],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='blue')
+					p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,2.1],ivar=t,output='plot',end_points=[-4,-2.8],thickness=2, color='red')
+					p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,-1],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='green')
+					p += text("$\lambda = 0$",(2,2), fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption><m>x' = x^2 - 4x + \lambda</m> for <m>\lambda = 0</m></caption>
+       </figure>
+
+        <p>For <m>\lambda = 4</m>, the differential equation
+            <me>\frac{dx}{dt} = f_4(x) = x^2 - 2x + 4 = (x - 2)^2,</me>
+        we have exactly one equilibrium solution, a node at <m>x = 2</m> (Figure<nbsp /><xref ref="figure-firstlook07-one-parameter-bifurcation-4" />).</p>
+
+
+       <figure xml:id="figure-firstlook07-one-parameter-bifurcation-4">
+
+            <image width="60%" xml:id="firstlook07-one-parameter-bifurcation-4">
+                <sageplot>
+                    lam=4
+                    x, t = var('x, t')
+                    p = plot_slope_field(x^2 - 4*x + lam, (t,-4,4), (x,-2,6), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,2.12],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='blue')
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,2],ivar=t,output='plot',end_points=[-4,4],thickness=2, color='red')
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,-1.9],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='green')
+                    p += text("$\lambda = 4$",(2,1), fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption><m>x' = x^2 - 4x + \lambda</m> for <m>\lambda = 4</m></caption>
+       </figure>
+
+            <p>If <m>\lambda = 8</m>, then the differential equation
+            <me>\frac{dx}{dt} = f_8(x) = x^2 - 2x + 8</me>
+        has no equilibrium solutions (Figure<nbsp /><xref ref="figure-firstlook07-one-parameter-bifurcation-8" />).</p>
+
+
+       <figure xml:id="figure-firstlook07-one-parameter-bifurcation-8">
+
+            <image width="60%" xml:id="firstlook07-one-parameter-bifurcation-8">
+                <sageplot>
+                    lam = 8
+                    x, t=var('x, t')
+                    p = plot_slope_field(x^2 - 2*x + mu, (t,-4,4), (x,-4,4), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
+                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[-4,1],ivar=t,output='plot',end_points=[-4,-2.75],thickness=2, color='blue')
+                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[-2,-4],ivar=t,output='plot',end_points=[-2, 0.64],thickness=2, color='red')
+                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[2,-4],ivar=t,output='plot',end_points=[2,4],thickness=2, color='green')
+                    p += text("$\mu = 2$",(2,2), fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption><m>x' = x^2 - 2x + \lambda</m> for <m>\lambda = 8</m></caption>
+       </figure>
+
+		<p>In fact, the number of equilibrium solutions for<nbsp /><xref ref="equation-firstlook07-one-parameter-bifurcation" /> changes at <m>\lambda = 4</m>. We say that <m>\lambda = 4</m> is a <term>bifurcation value</term><index><main>bifurcation</main><sub>bifurcation value</sub></index> for the differential equation
+            <men xml:id="equation-firstlook07-bifurcation-1">\frac{dx}{dt} = f_\lambda(x) = x^2 - 4x + \lambda.</men>
+        For <m>\lambda \lt 4</m>, we have two equilibrium solutions.
+            <me>x = 2 \pm \sqrt{4 - \lambda}.</me>
+        For values of <m>\lambda \gt 1</m>, there are no equilibrium solutions. We can record all of the information for the various values in a graph called the <term>bifurcation diagram</term><index><main>bifurcation</main><sub>diagram</sub></index>. The horizontal axis is <m>\lambda</m> and the vertical axis is <m>x</m>. Over each value of <m>\lambda</m>, we will plot the corresponding phase line. The curve in the graph represents the various equilibrium solutions for the different values of <m>\lambda</m>. The bifurcation diagram for equation<nbsp /><xref ref="equation-firstlook07-bifurcation-1" /> is a parabola (Figure<nbsp /><xref ref="figure-firstlook07-bifurcation-diagram" />).  We have a phase line for each value of <m>\lambda</m>.</p>
+			
+		<figure xml:id="figure-firstlook07-bifurcation-diagram">
+
+            <image width="60%" xml:id="firstlook07-bifurcation-diagram">
+                <sageplot>
+					t = var('t')
+					p = parametric_plot( (-t*(t-4), t), (t, -1/4, 17/4), thickness = 2, axes_labels=['$\lambda$','$x$'], fontsize=12)
+					p += line([(1,-1),(1,5)], color="red") + circle((1,2-sqrt(3)), 0.07, fill = true, color="red") + circle((1,2+sqrt(3)), 0.07, fill = true, color="red") + arrow2d((1, -1), (1, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((1, 1), (1, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((1, 3), (1, 2), arrowsize = 3, color='red', width = 1)
+					p += line([(2,-1),(2,5)], color="red") + circle((2,2-sqrt(2)), 0.07, fill = true, color="red") + circle((2,2+sqrt(2)), 0.07, fill = true, color="red") + arrow2d((2, -1), (2, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((2, 1), (2, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((2, 3), (2, 2), arrowsize = 3, color='red', width = 1)
+					p += line([(3,-1),(3,5)], color="red") + circle((3,1), 0.07, fill = true, color="red") + circle((3,3), 0.07, fill = true, color="red") + arrow2d((3, -1), (3, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((3, 1), (3, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((3, 3), (3, 2), arrowsize = 3, color='red', width = 1)
+					p += line([(4,-1),(4,5)], color="red") + circle((4,2), 0.07, fill = true, color="red") + arrow2d((4, -1), (4, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((4, 1), (4, 4.5), arrowsize = 3, color='red', width = 1)
+					p += line([(5,-1),(5,5)], color="red") + arrow2d((5, 1), (5, 2), arrowsize = 3, color='red', width = 1)
+					p
+                </sageplot>
+            </image>
+            <caption>Bifurcation diagram for <m>x' = x^2 - 4x + \lambda</m></caption>
+
+        </figure>
+
+		<p>Bifurcations for a one-parameter family of differential equations <m>dx/dt = f_\lambda(x)</m> are, in fact, rare. Let us consider a bifurcation where a sink changes to a source as we vary the parameter <m>\lambda</m>. Suppose that for <m>\lambda = \lambda_0</m>, we have a sink at <m>x_0</m>. Then
+            <me>\frac{dx}{dt} = f_{\lambda_0}(x_0) = 0.</me>
+        Furthermore, the graph of <m>f_{\lambda_0}(x)</m> must be decreasing for <m>x</m> near <m>x_0</m>, since <m>f_{\lambda_0}(x)</m> must be postive for values of <m>x \lt x_0</m> and negative for values of <m>x \gt x_0</m>.  In other words, <m>f'_{\lambda_0}(x) \lt 0</m> for <m>x</m> near <m>x_0</m>
+        with <m>f'_{\lambda_0}(x_0) \lt 0</m>, then for all <m>\lambda_1</m> sufficiently close to <m>\lambda_0</m>, the differential equation
+            <me>\frac{dx}{dt} = f_{\lambda_1}(x)</me>
+        must have sink at a point <m>x = x_1</m> very close to <m>x_0</m>.  A similar situation hold if <m>x_0</m> is a source and <m>f'_{\lambda_0}(x_0) \gt 0</m>. Thus, bifurcations can only occur when <m>f_{\lambda_0}(x_0) = 0</m> and <m>f'_{\lambda_0}(x_0) = 0</m>.</p>
+
+		<example>
+            <p>Now consider the one-parameter family
+                <me>\frac{dy}{dt}  = y^3 - \alpha y = y (y^2 - \alpha).</me>
+            We will have an equilibrium solution at zero for all values of <m>\alpha</m> and two additional equilibrium solutions at <m>\pm \sqrt{\alpha}</m> for <m>\alpha \gt 0</m>.  This type of  bifurcation is a <term>pitch fork bifurcation</term><index><main>bifurcation</main><sub>pitch fork</sub></index> (Figure<nbsp /><xref ref="figure-firstlook07-bifurcation-pitchfork" />).</p>
+
+    		<figure xml:id="figure-firstlook07-bifurcation-pitchfork">
+
+    			<image width="60%" xml:id="firstlook07-bifurcation-pitchfork">
+                    <sageplot>
+        				p = plot(sqrt(x), x, 0 , 1, thickness = 2, axes_labels=['$\lambda$','$x$'], fontsize=12)
+        				p += plot(-sqrt(x), x, 0, 1, thickness = 2)
+        				p += line([(-1,0), (1,0)], thickness = 2)
+        				p
+                    </sageplot>
+                </image>
+
+                <caption>The bifurcation diagram for <m>y' = y^3 - \alpha y</m></caption>
+
+           </figure>
+
+       </example>
+
+       <example>
+
+    		<p>Let us find the bifurcation values of the one-parameter family
+                <men xml:id="equation-firstlook07-bifurcation-2">\frac{dy}{dt}  = y(y - 2)^2 + \lambda.</men>
+            If <m>g_\lambda(y) =  y(y - 2)^2 + \lambda</m>, then <m>g'_\lambda(y) =  3y^2 - 8y + 4</m>. The roots of  <m>g'_\lambda(y) = 0</m> are <m>y = 2</m> and <m>y = 2/3</m>.  In order for <m>\lambda</m> to be a bifurcation value, we must have  <m>g_\lambda(2) = \lambda = 0</m> or  
+                <me>g_\lambda(2/3) = \frac{32}{27} + \lambda = 0 </me>
+            Thus, equation<nbsp /><xref ref="equation-firstlook07-bifurcation-2" /> has two bifurcation values, <m>\lambda = -32/27</m> and <m>\lambda = 0</m>. The bifurcation diagram for this one-parameter family is given in Figure<nbsp /><xref ref="figure-firstlook07-two-bifurcations" />.</p>
+
+        </example>
+
+		<figure xml:id="figure-firstlook07-two-bifurcations">
+
+            <image width="60%" xml:id="firstlook07-two-bifurcations">
+                <sageplot>
+					t = var('t')
+					p = parametric_plot( (-t*(t-2)^2, t), (t, -1/2, 3), thickness = 2, axes_labels=['$\lambda$','$x$'], fontsize=12)
+					p
+                </sageplot>
+            </image>
+            <caption>The bifurcation diagram for <m>y' =  y(1 - y)^2 + \lambda</m></caption>
+       </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-firstlook07-important-lessons">
+    	<title>Important Lessons</title>
+		
+		<p><ul>
+		
+                <li>A one-parameter family of differential equations
+                    <me>\frac{dx}{dt} = f_\lambda(x)</me>
+                has a bifurcation at <m>\lambda = \lambda_0</m> if a change in the number of equilibrium solutions occurs.</li>
+
+        		<li>Bifurcation diagrams are an effective way of representing the nature of the solutions of a one-parameter family of differential equations.</li>
+
+        		<li>Bifurcations for a one-parameter family of differential equations <m>dx/dt = f_\lambda(x)</m> are rare. Bifurcations occur when <m>f_{\lambda_0}(x_0) = 0</m> and <m>f'_{\lambda_0}(x_0) = 0</m>.</li>
+
+            </ul></p>
+
+	</subsection>
+
+<todo>More problems needed.</todo>
+
+    <xi:include href="./exercises/firstlook07.xml" />
+
+    <subsection number="no" xml:id="subsection-firstlook07-sage-project">
+        <title>Project<mdash />Bifurcations</title>
+
+<todo>Write a bifurcation project.</todo>
+
+    </subsection>
+
+</section>
+
+<!--</chapter>-->

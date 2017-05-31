@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="laplace02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Solving Initial Value Problems</title>
+  
+    <subsection xml:id="subsection-laplace02-inverse-transform">
+      	<title>The Inverse Laplace Transform</title>
+
+        <p>As we mentioned in the previous section, we can use Laplace transforms to help us solve initial value problems. The idea is to convert an initial value problem into an algebraic equation. Consider
+          <md>
+            <mrow>y'' - y' - 6y &amp; = 0</mrow>
+            <mrow>y(0) &amp; = 2</mrow>
+            <mrow>y'(0) &amp; = -1,</mrow>
+          </md>
+        and recall that
+          <md>
+            <mrow>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)</mrow>
+            <mrow>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).</mrow>
+          </md>
+        where <m>Y(s)</m> is the Laplace transform of <m>y</m>. If we take the Laplace transform of both sides of the equation <m>y'' - y' - 6y = 0</m>, we have
+          <md>
+            <mrow>{\mathcal L}(y'' - y' - 6y) &amp; = {\mathcal L}(y'') - {\mathcal L}(y') - 6{\mathcal L}(y)</mrow>
+            <mrow>&amp; = [s^2 Y(s) - sy(0) - y'(0)] - [s Y(s) - y(0)] - 6Y(s)</mrow>
+            <mrow>&amp; = [s^2 Y(s) - 2 s + 1] - [s Y(s) - 2] - 6Y(s)</mrow>
+            <mrow>&amp; = {\mathcal L}(0) = 0.</mrow>
+          </md>
+        Solving for <m>Y(s)</m>, we get
+          <me>Y(s) = \frac{2s -3}{(s - 3)(s + 2)}  = \frac{3/5}{s - 3} + \frac{7/5}{s + 2},</me>
+        where we have used partial fractions to get the last expression.  If we know the Laplace transform of a function, we can recover the original function. We state the following theorem without proof.</p>
+
+      	<theorem xml:id="theorem-laplace02-inverse">
+          <statement>
+            <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions with Laplace transforms, <m>F(s)</m> and <m>G(s)</m>, respectively. Suppose that <m>F(s) = G(s)</m> for all <m>s \gt c</m>, where <m>c</m> is some positive number. Then <m>f(t) = g(t)</m> for all <m>t \geq 0</m>.</p>
+          </statement>
+        </theorem> 
+
+    	<p>It now makes sense to define the <term>inverse Laplace transform</term> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>.  Furthermore, the inverse Laplace transform is linear, 
+            <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></p>
+
+    	<p>We can now solve our initial value problem. Since the Laplace transform of <m>e^{at}</m> is <m>1/(s - a)</m>, we know that
+            <me>{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at},</me>
+        and the solution that we seek is
+            <me>y(t) = \frac{3}{5} e^{3t} + \frac{7}{5} e^{-2t}.</me>
+        Of course, there are much easier methods that we can use if we would like to solve this particular initial value problem, but it is nice to see that the two methods agree.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-laplace02-tables">
+    	<title>A Table of Laplace Transforms</title>
+
+		<p>To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
+
+		<table xml:id="table-laplace02-transforms">
+            <tabular halign="center" top="medium">
+                <row bottom="medium">
+                    <cell><m>f(t) = {\mathcal L}^{-1}(F(s))</m></cell><cell><m>F(s) = {\mathcal L}(f(t))</m></cell>
+                </row>
+                <row>
+                    <cell>1</cell><cell><m>1/s</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at}</m></cell><cell><m>1/(s - a)</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^n</m>, <m>n \in {\mathbb N}</m></cell><cell><m>n!/s^{n+1}</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^a</m>, <m>a > -1</m></cell><cell><m>\Gamma(a + 1)/s^{a + 1}</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\sin at</m></cell><cell><m>a/(s^2 + a^2)</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\cos at</m></cell><cell><m>s/(s^2 + a^2)</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\sinh at</m></cell><cell><m>a/(s^2 - a^2)</m>, <m>s \gt |a|</m></cell>
+                </row>
+                <row>
+                    <cell><m>\cosh at</m></cell><cell><m>s/(s^2 - a^2)</m>, <m>s \gt |a|</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at} \sin bt</m></cell><cell><m>b/[(s-a)^2 + b^2]</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at} \cos bt</m></cell><cell><m>(s-a)/[(s-a)^2 + b^2]</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^n e^{at}</m>, <m>n \in {\mathbb N}</m></cell><cell><m>n!/(s - a)^{n + 1}</m>, <m>s \gt a</m> </cell>
+                </row>
+                <row>
+                    <cell><m>u_c(t)</m></cell><cell><m>e^{-cs}/ s</m>, <m>s \gt 0</m> </cell>
+                </row>
+                <row>
+                    <cell><m>u_c(t) f(t - c)</m></cell><cell><m>e^{-cs} F(s)</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{ct} f(t)</m></cell><cell><m>F(s - c)</m></cell>
+                </row>
+                <row>
+                    <cell><m>f(ct)</m></cell><cell><m>(1/c) F(s/c)</m>, <m>c \gt 0</m> </cell>
+                </row>
+                <row>
+                    <cell><m>\delta(t - c)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                <row>
+                    <cell><m>f'(t)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                <row bottom="medium">
+                    <cell><m>f''(t)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                </tabular>
+            <caption>Table of Laplace Transforms</caption>
+        </table>	
+
+	</subsection>
+
+    <subsection xml:id="subsection-laplace02-discontinuous-functions">
+    	<title>Discontinuous Functions</title>
+
+		<p>In order for the Laplace transform to be useful in solving initial value problems, we need to be able to handle discontinuous functions. If <m>c \geq 0</m>, we define the function
+            <me>u_c(t)
+            =
+            \begin{cases}
+            0 &amp; t \lt c \\
+            1 &amp; t \geq c.
+            \end{cases}</me>
+        A function of this form is called a <term>step function</term> or <term>Heaviside function</term>, named for the British engineer Oliver Heaviside. The Laplace transform of <m>u_c</m> is given by
+            <md>
+                <mrow>{\mathcal L}(u_c(t))(s) &amp; = \int_0^\infty u_c(t) e^{-st} \, dt</mrow>
+                <mrow>&amp; = \int_0^c u_c(t) e^{-st} \, dt + \int_c^\infty u_c(t) e^{-st} \, dt</mrow>
+                <mrow>&amp; = \int_c^\infty  e^{-st} \, dt</mrow>
+                <mrow>&amp; = \frac{e^{-cs}}{s}.</mrow>
+            </md></p>
+
+		<p>With this new information, we can now solve initial value problems such as
+            <md>
+                <mrow>y' &amp; = -y + u_3(t)</mrow>
+                <mrow>y(0) &amp; = 2.</mrow>
+            </md>
+        Notice that we can rewrite the equation <m>y' = -y + u_3(t)</m> as
+            <me>y' 
+            =
+            \begin{cases}
+            -y &amp; t \lt 3 \\
+            -y + 1 &amp; t \geq 3.
+            \end{cases}</me></p>
+
+		<p>If we take the Laplace transform of both sides of  <m>y' = -y + u_3(t)</m>, we obtain
+            <me>sY(s) - y(0) = - Y(s) +\frac{e^{-3s}}{s}.</me>
+        Using the fact that <m>y(0) = 2</m> and solving for <m>Y(s)</m>, we get
+            <me>Y(s) = \frac{2}{s + 1} + \frac{e^{-3s}}{s(s+1)}.</me>
+        Therefore,
+            <me>y(t) = {\mathcal L}^{-1} \left(  \frac{2}{s + 1} \right) + {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right).</me>
+        The inverse Laplace transform of the first term is
+            <me>{\mathcal L}^{-1} \left(  \frac{2}{s + 1} \right) = 2e^{-t};</me>
+        however, further investigation is needed to determine the inverse Laplace transform of the second term.</p>
+
+		<p>Given a function <m>f(t)</m>, consider the new function
+            <me>g(t) = u_c(t) f( t- c).</me>
+        To obtain the function <m>g</m> from <m>f</m>, we shift the graph of the <m>f</m> to the right by <m>c</m> units and let <m>g(t) = 0</m> for <m>0 \leq t \lt c</m>. Let us compute the Laplace transform of <m>g</m>,
+            <me>{\mathcal L}(g) = \int_0^\infty g(t) e^{-st} \, dt =\int_c^\infty f(t - c) e^{-st} \, dt.</me>
+        If we make the substitution <m>u = t - c</m>, then
+            <me>{\mathcal L}(g) = \int_0^\infty f(u) e^{-s(u+c)} \, dt = e^{-sc} \int_0^\infty f(u) e^{-su} \, dt = e^{-sc} {\mathcal L}(f).</me>
+        In other words, if <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)</m>. </p>
+
+		<p>Returning to our example, we will now show how we can use this new information to compute the inverse Laplace transform of 
+            <me>\frac{e^{-3s}}{s(s+1)}.</me>
+        First, we can use partial fractions to obtain
+            <me>\frac{1}{s(s+1)} = \frac{1}{s} - \frac{1}{s - 1}.</me>
+        Hence,
+            <me>{\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right) = {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s} \right) - {\mathcal L}^{-1} \left(\frac{e^{-3s}}{s+1} \right) = u_3(t) - {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s+1} \right).</me>
+        If <m>g(t) = u_3(t) e^{-(t - 3)}</m>, then the Laplace transform of <m>g(t)</m> is
+            <me>{\mathcal L}(g) = e^{-3s} {\mathcal L}(e^{-t}) = \frac{e^{-3s}}{s + 1}.</me>
+        Thus, 
+            <me>y(t) = 2e^{-t} + u_3(t)\left( 1 -  e^{-(t - 3)} \right).</me></p>
+    
+	</subsection>
+
+    <subsection xml:id="subsection-laplace02-harmonic-oscillators">
+    	<title>Forced Harmonic Oscillators</title>
+
+		<p>Consider the forced harmonic oscillator
+            <md>
+                <mrow>y'' + 4y = 3 \cos t</mrow>
+                <mrow>y(0) = y'(0) = 0.</mrow>
+            </md>
+        Taking the Laplace transform of both sides of the equation <m>y'' + 4y = 3 \cos t</m>, we obtain
+            <me>{\mathcal L}(y'') + 4 {\mathcal L}(y) = 3{\mathcal L}(\cos t)</me>
+        or
+            <me>s^2 Y(s) - sy(0) - y'(0) + 4Y(s) = \frac{3s}{s^2 + 1},</me>
+        where <m>{\mathcal L}(y)(s) = Y(s)</m>. Substituting the initial conditions and solving for <m>Y</m>, we have
+            <me>Y(s) = \frac{3s}{(s^2 + 4)(s^2 + 1)} = \frac{-s}{s^2 + 4} + \frac{s}{s^2 + 1},</me>
+        where the last expression was obtained using partial fractions.  Taking the inverse Laplace transform, we have our solution
+            <me>y(t) = {\mathcal L}^{-1} \left( \frac{-s}{s^2 + 4} \right) + {\mathcal L}^{-1} \left(  \frac{s}{s^2 + 1} \right) = -\cos 2t + \cos t.</me></p>
+
+		<p>Now let us consider a harmonic oscillator with discontinuous forcing,
+            <md>
+                <mrow>y'' + 2 y' + 5y = h(t)</mrow>
+                <mrow>y(0) = y'(0) = 0,</mrow>
+            </md>
+        where <m>h(t)</m> is given by
+            <me>h(t) 
+            =
+            \begin{cases}
+            5 &amp; t \lt 7 \\
+            0 &amp; t \geq 7.
+            \end{cases}</me>
+        That is, <m>h(t) = 5 (1 - u_7(t))</m>.</p>
+
+		<p>We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <m>t \lt 7</m> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <m>t = 7</m>, the table is suddenly returned to the level position.</p>
+
+		<p>Taking the Laplace transform of both sides of <m>y'' + 2 y' + 5y = h(t)</m>, we obtain
+            <me>[s^2 Y(s) -sy(0) - y'(0)] + 2 [sY(s) - y(0)] + 5Y(s) = {\mathcal L}(h),</me>
+        where <m>{\mathcal L}(y)(s) = Y(s)</m>.  Substituting the initial conditions and evaluating the Laplace transform on the right, we have
+            <me>(s^2 + 2s + 5)Y(s) = 5 \left( \frac{1}{s} - \frac{e^{-7s}}{s} \right).</me>
+        Solving for <m>Y(s)</m>, we have
+            <me>Y(s) = \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)}</me>
+        and
+            <me>y = {\mathcal L}^{-1} \left(  \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right).</me>
+        Using partial fractions, we can rewrite the first term as
+            <me>\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.</me>
+        The inverse Laplace transform of <m>1/s</m> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,
+            <md>
+                <mrow>\frac{s + 2}{s^2 + 2s + 5} &amp; = \frac{s + 2}{(s+ 1)^2 + 4}</mrow>
+                <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4}  + \frac{1}{(s+ 1)^2 + 4}</mrow>
+                <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4}  + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.</mrow>
+            </md>
+        Consequently,
+            <me>{\mathcal L}^{-1} \left(  \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right).</me>
+        and
+            <me>{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left(  \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right).</me></p>
+
+		<p>We can compute the inverse Laplace transform of
+            <me>\frac{5e^{-7s}}{s(s^2 + 2s + 5)}</me>
+        using the Heaviside function <m>u_7(t)</m> and the inverse Laplace transform that we just calculated to obtain
+            <me>{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)}  \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me>
+        Therefore, the solution to our original initial value problem is
+            <me>y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me></p>
+        
+	</subsection>
+
+    <subsection xml:id="subsection-laplace02-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>If we know the Laplace transform <m>F(s)</m> of a function, we can recover the original function using the inverse Laplace transform of a function <m>{\mathcal L}^{-1}(F(s))(t)</m>.</li>
+
+			<li>The inverse Laplace transform is linear, 
+                <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></li>
+
+			<li>If <m>c \geq 0</m>, we define the Heaviside function to be
+                <me>u_c(t)
+                =
+                \begin{cases}
+                0 &amp; t \lt c \\
+                1 &amp; t \geq c.
+                \end{cases}</me>
+            The Laplace transform of <m>u_c</m> is 
+                <me>{\mathcal L}(u_c(t))(s) = \frac{e^{-cs}}{s}.</me></li>
+
+			<li>If <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)</m>.</li>
+
+		</ul></p>
+        
+	</subsection>
+
+    <xi:include href="./exercises/laplace02.xml" />
+
+</section>
+
+<!--</section>-->

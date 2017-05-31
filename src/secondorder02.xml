@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!-- The Ordinary Differential Equations Project                   -->
+<!--                                                               -->
+<!-- Copyright (C) 2014-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="secondorder02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Forcing</title>
+    
+    <introduction>
+
+        <p>Harmonic oscillators such as a spring-mass system (Subsection<nbsp /><xref ref="subsection-firstlook01-spring-mass" />) or an RLC circuit (Section<nbsp /><xref ref="secondorder01" />) can be modeled with second-order linear differential equations. Indeed, we can model a spring-mass system with the equation
+            <me>mx''(t) + b x'(t) +k x(t) = g(t),</me> 
+        where <m>m</m> is the mass, <m>b</m> is the damping coefficient, <m>k</m> is the spring constant, and <m>F(t) = g(t)</m> represents some external force applied to our system. RLC circuits can also be modeled with provide another example of forcing. If <m>I(t)</m> is the rate at which a charge flows through a circuit (measured in amperes or amps), <m>R</m> is the resistance (measured in ohms), <m>C</m> is the capacitance (measured in farads), and the inductance, <m>L</m>, is (measured in henrys), then the derivative of the impressed voltage (measured in volts), <m>E(t)</m>, is the forcing term
+            <me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
+        What is different about these two equations are the terms on the righthand side, <m>g(t)</m> and <m>E'(t)</m>. Such a term is called a <term>forcing term</term>.</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-secondorder02-nonhomogeneous-de">
+        <title>Nonhomogeneous Equations</title>
+
+		<p>A <term>nonhomogeneous second-order linear differential equation</term> is an equation of the form
+            <me>x'' +p(t) x' + q(t) x = g(t).</me>
+        We have already seen how examples of such equations arise when examining models of harmonic oscillators with forcing terms. Our goal is to be able to solve such equations. In general, these equations can be difficult to solve for an arbitrary function <m>g(t)</m>. Before we attempt to find solutions for some of the more common functions that might occur for <m>g(t)</m>, let us derive some fundamental facts about second-order linear differential equations.</p>
+
+        <theorem xml:id="theorem-secondorder02-nonhomogeneous-difference">
+            <statement>
+                <p>Suppose that 
+                    <men xml:id="equation-secondorder02-nonhomogeneous-difference">x'' +p(t) x' + q(t) x = g(t)</men>
+                has solutions <m>x_1 = x_1(t)</m> and <m>x_2 = x_2(t)</m>.  Then <m>x_1(t) - x_2(t)</m> is a solution of the homogeneous linear differential equation
+                    <me>x'' +p(t) x' + q(t) x = 0.</me></p>
+            </statement>
+        </theorem> 
+		
+		<proof>
+            <p>Since <m>x_1</m> and <m>x_2</m> are solutions of <xref ref="equation-secondorder02-nonhomogeneous-difference" />, we know that 
+                <md>
+                    <mrow>x_1'' +p(t) x_1' + q(t) x_1 &amp; = g(t)</mrow>
+                    <mrow>x_2'' +p(t) x_2' + q(t) x_2 &amp; = g(t).</mrow>
+                </md>
+            Thus,
+                <md>
+                    <mrow>\frac{d^2}{dt^2} (x_1 - x_2) + p(t) \frac{d}{dt} (x_1 - x_2) + q(t) (x_1 - x_2)</mrow>
+                    <mrow>= \left( \frac{d^2 x_1}{dt^2}  + p(t) \frac{dx_1}{dt} + q(t) x_1 \right) - \left( \frac{d^2 x_2}{dt^2}  + p(t) \frac{dx_2}{dt} + q(t) x_2 \right)</mrow>
+                    <mrow>= g(t) - g(t) = 0.</mrow>
+                </md></p>		
+		</proof>
+		
+	
+		<p>We can use Theorem <xref ref="theorem-secondorder02-nonhomogeneous-difference" /> to derive the fact that the general solution to
+            <men xml:id="equation-secondorder02-nonhomogeneous">x'' +p(t) x' + q(t) x = g(t).</men>
+        can be written in the form
+            <me>x = x_h + x_p,</me>
+        where <m>y_h</m> is the general solution of the homogeneous equation
+            <me>x'' +p(t) x' + q(t) x = 0,</me>
+        and <m>x_p</m> is any solution of <xref ref="equation-secondorder02-nonhomogeneous" />. Indeed, suppose that <m>x_q</m> is another solution to <xref ref="equation-secondorder02-nonhomogeneous" />. Then <m>x_q - x_p</m> is a solution to the homogeneous equation
+            <me>x'' +p(t) x' + q(t) x = 0.</me>
+        Therefore,
+            <me>x_q - x_p =x_h</me>
+        or
+            <me>x_q =x_h + x_p.</me>
+        We state this fact in the following theorem.</p>
+
+        <theorem xml:id="theorem-secondorder02-nonhomogeneous-general-solution">
+            <statement>
+                <p>Let <m>x_p</m> be a particular solution of the equation
+                    <me>x'' +p(t) x' + q(t) x = g(t),</me>
+                and <m>x_h</m> be the general solution of the corresponding homogeneous equation
+                    <me>x'' +p(t) x' + q(t) x = 0.</me>
+                Then the general solution to <m>x'' +p(t) x' + q(t) x = g(t)</m> is <m>x = x_h + x_p</m>.</p>
+            </statement>
+        </theorem> 
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder02-forcing">
+    	<title>Forcing Terms</title>
+    	
+    	<p>The equation 
+            <me>m x'' + bx' + kx = g(t)</me>
+        can be used to model a harmonic oscillator where forcing occurs. In general, we will not be able to solve this equation explicitly for a given <m>g(t)</m>; however, certain forcing functions often occur in practice. Some of the more important forcing functions are <m>g(t) = e^{-at}</m>, where the external force decreases exponentially over time; <m>g(t) = k</m>, where a constant force is applied; and <m>g(t) = \cos \omega t</m> or <m>g(t) = \sin \omega t</m>, where a force is applied periodically.</p>
+
+		<p>In the case of the unforced damped harmonic oscillator, 
+            <me>m x'' + b x' + kx =0,</me>
+        we know that <m>m \gt 0</m>, <m>b \gt 0</m>, and <m>k \gt 0</m>. Thus, we can rewrite this equation as
+            <me>x'' + px' + q x = 0,</me>
+        where <m>p = b/m</m> and <m>q = k/m</m> are both positive. As a first-order linear system, the harmonic oscillator is
+            <md>
+                <mrow>x' &amp; =  y</mrow>
+                <mrow>y' &amp; = - qx -py.</mrow>
+            </md>
+        The matrix corresponding to this system,
+            <me>A
+            =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            -q &amp; -p
+            \end{pmatrix},</me>
+        has trace of <m>-p</m> and determinant <m>q</m>. Since <m>\trace(A) \lt 0</m> and <m>\det(A) \gt 0</m>, we know that any solution of the unforced equation tends toward the origin as <m>t \to \infty</m>. That is, the solution is a sink. This leads us to the following conclusion.</p>
+
+        <theorem xml:id="theorem-secondorder02-steady-state">
+            <statement>
+                <p>Suppose
+                        <me>x'' + px' + q x = g(t)</me>
+                has solution <m>x = x_h + x_p</m>, where <m>p \gt 0</m> and <m>q \gt 0</m>.  If 
+                    <me>x = x_h + x_p</me>
+                is the general solution to the equation, then
+                    <me>x = x_h + x_p \to x_p</me>
+                as <m>t \to \infty</m>.</p>
+            </statement>
+        </theorem> 
+        
+        <p>In other words, all solutions of a damped harmonic oscillator with nonzero damping are essentially the same for large values of <m>t</m>.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder02-undetermined-coefficients">
+    	<title>The Method of Undetermined Coefficients</title>
+    	
+        <example>
+        	<p>Let us solve the differential equation
+                <men xml:id="equation-secondorder02-damped-oscillator">x'' + 5x' + 4x = 1,</men>
+            a harmonic oscillator with a constant forcing function. It is easy to check that the general solution to the homogeneous equation
+                <me>x'' + 5x' + 4x = 0</me>
+            is
+                <me>x_h = c_1 e^{-t} + c_2 e^{-4t}.</me>
+            A particular solution to <xref ref="equation-secondorder02-damped-oscillator" /> is given by <m>x_p = 1/4</m>. Thus, the general solution is
+                <me>x(t) = c_1 e^{-t} + c_2 e^{-4t} + \frac{1}{4}.</me>
+            As <m>t \to \infty</m>, all solutions approach the constant solution <m>x = 1/4</m> (Figure<nbsp /><xref ref="figure-secondorder02-solutions-damped-oscillator" />).</p>
+        </example>
+
+		<figure xml:id="figure-secondorder02-solutions-damped-oscillator">
+             <image width="60%" xml:id="secondorder02-solutions-damped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    x = function('x')(t)
+                    de = diff(x,t,2)+5*diff(x,t)+4*x == 1
+                    f = desolve(de,x,[0,0.5,0.5])
+                    p = plot(f,(t,0,10), legend_label='$x(t)$',axes_labels=['$t$',""], fontsize=12)
+                    p += plot(diff(f,t),(t,0,10), legend_label='$dx/dt$',color="red")
+                    for i in range(4):
+                        f = desolve(de,x,[0,0.5*i+1,1+0.5*i])
+                        p += plot(f,(t,0,10))
+                        p += plot(diff(f,t),(t,0,10),color="red")
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions to <m>x'' + 5x' + 4x = 1</m></caption>
+        </figure>
+
+        <example>
+    		<p>Now let us consider a more complicated example. Suppose that we wish to solve
+                <men xml:id="equation-secondorder02-exponential-forcing-1">x'' + 5x' + 4x = e^{-2t}.</men>
+            This is the equation of a harmonic oscillator with a forcing function that decreases exponentially with time. We already know the solution to the homogeneous equation. We will use the <term>method of undetermined coefficients</term> to find a particular solution to <xref ref="equation-secondorder02-exponential-forcing-1" />. It is reasonable to guess that a particular solution will have the form
+                <me>x_p = Ae^{-2t}.</me>
+            Substituting this expression into <xref ref="equation-secondorder02-exponential-forcing-1" />, we find that
+                <me>e^{-2t}= x_p'' + 5 x_p' + 4x_p = 4 A e^{-2t} - 10 A e^{-2t}  + 4 Ae^{-2t} = -2 A e^{-2t}.</me>
+            Hence, <m>A = -1/2</m>. Therefore, the solution that we seek is
+                <me>x = c_1 e^{-t} + c_2 e^{-4t} - \frac{1}{2} e^{-2t}.</me>
+            Again, all solutions approach zero as <m>t \to \infty</m> (Figure<nbsp /><xref ref="figure-secondorder02-solutions-exponential-forcing-1" />).</p>
+        </example>
+
+		<figure xml:id="figure-secondorder02-solutions-exponential-forcing-1">
+            <image  width="60%" xml:id="secondorder02-solutions-exponential-forcing-1">
+                <sageplot>
+                    t = var('t')
+                    x = function('x')(t)
+                    de = diff(x,t,2)+5*diff(x,t)+4*x == exp(-2*t)
+                    f = desolve(de,x,[0,0.5,0.5])
+                    p = plot(f,(t,0,10), legend_label='$x(t)$',axes_labels=['$t$',""], fontsize=12)
+                    p += plot(diff(f,t),(t,0,10), legend_label='$dx/dt$',color="red")
+                    for i in range(4):
+                        f = desolve(de,x,[0,0.5*i+1,1+0.5*i])
+                        p += plot(f,(t,0,10))
+                        p += plot(diff(f,t),(t,0,10),color="red")
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions to <m>x'' + 5x' + 4x = e^{-2t}</m></caption>
+        </figure>
+
+        <example>
+    		<p>Now let us examine what happens if we have a periodic forcing function. Let us assume that the particular solution to the equation
+                <me>x'' + 5x' + 4x = 2 \cos t.</me>
+            takes the form
+                <me>x_p = A \cos t + B \sin t.</me>
+            Then
+                <md>
+                    <mrow>x_p' &amp; = -A \sin t + B \cos t</mrow>
+                    <mrow>x_p'' &amp; = -A \cos t - B \sin t.</mrow>
+                </md>
+            Substituting these expressions into the differential equation, we see that
+                <md>
+                    <mrow>2 \cos t &amp; = x_p'' + 5 x_p' + 4 x_p</mrow>
+                    <mrow>&amp; = (-A \cos t - B \sin t) + 5(-A \sin t + B \cos t) + 4(A \cos t + B \sin t)</mrow>
+                    <mrow>&amp; = (3A + 5B) \cos t +(-5A + 3B) \sin t.</mrow>
+                </md>
+            We must solve the following system of equations to find a particular solution:
+                <md>
+                    <mrow>3A + 5B &amp; = 2</mrow>
+                    <mrow>-5A + 3B &amp; = 0.</mrow>
+                </md>
+            The solution of this system is <m>A = 3/17</m> and <m>B = 5/17</m>. Consequently, 
+                <me>x_p = \frac{3}{17} \cos t + \frac{5}{17} \sin t</me>
+            is a particular solution to <m>x'' +5x' + 4x = 2 \cos t</m>. The general solution to our equation is
+                <me>x = c_1 e^{-t} + c_2 e^{-4t} + \frac{3}{17} \cos t + \frac{5}{17} \sin t.</me>
+            The solutions to this equation are given in Figure<nbsp /><xref ref="figure-secondorder02-solutions-cosine-forcing" />.</p>
+        </example>
+
+		<figure xml:id="figure-secondorder02-solutions-cosine-forcing">
+            <image width="60%" xml:id="secondorder02-solutions-cosine-forcing">
+                <sageplot>
+                    t = var('t')
+                    x = function('x')(t)
+                    de = diff(x,t,2)+5*diff(x,t)+4*x == 2*cos(t)
+                    f = desolve(de,x,[0,0.5,0.5])
+                    p = plot(f,(t,0,10), legend_label='$x(t)$',axes_labels=['$t$',""], fontsize=12)
+                    p += plot(diff(f,t),(t,0,10), legend_label='$dx/dt$',color="red")
+                    for i in range(4):
+                        f = desolve(de,x,[0,0.5*i+1,1+0.5*i])
+                        p += plot(f,(t,0,10))
+                        p += plot(diff(f,t),(t,0,10),color="red")
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions to <m>x'' + 5x' + 4x = 2 \cos t</m></caption>
+        </figure>
+
+        <example>
+    		<p>As a final example, consider the 
+                <me>x'' + 5x' + 4x = e^{-t}.</me>
+            Recall that the solution to the homogeneous equation <m>x'' + 5x' + 4x = 0</m> is
+                <me>x_h = c_1 e^{-t} + c_2 e^{-4t}.</me>
+            Our guess of <m>x_p(t) = A e^{-t}</m> for a particular solution will no longer work since <m>e^{-t}</m> is a solution to the homogeneous equation. We must therefore consider a function of a different form. Such a function must yield a multiple of <m>e^{-t}</m> when differentiated. The simplest such function is of the form
+                <me>x_p = A t e^{-t}.</me>
+            Using this guess,
+                <md>
+                    <mrow>e^{-t} &amp; = \frac{d^2}{dt^2} Ate^{-t} + 5 \frac{d}{dt} Ate^{-t} + 4A te^{-t}</mrow>
+                    <mrow>&amp; = A(- e^{-t} - e^{-t} + t e^{-t}) + 5A(e^{-t} - t e^{-t} ) + 4 A te^{-t}</mrow>
+                    <mrow>&amp; = 3A e^{-t}.</mrow>
+                </md>
+            Thus, <m>A = 1/3</m> and our general solution is
+                <me>x = c_1 e^{-t} + c_2 e^{-4t}  + \frac{1}{3} t e^{-t}.</me>
+            Solutions to the differential equation <m>x'' + 5x' + 4x = e^{-t}</m> are given in Figure<nbsp /><xref ref="figure-secondorder02-solutions-exponential-forcing-2" />.</p>
+        </example>
+
+		<figure xml:id="figure-secondorder02-solutions-exponential-forcing-2">
+            <image width="60%" xml:id="secondorder02-solutions-exponential-forcing-2">
+                <sageplot>
+                    t = var('t')
+                    x = function('x')(t)
+                    de = diff(x,t,2)+5*diff(x,t)+4*x == exp(-t)
+                    f = desolve(de,x,[0,0.5,0.5])
+                    p = plot(f,(t,0,10), legend_label='$x(t)$',axes_labels=['$t$',""], fontsize=12)
+                    p += plot(diff(f,t),(t,0,10), legend_label='$dx/dt$',color="red")
+                    for i in range(4):
+                        f = desolve(de,x,[0,0.5*i+1,1+0.5*i])
+                        p += plot(f,(t,0,10))
+                        p += plot(diff(f,t),(t,0,10),color="red")
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions to <m>x'' + 5x' + 4x = e^{-t}</m></caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder02-strategy">
+    	<title>A Strategy</title>
+    	
+		<p>We outline a general strategy for choosing <m>x_p</m> for the Method of Undetermined Coefficients in Table<nbsp /><xref ref="table-secondorder02-undetermined-coefficients" />.  Here <m>s = 0, 1, 2</m> is the smallest integer that will ensure that no term in <m>x_p</m> is a solution of the corresponding homogeneous equation.</p>
+
+        <table xml:id="table-secondorder02-undetermined-coefficients">
+            <tabular halign="center" top="medium">
+                <row bottom="medium">
+                    <cell><m>g(t)</m></cell><cell><m>x_p</m></cell>
+                </row>
+                    <row>
+                        <cell><m>P_n(t) = a_nt^n + \cdots + a_1 t + a_0</m></cell><cell> <m>t^s(A_nt^n + \cdots + A_1 t + A_0)</m></cell>
+                    </row>
+                    <row
+                        ><cell><m>P_n(t) e^{\alpha t}</m></cell><cell><m>t^s(A_nt^n + \cdots + A_1 t + A_0) e^{\alpha t}</m></cell>
+                    </row>
+                    <row>
+                        <cell><m>\displaystyle P_n(t) e^{\alpha t} \left\{\begin{array}{c}
+                        \sin \beta t \\
+                        \cos \beta t
+                        \end{array}\right.</m></cell><cell><m>t^se^{\alpha t}[(A_nt^n + \cdots + A_1 t + A_0) \cos \beta t </m></cell>
+                    </row>
+                    <row bottom="medium">
+                        <cell></cell><cell><m>+ (B_n t^n + \cdots + B_1 t + B_0) \sin \beta t]</m></cell></row>
+            </tabular>
+            <caption>Particular solutions of <m>x'' + px' + qx = g(t)</m>.</caption>
+        </table>
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder02-important-lessons">
+    	<title>Important Lessons</title>
+    	
+		<p><ul>
+		
+			<li>A <term>nonhomogeneous second-order linear differential equation</term> is an equation of the form
+                <me>x'' + p(t) x' + q(t) x = g(t).</me>
+            Forced harmonic oscillators and RLC circuits provide good examples of nonhomogeneous second-order linear differential equations.</li>
+
+			<li>Suppose that 
+                <me>x'' +p(t) x' + q(t) x = g(t)</me>
+            has solutions <m>x_1 = x_1(t)</m> and <m>x_2 = x_2(t)</m>.  Then <m>x_1(t) - x_2(t)</m> is a solution of the homogeneous linear differential equation
+                <me>x'' +p(t) x' + q(t) x = 0.</me></li>
+
+			<li>Let <m>x_p</m> be a particular solution of the equation
+                <me>x'' +p(t) x' + q(t) x = g(t),</me>
+            and <m>x_h</m> be the general solution of the corresponding homogeneous equation
+                <me>x'' +p(t) x' + q(t) x = 0.</me>
+            Then the general solution to <m>x'' +p(t) x' + q(t) x = g(t)</m> is <m>x = x_h + x_p</m>. In particular, if the solution to <m> x'' +p(t) x' + q(t) x = 0</m> has a sink at the origin, all solutions of the equation <m>x'' +p(t) x' + q(t) x = g(t)</m> approach <m>x_p(t)</m> as <m>t \to \infty</m>.</li>
+
+			<li>The Method of Undetermined Coefficients is useful for solving the equation <m>x'' +p(t) x' + q(t) x = g(t)</m>, when <m>g</m> is of the form
+                <me>g(t) =
+                P_n(t) e^{\alpha t} \left\{\begin{array}{c}
+                \sin \beta t \\
+                \cos \beta t
+                \end{array}\right.</me></li>
+
+		</ul></p>
+			
+	</subsection>
+
+    <xi:include href="./exercises/secondorder02.xml" />
+
+    <subsection number="no" xml:id="subsection-secondorder02-sage-project">
+        <title>Project</title>
+
+    </subsection>
+
+</section>
+
+
+<!--</section>-->

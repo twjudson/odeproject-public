@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="linear05" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Repeated Eigenvalues</title>
+
+    <introduction>
+        <p>Consider the following system
+            <men xml:id="equation-linear05-repeated-eigenvalues">\begin{pmatrix}
+            dx/dt \\ dy/dt
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            2 \amp 1 \\
+            -1 \amp 4
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}.</men>
+        The characteristic polynomial of the system <xref ref="equation-linear05-repeated-eigenvalues" /> is <m>\lambda^2 - 6\lambda + 9</m> and <m>\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2</m>. This polynomial has a single root <m>\lambda = 3</m> with eigenvector <m>\mathbf v = (1, -1)</m>. This there is a single straightline solution for this system (Figure<nbsp /><xref ref="figure-linear05-one-straightline-solution" />). The strategy that we used in find the general solution to a system with distinct real eigenvalues will clearly have to be modified if we are to find a general solution to a system with a single eigenvalue.</p>
+
+        <figure xml:id="figure-linear05-one-straightline-solution">
+
+            <image width="60%" xml:id="linear05-one-straightline-solution">
+                <sageplot>
+                    x, y ,t = var('x y t')
+                    f = 2*x + y
+                    g = -x + 4*y
+                    n = sqrt(f^2 + g^2)
+                    xmin = -4
+                    xmax = 4
+                    ymin = -4
+                    ymax = 4
+                    p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.1,0.05],ivar=t,end_points=1.6,step=0.01)
+                    S=[ [j, k] for i,j,k in P]
+                    p +=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    p += arrow((0,0), (1,1), color="red", arrowsize=3, width = 4)
+                    p += line([(-4,-4), (4,4)])
+                    p
+                </sageplot>
+            </image>
+            <caption>A system with one straightline solution</caption>
+        </figure>
+ 
+    </introduction>
+	
+    <subsection xml:id="subsection-linear05-repeated-eigenvalues">
+    	<title>Repeated Eigenvalues</title>
+		
+		<p>The remaining case the we must consider is when the characteristic equation of a matrix <m>A</m> has repeated roots. The simplest such case is
+            <me>\begin{pmatrix}
+            dx/dt \\ dy/dt
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \lambda
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}
+            =
+            A
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}.</me> 
+        The eigenvalues of <m>A</m> are both <m>\lambda</m>. Since <m>A{\mathbf v} = \lambda {\mathbf v}</m>, any nonzero vector in <m>{\mathbb R}^2</m> is an eigenvector for <m>\lambda</m>. Thus, solutions to this system are of the form
+            <me>{\mathbf x}(t) = \alpha e^{\lambda t} {\mathbf v}.</me>
+        Each solution to our system lies on a straight line through the origin and either tends to the origin if <m>\lambda \lt 0</m> or away from zero if <m>\lambda \gt 0</m>.</p>
+
+		<p>A more interesting case occurs if 
+            <me>A = \begin{pmatrix} \lambda &amp; 1 \\ 0 &amp; \lambda \end{pmatrix}.</me>
+        Again, both eigenvalues are <m>\lambda</m>; however, there is only one linearly independent eigenvector, which we can take to be <m>(1, 0)</m>. Therefore, we have a single straight-line solution
+            <me>{\mathbf x}_1(t) = \alpha e^{\lambda t}\begin{pmatrix} 1 \\ 0 \end{pmatrix}.</me></p>
+
+		<p>To find other solutions, we will rewrite the system as
+            <md>
+                <mrow>x' &amp; = \lambda x + y</mrow>
+                <mrow>y' &amp; = \lambda y.</mrow>
+            </md>
+        This is a partially coupled system.  If <m>y \neq 0</m>, the solution of the second equation is
+            <me>y(t) = \beta e^{\lambda t}.</me>
+        Therefore, the first equation becomes
+            <me>x' = \lambda x + \beta e^{\lambda t},</me>
+        which is a  first-order linear differential equation with solution
+            <me>x(t) = \alpha e^{\lambda t} + \beta t e^{\lambda t}.</me>
+        Consequently, a solution to our system is
+            <me>\alpha e^{\lambda t} 
+            \begin{pmatrix}
+            1 \\ 0
+            \end{pmatrix}
+            +
+            \beta e^{\lambda t} 
+            \begin{pmatrix}
+            t \\ 1
+            \end{pmatrix}.</me></p>
+
+        <example>
+        	<p>Consider the linear system
+        		<md>
+        			<mrow>x' \amp = -x + y</mrow>
+        			<mrow>y' \amp = -y</mrow>
+        			<mrow>x(0) \amp = 1</mrow>
+        			<mrow>y(0) \amp = 3.</mrow>
+        		</md>
+        	The matrix that corresponds to this system is
+        		<me>A = \begin{pmatrix}
+	            -1 &amp; 1 \\
+	            0 &amp; -1
+	            \end{pmatrix}</me>
+	        has a single eigenvalue, <m>\lambda = -1</m>. An eigenvector for <m>\lambda</m> is <m>\mathbf v = (1, 0)</m>. Thus, the general solution to our system is
+	    		<md>
+	    			<mrow>x(t) \amp = c_1 e^{-t} + c_2 t e^{-t}</mrow>
+	    			<mrow>y(t) \amp = c_2 e^{-t}.</mrow>
+	    		</md>
+	    	Applying the initial conditions <m>x(0) = 1</m> and <m>y(0) = 3</m>, the solution to our initial value problem is
+	    		<md>
+	    			<mrow>x(t) \amp = e^{-t} + 3te^{-t}</mrow>
+	    			<mrow>y(t) \amp = 3e^{-t}.</mrow>
+	    		</md>
+	    	Notice that we have only one straightline solution (Figure<nbsp /><xref ref="figure-linear05-repeated-phase-portrait" />).</p>
+	    </example>
+
+		<figure xml:id="figure-linear05-repeated-phase-portrait">
+            <image width="60%" xml:id="linear05-repeated-phase-portrait">
+                <sageplot>
+                    x, y ,t = var('x y t')
+                    f = -x + y
+                    g = -y
+                    start_x = 1
+                    start_y = 3
+                    xmin = -4
+                    xmax = 4
+                    ymin = -4
+                    ymax = 4
+                    n = sqrt(f^2 + g^2)
+                    p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=5,step=0.1)
+                    S=[ [j, k] for i,j,k in P]
+                    p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    p += arrow((0,0), (1,0), color="red", arrowsize=3, width = 4)
+                    p += line([(-4,0), (4,0)], thickness=2)
+                    p
+                </sageplot>
+            </image>
+            <caption>Phase portrait for repeated eigenvalues</caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear05-quick-start">
+        <title>Solving Systems with Repeated Eigenvalues</title>
+
+        <p>If the characteristic equation has only a single repeated root, there is a single eigenvalue. If this is the situation, then we actually have two separate cases to examine, depending one whether or not we can find two linearly independent eigenvectors.</p>
+
+        <example>
+            <p>Suppose we have the system <m>\mathbf x' = A \mathbf x</m>, where
+                <me>A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}.</me>
+            The single eigenvalue is <m>\lambda = 2</m>, but there are two linearly independent eigenvectors, <m>\mathbf v_1 = (1,0)</m> and <m>\mathbf v_2 = (0,1)</m>.  In this case our solution is 
+                <me>\mathbf x(t)
+                =
+                c_1 e^{2t}
+                \begin{pmatrix}
+                1 \\ 0
+                \end{pmatrix} 
+                +
+                c_2 e^{2t}
+                \begin{pmatrix}
+                0 \\ 1
+                \end{pmatrix}.</me>
+            This is not two surprising since the system
+                <md>
+                    <mrow>x' &amp; = 2x</mrow>
+                    <mrow>y' &amp; = 2y</mrow>
+                </md>
+            is uncoupled and each equation can be solved separately.</p>
+        </example>
+
+        <example xml:id="example-linear05-repeated-eigenvalues">
+            <p>Now let us consider the example  <m>\mathbf x' = A \mathbf x</m>, where
+                <me>A = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}.</me>
+            Since the characteristic polynomial of <m>A</m> is <m>\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2</m>, we have only a single eigenvalue <m>\lambda = 3</m> with eigenvector <m>\mathbf v_1 = (1, -2)</m>. This gives us one solution to our system, <m>\mathbf x_1(t) = e^{3t}\mathbf v_1</m>; however, we still need a second solution.</p>
+
+            <p>Since all other eigenvectors of <m>A</m> are a multiple of <m>\mathbf v</m>, we cannot find a second linearly independent eigenvector and we need to obtain the second solution in a different manner. We must find a vector <m>{\mathbf v}_2</m> such that <m>(A - \lambda I){\mathbf v}_2 = {\mathbf v}_1</m>. To do this we can start with any nonzero vector <m>{\mathbf w}</m> that is not a multiple of <m>{\mathbf v}_1</m>, say <m>{\mathbf w} = (1, 0)</m>. We then compute
+                <me>(A - \lambda I) {\mathbf w}
+                =
+                (A - 3I) {\mathbf w}
+                =
+                \begin{pmatrix}
+                2 &amp; 1 \\
+                -4 &amp; -2
+                \end{pmatrix}
+                \begin{pmatrix}
+                1 \\ 0
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                2 \\ -4
+                \end{pmatrix}
+                =
+                2 {\mathbf v}_1.</me>
+            Thus, we can take <m>{\mathbf v}_2 = (1/2)\mathbf w = (1/2, 0)</m>, and our second solution is
+                <me>{\mathbf x}_2 = e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1) = e^{3t} \begin{pmatrix} 1/2 + t \\ -2t \end{pmatrix}</me>
+            Thus, our general solution is
+                <me>{\mathbf x}
+                = 
+                c_1 {\mathbf x}_1 + c_2 {\mathbf x}_2
+                =
+                c_1
+                e^{3t}
+                \begin{pmatrix}
+                1 \\ -2
+                \end{pmatrix}
+                +
+                c_2
+                e^{3t} 
+                \begin{pmatrix}
+                1/2 + t \\ -2t
+                \end{pmatrix}.</me></p>
+        </example>
+
+            <p>If the eigenvalue is positive, we will have a nodal source. If it is negative, we will have a nodal sink. Notice that we have only given a recipe for finding a solution to <m>\mathbf x' = A \mathbf x</m>, where <m>A</m> has a repeated eigenvalue and any tow eigen vectors are linearly dependent. We will justify our procedure in the next section (Section<nbsp /><xref ref="linear06" />).</p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-linear05-important-lessons">
+    	<title>Important Lessons</title>
+    	
+    	<p><ul>
+        	
+			<li>If
+                <me>A
+                =
+                \begin{pmatrix}
+                \lambda &amp; 1 \\
+                0 &amp; \lambda
+                \end{pmatrix},</me>
+            then <m>A</m> has one repeated real eigenvalue. The general solution to the system <m>{\mathbf x}' = A {\mathbf x}</m> is
+                <me>{\mathbf x}(t) 
+                =
+                \alpha e^{\lambda t} 
+                \begin{pmatrix}
+                1 \\ 0
+                \end{pmatrix}
+                +
+                \beta e^{\lambda t} 
+                \begin{pmatrix}
+                t \\ 1
+                \end{pmatrix}.</me>
+            If <m>\lambda \lt 0</m>, then the solutions tend towards the origin as <m>t  \to \infty</m>. For <m>\lambda \gt 0</m>, the solutions tend away from the origin.</li>
+
+        </ul></p>
+
+	</subsection>
+
+    <xi:include href="./exercises/linear05.xml" />
+
+    <subsection number="no" xml:id="subsection-linear05-sage-project">
+        <title>Project</title>
+
+    </subsection>
+ </section>
+
+
+<!--</section>-->

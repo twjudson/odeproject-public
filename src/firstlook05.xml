@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+ <section xml:id="firstlook05" xmlns:xi="http://www.w3.org/2001/XInclude">
+     <title>First-Order Linear Equations</title>
+
+     <introduction>
+        <p>First-order differential equations occur naturally in many modeling problems. These are equations of the form
+        	<men xml:id="equation-firstlook05-first-order-linear-ode">\frac{dy}{dt} + p(t) y = g(t).</men>
+       This equation will not be separable if <m>p(t)</m> in not a constant. We shall have to find a new approach to solving such an equation. We could, of course, use a numerical algorithm to solve<nbsp /><xref ref="equation-firstlook05-first-order-linear-ode" />; however, we shall find that we can always find an algebraic solution to a first-order linear differential equation. Moreover, the fact that can obtain such a solution analytically will prove very useful when we investigate more complicated equations and systems of equations.</p>
+    </introduction>
+    
+	<subsection xml:id="subsection-firstlook05-mine-tailings">
+        <title>Mine Tailings</title>
+
+		<p>In any mining operation, tailings are what is left after everything of value has been extracted. For example, in a hard rock mining operation, ore might be pulverized and then processed using chemicals to remove a certain mineral. Soft rock mining operations such as coal mining or extracting oil from tar sands might use solvents or water to extract any commodity of value. The material that is left over after the minerals, coal, or oil is extracted can often present huge environmental challenges. There are different ways of processing mine tailings, but one way is to store them in a pond, especially if water is used in the mining operation. This method allows any particles that are suspended in the water to settle to the bottom of the pond. The water can then be treated and recycled.</p>
+
+		<p>Suppose that we have a gold mining operation and we are storing our tailings in a pond that has an initial volume of 20,000 cubic meters.  When we begin our operation, the tailings pond is filled with clean water. The pond has a stream flowing into it, and water is also pumped out of the pond.  Chemicals are used in processing gold ore. These chemicals such as sodium cyanide are often highly poisonous and dangerous to the environment, the water must be treated before it is released into the watershed. Suppose that 1500 cubic meters per day flow into the pond from stream and 1500 cubic meters are pumped from the pond each day to be processed and recycled. Thus, the water level of the pond remains constant.</p>
+
+		<p>At time <m>t = 0</m>, the water from stream becomes contaminated with chemicals from the mining operation, say at a rate of 5 kilograms of chemicals per 1000 cubic meters. We will assume that water in our tailings pond is well mixed so that the concentration of chemicals through out the pond is fairly uniform. In addition, any particulate matter pumped into the pond from the stream settles to the bottom of the pond at a rate of 50 cubic meters per day. Thus, the volume of our tailings pond is reduced by 50 cubic meters each day, and our tailings pond will become full after 400 days of operation. We shall assume that the particulate matter and the chemicals are included in the 1000 cubic meters that flow into the pond from the stream each day.</p>
+		
+		<p>We wish to find a differential equation that will model the amount of chemicals in the tailings pond at any particular time. Let <m>x(t)</m> be the amount of chemicals in the pond at time <m>t</m>. Then <m>dx/dt</m> is the difference between the rate at which the chemicals are entering the pond and the rate at which the chemicals leave the pond.
+			<me>\frac{dx}{dt} = \text{rate in} - \text{rate out}.</me>
+		Since water flows into the pond from the stream at a rate of 1000 cubic meters per day, the rate as which the chemicals enter the pond is 5 kilograms per day. On the other hand, the rate at which the chemicals leave the pond will depend on the amount of chemicals in the pond at time <m>t</m>. The volume of the pond is decreasing due to sediment, and at time <m>t</m> it is <m>V(t) = 20000 - 50t</m>. Thus, the concentration of chemicals in the pond at time <m>t</m> is <m>x/(20000 - 50 t)</m>, and the rate at which the chemicals are flowing out of the pond to be recycled is
+			<me>1000 \left(  \frac{x}{20000 - 50t} \right) = \frac{20x}{ 400 - t}.</me>
+		Hence, the differential equation that models the amount of chemical in the tailings pond at time <m>t</m> is
+			<men xml:id="equation-firstlook05-mine-tailings-1">\frac{dx}{dt} = 5 - \frac{20x}{ 400 - t}.</men>
+		Of course, we will have to cease mining operations once the pond is full, since there will only be water in the pond if <m>V(t) = 20000 - 50t \geq 0</m>; that is, when <m>0 \leq t \lt 400</m>.</p>
+
+		<p>Notice that equation<nbsp /><xref ref="equation-firstlook05-mine-tailings-1" /> is not autonomous. In fact, it is not even separable. We will have to use a different approach to find a solution. First, we will rewrite the equation in the form
+			<me>\frac{dx}{dt}  + \frac{20}{ 400 - t} x = 5.</me>
+		If we multiply both sides of this equation by <m>(400 - t)^{-20}</m>, we obtain
+			<men xml:id="equation-firstlook05-mine-tailings-2">(400 - t)^{-20}\frac{dx}{dt}  + 20(400 - t)^{-21} x = 5(400 - t)^{-20}.</men>
+		We now make the crucial observation that the product rule applies to the lefthand side of our equation,
+			<me>(400 - t)^{-20}\frac{dx}{dt}  + 20(400 - t)^{-21} x = \frac{d}{dt} \left( (400 - t)^{-20}x \right).</me>
+		Thus, equation<nbsp /><xref ref="equation-firstlook05-mine-tailings-2" /> becomes
+			<me>\frac{d}{dt} \left( (400 - t)^{-20}x \right) = 5(400 - t)^{-20}.</me>
+		Integrating both sides of this equation, we have
+			<me>(400 - t)^{-20}x = 5 \int (400 - t)^{-20} \, dt = \frac{5(400 - t)^{-19}}{19} + C,</me>
+		where <m>C</m> is an arbitrary constant.  Solving for <m>x</m>, we obtain
+			<me>x(t) = \frac{5}{19} (400 - t) + C(400 - t)^{20}.</me>
+		Since <m>x(0) = 0</m>, we can quickly determine that <m>C = - (5/19)400^{-19}</m> and that the solution to our initial value problem is 
+			<me>x(t) = \frac{5}{19} (400 - t) \left[ 1 - \left( \frac{400 - t}{400}  \right)^{19} \right].</me>
+		The graph of the solution to our differential equation (Figure<nbsp /><xref ref="figure-firstlook05-tailings-pond" />) fits the situation. Initially, there are no chemicals in the pond, but <m>x(t)</m> quickly increases. However, the amount of chemicals decreases as the pond begins to fill with sediment. Eventually, there are no chemicals at <m>t = 400</m>.</p>
+
+		<figure xml:id="figure-firstlook05-tailings-pond">
+
+            <image width="60%" xml:id="firstlook05-tailings-pond">
+				<sageplot>
+					f(x) = (5/19)*(400 - x)*(1 - ((400 - x)/400)^19)
+		            plot(f(x), (x, 0, 400), xmax=400, ymin = 0, ymax = 90, color='blue', thickness=2, aspect_ratio=4, axes_labels=['$t$','$x(t)$'], fontsize=12)
+            	</sageplot>
+			</image>
+
+            <caption>Chemical waste in a tailings pond</caption>
+
+        </figure>
+        
+	</subsection>
+
+	<subsection xml:id="subsection-firstlook05-first-order-linear-de">
+        <title>First-Order Linear Equations</title>
+
+        <p>The differential equation
+			<me>\frac{dx}{dt}  + \frac{20}{ 400 - t} x = 5</me>
+		is an example of a first-order linear differential equation. More specifically, a <term>first-order linear differential equation</term><index><main>differential equation</main><sub>first-order linear</sub></index> is an equation that can be written in the form
+			<me>\frac{dx}{dt} + p(t) x = g(t).</me> 
+		Let us first show how to solve first-order linear equations when the coefficient functions are constant. If 
+			<md>
+				<mrow>\frac{dx}{dt} + px &amp; = q,</mrow>
+				<mrow>x(t_0) &amp; = x_0,</mrow>
+			</md>
+		then we first multiply both sides of the equation by <m>e^{pt}</m> to obtain
+			<me>e^{pt} \frac{dx}{dt} + e^{pt} px = q e^{pt}.</me>
+		The left-hand side of the equation is <term>exact</term><index><main>differential equation</main><sub>exact</sub></index>. That is,
+			<me>e^{pt} \frac{dx}{dt} + e^{pt} px = \frac{d}{dt} \left(  x(t) e^{pt} \right).</me>
+		If we integrate both sides of 
+			<me>\frac{d}{dt} \left(  x(t) e^{pt} \right)= q e^{pt},</me>
+		then
+			<me>x(t) e^{pt} = \frac{q}{p} e^{pt} + C.</me>
+		If we apply the initial condition, we can determine <m>C</m>,
+			<me>C = \left( x_0 - \frac{q}{p} \right) e^{pt_0}.</me>
+		Thus, the solution that we seek is
+			<me>x(t) = \frac{q}{p} + \left( x_0 - \frac{q}{p} \right) e^{p(t_0 - t)}.</me></p>
+
+		<example>
+			<p>Suppose we wish to solve the initial value problem
+				<mdn>
+					<mrow xml:id="equation-firstlook05-constant-coeff-1">\frac{dx}{dt} -2 x &amp; = 3,</mrow>
+					<mrow xml:id="equation-firstlook05-constant-coeff-2">x(0) &amp; = 1.</mrow>
+				</mdn>
+			Multiplying both sides of equation<nbsp /><xref ref="equation-firstlook05-constant-coeff-1" /> by <m>e^{-2t}</m>, we obtain
+				<me>\frac{d}{dt}\left( e^{-2t}x \right) = e^{-2t}\frac{dx}{dt} -2 e^{-2t}x = 3e^{-2t}.</me>
+			Integrating both sides of this last equation, gives us the following
+				<me>e^{-2t}x = 3 \int e^{-2t} \, dt + C = -\frac{3}{2} e^{-2t} + C.</me>
+			Applying the initial condition <m>x(0) = 1</m>, we can conclude that <m>C = 5/2</m>, and
+				<me>x(t) = \frac{5}{2} e^{2t} - \frac{3}{2}.</me></p>
+		</example>
+
+		<example xml:id="example-firstlook05-nonconstant-coeff">
+			<p>Now let us now solve a first-order linear differential equation where the coefficients are not constant. Suppose that
+				<me>y' + 2xy = e^{-x^2},</me>
+			where <m>y(0) = 1</m>. We will multiply both sides of the equation by <m>e^{x^2}</m> and use the product rule to obtain
+				<me>\frac{d}{dx} \left(  e^{x^2} y \right) = e^{x^2} y' + 2xe^{x^2}y =  e^{x^2} e^{-x^2} = 1.</me>
+			Integrating both sides, we get
+				<me>e^{x^2} y  = \int  dx +  C.</me>
+			Thus, the general solution is 
+				<me>y = (x + C) e^{-x^2}.</me>
+			Using the initial condition to solve for <m>C</m>, we find that <m>C = 1</m> and
+				<me>y = (x + 1)e^{-x^2}.  </me>
+			We can use Sage to check our solution.</p>
+		</example>
+
+         <sage>
+        	<input>
+			x = var('x')
+			y = function('y')(x)
+			de = diff(y, x) + 2*x*y == exp(-x^2)
+			solution = desolve(de, y, ics = [0, 1])
+			solution
+			</input>
+			<output>
+			(x + 1)*e^(-x^2)
+			</output>
+         </sage>
+
+
+		<p>Surprisingly, the strategy in Example<nbsp /><xref ref="example-firstlook05-nonconstant-coeff" /> will always work. Suppose that
+			<men xml:id="equation-firstlook05-first-order">y' + p(x) y = g(x).</men>
+		If we choose <m>P(x)</m> such that <m>P'(x) = p(x)</m> and multiply both sides of the equation by <m>e^{P(x)}</m>, then
+			<me>\left( e^{P(x)} y \right)' = e^{P(x)} ( y'(x) + p(x) y(x) = e^{P(x)} g(x).</me>
+		Integrating  both sides,
+			<me>e^{P(x)} y  = \int e^{P(x)} g(x) \, dx + C</me>
+		or
+			<me>y  = \frac{1}{e^{P(x)} } \left( \int e^{P(x)} g(x) \, dx + C \right).</me>
+		The Fundamental Theorem of Calculus tells us that <m>P(x) = \int p(x) \, dx</m>. We say that 
+			<me>\mu(x) = e^{\int p(x) \, dx} = \exp\left(  \int p(x) \, dx \right)</me>
+		is an <term>integrating factor</term><index><main>integrating factor</main></index> for the differential equation<nbsp /><xref ref="equation-firstlook05-first-order" />.</p>
+
+		<example>
+			<p>Consider the initial value problem
+				<md>
+					<mrow>\frac{dy}{dx} - \frac{2}{x} y = 2x^2</mrow>
+					<mrow>y(-2) = 4.</mrow>
+				</md>
+			Our integrating factor is 
+				<me>\mu(x) = \exp\left( - \int \frac{2}{x} \, dx\right) = e^{-2 \ln x} = e^{\ln x^{-2}} = x^{-2}.</me>
+			Multiplying both of our differential equation by <m>\mu(x) = x^{-2}</m>, we obtain
+				<me>x^{-2} \left(\frac{dy}{dx} - \frac{2}{x} y \right)  = 2</me>
+			or
+				<me>\frac{d}{dx}\left(  x^{-2} y \right) = x^{-2} \frac{dy}{dx} - 2 x^{-3} y  = 2.</me>
+			We can now integrate this equation to get
+				<me>x^{-2} y  = 2x + C.</me>
+			The initial condition <m>y(-2) = 4</m> allows us to find <m>C = 5</m>.  Therefore, the solution to our initial value problem is 
+				<me>y = 2x^3 + 5x^2.</me></p>
+		</example>
+
+
+	</subsection>
+	
+	<subsection xml:id="subsection-firstlook05-mixing-models">
+    	<title>Mixing Models</title>
+    	
+    	<p>Many applications involve the mixing of two or more substances together. We can model how petroleum products are mixed together in a refinery, how various ingredients are mixed together in a brewery, or how greenhouse gases mix move across various layers of the earth's atmosphere.</p>
+    	
+    	<p>Suppose that a 100-gallon tank initially contains 50 gallons of salt water containing five pounds of salt. A brine mixture containing one pound of salt per gallon flows into the top of the tank at a rate of 5 gallons per minute. A well mixed solution leaves the tank at rate of 4 gallons per minute. We wish to know how much salt is in the tank, when the tank is full.</p>
+
+		<p>To construct our model, we will let <m>t</m> be the time (measured in minutes) and set up a differential equation that will measure how fast the amount of salt at time <m>t</m>, <m>x(t)</m>, is changing. We have the initial condition <m>x(0) = 5</m>, and 
+			<md>
+				<mrow>\frac{dx}{dt} &amp; = \text{amount of salt flowing in} - \text{amount of salt flowing out}</mrow>
+				<mrow>&amp; =  \underbrace{5}_{\text{in flow}} - \underbrace{4 \frac{x}{V(t)}}_{\text{out flow}},</mrow>
+			</md>
+		where <m>V(t)</m> is the volume at time <m>t</m>. The expression <m>x/V(t)</m> is the amount of salt in one gallon at time <m>t</m>. We have <m>V(t) = 50 + t</m>, since the tank starts with 20 gallons and four gallons are pumped into the tank per minute while three gallons leaves the tank during the same time interval. Thus, our differential equation becomes
+			<me>\frac{dx}{dt} = 5 - \frac{4}{50 + t}x.</me>
+		Our equation is linear since we can rewrite it as
+			<men xml:id="equation-firstlook05-mixing">\frac{dx}{dt} + \frac{4}{50 + t} x = 5.</men></p>
+
+		<p>An integrating factor for this differential equation is 
+			<me>\mu(t) = \exp\left(  \int \frac{4}{50 + t} \, dt \right) = e^{4 \ln(50 + t)} = (50 + t)^4.</me>
+		Therefore, if we multiply both sides of equation<nbsp /><xref ref="equation-firstlook05-mixing" /> by <m>\mu(t)</m>, we get
+			<me>(50 + t)^4\frac{dx}{dt} + 4(t + 50)^3 x = 5(50 + t)^4.</me>
+		We can now apply the product rule to obtain
+			<me>\frac{d}{dt}[ (50 + t)^4 x] = 5(50 + t)^4.</me>
+		Integrating both sides and simplifying gives us
+			<me>x = t + 50 + \frac{C}{(t + 50)^4}.</me>
+		Our initial condition, <m>x(0) = 5</m> tells us that <m>C = 31,250,000</m> and
+			<me>x(t) = t + 50 - \frac{31250000}{(t + 50)^4}.</me>
+		Thus, when the tank is full, <m>t = 50</m> and the amount of salt in the tank is <m>x(50) = 97.188</m> pounds. We can use <em>Sage</em> to easily check the solution of our initial value problem.</p>
+
+        <sage>
+			<input>
+			t = var('t')
+			x = function('x')(t)
+			de = diff(x, t) + 4*x/(50 + t) == 5
+			solution(t) = desolve(de, x, ics=[0, 5])
+			solution(50).n(digits = 5)
+			</input>
+			<output>
+			97.188
+			</output>
+        </sage>
+
+	</subsection>
+	
+	<subsection xml:id="subsection-firstlook05-finance-models">
+    	<title>Finance Models</title>
+
+		<p>There are a number of problems in finance that can be modeled using differential equations. Let <m>P(t)</m> be the balance of an account at time <m>t</m> and suppose that the account pays interest at a rate of <m>r</m> percent per year compounded continuously.  Suppose that we also allow withdrawals of <m>W</m> dollars per year. The net increase in the balance between times <m>t</m> and <m>t + \Delta t</m> can now be described as
+			<me>P(t + \Delta t) - P(t) \approx r P \Delta t - W \Delta t</me>
+		Thus,
+			<me>P'(t) = \lim_{\Delta t \rightarrow 0} \frac{P(t + \Delta t) - P(t) }{\Delta t} = rP - W.</me></p>
+
+		<p>We can solve the equation
+			<me>P' = rP - W</me>
+		by multiplying both sides of the equation by the integrating factor
+			<me>\mu(t) = \exp\left(- \int r \, dt\right) = e^{-rt}.</me>
+		to obtain
+			<me>\frac{d}{dt} [e^{-rt} P] = -We^{-rt}.</me>
+		Integrating both sides of this equation, we have
+			<me>e^{-rt} P = \frac{W}{r} e^{-rt} + C</me>
+		or
+			<me>P = \frac{W}{r} + Ce^{rt}.</me>
+		If we know the initial balance in the account, say <m>P(0) = P_0</m>, we can determine <m>C</m>. That is,
+			<me>P_0 = \frac{W}{r} + C</me>
+		or 
+			<me>C = P_0 - \frac{W}{r}.</me>
+		Thus, the solution to our initial value problem is
+			<me>P = \frac{W}{r} + \left( P_0 - \frac{W}{r} \right) e^{rt}.</me></p>
+
+	</subsection>
+	
+	<subsection>
+    	<title>Existence and Uniqueness of Solutions</title>
+
+		<p>Several questions about the existence and uniqueness of solutions to first order linear differential equations now arise. 
+			<ul>
+
+			<li>Does an initial-value problem always have a solution?</li>
+
+			<li>Is the solution unique?</li>
+
+			<li>Is the solution globally defined or does it only hold for a small interval?</li>
+
+			</ul>
+		We can use the following theorem to answer these questions.</p>
+
+		<theorem xml:id="theorem-firstlook05-first-order-linear-existence">
+			<statement>
+				<p>If 
+					<me>y' + p(t) y = g(t)</me>
+				is a differential equation such that <m>y(t_0) = y_0</m>, and <m>p(t)</m> and <m>g(t)</m> are continuous on the open interval <m>I = (\alpha, \beta)</m>, then there exists a unique function <m>y = \phi(t)</m> satisfying the differential equation and the initial condition on <m>I</m>.</p>
+            </statement>
+            <proof>
+            	<p>If 
+					<me>\mu(t) = \exp\left(  \int p(t) \, dt \right),</me>
+				then
+					<me>\frac{d}{dt}(\mu(t) y) = \mu(t) \left( \frac{dy}{dt} + p(t) y \right) = \mu(t)g(t).</me>
+				Integrating both sides of this equation and solving for <m>y</m>, we have
+					<me>y = \frac{1}{\mu(t)} \left( \int \mu(t) g(t) \, dt + C \right).</me>
+				Since <m>y(t_0) = y_0</m>, the constant <m>C</m> is uniquely determined.  Notice that we have used continuity to guarantee that the integrals exist.</p>
+			</proof>
+        </theorem> 
+
+	</subsection>		
+
+    <subsection xml:id="subsection-firstlook05-important-lessons">
+        <title>Important Lessons</title>
+		
+		<p><ul>
+		
+			<li>Any first order linear differential equation
+				<me>y' + p(x) y = g(x)</me>
+			can be solved by multiplying each side of the equation by an integrating factor
+				<me>\mu(s) = e^{\int p(x) \, dx}.</me>
+			In this case, we get
+				<me>\left( e^{P(x)} y \right)' = e^{P(x)} ( y'(x) + p(x) y(x) = e^{P(x)} g(x).</me>
+			Integrating  both sides,
+				<me>e^{P(x)} y  = \int e^{P(x)} g(x) \, dx</me>
+			or
+				<me>y  = \frac{1}{e^{P(x)} } \int e^{P(x)} g(x) \, dx.</me></li>
+
+			<li>If 
+				<me>y' + p(t) y = g(t)</me>
+			is a differential equation such that <m>y(t_0) = y_0</m>, and <m>p(t)</m> and <m>g(t)</m> are continuous on the open interval <m>I = (\alpha, \beta)</m>, then there exists a unique function <m>y = \phi(t)</m> satisfying the differential equation and the initial condition on <m>I</m>.</li>
+
+		</ul></p>
+				
+	</subsection>	
+
+<todo>More problems needed.</todo>
+
+    <xi:include href="./exercises/firstlook05.xml" />
+
+    <subsection number="no" xml:id="subsection-firstlook05-sage-project">
+        <title>Project<mdash />Modeling</title>
+
+<todo>Sage modeling project needed.</todo>
+
+    </subsection>
+
+ </section>
+
+
+<!--</section>-->

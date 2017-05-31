@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="linear06" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Changing Coordinates</title>
+    
+    <introduction>
+
+        <p>In the beginning sections of this chapter, we outlined procedures for solving systems of linear differential equations of the form
+            <me>\begin{pmatrix}
+            dx/dt \\ dy/dt
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}
+            =
+            A
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}</me> 
+        by determining the eigenvalues of <m>A</m>, but we have only justified the case where <m>A</m> has distinct real eigenvalues.  However, we have considered the following special cases for <m>A</m> 
+            <me>\begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \mu
+            \end{pmatrix},
+            \begin{pmatrix}
+            \alpha &amp;  \beta \\
+            -\beta &amp; \alpha
+            \end{pmatrix},
+            \begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \lambda
+            \end{pmatrix},
+            \begin{pmatrix}
+            \lambda &amp; 1 \\
+            0 &amp; \lambda
+            \end{pmatrix}.</me>
+        Although it may seem that we have limited ourselves by attacking only a very small part of the problem of finding solutions for <m>\mathbf x' = A \mathbf x</m>, we are actually very close to providing a complete classification of all solutions. We will now show that we can transform any <m>2 \times 2 </m>  system of first-order linear differential equations with constant coefficients into one of these special systems by using a <term>change of coordinates.</term></p>
+
+	</introduction>
+
+    <subsection xml:id="subsection-linear06-linear-maps">
+    	<title>Linear Maps</title>
+
+		<p>A <term>linear map</term> or <term>linear transformation</term> on <m>{\mathbb R}^2</m> is a function <m>T: {\mathbb R}^2 \to {\mathbb R}^2</m> that is defined by a matrix.  That is,
+            <me>T
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}.</me>
+        When there is no confusion, we will think of the linear map <m>T: {\mathbb R}^2 \to {\mathbb R}^2</m> and the matrix 
+            <me>\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}</me>
+        as interchangeable.</p>
+
+		<p>We will say that <m>T: {\mathbb R}^2 \to {\mathbb R}^2</m> is an <term>invertible linear map</term> if we can find a second linear map <m>S</m> such that <m>T \circ S = S \circ T = I</m>, where <m>I</m> is the identity transformation.  In terms of matrices, this means that we can find a matrix <m>S</m> such that 
+            <me>TS = ST = I,</me>
+        where
+            <me>I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}.</me>
+        is the <m>2 \times 2</m> identity matrix.  We write <m>T^{-1}</m> for the inverse matrix of <m>T</m>. It is easy to check that the inverse of 
+            <me>T = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}</me>
+        is
+            <me>T^{-1} = \frac{1}{\det T} \begin{pmatrix} d &amp; - b \\ -c &amp; a \end{pmatrix}.</me></p>
+
+		<theorem xml:id="theorem-linear06-invertible-linear-maps">
+            <statement>
+                <p>A linear map <m>T</m> is invertible if and only if <m>\det T \neq 0</m>.</p>
+            </statement>
+            <proof>
+                <p>If <m>\det T = 0</m>, then there are infinitely many nonzero vectors <m>{\mathbf x}</m> such that <m>T {\mathbf x} = {\mathbf 0}</m>. Suppose that <m>T^{-1}</m> exists and <m>{\mathbf x} \neq {\mathbf 0}</m> such that <m>T {\mathbf x} = {\mathbf 0}</m>. Then 
+                    <me>{\mathbf x} = T^{-1} T {\mathbf x} = T^{-1} {\mathbf 0} = {\mathbf 0},</me>
+                which is a contradiction. On the other hand, we can certainly compute <m>T^{-1}</m>, at least in the <m>2 \times 2</m> case, if the determinant is nonzero.</p>
+            </proof>
+        </theorem> 
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear06-changing-coordinates">
+    	<title>Changing Coordinates</title>
+
+		<p>Suppose that we consider a linear system
+            <men xml:id="equation-linear06-change-of-coordinates">{\mathbf y}' = (T^{-1} A T) {\mathbf y}</men>
+        where <m>T</m> is an invertible matrix.  If <m>{\mathbf y}(t)</m> is a solution of <xref ref="equation-linear06-change-of-coordinates" />, we claim that <m>{\mathbf x}(t) = T {\mathbf y}(t)</m> solves the equation <m>{\mathbf x}' = A {\mathbf x}</m>. Indeed,
+            <md>
+                <mrow>{\mathbf x}'(t) &amp; = (T {\mathbf y})'(t)</mrow>
+                <mrow>&amp; = T {\mathbf y}'(t)</mrow>
+                <mrow>&amp; = T( (T^{-1} A T) {\mathbf y}(t))</mrow>
+                <mrow>&amp; = A (T {\mathbf y}(t))</mrow>
+                <mrow>&amp; =  A {\mathbf x}(t).</mrow>
+            </md>
+        We can think of this in two ways.
+			<ol>
+
+				<li>A linear map <m>T</m> converts solutions of <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m> to solutions of <m>{\mathbf x}' = A {\mathbf x}</m>.</li>
+
+				<li>The inverse of a linear map <m>T</m> takes solutions of <m>{\mathbf x}' = A {\mathbf x}</m> to solutions of <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m>.</li>
+
+			</ol>We are now in a position to solve our problem of finding solutions of an arbitrary linear system
+                <me>\begin{pmatrix}
+                x' \\ y'
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                a &amp; b \\
+                c &amp; d
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                x \\ y 
+                \end{pmatrix}.</me></p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear06-distinct-real-eigenvalues">
+    	<title>Distinct Real Eigenvalues</title>
+
+		<p>Consider the system <m>{\mathbf x}' = A {\mathbf x}</m>, where <m>A</m> has two real, distinct eigenvalues <m>\lambda_1</m> and <m>\lambda_2</m> with eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>, respectively. Let <m>T</m> be the matrix with columns <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>. If <m>{\mathbf e}_1 = (1, 0)</m> and <m>{\mathbf e}_2 = (0, 1)</m>, then <m>T {\mathbf e}_i = {\mathbf v}_i</m> for <m>i = 1, 2</m>. Consequently, <m>T^{-1} {\mathbf v}_i = {\mathbf e}_i</m> for <m>i = 1, 2</m>.  Thus, we have
+            <md>
+                <mrow>(T^{-1} A T) {\mathbf e}_i &amp; = T^{-1} A  {\mathbf v}_i</mrow>
+                <mrow>&amp; = T^{-1} (\lambda_i  {\mathbf v}_i)</mrow>
+                <mrow>&amp; = \lambda_i T^{-1} {\mathbf v}_i</mrow>
+                <mrow>&amp; = \lambda_i {\mathbf e}_i</mrow>
+            </md>
+        for <m>i = 1, 2</m>.  Therefore, the matrix <m>T^{-1} A T</m> is in canonical form,
+            <me>T^{-1} A T = \begin{pmatrix} \lambda_1 &amp; 0 \\ 0 &amp; \lambda_2 \end{pmatrix}.</me>
+        The eigenvalues of the matrix <m>T^{-1} A T</m> are <m>\lambda_1</m> and <m>\lambda_2</m> with eigenvectors <m>(1, 0)</m> and <m>(0, 1)</m>, respectively. Thus, the general solution of 
+            <me>{\mathbf y}' = (T^{-1}AT) {\mathbf y}</me>
+        is
+            <me>{\mathbf y}(t) 
+            =
+            \alpha e^{\lambda_1 t} 
+            \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+            +
+            \beta e^{\lambda_2 t}
+            \begin{pmatrix} 0\\ 1 \end{pmatrix}.</me>
+        Hence, the general solution of
+            <me>{\mathbf x}' = A {\mathbf x}</me>
+        is
+            <md>
+                <mrow>T {\mathbf y}(t)
+                &amp; = T \left(
+                \alpha e^{\lambda_1 t} 
+                \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+                +
+                \beta e^{\lambda_2 t}
+                \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+                \right)</mrow>
+                <mrow>&amp; =
+                \alpha e^{\lambda_1 t} 
+                T \begin{pmatrix} 1 \\ 0\end{pmatrix}
+                +
+                \beta e^{\lambda_2 t}
+                T \begin{pmatrix} 0 \\ 1 \end{pmatrix}</mrow>
+                <mrow>&amp; =
+                \alpha e^{\lambda_2 t} \mathbf v_1 + \beta e^{\lambda_2 t} \mathbf v_2.</mrow>
+            </md></p>
+
+        <example>
+            <p>Suppose <m>d{\mathbf x}/dt = A {\mathbf x}</m>, where 
+                <me>A = \begin{pmatrix} 1 &amp; 2 \\ 4 &amp; 3 \end{pmatrix}.</me>
+            The eigenvalues of <m>A</m> are <m>\lambda_1 = 5</m> and <m>\lambda_2 = -1</m> and the associated eigenvectors are <m>(1, 2)</m> and <m>(1, -1)</m>, respectively.  In this case, our matrix <m>T</m> is
+                <me>\begin{pmatrix} 1 &amp; 1 \\ 2 &amp; -1 \end{pmatrix}.</me>
+            If <m>{\mathbf e}_1 = (1, 0)</m> and <m>{\mathbf e}_2 = (0, 1)</m>, then <m>T {\mathbf e}_i = {\mathbf v}_i</m> for <m>i = 1, 2</m>.  Consequently, <m>T^{-1} {\mathbf v}_i = {\mathbf e}_i</m> for <m>i = 1, 2</m>, where
+                <me>T^{-1} = \begin{pmatrix} 1/3 &amp; 1/3 \\ 2/3 &amp; -1/3 \end{pmatrix}.</me>
+            Thus,
+                <me>T^{-1} A T
+                =
+                \begin{pmatrix}
+                1/3 &amp; 1/3 \\
+                2/3 &amp; -1/3
+                \end{pmatrix}
+                \begin{pmatrix}
+                1 &amp; 2 \\
+                4 &amp; 3
+                \end{pmatrix}
+                \begin{pmatrix}
+                1 &amp; 1 \\
+                2 &amp; -1
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                5 &amp; 0 \\
+                0 &amp; -1
+                \end{pmatrix}.</me>
+            The eigenvalues of the matrix 
+                <me>\begin{pmatrix} 5 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}</me>
+            are <m>\lambda_1 = 5</m> and <m>\lambda_2 = -1</m> with eigenvectors <m>(1, 0)</m> and <m>(0, 1)</m>, respectively. Thus, the general solution of 
+                <me>{\mathbf y}' = (T^{-1}AT) {\mathbf y}</me>
+            is
+                <me>{\mathbf y}(t) 
+                =
+                \alpha e^{5t} 
+                \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+                +
+                \beta e^{-t}
+                \begin{pmatrix} 0\\ 1 \end{pmatrix}.</me>
+            Hence, the general solution of
+                <me>{\mathbf x}' = A {\mathbf x}</me>
+            is
+                <md>
+                    <mrow>T {\mathbf y}(t)
+                    &amp; =
+                    \begin{pmatrix}
+                    1 &amp; 1 \\
+                    2 &amp; -1
+                    \end{pmatrix}
+                    \left(
+                    \alpha e^{5t} 
+                    \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+                    +
+                    \beta e^{-t}
+                    \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+                    \right)</mrow>
+                    <mrow>&amp; =
+                    \alpha e^{5t} 
+                    \begin{pmatrix} 1 \\ 2 \end{pmatrix}
+                    +
+                    \beta e^{-t}
+                    \begin{pmatrix} 1 \\ -1 \end{pmatrix}</mrow>
+                </md>
+            The linear map <m>T</m> converts the phase portrait of the system <m>{\mathbf y}' = (T^{-1}AT) {\mathbf y}</m> (Figure<nbsp /><xref ref="figure-linear06-change-of-coordinates-1" />) to the phase portrait of the system <m>{\mathbf x}' = A {\mathbf x}</m> (Figure<nbsp /><xref ref="figure-linear06-change-of-coordinates-2" />).</p>
+
+        </example>
+
+		<figure xml:id="figure-linear06-change-of-coordinates-1">
+
+			<image width="60%" xml:id="linear06-change-of-coordinates-1">
+                <sageplot>
+					x, y ,t = var('x y t')
+					F = [5*x, -y]
+					n = sqrt(F[0]^2 + F[1]^2)
+					v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+					P1=desolve_system_rk4(F,[x,y],ics=[0,0.01,3],ivar=t,end_points=1.15,step=0.1)
+					P2=desolve_system_rk4(F,[x,y],ics=[0,0.01,-3],ivar=t,end_points=1.15,step=0.1)
+					P3=desolve_system_rk4(F,[x,y],ics=[0,-0.01,3],ivar=t,end_points=1.15,step=0.1)
+					P4=desolve_system_rk4(F,[x,y],ics=[0,-0.01,-3],ivar=t,end_points=1.15,step=0.1)
+					S1=[ [j, k] for i,j,k in P1]
+					S2=[ [j, k] for i,j,k in P2]
+					S3=[ [j, k] for i,j,k in P3]
+					S4=[ [j, k] for i,j,k in P4]
+					LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+					LP2=line(S2, thickness=2)
+					LP3=line(S3, thickness=2)
+					LP4=line(S4, thickness=2)
+					LP1 + LP2 + LP3 + LP4 + v
+                </sageplot>
+            </image>
+
+            <caption>Phase portrait for <m>{\mathbf y}' = (T^{-1}AT) {\mathbf y}</m></caption>
+        </figure>
+
+        <figure xml:id="figure-linear06-change-of-coordinates-2">
+
+            <image width="60%" xml:id="linear06-change-of-coordinates-2">
+                <sageplot>
+                    x, y ,t = var('x y t')
+                    F = [x + 2*y, 4*x + 3*y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.99],ivar=t,end_points=1.28,step=0.1)
+                    P2=desolve_system_rk4(F,[x,y],ics=[0,-2.99,3],ivar=t,end_points=1.15,step=0.1)
+                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.99],ivar=t,end_points=1.28,step=0.1)
+                    P4=desolve_system_rk4(F,[x,y],ics=[0,2.99,-3],ivar=t,end_points=1.15,step=0.1)
+                    S1=[ [j, k] for i,j,k in P1]
+                    S2=[ [j, k] for i,j,k in P2]
+                    S3=[ [j, k] for i,j,k in P3]
+                    S4=[ [j, k] for i,j,k in P4]
+                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    LP2=line(S2, thickness=2)
+                    LP3=line(S3, thickness=2)
+                    LP4=line(S4, thickness=2)
+                    LP1 + LP2 + LP3 + LP4 + v
+                </sageplot>
+            </image>
+
+
+            <caption>Phase portrait for <m>{\mathbf x}' = A {\mathbf x}</m></caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear06-complex-eigenvalues">
+    	<title>Complex Eigenvalues</title>
+
+        <p>Suppose the matrix
+            <me>A = \begin{pmatrix} a \amp b \\ c \amp d \end{pmatrix}</me>
+        in system <m>{\mathbf x}' = A {\mathbf x}</m> has complex eigenvalues. In this case, the characteristic polynomial <m>p(\lambda) = \lambda^2 - (a + d)\lambda + (ad - bc)</m> will have roots <m>\lambda = \alpha + i \beta</m> and <m>\overline{\lambda} = \alpha - i \beta</m>, where
+            <md>
+                <mrow>\alpha \amp = \frac{a + d}{2}</mrow>
+                <mrow>\beta \amp = \frac{\sqrt{4bc - (a - d)^2}}{2}.</mrow>
+            </md>
+        The eigenvalues <m>\lambda</m> and <m>\overline{\lambda}</m> are complex conjugates. Now, suppose that the eigenvalue <m>\lambda = \alpha + i \beta</m> has an eigenvector of the form
+            <me>\mathbf v = {\mathbf v}_ 1 + i {\mathbf v}_2,</me>
+        where <m>\mathbf v_1</m> and <m>\mathbf v_2</m> are real vectors. Then <m>\overline{\mathbf v} = {\mathbf v}_ 1 - i {\mathbf v}_2</m> is an eigenvector for <m>\overline{\lambda}</m>, since
+            <me>A \overline{\mathbf v} = \overline{A \mathbf v} = \overline{\lambda \mathbf v} = \overline{\lambda} \overline{\mathbf v}.</me>
+        Consequently, if <m>A</m> is a real matrix with complex eigenvalues, one of the eigenvalues determines the other.</p>
+
+        <proposition>
+            <statement>
+                <p>If <m>\lambda = \alpha + i \beta</m> is an eigenvalue of a real matrix <m>A</m> with <m>\beta \neq 0</m> and eigenvector the form
+                    <me>{\mathbf v}_ 1 + i {\mathbf v}_2,</me>
+                where <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are real vectors, then the vectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly independent.</p>
+            </statement>
+            <proof>
+                <p>If <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are not linearly independent, then <m>{\mathbf v}_1 = c {\mathbf v}_2</m> for some <m>c \in \mathbb R</m>. On one hand, we have
+                    <me>A ({\mathbf v}_ 1 + i {\mathbf v}_2) = A (c {\mathbf v}_2 + i {\mathbf v}_2) = (c + i) A {\bf v}_2.</me>
+                However,
+                    <md>
+                        <mrow>A ({\mathbf v}_ 1 + i {\mathbf v}_2)  &amp; = (\alpha + i \beta) ( {\mathbf v}_ 1 + i {\mathbf v}_2)</mrow>
+                        <mrow>&amp; = (\alpha + i \beta) ( c + i) {\mathbf v}_2</mrow>
+                        <mrow>&amp; = ( c + i) (\alpha + i \beta)  {\mathbf v}_2</mrow>
+                            </md>
+                In other words, <m>A {\mathbf v}_2 = (\alpha + i \beta)  {\mathbf v}_2</m>. However, this is a contradiction since the left-side of the equation says that we have real eigenvector while the right-side of the equation is complex. Thus, <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly independent.</p>
+            </proof>
+        </proposition>
+
+        <proposition>
+            <statement>
+        		<p>Let <m>A</m> be a real matrix with eigenvalue <m>\lambda = \alpha + i \beta</m>, where <m>\beta \neq 0</m>.  If 
+                    <me>{\mathbf v}_ 1 + i {\mathbf v}_2,</me> 
+                is an eigenvector for <m>\lambda</m>, then there exists a matrix <m>T</m> such that 
+                    <me>T^{-1} AT = \begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.</me></p>
+            </statement>
+            <proof>
+                <p>Since <m>{\mathbf v}_1 + i {\mathbf v}_2</m> is an eigenvector associated to the eigenvalue <m>\alpha + i \beta</m>, we have
+                    <me>A ( {\mathbf v}_1 + i {\mathbf v}_2) = (\alpha + i \beta) ({\mathbf v}_1 + i {\mathbf v}_2).</me>
+                Equating the real and imaginary parts, we find that
+                    <md>
+                        <mrow>A {\mathbf v}_1 &amp; = \alpha {\mathbf v}_1 - \beta {\mathbf v}_2</mrow>
+                        <mrow>A {\mathbf v}_2 &amp; = \beta {\mathbf v}_1 + \alpha {\mathbf v}_2.</mrow>
+                    </md>
+                If <m>T</m> is the matrix with columns <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>, then
+                    <md>
+                        <mrow>T {\mathbf e}_1 &amp; = {\mathbf v}_1</mrow>
+                        <mrow>T {\mathbf e}_2 &amp; = {\mathbf v}_2.</mrow>
+                    </md>
+                Thus, we have
+                    <me>(T^{-1} A T) {\mathbf e}_1 = T^{-1} (\alpha {\mathbf v}_1 - \beta {\mathbf v}_2) = \alpha {\mathbf e}_1 - \beta {\mathbf e}_2.</me>
+                Similarly, 
+                    <me>(T^{-1} A T) {\mathbf e}_2 = \beta {\mathbf e}_1 + \alpha {\mathbf e}_2.</me>
+                Therefore, we can write the matrix <m>T^{-1}A T</m> as
+                    <me>T^{-1} AT = \begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.</me></p>
+            </proof>
+        </proposition>
+
+		<p>The system <m>{\mathbf y}' = (T^{-1} AT ) {\mathbf y}</m> is in one of the canonical forms and has a phase portrait that is a spiral sink (<m>\alpha \lt 0</m>), a center (<m>\alpha = 0</m>), or a spiral source (<m>\alpha \gt 0</m>). After a change of coordinates, the phase portrait of <m>{\mathbf x}' = A {\mathbf x}</m> is equivalent to a sink, center, or source.</p>
+
+        <example>
+            <p>Suppose that we wish to find the solutions of the second order equation
+                <me>2x'' + 2x' + x = 0.</me>
+            This particular equation might model a damped harmonic oscillator. If we rewrite this second-order equation as a first-order system, we have
+                <md>
+                <mrow>x' &amp; = y</mrow>
+                <mrow>y' &amp; = - \frac{1}{2} x - y,</mrow>
+                </md>
+            or equivalently <m>\mathbf x' = A \mathbf x</m>, where
+                <me>A = \begin{pmatrix} 0 &amp; 1 \\ - 1/2 &amp; - 1 \end{pmatrix}.</me>
+            The eigenvalues of <m>A</m> are
+                <me>- \frac{1}{2} \pm i \frac{1}{2}.</me>
+            The eigenvalue <m>\lambda = (1 + i)/2</m> has an eigenvector
+                <me>\mathbf v =
+                 \begin{pmatrix}
+                2 \\ -1 + i
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                2 \\ -1
+                \end{pmatrix}
+                +
+                i
+                \begin{pmatrix}
+                0 \\ 1
+                \end{pmatrix},</me>
+            respectively. Therefore, we can take <m>T</m> to be the matrix
+                <me>T = \begin{pmatrix} 2 \amp 0 \\ -1 \amp 1 \end{pmatrix}.</me>
+            Consequently,
+                <me>T^{-1} A T
+                =
+                \begin{pmatrix}
+                1/2 &amp; 0 \\
+                1/2 &amp; 1
+                \end{pmatrix}
+                \begin{pmatrix}
+                0 &amp; 1 \\
+                -1/2 &amp; -1
+                \end{pmatrix}
+                \begin{pmatrix}
+                2 &amp; 0 \\
+                -1 &amp; 1
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                -1/2 &amp; 1/2 \\
+                -1/2 &amp; -1/2
+                \end{pmatrix},</me>
+            which is in the canonical form
+                <me>\begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.</me>
+            The general solution to <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m> is
+                <me>{\mathbf y}(t)
+                =
+                c_1 e^{-t/2} 
+                \begin{pmatrix}
+                \cos(t/2) \\ -\sin(t/2)
+                \end{pmatrix}
+                +
+                c_2 e^{-t/2}
+                \begin{pmatrix}
+                \sin(t/2) \\ \cos(t/2)
+                \end{pmatrix}.</me>
+            The phase portrait of <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m> is given in Figure<nbsp /><xref ref="figure-linear06-complex-canonical" />.</p>
+
+            <figure xml:id="figure-linear06-complex-canonical">
+                <image width="60%" xml:id="linear06-complex-canonical">
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        F = [-x/2 + y/2, -x/2 - y/2]
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                        P1 = desolve_system_rk4(F,[x,y],ics=[0,-3,3],ivar=t,end_points=10,step=0.1)
+                        P2 = desolve_system_rk4(F,[x,y],ics=[0,-3,-3],ivar=t,end_points=10,step=0.1)
+                        P3 = desolve_system_rk4(F,[x,y],ics=[0,3,-3],ivar=t,end_points=10,step=0.1)
+                        P4 = desolve_system_rk4(F,[x,y],ics=[0,3,3],ivar=t,end_points=10,step=0.1)
+                        S1 = [ [j, k] for i,j,k in P1]
+                        S2 = [ [j, k] for i,j,k in P2]
+                        S3 = [ [j, k] for i,j,k in P3]
+                        S4 = [ [j, k] for i,j,k in P4]
+                        p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
+                        p += line(S2, thickness=2)
+                        p += line(S3, thickness=2)
+                        p += line(S4, thickness=2)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Phase portrait for <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m></caption>
+            </figure>
+
+
+            <p>The general solution of <m>{\mathbf x}' = A {\mathbf x}</m> is
+                <md>
+                    <mrow>T {\mathbf y}(t)
+                    &amp; =
+                    \begin{pmatrix}
+                    2 &amp; 0 \\
+                    -1 &amp; 1
+                    \end{pmatrix}
+                    \left[
+                    c_1 e^{-t/2} 
+                    \begin{pmatrix}
+                    \cos(t/2) \\ -\sin(t/2)
+                    \end{pmatrix}
+                    +
+                    c_2 e^{-t/2}
+                    \begin{pmatrix}
+                    \sin(t/2) \\ \cos(t/2)
+                    \end{pmatrix}
+                    \right]</mrow>
+                    <mrow>&amp; =
+                    c_1 e^{-t/2} 
+                    \begin{pmatrix}
+                    2 &amp; 0 \\
+                    -1 &amp; 1
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                    \cos(t/2) \\ -\sin(t/2)
+                    \end{pmatrix}
+                    +
+                    c_2 e^{-t/2}
+                    \begin{pmatrix}
+                    2 &amp; 0 \\
+                    -1 &amp; 1
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                    \sin(t/2) \\ \cos(t/2)
+                    \end{pmatrix}</mrow>
+                    <mrow>&amp; =
+                    c_1 e^{-t/2} 
+                    \begin{pmatrix}
+                    2 \cos(t/2)  \\ - \cos(t/2) - \sin(t/2)
+                    \end{pmatrix}
+                    +
+                    c_2 e^{-t/2}
+                    \begin{pmatrix}
+                    2 \sin(t/2) \\ - \sin(t/2) + \cos(t/2)
+                    \end{pmatrix}.</mrow>
+                </md>
+            The phase portrait for this system is given in Figure<nbsp /><xref ref="figure-linear06-underdamped-harmonic-oscillator" />.</p>
+
+        </example>
+
+		<figure xml:id="figure-linear06-underdamped-harmonic-oscillator">
+
+			<image width="60%" xml:id="linear06-underdamped-harmonic-oscillator">
+                <sageplot>
+                    x, y ,t = var('x y t')
+                    F = [y, -x/2 - y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1 = desolve_system_rk4(F,[x,y],ics=[0,-3,3],ivar=t,end_points=10,step=0.1)
+                    P2 = desolve_system_rk4(F,[x,y],ics=[0,-1,-3],ivar=t,end_points=10,step=0.1)
+                    P3 = desolve_system_rk4(F,[x,y],ics=[0,3,-3],ivar=t,end_points=10,step=0.1)
+                    P4 = desolve_system_rk4(F,[x,y],ics=[0,1.5,3],ivar=t,end_points=10,step=0.1)
+                    S1 = [ [j, k] for i,j,k in P1]
+                    S2 = [ [j, k] for i,j,k in P2]
+                    S3 =[ [j, k] for i,j,k in P3]
+                    S4 = [ [j, k] for i,j,k in P4]
+                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
+                    p += line(S2, thickness=2)
+                    p += line(S3, thickness=2)
+                    p += line(S4, thickness=2)
+                    p
+                </sageplot>
+            </image>
+            <caption>Phase portrait of <m>{\mathbf x}' = A {\mathbf x}</m></caption>
+        </figure>
+
+        <remark>
+            <p>Of course, we have a much more efficient way of solving the system <m>{\mathbf x}' = A {\mathbf x}</m>, where
+                <me>A = \begin{pmatrix} 0 &amp; 1 \\ - 1/2 &amp; - 1 \end{pmatrix}.</me>
+            Since <m>A</m> has eigenvalue <m>\lambda = (-1 + i)/2</m> with an eigenvector <m>\mathbf v = (2, -1 + i)</m>, we can apply Euler's formula and write the solution as
+                <md>
+                	<mrow>\mathbf x(t) \amp = e^{(-1 + i)t/2} \mathbf v \amp</mrow>
+                	<mrow>\amp = e^{-t/2} e^{it/2} \begin{pmatrix} 2 \\ -1 + i \end{pmatrix}</mrow>
+	                <mrow>\amp = e^{-t/2} (\cos(t/2) + i \sin(t/2)) \begin{pmatrix} 2 \\ -1 + i \end{pmatrix}</mrow>
+	                <mrow>\amp =e^{-t/2} \begin{pmatrix} 2 \cos(t/2) \\ - \cos(t/2) - \sin(t/2) \end{pmatrix} + i e^{-t/2}  \begin{pmatrix} 2 \sin(t/2) \\ -\sin(t/2) + \cos(t/2) \end{pmatrix}.</mrow>
+                </md>
+            Taking the real and the imaginary parts of the last expression, the general solution of <m>{\mathbf x}' = A {\mathbf x}</m> is
+               	<me>\mathbf x(t) = c_1 e^{-t/2} 
+                    \begin{pmatrix}
+                    2 \cos(t/2)  \\ - \cos(t/2) - \sin(t/2)
+                    \end{pmatrix}
+                    +
+                    c_2 e^{-t/2}
+                    \begin{pmatrix}
+                    2 \sin(t/2) \\ - \sin(t/2) + \cos(t/2)
+                    \end{pmatrix},</me>
+            which agrees with the solution that we found by transforming coordinates.</p>
+        </remark>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear06-repeated-eigenvalues">
+    	<title>Repeated eigenvalues</title>
+
+		<p>Now suppose that <m>A</m> has a single real eigenvalue <m>\lambda</m>. Then the characteristic polynomial of <m>A</m> is  <m>p(\lambda) = \lambda^2 - (a + d)\lambda + (ad - bc)</m>, then <m>A</m> has an eigenvalue <m>\lambda = (a + d)/2</m>.</p>
+
+        <proposition>
+            <statement>
+              If  <m>A</m> has a single eigenvalue and a pair of linearly independent eigenvectors, then <m>A</m> must be of the form 
+                <me>A = \begin{pmatrix} \lambda &amp; 0 \\ 0 &amp; \lambda \end{pmatrix}.</me>
+            </statement>
+            <proof>
+                <p>Suppose that <m>{\mathbf u}</m> and <m>{\mathbf v}</m> are linearly indeendent eigenvectors for <m>A</m>, and let <m>T</m> be the matrix whose first column is <m>{\mathbf u}</m> and second column is <m>{\mathbf v}</m>. That is, <m>T {\mathbf e}_1 = {\mathbf u}</m> and <m>T{\mathbf e}_2 = {\mathbf v}</m>. Since <m>{\mathbf u}</m> and <m>{\mathbf v}</m> are linearly independent, <m>\det(T) \neq 0</m> and <m>T</m> is invertible. So, it must be the case that
+                    <me>AT = (A {\mathbf u}, A {\mathbf v}) = (\lambda {\mathbf u}, \lambda {\mathbf v}) = \lambda ({\mathbf u}, {\mathbf v}) = \lambda IT,</me>
+                or 
+                    <me>A = \begin{pmatrix} \lambda &amp; 0 \\ 0 &amp; \lambda \end{pmatrix}.</me></p>
+                </proof>
+        </proposition>
+
+        <p>In this case, the system is uncoupled and is easily solved. That is, we can solve each equation in the system
+            <md>
+                <mrow>x' \amp = \lambda x</mrow>
+                <mrow>y' \amp = \lambda y</mrow>
+            </md>
+        separately to obtain the general solution
+           <md>
+                <mrow>x \amp = c_1 e^{\lambda t}</mrow>
+                <mrow>y' \amp = c_2 e^{\lambda t}.</mrow>
+            </md></p>
+
+        <proposition>
+            <statement>
+                <p>Suppose that <m>A</m> has a single eigenvalue <m>\lambda</m>. If <m>\mathbf v</m> is an eigenvector for <m>\lambda</m> and any other eigenvector for <m>\lambda</m> is a multiple of <m>\mathbf v</m>, then there exists a matrix <m>T</m> such that 
+                    <me>T^{-1} A T
+                    =
+                    \begin{pmatrix}
+                    \lambda &amp; 1 \\
+                    0 &amp; \lambda
+                    \end{pmatrix}.</me></p>
+            </statement>
+            <proof>
+                <p>If <m>{\mathbf w}</m> is another vector in <m>{\mathbb R}^2</m> such that <m>{\mathbf v}</m> and <m>{\mathbf w}</m> are linearly independent, then <m>A \mathbf w</m> can be written as a linear combination of <m>\mathbf v</m> and <m>\mathbf w</m>,
+                    <me>A {\mathbf w} = \alpha {\mathbf v} + \beta {\mathbf w}.</me>
+                We can assume that <m>\alpha \neq 0</m>; otherwise, we would have a second linearly independent eigenvector. We claim that <m>\beta = \lambda</m>. If this were not the case, then
+                    <md>
+                        <mrow>A
+                        \left(
+                        {\mathbf w} + 
+                        \left(
+                        \frac{\alpha}{\beta - \lambda}
+                        \right)
+                        {\mathbf v}
+                        \right)
+                        \amp =
+                        A {\mathbf w} + 
+                        \left(
+                        \frac{\alpha}{\beta - \lambda}
+                        \right)
+                        A {\mathbf v}
+                        </mrow>
+                        <mrow>\amp = \alpha {\mathbf v} + \beta {\mathbf w} + 
+                        \lambda \left(
+                        \frac{\alpha}{\beta - \lambda}
+                        \right)
+                        {\mathbf v}</mrow>
+                        <mrow>\amp =  \beta {\mathbf w} + 
+                        \alpha \left(1 + 
+                        \frac{\lambda}{\beta - \lambda}
+                        \right)
+                        {\mathbf v}</mrow>
+                        <mrow>\amp =  \beta {\mathbf w} + 
+                        \alpha \left(
+                        \frac{\beta - \lambda + \lambda}{\beta - \lambda}
+                        \right)
+                        {\mathbf v}</mrow>
+                        <mrow>\amp = \beta
+                        \left(
+                        {\mathbf w} + 
+                        \left(
+                        \frac{\alpha}{\beta - \lambda}
+                        \right)
+                        {\mathbf v}
+                        \right)</mrow></md>
+                and <m>\beta</m> would be an eigenvalue distinct from <m>\lambda</m>. Thus, <m>A {\mathbf w}  = \alpha {\mathbf v} + \lambda {\mathbf w}</m>. If we will let <m>{\mathbf u} = (1/ \alpha) {\mathbf w}</m>, then
+                    <me>A {\mathbf u} = {\mathbf v} + \frac{\lambda}{\alpha} {\mathbf w} = {\mathbf v} + \lambda {\mathbf u}.</me>
+                We now define <m>T {\mathbf e}_1 = {\mathbf v}</m> and <m>T{\mathbf e}_2 = {\mathbf u}</m>. Since
+                    <md>
+                        <mrow>AT \amp = A\mathbf u + A \mathbf v = \mathbf v + \lambda \mathbf u + \lambda \mathbf v</mrow>
+                        <mrow>T\begin{pmatrix}
+                        \lambda &amp; 1 \\
+                        0 &amp; \lambda
+                        \end{pmatrix} \amp = T (\lambda \mathbf e_1) + T \mathbf e_1 + T (\lambda \mathbf e_2) = \mathbf v + \lambda \mathbf u + \lambda \mathbf v,</mrow>
+                    </md>
+                we have
+                    <me>T^{-1} A T
+                    =
+                    \begin{pmatrix}
+                    \lambda &amp; 1 \\
+                    0 &amp; \lambda
+                    \end{pmatrix}.</me>
+                Therefore, <m>{\mathbf x}' = A {\mathbf x}</m> is in canonical form after a change of coordinates.</p>
+                </proof>
+        </proposition>
+
+        <example>
+            <p>Consider the system  <m>\mathbf x' = A \mathbf x</m>, where
+                <me>A = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}.</me>
+            The characteristic polynomial of <m>A</m> is <m>\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2</m>, we have only a single eigenvalue <m>\lambda = 3</m> with eigenvector <m>\mathbf v = (1, -2)</m>. Any other eigenvector for <m>\lambda</m> is a multiple of <m>\mathbf v</m>. If we choose <m>\mathbf w = (1, 0)</m>, then <m>\mathbf v</m> and <m>\mathbf w</m> are linearly independent. Furthermore,
+                <me>A \mathbf w = \begin{pmatrix} 5 \\ - 4 \end{pmatrix} = 2 \begin{pmatrix} 1 \\ -2 \end{pmatrix} + \lambda \begin{pmatrix} 1 \\ 0 \end{pmatrix} = 2 \begin{pmatrix} 1 \\ -2 \end{pmatrix} + 3 \begin{pmatrix} 1 \\ 0 \end{pmatrix}.</me>
+            So we can let <m>\mathbf u = (1/2) \mathbf w = (1/2, 0)</m>. Therefore, the matrix that we seek is
+                <me>T = \begin{pmatrix}  1 \amp 1/2 \\ -2 \amp 0 \end{pmatrix},</me>
+            and
+                <me>T^{-1} A T
+                =
+                \begin{pmatrix} -1/2 &amp; 2 \\ 1 &amp; 1 \end{pmatrix}
+                \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}
+                \begin{pmatrix}  1 \amp 1/2 \\ -2 \amp 0\end{pmatrix}
+                =
+                \begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 3 \end{pmatrix}.</me>
+            From Section<nbsp /><xref ref="linear03" />, we know that the general solution to the system 
+                <me>\begin{pmatrix} dx/dt \\ dy/dt \end{pmatrix} = \begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 3 \end{pmatrix} \begin{pmatrix} x \\  y \end{pmatrix}</me>
+            is
+                <me>\mathbf y(t) = c_1 e^{3t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2 e^{3t} \begin{pmatrix} t \\ 1 \end{pmatrix}.</me>
+            Therefore, the general solution to
+                <me>\begin{pmatrix} dx/dt \\ dy/dt \end{pmatrix} = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix} \begin{pmatrix} x \\  y \end{pmatrix}</me>
+            is
+                <md>
+                    <mrow>\mathbf x(t) \amp = T \mathbf y(t)</mrow>
+                    <mrow>\amp = c_1 e^{3t} T \begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2 e^{3t} T \begin{pmatrix} t \\ 1 \end{pmatrix}</mrow>
+                    <mrow>\amp = c_1 e^{3t} \begin{pmatrix} 1 \\ -2 \end{pmatrix} + c_2 e^{3t}  \begin{pmatrix} 1/2 + t \\ -2t \end{pmatrix}.</mrow>
+                </md>
+            This solution agrees with the solution that we found in Example<nbsp /><xref ref="example-linear05-repeated-eigenvalues" />.</p>
+        </example>
+
+        <p>In practice, we find solutions to linear systems using the methods that we outlined in Sections<nbsp /><xref ref="linear02" /><ndash /><xref ref="linear04" />.  What we have demonstrated in this section is that those solutions are exactly the ones that we want.</p>
+
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear06-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>A linear map <m>T</m> is invertible if and only if <m>\det T \neq 0</m>.</li>
+
+			<li>A linear map <m>T</m> converts solutions of <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m> to solutions of <m>{\mathbf x}' = A {\mathbf x}</m>.</li>
+
+			<li>The inverse of a linear map <m>T</m> takes solutions of <m>{\mathbf x}' = A {\mathbf x}</m> to solutions of <m>{\mathbf y}' = (T^{-1} A T) {\mathbf y}</m>.</li>
+
+			<li>A change of coordinates converts the system <m>{\mathbf x}' = A {\mathbf x}</m> to one of the following special cases,
+                <me>\begin{pmatrix}
+                \lambda &amp; 0 \\
+                0 &amp; \mu
+                \end{pmatrix},
+                \begin{pmatrix}
+                \alpha &amp;  \beta \\
+                -\beta &amp; \alpha
+                \end{pmatrix},
+                \begin{pmatrix}
+                \lambda &amp; 0 \\
+                0 &amp; \lambda
+                \end{pmatrix},
+                \begin{pmatrix}
+                \lambda &amp; 1 \\
+                0 &amp; \lambda
+                \end{pmatrix}.</me></li>
+
+		</ul></p>
+			
+	</subsection>
+
+    <xi:include href="./exercises/linear06.xml" />
+
+    <subsection number="no" xml:id="subsection-linear06-sage-project">
+        <title>Project</title>
+
+<todo>Write a Sage project.</todo>
+
+    </subsection>
+
+ </section>
+
+
+<!--</section>-->

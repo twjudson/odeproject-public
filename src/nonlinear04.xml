@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="nonlinear04" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>The Hopf Bifurcation</title>
+    
+    <introduction>
+
+        <p>If we consider the phase portrait of a system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+            </md>
+        we may see closed orbits and various types of equilibrium solutions. If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink. However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <term>bifurcation</term> has occurred.</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-nonlinear04-bifurcations">
+        <title>Bifurcations</title>
+
+		<p>The simplest bifurcations occur when an equilibrium solution appears, disappears, or splits into two or more equilibrium solutions. For example, the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha + x^2</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -y</mrow>
+            </md>
+        has no equilibrium solution if <m>\alpha \gt 0</m> (Figure<nbsp /><xref ref="figure-nonlinear04-hopf-1" />). However, we have a single equilibrium solution at the origin if <m>\alpha = 0</m> and two equilibrium solutions, <m>(\pm \sqrt{-\alpha}, 0)</m>, if <m>\alpha \lt 0</m>.</p>
+
+		<figure xml:id="figure-nonlinear04-hopf-1">
+             <image width="60%" xml:id="nonlinear04-hopf-1">
+                <sageplot>
+                    x, y, t = var('x y t')
+                    alpha = 5
+                    F = [alpha + x^2, -y]
+                    xmin = -10
+                    xmax = 10
+                    ymin = -10
+                    ymax = 10
+                    start_x = -9
+                    start_y = 9
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=1,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions for <m>\alpha \gt 0</m></caption>
+        </figure>
+            
+		<p>The Jacobian of the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha + x^2</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -y</mrow>
+            </md>
+        is
+            <me>J(x,y)
+            =
+            \begin{pmatrix}
+            2x &amp; 0 \\
+            0 &amp; -1
+            \end{pmatrix}.</me>
+        If <m>\alpha = 0</m>, then <m>J</m> has eigenvalues 0 and <m>-1</m>. This is not an elementary equilibrium point such a saddle, a sink, or a spiral source. We call this type of equilibrium solution a <term>saddle-node</term>.  On the right half of the <m>xy</m>-plane, the equilibrium solution resembles a saddle, while on the left half it resembles a sink (Figure<nbsp /><xref ref="figure-nonlinear04-hopf-2" />).</p>
+            
+		<figure xml:id="figure-nonlinear04-hopf-2">
+            <image width="60%" xml:id="nonlinear04-hopf-2">
+                <sageplot>
+                    x, y, t = var('x y t')
+                    alpha = -16
+                    F = [alpha + x^2, -y]
+                    xmin = -10
+                    xmax = 10
+                    ymin = -10
+                    ymax = 10
+                    start_x = -9
+                    start_y = 9
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=2.9,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
+                </sageplot>
+            </image>
+            <caption>Solutions for <m>\alpha \lt 0</m></caption>
+        </figure>
+
+		<p>If <m>\alpha \lt 0</m>, then 
+            <me>J
+            =
+            \begin{pmatrix}
+            2 \sqrt{\alpha} &amp; 0 \\
+            0 &amp; -1
+            \end{pmatrix}
+            \text{ or }
+            \begin{pmatrix}
+            -2 \sqrt{\alpha} &amp; 0 \\
+            0 &amp; -1
+            \end{pmatrix}.</me>
+        In the first case, we have a saddle since the eigenvalues are real and of opposite sign. In the second case, we have a nodal sink, since both eigenvalues are negative.  The two equilibrium solutions move in opposite directions as <m>\alpha</m> decreases. We can summarize what happens for various values of <m>\alpha</m> with a bifurcation diagram such as the one in Figure<nbsp /><xref ref="figure-nonlinear04-bifurcation" />.</p>
+
+		<figure xml:id="figure-nonlinear04-bifurcation">
+			<image width="60%" xml:id="nonlinear04-bifurcation">
+                <sageplot>
+					p = plot(sqrt(-x), ( -1.5 , 0), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
+					p += plot(-sqrt(-x), x, -1.5, 0, thickness = 2)
+					points = [ (0,0) ]
+					p += point(points[0], pointsize=70)
+					points = [ (1.5,0) ]
+					p += point(points[0], pointsize=0.1)
+					p += text("Bifurcation Point",(0.5,0.1))
+					p += text("$x = \sqrt{\\alpha}$, Saddle Point",(-0.5,1.4))
+					p += text("$x = -\sqrt{\\alpha}$, Stable Equilibrium",(-0.5,-1.4))
+					p
+                </sageplot>
+            </image>
+            <caption>Bifurcation diagram</caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear04-hopf-bifurcation">
+    	<title>The Hopf Bifurcation</title>
+
+		<p>Now let us consider an entirely different type of bifurcation by examining the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2).</mrow>
+            </md>
+        The origin is an equilibrium solution for all values of <m>\alpha</m>. The linearization of our system is
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha x + 5y</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -5x + \alpha y.</mrow>
+            </md>
+        Since the eigenvalues of this system are <m>\alpha \pm 5i</m>, we can easily determine the nature of of our linearization. If <m>\alpha \lt 0</m>, we have a spiral sink. As <m>\alpha</m> moves from negative values to positive values, the origin changes to a center (<m>\alpha = 0</m>), and then to a spiral source (<m>\alpha \gt 0</m>).</p>
+
+		<p>In the case of the nonlinear system, the origin is still a spiral sink for <m>\alpha \gt 0</m> (Figure<nbsp /><xref ref="figure-nonlinear04-hopf-5" />). If <m>\alpha \gt 0</m>, the origin is still a spiral source (Figure<nbsp /><xref ref="figure-nonlinear04-hopf-6" />). However, something quite different happens at <m>\alpha = 0</m>. The origin is stable equilibrium solution with solutions spiraling into the origin very slowly. As <m>\alpha</m> increases past zero, the equilibrium solution destabilizes and becomes a source. In addition, a closed orbit of radius <m>\sqrt{\alpha}</m> develops.  Solutions inside of this closed orbit spiral out towards the orbit, while solutions outside of the orbit spiral inward (Figure<nbsp /><xref ref="figure-nonlinear04-hopf-7" />).</p>
+
+		<figure xml:id="figure-nonlinear04-hopf-5">
+			<image width="60%" xml:id="nonlinear04-hopf-5">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = -1
+					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+					xmin = -2
+					xmax = 2
+					ymin = -2
+					ymax = 2
+					start_x = -1.5
+					start_y = 1.5
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=3,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					n = sqrt(F[0]^2 + F[1]^2)
+					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					p
+                </sageplot>
+            </image>
+            <caption>Solutions for <m>\alpha \lt 0</m></caption>
+        </figure>
+
+		<figure xml:id="figure-nonlinear04-hopf-6">
+			<image width="60%" xml:id="nonlinear04-hopf-6">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = 0
+					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+					xmin = -2
+					xmax = 2
+					ymin = -2
+					ymax = 2
+					start_x = -1.5
+					start_y = 1.5
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					n = sqrt(F[0]^2 + F[1]^2)
+					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					p
+                </sageplot>
+            </image>
+            <caption>Solutions for <m>\alpha = 0</m></caption>
+        </figure>
+
+		<figure xml:id="figure-nonlinear04-hopf-7">
+			<image width="60%" xml:id="nonlinear04-hopf-7">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = 1
+					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+					xmin = -2
+					xmax = 2
+					ymin = -2
+					ymax = 2
+					n = sqrt(F[0]^2 + F[1]^2)
+					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					start_x = -1.5
+					start_y = 1.5
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					start_x = -0.2
+					start_y = 0.2
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p += line(S, axes_labels=['$x(t)$','$y(t)$'], color="red")
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4, color="red")
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50, color="red")
+					p
+                </sageplot>
+            </image>
+            <caption>Solutions for <m>\alpha \gt 0</m></caption>
+        </figure>
+
+		<p>To see exactly what happens as <m>\alpha</m> passes zero and becomes positive, we will rewrite our system in polar coordinates. If we make the substitution <m>x = r \cos \theta</m> and <m>y = r \sin \theta</m>, our nonlinear system can be rewritten as
+            <md>
+                <mrow>\frac{dr}{dt} &amp; = \alpha r - r^3</mrow>
+                <mrow>\frac{d\theta}{dt} &amp; = -5.</mrow>
+            </md>
+        If <m>\alpha \lt 0</m>, the origin is a sink since <m>\alpha r - r^3 \lt 0</m> for all <m>r \gt 0</m>. In this case all solutions tend towards the origin as <m>t \to \infty</m>. When <m>\alpha \gt 0</m>, the origin is still an equilibrium solution. Moreover, <m>r' = 0</m>, when <m>r = \sqrt{\alpha}</m>. We also know that <m>r' \gt 0</m> for <m>0 \lt r \lt \sqrt{\alpha}</m> and <m>r' \lt 0</m> if <m>r \gt \sqrt{\alpha}</m>. So the circle of radius <m>\sqrt{\alpha}</m> is a periodic solution with the trajectory moving clockwise since <m>\theta' = -5 \lt 0</m>. All nonzero solutions spiral towards this orbit as <m>t \to \infty</m>. This type of bifurcation is called a <term>Hopf bifurcation</term>. No new equilibrium solutions arise, but a periodic solution develops as <m>\alpha</m> passes through the bifurcation value.</p>
+
+		<theorem xml:id="theorem-nonlinear04-lyapunov">
+            <title>Hopf Bifurcation</title>
+            <statement>
+                <p>Suppose that <m>(x_0(\alpha), y_0(\alpha))</m> is a equilibrium solution for the family of systems
+                    <md>
+                        <mrow>\frac{dx}{dt} &amp; = f_\alpha(x, y)</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = g_\alpha(x, y)</mrow>
+                    </md>
+                parameterized by <m>\alpha</m>, and the Jacobian matrix for the system evaluated at this equilibrium has eigenvalues <m>a(\alpha) \pm i b(\alpha)</m>. Assume that at some <m>\alpha = \alpha_0</m>, we have <m>a(\alpha_0) = 0</m>, <m>a'(\alpha_0) \gt 0</m>, <m>b(\alpha_0) \neq 0</m>, and that the equilibrium point is asymptotically stable. Then there exists an <m>\alpha_1</m> such that the system has a periodic solution encircling the equilibrium solution for <m>\alpha_0 \lt \alpha \lt \alpha_1</m>.<fn>For a proof and description of the Hopf Bifurcation Theorem see C. Chicone. <em>Ordinary Differential Equations with Applications</em>.  Springer-Verlag, New York, 1999.</fn></p>
+            </statement>
+        </theorem> 
+
+		<p>Recall that our example system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2)</mrow>
+            </md>
+        has an equilibrium at <m>(0, 0)</m> with eigenvalues  <m>\alpha \pm 5i</m>.  If we let <m>\alpha_0 = 0</m>, then <m>a(0) = 0</m>, <m>a'(0) = 1</m>, and <m>b(0) = 5</m>. Thus, the hypothesis of the Hopf Bifurcation Theorem are satisfied and we are guaranteed a period solution surrounding our equilibrium solution.</p>
+
+        <example>
+            <title>Van der Pol's equation</title>
+
+            <p>Van der Pol's equation, a simple nonlinear equation having applications in electrical engineering and mathematical biology, is <m>x'' - x(1 - x^2)x' + x = 0</m>. This equation can be written as the system
+                <mdn>
+                    <mrow xml:id="equation-nonlinear04-van-der-pol-a">\frac{dx}{dt} \amp = y</mrow>
+                    <mrow xml:id="equation-nonlinear04-van-der-pol-b">\frac{dy}{dt} \amp = -x + x(1 - x^2)y.</mrow>
+                </mdn>
+            The phase portrait for Van der Pol's equation is given in Figure <xref ref="figure-nonlinear04-van-der-pol" />. The origin is the only equilibrium solution to Van der Pol's equation, and one might guess that this solution acts like a spiral source by examining the phase portrait. If we examine the system consisting of only linear terms on the right-hand side of the equation,
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = y</mrow>
+                    <mrow>\frac{dy}{dt} \amp = - x + y </mrow>
+                </md>
+            we might get a better sense of what is happening.  The matrix for this linear system,
+                <me>A =
+                \begin{pmatrix}
+                0 \amp 1 \\
+                -1 \amp 1
+                \end{pmatrix},</me>
+            has eigenvalues <m>\lambda = (1 \pm i\sqrt{3})/2</m>. This suggests that the origin looks like a spiral source at least locally. Indeed, the Jacobian matrix for <xref ref="equation-nonlinear04-van-der-pol-a" /><ndash /><xref ref="equation-nonlinear04-van-der-pol-a" /> is 
+                <me>J
+                =
+                \begin{pmatrix}
+                0  \amp 1 \\
+                -1 - 2 x_0 y_0 \amp 1 - x_0^2
+                \end{pmatrix},</me>
+                which agrees with <m>A</m> for <m>(x_0, y_0) = (0,0)</m>.</p>
+        </example>
+
+        <figure xml:id="figure-nonlinear04-van-der-pol">    
+            <image width="60%" xml:id="nonlinear04-van-der-pol">
+                <sageplot>
+                    x, y, t = var('x y t')
+                    F = [y, -x + x*(1 - x^2)*y]
+                    xmin = -4
+                    xmax = 4
+                    ymin = -4
+                    ymax = 4
+                    start_x = 1.5
+                    start_y = 2
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=20,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
+                </sageplot>
+            </image>
+            <caption>Van der Pol's equation</caption>
+        </figure>
+
+		<p>Let us examine how a bifurcation might occur in a predator-prey model.  In our model, we will assume that a predator's appetite is satiated when food is abundant. If this is the case, an increase in the prey population has little effect on the interaction terms in our model.  We might model this satiable predator-prey scenario by the equations
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha x}</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha x},</mrow>
+            </md>
+        where <m>x(t)</m> is the prey population at time <m>t</m> and <m>y(t)</m> is the predator population at time <m>t</m>. Here, <m>a, \ldots, f</m> and <m>\alpha</m> are constants. Let us choose the constants <m>a, \ldots, f</m> so that our system becomes
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = (1 - x)x - \frac{xy}{0.3 + \alpha x}</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -0.5y + \frac{xy}{0.3 + \alpha x}.</mrow>
+            </md>
+        The constant <m>\alpha</m> is know as the <term>satiation constant</term>. The larger the value of <m>\alpha</m>, the more quickly a predator's appetite is satiated as the prey population increases.</p>
+
+		<p>Let us see examine the phase portrait for several values of <m>\alpha</m>. If <m>\alpha = 0</m>, then there is no satiation effect. In this case, all trajectories inside the population quadrant spiral asymptotically towards a single stable equilibrium point (Figure<nbsp /><xref ref="figure-nonlinear04-satiated-predator-prey-1" />).  If <m>\alpha = 1.35</m>, we have a very similar phase portrait with solutions spiraling in towards a stable equilibrium solution (Figure<nbsp /><xref ref="figure-nonlinear04-satiated-predator-prey-2" />). However, if <m>\alpha = 0.9</m>, we have a periodic trajectory. All other trajectories are pulled toward this attracting periodic orbit (Figure<nbsp /><xref ref="figure-nonlinear04-satiated-predator-prey-3" />).</p>
+
+		<figure xml:id="figure-nonlinear04-satiated-predator-prey-1">
+			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-1">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = 0
+					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+					xmin = -0.02
+					xmax = 1
+					ymin = -0.02
+					ymax = 1
+					n = sqrt(F[0]^2 + F[1]^2)
+					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					start_x = 0.9
+					start_y = 0.1
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=30,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					p
+                </sageplot>
+            </image>
+            <caption>Predator-prey model with <m>\alpha = 0</m></caption>
+        </figure>
+
+		<figure xml:id="figure-nonlinear04-satiated-predator-prey-2">
+			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-2">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = 1.35
+					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+					xmin = -0.02
+					xmax = 1
+					ymin = -0.02
+					ymax = 1
+					n = sqrt(F[0]^2 + F[1]^2)
+					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					start_x = 0.9
+					start_y = 0.1
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					p
+                </sageplot>
+            </image>
+            <caption>Predator-prey model with <m>\alpha = 1.35</m></caption>
+        </figure>
+
+		<figure xml:id="figure-nonlinear04-satiated-predator-prey-3">
+			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-3">
+                <sageplot>
+					x, y, t = var('x y t')
+					alpha = 0.9
+					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+					xmin = -0.02
+					xmax = 1
+					ymin = -0.02
+					ymax = 1
+					n = sqrt(F[0]^2 + F[1]^2)
+					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+					start_x = 0.9
+					start_y = 0.1
+					start_t = 0
+					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
+					S = [[j, k] for i,j,k in P]
+					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+					points = [ (start_x, start_y) ]
+					p += point(points[0], pointsize=50)
+					p
+                </sageplot>
+            </image>
+            <caption>Predator-prey model with <m>\alpha = 0.9</m></caption>
+        </figure>
+
+		<figure xml:id="figure-nonlinear04-satiated-predator-prey-4">
+			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-4">
+                <sageplot>
+					f(x) = 0.15/(1 - 0.5*x)
+					p = plot(f(x), (0, 1.5), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
+					points = [ (0.85,f(0.85)) ]
+					p += point(points[0], pointsize=70)
+					points = [ (1.2,f(1.2)) ]
+					p += point(points[0], pointsize=70)
+					p += text("Bifurcation Point",(0.85,0.2))
+					p += text("Bifurcation Point",(1.25,0.3))
+					p += text("sink",(0.5, 0.25))
+					p += text("source",(1, 0.37))
+					p += text("sink",(1.37, 0.55))
+					p
+                </sageplot>
+            </image>
+            <caption>Bifurcation diagram for the satiable predator-prey model</caption>
+        </figure>
+
+		<p>As <m>\alpha</m> continues to increase a Hopf bifurcation occurs at <m>\alpha \approx 0.5</m>. At this point the equilibrium solution destabilizes and spawns an attracting periodic orbit. As <m>\alpha</m> continues to increase, the amplitude of this periodic orbit increases. However, at <m>\alpha \approx 0.85</m>, the amplitude of the periodic solution begins to decrease. At <m>\alpha \approx 1.2</m>, the equilibrium point re-stabilizes and the periodic solution is absorbed. For <m>\alpha > 1.2</m>, we only have a stable equilibrium solution in the first quadrant. The <m>x</m>-coordinate of our equilibrium solution is
+            <me>x = \frac{0.15}{1 - 0.5 \alpha},</me>
+        and we can summarize our findings with a bifurcation diagram  (Figure<nbsp /><xref ref="figure-nonlinear04-satiated-predator-prey-4" />).</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear04-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink.  However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <term>bifurcation</term> has occurred.</li>
+
+			<li>A <term>Hopf bifurcation</term> if an attracting periodic solution encircling an equilibrium solution develops as <m>\alpha</m> passes through the bifurcation value.</li>
+
+			<li>Suppose that <m>(x_0(\alpha), y_0(\alpha))</m> is a equilibrium solution for the family of systems
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f_\alpha(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g_\alpha(x, y)</mrow>
+                </md>
+            parameterized by <m>\alpha</m>, and the Jacobian matrix for the system evaluated at this equilibrium has eigenvalues <m>a(\alpha) \pm i b(\alpha)</m>. Assume that at some <m>\alpha = \alpha_0</m>, we have <m>a(\alpha_0) = 0</m>, <m>a'(\alpha_0) \gt 0</m>, <m>b(\alpha_0) \neq 0</m>, and that the equilibrium point is asymptotically stable. Then there exists an <m>\alpha_1</m> such that the system has a periodic solution encircling the equilibrium solution for <m>\alpha_0 \lt \alpha \lt \alpha_1</m>.</li>
+
+			<li>A satiable predator-prey scenario can be modeled by the equations
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha y}</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha y},</mrow>
+                </md>
+            where <m>x(t)</m> is the prey population at time <m>t</m> and <m>y(t)</m> is the predator population at time <m>t</m>. Here, <m>a, \ldots, f</m> and <m>\alpha</m> are constants. The constant <m>\alpha</m> is know as the <term>satiation constant</term>. The larger the value of <m>\alpha</m>, the more quickly a predator's appetite is satiated as the prey population increases.</li>
+
+		</ul></p>
+
+	</subsection>
+
+    <xi:include href="./exercises/nonlinear04.xml" />
+
+    <subsection number="no" xml:id="subsection-nonlinear04-sage-project">
+        <title>Project<mdash />The Lorenz Equations</title>
+    
+        <subsubsection>
+            <title>The Lorenz Equations</title>
+
+            <p>In 1963, an MIT professor, Edward N. Lorenz, published a paper on his research in meteorology. Using differential equations, Lorenz had developed a simplified system to model certain weather-related phenomena.  When he analyzed the system, however, he found that the trajectories of the solutions were incredibly convoluted and effectively unpredictable for certain parameters. The <term>Lorenz equations</term> can be written as 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -\sigma x + \sigma y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = \rho x - y - xz</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\beta z + xy,</mrow>
+                </md>
+            where <m>\sigma</m>, <m>\rho</m>, and <m>\beta</m> are constants. The Existence and Uniqueness Theorem for systems of differential equations guarantees a unique solution for each set of initial conditions, 
+                <md>
+                    <mrow>x(0) &amp; = x_0</mrow>
+                    <mrow>y(0) &amp; = y_0</mrow>
+                    <mrow>z(0) &amp; = z_0.</mrow>
+                </md>
+            However, Lorenz discovered that the trajectories of the solutions were incredibly convoluted and effectively unpredictable for certain parameters. For certain values of <m>\sigma</m>, <m>\rho</m>, and <m>\beta</m>, the trajectories are  extremely sensitive to initial conditions. Since real data always has some inherent uncertainty, initial values are never precisely known, and we may have little success modeling real world phenomena. In addition, solutions can stay in a bounded region of the three dimensional version of the phase plane and wind through the region along an incredibly convoluted path. There is much more freedom to move around in three dimensions than there is in two.</p>
+
+            <p>Lorenz noticed that the system behaved strangely, when he let <m>\sigma =10</m>, <m>\rho = 28</m>, and <m>\beta = 8/3</m>.  Thus, our system 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -10 x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28 x - y - xz</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\frac{8}{3} z + xy,</mrow>
+                </md>
+            defines a vector field in <m>{\mathbb R}^3</m>,
+                <me>{\mathbf F}(x, y, z) 
+                =
+                \left(
+                -10 x + 10 y,
+                28 x - y - xz,
+                -\frac{8}{3} z + xy
+                \right),</me>
+            and the equilibrium solutions occur exactly when this vector field is zero. That is, <m>(x,y,z)</m> is an equilibrium solution if
+                <me>{\mathbf F}(x, y, z) 
+                =
+                \left(
+                -10 x + 10 y,
+                28 x - y - xz,
+                -\frac{8}{3} z + xy
+                \right)
+                =
+                (0, 0, 0).</me>
+            It is easy to check that <m>(0, 0, 0)</m>, <m>(6\sqrt{2}, 6\sqrt{2}, 27)</m>, and <m>(-6\sqrt{2}, -6\sqrt{2}, 27)</m> are the equilibrium solutions to the Lorenz system for the parameters that we have chosen. With the exception of these equilibrium solutions it is probably impossible to find solutions for the system, so we will have to use a numerical algorithm to approximate solutions (Figure<nbsp /><xref ref="figure-nonlinear06-lorenz-1" />).</p>
+
+            <figure xml:id="figure-nonlinear06-lorenz-1">
+                <caption>The solution curves for two systems with nearly equal initial conditions.</caption>
+                <image width="60%" source="images/lorenz-1.png" />
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection>
+            <title>The Equilibrium Solutions</title>
+
+            <p>If we wish to understand the nature of the equilibrium solutions of the Lorenz system, it makes sense to linearize the system. The Jacobian matrix of the Lorenz system is
+                <me>J(x, y, z)
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                28 - z &amp; -1 &amp; -x \\
+                y &amp; x &amp; -8/3
+                \end{pmatrix}.</me>
+            At the origin, the Jacobian is
+                <me>J
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                28 &amp; -1 &amp; 0 \\
+                0 &amp; 0 &amp; -8/3
+                \end{pmatrix}.</me>
+            Thus, the linear system that approximates the Lorenz system at the origin is
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = - 10x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28x - y</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\frac{8}{3} z.</mrow>
+                </md>
+            This system decouples into two systems,
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = - 10x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28x - y,</mrow>
+                </md>
+            and 
+                <me>\frac{dz}{dt} = -\frac{8}{3} z.</me>
+            Consequently, the origin is a sink in the <m>z</m>-direction and a saddle in the <m>xy</m>-plane.</p>
+
+            <p>Now let us consider what happens at the other two equilibrium solutions. For the equilibrium point <m>(6\sqrt{2}, 6\sqrt{2}, 27)</m>, we have the Jacobian matrix
+                <me>J 
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                1 &amp; -1 &amp; -6 \sqrt{2} \\
+                6 \sqrt{2} &amp; 6\sqrt{2} &amp; - 8/3
+                \end{pmatrix}.</me>
+            The eigenvalues of this matrix are
+                <md>
+                    <mrow>\lambda_1 &amp; \approx -13.8</mrow>
+                    <mrow>\lambda_2 &amp; \approx 0.094 + 10.2i</mrow>
+                    <mrow>\lambda_3 &amp; \approx 0.094 - 10.2i.</mrow>
+                </md>
+            Therefore, this equilibrium point is a spiral saddle that has a line of solutions that tend toward the equilibrium point as <m>t</m> increases and a plane of solutions that spiral towards the equilibrium point as <m>t</m> decreases. That is, solutions approach this equilibrium point along the direction of the eigenvalue of the negative eigenvector, then spiral slowly away along the plane corresponding to the complex eigenvalues. Similarly, the equilibrium solution <m>(-6\sqrt{2}, -6\sqrt{2}, 27)</m> is a spiral saddle.</p>
+
+            <p>Now that we have some idea of how the solutions of the Lorenz system behave near the equilibrium solutions, we can start to understand global behavior of the system. A trajectory approaches one of the two equilibrium solutions <m>(\pm 6\sqrt{2}, \pm 6\sqrt{2}, 27)</m> along the straight line corresponding to the negative eigenvalue.  When the trajectory gets close enough to the equilibrium solutions, it begins to spiral away. When the spiral is large enough, the trajectory come under the influence of the saddle at the origin and either returns to repeat it previous pattern or moves over to the other equilibrium solution (Figure<nbsp /><xref ref="figure-nonlinear06-lorenz-2" />).</p>
+
+            <figure xml:id="figure-nonlinear06-lorenz-2">
+                <caption>Solutions in <m>\mathbb R^3</m>.</caption>
+                <image width="60%" source="images/lorenz-2.png" />
+            </figure>
+
+            <exercise>
+                <statement>
+                    <p>Consider the Lorenz system
+                        <md>
+                            <mrow>x' &amp; = -a x + ay</mrow>
+                            <mrow>y' &amp; = rx -y -xz</mrow>
+                            <mrow>z' &amp; = -bz + xy.</mrow>
+                        </md>
+                    In this exercise, we shall show that the solutions of the system are bounded.
+                        <ol>
+
+                            <li>If
+                                <me>V(x, y, z) = rx^2 +ay^2 + a(z - 2r)^2,</me>
+                            Show that
+                                <me>\dot{V} = -2a [rx^2 + y^2 + b(z - r)^2 - br^2].</me></li>
+
+                            <li>It is true that <m>(z - r)^2 \geq (z - 2r)^2 - r^2</m>.  Assuming this, show that
+                                <me>rx^2 + y^2 + b(z - r)^2 \geq mV - br^2,</me>
+                            where <m>m</m> is the smallest of the three numbers 1, <m>1/a</m>, and <m>b/2a</m>.</li>
+
+                            <li>Use parts (1) and (2) to show that
+                                <me>\dot{V} \leq -2maV + 4abr^2.</me></li>
+
+                            <li>Use part (3) to show that <m>\dot{V} \leq -2abr^2 \lt 0</m> everywhere outside of the ellipsoid
+                                <me>R = \left\{  (x, y, z) | V(x, y, z) \leq 3br^2/m \}\right\}.</me></li>
+
+                            <li>Use part (4) to show that the ellipsoid is invariant, and that every solution curve ends up inside of <m>R</m>.</li>
+
+                        </ol></p>  
+                </statement>
+
+                <hint>
+                </hint>
+
+                <solution>
+
+                </solution>
+
+            </exercise>
+
+        </subsubsection>
+    
+    </subsection>
+
+</section>
+
+<!--</section>-->

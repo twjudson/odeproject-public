@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="linear02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Planar Systems</title>
+
+    <introduction>
+
+        <p>A <term>first-order linear system of <m>n</m> equations and <m>n</m> variables</term><index><main>system</main><sub>first-order linear</sub></index> is any system that can be written in the form
+            <md>
+                <mrow>\frac{dx_1}{dt} &amp; = a_{11}(t) x_1(t) + \cdots + a_{1n}(t) x_n(t) + f_1(t),</mrow>
+                <mrow>\frac{dx_2}{dt} &amp; = a_{21}(t) x_1(t) + \cdots + a_{2n}(t) x_n(t) + f_2(t),</mrow>
+                <mrow>&amp; \vdots</mrow>
+                <mrow>\frac{dx_n}{dt} &amp; = a_{n1}(t) x_1(t) + \cdots + a_{nn}(t) x_n(t) + f_n(t).</mrow>
+            </md>
+        If each of the coefficients is constant and the functions <m>f_i</m> vanish, then we have a <term>homogeneous first-order linear system with constant coefficients</term><index><main>system</main><sub>homogeneous first-order linear</sub></index>,
+            <md>
+                <mrow>\frac{dx_1}{dt} &amp; = a_{11} x_1 + \cdots + a_{1n} x_n</mrow>
+                <mrow>\frac{dx_2}{dt} &amp; = a_{21} x_1 + \cdots + a_{2n} x_n,</mrow>
+                <mrow>&amp; \vdots</mrow>
+                <mrow>\frac{dx_n}{dt} &amp; = a_{n1} x_1 + \cdots + a_{nn} x_n.</mrow>
+            </md></p>
+
+        <p>We will concentrate on <m>2 \times 2</m> homogeneous first-order linear systems or <term>planar systems</term><index><main>system</main><sub>planar</sub></index> for the time being,
+            <mdn>
+                <mrow xml:id="equation-linear02-2x2-1">\frac{dx}{dt} &amp; = a x + b y,</mrow>
+                <mrow xml:id="equation-linear02-2x2-2">\frac{dy}{dt} &amp; = c x + d y.</mrow>
+            </mdn></p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-linear02-planar-systems">
+        <title>Planar Systems and <m>2 \times 2</m> Matrices</title>
+
+         <p>We will use linear systems of differential equations to illustrate how we can use systems of differential equations to model how subtances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (Figure<nbsp /><xref ref="figure-linear02-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 900 liters per hour. Brine is also pumped back into Tank <m>A</m> from Tank <m>B</m> at the rate of 400 liters per hour, and an additional 500 liters of brine per hour is drained from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
+            <md>
+                <mrow>x(0) &amp; = 100</mrow>
+                <mrow>y(0) &amp; = 0</mrow>
+            </md>
+        We know that the salt concentrations in the two tanks are <m>x/300</m> kilograms per liter and <m>y/300</m> kilograms per liter.  Thus, we can describe the rate of change in each tank with a differential equation,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = - 900 \cdot \frac{x}{300} + 400 \cdot \frac{y}{300} = - 3 x + \frac{4}{3} y,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = 900 \cdot \frac{x}{300} - 400 \cdot \frac{y}{300} - 500 \cdot \frac{y}{300} = 3x - 3 y.</mrow>
+            </md></p>
+
+        <figure xml:id="figure-linear02-mixing-example">
+
+            <image width="60%" xml:id="linear02-mixing-example">
+                <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=0.7]
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (0,0) arc (180:360: 2 and 0.5) -- (4,0) -- (4,6) arc (0:180: 2 and 0.5) -- (0,6) -- cycle;
+                    \draw[blue!50!black, thick] (2,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (7,0) arc (180:360: 2 and 0.5) -- (11,0) -- (11,6) arc (0:180: 2 and 0.5) -- (7,6) -- cycle;
+                    \draw[blue!50!black, thick] (9,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20] (4,1) -- (7,1) -- (7,1.5) -- (4,1.5) -- cycle;
+                    \filldraw[fill=blue!20] (4,4.5) -- (7,4.5) -- (7,5) -- (4,5) -- cycle;
+                    \filldraw[fill=blue!20] (11,1) -- (12,1) arc (90:0:0.5)-- (12.5,-0.5) -- (12,-0.5) -- (12,0.25) arc (0:90:0.25) --  (11,0.5) -- cycle;
+                    \filldraw[fill=blue!20] (-1,7) -- (-1,5.75) arc (180:270:0.25) -- (-0.5,5.5) -- (0,5.5) -- (0,5) -- (-1,5) arc (270:180:0.5) --  (-1.5,7) -- cycle;
+                    \draw[blue!50!black,<-,thick] (5,2) -- (6,2);
+                    \draw[blue!50!black,->,thick] (5,4) -- (6,4);
+                    \draw[blue!50!black,->,thick] (13,0.5) -- (13,-0.5);
+                    \draw[blue!50!black,<-,thick] (-2,5.5) -- (-2,6.5);
+                    \node at (2,3) {300 {\it l}};
+                    \node at (9,3) {300 {\it l}};
+                    \node at (2,-1) {Tank $A$};
+                    \node at (9,-1) {Tank $B$};
+                    \node at (5.5,1) [below] {400 {\it l}/{\it hr}};
+                    \node at (5.5,5) [above] {900 {\it l}/{\it hr}};
+                    \node at (12.25,-0.5) [below] {500 {\it l}/{\it hr}};
+                    \node at (-1.25,7) [above] {500 {\it l}/{\it hr}};
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>Mixing example with two tanks</caption>
+        </figure>
+
+        <p>Matrix notation gives us a convenient way of representing the <m>2 \times 2</m> system<nbsp /><xref ref="equation-linear02-2x2-1" /><ndash /><xref ref="equation-linear02-2x2-1" />. If we let 
+            <me>A =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \quad\text{and}\quad
+            {\mathbf x}(t)
+            =
+            \begin{pmatrix}
+            x(t) \\ y(t)
+            \end{pmatrix},</me>
+        then we can rewrite our system as
+            <me>\begin{pmatrix}
+            x'(t) \\ y'(t)
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            ax(t) + b y(t) \\ cx(t) + d y(t)
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \begin{pmatrix}
+            x(t) \\ y(t)
+            \end{pmatrix}.</me>
+        In other words, we can write our system as
+            <me>\frac{d \mathbf x}{dt} = A {\mathbf x},</me>
+        where
+            <me>\mathbf x' = \frac{d \mathbf x}{dt} =  \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}.</me></p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-linear02-systems-of-de">
+        <title>Systems of Differential Equations</title>
+
+        <p>A linear planar system
+            <md>
+                <mrow>x' &amp; = ax + by</mrow>
+                <mrow>y' &amp; = cx + dy</mrow>
+            </md>
+        has an <term>equilibrium solution</term> at <m>(x_0, y_0)</m> if
+            <md>
+                <mrow>a x_0 + b y_0 &amp; = 0,</mrow>
+                <mrow>c x_0 + d y_0 &amp; = 0.</mrow>
+            </md>
+        The following proposition tells us exactly where to find the equilibrium solutions of a linear system with constant coefficients.</p>
+
+        <theorem xml:id="theorem-systems04-equilibrium-solution">
+            <statement>
+                    
+            <p>Let
+                <me>\frac{d {\mathbf x}}{dt} = A {\mathbf x}</me>
+            be a <m>2 \times 2</m> linear system, where <m>A</m> is not the zero matrix.
+                <ol>
+
+                    <li>If <m>det(A) \neq 0</m>, then <m>(x, y) = (0, 0)</m> is the unique equilibrium solution for the system.</li>
+
+                    <li>If <m>det(A) = 0</m>, then the equilibrium solutions for the system form a straight line in <m>{\mathbb R}^2</m>.</li>
+
+                </ol></p>
+            </statement>
+        </theorem> 
+
+        <todo>Make the proof of this theorem an exercise.</todo>
+
+        <p>Now let us attack the problem of finding all of the solutions of the system <m>{\mathbf x}' = A {\mathbf x}</m>. Suppose that we can find a nonzero vector <m>{\mathbf v}_0</m> such that <m>A {\mathbf v}_0 = \lambda {\mathbf v}_0</m> for some real number <m>\lambda</m>. In this case, the matrix <m>A</m> just sends the vector <m>{\mathbf v}_0</m> to a vector on the same line through the origin, <m>\lambda {\mathbf v}_0</m>.  This is a very special case of course; however, we claim that
+            <me>{\mathbf x}(t) = e^{\lambda t} {\mathbf v}_0</me>
+        is a solution for our linear system if we can find such a vector. To see that this is indeed the case, we compute
+            <md>
+                <mrow>{\mathbf x}'(t) &amp; = \lambda e^{\lambda t} {\mathbf v}_0</mrow>
+                <mrow>&amp; = e^{\lambda t} (\lambda {\mathbf v}_0)</mrow>
+                <mrow>&amp; = e^{\lambda t} (A {\mathbf v}_0 )</mrow>
+                <mrow>&amp; = A( e^{\lambda t} {\mathbf v}_0)</mrow>
+                <mrow>&amp; = A {\mathbf x}(t).</mrow>
+            </md>
+        In other words, the key to solving a linear system <m>{\mathbf x}' = A {\mathbf x}</m> is to be able to find eigenvalues and eigenvectors for the matrix <m>A</m>. We are now ready to state the results of our discussion in a theorem.</p>
+
+        <theorem xml:id="theorem-systems04-eigenvalues">
+            <statement>
+                <p>Let <m>{\mathbf v}_0</m> be an eigenvector for the matrix <m>A</m> with associated eigenvalue <m>\lambda</m>.  Then the function <m>{\mathbf x}(t) = e^{\lambda t}{\mathbf v}_0</m> is a solution of the system <m>{\mathbf x}' = A {\mathbf x}</m>.</p>
+            </statement>
+        </theorem>
+              
+        <p>We say that the solution <m>{\mathbf x}(t) = e^{\lambda t}{\mathbf v}_0</m> is a <term>straight-line solution</term>. The vector <m>e^{\lambda t}{\mathbf v}_0</m> lies on the same line for each value of <m>t</m>. Note that if <m>{\mathbf v}_0</m> is an eigenvector for <m>A</m>, then any nonzero multiple of <m>{\mathbf v}_0</m> is also an eigenvector for <m>A</m>,
+            <me>A(\alpha {\mathbf v}_0) = \alpha A{\mathbf v}_0 = \alpha (\lambda {\mathbf v}_0) = \lambda (\alpha {\mathbf v}_0).</me></p>
+
+        <example>
+            <p>Consider the system
+                <md>
+                    <mrow>x' &amp; = x + 3y</mrow>
+                    <mrow>y' &amp; = x -y.</mrow>
+                </md>
+            We can rewrite this system in matrix form as <m>{\mathbf x}' = A {\mathbf x}</m>, where
+                <me>A =
+                \begin{pmatrix}
+                1 &amp; 3 \\
+                1 &amp; -1
+                \end{pmatrix}.</me>
+            The matrix <m>A</m> has an eigenvector <m>{\mathbf u} = (3, 1)</m> with associated eigenvalue <m>\lambda = 2</m>, since
+                <me>A \mathbf u =
+                    \begin{pmatrix}
+                1 &amp; 3 \\
+                1 &amp; -1
+                \end{pmatrix}
+                \begin{pmatrix}
+                3 \\ 1
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                6 \\ 2
+                \end{pmatrix}
+                =
+                2
+                \begin{pmatrix}
+                3\\1
+                \end{pmatrix}
+                = \lambda \mathbf u.</me>
+            Similarly, <m>{\mathbf v} = (1, -1)</m> is an eigenvalue for <m>A</m> with associated eigenvector <m>\mu = -2</m>. Thus, we have two solutions for our system: the equilibrium solution at the origin, the solution
+                 <me>{\mathbf x}_1(t) = e^{2t} \begin{pmatrix} 3 \\ 1 \end{pmatrix},</me>
+            and the solution
+                <me>{\mathbf x}_2(t) = e^{-2t} \begin{pmatrix} 1 \\ -1 \end{pmatrix}.</me></p>
+
+            <p>Since
+                <md>
+                    <mrow>\frac{d}{dt} (c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)) &amp; = c_1\frac{d}{dt} {\mathbf x}_1(t) + c_2 \frac{d}{dt} {\mathbf x}_2(t)</mrow>
+                    <mrow>&amp; = c_1 A {\mathbf x}_1(t) + c_2 A {\mathbf x}_2(t)</mrow>
+                    <mrow>&amp; = A( c_1 {\mathbf x}_1(t) + c_2  {\mathbf x}_2(t)),</mrow>
+                </md>
+            any linear combination of solutions to a linear system is also a solution. Thus, a general solution to our system is 
+                <me>\mathbf x(t) = c_1  e^{2t} \begin{pmatrix} 3 \\ 1 \end{pmatrix} + c_2 e^{-2t} \begin{pmatrix} 1 \\ -1 \end{pmatrix}</me>
+            or
+                <md>
+                    <mrow>x(t) &amp; = 3 c_1 e^{2t} + c_2 e^{-2t}</mrow>
+                    <mrow>y(t) &amp; = c_1 e^{2t} - c_2 e^{-2t}.</mrow>
+                </md>
+            If we are given initial conditions, say <m>x(0) = 0</m> and <m>y(0) = 1</m>, then we can determine <m>c_1</m> and <m>c_2</m> by solving the linear system of equations
+                <md>
+                    <mrow>3 c_1 + c_2 &amp; = 0</mrow>
+                    <mrow>c_1 - c_2 &amp; = 1</mrow>
+                </md>
+            to get <m>c_1 = 1/4</m> and <m>c_2 = -3/4</m>. Thus, the solution to our initial value problem is
+                <md>
+                    <mrow>x(t) &amp; = \frac{3}{4} e^{2t} - \frac{3}{4} e^{-2t}</mrow>
+                    <mrow>y(t) &amp; = \frac{1}{4} e^{2t} + \frac{3}{4} e^{-2t}.</mrow>
+                </md></p>
+        </example>
+
+        <p>If <m>{\mathbf x}_1(t)</m> and  <m>{\mathbf x}_2(t)</m> are solutions to the linear system <m>{\mathbf x}' = A {\mathbf x}</m>, then 
+            <md>
+                <mrow>{\mathbf x}_1' &amp; = A {\mathbf x}_1</mrow>
+                <mrow>{\mathbf x}_2' &amp; = A {\mathbf x}_2.</mrow>
+            </md>
+        Thus, for any two real numbers <m>c_1</m> and <m>c_2</m>,
+            <md>
+                <mrow>\frac{d}{dt} (c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)) &amp; = \alpha \frac{d}{dt}  {\mathbf x}_1(t) + c_2 \frac{d}{dt} {\mathbf x}_2(t)</mrow>
+                <mrow>&amp; = c_1 A  {\mathbf x}_1(t) + c_2 A  {\mathbf x}_2(t)</mrow>
+                <mrow>&amp; = A (c_1  {\mathbf x}_1(t) + c_2   {\mathbf x}_2(t) ).</mrow>
+            </md>
+        We state this result in the following theorem.</p>
+
+        <theorem xml:id="theorem-linear02-superposition">
+            <title>Principle of Superposition</title>
+            <statement>
+                <p>If <m>A</m> is a <m>2 \times 2</m> matrix, then any linear combination of solutions  to the linear system <m>{\mathbf x}' = A {\mathbf x}</m> is also a solution.</p>
+            </statement>
+        </theorem> 
+          
+        <p>Revisiting the mixing problem that we posed at the beginning of this section, we have the following initial value problem,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = - 3 x + \frac{4}{3} y,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = 3 x - 3 y,</mrow>
+                <mrow>x(0) &amp; = 100,</mrow>
+                <mrow>y(0) &amp; = 0.</mrow>
+            </md>
+        If we write our system in matrix form, <m>{\mathbf x}' = A {\mathbf x}</m>, then
+            <me>A =
+            \begin{pmatrix}
+            -3 &amp; 4/3 \\
+            3 &amp; -3
+            \end{pmatrix}.</me>
+        It is easy to check that we have eigenvectors <m>{\mathbf u} = (2, 3)</m> and <m>{\mathbf v} = (-2, 3)</m> with eigenvectors <m>\lambda = -1</m> and <m>\mu  = -5</m>, respectively. Thus, we have two solutions to our system,
+            <md>
+                <mrow>{\mathbf x}_1(t) &amp; = e^{-t} {\mathbf u},</mrow>
+                <mrow>{\mathbf x}_2(t) &amp; = e^{-5t} {\mathbf v}.</mrow>
+            </md>
+        Since any linear combination of solutions is also a solution,
+            <me>{\mathbf x}(t) = 
+            c_1
+            \begin{pmatrix}
+            2e^{-t} \\ 3e^{-t}
+            \end{pmatrix}
+            +
+            c_2
+            \begin{pmatrix}
+            -2e^{-5t} \\ 3e^{-5t}
+            \end{pmatrix}</me>
+        is a solution to our system.  Using the initial values <m>x(0) = 100</m> and <m>y(0) = 0</m>, we can determine that <m>c_1 = 25</m> and <m>c_2 = -25</m>.  We now have the solution that we seek,
+            <md>
+                <mrow>x(t) &amp; = 50 e^{-t} + 50 e^{-5t}</mrow>
+                <mrow>y(t) &amp; = 75 e^{-t} - 75 e^{-5t}.</mrow>
+            </md></p>
+
+	</subsection>
+
+	<subsection xml:id="subsection-linear02-solving-systems">
+    	<title>Solving Linear Systems</title>
+
+		<p>Our goal is to prove the following theorem.</p>
+
+		<theorem xml:id="theorem-linear02-system-solution">
+            <statement>
+                <p>Suppose that <m>A</m> has a pair of distinct real eigenvalues, <m>\lambda_1</m> and <m>\lambda_2</m>, with associated eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>. Then the general solution of the linear system <m>{\mathbf x}' = A {\mathbf x}</m> is given by
+                    <me>{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2.</me></p>
+            </statement>
+        </theorem> 
+
+   		<lemma xml:id="lemma-linear02-distinct-real-eigenvalues">
+            <statement>
+                <p>Let <m>A</m> be an <m>2 \times 2</m> matrix with a pair of distinct real eigenvalues, <m>\lambda_1</m> and <m>\lambda_2</m> and eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>, respectively. Then <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly independent.</p>
+            </statement>
+        
+    		<proof>
+                <p>If <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly dependent, then there exists <m>\alpha \neq 0</m> such that
+                    <men xml:id="equation-linear02-distinct-real-eigenvalues-1">{\mathbf v}_1 = \alpha {\mathbf v}_2.</men>
+                Multiplying both sides of this equation by <m>A</m>, we have
+                    <men xml:id="equation-linear02-distinct-real-eigenvalues-2">\lambda_1 {\mathbf v}_1 = A{\mathbf v}_1 = \alpha A {\mathbf v}_2  = \alpha \lambda_2 {\mathbf v}_2.</men>
+                One the other hand, we obtain
+                    <men xml:id="equation-linear02-distinct-real-eigenvalues-3">\lambda_2 {\mathbf v}_1  = \alpha \lambda_2 {\mathbf v}_2</men>
+                if we multiply both sides of <xref ref="equation-linear02-distinct-real-eigenvalues-1" /> by <m>\lambda_2</m>.  Using <xref ref="equation-linear02-distinct-real-eigenvalues-2" /> and <xref ref="equation-linear02-distinct-real-eigenvalues-3" />, we can conclude that
+                    <me>(\lambda_1 - \lambda_2) {\mathbf v}_1  = \alpha(\lambda_2 - \lambda_2 ){\mathbf v}_2 = 0  {\mathbf v}_2 =  {\mathbf 0}.</me>
+                However, this contradicts the assumption that <m>\lambda_1</m> and <m>\lambda_2</m> are distinct.</p></proof>
+        </lemma>
+
+		<p>We can now proceed to the proof of the theorem. Suppose that we have a linear system <m>{\mathbf x}' = A{\mathbf x}</m> such that <m>A</m> has a pair of distinct real eigenvalues, <m>\lambda_1</m> and <m>\lambda_2</m>, with associated eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>.  By the Principle of Superposition, we know that
+            <me>{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2.</me>
+        is a solution to the linear system <m>{\mathbf x}' = A {\mathbf x}</m>. To show that this is the general solution, we must show that we can choose <m>c_1</m> and <m>c_2</m> to satisfy a given initial condition <m>{\mathbf x}_0 = {\mathbf x}(0) = (x_0, y_0)</m>. By Lemma<nbsp /><xref ref="lemma-linear02-distinct-real-eigenvalues" />, we know that <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> form a basis for <m>{\mathbb R}^2</m>.  That is, we can write  <m>{\mathbf x}_0</m> as a linear combination of <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>.  In other words, we can find <m>c_1</m> and <m>c_2</m> such that
+            <me>{\mathbf x}_0 = {\mathbf x}(0) = c_1 {\mathbf v}_1 + c_2 {\mathbf v}_2.</me></p>
+
+		<p>It remains to show that <m>{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2</m> is the unique solution to the system
+            <md>
+                <mrow>{\mathbf x}'(t) &amp; = A {\mathbf x}(t),</mrow>
+                <mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0.</mrow>
+            </md>
+        Suppose that there is another solution <m>{\mathbf y}(t)</m> such that <m>{\mathbf y}(0) = {\mathbf x}_0</m>. Then we can write
+            <me>{\mathbf y}(t) = f(t) {\mathbf v}_1 + g(t) {\mathbf v}_2,</me>
+        where
+            <md>
+                <mrow>f(0) &amp; = c_1,</mrow>
+                <mrow>g(0) &amp; = c_2.</mrow>
+            </md>
+        Since <m>{\mathbf y}(t)</m> is a solution to our system of equations, we know that
+            <me>A {\mathbf y}(t) = {\mathbf y}'(t) = f'(t) {\mathbf v}_1 + g'(t) {\mathbf v}_2.</me>
+        On the other hand,
+            <me>A {\mathbf y}(t) = f(t) A {\mathbf v}_1 + g(t) A {\mathbf v}_2 = \lambda_1 f(t) {\mathbf v}_1 + \lambda_2 g(t) {\mathbf v}_2.</me>
+        Consequently, we have two first-order initial value problems,
+            <md>
+                <mrow>f'(t) &amp; = \lambda_1 f(t),</mrow>
+                <mrow>f(0) &amp; = c_1,</mrow>
+            </md>
+        and
+            <md>
+                <mrow>g'(t) &amp; = \lambda_2 g(t),</mrow>
+                <mrow>g(0) &amp; = c_2.</mrow>
+            </md>
+        The solutions of these initial value problems are
+            <md>
+                <mrow>f(t) &amp; = c_1 e^{\lambda_1 t},</mrow>
+                <mrow>g(t) &amp; = c_2 e^{\lambda_2 t},</mrow>
+            </md>
+        respectively. Thus, <m>{\mathbf y}(t) = {\mathbf x}(t)</m>, and proof our theorem is complete.</p>
+
+	</subsection>
+
+	<subsection xml:id="subsection-linear02-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+
+			<li>If <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are eigenvectors of two distinct real eigenvalues of a matrix <m>A</m>, then <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly independent.</li>
+
+			<li>The Principle of Superposition tells us that any linear combination of solutions to the linear system <m>{\mathbf x}' = A {\mathbf x}</m> is also a solution.</li>
+
+			<li>Let <m>A</m> be a <m>2 \times 2</m> matrix. If <m>A</m> has a pair of distinct real eigenvalues, <m>\lambda_1</m> and <m>\lambda_2</m>, with associated eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>, then the general solution of the linear system <m>{\mathbf x}' = A {\mathbf x}</m> is given by
+                <me>{\mathbf x}(t) = \alpha e^{\lambda_1 t} {\mathbf v}_1 + \beta e^{\lambda_2 t} {\mathbf v}_2.</me></li>
+
+        </ul></p>
+	</subsection>
+
+<todo>Exercises needed.</todo>
+
+    <xi:include href="./exercises/linear02.xml" />
+
+    <subsection number="no" xml:id="subsection-linear02-sage-project">
+        <title>Project</title>
+
+<todo>Write a Sage project.</todo>
+
+    </subsection>
+
+</section>
+
+<!--</section>-->

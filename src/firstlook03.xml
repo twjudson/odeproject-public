@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="firstlook03" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Geometric and Quantitative Analysis</title>
+
+    <introduction>
+        <p>If we view the differential equation <m>y' = f(t,y)</m> as a formula for the slope of a tangent line to a solution curve, we can approximate the graph of a solution curve.  For example, if we consider the equation <m>y' = t + y</m>, then a solution curve will have a slope of <m>2</m> at the point <m>(1, 1)</m>. We can use this information to obtain a geometric description of the solutions to the equation.</p>
+    </introduction>
+    
+    <subsection xml:id="subsection-firstlook03-rc-circuits">
+    	<title>RC Circuits</title>
+
+        <p>Suppose that we wish to analyze how an electric current flows through a circuit. An <term>RC circuit</term><index><main>RC circuit</main></index> is a very simple circuit might contain a voltage source, a capacitor, and a resistor (Figure<nbsp /><xref ref="figure-firstlook03-rc-circuit" />). A battery or generator is an example of a voltage source. The glowing red heating element in a toaster or an electric stove is an example of something that provides resistance in a circuit. A capacitor stores an electrical charge and can be made by separating two metal plates with an insulating material.  Capacitors are used to power the electronic flashes for cameras. Current, <m>I(t)</m>, is the rate at which a charge flows through this circuit and is measured in amperes or amps (A). We assign a direction to the current. A current flowing in the opposite direction will be given negative values.</p>
+    
+    	<figure xml:id="figure-firstlook03-rc-circuit">
+
+            <!-- Replaced figure with tikz figure - TWJ 6/11/2010 -->
+            <image width="70%" xml:id="firstlook03-rc-circuit">
+                    <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=0.5]
+                            \draw (0,0) -- (0,2.75) (0,4.25) -- (0,7) -- (4.125,7) (6.125,7) -- (10,7) -- (10,3.75) (10,3.25) -- (10,0) -- (0,0);
+                            \draw (0,3.5) circle (0.75);
+                            \draw (4.125,7) -- (4.25,7.5) -- (4.5,6.5) -- (4.75,7.5) -- (5,6.5) -- (5.25,7.5) -- (5.5,6.5) -- (5.75, 7.5) -- (6,6.5) -- (6.125,7);
+                            \draw (9.5,3.75) -- (10.5,3.75);
+                            \draw (9.5,3.25) -- (10.5,3.25);
+                            \node at (-1,3.5) [left] {$E(t)$};   
+                            \node at (-0.6,4.2) [above] {$+$};  
+                            \node at (-0.6,2.8) [below] {$-$};     
+                            \node at (5,8) [above] {$R$};    
+                            \node at (11,3.5) [right] {$C$};
+                            \node at (5,3.5) {$I(t)$};
+                            \draw [->] (3.5,3) .. controls (4,5) and (7,5.5) .. (6.5,3);
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>An RC circuit</caption>
+        </figure>
+  
+        <p>The source voltage, <m>E(t)</m>, is measured in volts (V). <term>Kirchhoff's Second Law</term><index><main>Kirchhoff's Second Law</main></index> tells us that the impressed voltage in a closed circuit is equal to the sum of the voltage drops in the rest of the circuit.  Thus, we need only compute the voltage drop across the resistor, <m>E_R</m>, and the voltage drop across the capacitor, <m>E_C</m>. According to Kirchhoff's Law, this is
+            <me>E_R + E_C = E.</me></p>
+
+	   <p>Resistance, <m>R</m>, to the current is measured in ohms (<m>\Omega</m>). <term>Ohm's Law</term> tells us that the voltage drop across a resistor is given by 
+            <men xml:id="equation-firstlook03-ohms-law">E_R = IR.</men>
+        Finally, capacitance, <m>C</m>, is measured in farads (F).  <term>Coulomb's Law</term> tells us how current flows across a capacitor,
+            <men xml:id="equation-firstlook03-coulombs-law">I = C \frac{d E_C}{dt}. </men>
+        Thus, if we combine the equations<nbsp /><xref ref="equation-firstlook03-ohms-law" /> and<nbsp /><xref ref="equation-firstlook03-coulombs-law" />, our equation <m>E_R + E_C = E</m> becomes
+            <men xml:id="equation-firstlook03-rc-circuit">RC \frac{d E_C}{dt} + E_C = E(t).</men></p>
+
+       <p>We will now investigate how our circuit reacts under different voltage sources. For example, we might have a zero voltage source (the capacitor could still hold a charge). We could also have a constant nonzero source of voltage such as a battery or a fluctuating source of voltage such as a generator. We might even have a series of pulses of voltage where the current is periodically turned on and off. We would like to be able to understand the solutions to the equation<nbsp /><xref ref="equation-firstlook03-rc-circuit" /> for different voltage sources <m>E(t)</m>. If we view the differential equation<nbsp /><xref ref="equation-firstlook03-rc-circuit" /> as an expression for computing how fast current is flowing across the capacitor, we can analyze our circuit from a geometric point of view and can actually say a great deal about circuits without solving a differential equation.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-firstlook03-direction-fields">
+    	<title>Direction Fields</title>
+
+		<p>Any differential equation
+            <me>\frac{dy}{dt} = f(t, y)</me>
+        can be viewed as a formula for the slope of a function <m>y = y(t)</m>. Geometrically, the equation tells us that, at any point <m>(t_0, y_0)</m>, the slope of a solution curve is given by <m>f(t_0, y_0)</m>. Suppose that our differential equation is defined on the rectangle <m>R = [a, b] \times [c, d]</m>, and let <m>y(t)</m> be a solution curve for <m>y' = f(t, y)</m> that passes through the point <m>(t_0, y_0)</m>.  Then the differential equation tells us the slope of this solution curve at <m>(t_0, y_0)</m>. We can indicate this on the <m>(t, y)</m>-plane by drawing a short line segment at the point <m>(t, y)</m> with slope <m>f(t_0, y_0)</m>. Thus, we can obtain a <term>direction field</term><index><main>direction field</main></index> or <term>slope field</term><index><main>slope field</main></index> for the differential equation. A solution curve must be tangent to its direction field at every point.</p>
+
+		<p>For example, consider the differential equation <m>y' = y^2/2 - t</m>. The direction field for this equation is given in Figure<nbsp /><xref ref="figure-firstlook03-direction-field" /> along with several solution curves.</p>
+		        
+    	<figure xml:id="figure-firstlook03-direction-field">
+
+            <image width="60%" xml:id="firstlook03-direction-field">
+            <sageplot><![CDATA[
+                from sage.calculus.desolvers import desolve_rk4
+                t, y = var('t, y')
+                f(t, y) = y^2/2 - t
+                p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+                p += desolve_rk4(f,y,ics=[-1,0],ivar=t,output='plot',end_points=[-1,5],thickness=3)
+                p += desolve_rk4(f,y,ics=[-1,-1],ivar=t,output='plot',end_points=[-1,5],thickness=3, color = "red")
+                p += desolve_rk4(f,y,ics=[-1,0.3292],ivar=t,output='plot',end_points=[-1,5],thickness=3, color = "green")
+                p]]>
+                </sageplot>
+            </image>
+
+            <caption>The direction field for <m>y' = y^2/2 - t</m></caption>
+
+        </figure>
+
+		<p>Although direction fields can be tedious to compute using pencil and paper, we can easily generate direction fields for any differential equation with the use of computer software. Most computer algebra systems, including <em>Sage</em>, have facilities for generating and graphing direction fields. For example, the following <em>Sage</em> cell will generate the direction field for <m>y' = y^2/2 - t</m> using the command <c>plot_slope_field</c>.  We will learn how to add solution curves at the end of this section.</p>
+		
+        <sage>
+            <input><![CDATA[
+                t,y = var('t,y')
+                f(t,y) = y^2/2 - t
+                plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])]]>
+            </input>
+        </sage>
+
+	</subsection>
+
+    <subsection xml:id="subsection-firstlook03-rc-circuits-revisited">
+        <title>RC Circuits Revisited</title>
+
+		<p>Now let us return to our RC circuit and consider different functions <m>E(t)</m> for the differential equation 
+            <me>\frac{d E_C}{dt} = \frac{E(t) - E_C}{RC},</me>
+        with <m>R = 1</m> and <m>C = 1</m>.  First suppose that there is no voltage source in the circuit. If we let <m>E(t) = 0</m> for all <m>t \ge 0</m>, we will get the direction field of given in Figure<nbsp /><xref ref="figure-firstlook03-no-current" />. The direction field agrees with our analytic solution
+            <me>E_C(t) = v_0 e^{-t},</me>
+        where <m>v_0 = E_C(0)</m>.</p>
+
+    	<figure xml:id="figure-firstlook03-no-current">
+
+            <image width="60%" xml:id="firstlook03-no-current">
+                <sageplot><![CDATA[
+                    from sage.calculus.desolvers import desolve_rk4
+                    t, y = var('t, y')
+                    R = 1
+                    C = 1
+                    E(t) = 0
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p = plot_slope_field(f, (t,0,10), (y,-10,10), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
+                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,10],thickness=2)
+                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
+                    p += desolve_rk4(f,y,ics=[0,10],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "green")
+                    p += desolve_rk4(f,y,ics=[0,-10],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "cyan")
+                    p]]>
+                </sageplot>
+            </image>
+
+            <caption>The direction field for no current</caption>
+
+        </figure>
+
+		<p>If we assume that we have a nonzero constant source of voltage, <m>E(t) = K</m>, in our circuit such as a battery, then we obtain the separable differential equation
+            <me>\frac{d E_C}{dt} = K - E_C.</me>
+        The direction field for this differential equation for <m>K = 10</m> is given in Figure<nbsp /><xref ref="figure-firstlook03-constant-current" />.</p>
+
+    	<figure xml:id="figure-firstlook03-constant-current">
+
+            <image width="60%" xml:id="firstlook03-constant-current">
+                <sageplot><![CDATA[
+                    from sage.calculus.desolvers import desolve_rk4
+                    t, y = var('t, y')
+                    R = 1
+                    C = 1
+                    E(t) = 10
+                    f(t, y) = (E(t) - 5*y)/(R*C)
+                    p = plot_slope_field(f, (t,0,4), (y,-10,10), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
+                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,4],thickness=2)
+                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "red")
+                    p += desolve_rk4(f,y,ics=[0,10],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "green")
+                    p += desolve_rk4(f,y,ics=[0,-10],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "cyan")
+                    p]]>
+                </sageplot>
+            </image>
+
+            <caption>The direction field for a constant current</caption>
+
+        </figure>
+
+	   <p>If we attach a battery to our circuit at time <m>t = 0</m> and then disconnect the battery at <m>t = 4</m>, then we obtain a different solution. For example, if
+            <me>E(t) =
+            \begin{cases}
+            10     &amp; 0 \leq t \leq 4, \\
+            0     &amp; t \gt 4,
+            \end{cases}</me>
+        we will obtain a different direction field (Figure<nbsp /><xref ref="figure-firstlook03-single-pulse" />).</p>
+
+    	<figure xml:id="figure-firstlook03-single-pulse">
+
+            <image width="60%" xml:id="firstlook03-single-pulse-current">
+                <sageplot><![CDATA[
+                    from sage.calculus.desolvers import desolve_rk4
+                    t, y = var('t, y')
+                    R = 1
+                    C = 1
+                    E(t) = 10
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p = plot_slope_field(f, (t,0,3.9), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'])
+                    p += desolve_rk4(f,y,ics=[0,0],ivar=t,output='plot',end_points=[0,4],thickness=2)
+                    p += desolve_rk4(f,y,ics=[0,20],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "red")
+                    E(t) = 0
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p += plot_slope_field(f, (t,4.1,8), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'])
+                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2)
+                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2, color = "red")
+                    p]]>
+                </sageplot>
+            </image>
+            <caption>The direction field for a single pulse</caption>
+            
+        </figure>
+
+		<p>If our voltage source emits a series of pulses, say
+            <me>E(t) =
+            \begin{cases}
+            10 &amp; 0 \leq t \lt 4, \\
+            0 &amp; 4 \leq t \lt 8, \\
+            10 &amp; 8 \leq t \lt 12, \\
+            &amp; \vdots
+            \end{cases}</me>
+        then the direction field for our differential equation is given in Figure<nbsp /><xref ref="figure-firstlook03-series-pulses" />.</p>
+
+ <todo>Do a better Sage plot.</todo> 
+
+       	<figure xml:id="figure-firstlook03-series-pulses">
+
+            <image width="60%" xml:id="firstlook03-series-pulses">
+                <sageplot><![CDATA[
+                    from sage.calculus.desolvers import desolve_rk4
+                    t, y = var('t, y')
+                    R = 1
+                    C = 1
+                    E(t) = 10
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p = plot_slope_field(f, (t,0,3.9), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'], fontsize=12,aspect_ratio=1,plot_points=10)
+                    p += desolve_rk4(f,y,ics=[0,15],ivar=t,output='plot',end_points=[0,4],thickness=2)
+                    E(t) = 0
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p += plot_slope_field(f, (t,4.1,7.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
+                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2)
+                    E(t) = 10
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p += plot_slope_field(f, (t,8.1,11.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
+                    p += desolve_rk4(f,y,ics=[8,0],ivar=t,output='plot',end_points=[8,12],thickness=2)
+                    E(t) = 0
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p += plot_slope_field(f, (t,12.1,15.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
+                    p += desolve_rk4(f,y,ics=[12,10],ivar=t,output='plot',end_points=[12,16],thickness=2)
+                    p]]>
+                </sageplot>
+            </image>
+
+            <caption>The direction field for a series of pulses</caption>
+
+        </figure>
+
+		<p>Finally, if we use a generator for a voltage source, the voltage source might be given by a function such as <m>E(t) = \sin(\pi t /2)</m>. The direction field for this circuit is given in Figure<nbsp /><xref ref="figure-firstlook03-oscillating-voltage" />.</p>
+
+       	<figure xml:id="figure-firstlook03-oscillating-voltage">
+
+       		<image width="60%" xml:id="firstlook03-oscillating-voltage">
+                <sageplot><![CDATA[
+                    from sage.calculus.desolvers import desolve_rk4
+                    t, y = var('t, y')
+                    R = 1
+                    C = 1
+                    E(t) = sin(pi*t/2)
+                    f(t, y) = (E(t) - y)/(R*C)
+                    p = plot_slope_field(f, (t,0,10), (y,-3,3), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
+                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,10],thickness=2)
+                    p += desolve_rk4(f,y,ics=[0,0],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
+                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "green")
+                    p += desolve_rk4(f,y,ics=[0,2],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "cyan")
+                    p]]>
+                </sageplot>
+            </image>
+
+            <caption>The direction field for an oscillating voltage</caption>
+            
+        </figure>
+            
+	</subsection>
+
+	<subsection xml:id="subsection-firstlook03-sage">
+    	<title>Plotting Direction Fields with Sage</title>
+
+    	<p>It is very tedious to plot direction fields by hand. Fortunately, we have technology to help. The Sage interact below will help you plot direction fields for a given initial value problem. A Sage interact is a menu driven Sage applet. Simply evaluate the Sage cell. You can then change each field in the cell output to solve a particular initial value problem.</p>
+
+    	<sage>
+            <input><![CDATA[
+				x, t = var('x,t')
+				@interact
+				def _(f = input_box(default = x^2/2 - t),
+				                    t_min = input_box(default = -1.0), 
+				                    t_max = input_box(default = 6), 
+				                    t_start = input_box(default = 1), 
+				                    x_start = input_box(default = -0.1), 
+				                    step_size = (0.1, (0.001, 1.0))):
+				    P = desolve_rk4(f,x,ics=[t_start, x_start],ivar=t,end_points=[t_min, t_max], step = step_size, thickness=3)
+				    p = line(P, thickness = 2, axes_labels = ['$t$','$x$'],)
+				    x_min = min([P[i][1]] for i in (0..len(P)-1))[0]
+				    x_max = max([P[i][1]] for i in (0..len(P)-1))[0]
+				    p += plot_slope_field(f, (t, t_min, t_max), (x, x_min, x_max), headaxislength=3, headlength=3)
+				    p += arrow(P[int(len(P)/2)], P[int(len(P)/2) + 1], width = 1, arrowsize = 8)
+				    p += point((t_start, x_start), size=60, color="red")
+				    p.show()
+				    pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))]]>
+            </input>
+            <output>       
+            </output>
+        </sage>
+
+        <p>Of course, it is quite easy to give the interact a problem that yield unitelligible results.</p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-firstlook03-autonomous-equations">
+    	<title>Autonomous Differential Equations</title>
+
+        <p>An <term>autonomous differential equation</term><index><main>differential equation</main><sub>autonomous</sub></index> is one of the form
+            <me>\frac{dx}{dt} = f(x).</me>
+        In other words, a differential equation is autonomous if it does not depend on $t$. Since an autonomous differential equation is time independent, its direction field is particularly easy to draw. The slope only depends on <m>x</m> and is the same for all values of <m>t</m>.</p>
+
+        <example xml:id="example-firstlook03-harvesting">
+            <title>A Logistic Model with Harvesting</title>
+
+            <p>Let us consider a trout pond that has a carrying capacity of 200 fish. Suppose that the trout population can be modeled according to the logistic equation
+                <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right),</me>
+            where <m>t</m> is the time in years. If we allow the fish to be harvested at a constant rate of 32 per year, our equation becomes
+                <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.</me>
+            The direction field for this equation is given in Figure<nbsp /><xref ref="figure-firstlook03-logistic-direction-field" />.</p>
+
+            <figure xml:id="figure-firstlook03-logistic-direction-field">
+
+                <image width="60%" xml:id="firstlook03-logistic-direction-field">
+                    <sageplot><![CDATA[
+                        from sage.calculus.desolvers import desolve_rk4
+                        t, P = var('t, P')
+                        N = 200
+                        H = 32
+                        f(t, P) = P*(1 - P/N) - H
+                        p = plot_slope_field(f, (t,0,10), (P,0,250), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
+                        p += desolve_rk4(f,P,ics=[0,240],ivar=t,output='plot',end_points=[0,10],thickness=2)
+                        p += desolve_rk4(f,P,ics=[0,50],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
+                        p += desolve_rk4(f,P,ics=[0,39],ivar=t,output='plot',end_points=[0,5.6],thickness=2, color = "green"
+                        p]]>
+                    </sageplot>
+                </image>
+
+                <caption>Logistic growth with harvesting</caption>
+
+            </figure>
+            
+            <p>One of the basic questions that we can ask of our model is whether or not we have a sustainable population in our trout pond given this harvest rate. If so, under what conditions for sustainablility?</p>
+
+        </example>  
+
+		<p>Since 
+            <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32 = -\frac{1}{200}(P - 40)(P - 160)</me>
+        is an autonomous differential equation, the direction field does not depend on <m>t</m>. Consequently, we need only keep track of what happens on the vertical axis.  We can do this with a <term>phase line</term><index><main>phase line</main></index>.  Instead of drawing the entire direction field, we can draw a single line containing the same information.</p>  
+
+		<p>Notice that <m>dP/dt = 0</m> when <m>P= 40</m> or <m>P = 160</m>.  Thus, the two constant solutions <m>P(t) = 40</m> and <m>P(t) = 160</m> are the same for all values of the independent variable <m>t</m>. We say that such a solution is an <term>equilibrium solution</term><index><main>equilibrium solution</main></index>. Equilibrium solutions graph as horizontal lines.  We can identify equilibrium solutions by setting the derivative of the function equal to zero.</p>
+
+		<p>On our phase line  we will represent these solutions as equilibrium points (Figure<nbsp /><xref ref="figure-firstlook03-phase-line" />). For values of <m>P</m> between 40 and 160, we know that <m>dP/dt \gt 0</m>. Thus, any solution curve must be increasing. We denote this property on the phase line by drawing an upward pointing arrow. On the other hand, we know that <m>dP/dt \lt 0</m> when <m>P \lt 40</m> or <m>P \gt 160</m>.  In this case any solution curve will be decreasing, and we will indicate this by a downward pointing arrow.</p>
+
+		<figure xml:id="figure-firstlook03-phase-line">
+
+            <image width="40%" xml:id="firstlook03-phase-line">
+                <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=0.4]
+                        \draw[thick] (0,-1) -- (0,11);
+                        \filldraw (0,8) node[right] {$P = 160$ is a sink} circle (0.2);
+                        \filldraw (0,2) node[right] {$P = 40$ is a source} circle (0.2);
+                        \filldraw (0,10) -- (-0.2, 10.4) -- (0.2, 10.4) -- cycle;
+                        \filldraw (0,0) -- (-0.2, 0.4) -- (0.2, 0.4) -- cycle;
+                        \filldraw (0,5.4) -- (-0.2, 5) -- (0.2, 5) -- cycle;
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>Phase line diagram</caption>
+        </figure>
+
+		<p>An equilibrium solution is <term>stable</term><index><main>equilibrium solution</main></index> if a small change in the initial conditions gives a solution which tends toward the equilibrium as the independent variable tends towards positive infinity. An equilibrium solution is <term>unstable</term><index><main>equilibrium solution</main></index> if a small change in the initial conditions gives a solution which veers away from the equilibrium as the independent variable tends towards positive infinity.</p>
+
+		<p>Let <m>y' = f(y)</m> and suppose that <m>y = y_0</m> is an equilibrium solution. We say this solution is a <term>sink</term><index><main>equilibrium solution</main><sub>sink</sub></index> if for any solution <m>y(t)</m> with initial condition sufficiently close to <m>y_0</m>, we have
+            <me>\lim_{t \to \infty} y(t) = y_0.</me>
+        We say that an equilibrium point is a <term>source</term><index><main>equilibrium solution</main><sub>source</sub></index> if all solutions that start sufficiently close to <m>y_0</m> tend toward <m>y_0</m> as <m>t \to - \infty</m>. An equilibrium solution that is neither a sink or a source is called a <term>node</term><index><main>equilibrium solution</main><sub>node</sub></index> (Figure<nbsp /><xref ref="figure-firstlook03-phase-line" />).</p>
+
+		<p>Consider the differential equation 
+            <men xml:id="equation-firstlook03-sinks-sources-nodes">\frac{dy}{dt} = y^4 - 4y^2 = y^2(y + 2)(y - 2).</men>
+        The graph of <m>f(y) = y^4 - 4y^2</m> is given in Figure<nbsp /><xref ref="figure-firstlook03-sinks-sources-nodes" />. If <m>y = -2</m>, we have a sink.  If <m>y = 2</m>, we have a source.  Finally, if <m>y = 0</m>, we have a node.</p>
+
+    	<figure xml:id="figure-firstlook03-sinks-sources-nodes">
+
+            <image width="60%" xml:id="firstlook03-sinks-sources-nodes">
+                <sageplot><![CDATA[
+                    y = var('y')
+                    f(y) = y^2*(y + 2)*(y - 2)
+                    p = plot(f, (y,-3,3), ymin = -4, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$dy/dt$'])
+                    p]]>
+                </sageplot>
+            </image>
+
+            <caption>Sinks, sources, and nodes</caption>
+
+        </figure>
+
+        <p>It is easy to generate a phase line diagram for equation<nbsp /><xref ref="equation-firstlook03-sinks-sources-nodes" /> from the graph of <m>f(y) = y^2(y + 2)(y - 2)</m> (Figure<nbsp /><xref ref="figure-firstlook03-sinks-sources-nodes" />). If the graph is above the <m>y</m>-axis, then <m>y</m> is increasing. If the graph is below the <m>y</m>-axis, then <m>y</m> is decreasing. Therefore, the phase line is easy to sketch (Figure<nbsp /><xref ref="figure-firstlook03-phase-line-1" />).</p>
+
+        <figure xml:id="figure-firstlook03-phase-line-1">
+
+            <image width="30%" xml:id="firstlook03-phase-line-1">
+                <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=1]
+                        \draw[thick] (0,-3.5) -- (0,3.5);
+                        \filldraw (0,0) node[right] {$y = 0$ is a node} circle (0.05);
+                        \filldraw (0,2) node[right] {$y = 2$ is a source} circle (0.05);
+                        \filldraw (0,-2) node[right] {$y = -2$ is a sink} circle (0.05);
+                        \filldraw (0,1) -- (-0.1, 1.2) -- (0.1, 1.2) -- cycle;
+                         \filldraw (0,-1) -- (-0.1, -0.8) -- (0.1, -0.8) -- cycle;
+                        \filldraw (0,-2.6) -- (-0.1, -2.8) -- (0.1, -2.8) -- cycle;
+                         \filldraw (0,2.8) -- (-0.1, 2.6) -- (0.1, 2.6) -- cycle;
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>Phase line diagram for <m>y' = y^2(y + 2)(y - 2)</m></caption>
+        </figure>
+
+        <p>One of the reasons why autonomous equations are so important is Taylor's theorem, which tells us that any function <m>f(x)</m> can be approximated near a point <m>x_0</m> by an <m>n</m>th degree polynomial,
+            <me>f(x) \approx f(x_0) + f'(x_0)(x - x_0) + \frac{ f''(x_0)}{2!} (x - x_0)^2 + \cdots + \frac{ f^{(n)}(x_0)}{n!} (x - x_0)^n</me>
+        near <m>x_0</m>.  For example, if
+            <me>\frac{dx}{dt} = f(x) = \cos(x^2 + \pi).</me>
+        with <m>x(0) = x_0</m>  then we may approximate this initial value problem near <m>x_0</m> with
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =  f(x_0) + f'(x_0)(x - x_0) = \cos(x_0^2 + \pi) + 2 x _0 \sin(x_0^2 + \pi)(x - x_0)</mrow>
+                <mrow>x(0) &amp; = x_0.</mrow>
+            </md>
+        Of course, this strategy might not work very well if <m>f(x_0) = \cos(x_0^2 + \pi) = 0</m> or <m>f'(x_0) = 2 x _0 \sin(x_0^2 + \pi) = 0</m>.</p>
+
+	</subsection> 
+
+    <subsection xml:id="subsection-firstlook03-important-lessons">
+    	<title>Important Lessons</title>
+	
+            <p><ul>
+	
+                <li>Direction fields and phase lines are a useful way of analyzing a differential equation from a geometric point of view, especially since not all differential equations can be solved analytically.</li>
+
+                <li>An autonomous equation is a differential equation of the form <m>y' = f(y)</m>.  We can use a phase line to analyze autonomous differential equations.</li>
+
+                <li>Equilibrium solutions to a differential equation <m>y' = f(y)</m> are those solutions given by <m>f(y) = 0</m> for all <m>y</m>.  In this case, any solution must be constant.  We can classify equilibrium solutions according to whether they are stable or unstable.  In particular, an equilibrium solution is either a sink, source, or node.</li>
+
+            </ul></p>
+	
+	</subsection>
+
+    <xi:include href="./exercises/firstlook03.xml" />
+
+    <subsection number="no" xml:id="subsection-firstlook03-sage-project">
+        <title>Sage<mdash />Plotting Direction Fields and Solutions</title>
+
+        <subsubsection number="no" xml:id="subsubsection-firstlook03-direction-fields">
+        	<title>Plotting direction fields</title>
+
+	        <p>If we wish to plot a direction field for a differential equation, we can use the command <c>plot_slope_field</c>. Let us plot the direction field for the equation <m>y' = y^2/2 - t</m>.</p>
+
+	        <sage>
+	            <input><![CDATA[
+	            t, y = var('t, y')
+	            f(t, y) = y^2/2 - t
+	            v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+	            v]]>
+	            </input>
+	            <output>       
+	            </output>
+	        </sage> 
+
+	        <p>There are a few extra commands to specify the size of the arrows in the plot and to label the axes. Try changing or omitting these commands and see what happens.</p>
+
+
+	        <sage>
+	            <input><![CDATA[
+	            t, y = var('t, y')
+	            f(t, y) = y^2/2 - t
+	            v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+	            v]]>
+	            </input>
+	            <output>       
+	            </output>
+	        </sage> 
+
+	        <p>For more examples and options, see <url href="http://doc.sagemath.org/html/en/reference/plotting/sage/plot/plot_field.html" /></p>
+
+	    </subsubsection>
+
+        <subsubsection number="no" xml:id="subsubsection-firstlook03-desolve_rk4">
+        	<title>Plotting solutions</title>
+
+	        <p>Now let us find a numerical solution to the equation using the command <c>desolve_rk4</c>. This is a fourth-order Runge-Kutta method, and returns a numerical solution (a table of values). Here, we must supply the dependent variable and initial conditions.</p>
+
+	       <sage>
+	            <input><![CDATA[
+	            t, y = var('t, y')
+	            f(t, y) = y^2/2 - t
+	            p = desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+	            p]]>
+	            </input>
+	            <output>
+	            </output>
+	        </sage> 
+
+	        <p>Of course, we can combine the two plots.</p>
+
+	       <sage>
+	            <input><![CDATA[
+	            t, y = var('t, y')
+	            f(t, y) = y^2/2 - t
+	            p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'], fontsize=12)
+	            p += desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+	            p]]>
+	            </input>
+	            <output>
+	            </output>
+	        </sage> 
+
+	        <p>There are many other commands and packages to solve ordinary differential equations using Sage. For more information, see <url href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" />.  Below is an empty Sage cell, where you can practice.</p>
+
+	        <sage>
+	            <input>
+	            </input>
+	            <output>
+	            </output>
+	        </sage> 
+	    </subsubsection>
+
+	    <exercises>
+            <title>Sage Exercises</title>
+
+            <exercise>
+                <statement>
+                    <p>Suppose that the population of a trout pond can be accurately modeled by the logistic equation
+                        <me>\frac{dp}{dt} = 0.4p \left(  1 - \frac{p}{500}\right).</me>
+                    At time <m>t = 30</m>, a disease is introduced into the population that kills 10\% of the population per year.  To see how the disease affects the fish population, we will change our original model to the folllowing:
+                        <me>\frac{dp}{dt} = 
+                        \begin{cases}
+                        0.4p \left(  1 - \dfrac{p}{500}\right) &amp; \text{for } 0 \leq t \lt 30; \\
+                        0.4p \left(  1 - \dfrac{p}{500}\right) - 0.1p &amp; \text{for } t \gt 30.
+                        \end{cases}</me>
+                        <ol>
+
+                            <li>Plot the direction field for this equation using Sage.</li>
+
+                            <li>Plot the graphs of two or three representative solutions to this equation on the direction field.</li>
+
+                            <li>Find formulas for the solutions of this equation for initial conditions <m>p(0) = 30</m>.</li>
+
+                            <li>Give a qualitative description of how the disease affects the population.</li>
+
+                        </ol></p>
+                </statement>
+            </exercise>
+        </exercises>
+
+    </subsection>           
+
+</section>
+
+<!--</section>-->

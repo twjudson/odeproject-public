@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="nonlinear01" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Linearization</title>
+    
+    <introduction>
+
+        <p>In Chapter<nbsp /><xref ref="linear" />, we explored how to solve linear systems. However, if we are asked to solve a nonlinear system such as 
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = x - 3y + xy^2</mrow>
+                <mrow>\frac{dy}{dt} &amp; = 2x - 4y - x^2y,</mrow>
+            </md>
+        we are faced with a much more difficult task. In general, it may not be possible to find solutions for a nonlinear system in terms of elementary functions. However, for a given modeling problem, we can ask many questions that may be answered without finding an explicit solution for the associated system of differential equations. For example, what are the equilibrium points? Are the equilibrium points stable? Do closed solution curves exist in the phase plane?</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-nonlinear01-equilibrium-solutions">
+    	<title>Equilibrium Solutions</title>
+
+        <p>One of the most useful methods of determining the nature of an equilibrium solution for a given nonlinear system is to approximate the nonlinear system with a linear system. More specifically, an equilibrium solution occurs for the linear system
+            <md>
+                <mrow>\frac{dx}{dt} \amp = f(x,y)</mrow>
+                <mrow>\frac{dy}{dt} \amp = g(x, y)</mrow>
+            </md>
+        when an <m>x</m>-nullcline intersects a <m>y</m>-nullcline. That is, when a curve defined by <m>dx/dt = f(x,y) = 0</m> intersects a curve defined <m>dy/dt = g(x,y) = 0</m>, we have an equilibrium solution. Since the <m>x</m> and <m>y</m>-nullclines are simply curves in the <m>xy</m>-plane, we can approximate them locally by intersecting straight lines.  Translating the pair of intersection lines to the origin, we obtain a linear system, and we can apply everything that we learned about such systems in Chapter<nbsp /><xref ref="linear" />.</p>
+
+		<p>An <term>equilibrium solution</term> for a first-order system of differential equations
+            <md>
+                <mrow>x'(t) &amp; = f(x, y)</mrow>
+                <mrow>y'(t) &amp; = g(x, y)</mrow>
+            </md>
+        is a point <m>(x_0, y_0)</m> such that
+            <me>f(x_0, y_0) = g(x_0, y_0) = 0.</me>
+        Notice that neither <m>x</m> nor <m>y</m> is changing at this point. If we have the initial conditions, <m>x(0) = x_0</m> and <m>y(0) = y_0</m>, then the solution to the system is <m>x(t) = x_0</m> and <m>y(t) = y_0</m>. Of course the interesting question is what happens if our initial conditions are close to an equilibrium solution. Do solutions tend toward the equilibrium solution, away from the equilibrium solution, or is there a combination of the two?</p>
+
+        <p>One of the most useful methods of determining the nature of an equilibrium solution for a given nonlinear system is to approximate the nonlinear system with a linear system. More specifically, an equilibrium solution occurs for the linear system
+            <md>
+                <mrow>\frac{dx}{dt} \amp = f(x,y)</mrow>
+                <mrow>\frac{dy}{dt} \amp = g(x, y)</mrow>
+            </md>
+		when an <m>x</m>-nullcline intersects a <m>y</m>-nullcline. That is, when a curve defined by <m>dx/dt = f(x,y) = 0</m> intersects a curve defined <m>dy/dt = g(x,y) = 0</m>, we have an equilibrium solution. Since the <m>x</m> and <m>y</m>-nullclines are simply curves in the <m>xy</m>-plane, we can approximate them locally by intersecting straight lines.  Translating the pair of intersection lines to the origin, we obtain a linear system, and we can apply everything that we learned about such systems in Chapter<nbsp /><xref ref="linear" />.</p>
+        
+        <example>
+        	<p>Consider the system
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = x - 3y + xy^2</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = 2x - 4y - x^2y.</mrow>
+	            </md>
+	        From
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = x - 3y + xy^2 = 0</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = 2x - 4y - x^2y = 0,</mrow>
+	            </md>
+	        we can quickly conclude that the only equilibrium solution to the system is <m>(0, 0)</m>. The phase portrait for this system is given in Figure<nbsp /><xref ref="figure-nonlinear01-example-1" />. If we have the initial conditions <m>x(0) = 1</m> and <m>y(0) = 1</m>, we can see that the solution tends toward the origin as <m>t \to \infty</m>. However, it is unclear from the phase portrait if the solution curves of all initial value problems with initial conditions near the origin tend towards the equilibrium solution as <m>t \to \infty</m>.</p>
+
+			<figure xml:id="figure-nonlinear01-example-1">
+	            <image width="60%" xml:id="nonlinear01-example-1">
+	                <sageplot>
+						x, y, t = var('x y t')
+						xmin = -2
+						xmax = 2
+						ymin = -2
+						ymax = 2
+						f = x - 3*y + x*y^2
+						g = 2*x - 4*y - x^2*y
+						n = sqrt(f^2 + g^2)
+						p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+						start_x = 1
+						start_y = 1
+						start_t = 0
+						end_t = 20
+						step_size = 0.1
+						points = [ (start_x, start_y) ] 
+						P = desolve_system_rk4([f,g],[x, y],ics=[start_t,start_x,start_y],ivar=t,end_points=end_t,step=step_size)
+						Q = [ [j,k] for i,j,k in P]
+						p += line(Q, axes_labels=['$x(t)$','$y(t)$'])
+						p += point(points[0], pointsize=50)
+						p += arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4)
+						start_x = -0.5
+						start_y = 1
+						start_t = 0
+						end_t = 1.9
+						step_size = 0.1
+						points = [ (start_x, start_y) ] 
+						P = desolve_system_rk4([f,g],[x, y],ics=[start_t,start_x,start_y],ivar=t,end_points=end_t,step=step_size)
+						Q = [ [j,k] for i,j,k in P]
+						p += line(Q, color="red")
+						p += point(points[0], pointsize=50, color="red")
+						p += arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4, color="red")
+						p
+	                </sageplot>
+	            </image>
+	            <caption>Phase Portrait for <m>x' = x - 3y + xy^2</m> and <m>2x - 4y - x^2y</m></caption>
+	        </figure>
+
+			<p>Since the nonlinear terms of the system do not contribute much towards <m>dx/dt</m> and <m>dy/dt</m> for values of <m>x</m> and <m>y</m> near zero, we can determining the nature of the equilibrium solution by examining the system consisting of only linear terms on the right-hand side of the equation,
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = x - 3y</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = 2x - 4y.</mrow>
+	            </md>
+	        The matrix for this linear system,
+	            <me>A =
+	            \begin{pmatrix}
+	            1 &amp; -3 \\
+	            2 &amp; -4
+	            \end{pmatrix},</me>
+	        has eigenvalues <m>\lambda = -1</m> and <m>\mu = -2</m> with eigenvectors <m>\mathbf u = (3,2)</m> and <m>\mathbf v = (1,1)</m>, respectively. The general solution for this linear system is
+				<md>
+                    <mrow>x(t) &amp; = 3 c_1 e^{-t} + c_2 e^{-2t}</mrow>
+                    <mrow>y(t) &amp; = 2c_1 e^{-t} + c_2 e^{-2t}.</mrow>
+                </md>
+	        This indeed suggests that solutions near the origin tend towards the origin as <m>t \to \infty</m>. In this case, we say that the equilibrium solution is <term>stable</term>. Of course, if we are given an initial condition such as <m>x(0) = -0.5</m> and <m>y(0) = 1</m>.</p>
+	    </example>
+
+    	<example>
+    		<title>A Competing Species Model</title>
+  	
+	    	<p>Suppose that <m>x</m> and <m>y</m> are the population of two distinct species that compete for the same resources. For example, two species of fish may compete for the same food in a lake or sheep and cattle competing for the same grazing land.  Recall from Section<nbsp /><xref ref="systems02" /> that we can model two competing species using the following system of first-order differential equations,
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = \alpha x \left(1 - \frac{x}{M} \right) - \beta xy</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = \gamma y \left(1 - \frac{y}{N} \right) - \delta xy.</mrow>
+	            </md>
+	        The first term in each equation is the logistic growth of each species. The second term in each equation tells how each species is affected by interacting with the competing species.</p>
+
+			<p>More specifically, let us consider the following system,
+	            <mdn>
+	                <mrow xml:id="equation-nonlinear01-competing-species-1">\frac{dx}{dt} &amp; = 2x\left(1-\frac{x}{2}\right) - xy</mrow>
+	                <mrow xml:id="equation-nonlinear01-competing-species-2">\frac{dy}{dt} &amp; = 3y\left(1- \frac{y}{3}\right) - 2xy.</mrow>
+	            </mdn>
+	        It is easy to see that  the four equilibrium solutions: <m>(0,0)</m>, <m>(0,3)</m>, <m>(2,0)</m>, and <m>(1, 1)</m>.  We can view the direction field, the phase plane, and some solution curves for this system in Figure<nbsp /><xref ref="figure-nonlinear01-competing-species" />.</p>
+
+			<figure xml:id="figure-nonlinear01-competing-species">
+				<image width="60%" xml:id="nonlinear01-competing-species">
+	                <sageplot>
+						x, y, t = var('x y t')
+						F = [2*x*(1-x/2) - x*y, 3*y*(1 - y/3) - 2*x*y]
+						xmin = 0
+						xmax = 4.5
+						ymin = 0
+						ymax = 4.5
+						start_x = 0.3
+						start_y = 0.1
+						start_t = 0
+						sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=15,step=0.01)
+						S = [[j, k] for i,j,k in sol]
+						p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+						p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+						points = [ (start_x, start_y) ]
+						p += point(points[0], pointsize=50)
+						start_x = 3.75
+						start_y = 2
+						start_t = 0
+						sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=15,step=0.01)
+						S = [[j, k] for i,j,k in sol]
+						p += line(S)
+						p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+						points = [ (start_x, start_y) ]
+						p += point(points[0], pointsize=50)
+						start_x = 2.5
+						start_y = 4
+						start_t = 0
+						sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=10,step=0.01)
+						S = [[j, k] for i,j,k in sol]
+						p += line(S)
+						p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+						points = [ (start_x, start_y) ]
+						p += point(points[0], pointsize=50)
+						n = sqrt(F[0]^2 + F[1]^2)
+						p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+						xnullcline = implicit_plot(F[0], (x,xmin, xmax), (y, ymin, ymax), color='green')
+						ynullcline = implicit_plot(F[1], (x,xmin, xmax), (y, ymin, ymax), color='red')
+						p += xnullcline + ynullcline
+						p += line([(1.5,0),(4.5,0)], color='red')
+						p += line([(0,2),(0,4.5)], color='green')
+						p
+	                </sageplot>
+	            </image>
+	            <caption>A Competing Species Model</caption>
+	        </figure>
+
+			<p>Let us analyze what happens at the equilibrium solution <m>(1, 1)</m>. If we decide on an appropriate change of variables, we can translate the entire system so that this equilibrium solution is at the origin. If we let 
+	            <md>
+	                <mrow>u &amp; = x - 1</mrow>
+	                <mrow>v &amp; = y - 1,</mrow>
+	            </md>
+	        then
+	            <md>
+	                <mrow>\frac{du}{dt} = \frac{d}{dt}(x - 1) = \frac{dx}{dt},</mrow>
+	                <mrow>\frac{dv}{dt} = \frac{d}{dt}(y - 1) = \frac{dy}{dt}.</mrow>
+	            </md>
+	        Equations<nbsp/><xref ref="equation-nonlinear01-competing-species-1" /> and <xref ref="equation-nonlinear01-competing-species-2" /> now become
+	            <mdn>
+	                <mrow xml:id="equation-nonlinear01-competing-species-3">\frac{du}{dt} &amp; = -u - v - u^2 -uv,</mrow>
+	                <mrow xml:id="equation-nonlinear01-competing-species-4">\frac{dv}{dt} &amp; = -2u - v - 2uv - v^2.</mrow>
+	            </mdn>
+	        As before we consider only the linear part of equations<nbsp /><xref ref="equation-nonlinear01-competing-species-4" /> and <xref ref="equation-nonlinear01-competing-species-4" /> are
+	            <mdn>
+	                <mrow xml:id="equation-nonlinear01-competing-species-5">\frac{du}{dt} &amp; = -u - v,</mrow>
+	                <mrow xml:id="equation-nonlinear01-competing-species-6">\frac{dv}{dt} &amp; = -2u - v.</mrow>
+	            </mdn>
+	        The idea is that the linear part is a good <term>local</term> approximation to the original equations much like a tangent line is a good local approximation to a smooth function in calculus. We can determine the local nature of the equilibrium solution by examining the eigenvalues of the matrix
+	            <me>A
+	            =
+	            \begin{pmatrix}
+	            -1 &amp; -1 \\
+	            -2 &amp; -1
+	            \end{pmatrix}.</me>
+	        The eigenvalues of <m>A</m> are <m>\lambda = -1 + \sqrt{2} = 0.4142</m> and <m>\mu = -1 - \sqrt{2} \approx -2.4142</m> with eigenvectors <m>\mathbf u = (1,\sqrt{2}\,) \approx (1, 1.4142)</m> and <m>\mathbf v = (1,-\sqrt{2}\,)  \approx (1, -1.4142)</m>, respectively.  The solution to the linear system is now
+	    		<me>\mathbf x(t) = c_1  e^{\lambda t} \begin{pmatrix} 1 \\ \sqrt{2} \end{pmatrix} + c_2 e^{\mu t} \begin{pmatrix} 1 \\ -\sqrt{2} \end{pmatrix}.</me>
+	    	or
+	    		<mdn>
+	    			<mrow xml:id="equation-nonlinear01-competing-species-7">x(t) \amp = c_1 e^{\lambda t} + c_2 e^{\mu t}</mrow>
+	    			<mrow xml:id="equation-nonlinear01-competing-species-8">y(t) \amp = c_1 \sqrt{2} e^{\lambda t} - c_2 \sqrt{2} e^{\mu t}.</mrow>
+	    		</mdn></p>
+
+	    	<p>If we have initial conditions <m>x(0) = 3</m> and <m>y(0) = 4</m>, one can quickly determine that <m>c_1 = 3/2 + \sqrt{2} \approx 2.9142</m> and <m>c_2 = 3/2 - \sqrt{2} \approx 0.0859</m>, and equations <nbsp /><xref ref="equation-nonlinear01-competing-species-7" /> and <xref ref="equation-nonlinear01-competing-species-8" /> become
+				<mdn>
+	    			<mrow xml:id="equation-nonlinear01-competing-species-9">x(t) \amp = 2.9142 e^{0.4142 t} + 0.0859 e^{-2.4142 t}</mrow>
+	    			<mrow xml:id="equation-nonlinear01-competing-species-10">y(t) \amp = 4.1213 e^{0.4142 t} - 0.1213 e^{-2.4142 t}.</mrow>
+	    		</mdn>
+	    		As <m>t \to \infty</m> notice that both <m>x(t)</m> and <m>y(t)</m> become very large and tend away from the origin.</p>
+
+	    	<p>We can conclude that the equilibrium solution <m>(1,1)</m> is <term>unstable</term>. That is, tend away from the equilibrium solution as <m>t \to \infty</m> if one population begins with a slight advantage over the other. If neither popluation has an initial advantage over the other, then the solution curve will approach the equilibrium solution as <m>t \to \infty</m>.</p>
+	    </example>
+
+	    <example>
+	    	<title>A Nonpolynomial Example</title>
+
+			<p>If systems such as the following can be approximated by linear systems,
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = y</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = -y - \sin x.</mrow>
+	            </md>
+	        Certainly, this sytems has an equilibrium solution at <m>(0,0)</m>.  We can expand <m>\sin x</m> into a power series,
+	            <me>\frac{dy}{dt} =  -y - \sin x = - y - \left(  x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots \right).</me>
+	        Thus, this system can be approximated by the linear system
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = y</mrow>
+	                <mrow>\frac{dy}{dt} &amp; = -y -  x.</mrow>
+	            </md></p>       
+	    </example>
+
+    		<figure xml:id="figure-nonlinear01-nonpoly-phase-portrait">
+    			<image width="60%" xml:id="nonlinear01-nonpoly-phase-portrait">
+                    <sageplot>
+						x, y, t = var('x y t')
+						F = [y, -y - sin(x)]
+						P = desolve_system_rk4(F,[x, y],ics=[0,0.5,4],ivar=t,end_points=5,step=0.01)
+						Q = [ [j,k] for i,j,k in P]
+						p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=3, aspect_ratio=1)
+						p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+						P1=desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
+						Q1=[ [j,k] for i,j,k in P1]
+						p += line(Q1, axes_labels=['$x(t)$','$y(t)$'], thickness=3,color="red")
+						p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
+						n = sqrt(F[0]^2 + F[1]^2)
+						F_unit = [F[0]/n, F[1]/n]
+						p += plot_vector_field(F_unit, (x, -5, 5), (y, -5,5), axes_labels=['$x(t)$','$y(t)$'])
+						p
+                    </sageplot>
+                </image>
+                <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - \sin x</m></caption>
+            </figure>
+
+    		<figure xml:id="figure-nonlinear01-linearization-phase-portrait">
+    			<image width="60%" xml:id="nonlinear01-linearization-phase-portrait">
+                    <sageplot>
+						x, y, t = var('x y t')
+						F = [y, - y - x]
+						P = desolve_system_rk4(F,[x, y],ics=[0,0.5,4],ivar=t,end_points=5,step=0.01)
+						Q = [[j,k] for i,j,k in P]
+						p = line(Q, axes_labels=['$x(t)$','$y(t)$'], aspect_ratio=1, thickness=3)
+						p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+						P1 = desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
+						Q1 = [[j,k] for i,j,k in P1]
+						p += line(Q1, thickness=3,color="red")
+						p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
+						n = sqrt(F[0]^2 + F[1]^2)
+						F_unit = [F[0]/n, F[1]/n]
+						p += plot_vector_field(F_unit, (x, -5, 5), (y, -5,5), axes_labels=['$x(t)$','$y(t)$'])
+						p
+                    </sageplot>
+                </image>
+                <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - x</m></caption>
+            </figure>
+
+
+        <example xml:id="example-nonlinear01-poly">
+            <p>For example, consider the system
+                <mdn>
+                    <mrow xml:id="equation-nonlinear01-example-poly-1">\frac{dx}{dt} \amp = x^2 - 4x - y + 4</mrow>
+                    <mrow xml:id="equation-nonlinear01-example-poly-2">\frac{dy}{dt} \amp = x^3 - y.</mrow>
+                </mdn>
+            The <m>x</m> and <m>y</m>-nullclines of this system are the curves <m>y = x^2 - 4x + 4</m> and <m>y = x^3</m>, respectively. Since the two nullclines intersect only at <m>(1, 1)</m>, we have a single equilibrium solution. From the phase plane, it appears that <m>(1, 1)</m> is a stable equilibrium solution. That is, all solution curves starting sufficiently close to <m>(1, 1)</m> will approach the equilibrium solution as <m>t \to \infty</m> (Figure<nbsp /><xref ref="figure-nonlinear01-example-poly" />).</p>
+
+            <figure xml:id="figure-nonlinear01-example-poly">
+                <image width="60%" xml:id="nonlinear01-example-poly">
+                    <sageplot>
+						x, y, t = var('x y t')
+						F = [x^2 - 4*x - y + 4, x^3 - y]
+						xmin = -1
+						xmax = 3
+						ymin = -1
+						ymax = 3
+						start_x = 2
+						start_y = 2
+						start_t = 0
+						P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=2,step=0.01)
+						S = [[j, k] for i,j,k in P]
+						p = line(S, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+						p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+						points = [ (start_x, start_y) ]
+						p += point(points[0], pointsize=50)
+						n = sqrt(F[0]^2 + F[1]^2)
+						p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+						xnullcline = implicit_plot(F[0], (x,xmin, xmax), (y, ymin, ymax), color='green')
+						ynullcline = implicit_plot(F[1], (x,xmin, xmax), (y, ymin, ymax), color='red')
+						p += xnullcline + ynullcline
+						p
+                    </sageplot>
+                </image>
+                <caption>Phase portrait for the system <xref ref="equation-nonlinear01-example-poly-1" /><ndash /><xref ref="equation-nonlinear01-example-poly-2" /></caption>
+            </figure>
+
+            <p>Making the substitution <m>u = x - 1</m> and <m>v = y - 1</m>, simply translates the entire system to the origin, and we obtain the system
+                <mdn>
+                    <mrow xml:id="equation-nonlinear01-example-poly-3">\frac{du}{dt} \amp = u(u - 2) - v</mrow>
+                    <mrow xml:id="equation-nonlinear01-example-poly-4">\frac{dv}{dt} \amp u(u^2 + 3u + 3) - v.</mrow>
+                </mdn>
+            Our new system has <m>u</m> and <m>v</m>-nullclines <m>v = u(u - 2)</m> and <m>v = u(u^2 + 3u + 3)</m>, respectively. Notice that we have simply moved the phase portrait of the original system so that our equilibrium solution is now at the origin.  Furthermore, we can approximate the <m>u</m> and <m>v</m>-nullclines by their tangent lines <m>v = -2u</m> and <m>v = 3u</m>, respectively. From Figure<nbsp /><xref ref="figure-nonlinear01-example-poly" />, it appears that we are approximating our original system with a linear system.</p>
+
+            <figure xml:id="figure-nonlinear01-example-poly-phase">
+                <image width="60%" xml:id="nonlinear01-example-poly-phase">
+                    <sageplot>
+						u, v, t = var('u, v, t')
+						F = [u^2 - 2*u - v, u*(u^2 + 3*u + 3) - v]
+						umin = -2
+						umax = 2
+						vmin = -2
+						vmax = 2
+						start_u = 1
+						start_v = 1
+						start_t = 0
+						P = desolve_system_rk4(F,[u, v],ics=[start_t, start_u, start_v],ivar=t,end_points=2,step=0.01)
+						S = [[j, k] for i,j,k in P]
+						p = line(S, axes_labels=['$u(t)$','$v(t)$'], fontsize=12)
+						p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+						points = [ (start_u, start_v) ]
+						p += point(points[0], pointsize=50)
+						n = sqrt(F[0]^2 + F[1]^2)
+						p += plot_vector_field((F[0]/n, F[1]/n), (u, umin, umax), (v, vmin, vmax), aspect_ratio=1)
+						xnullcline = implicit_plot(F[0], (u, umin, umax), (v, vmin, vmax), color='green')
+						ynullcline = implicit_plot(F[1], (u, umin, umax), (v, vmin, vmax), color='red')
+						p += xnullcline + ynullcline
+						p += plot(-2*u, (u,-1,1), color="purple")
+						p += plot(3*u, (u,-2/3, 2/3), color="purple")
+						p
+                    </sageplot>
+                </image>
+                <caption>Phase portrait for the system <xref ref="equation-nonlinear01-example-poly-3" /><ndash /><xref ref="equation-nonlinear01-example-poly-4" /></caption>
+            </figure>
+        </example>
+
+        <p>To determine the general case, we must approximate a nonlinear system
+            <mdn>
+                <mrow xml:id="equation-nonlinear01-nonlinear-system-1">x'(t) \amp = f(x,y)</mrow>
+                <mrow xml:id="equation-nonlinear01-nonlinear-system-2">y'(t) \amp = g(x, y)</mrow>
+            </mdn>
+        near each equilibrium point <m>(x_0, y_0)</m> with a linear system. The idea is to move the equilibrium solution to the origin with a change of coordinates and then approximate the nonlinear system with a linear system. In order to move the equilibrium solution to the origin, we will introduce new variables
+            <md>
+                <mrow>u \amp = x - x_0</mrow>
+                <mrow>v \amp = y - y_0.</mrow>
+            </md>
+        If <m>(x,y)</m> is close to the equilibrium solution <m>(x_0, y_0)</m>, then <m>(u, v)</m> will be close to the origin. Under this change of coordinates,
+            <me>\frac{du}{dt} = \frac{d}{dt} (x - x_0) = \frac{dx}{dt} = f(x, y) = f(x_0 + u, y_0 + v).</me>
+        Similarly, <m>dv/dt = dy/dt = g(x_0 + u, y_0 + v)</m>.</p>
+
+        <p>In order to approximate the nonlinear system with a linear system, we will use a Taylor series in two variables. That is, we can write
+            <md>
+                <mrow>f(x_0 + u, y_0 + v) \amp = f(x_0, y_0) +  f_x(x_0, y_0)u + f_y(x_0, y_0)v</mrow>
+                <mrow>\amp + \frac{1}{2} f_{xx}(x_0, y_0) u^2 + f_{xy}(x_0, y_0) uv + \frac{1}{2} f_{yy}(x_0, y_0) v^2 + \cdots.</mrow>
+            </md> 
+        If we only use the linear terms of the Taylor series, we obtain a fairly accurate approximation of <m>f</m> provided we are near the equilibrium solution. Of course, <m>f</m> and its linear approximation may be quite different for values far away from the equilibrium solution. The linearization of the system of equations<nbsp /><xref ref="equation-nonlinear01-nonlinear-system-1" /><ndash /><xref ref="equation-nonlinear01-nonlinear-system-2" /> now becomes
+            <md>
+                <mrow>\frac{du}{dt} =  f(x_0, y_0) +  f_x(x_0, y_0)u + f_y(x_0, y_0)v</mrow>
+                <mrow>\frac{dv}{dt} =  g(x_0, y_0) +  g_x(x_0, y_0)u + g_y(x_0, y_0)v.</mrow>
+            </md>
+        Since <m>(x_0, y_0)</m> is an equilibrium solution, the constant terms vanish in each equation and
+            <md>
+                <mrow>\frac{du}{dt} \amp = f_x(x_0, y_0)u + f_y(x_0, y_0)v</mrow>
+                <mrow>\frac{dv}{dt} \amp = g_x(x_0, y_0)u + g_y(x_0, y_0)v.</mrow>
+            </md></p>
+        
+        <p>If we write our linearization in matrix form, we have
+            <me>\begin{pmatrix}  du/dt \\ dv/dt \end{pmatrix}
+            =
+            \begin{pmatrix}
+            f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+            g_x(x_0, y_0) \amp g_y(x_0, y_0)
+            \end{pmatrix}
+            \begin{pmatrix}  u \\ v \end{pmatrix}.</me>
+        The matrix
+            <me>J
+            =
+            \begin{pmatrix}
+            f_x(x_0, y_0)\amp f_y(x_0, y_0) \\
+            g_x(x_0, y_0) \amp g_y(x_0, y_0)
+            \end{pmatrix}</me>
+        is the <term>Jacobian matrix</term> of the system. We can now classify equilibrium solutions of nonlinear systems by examining the eigenvalues of the Jacobian matrix of the system or by using the trace-determinant plane. For example, if <m>D =\det(J) \gt 0</m> and <m>T =\trace(J) \lt 0</m>, we have a sink. We can determine the sink to be spiral or nodal by examining whether <m>(T, D)</m> lies above or below the parabola <m>T^2 = 4D</m> in the trace-determinant plane.</p>
+
+        <p>It is important to note that linearization only tells us the local story. A solution curve might behave quite differently if it is far away from the equilibrium solution.</p>
+
+        <example>
+            <p>In Example<nbsp /><xref ref="example-nonlinear01-poly" />, we considered the system
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = x^2 - 4x - y + 4</mrow>
+                    <mrow>\frac{dy}{dt} \amp = x^3 - y.</mrow>
+                </md>
+            The Jacobian matrix of this system is
+                <me>J
+                =
+                \begin{pmatrix}
+                f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+                g_x(x_0, y_0) \amp g_y(x_0, y_0)
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                2x_0 - 4 \amp -1 \\
+                3x_0^2 \amp -1
+                \end{pmatrix}</me>
+            For the equilibrium solution <m>(1, 1)</m>,
+             <me>J =
+                \begin{pmatrix}
+                -2 \amp -1 \\
+                3 \amp -1
+                \end{pmatrix}.</me>
+             Since <m>J</m> has eigenvalues <m>\lambda = (-3 \pm i \sqrt{11})/2</m>, the equilibrium solution will act as a spiral sink for initial values close to <m>(1,1)</m>.</p>
+        </example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear01-linearization-fails">
+    	<title>When Linearization Fails</title>
+
+		<p>There are at least two cases when linearization does not give us the information that we seek. First, it might well be the case that the linear terms vanish in the nonlinear system. For example, the system
+            <md>
+                <mrow>\frac{dx}{dt} \amp = xy</mrow>
+                <mrow>\frac{dy}{dt} \amp = -x^2 + xy</mrow> 
+            </md>
+        has an equilibrium solution at the origin, but this linearization of this system vanishes.</p>
+
+		<p>A more subtle example is the system
+            <md>
+                <mrow>\frac{dx}{dt} \amp = y - (x^2 + y^2)x</mrow>
+                <mrow>\frac{dy}{dt} \amp = -x - (x^2 + y^2)y.</mrow>
+            </md>
+        The origin is an equilibrium solution, and the linearization of this system is
+            <md>
+                <mrow>\frac{dx}{dt} \amp = y</mrow>
+                <mrow>\frac{dy}{dt} \amp = -x.</mrow>
+            </md>
+        The eigenvalue of the matrix corresponding to the linear system,
+            <me>A
+            =
+            \begin{pmatrix}
+            0 \amp 1 \\
+            -1 \amp 0
+            \end{pmatrix},</me>
+        are <m>\lambda = \pm i</m>. Thus, the solution curves of the linear system are simply circles about the origin. However, the nonlinear system acts quite differently. In the nonlinear system, solutions spiral out slowly from the origin (Figure<nbsp /><xref ref="figure-nonlinear01-linearization-fails" />). This system has no periodic solutions.</p>
+
+		<figure xml:id="figure-nonlinear01-linearization-fails">
+			<image width="60%" xml:id="nonlinear01-linearization-fails">
+                <sageplot>
+					x, y, t = var('x y t')
+					F = [y - (x^2 + y^2)*x, -x - (x^2 + y^2)*y]
+					P=desolve_system_rk4(F,[x, y],ics=[0,0.05,0.1],ivar=t,end_points=50,step=0.01)
+					Q=[ [j,k] for i,j,k in P]
+					LQ=line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
+					LQ_arrow = arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+					n = sqrt(F[0]^2 + F[1]^2)
+					F_unit = [F[0]/n, F[1]/n]
+					v = plot_vector_field(F_unit, (x, -0.2, 0.2), (y, -0.2,0.2), axes_labels=['$x(t)$','$y(t)$'])
+					LQ + LQ_arrow + v
+                </sageplot>
+            </image>
+            <caption>When linearization fails</caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear01-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+
+			<li>We can approximate a nonlinear system
+                <md>
+                    <mrow>x'(t) \amp = f(x,y)</mrow>
+                    <mrow>y'(t) \amp = g(x, y)</mrow>
+                </md>
+            near each equilibrium point <m>(x_0, y_0)</m> with a linear system by using a Taylor series approximation for <m>f</m> and <m>g</m>. The matrix of our linear approximation,
+                <me>J
+                =
+                \begin{pmatrix}
+                f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+                g_x(x_0, y_0) \amp g_y(x_0, y_0)
+                \end{pmatrix},</me>
+            is the <term>Jacobian matrix</term> of the system. We can classify nonlinear systems by examining the Jacobian matrix of the system and using the trace-determinant plane.</li>
+
+			<li>Linearization only tells us how solutions behave near the equilibrium point. A solution curve might behave quite differently if it is far away from the equilibrium solution.</li>
+
+			<li>In some cases, linearization can fail.</li>
+		
+		</ul></p>
+
+	</subsection>
+
+    <xi:include href="./exercises/nonlinear01.xml" />
+
+    <subsection number="no" xml:id="subsection-nonlinear01-sage-project">
+        <title>Project<mdash />Modeling the Nervous System</title>
+    
+     		<p>Hodgkin and Huxley developed a model for the firing of nerve cells in the 1950s. The model was a system of four differential equations that described the electrochemical transmission of neuronal signals along cell membranes in giant squid. The system itself was very difficult to analyze due to its highly nonlinear nature, but it did earn the two scientists a Nobel Prize for medicine in 1963 (the year after Watson and Crick won their prize).</p>
+
+    		<p>Fitzhugh and Nagumo managed to simplify the Hodgkin-Huxley model to two equations
+                <md>
+                    <mrow>x' \amp = y + x - x^3/ 3 + I</mrow>
+                    <mrow>y' \amp = -x + a - by,</mrow>
+                </md>
+            where <m>a</m> and <m>b</m> are constants satisfying a certain condition and <m>I</m> is a parameter. In these equations, <m>x</m> represents the excitability of the system and <m>y</m> represents a combination of other forces that return the system to rest. Similar models have been constructed to model the systolic and diastolic movements of the heart.</p>
+
+    		<p>We will now consider the system
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = x + y - x^3</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -0.5 x,</mrow>
+                </md>
+            which has been used to study nerve cells and is similar to the Fitzhugh-Nagumo model. The <m>x</m>-nullcline for this system is <m>y = -x + x^3</m>. The <m>x</m>-component of the direction field above this nullcline is positive. Below the nullcline the <m>x</m>-component of the direction field is negative.</p>
+
+    		<p>The <m>y</m>-nullcline of the system is the <m>y</m>-axis. To the right of the <m>y</m>-nullcline, we have <m>dy/dt \lt 0</m>, and <m>dy/dt \gt 0</m> to the left of the <m>y</m>-nullcline. Thus, the <m>x</m> and <m>y</m>-nullclines divide the plane into four regions and all solutions must circulate in a clockwise manner about the origin (Figure<nbsp /><xref ref="figure-nonlinear01-modeling-nerve-cells" />).</p>
+    		
+    		<figure xml:id="figure-nonlinear01-modeling-nerve-cells">
+    			<image width="60%" xml:id="nonlinear01-modeling-nerve-cells">
+                    <sageplot>
+						x, y, t = var('x y t')
+						F = [x + y - x^3, -0.5*x]
+						P = desolve_system_rk4(F,[x, y],ics=[0,-1.9,1.7],ivar=t,end_points=25,step=0.01)
+						Q = [[j,k] for i,j,k in P]
+						p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2, aspect_ratio=1)
+						p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+						P1 = desolve_system_rk4(F,[x, y],ics=[0,0.2,0.2],ivar=t,end_points=25,step=0.01)
+						Q1 = [[j,k] for i,j,k in P1]
+						p += line(Q1, axes_labels=['$x(t)$','$y(t)$'], thickness=2,color="red")
+						p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
+						n = sqrt(F[0]^2 + F[1]^2)
+						F_unit = [F[0]/n, F[1]/n]
+						p += plot_vector_field(F_unit, (x, -2, 2), (y, -2,2))
+						p
+                    </sageplot>
+                </image>
+                <caption>Modeling nerve cells</caption>
+            </figure>
+    		
+    		<p>The origin is the only equilibrium solution of the system; hence, we can examine the linearization 
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = x + y</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -0.5 x,</mrow>
+                </md>
+            to determine the nature of the equilibrium solution. Since the eigenvalues of this linear system are <m>(1 \pm i)/2</m>, we can conclude that the origin is a spiral source. A solution that passes close to the origin tends to spiral outward; however, solutions that are far from the origin spiral inward. We shall later see that we must have a closed periodic solution to this system by the Poincaré-Bendixson Theorem.</p>
+    
+    </subsection>
+
+ </section>
+
+<!--</section>-->

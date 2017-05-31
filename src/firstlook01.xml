@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="firstlook01" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Modeling with Differential Equations</title>
+  
+    <introduction>
+
+        <p>Calculus tells us that the derivative of a function measures how the function changes. An equation relating a function to one or more of its derivatives is called a <term>differential equation</term>. The subject of differential equations is one of the most interesting and useful areas of mathematics. We can describe many interesting natural phenomena that involve change using differential equations. In addition, the theory of the subject has broad and important implications.</p>
+
+    </introduction>
+  
+    <subsection xml:id="subsection-firstlook01-exponential-growth">
+        <title>Exponential Growth</title>
+    
+        <p>We begin our study of ordinary differential equations by modeling some real world phenomena. For a particular situation that we might wish to investigate, our first task is to write an equation (or equations) that best describes the phenomenon. Suppose that we wish to study how a population <m>P(t)</m> grows with time <m>t</m>.  We might make the assumption that a constant fraction of population is having offspring at any particular time. If we also assume that the population has a constant death rate, the change in the population <m>\Delta P</m> during a small time interval <m>\Delta t</m> will be
+            <me>\Delta P \approx  k_{\text{birth}} P(t) \Delta t - k_{\text{death}} P(t) \Delta t,</me>
+        where <m>k_{\text{birth}}</m> is the fraction of the population having offspring during the interval and <m>k_{\text{death}}</m> is the fraction of the population that dies during the interval. Equivalently, we can write
+            <me>\frac{\Delta P}{ \Delta t} \approx k P(t),</me>
+        where <m>k =  k_{\text{birth}} - k_{\text{death}}</m>. Since the derivative of <m>P</m> is
+            <me>\frac{dP}{dt} = \lim_{\Delta t \to 0} \frac{\Delta P}{ \Delta t},</me>
+        the rate of change of the population is proportional to the size of the population, or
+            <men xml:id="equation-firstlook01-exponential">\frac{dP}{dt} = kP.</men></p>
+
+        <p>The equation
+            <me>\frac{dP}{dt} = kP</me>
+        is one of the simplest differential equations that we will consider. The equation tells us that the population grows in proportion to its current size. It is not too difficult to see that <m>P(t) = Ce^{kt}</m> is a <term>solution</term> to this equation, where <m>C</m> is an arbitrary constant.  Indeed, if we differentiate <m>P(t)</m>, we obtain
+            <me>\frac{d}{dt} P(t) = kCe^{kt} = kP(t).</me>
+        In addition, if we know the value of <m>P(t)</m>, say when <m>t = 0</m>, we can also determine the value of <m>C</m>. For example, if the population at the time <m>t = 0</m> is <m>P(0) = P_0</m>, then
+            <me>P_0 = P(0) = Ce^{k \cdot 0} = C</me>
+        or <m>P(t) = P_0 e^{kt}</m>. The differential equation
+            <md>
+              <mrow>P'(t) &amp; = k P(t),</mrow>
+              <mrow>P(0) &amp; = P_0</mrow>
+            </md>
+        is an example of an <term>initial value problem</term><index><main>initial value problem</main></index>, and we say that <m>P(0) = P_0</m> is an <term>initial condition</term><index><main>initial condition</main></index>. Since the solution to equation <xref ref="equation-firstlook01-exponential"/> is <m>P(t) = Ce^{kt}</m>, and we say that the population grows <term>exponentially</term><index><main>exponential growth</main></index>.</p>
+
+        <p>As an example, suppose that <m>P(t)</m> is a population of a colony of bacteria at time <m>t</m>, whose initial population is 1000 at <m>t = 0</m>, where time is measured in hours.  Then
+            <me>1000 = P(0) = C e^0 = C,</me>
+        and our solution becomes <m>P(t) = 1000e^{kt}</m>. If the population grows at three percent per hour, then
+            <me>1030 = P(1) = 1000 e^k,</me>
+        after one hour.  Consequently,
+            <me>k = \ln 1.03 \approx 0.0296</me>
+        and the solution to our initial value problem is 
+            <me>P(t) = 1000e^{0.0296 t}.</me>
+            Of course, it is important to realize that this is only a model. If <m>t</m> is small, our model might be reasonably accurate. However, if we let <m>t</m> be very large, our colony of bacteria could very well exceed the mass of the earth.</p>
+
+        <p>The growth rate of a population need not be positive. For example, Japan has experienced negative growth in recent years.<fn>See <url href="http://data.worldbank.org/indicator/SP.POP.GROW" />.</fn> The equation <m>dP/dt = kP</m> can also be used to model such phenomena such as radioactive decay and compound interest<mdash/>topics which we will explore later.</p>
+
+        <p>To summarize, we say that the expression <m>x(t) = Ce^{kt}</m> is a <term>general solution</term><index><main>general solution</main></index> of the equation <m>x' = kx</m>, and <m>x(t) = x_0 e^{kt}</m> is a <term>particular solution</term><index><main>particular solution</main></index> to the differential equation. The general solution to our equation <m>x(t) = Ce^{kt}</m> graphs as an infinite family of curves, which we will call <term>integral curves</term><index><main>integral curves</main></index> or <term>solution curves</term><index><main>solution curves</main></index> (Figure<nbsp /><xref ref="figure-firstlook01-integral-curves"/>).</p>
+    
+        <figure xml:id="figure-firstlook01-integral-curves">
+            <image width="60%" xml:id="firstlook01-integral-curves">
+                <sageplot>
+                    p = plot(exp(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005, axes_labels=['$t$','$x(t)$'], fontsize=12)
+                    for n in range(1,4):
+                        f(x) = exp(n*x)
+                        p += plot(f(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005)
+                        p += plot(-f(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005)
+                    label = text('$x(t) = Ce^{kt}$', (-1.5, 100), color='black', fontsize=14)
+                    p + label
+                </sageplot>
+            </image>
+            <caption>Integral curves</caption>
+        </figure>
+
+    </subsection>
+ 
+    <subsection xml:id="subsection-firstlook01-logistic-growth">
+        <title>Logistic Growth</title>
+        
+        <p>Not all populations grow exponentially; otherwise, a bacteria culture in a petri dish would grow unbounded and soon be much larger than the size of the laboratory. To see what happens if there are limiting factors to population growth, let us consider the population of fish in a children's trout pond. The number of trout will be limited by the available resources, food supply, and spawning habitat. A small population of fish might grow exponentially if the pond is large and food is abundant, but the growth rate will decline as the population increases and the availability of resources declines.  We can use the <term>logistic equation</term><index><main>logistic equation</main></index> to model population growth in a resource limited environment.<fn>The logistic model was first used by the Belgian mathematician and physician Pierre François Verhulst in 1836 to predict the populations of Belgium and France.</fn></p>
+    
+        <p>To see how the logistic model works, let us try to adjust our model of exponential growth to account for the limited resources of the pond. We will make the following assumptions.
+            <ul>
+
+                <li>If the population of trout is small and the pond is large with abundant resources, the rate of growth will be approximately exponential,
+                    <me>\frac{dP}{dt} \approx kP.</me></li>
+
+                <li>If <m>N</m> is the maximum population of trout that the pond can support, then any population larger than <m>N</m> will decrease.  In other words,
+                    <me>\frac{dP}{dt} \lt 0</me>
+                for <m>P \gt N</m>.  We say that <m>N</m> is the <term>carrying capacity</term><index><main>carrying capacity</main></index> for the population.</li>
+
+            </ul>Our assumptions suggest that we might try an equation of the form
+                <me>\frac{dP}{dt} = k f(P) P,</me>
+            where <m>f(P)</m> is a function of <m>P</m> that is close to 1 if the population is small, but negative if the population is greater than <m>N</m>. The simplest function satisfying these conditions is
+                <me>f(P) = \left( 1 - \frac{P}{N} \right).</me>
+            Thus, the <term>logistic population model</term> is given by the differential equation
+                <me>\frac{dP}{dt} = k \left( 1 - \frac{P}{N} \right) P.</me></p>
+
+        <example xml:id="example-firstlook01-logistic-growth">
+            <p>Suppose we have a pond will support 1000 fish, and the initial population is 100 fish. In order to determine the number of fish in the lake at any time <m>t</m>, we must solve the initial value problem
+                <md>
+                    <mrow>\frac{dP}{dt} &amp; = k \left( 1 - \frac{P}{1000} \right) P</mrow>
+                    <mrow>P(0) &amp; = 100.</mrow>
+                </md>
+             It is easy to verify that
+                <me>P(t) = \frac{1000}{9e^{-kt} + 1}</me>
+            is the solution to our initial value problem.<fn>We will learn how to solve initial-value problems such as the one described here in Section<nbsp /><xref ref="firstlook02"/>. For the time being, we will be satisfied with being able to verify the fact that we have a solution.</fn></p>
+
+            <p>If we differentiate <m>P</m>, we will obtain the righthand side of the differential equation,
+            	<md>
+            		<mrow>\frac{dP}{dt} &amp; = \frac{d}{dt} \left(\frac{1000}{9e^{-kt} + 1}\right)</mrow>
+            		<mrow>&amp; = 1000 k \frac{9e^{-kt}}{(9e^{-kt} + 1)^2}</mrow>
+            		<mrow>&amp; = k \frac{9e^{-kt}}{(9e^{-kt} + 1)} \cdot \frac{1000}{9e^{-kt} + 1}</mrow>
+            		<mrow>&amp; = k \frac{(9e^{-kt} + 1) - 1}{(9e^{-kt} + 1)} \cdot \frac{1000}{9e^{-kt} + 1}</mrow>
+            		<mrow>&amp; = k \left( 1 - \frac{1000}{1000(9e^{-kt} + 1)}\right) \frac{1000}{9e^{-kt} + 1}</mrow>
+            		<mrow>&amp; = k \left( 1 - \frac{P}{1000} \right) P,</mrow>
+            	</md>
+            and certainly <m>P(0) = 100</m>. In addition, if we know that the population is 200 fish after one year, then 
+            	<me>200 = P(1) = \frac{1000}{9e^{-k} + 1},</me>
+            and we can determine that 
+                <me>k = \ln\left(  \frac{9}{4}\right) \approx 0.8109.</me>
+            Consequently, the solution to our intial-value problem is
+                <me>P(t) = \frac{1000}{9e^{-0.8109 t} + 1}.</me>
+            The graph of our solution certainly fits the situation that we are modeling (Figure<nbsp /><xref ref="figure-firstlook01-logistic-growth"/>).</p>
+
+            <p>Of course, we have not allowed for the possibility that children will be catching fish in our pond. We will examine how fishing affects our model in Section<nbsp /><xref ref="firstlook07"/>.</p>
+        </example>
+
+        <figure xml:id="figure-firstlook01-logistic-growth">
+
+            <image width="60%" xml:id="firstlook01-logistic-growth">
+                <sageplot>
+                    f(x) = 1000/(9*exp(-0.8109 * x) + 1)
+                    p = plot(f(x), (x, 0, 16), xmax=16, ymin = -100, ymax = 1100, color='blue', thickness=2, aspect_ratio=0.01, axes_labels=['$t$','$P(t)$'], fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption>Logistic growth</caption>
+
+        </figure>
+    
+    </subsection>
+ 
+    <subsection xml:id="subsection-firstlook01-spring-mass">
+        <title>A Spring-Mass Model</title>
+    
+        <p>Sometimes it is necessary to consider the second derivative when constructing a mathematical model. Suppose that we have a mass lying on a flat, frictionless surface and that this mass is attached to one end of a spring with the other end of the spring attached to a wall. We denote the spring displacement by <m>x</m>. If <m>x \gt 0</m>, then the spring is stretched. If <m>x \lt 0</m>, the spring is compressed. If <m>x = 0</m>, then the spring is in a state of equilibrium (Figure<nbsp /><xref ref="figure-firstlook01-spring-mass"/>). If we pull on the mass, then the mass will oscillate back and forth across the table.</p>
+    
+        <figure xml:id="figure-firstlook01-spring-mass">
+
+                <!-- Replaced figure with tikz figure - TWJ 6/11/2010 -->
+                <image width="60%" xml:id="firstlook01-spring-mass">
+                    <latex-image-code><![CDATA[
+                        \begin{tikzpicture}[scale=0.7]
+                            \draw (-2,0) -- (10,0);
+                            \draw (-2,5) -- (10,5);
+                            \draw (0,0) -- (0,4);
+                            \draw (0,5) -- (0,9);
+                            \filldraw[fill=blue!20,draw=blue!50!black, thick] (4,0) -- (6,0) -- (6,2) -- (4,2) -- cycle;
+                            \draw[ultra thick] (0,1) -- (1,1) (3,1) -- (4,1);
+                            \draw[snake=coil,segment length=5pt,segment amplitude=5pt,ultra thick] (1,1) -- (3,1); 
+                            \filldraw[fill=blue!20,draw=blue!50!black, thick] (7,5) -- (9,5) -- (9,7) -- (7,7) -- cycle;
+                            \draw[ultra thick] (0,6) -- (2,6) (5,6) -- (7,6);
+                            \draw[snake=coil,segment length=7pt,segment amplitude=5pt,ultra thick] (2,6) -- (5,6); 
+                            \draw[dashed] (5,0) -- (5,9);
+                            \node at (5,1) {mass};
+                            \node at (8,6) {mass};
+                            \shadedraw[left color=gray!10,right color=blue!50] (0,0) -- (0,4) -- (-2,4) -- (-2,0) -- cycle;
+                            \shadedraw[left color=gray!10,right color=blue!50] (0,5) -- (0,9) -- (-2,9) -- (-2,5) -- cycle;
+                            \node at (-1,2) {wall};
+                            \node at (-1,7) {wall};
+                            \draw (5,4.9) -- (5,4.3);
+                            \draw (8,4.9) -- (8,4.3);
+                            CDATA[\draw[<->] (5,4.7) -- (8,4.7);
+                            \node[below] at (5,0) {Position at rest};
+                            \node[below] at (8,4.4) {Position $x(t)$ at time $t$};
+                        \end{tikzpicture}]]>
+                    </latex-image-code>                
+                </image>
+
+                <caption>A spring-mass system</caption>
+            </figure>
+    
+        <p>We can construct a differential equation that models our oscillating mass. First, we must consider the restorative force on the spring. We will make the assumption that this force depends on the displacement of the spring, <m>F(x)</m>. Using Taylor's Theorem from calculus, we can expand <m>F</m> to obtain
+            <md>
+                <mrow>F(x) &amp; =  F(0) + F'(0) x + \frac{1}{2} F''(0) x^2 + \cdots</mrow>
+                <mrow>&amp; = -k x + \frac{1}{2} F''(0) x^2 + \cdots,</mrow>
+            </md>
+        where <m>F'(0) = -k</m> and <m>F(0) = 0</m>.  If the displacement is not too large, then <m>x^n</m> will be small for <m>n \geq 2</m>, and we can ignore higher ordered terms. Thus, we can consider the restorative force on the spring to be proportional to displacement of the spring from its equilibrium length,
+            <me>F = -kx.</me>
+        This equation is known as is <term>Hooke's Law</term><index><main>Hooke's Law</main></index>. We can test this law experimentally, and it is reasonably accurate if the displacement of the spring, <m>x</m>, is not too large.</p>
+
+        <p>By Newton's second law of motion, the force on the mass must be
+            <me>F = ma = m \frac{d^2 x}{dt^2} = m x''.</me>
+        Setting the two forces equal, we have a <term>second order</term> differential equation,
+            <me>mx'' = -kx,</me>
+        which describes our oscillating mass. The spring-mass system is an example of a <term>harmonic oscillator</term><index><main>harmonic oscillator</main></index>.</p>
+
+        <p>Suppose that we have a spring-mass system where <m>m =1</m> and <m>k = 1</m>. If the initial velocity of the spring is one unit per second and the initial position is at the equilibrium point, then we have the following initial value problem,
+        <md>
+            <mrow>x'' + x &amp; =  0</mrow>
+            <mrow>x(0) &amp; =  0</mrow>
+            <mrow>x'(0) &amp; =  1.</mrow>
+        </md>
+        Since <m>x''(t) = - x(t)</m> for both the sine and cosine functions, we might guess that a general solution of our differential equation has the form
+            <me>x(t) = A \cos t + B \sin t.</me>
+        Noting that
+            <me>x'(t) = -A \sin t + B \cos t,</me>
+        and using our initial conditions, we can determine that <m>A = 0</m> and <m>B = 1</m> or
+            <me>x(t) = \sin t.</me>
+        The graph of the position of the mass as a function of time is given in Figure<nbsp /><xref ref="figure-firstlook01-position-mass"/>.</p>
+
+        <figure xml:id="figure-firstlook01-position-mass">
+
+            <image width="70%" xml:id="firstlook01-position-mass">
+                <sageplot>
+                    f(x) = sin(x)
+                    p = plot(f(x), (x, 0, 30), xmax=30, ymin = -1.5, ymax = 1.5, color='blue', thickness=2, aspect_ratio=4, axes_labels=['$t$','$x(t)$'], fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption>A undamped spring-mass system</caption>
+
+        </figure>
+    
+        <p>Now let us add a damping force to our system. For example, we might add a dashpot, a mechanical device that resists motion, to our system. Think of a dashpot as that small cylinder that keeps your screen door from slamming shut. The simplest assumption would be to take the damping force of the dashpot to be proportional to the velocity of the mass, <m>x'(t)</m>. Thus, we have will have an additional force,
+            <me>F = -b x'</me>
+        acting on our mass, where <m>b \gt 0</m>. Our new equation for the spring-mass system is
+            <me>mx'' = -bx' - kx.</me>
+        or
+            <me>mx'' + bx' + kx = 0,</me>
+        where <m>m</m>, <m>b</m>, and <m>k</m> are all positive constants. If we let <m>m = 1</m>, <m>b = 3</m>, and <m>k = 2</m>, then we would have an spring-mass system governed by the equation
+            <me>x'' + 3x' + 2x = 0.</me>
+        We will learn how to solve equations of the form <m>ax'' + bx' + cx = 0</m> in Chapter<nbsp /><xref ref="secondorder"/>, but let us assume that the solution is of the form <m>x(t) = e^{rt}</m> for now. Then
+            <md>
+                <mrow>x'' + 3x' + 2x &amp; = r^2 e^{rt} + 3 r e^{rt} + 2 e^{rt}</mrow>
+                <mrow>&amp; = e^{rt}(r^2 + 3r +2)</mrow>
+                <mrow>&amp; = e^{rt}(r+2)(r+1)</mrow>
+                <mrow>&amp; = 0.</mrow>
+            </md>
+        Since <m>e^{rt}</m> is never zero, it must be the case that <m>r = -2</m> or <m>r = -1</m>, if <m>x(t) = e^{rt}</m> is to be a solution to our equation. Thus, we might guess that
+            <me>x(t) = A e^{-t} + B e^{-2t}</me>
+        is a general solution to our equation. If the initial velocity of our mass is one unit per second and the initial position is zero, then we have the initial value problem
+            <md>
+                <mrow>x'' + 3x' + 2 x &amp; = 0</mrow>
+                <mrow>x(0) &amp; = 0</mrow>
+                <mrow>x'(0) &amp; = 1.</mrow>
+            </md>
+        Using the fact that <m>x'(t) = -A e^{-t} -2 B e^{-2t}</m>, our initial conditions give us the following system of linear equations,
+            <md>
+                <mrow>A + B &amp; = 0</mrow>
+                <mrow>-A -2B &amp; = 1.</mrow>
+            </md>
+        Thus, <m>A = 1</m> and <m>B = -1</m>, and our spring-mass system is modeled by the function
+            <me>x(t) =  e^{-t} - e^{-2t}.</me>
+        Notice that the additional damping negates any oscillation in the system. In this case, we say that the system is <term>over-damped</term><index><main>harmonic oscillator</main><sub>over-damped</sub></index> (Figure<nbsp /><xref ref="figure-firstlook01-over-damped"/>).</p>
+
+        <figure xml:id="figure-firstlook01-over-damped">
+
+            <image width="70%" xml:id="firstlook01-over-damped">
+                <sageplot>
+                    f(x) = exp(-x) - exp(-2*x)
+                    p = plot(f(x), (x, 0, 10), xmax=10, ymin = -0.1, ymax = 0.3, color='blue', thickness=2, aspect_ratio=12, axes_labels=['$t$','$x(t)$'], fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption>An over-damped spring-mass system</caption>
+
+        </figure>
+    
+        <p>Of course, if we have a very strong spring and only add a small amount of damping to our spring-mass system, the mass would continue to oscillate, but the oscillations would become progressively smaller. In other words, our system would be under-damped. For example, our spring-mass system might be described by the initial value problem
+            <md>
+                <mrow>x'' + 2x' + 50 x &amp; = 0</mrow>
+                <mrow>x(0) &amp; = 0</mrow>
+                <mrow>x'(0) &amp; = 1.</mrow>
+            </md>
+        It is easy to verify that
+            <me>x(t) = \frac{1}{7} e^{-t} \sin 7t</me>
+        is a solution to the initial value problem (Figure<nbsp /><xref ref="figure-firstlook01-under-damped"/>).</p>
+
+        <figure xml:id="figure-firstlook01-under-damped">
+
+            <image width="70%" xml:id="firstlook01-under-damped">
+                <sageplot>
+                    f(x) = exp(-x)*sin(7*x)/7
+                    p = plot(f(x), (x, 0, 10), xmax=10, ymin = -0.1, ymax = 0.15, color='blue', thickness=2, aspect_ratio=16, axes_labels=['$t$','$x(t)$'], fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption>An under-damped spring-mass system</caption>
+
+        </figure>
+
+        <p>We will explore harmonic oscillators and second-order differential equations more fully in Chapter<nbsp /><xref ref="secondorder"/>.</p>
+    
+    </subsection>
+  
+  	<subsection xml:id="subsection-firstlook01-predator-prey">
+        <title>A Predator-Prey System</title>
+    
+        <p>Some situations require more than one differential equation to model a particular situation. We might use a system of differential equations to model two interacting species, say where one species preys on the other.<fn>The predator-prey model was discovered independently by Lotka (1925) and Volterra (1926).</fn> For example, we can model how the population of Canadian lynx (<em>lynx canadienis</em>) interacts with a the population of snowshoe hare (<em>lepus americanis</em>) (see <url href="https://www.youtube.com/watch?v=ZWucOrSOdCs" />).</p>
+
+        <p>We have good historical data for the populations of the lynx and snowshoe hare from the Hudson Bay Company. This large Canadian retail company, which owns and operates a large number of retail stores in North America and Europe, including Galeria Kaufhof, Hudson's Bay, Home Outfitters, Lord <ampersand /> Taylor, and Saks Fifth Avenue, was originally founded in 1670 as a fur trading company. The Hudson Bay Company kept accurate records on the number of lynx pelts that were bought from trappers from 1821 to 1940. The company noticed that the number of pelts varied from year to year and that the number of lynx pelts reached a peak about every ten years <xref ref="elton-1942"/>. The ten year cycle for lynx can be best understood using a system of differential equations.</p>
+    
+        <p>The primary prey for the Canadian lynx is the snowshoe hare. We will denote the population of hares by <m>H(t)</m> and the population of lynx by <m>L(t)</m>, where <m>t</m> is the time measured in years. We will make the following assumptions for our predator-prey model.
+			<ul>
+			
+				<li>If no lynx are present, we will assume that the hares reproduce at a rate proportional to their population and are not affected by overcrowding. That is, the hare population will grow exponentially,
+                    <me>\frac{dH}{dt} = aH.</me></li>
+
+				<li>Since the lynx prey on the hares, we can argue that the rate at which the hares are consumed by the lynx is proportional to the rate at which the hares and lynx interact.  Thus, the equation that predicts the rate of change of the hare population becomes
+                    <me>\frac{dH}{dt} = aH - bHL.</me>
+                We are thinking of <m>HL</m> as the number of possible interactions between the lynx and the hare populations.</li>
+
+				<li>If there is no food, the lynx population will decline at a rate proportional to itself,
+                    <me>\frac{dL}{dt} = -cL.</me></li>
+
+				<li>The lynx receive benefit from the hare population. The rate at which lynx are born is proportional to the number of hares that are eaten, and this is proportional to the rate at which the hares and lynx interact. Consequently, the growth rate of the lynx population can be described by
+                    <me>\frac{dL}{dt} = -cL + dHL.</me></li>
+
+			</ul>
+        We now have a <term>system</term> of differential equations that describe how the two populations interact,
+            <md>
+                <mrow>\frac{dH}{dt}  &amp; =  aH - bHL,</mrow>
+                <mrow>\frac{dL}{dt}  &amp; =  -cL + dHL.</mrow>
+            </md >
+        We will learn how to analyze and solve systems of differential equations in subsequent chapters; however, we will give a graphical solution in Figure<nbsp /><xref ref="figure-firstlook01-lynx-snowshoe-hare"/> to the system
+            <md>
+                <mrow>\frac{dH}{dt} &amp; =  0.4H - 0.01HL,</mrow>
+                <mrow>\frac{dL}{dt} &amp; =  -0.3L + 0.005HL.</mrow>
+            </md>
+        Notice that the predator population, <m>L</m>, begins to grow and reaches a peak after the prey population, <m>H</m> reaches its peak.  As the prey population declines, the predator population also declines. Once the predator population is smaller, the prey population has a chance to recover that the cycle begins again.<fn>An excellent account of the actual lynx and snowshoe hare data and model can be found in <xref ref="bauer-2001"/>.</fn></p>
+
+        <figure xml:id="figure-firstlook01-lynx-snowshoe-hare">
+            <image width="60%" xml:id="firstlook01-lynx-snowshoe-hare">
+                <sageplot>
+                    from sage.calculus.desolvers import desolve_system_rk4
+                    H,L,t = var('H L t')
+                    F = [0.4*H - 0.01*H*L, -0.3*L + 0.005*H*L]
+                    P=desolve_system_rk4(F,[H,L],ics=[0,70,50],ivar=t,end_points=100)
+                    Q=[ [i, j] for i,j,k in P]
+                    R=[ [i, k] for i,j,k in P]
+                    p = line(Q, color='red', axes_labels=['$t$','$H(t), L(t)$'], legend_label='$H(t)$', legend_color='red')
+                    p += line(R, color='blue', legend_label='$L(t)$', legend_color='blue')
+                    p
+                </sageplot>
+            </image>
+            <caption>The predator-prey relationship between the lynx and the snowshoe hare</caption>
+        </figure>
+    
+    </subsection>
+  
+    <subsection xml:id="subsection-firstlook01-modeling-hiv">
+        <title>Modeling the HIV-1 Virus</title>
+    
+        <todo>Check all of the details on this example</todo>
+        
+        <p>The interaction of the HIV-1 virus with the body's immune system can be modeled by a system of differential equations similar to a predator-prey system. After an individual is infected with the HIV-1 virus, the amount of the virus in the bloodstream rises dramatically and the person will often suffer from flu-like symptoms. However, these symptoms will disappear after a period of weeks or months as the body begins to manufacture antibodies against the virus. Tests have been developed to determine the presence of HIV-1 antibodies. If a individual has such antibodies, then they are said to be HIV-1 positive. Once infected with the HIV-1 virus, it can be years before an HIV-positive patient exhibits the full symptoms of AIDS. The body's immune system fights the HIV-1 virus with white blood cells. The CD4-positive T-helper cells, a specific type of white blood cell, is especially important since it helps other cells fight the virus. However, the HIV-1 virus can destroy CD4-positive T-helper cells.</p>
+        
+        <p>We can develop a system of differential equations to better understand the dynamics of the HIV-1 virus <xref ref="perelson-2002"/>. Let <m>V = V(t)</m> be the population of the HIV-1 virus at time <m>t</m>. We will assume that the virus concentration is governed by the following differential equation,
+            <me>\frac{dV}{dt} = P - cV.</me>
+        The first term, <m>P</m> is some function of <m>t</m> that determines the rate at which new viral particles are created. The term <m>-cV</m> is the death rate for the virions. If someone discovers a drug that blocks the creation of new HIV-1 virions, then <m>P</m> would be zero and the virions would clear the body at the following rate,
+            <me>\frac{dV}{dt} = - cV,</me>
+        and <m>V(t) = V_0 e^{-ct}</m>, where <m>V_0</m> is the initial viral population.</p>
+
+        <p>Now let us consider a model for the concentration of <m>T = T(t)</m> of (uninfected) CD4-positive T-helper cells,
+            <me>\frac{dT}{dt} = s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T.</me>
+        The constant <m>s</m> represents the rate at which T cells are created from sources in the body, such as the thymus. New CD4-positive T-helper cells can also be created from the proliferation of existing CD4-positive T-helper cells, and the second term in the equation represents the logistic growth of the T cells, where <m>p</m> is the maximum proliferation rate and <m>T_{\text{max}}</m> is the T cell population density where proliferation ceases. Finally, <m>d_T</m> is the death rate of the T cells.</p>
+
+        <p>Like the influenza virus, the HIV-1 virus is an RNA virus. An RNA virus cannot reproduce on its own and must use the DNA from a host cell. To do this, the virus attaches itself to a CD4-positive T-helper cell and injects its RNA into the cell. This way the virus can use the T cell's DNA to replicate itself using a process called reverse transcription, where a DNA copy of the virus's RNA is made. New virus particles are created, and the T cell eventually bursts releasing the virions into the body. If we let <m>T^*</m> be the concentration of infected T cells, we can model this process with the following system of equations,
+            <md>
+                <mrow>\frac{dT^*}{dt} &amp; =  kTV - \delta T^*</mrow>
+                <mrow>\frac{dV}{dt} &amp; =  N \delta T^* - cV,</mrow>
+            </md>
+        where <m>\delta</m> is the rate of loss of the virus producing T cells and <m>N</m> is the number of virions produced per infected T cell during its lifetime. The term <m>kTV</m> tells us the rate at which the HIV-1 virus infects T cells. This is the same idea as modeling how predators interact with prey in a predator-prey model. Thus, our complete model becomes
+            <md>
+                <mrow>\frac{dT}{dt} &amp; =  s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T - kTV</mrow>
+                <mrow>\frac{dT^*}{dt} &amp; =  kTV - \delta T^*</mrow>
+                <mrow>\frac{dV}{dt} &amp; =  N \delta T^* - cV.</mrow>
+            </md></p>
+
+        <p>One class of drugs that HIV infected patients receive are reverse transcriptase (RT) inhibitors. RT inhibitors block the action of reverse transcription and prevent the virus from duplicating. If one could find the perfect RT inhibitor, then <m>k =0</m> and our system becomes
+            <md>
+                <mrow>\frac{dT}{dt} &amp; = s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T</mrow>
+                <mrow>\frac{dT^*}{dt} &amp; = - \delta T^*</mrow>
+                <mrow>\frac{dV}{dt} &amp; = N \delta T^* - cV.</mrow>
+            </md>
+        Unfortunately, no one has discovered a perfect RT inhibitor, so we will need to modify the system to account for the effectiveness of the RT inhibitor. We can accomplish this by adding an effectiveness factor, <m>1 - \eta</m>, to the <m>kVT</m> term. Our system now becomes
+            <md>
+                <mrow>\frac{dT}{dt} &amp; =  s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T - k(1 - \eta)TV</mrow>
+                <mrow>\frac{dT^*}{dt} &amp; =  k(1 - \eta)TV - \delta T^*</mrow>
+                <mrow>\frac{dV}{dt} &amp; =  N \delta T^* - cV.</mrow>
+            </md>
+        If <m>\eta = 1</m>, then the RT inhibitor is completely effective. On the other hand, if <m>\eta = 0</m>, then the RT inhibitor is completely ineffective. We now have a model for how the HIV-1 virus interacts we the immune system. Researchers can use data to estimate the parameters and see exactly what types of solutions are possible.</p>
+
+    </subsection>
+  
+    <subsection xml:id="subsection-firstlook01-sage">
+        <title>Sage<mdsash />Open Source Software</title>
+        
+        <p>Technology can prove very useful when studying differential equations. Software packages such Maple, Mathematica, and Matlab each have their advantages and disadvantages. We will use <em>Sage</em>, a readily available open source computer algebra system, as our choice of software. Sage can be run on an individual computer or over the Internet on a server. You can even access <em>Sage</em> from your smart phone. For our purposes, <em>Sage</em> cells are embedded into the textbook, so there is nothing to install on your computer. Simply, evaluate the cell.  You can even change the preloaded commands in the cell if you wish. For example, let us evaluate the derivative of <m>f(x) = x^2 \cos x</m>.</p>
+        
+        <sage>
+            <input>
+            x = var('x')
+            y = x^2*cos(x)
+            diff(y, x)
+            </input>
+            <output>
+            -x^2*sin(x) + 2*x*cos(x)
+            </output>
+        </sage>
+
+        <p>We can use Sage to plot functions. For example, we can plot the function <m>f(x) = x^2 \cos x</m> as well as its derivative on the same graph.</p>
+
+        <sage>
+            <input>
+            x = var('x')
+            y = x^2*cos(x)
+            yprime = diff(y, x)
+            p = plot(y, (x, -2, 2), color ='blue', legend_label='$f$', legend_color='blue')
+            p += plot(yprime, (x, -2, 2), color='red', legend_label='$df/dx$', legend_color='red')
+            p
+            </input>
+        </sage>
+        
+        <p>We can use <em>Sage</em> to solve differential equations. Suppose that we wish to solve the initial value problem
+            <md>
+                <mrow>\frac{dP}{dt} &amp; = kP</mrow>
+                <mrow>P(0) &amp; = 1000.</mrow>
+            </md>
+        We can use the following commands.</p>
+
+        <sage>
+            <input>
+            k,t = var('k, t') #declare variables k and t
+            P = function('P')(t) #declare P to be a function of t
+            de = diff(P, t) == k*P  #differential equation
+            #solve specifying initial conditions
+            #and independent variable solution
+            solution = desolve(de, P, ivar=t, ics=[0, 1000]) 
+            solution
+            </input>
+            <output>
+            1000*e^(k*t)
+            </output>
+        </sage>
+        
+        <p>We will provide abundant examples of how to use <em>Sage</em> to solve and analyze differential equations throughout the book, and we encourage the reader to experiment by altering the Sage commands inside the individual Sage cells. If you make a mistake, you can simply reload the webpage and start again.</p>
+
+        <p>The reader will find plenty of resources to learn how to use <em>Sage</em>.  A good place to start is <url href="http://www.sagemath.org/help.html" /> or <xref ref="bard-2015" />.  Although we will be using <em>Sage</em> as the technology of choice, this book can be read independently of <em>Sage</em>.  Finally, we would like to emphasize once again that the reader who chooses not to use some sort of technology will be at a disadvantage.</p>
+        
+    </subsection>
+  
+    <subsection xml:id="subsection-firstlook01-questions-for-thought">
+        <title>Some Questions for Thought</title>
+    
+        <p>In this section we have provided a general notion of what a differential equation is as well as several modeling situations where differential equations are useful; however, we have left many questions unanswered. First, we need a more rigorous definition of a differential equation.  What is the proper way to define a system of differential equations? Does a differential equation or a system of differential equations always have a solution?  Are solutions to differential equations unique? If a unique solution to a differential equation exists, can we find it? If it is not possible to find a precise solution algebraically, can we estimate the solution numerically?  If neither is possible, can we still say anything useful about the solution? Of course, other questions will come to mind as we continue our study of differential equations.</p>
+    
+    </subsection>
+  
+    <subsection number="no" xml:id="subsection-firstlook01-important-lessons">
+        <title>Important Lessons</title>
+    
+        <p><ul>
+            <li>A <term>differential equation</term> is an equation relating a function to one or more of its derivatives.</li>
+            
+            <li>An <term>initial value problem</term> is a differential equation
+              <me>\frac{dx}{dt} = f(t,x),</me>
+            where the <term>initial condition</term>, <m>x(t_0) = x_0</m>, is specified.</li>
+
+            <li>A population that is not affected by overcrowding can be modeled by the differential equation <m>P' = kP</m> and is said to grow <term>exponentially</term>.</li>
+            
+            <li>A population that must compete for limited resources can be modeled by the <term>logistic equation</term>,
+              <me>\frac{dP}{dt} = k \left( 1 - \frac{P}{N} \right) P, </me>
+            where <m>N</m> is the carrying capacity of the population.</li>
+
+            <li>Some phenomenon, such as the relationship between a population of predators and a population of prey, are best modeled by systems of differential equations.</li>
+            
+            <li><p>The three principle steps in modeling any phenomenon with differential equations are:
+  				<ul>
+  				
+  					<li><p>Discovering the differential equation or equations that best describe a specified physical situation.</p></li>
+  					
+  					<li><p>Finding<mdash/>either exactly or approximately<mdash/>the appropriate solution of the equation or equations.</p></li>
+  					
+  					<li><p>Interpreting the solution in terms of the phenomenon.</p></li>
+  					
+  				</ul></p></li>
+          </ul></p>
+    
+    </subsection>
+
+<todo>More execises are needed.</todo> 
+
+    <xi:include href="./exercises/firstlook01.xml" />
+
+    <subsection number="no" xml:id="subsection-firstlook01-sage-project">
+        <title>An Introduction to Sage</title>
+
+<todo>This section needs to b e written.</todo>
+    
+        <p>Write an introduction to Sage.</p>
+    
+    </subsection>
+
+
+</section>
+
+<!--</section>-->

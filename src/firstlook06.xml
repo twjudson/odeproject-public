@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="firstlook06" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Existence and Uniqueness of Solutions</title>
+
+    <introduction>
+        <p>If <m>x' = f(t, x)</m> and <m>x(t_0) = x_0</m> is a linear differential equation, we have already shown that a solution exists and is unique.  We will now take up the question of existence and uniqueness of solutions for all first-order differential equations. The existence and uniqueness of solutions will prove to be very important<mdash />even when we consider applications of differential equations.</p>
+    </introduction>
+    
+    <subsection xml:id="subsection-firstlook06-existence">
+    	<title>The Existence and Uniqueness Theorem</title>
+
+        <p>The following theorem tells us that solutions to first-order differential equations exist and are unique under certain reasonable conditions.</p>
+
+        <theorem xml:id="theorem-firstlook06-existence-uniqueness">
+            <title>Existence and Uniqueness Theorem</title>
+            <statement>
+                <p>Let <m>x' = f(t, x)</m> have the initial condition <m>x(t_0) = x_0</m>. If <m>f</m> and <m>\partial f/ \partial x</m> are continuous functions on the rectangle 
+                    <me>R = \left\{ (t, x) : 0 \leq |t - t_0| \leq a, 0 \leq |x - x_0| \leq b \right\},</me>
+                there exists a unique solution <m>u = u(t)</m> for  <m>x' = f(t, x)</m> and <m>x(t_0) = x_0</m> on some interval <m>|t - t_0| \lt h</m> contained in the interval <m>|t - t_0| \lt a</m>.</p>
+            </statement>
+        </theorem> 
+    	
+    	<p>Let us examine some consequences of the existence and uniqueness of solutions.</p>
+    	
+    	<example>
+            <p>Consider the initial value problem <m>y' = y^{1/3}</m> with <m>y(0) = 0</m> and <m>t \geq 0</m>. Separating the variables,
+                <me>y^{-1/3} y' = dt.</me>
+            Thus,
+                <me>\frac{3}{2} y^{2/3} = t + C</me>
+            or
+                <me>y = \left( \frac{2}{3} ( t + C) \right)^{3/2}.</me>
+            If <m>C = 0</m>, the initial condition is satisfied and
+                <me>y = \left( \frac{2}{3} t \right)^{3/2}</me>
+            is a solution for <m>t \geq 0</m>. However, we can find two additional solutions  for <m>t \geq 0</m>:
+                <md>
+                    <mrow>y &amp; = - \left( \frac{2}{3} t \right)^{3/2},</mrow>
+                    <mrow>y &amp; \equiv 0.</mrow>
+                </md>
+            This is especially troubling if we are looking for equilibrium solutions. Although <m>y' = y^{1/3}</m> is an autonomous differential equation, there is no equilibrium solution at <m>y = 0</m>. The problem is that 
+                <me>\frac{\partial}{\partial y} y^{1/3} = \frac{1}{3} y^{-2/3}</me>
+            is not defined at <m>y = 0</m>.</p>
+        </example>
+
+		<example>
+            <p>Suppose that <m>y' = y^2</m> with <m>y(0) = 1</m>. Since <m>f(t,y) = y^2</m> and <m>\partial f/ \partial y = 2y</m> are continuous everywhere, a unique solution exists near <m>t = 0</m>. Separating the variables,
+                <me>\frac{1}{y^2} \; dy = dt,</me>
+            we see that
+                <me>y = - \frac{1}{t + C}</me>
+            or
+                <me>y = \frac{1}{1-t}.</me>
+            Therefore, a solution also exists on <m>(-\infty, 1)</m> if <m>y(0) = -1</m>. In the case that <m>y(0) = -1</m>, the solution is
+                <me>y = - \frac{1}{t + 1},</me>
+            and a solution exists on <m>(-1, \infty)</m>. Solutions are only guaranteed to exist on an open interval containing the initial value and are very dependent on the initial condition.</p>
+        </example>
+
+        <remark>
+            <title>Solutions Curves Cannot Cross</title>
+                <p>The Existence and Uniqueness Theorem tells us that the integral curves of any differential equation satisfying the appropriate hypothesis, cannot cross. If the curves did cross, we could take the point of intersection as the initial value for the differential equation. In this case, we would no longer guaranteed unique solutions to a differential equation.</p>
+        </remark>
+
+	</subsection>
+	
+    <subsection xml:id="subsection-firstlook06-picard">
+    	<title>Picard Iteration</title>
+
+		<p>It was Emile Picard (1856<ndash />1941) who developed the method of successive approximations to show the existence of solutions of ordinary differential equations. He proved that it is possible to construct a sequence of functions that converges to a solution of the differential equation. One of the first steps towards understanding <term>Picard iteration</term><index><main>Picard iteration</main></index> is to realize that an initial value problem can be recast in terms of an integral equation.</p>
+
+        <theorem xml:id="theorem-firstlook06-picard">
+            <statement>
+                <p>The function <m>u = u(t)</m> is a solution to the initial value problem
+                    <md>
+                        <mrow>x' &amp; = f(t, x)</mrow>
+                        <mrow>x(t_0) &amp; = x_0,</mrow>
+                    </md>
+                if and only if <m>u</m> is a solution to the integral equation
+                    <me>x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.</me></p>
+            </statement>
+        </theorem> 
+        
+        <proof>
+            <p>Suppose that <m>u = u(t)</m> is a solution to 
+                <md>
+                    <mrow>x' &amp; = f(t, x)</mrow>
+                    <mrow>x(t_0) &amp; = x_0,</mrow>
+                </md>
+            on some interval <m>I</m> containing <m>t_0</m>.  Since <m>u</m> is continuous on <m>I</m> and <m>f</m> is continuous on <m>R</m>, the function <m>F(t) = f(t, u(t))</m> is also continuous on <m>I</m>. Integrating both sides of <m>u'(t) = f(t, u(t))</m> and applying the Fundamental Theorem of Calculus, we obtain
+                <me>u(t) - u(t_0) = \int_{t_0}^t u'(s) \, ds = \int_{t_0}^t f(s, u(s)) \, ds</me>
+            Since <m>u(t_0) = x_0</m>, the function <m>u</m> is a solution of the integral equation.</p>
+
+			<p>Conversely, assume that
+                <me>u(t) = x_0 + \int_{t_0}^t f(s, u(s)) \, ds.</me>
+            If we differentiate both sides of this equation, we obtain <m>u'(t) = f(t, u(t))</m>. Since
+                <me>u(t_0) = x_0 + \int_{t_0}^{t_0} f(s, u(s)) \, ds = x_0,</me>
+            the initial condition is fulfilled.</p>     
+        </proof>
+            
+        <p>To show the existence of a solution to the initial value problem
+            <md>
+                <mrow>x' &amp; = f(t, x)</mrow>
+                <mrow>x(t_0) &amp; = x_0,</mrow>
+            </md>
+        we will construct a sequence of functions, <m>\{ u_n(t) \}</m>, that will converge to a function <m>u(t)</m> that is a solution to the integral equation 
+            <me>x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.</me>
+        We define the first function of the sequence using the initial condition,
+            <me>u_0(t) = x_0.</me>
+        We derive the next function in our sequence using the right-hand side of the integral equation,
+            <me>u_1(t) = x_0 + \int_{t_0}^t f(s, u_0(s)) \, ds.</me> 
+        Subsequent terms in the sequence can be defined recursively,
+            <me>u_{n+1} = x_0 + \int_{t_0}^t f(s, u_n(s)) \, ds.</me>
+        Our goal is to show that <m>u_n(t) \rightarrow u(t)</m> as <m>n \rightarrow \infty</m>. Furthermore, we need to show that <m>u</m> is the continuous, unique solution to our initial value problem. We will leave the proof of Picard's Theorem to a series of exercises, but let us see how this works by developing an example.</p>
+
+
+		<example>
+            <p>Consider the exponential growth equation,
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = kx</mrow>
+                    <mrow>x(0) &amp; = 1.</mrow>
+                </md>
+            We already know that the solution is <m>x(t) = e^{kt}</m>. We define the first few terms of our sequence <m>\{ u_n(t) \}</m> as follows:
+                <md>
+                    <mrow>u_0(t) &amp; = 1,</mrow>
+                    <mrow>u_1(t) &amp; = 1 + \int_0^t ku_0(s) \, ds</mrow>
+                    <mrow>&amp; = 1 + \int_0^t k \, ds</mrow>
+                    <mrow>&amp; = 1 + kt,</mrow>
+                    <mrow>u_2(t) &amp; = 1 + \int_0^t ku_1(s) \, ds</mrow>
+                    <mrow>&amp; = 1 + \int_0^t k(1 + ks) \, ds</mrow>
+                    <mrow>&amp; = 1 + kt + \frac{(kt)^2}{2}.</mrow>
+                </md>
+            The next term in the sequence is
+                <me>u_3(t) = 1 + kt + \frac{(kt)^2}{2} + \frac{(kt)^3}{2\cdot 3},</me>
+            and the <m>n</m>th term is
+                <md>
+                    <mrow>u_n(t) &amp; = 1 + 1 + \int_0^t ku_{n-1}(s) \, ds</mrow>
+                    <mrow>&amp; = 1 + \int_0^t k\left(1 + ks  \frac{(kt)^2}{2!} + \frac{(kt)^3}{3!} + \cdots +\frac{(kt)^{n-1}}{(n-1)!}\right) \, ds</mrow>
+                    <mrow>&amp; = 1 + kt + \frac{(kt)^2}{2!} + \frac{(kt)^3}{3!} + \cdots + \frac{(kt)^n}{n!}.</mrow>
+                </md>
+            However, this is just the <m>n</m>th partial sum for the power series for <m>u(t) = e^{kt}</m>, which is what we expected.</p>
+        </example>
+		
+    </subsection>
+		
+	<subsection xml:id="subsection-firstlook06-important-lessons">
+        <title>Important Lessons</title>
+		
+		<p><ul>
+		
+                <li><p>Existence and uniqueness of solutions of differential has important implications. Let <m>x' = f(t, x)</m> have the initial condition <m>x(t_0) = x_0</m>.  If <m>f</m> and <m>\partial f/ \partial x</m> are continuous functions on the rectangle 
+                    <me>R = \left\{ (t, x) : 0 \leq |t - t_0| \lt a, 0 \leq |x - x_0| \lt b \right\},</me>
+                there exists a unique solution <m>u = u(t)</m> for  <m>x' = f(t, x)</m> and <m>x(t_0) = x_0</m> on some interval <m>|t - t_0| \lt h</m> contained in the interval <m>|t - t_0| \lt a</m>. In particular,
+                    <ul>
+
+                        <li>Solutions are only guaranteed to exist locally.</li>
+
+                        <li>Uniqueness is especially important when it comes to finding equilibrium solutions.</li>
+
+                        <li>Uniqueness of solutions tells us that the integral curves for a differential equation cannot cross.</li>
+
+                    </ul></p></li>
+
+                <li>The function <m>u = u(t)</m> is a solution to the initial value problem
+                    <md>
+                        <mrow>x' &amp; = f(t, x)</mrow>
+                        <mrow>x(t_0) &amp; = x_0,</mrow>
+                    </md>
+                if and only if <m>u</m> is a solution to the integral equation
+                    <me>x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.</me></li>
+
+                <li>Existence and uniqueness of solutions is proved by Picard iteration. This is of particular interest since the proof actually tells us how to construct as sequence of functions that converge to our solution.</li>
+
+            </ul></p>
+				
+	</subsection>
+
+    <xi:include href="./exercises/firstlook06.xml" />
+
+<todo>More problems needed.</todo>
+
+    <subsection number="no" xml:id="subsection-firstlook06-sage-project">
+        <title>Project<mdash />Picard Iteration</title>
+
+<todo>Write project.</todo>
+
+    </subsection>
+	
+</section>
+
+
+<!--</section>-->

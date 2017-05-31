@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="nonlinear02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Hamiltonian Systems</title>
+    
+    <introduction>
+        <p>An undamped harmonic oscillator, <m>m y'' + k y = 0</m>, can be written as the system
+            <md>
+                <mrow>y' \amp = v</mrow>
+                <mrow>v' \amp = -\frac{k}{m} y.</mrow>
+            </md>
+        Now suppose that <m>(y(t), v(t))</m> is a solution curve in the <m>yv</m>-plane. We will calculate the slope of the solution curve, <m>dv/dy</m>. Using the fact from calculus that the derivative of an inverse function is 
+            <me>\frac{d}{dx} f^{-1}(x) = \frac{1}{f'(x)},</me>
+        we have
+            <me>\frac{dv}{dy} = \frac{dv}{dt} \cdot \frac{dt}{dy} = \frac{dv/dt}{dy/dt} = - \frac{ky}{mv}.</me>
+        In general for the system
+            <md>
+                <mrow>\frac{dx}{dt} \amp = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} \amp = g(x, y),</mrow>
+            </md>
+        we have
+            <me>\frac{dy}{dx}  = \frac{g(x, y)}{f(x, y)}.</me></p>
+
+		<p>Using separation of variables to solve the equation
+            <me>\frac{dv}{dy} = - \frac{ky}{mv},</me>
+        we obtain the solution
+            <men xml:id="equation-nonlinear02-conservation-of-energy">\frac{1}{2} m v^2 + \frac{1}{2} k y^2 = C,</men>
+        where <m>C</m> is a constant. The first term of <xref ref="equation-nonlinear02-conservation-of-energy" /> is the <term>kinetic energy function</term> of the harmonic oscillator
+            <me>K = \frac{1}{2} m v^2,</me>
+        while the second term is the <term>potential energy function</term>
+            <me>U = \int_0^y k s \, ds = \frac{1}{2} k y^2.</me>
+        For this reason, we call the function
+            <me>E = K + U = \frac{1}{2} m v^2 + \frac{1}{2} k y^2</me>
+        the <term>total energy function</term> of the harmonic oscillator. Equation<nbsp /><xref ref="equation-nonlinear02-conservation-of-energy" /> tells us that energy is conserved. That is, the sum of the potential energy and the kinetic energy is constant.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-nonlinear02-pendulum">
+    	<title>The Nonlinear Pendulum</title>
+
+        <p>While pendulums have long been used in clocks to keep time, they have also been used to measure gravity as well as used in early seismometers to measure the effect of earthquakes. One of the more interesting uses of a pendulum has been to measure the rotation of the earth. In 1851, the French physicist, Léon Foucault, used a pendulum (Figure<nbsp /><xref ref="figure-nonlinear02-fouclault" />) to demonstrate that the earth actually rotated on its axis. The fact that the earth rotates had been known for a long time, but Foucault's experiment give the first simple proof of this phenomena.</p>
+
+
+        <figure xml:id="figure-nonlinear02-fouclault">
+            <image width="80%" source="images/nonlinear02-fouclaut.jpg" />
+            <caption>Foucault Pendulum Clock<mdash />California Academy of Sciences</caption>
+        </figure>
+
+
+<!--Description 
+By TheDailyNathan (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons
+-->
+
+		<p>Let us consider a pendulum made of a light rod of length <m>L</m> called the <term>arm</term> of the pendulum with a mass <m>m</m>on the end of the rod called the <term>bob</term> (Figure<nbsp /><xref ref="figure-nonlinear02-pendulum-1" />). We will ignore the mass of the arm in our system. The position of the bob is given by <m>\theta(t)</m>, which we will measure in a counterclockwise direction.  We will assume that <m>\theta(0)</m> is when the bob is in the vertical position.</p>
+		
+		<figure xml:id="figure-nonlinear02-pendulum-1">
+            <image width="40%" xml:id="nonlinear02-pendulum-1">
+                <!-- Replaced figure with tikz figure - TWJ 6/11/2010 -->
+                <latex-image-code><![CDATA[
+                \begin{tikzpicture}[scale=0.5]
+                \draw[very thick] (0,-0.5) -- ++(90:5) -- ++(300:4.5) ++(300:0.5) coordinate(BOB) node {$m$};
+                \draw[very thick] (BOB) circle (0.5);
+                \draw[dashed] (0,0.25) arc (270:300:3.75);   
+                \draw[thin,->] (0,3.5) arc (270:300:1);   
+                \node at (2,3) {$L$};
+                \node at (0.35,3) {$\theta$};
+                \draw (-4,1)  (5,1);
+                \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+            <caption>The nonlinear pendulum</caption>
+        </figure>
+   		
+		<p>There are two forces acting on the pendulum<mdash />gravity and friction. The position of the bob at time <m>t</m> is 
+            <me>(L \sin \theta(t), - L \cos \theta(t)),</me>
+        and the velocity of the bob is <m>L (d \theta / dt)</m>, the length of the velocity vector (Figure<nbsp /><xref ref="figure-nonlinear02-pendulum-2" />) The component of the acceleration that points along the direction of motion of the bob is 
+            <me>L \frac{d^2 \theta}{dt^2}.</me>
+        We can take the force due to friction to be proportional to the velocity,
+            <me>- b L \frac{d \theta}{dt},</me>
+        where <m>b \geq 0</m>.  Thus, Newton's second law tells us that
+            <me>m L \frac{d^2 \theta}{dt^2} = -b L \frac{d \theta}{dt} - mg \sin \theta</me>
+        or
+            <me>\frac{d^2 \theta}{dt^2} + \frac{b}{m}  \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.</me>
+        As a system, we can model the pendulum as
+            <md>
+                <mrow>\frac{d \theta}{dt} \amp = v</mrow>
+                <mrow>\frac{dv}{dt} \amp = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
+            </md></p>
+
+		<figure xml:id="figure-nonlinear02-pendulum-2">
+            <image width="60%" xml:id="nonlinear02-pendulum-2">
+                <latex-image-code><![CDATA[
+                \begin{tikzpicture}[scale=0.5]
+             		\draw[very thick] (0,-0.5) -- ++(90:5) -- ++(300:4.5) ++(300:0.5) coordinate(BOB);
+             		\draw[very thick] (BOB) circle (0.5);
+             		\draw[dashed] (0,0.25) arc (270:300:3.75);   
+             		\draw[thin,->] (0,3.5) arc (270:300:1);   
+             		\node at (1.75,3) {$L$};
+             		\node at (0.35,3) {$\theta$};  
+             		\draw[thick,red,->] (BOB) -- ++(210:1.75) coordinate(A);
+             		\draw[thick,red,->] (BOB) -- ++(270:3.5) coordinate(B);
+             		\draw[thin,red] (A) -- (B); 
+             		\draw[red,->,thin] (-1,1) node[left] {$mg \sin \theta$} .. controls (0,1.5) and (1,1.5) .. (1.8,-0.1);
+             		\draw[red,->] (4.5,-1) node[right] {$mg$} .. controls (4,-2) and (3,-2) .. (2.6,-2);
+             		\draw[red,thin] (A) ++(30:0.3) -- ++(300:0.3) -- ++(210:0.3); 
+                \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+        	<caption>Forces on the nonlinear pendulum</caption>
+   		</figure>
+   		
+
+		<p>If there is no damping for our pendulum, we say that we have an <term>ideal pendulum</term>. In this case,
+            <md>
+                <mrow>\frac{d \theta}{dt} \amp = v</mrow>
+                <mrow>\frac{dv}{dt} \amp = - \frac{g}{L} \sin \theta.</mrow>
+            </md>
+        Since 
+            <me>\frac{dv}{d \theta} = - \frac{g \sin \theta}{Lv},</me>
+        we know that the energy function for the pendulum is
+            <me>E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.</me>
+        Of course, <m>E(\theta, v)</m> is constant on the ideal pendulum.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear02-hamiltonian-systems">
+    	<title>Hamiltonian Systems</title>
+
+		<p>The ideal pendulum and the undamped harmonic oscillator are examples of Hamiltonian systems. More specifically, a <term>Hamiltonian system</term> is a system of the form
+            <md>
+                <mrow>\frac{dx}{dt} \amp = \frac{\partial H}{\partial y} (x, y)</mrow>
+                <mrow>\frac{dy}{dt} \amp = -\frac{\partial H}{\partial x}(x, y),</mrow>
+            </md>
+        where <m>H : {\mathbb R}^2 \rightarrow {\mathbb R}</m> is a smooth function.</p>
+
+        <example xml:id="example-nonlinear02-hamilitonian-1">
+            <p>The system
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = -2x - 3y^2</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -3x^2 + 2y</mrow>
+                </md>
+            is Hamiltonian since for <m>H(x, y) = x^3 - 2xy - y^3</m>
+            <md>
+                <mrow>\frac{\partial H}{\partial y} \amp = -2x - 3y^2</mrow>
+                <mrow>\frac{\partial H}{\partial x} \amp = -(-3x^2 + 2y).</mrow>
+            </md></p>
+        </example>
+
+        <example>
+            <p>In the case of the harmonic oscillator and ideal pendulum, <m>H</m> is just the energy function. For the harmonic oscillator, the Hamiltonian function is
+                <me>E = K + U = \frac{1}{2} m v^2 + \frac{1}{2} k y^2.</me>
+            In this case, 
+                <md>
+                    <mrow>\frac{\partial E}{\partial v} \amp = y' = mv</mrow>
+                    <mrow>-\frac{\partial E}{\partial y} \amp = v' = -k y.</mrow>
+                </md>
+            A change of variables (<m>y = my</m>) tells us that this system is equivalent to the system
+                <md>
+                    <mrow>y' \amp = v</mrow>
+                    <mrow>v' \amp = -\frac{k}{m} y.</mrow>
+                </md></p>
+            
+            <p>For the ideal pendulum
+                <md>
+                <mrow>\frac{\partial E}{\partial v} \amp =\frac{d \theta}{dt} = v</mrow>
+                <mrow>-\frac{\partial E}{\partial \theta} \amp =\frac{dv}{dt} = - \frac{g}{L} \sin \theta,</mrow>
+                </md>
+            where 
+                <me>E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.</me></p>
+        </example>
+
+		<p>The following theorem tells the the importance of Hamiltonian systems. That is, the solution curves of the system are simply the level sets of the Hamiltonian function.</p>
+
+		<theorem xml:id="theorem-nonlinear02-hamiltonian-constant">
+            <statement>
+                <p>Let 
+                    <md>
+                        <mrow>\frac{dx}{dt} \amp = \frac{\partial H}{\partial y} (x, y)</mrow>
+                        <mrow>\frac{dy}{dt} \amp = -\frac{\partial H}{\partial x}(x, y),</mrow>
+                    </md>
+                be a Hamiltonian system, where <m>H : {\mathbb R}^2 \rightarrow {\mathbb R}</m>. Then <m>H</m> is constant along any solution curve.</p>
+                </statement>
+            </theorem> 
+
+			<proof>
+                <p>Let <m>(x(t), y(t))</m> be a solution curve for the system. Using the chain rule
+                <md>
+                    <mrow>\frac{dH}{dt} \amp = \frac{\partial H}{\partial x} \frac{dx}{dt} + \frac{\partial H}{\partial y} \frac{dy}{dt}</mrow>
+                    <mrow>\amp = \frac{\partial H}{\partial x} \left(\frac{\partial H}{\partial y} \right)+ \frac{\partial H}{\partial y} \left(  -\frac{\partial H}{\partial x} \right)</mrow>
+                    <mrow>\amp = 0.</mrow>
+                </md></p>
+            </proof>
+
+		<p>Theorem<nbsp /><xref ref="theorem-nonlinear02-hamiltonian-constant" /> tells us how to draw the solution curves in the phase plane without solving the system. Assuming that the Hamiltonian function <m>H</m> is not constant on any open set in <m>{\mathbb R}^2</m>, we simply need to plot the level curves, <m>H(x, y) = C</m>. The solutions of the system live on these level sets, and all we need to do is find the direction of the solution curve. However, this is quite easy since we know the vector field of the system.  Furthermore, the equilibrium points of the Hamiltonian system occur at the critical points of <m>H</m> (where the partials of <m>H</m> vanish). For example, we can see the solution curves of 
+            <md>
+                <mrow>\frac{\partial H}{\partial y} \amp = -2x - 3y^2</mrow>
+                <mrow>\frac{\partial H}{\partial x} \amp = -(-3x^2 + 2y).</mrow>
+            </md>
+        in Figure<nbsp /><xref ref="figure-nonlinear02-hamiltonian-solutions" />.</p>
+
+		<figure xml:id="figure-nonlinear02-hamiltonian-solutions">
+            <image width="60%" xml:id="nonlinear02-hamiltonian-solutions">
+                <sageplot>
+                    x, y, t = var('x y t')
+                    xmin = -1.5
+                    xmax = 1.5
+                    ymin = -1.5
+                    ymax = 1.5
+                    f = -2*x - 3*y^2
+                    g = -3*x^2 + 2*y
+                    H(x,y) = x^3 - 2*x*y - y^3
+                    n = sqrt(f^2 + g^2)
+                    p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), axes_labels=['$x(t)$','$y(t)$'], aspect_ratio=1 )
+                    p += contour_plot(H, (x,xmin,xmax), (y,ymin,ymax), fill=False, cmap='hsv', contours=[-2, -1, 0,1,  2])
+                    p
+                </sageplot>
+            </image>
+            <caption>Solution curves of <m>x' = x - 3 y^2</m> and <m>y' = -y</m></caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear02-ideal-pendulum">
+    	<title>The Ideal Pendulum Revisited</title>
+
+		<p>The ideal pendulum 
+            <md>
+                <mrow>\frac{d \theta}{dt} &amp; = v</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta.</mrow>
+            </md>
+        is Hamiltonian, since the total energy function
+            <men xml:id="equation-nonlinear02-ideal-pendulum">H(\theta, v) = E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.</men>
+        is the Hamiltonian function for the system. If we set <m>g/L = 1</m>, then the solution curves of the system are just the level curves of <xref ref="equation-nonlinear02-ideal-pendulum" />. In Figure<nbsp /><xref ref="figure-nonlinear02-ideal-pendulum" />, the closed ellipses correspond to the normal motion of a pendulum, while cosine curves correspond to a pendulum that always rotates in the same direction. The curves that join the equilibrium points correspond to the pendulum that rotates exactly to the top of the arc and then rotates back in the other direction.</p>
+
+		<figure xml:id="figure-nonlinear02-ideal-pendulum">
+             <image width="60%" xml:id="nonlinear02-ideal-pendulum">
+                <sageplot>
+                    theta, v, t = var('theta v t')
+                    theta_min = -4*pi
+                    theta_max = 4*pi
+                    vmin = -4
+                    vmax = 4
+                    f = v
+                    g = -sin(theta)
+                    H(theta,v) = v^2/2 - cos(theta)
+                    n = sqrt(f^2 + g^2)
+                    p = plot_vector_field( (f/n,g/n), (theta,theta_min,theta_max), (v,vmin,vmax), axes_labels=['$\\theta(t)$','$v(t)$'], aspect_ratio=2, ticks=[pi,1], tick_formatter=[pi,1])
+                    p += contour_plot(H, (theta,theta_min,theta_max), (v,vmin,vmax), fill=False, cmap='hsv', contours=[-3, -2, -1, 0, 1, 2, 3])
+                    p
+                </sageplot>
+            </image>
+            <caption>The ideal pendulum</caption>
+        </figure>
+
+		<p>Hamiltonian systems are rather rare. Given a system, we need a test to see if it is indeed Hamiltonian. For the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+            </md>
+        we wish to find a function <m>H(x, y)</m> such that
+            <md>
+                <mrow>\frac{\partial H}{\partial y} &amp; = f(x, y)</mrow>
+                <mrow>\frac{\partial H}{\partial x} &amp; = -g(x, y).</mrow>
+            </md>
+        If such a function exists, then
+            <me>\frac{\partial f}{\partial x} = \frac{\partial^2 H}{\partial x \partial y} = \frac{\partial^2 H}{\partial y \partial x} = - \frac{\partial g}{\partial y}.</me>
+        Thus, 
+            <me>\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y},</me>
+        if our system is Hamiltonian.</p>
+
+        <example>
+            <p>We already know that the system 
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = -2x - 3y^2</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -3x^2 + 2y</mrow>
+                </md>
+            is Hamiltonian. Indeed,
+                <me>\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y} = -2.</me></p>
+        </example>
+
+		<p>The condition that 
+            <me>\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y},</me>
+        is also sufficient for 
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+            </md>
+        to be a Hamiltonian system. That is, we can construct a Hamiltonian function if <m>\partial f/ \partial x = - \partial g/ \partial y</m>. If
+            <me>f(x, y) = \frac{\partial H}{\partial y}(x, y),</me>
+        then
+            <me>H(x, y) = \int f(x, y) \, dy + \phi(x).</me>
+        Differentiating <m>H</m> with respect to <m>x</m>, tells us that
+            <me>\frac{\partial H}{\partial x}(x, y) = \frac{\partial}{\partial x}  \int f(x, y) \, dy + \phi'(x) = - g(x, y).</me>
+        Now we can determine <m>\phi(x)</m> by solving the first-order differential equation
+            <me>\phi'(x) =  - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy.</me>
+        We summarize our results in the following theorem.</p>
+
+		<theorem xml:id="theorem-nonlinear02-finding-hamiltonians">
+            <statement>
+                <p>Let 
+                    <md>
+                        <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                    </md>
+                where <m>f</m> and <m>g</m> are continuously differentiable.
+                    <ol>
+
+			             <li>If the system is Hamiltonian, then
+                            <men xml:id="equation-nonlinear02-finding-hamiltonians">\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y}.</men></li>
+
+                        <li>If equation<nbsp /><xref ref="equation-nonlinear02-finding-hamiltonians" /> is true on a rectangle <m>R</m>, then the system is Hamiltonian on <m>R</m> and 
+                            <me>H(x, y) = \int f(x, y) \, dy + \phi(x),</me>
+                        where 
+                            <me>\phi'(x) = -\frac{\partial}{\partial x}\left( \int f(x, y) \, dy \right)  - g(x, y).</me></li>
+
+		              </ol></p>
+            </statement>
+        </theorem> 
+
+        <example>
+    		<p>As an example, we will show how we constructed the Hamiltonian function given in Example<nbsp /><xref ref="example-nonlinear02-hamilitonian-1" /> for the system
+                     <md>
+                        <mrow>\frac{dx}{dt} \amp = -2x - 3y^2</mrow>
+                        <mrow>\frac{dy}{dt} \amp = -3x^2 + 2y</mrow>
+                    </md>
+            First,
+                <me>H(x, y) = \int f(x, y) \, dy + \phi(x) = \int (-2x - 3y^2) \, dy + \phi(x) = -2xy - y^3 + \phi(x).</me>
+            Consequently,
+                <md>
+                    <mrow>\phi'(x) \amp = - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy</mrow>
+                    <mrow>\amp = -(-3x^2 + 2y) - \frac{\partial}{\partial x}(-2xy - y^3)</mrow>
+                    <mrow>\amp = 3x^2 - 2y + 2y</mrow>
+                    <mrow>\amp = 3x^2,</mrow>
+                </md>
+            and <m>\phi(x) = x^3 + C</m>, where <m>C</m> is any constant. If we choose <m>C = 0</m>, our Hamiltonian function is
+                <me>H(x, y) = -2xy - y^3 + \phi(x) = -2xy - y^3 + x^3.</me></p>
+        </example>
+
+        <example  xml:id="example-nonlinear02-finding-hamiltonians">
+    		<p>As a second example, suppose
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -x^2 \cos y \sin x</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = x^2 \cos x \sin y + 2x(\sin x \sin y - 1).</mrow>
+                </md>
+            Since
+                <me>\frac{\partial f}{\partial x} = x^2 \cos x \cos y - 2x \cos y \sin x = - \frac{\partial g}{\partial y}</me>
+            our system is Hamiltonian. To find a Hamiltonian, we compute
+                <me>H(x, y) = \int f(x, y) \, dy + \phi(x) = \int (-x^2 \cos y \sin x) \, dy + \phi(x) = -x^2 \sin x \sin y + \phi(x).</me>
+            Thus,
+                <md>
+                    <mrow>\phi'(x) &amp; = - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy</mrow>
+                    <mrow>&amp; = -(x^2 \cos x \sin y + 2x(\sin x \sin y - 1))  - ( 2x \sin x \sin y - x^2 \cos x \sin y)</mrow>
+                    <mrow>&amp; = 2x,</mrow>
+                </md>
+            and <m>\phi(x) = x^2 + C</m>. Letting <m>C = 0</m>, our Hamiltonian function is
+                <me>H(x, y) = x^2 - x^2 \sin x \sin y  = x^2(1 - \sin x \sin y).</me>
+            Solution curves for this system are given in Figure<nbsp /><xref ref="figure-nonlinear02-finding-hamiltonians" />.</p>
+        </example>
+
+		<figure xml:id="figure-nonlinear02-finding-hamiltonians">
+
+            <image width="60%" xml:id="nonlinear02-finding-hamiltonians">
+                <sageplot>
+                    x, y, t = var('x y t')
+                    xmin = -6
+                    xmax = 6
+                    ymin = -6
+                    ymax = 6
+                    H(x,y) = x^2*(1 - sin(x)*sin(y))
+                    f = diff(H,y)
+                    g = -diff(H,x)
+                    n = sqrt(f^2 + g^2)
+                    p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), axes_labels=['$x(t)$','$y(t)$'],aspect_ratio=1)
+                    p += contour_plot(H, (x,xmin,xmax), (y,ymin,ymax), fill=False, cmap='hsv', contours=[-1,-0.5, -0.1, 0,0.1, 0.5, 1,3, 6, 9])
+                    p
+                </sageplot>
+            </image>
+            <caption>Solution curves for Example<nbsp /><xref ref="example-nonlinear02-finding-hamiltonians" /></caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear02-equilibrium-solutions">
+    	<title>Equilibrium Solutions of Hamiltonian Systems</title>
+
+        <p>The system that we studied in Example<nbsp /><xref ref="example-nonlinear02-hamilitonian-1" />,
+            <md>
+                <mrow>\frac{dx}{dt} \amp = -2x - 3y^2</mrow>
+                <mrow>\frac{dy}{dt} \amp = -3x^2 + 2y</mrow>
+            </md>
+        has equilibrium solutions at <m>(0,0)</m> and <m>(-2/3, 2/3)</m>. Referring to the phase portrait for the system (Figure<nbsp /><xref ref="figure-nonlinear02-hamiltonian-solutions" />), we might guess that <m>(0,0)</m> is a saddle and <m>(-2/3.2/3)</m> is either a center or a spiral sink. Since solution curves must follow contours for the Hamiltonian function <m>H(x, y) = x^3 - 2xy - y^3</m>, spiral sinks do not make sense.</p>
+
+		<p>Let us examine the possible types of equilibrium solutions for a Hamiltonian system. Suppose that <m>(x_0, y_0)</m> is an equilibrium solution for the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y) = \frac{\partial H}{\partial y} (x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y) =  -\frac{\partial H}{\partial x}(x, y).</mrow>
+            </md>
+        In order to determine the nature of the equilibrium solution, we will compute the Jacobian matrix of the system at <m>(x_0, y_0)</m>,
+            <me>J
+            =
+            \begin{pmatrix}
+            f_x(x_0, y_0) &amp; f_y(x_0, y_0) \\
+            g_x(x_0, y_0) &amp; g_y(x_0, y_0)
+            \end{pmatrix}=
+            \begin{pmatrix}
+            H_{yx}(x_0, y_0) &amp; H_{yy}(x_0, y_0) \\
+            -H_{xx}(x_0, y_0) &amp; -H_{xy}(x_0, y_0)
+            \end{pmatrix}.</me>
+        If we let
+            <md>
+                <mrow>\alpha &amp; =  H_{xy}(x_0, y_0) = H_{yx}(x_0, y_0)</mrow>
+                <mrow>\beta &amp; = H_{yy}(x_0, y_0)</mrow>
+                <mrow>\gamma &amp; = -H_{xx}(x_0, y_0),</mrow>
+            </md>
+        then <m>J</m> becomes
+            <me>\begin{pmatrix}
+            \alpha &amp; \beta \\
+            \gamma &amp; - \alpha
+            \end{pmatrix}.</me>
+        The characteristic polynomial of this matrix is
+            <me>\lambda^2 - \alpha^2 - \beta \gamma.</me>
+        Therefore, our matrix has eigenvalues
+            <me>\lambda = \pm \sqrt{\alpha^2 + \beta \gamma},</me>
+        and we have the following possibilities.
+            <ul>
+
+    			<li>If <m>\alpha^2 + \beta \gamma \gt 0</m>, we have two real eigenvalues of opposite signs. Therefore, our equilibrium solution is a saddle.</li>
+
+    			<li>If <m>\alpha^2 + \beta \gamma = 0</m>, the only eigenvalue is zero.</li>
+
+    			<li>If <m>\alpha^2 + \beta \gamma \lt 0</m>, we have two purely imaginary eigenvalues.</li>
+
+    		</ul>
+        In particular, a Hamiltonian system has no spiral sinks or sources.</p>
+
+        <p>Returning to Example<nbsp /><xref ref="example-nonlinear02-hamilitonian-1" />, the Jacobian matrix is 
+            <me>J =
+            \begin{pmatrix}
+            H_{yx}(x_0, y_0) \amp H_{yy}(x_0, y_0) \\
+            -H_{xx}(x_0, y_0) \amp -H_{xy}(x_0, y_0)
+            \end{pmatrix}.
+            =
+            \begin{pmatrix}
+            -2 \amp -6y_0 \\
+            -6x_0 \amp 2
+            \end{pmatrix}.</me>
+            For the equilibrium solution <m>(0,0)</m>, we have eigenvalues <m>\lambda = \pm 2</m>, which tells us that the origin is a nodal saddle.  The Jacobian matrix corresponding to <m>(x_0, y_0) = (-2/3, 2/3)</m> is 
+                <me>J
+                =
+                \begin{pmatrix}
+                -2 \amp -4 \\
+                -4 \amp 2
+                \end{pmatrix}.</me>
+            Since <m>J</m> has eigenvalues <m>\lambda = \pm 2 \sqrt{5} \, i</m>.  Therefore, solution curves near <m>(-2/3, 2/3)</m> should look like closed orbits.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-nonlinear02-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>A pendulum can be modeled by the equation
+                <me>\frac{d^2 \theta}{dt^2} + \frac{b}{m}  \frac{d \theta}{dt} - \frac{g}{L} \sin \theta = 0.</me>
+            or the system
+                <md>
+                    <mrow>\frac{d \theta}{dt} &amp; = v</mrow>
+                    <mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
+                </md></li>
+
+			<li>A <term>Hamiltonian system</term> is a system of the form
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),</mrow>
+                </md>
+            where <m>H : {\mathbb R}^2 \rightarrow {\mathbb R}^2</m> is a smooth function.</li>
+
+			<li>If
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),</mrow>
+                </md>
+            is a Hamiltonian system, then <m>H</m> is constant along any solution curve. In particular, the solution curves of a Hamiltonian system are the level sets of <m>H</m>.</li>
+
+			<li>If the system
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                </md>
+            is Hamiltonian, then
+                <me>\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y}. </me></li>
+
+			<li>If <m>f_x = - g_y</m> is true on a rectangle <m>R</m>, then the system 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                </md>
+            is Hamiltonian on <m>R</m> and 
+                <me>H(x, y) = \int f(x, y) \, dy + \phi(x),</me>
+            where 
+                <me>\phi'(x) = -\frac{\partial}{\partial x}\left( \int f(x, y) \, dy \right)  - g(x, y).</me></li>
+
+			<li>A Hamiltonian system has no spiral sinks or sources.</li>
+
+		</ul></p>
+        
+	</subsection>
+
+    <subsection number="no" xml:id="subsection-nonlinear02-sage-project">
+        <title>Projects</title>
+    
+        <p>Possible project</p>
+    
+    </subsection>
+
+</section>
+
+<!--</section>-->

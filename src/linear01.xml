@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="linear01" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Linear Algebra in a Nutshell</title>
+
+    <introduction>
+
+        <p>Linear algebra and matrices provide a convenient notation for representing the <m>2 \times 2</m> system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = a x + b y,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = c x + d y.</mrow>
+            </md>.
+        If we let 
+            <me>A =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \quad\text{and}\quad
+            {\mathbf x}(t)
+            =
+            \begin{pmatrix}
+            x(t) \\ y(t)
+            \end{pmatrix},</me>
+        then we can rewrite our system as
+            <me>\begin{pmatrix}
+            x'(t) \\ y'(t)
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            ax(t) + b y(t) \\ cx(t) + d y(t)
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \begin{pmatrix}
+            x(t) \\ y(t)
+            \end{pmatrix}.</me>
+        In other words, we can write our system as
+            <me>\frac{d \mathbf x}{dt} = A {\mathbf x},</me>
+        where
+            <me>\mathbf x' = \frac{d \mathbf x}{dt} =  \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}.</me></p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-linear01-matrices">
+        <title>Matrices and Systems of Linear Equations</title>
+
+        <p>A short review of linear algebra and <m>2 \times 2</m> matrices is useful at this point. Recall that any system of two equations in two variables,
+            <md>
+                <mrow>a x + by &amp; = \alpha,</mrow>
+                <mrow>cx + dy &amp; = \beta,</mrow>
+            </md>
+        can be written as a matrix equation
+            <men xml:id="equation-linear01-2x2-3">\begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y 
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            ax + by \\ cx + dy 
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            \alpha \\ \beta
+            \end{pmatrix}.</men>
+        We will denote the <m>2 \times 2</m> <term>coefficient matrix</term> by <m>A</m>.  That is,
+            <me>A = 
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix}.</me></p>
+
+        <p>If a solution for the system<nbsp /><xref ref="equation-linear01-2x2-3" /> exists, it is easy to find. A unique solution will occur exactly when the matrix <m>A</m> is <term>invertible</term> (or <term>nonsingular</term>).  The unique solution is given by
+            <me>\begin{pmatrix}
+            x \\ y 
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix}^{-1}
+            \begin{pmatrix}
+            \alpha \\ \beta
+            \end{pmatrix},</me>
+        where
+            <me>A^{-1}
+                = \frac{1}{ad - bc}
+             \begin{pmatrix}
+            d &amp; -b \\
+            -c &amp; a 
+            \end{pmatrix}.</me>
+        The matrix <m>A</m> is invertible if and only if its <term>determinant</term> is nonzero,
+            <me>\det(A) = ad - bc \neq 0.</me>
+        If <m>\det(A) = 0</m>, then we either have no solution or infinitely many solutions.</p>
+
+        <p>Let us consider the special case 
+            <me>A 
+            \begin{pmatrix}
+            x \\ y 
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            0 \\ 0
+            \end{pmatrix}.</me>
+        If <m>\det(A) \neq 0</m>, we have exactly one solution, <m>x = 0</m> and <m>y = 0</m>. On the other hand, if <m>\det(A) = 0</m>, we have infinitely many solutions.  Suppose that <m>a \neq 0</m>. Then <m>x = - (b/a)y</m>, and
+            <me>-c \left(  \frac{b}{a}\right) y + dy = 0.</me>
+        Therefore, <m>(ad - bc) y =0</m>. Since <m>\det(A) = ad - bc = 0</m>, the variable <m>y</m> can assume any value and <m>x  = - (b/a)y</m>. Thus, the solutions to our system lie along a line through the origin. In fact, we will always get a line of solutions through the origin as long as at least one entry in our matrix is nonzero.<fn>We will not worry about the <m>2 \times 2</m> zero matrix, since it will not play a role in our study of linear equations.</fn></p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-linear01-linear-independence">
+        <title>Linear Independence</title>
+
+        <p>We say that two vectors <m>{\mathbf x}</m> and <m>{\mathbf y}</m> in <m>{\mathbb R}^2</m> are <term>linearly independent</term> if they do not lie on the same line through the origin. If, on the other hand, they do lie on the same line, then the vectors are <term>linearly dependent</term>. Equivalently, two vectors are linearly dependent if one vector is a multiple of the other. We leave the proof of the following theorem as an exercise.</p>
+
+<todo>Make sure to put the proof of the following theorem in the exercises.</todo>
+
+        <theorem xml:id="theorem-systems04-independence-determinant">
+            <statement>
+                <p>Let <m>{\mathbf x} = (x_1, x_2)</m> and <m>{\mathbf y} = (y_1, y_2)</m>.  Then <m>{\mathbf x}</m> and <m>{\mathbf y}</m> are linearly independent if and only if
+                <me>\det
+                \begin{pmatrix}
+                x_1 &amp; y_1 \\
+                x_2 &amp; y_2
+                \end{pmatrix}
+                \neq 0.</me></p>
+            </statement>
+        </theorem>  
+            
+        <p>If we have a pair of linearly independent vectors in <m>{\mathbb R}^2</m>, then we can write any vector in <m>{\mathbb R}^2</m> as a unique <term>linear combination</term> of the two vectors. That is, given two linearly independent vectors <m>{\mathbf x} = (x_1, x_2)</m> and <m>{\mathbf y} = (y_1, y_2)</m>, we can write <m>{\mathbf z} = (z_1, z_2)</m> as 
+            <me>\begin{pmatrix}
+            z_1 \\ z_2
+            \end{pmatrix}
+            =
+            \alpha
+            \begin{pmatrix}
+            x_1 \\ x_2
+            \end{pmatrix}
+            +
+            \beta
+            \begin{pmatrix}
+            y_1 \\ y_2
+            \end{pmatrix},</me>
+        where <m>\alpha</m> and <m>\beta</m> are unique. To see why this is true, we must solve the equations
+            <md>
+                <mrow>z_1 &amp; = \alpha x_1 + \beta y_1</mrow>
+                <mrow>z_2 &amp; = \alpha x_2 + \beta y_2</mrow>
+            </md>
+        for <m>\alpha</m> and <m>\beta</m>. However, this system has a unique solution since
+            <me>\det
+            \begin{pmatrix}
+            x_1 &amp; y_1 \\
+            x_2 &amp; y_2
+            \end{pmatrix}
+            \neq 0.</me>
+        Two vectors are said to be a <term>basis</term> for <m>{\mathbb R}^2</m> if we can write any vector in <m>{\mathbb R}^2</m> as a linear combination of these two vectors. By our arguments above, any two linearly independent vectors will form a basis for <m>{\mathbb R}^2</m>.</p>              
+
+        <example>
+            <p>The vectors <m>{\mathbf e}_1 = (1, 0)</m> and <m>{\mathbf e}_2 = (0, 1)</m> form a basis for <m>{\mathbb R}^2</m>. Indeed, if <m>{\mathbf z} = (z_1, z_2)</m>, then we can write
+                <me>{\mathbf z} = z_1 {\mathbf e}_1 + z_2 {\mathbf e}_2.</me>
+            The vectors <m>{\mathbf e}_1</m> and <m>{\mathbf e}_2</m> are called the <term>standard basis</term> for <m>{\mathbb R}^2</m>.</p>
+        </example>
+
+        <example>
+            <p>Let <m>{\mathbf v}_1 = (2,1)</m> and <m>{\mathbf v}_2 = (3, 2)</m>. Since
+                <me>\det
+                \begin{pmatrix}
+                2 &amp; 3 \\
+                1 &amp; 2
+                \end{pmatrix}
+                \neq 0,</me>
+            these vectors form a basis for <m>{\mathbb R}^2</m>.  If <m>{\mathbf z} = (-5, -4)</m>, then we can write
+            <me>{\mathbf z} = 2 {\mathbf v}_1 - 3 {\mathbf v}_2.</me>
+            We say that the <term>coordinates</term> of <m>{\mathbf z}</m> are <m>(2, -3)</m> with respect to the basis <m>\{ {\mathbf v}_1, {\mathbf v}_2 \}</m>.</p>
+        </example>
+
+        <example>
+            <p>The vectors <m>(1, 1)</m> and <m>(-1, -1)</m> do not form a basis for <m>{\mathbb R}^2</m> since these two vectors lie along the same line.</p>
+        </example>
+
+        <p>If <m>2 \times 2</m> matrices and the rest of what we have described above make you nervous, you should work through the exercises at the end of this section.</p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-linear01-finding-eigenvalues">
+    	<title>Finding Eigenvalues and Eigenvectors</title>
+
+        <p>A nonzero vector <m>{\mathbf v}</m> is an <term>eigenvector</term> of <m>A</m> if <m>A {\mathbf v} = \lambda {\mathbf v}</m> for some <m>\lambda \in {\mathbf R}</m>. The constant <m>\lambda</m> is called an <term>eigenvalue</term> of <m>A</m>.  Letting
+            <me>A = \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix} \quad \text{and} \quad
+            \mathbf v
+            =
+            \begin{pmatrix} x \\ y \end{pmatrix} \neq \mathbf 0,</me>
+        we have <m>A \mathbf x = \lambda \mathbf x</m> or <m>A \mathbf x - \lambda \mathbf x =  \mathbf 0</m>. In matrix form this is
+            <md>
+                <mrow>\begin{pmatrix}
+                a &amp; b \\
+                c &amp; d 
+                \end{pmatrix} 
+                \begin{pmatrix} x \\ y \end{pmatrix}
+                - \lambda \begin{pmatrix} x \\ y \end{pmatrix} 
+                \amp =
+                \begin{pmatrix}
+                a &amp; b \\
+                c &amp; d 
+                \end{pmatrix} 
+                \begin{pmatrix} x \\ y \end{pmatrix}
+                - \begin{pmatrix}
+                \lambda &amp; 0 \\
+                0 &amp; \lambda 
+                \end{pmatrix}  
+                \begin{pmatrix} x \\ y \end{pmatrix}</mrow>
+                <mrow>\amp = 
+                \begin{pmatrix}
+                a- \lambda &amp; b \\
+                c &amp; d - \lambda
+                \end{pmatrix} 
+                \begin{pmatrix} x \\ y \end{pmatrix}</mrow>
+                <mrow>\amp = 
+                \begin{pmatrix} 0 \\ 0 \end{pmatrix}.</mrow>
+            </md>
+        This matrix equation is certainly true if <m>(x, y) = (0, 0)</m>. However, we seek nonzero solutions to this system. This will occur exactly when the determinant of 
+            <me>A - \lambda I = \begin{pmatrix}
+            a- \lambda &amp; b \\
+            c &amp; d - \lambda
+            \end{pmatrix}</me>
+        is zero. In this case
+            <me>\det(A - \lambda I)
+                =
+                \det\begin{pmatrix}
+                a - \lambda  &amp; b \\
+                c &amp; d - \lambda
+                \end{pmatrix}
+                =
+                \lambda^2 - (a + d) \lambda + (ad - bc).</me>
+        We say that 
+            <me>\det(A - \lambda I) = \lambda^2 - (a + d) \lambda + (ad - bc)</me>
+        is the <term>characteristic polynomial</term> of <m>A</m>. We summarize the results of this discussion in the following theorem.</p>
+
+        <theorem xml:id="theorem-linear01-characteristic-polynomial">
+            <statement>
+                <p>The roots of the characteristic polynomial of <m>A</m> are the eigenvalues of <m>A</m>.</p>
+            </statement>
+        </theorem> 
+
+        <example xml:id="example-linear01-example-1">
+            <p>Suppose that we wish to find the eigenvalues and associated eigenvectors of
+                <me>A =
+                \begin{pmatrix}
+                1 &amp; 2 \\
+                4 &amp; 3
+                \end{pmatrix}.</me>
+            To find the eigenvalues and eigenvectors for <m>A</m>, we must solve the equation
+                <me>A 
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix}
+                =
+                \lambda
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix}.</me>
+            If we let <m>I</m> denote the <m>2 \times 2</m> identity matrix,
+                <me>I =
+                \begin{pmatrix}
+                1 &amp; 0 \\
+                0 &amp; 1
+                \end{pmatrix},</me>
+            we can rewrite this equation in the form
+                <men xml:id="equation-linear01-characteristic">(A - \lambda I) 
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix}
+                = 
+                \begin{pmatrix}
+                0 \\ 0
+                \end{pmatrix}. </men>
+            We know that <m>A - \lambda I</m> is a <m>2 \times 2</m> matrix and that this system will only have nonzero solutions if <m>\det(A - \lambda I) = 0</m>. In our example, 
+                <md>
+                    <mrow> \det(A - \lambda I) 
+                    &amp; =
+                    \det\begin{pmatrix}
+                    1 - \lambda &amp; 2 \\
+                    4 &amp; 3 - \lambda
+                    \end{pmatrix} </mrow>
+                    <mrow>&amp; = (1 - \lambda) (3 - \lambda ) - 8</mrow>
+                    <mrow>&amp; = \lambda^2 - 4\lambda - 5</mrow>
+                    <mrow>&amp; = (\lambda - 5)(\lambda +1 ).</mrow>
+                </md>
+            Thus, <m>\lambda = 5</m> or <m> -1</m>.</p>
+
+    		<p>To see this from a different perspective, we will rewrite equation <xref ref="equation-linear01-characteristic" /> as
+                <md>
+                    <mrow>x + 2 y &amp; = \lambda x</mrow>
+                    <mrow>4 x + 3 y &amp; = \lambda y.</mrow>
+                </md>
+            This system is equivalent to
+                <md>
+                    <mrow>(1 - \lambda) x + 2 y &amp; = 0</mrow>
+                    <mrow>4 x + (3 - \lambda) y &amp; = 0</mrow>
+                </md>
+            which can be reduced to
+                <md>
+                    <mrow>(1 - \lambda) x + 2 y &amp; = 0</mrow>
+                    <mrow>(\lambda^2 - 4\lambda - 5) y &amp; = 0.</mrow>
+                </md>
+            Therefore, either <m>\lambda = 5</m> or <m>\lambda = -1</m> to obtain a nonzero solution.
+                <ul>
+
+                    <li>If <m>\lambda = 5</m>, the first equation in the system becomes <m>-2x + y = 0</m>, and the eigenvectors corresponding to this eigenvalue are the nonzero solutions of this equation. That is, a vector must be a nonzero multiple of <m>(1, 2)</m> to be an eigenvector of <m>A</m> corresponding to <m>\lambda = 5</m>.</li>
+                     
+                    <li>If <m>\lambda = -1</m>, then the corresponding eigenvectors are the nonzero multiples of <m>(1, -1)</m>.</li>
+
+                </ul></p>
+        </example>
+
+	</subsection>
+
+	<subsection xml:id="subsection-linear01-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+			
+			<li>The roots of the characteristic polynomial, <m>\det(A - \lambda I)</m>, of a matrix <m>A</m> are the eigenvalues of <m>A</m>.  Given a specific eigenvalue, <m>\lambda</m>, for a matrix <m>A</m>, the eigenvectors associated with <m>A</m> are the nonzero solutions of the system of equations
+                <me>(A - \lambda I)
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                0 \\ 0
+                \end{pmatrix}.</me></li>
+
+			<li>If <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are eigenvectors of two distinct real eigenvalues of a matrix <m>A</m>, then <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> are linearly independent.</li>
+
+        </ul></p>
+	</subsection>
+
+    <xi:include href="./exercises/linear01.xml" />
+
+    <subsection number="no" xml:id="subsection-linear01-sage-project">
+        <title>Project<mdash />Finding Eigenvalues and Eigenvectors</title>
+
+        <p><em>Sage</em> can be used to find eigenvalues and eigenvectors for a matrix <m>A</m> for now. Consider the matrix
+            <me>A =
+            \begin{pmatrix}
+            1 &amp; 3 \\
+            1 &amp; -1
+            \end{pmatrix}.</me>
+        Using <em>Sage</em>, we would enter the matrix <m>A</m> as follows.</p>
+
+        <sage>
+            <input>
+            A = matrix([[1, 3], [1, -1]])
+            A
+            </input>
+            <output>
+            [ 1  3] [ 1 -1]
+            </output>
+        </sage>
+
+        <p>We can use the following command to find the eigenvalues of <m>A</m>.</p>
+
+        <sage>
+            <input>
+            A = matrix([[1, 3], [1, -1]])
+            A.eigenvalues()
+            </input>
+            <output>
+            [2, -2]
+            </output>
+        </sage>
+
+        <p><em>Sage</em> will also allow us find eigenvectors for each of the eigenvalues of <m>A</m>.</p>
+
+        <sage>
+            <input>
+            A = matrix([[1, 3], [1, -1]])
+            A.eigenvectors_right()
+            </input>
+            <output>
+            [(2, [(1, 1/3)], 1), (-2, [(1, -1)], 1)]
+            </output>
+        </sage>
+
+        <p>Thus, the matrix <m>A</m> has two eigenvalues: <m>\lambda_1 = 2</m> with eigenvector <m>\mathbf v_1 = (1, 1/3)</m> and <m>\lambda_2 = -2</m> with eigenvector <m>\mathbf v_2 = (1, -1)</m>.</p>
+
+        <p>There is a third entry in the <em>Sage</em> output which refers to the multiplicity of the eigenvalue.  In the previous example, the multiplicity is 1.  In the matrix
+            <me>B =
+            \begin{pmatrix}
+            1 &amp; 1 \\
+            -1 &amp; 3
+            \end{pmatrix}.</me> 
+        in the <em>Sage</em> cell below, we obtain a single repeated eigenvalue <m>\lambda = 2</m> and only one eigenvector <m>\mathbf v = (1,1)</m>.  The multiplicity of this eigenvalue is 2.  In our previous examples, we obtained two linearly independent eigenvalues allowing us to solve initial value problems given a general solution.</p>
+
+        <sage>
+            <input>
+            B = matrix([[1, 1],[-1, 3]])
+            B.eigenvectors_right()
+            </input>
+            <output>
+            [(2, [(1, 1)], 2)]
+            </output>
+        </sage>
+
+        <p>We may also matrices such as 
+            <me>C =
+            \begin{pmatrix}
+            4 &amp; 1 \\
+            -1 &amp; 4
+            \end{pmatrix}</me>
+        has complex eigenvalues, <m>\lambda = 4 - i</m> and <m>\mu = 4 + i</m>. Eigenvectors for <m>\lambda</m> and <m>\mu</m> are <m>\mathbf u = (1, -i)</m> and <m>\mathbf v = (1, i)</m>, respectively.</p>
+
+        <sage>
+            <input>
+            C = matrix([[4, 1],[-1, 4]])
+            C.eigenvectors_right()
+            </input>
+            <output>
+            [(4 - 1*I, [(1, -1*I)], 1), (4 + 1*I, [(1, 1*I)], 1)]
+            </output>
+        </sage>
+
+    </subsection>
+
+</section>
+
+<!--</section>-->

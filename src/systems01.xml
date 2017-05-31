@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="systems01" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Modeling with Systems</title>
+
+	<introduction>
+        <p>Many situations are best modeled with a system of differential equations rather than a single equation. We have already derived a model that describes how a population of snowshoe hares and and how they interact with one of their primary predators, the lynx (Section<nbsp /><xref ref="firstlook01" />).  We denoted the population of hares by <m>H(t)</m> and the population of lynx by <m>L(t)</m>, where <m>t</m> is the time measured in years and derived the system of differential equations
+			<md>
+				<mrow>\frac{dH}{dt} &amp; = aH - bHL,</mrow>
+				<mrow>\frac{dL}{dt} &amp; = -cL + dHL.</mrow>
+			</md></p>
+
+		<p>Just as in first-order differential equations, we can examine the equilibrium solutions of a system. More specifically, we define an <term>equilibrium solution</term><index><main>system</main><sub>equilibrium solution</sub></index><index><main>equilibrium solution</main><sub>systems of differential equations</sub></index> for a system of differential equations
+			<md>
+				<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+				<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+			</md>
+		to be those values of <m>x</m> and <m>y</m> such that <m>f(x, y) = 0</m> and <m>g(x, y) = 0</m>. That is, an equilibrium solution is a solution where neither <m>x(t)</m> or <m>y(t)</m> is changing.</p>
+	</introduction>
+
+	<subsection xml:id="subsection-systems01-predator-prey">
+		<title>Predator-Prey Systems</title>
+
+		<p>Suppose that we have a predator-prey system consisting of a population of foxes (<m>F</m>) and of rabbits (<m>R</m>).<fn>Foxes are omnivores. Their diet consists of small mammals, including rabbits, as well as fruits, berries, and vegetables. They will even eat fish and crabs.</fn>
+			<md>
+				<mrow>\frac{dR}{dt} &amp; = 2R - RF,</mrow>
+				<mrow>\frac{dF}{dt} &amp; = -5F + RF,</mrow>
+			</md>
+		we have an equilibrium solution at <m>R = 5</m> and <m>F = 2</m>. That is, the system is in balance and there is just enough prey to support a constant population of predators at the point <m>(R, F) = (5, 2)</m>.</p>
+
+		<p>If the number of rabbits or foxes changes, then the system is no longer in balance. For example, if <m>R = 1</m> and <m>F = 1</m>, then
+			<md>
+				<mrow>\frac{dR}{dt} &amp; = 1,</mrow>
+				<mrow>\frac{dF}{dt} &amp; = -4,</mrow>
+			</md>
+		and the rabbit population will be increasing while the fox population will decrease. If we assume that we have initial conditions
+			<md>
+				<mrow>R_0 = R(0) = 1,</mrow>
+				<mrow>F_0 = F(0) = 1,</mrow>
+			</md>
+		we can apply a numerical algorithm to generate a solution for our system.<fn>You will find technology extremely useful when analyzing systems.  We will introduce <em>Sage</em> commands for analyzing systems of equations at the end of this section.</fn> The graphs of the solutions for <m>R(t)</m> and <m>F(t)</m> are given in Figure<nbsp /><xref ref="figure-systems01-simple-predator-prey-system" />. Notice that the solutions are periodic with the same period. Observe that a peak in the rabbit population is followed by a peak in the fox population.</p>
+
+		<figure xml:id="figure-systems01-simple-predator-prey-system">
+			<image width="60%" xml:id="systems01-simple-predator-prey-system">
+				<sageplot>
+					Rabbit,Fox,t = var('Rabbit Fox t')
+					F = [2*Rabbit - Rabbit*Fox, -5*Fox + Rabbit*Fox]
+					P=desolve_system_rk4(F,[Rabbit,Fox],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
+					Q=[ [i, j] for i,j,k in P]
+					R=[ [i, k] for i,j,k in P]
+					p = line(Q, color='red', axes_labels=['$t$','$R(t), F(t)$'], legend_label='$R(t)$', legend_color='red', fontsize = 12, thickness=2)
+					p += line(R, color='blue', legend_label='$F(t)$', legend_color='blue', thickness=2)
+					p
+	            </sageplot>
+			</image>
+
+            <caption>A simple predator-prey system</caption>
+        </figure>
+
+		<p>We can graph the solution to our system in a different manner<mdash />we can construct a parametric plot of our solution in the <m>RF</m>-plane.  Thus, a point on the graph is given by <m>(R(t), F(t))</m> at time <m>t</m>. We can view the solution curve of our system in the <m>RF</m>-plane in Figure<nbsp /><xref ref="figure-systems01-solution-curve-predator-prey" />. The <m>RF</m>-plane is called the <term>phase plane</term><index><main>phase plane</main></index> for our system of differential equations and is analogous to the phase line that we used during our investigation of slope fields for autonomous differential equations. We can plot many solutions to our predator prey-system and even plot direction fields in the phase plane (Figure<nbsp /><xref ref="figure-systems01-phase-plane-predator-prey" />).</p>
+
+		<figure xml:id="figure-systems01-solution-curve-predator-prey">
+			<image width="60%" xml:id="systems01-solution-curve-predator-prey">
+				<sageplot>
+					H,L,t = var('H L t')
+					F = [2*H - H*L, -5*L + H*L]
+					P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=4,step=0.01)
+					S=[ [j, k] for i,j,k in P]
+					p = line(S, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
+					p += arrow(S[int(len(S)/2)], S[int(len(S)/2) + 1])
+					p
+	            </sageplot>
+			</image>
+            <caption>A solution curve in the <m>RF</m>-plane</caption>
+        </figure>		
+		
+		<figure xml:id="figure-systems01-phase-plane-predator-prey">
+			<image width="60%" xml:id="systems01-phase-plane-predator-prey">
+				<sageplot>
+					H,L,t = var('H L t')
+					F = [2*H - H*L, -5*L + H*L]
+					P1=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=4,step=0.01)
+					P2=desolve_system_rk4(F,[H,L],ics=[0,2,2],ivar=t,end_points=4,step=0.01)
+					P3=desolve_system_rk4(F,[H,L],ics=[0,1.5,1.5],ivar=t,end_points=4,step=0.01)
+					S1=[ [j, k] for i,j,k in P1]
+					S2=[ [j, k] for i,j,k in P2]
+					S3=[ [j, k] for i,j,k in P3]
+					p = line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
+					p += line(S2, thickness=2)
+					p += line(S3, thickness=2)
+					p += arrow(S1[int(len(S1)/2)], S1[int(len(S1)/2) + 1])
+					p += arrow(S2[int(len(S2)/2)], S2[int(len(S2)/2) + 1])
+					p += arrow(S3[int(len(S3)/2)], S3[int(len(S3)/2) + 1])
+					n = sqrt(F[0]^2 + F[1]^2)
+					p += plot_vector_field((F[0]/n, F[1]/n), (H,0,15.5), (L,0,10))
+					p
+	            </sageplot>
+			</image>
+       		<caption>The phase plane for a predator-prey system</caption>
+        	
+    	</figure>
+
+		<p>We will now modify our system by assuming that the rabbit population will grow logistically if there are no predators present. The system can now be written as
+			<md>
+				<mrow>\frac{dR}{dt} &amp; = aR(1 - R/N) - bRF,</mrow>
+				<mrow>\frac{dF}{dt} &amp; = -cF + dRF,</mrow>
+			</md>
+		where <m>N</m> is the carrying capacity.  As a specific example, consider system
+			<md>
+				<mrow>\frac{dR}{dt} &amp; = 2R\left(1 - \frac{R}{10}\right) - RF,</mrow>
+				<mrow>\frac{dF}{dt} &amp; = -5F + RF.</mrow>
+			</md></p>
+
+		<p>It is easy to see that we have two equilibrium solutions<mdash />one at <m>(R, F) = (0, 0)</m> and one at <m>(R, F) = (5, 1)</m>. Our solutions now behave very differently from the assumption that the population of the prey grows exponentially. If we have initial values <m>R_0 = 1</m> and <m>F_0 = 1</m>, then our solution is no longer periodic (Figure<nbsp /><xref ref="figure-systems01-modified-predator-prey" />). In fact, the solutions tend towards the equilibrium solution. The phase plane for our modified predator-prey system is given in Figure <xref ref="figure-systems01-modified-predator-prey-phase-plane" />. The equilibrium solution <m>(5, 1)</m> is an example of a <term>stable equilibrium solution</term><index><main>equilibrium solution</main><sub>stable</sub></index>.</p>
+
+
+		<figure xml:id="figure-systems01-modified-predator-prey">
+			<image width="60%" xml:id="systems01-modified-predator-prey">
+				<sageplot>
+					H,L,t = var('H L t')
+					F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
+					P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
+					Q=[ [i, j] for i,j,k in P]
+					R=[ [i, k] for i,j,k in P]
+					p = line(Q, color='red', axes_labels=['$t$','$R(t), F(t)$'], legend_label='$R(t)$', legend_color='red', fontsize=12)
+					p += line(R, color='blue', legend_label='$F(t)$', legend_color='blue')
+					p
+            	</sageplot>
+			</image>
+       		<caption>Solutions for a modified predator-prey system</caption>
+     	</figure>
+
+<!--
+		<figure xml:id="figure-systems01-modified-predator-prey-solutions">
+			<image width="60%" xml:id="systems01-modified-predator-prey-solutions">
+				<sageplot>
+					H,L,t = var('H L t')
+					F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
+					P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
+					S=[ [j, k] for i,j,k in P]
+					LP=line(S, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=14)
+					P_arrow = arrow(S[int(len(S)/2)], S[int(len(S)/2) + 1])
+					p = LP + P_arrow
+					p
+            	</sageplot>
+			</image>
+     		<caption>Solution for a Modified Predator-Prey System in the <m>HL</m>-plane</caption>
+      	</figure>
+-->
+		<figure xml:id="figure-systems01-modified-predator-prey-phase-plane">
+			<image width="60%" xml:id="systems01-modified-predator-prey-phase-plane">
+				<sageplot>
+					H,L,t = var('H L t')
+					F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
+					P1=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
+					P2=desolve_system_rk4(F,[H,L],ics=[0,2,2],ivar=t,end_points=10,step=0.01)
+					P3=desolve_system_rk4(F,[H,L],ics=[0,1.5,1.5],ivar=t,end_points=10,step=0.01)
+					S1=[ [j, k] for i,j,k in P1]
+					S2=[ [j, k] for i,j,k in P2]
+					S3=[ [j, k] for i,j,k in P3]
+					p = line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
+					p += line(S2, thickness=2)
+					p += line(S3, thickness=2)
+					p += arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
+					p += arrow(S2[int(len(S2)/3)], S2[int(len(S2)/3) + 1])
+					p += arrow(S3[int(len(S3)/3)], S3[int(len(S3)/3) + 1])
+					n = sqrt(F[0]^2 + F[1]^2)
+					p += plot_vector_field((F[0]/n, F[1]/n), (H,0,9), (L,0,3))
+					p
+            	</sageplot>
+			</image>
+
+       		<caption>Phase plane for a modified predator-prey system</caption>
+
+  		</figure>
+
+	</subsection>
+	
+    <subsection xml:id="subsection-systems01-spring-mass">
+    	<title>The Spring-Mass Model Revisited</title>
+
+		<p>Recall the spring-mass model from Section<nbsp /><xref ref="firstlook01" />. We have a mass lying on a flat surface that is attached to one end of a spring with the other end of the spring attached to a wall. The spring displacement is denoted by <m>x</m>. If <m>x \gt 0</m>, then the spring is stretched. If <m>x \lt 0</m>, the spring is compressed. If <m>x = 0</m>, then the spring is in a state of equilibrium (Figure<nbsp /><xref ref="figure-firstlook01-spring-mass" />). If the surface is frictionless and we pull on the mass, then the mass will oscillate.</p>
+
+		<p>If we use a dashpot to add damping, the second-order differential equation for the spring-mass system is
+			<me>mx'' = -bx' - kx.</me>
+		or
+			<me>mx'' + bx' + kx = 0,</me>
+		where <m>m</m>, <m>b</m>, and <m>k</m> are all positive constants.</p>
+
+		<p>A second-order differential equation can be restated in terms of a system of first order differential equations. Given the differential equation
+			<me>mx'' + bx' + kx = F(t),</me> 
+		with initial position <m>x(0) = x_0</m> and initial velocity <m>x'(0) = x_0'</m>, we can rewrite this equation as a system of first-order differential equations by letting <m>v(t) = x'(t)</m>. In this case, the equation becomes
+			<me>mv' + bv + kx = F(t).</me>
+		We now have a system of first-order differential equations,
+			<md>
+				<mrow>x' &amp; = v,</mrow>
+				<mrow>v' &amp; = \frac{1}{m} F(t) -\frac{b}{m} v -\frac{k}{m} x,</mrow>
+			</md>
+		with initial conditions
+			<md>
+				<mrow>x(0) &amp; = x_0</mrow>
+				<mrow>v(0) &amp; = v_0'.</mrow>
+			</md></p>
+
+	</subsection>
+	
+    <subsection xml:id="subsection-systems01-epidemics">
+    	<title>Modeling Epidemics</title>
+    	
+		<p>Systems of differential equations are very useful in epidemiology. Differential equations can be used to model various epidemics, including the  bubonic plague, influenza, AIDS, and the 2015 ebola outbreak in west Africa. To understand how we might model an epidemic, we will consider a very simple situation. We will assume that we have a closed population of size <m>N</m>, where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
+
+		<p>We will assume that each individual in the population falls into one of the following categories:
+			<md>
+				<mrow>S(t) &amp; = \text{Susceptible individuals}</mrow>
+				<mrow>I(t) &amp; = \text{Infected individuals}</mrow>
+				<mrow>R(t) &amp; = \text{Removed individuals}</mrow>
+			</md>
+		Susceptible individuals who do not yet have the disease and can catch the disease from infected individuals. Individuals enter the removed population by either recovering from the disease or dying. If an infected individual recovers, then the individual is immune to the disease. Schematically, we can represent the effect of the disease by the diagram
+			<me>S \longrightarrow I \longrightarrow R.</me>
+		Since the population is closed, we know that
+			<me>S(t) + I(t) + R(t) = N.</me>
+		This model is called an <term>SIR model</term><index><main>SIR model</main></index>.</p>
+
+		<p>We can model how the disease acts with the following system of equations,
+			<md>
+				<mrow>\frac{dS}{dt} &amp; = - \alpha SI</mrow>
+				<mrow>\frac{dI}{dt} &amp; = \alpha SI - \beta I</mrow>
+				<mrow>\frac{dR}{dt} &amp; = \beta I.</mrow>
+			</md>
+		We say that <m>\alpha</m> is the rate of infection and <m>\beta</m> is the rate at which the infected are removed. That is, an infected individual either dies or recovers after <m>1/ \beta</m> days. Since
+			<me>\frac{d}{dt}\left[ S(t) + I(t) + R(t)\right] = \frac{d}{dt} N = 0,</me>
+		we need only solve the system
+			<md>
+				<mrow>\frac{dS}{dt} &amp; = - \alpha SI</mrow>
+				<mrow>\frac{dI}{dt} &amp; = \alpha SI - \beta I.</mrow>
+			</md>
+		Letting <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, we can see how the susceptible and removed populations interact in an SIR epidemic in Figure<nbsp /><xref ref="figure-systems01-SIR-epidemic" />.</p>
+
+		<figure xml:id="figure-systems01-SIR-epidemic">
+			<image width="60%" xml:id="systems01-SIR-epidemic">
+				<sageplot>
+					S, Infected, t = var('S, Infected, t')
+					alpha = 0.005
+					beta = 0.08
+					F = [-alpha*S*Infected, alpha*S*Infected - beta*Infected]
+					P=desolve_system_rk4(F,[S, Infected],ics=[0,100,1],ivar=t,end_points=80,step=0.1)
+					Q=[ [i, j] for i,j,k in P]
+					R=[ [i, k] for i,j,k in P]
+					p = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
+					p += line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
+					p
+	            </sageplot>
+			</image>
+            <caption>The susceptible and removed populations for an SIR epidemic</caption>
+        </figure>
+
+		<p>There are many questions associate with epidemic models.
+			<ul>
+
+				<li>Will there be an epidemic?</li>
+
+				<li>If there is an epidemic, how many individuals will be infected?</li>
+
+				<li>Is there a period of time for which individuals are exposed to the disease but exhibit no symptoms and cannot infect others?</li>
+
+				<li>If the disease is endemic, what is the prevalence of the infection?</li>
+
+				<li>Can the disease be eradicated or controlled?</li>
+
+				<li>What is the effect of the population age structure?</li>
+
+			</ul>We will later explore how we can adjust the <m>SIR</m> model to address some of these issues.</p>
+
+<todo>This section could use one more example.</todo>
+
+	</subsection>
+
+    <subsection xml:id="subsection-systems01-important-lessons">
+    	<title>Important Lessons</title>
+	
+	<p><ul>
+
+		<li>A <term>second-order linear equation</term>
+			<me>a(t) x'' + b(t) x' + c(t) x = g(t)</me>
+		can be written as a system of first-order equations by letting <m>v(t) = x'(t)</m>.</li>
+
+		<li>An <term>equilibrium solution</term> for a system of differential equations
+			<md>
+				<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+				<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+			</md>
+		to be those values of <m>x</m> and <m>y</m> such that <m>f(x, y) = 0</m> and <m>g(x, y) = 0</m>.</li>
+
+		<li>We can graph solutions to the system 
+			<md>
+				<mrow>\frac{dx}{dt} &amp; = f(x, y),</mrow>
+				<mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+			</md>
+		as parametric plots in the <m>xy</m>-plane.  A point on the graph is given by <m>(x(t), y(t))</m> at time <m>t</m>. The <m>xy</m>-plane is called the <term>phase plane</term> for our system of differential equations.</li>
+
+		<li>Solution curves in the phase plane of 
+			<md>
+				<mrow>\frac{dx}{dt} &amp; = f(x, y),</mrow>
+				<mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+			</md>
+		can act very differently with respect to equilibrium solutions.  Consider the two predator-prey systems
+			<md>
+				<mrow>\frac{dH}{dt} &amp; = aH - bHL,</mrow>
+				<mrow>\frac{dL}{dt} &amp; = -cL + dHL,</mrow>
+			</md>
+		and 
+			<md>
+				<mrow>\frac{dH}{dt} &amp; = aH(1 - H/\alpha) - bHL,</mrow>
+				<mrow>\frac{dL}{dt} &amp; = -cL + dHL.</mrow>
+			</md>
+		Solutions graph as closed orbits in our example of the first system. In the example of the second system, solutions approach the equilibrium solution as <m>t \to \infty</m>.</li>
+
+		</ul></p>
+				
+	</subsection>
+
+<todo>More problems needed.</todo>
+
+    <xi:include href="./exercises/systems01.xml" />
+
+    <subsection xml:id="systems01-subsection-sage-project">
+    	<title>Project<mdash />Using <em>Sage</em> to Solve Systems</title>
+		
+		<p>We can use <em>Sage</em> to plot the solution of the system
+			<mdn>
+				<mrow xml:id="equation-systems01-desolve-rk4-system-1">x' &amp; = -x - y</mrow>
+				<mrow xml:id="equation-systems01-desolve-rk4-system-2">y' &amp; = x + y/5</mrow>
+				<mrow xml:id="equation-systems01-desolve-rk4-system-3">x(0) &amp; = 1</mrow>
+				<mrow xml:id="equation-systems01-desolve-rk4-system-4">y(0) &amp; = -1</mrow>
+			</mdn>
+		First, let us plot a direction field for our system.</p>
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			p = plot_vector_field(F, (x,-4,4), (y,-4,4))
+			p
+			</input>
+			<output>	
+			</output>
+ 		</sage>
+
+ 		<p>Notice the the vectors are different lengths depending on their magnitudes. If we wish all of the vectors to be the same length, we can divide each component by the length of the vector.</p>
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			n = sqrt(F[0]^2 + F[1]^2)
+			F_unit = [F[0]/n, F[1]/n]
+			p = plot_vector_field(F_unit, (x,-4,4), (y,-4,4))
+			p
+			</input>
+			<output>
+			</output>
+ 		</sage>	
+
+ 		<p>We can also add axes labels to our plot.</p>
+
+ 		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			n = sqrt(F[0]^2 + F[1]^2)
+			F_unit = [F[0]/n, F[1]/n]
+			p = plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
+			p
+			</input>
+			<output>
+			</output>
+			</sage>			
+
+		<p>Now suppose that we wish to plot solutions <m>x(t)</m> and <m>y(t)</m> to our system. We can use the <em>Sage</em> command <c>desolve_system_rk4</c>.</p>	
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			P
+			</input>
+			<output>
+			</output>
+ 		</sage>
+
+		<p>We new have a numerical approximation of the solution to the system <xref ref="equation-systems01-desolve-rk4-system-1" /><ndash /><xref ref="equation-systems01-desolve-rk4-system-4" />. However, our approximation is just a very long list of points. In fact, we get a list of triples, <m>(t, x, y)</m>.  It would be much more useful if we could display a graph of the solution. In the code below, we grab pairs <m>(t,x)</m> and <m>(t, y)</m> and then plot the points using the <c>line</c> command.</p>
+		
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			Q = [ [i, j] for i,j,k in P]
+			R = [ [i, k] for i,j,k in P]
+			p = line(Q)
+			p += line(R)
+			p
+			</input>
+			<output>	
+			</output>
+ 		</sage>
+ 		
+ 		<p>We can also add colors, axes labels, and legend colors so that the plot makes more sense.</p>
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			Q = [ [i, j] for i,j,k in P]
+			R = [ [i, k] for i,j,k in P]
+			p = line(Q, color='red', axes_labels=['$t$','$x(t), y(t)$'], legend_label='$x(t)$', legend_color='red', fontsize=12)
+			p += line(R, color='blue', legend_label='$y(t)$', legend_color='blue')
+			p
+			</input>
+			<output>
+			</output>
+ 		</sage>
+
+ 		 <p>To plot the solution in the <m>xy</m><ndash />plane, we will need to select the second two entries in each triple.</p>
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			Q = [ [j,k] for i,j,k in P]
+			p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+			p
+			</input>
+			<output>
+			</output>
+ 		</sage>
+
+ 		<p>We can adjust the thickness of the plot add an arrow to indicate the direction of the solution.</p>
+
+		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			Q = [ [j,k] for i,j,k in P]
+			p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12, thickness=3)
+			p += arrow(Q[int(len(Q)/5)], Q[int(len(Q)/5) + 1])
+			p
+			</input>
+			<output>
+			</output>
+ 		</sage>
+
+ 		<p>Now let us add a vector field to our plot.</p>
+
+ 		<sage>
+			<input>
+			x, y, t = var('x y t')
+			F = [-x - y, x + y/5]
+			P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+			Q = [ [j,k] for i,j,k in P]
+			p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12, thickness=3)
+			p += arrow(Q[int(len(Q)/5)], Q[int(len(Q)/5) + 1])
+			n = sqrt(F[0]^2 + F[1]^2)
+			F_unit = [F[0]/n, F[1]/n]
+			p += plot_vector_field(F_unit, (x,-1.5,1.5), (y,-1.5,1.5), axes_labels=['$x(t)$','$y(t)$'])
+			p
+			</input>
+			<output>
+			</output>
+ 		</sage>
+
+ 		<p>To learn more about how to use Sage to solve systems of differential equations, see <url href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" />. The Sage cell below can be used to make your own computations.</p>
+
+ 		<sage>
+			<input>
+			</input>
+			<output>
+			</output>
+ 		</sage>	
+ 				 		 		
+ 		</subsection>		
+
+</section>
+
+
+<!--</section>-->

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!-- The Ordinary Differential Equations Project                   -->
+<!--                                                               -->
+<!-- Copyright (C) 2014-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="linear07" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>The Trace-Determinant Plane</title>
+    
+    <introduction>
+
+        <p>Suppose that we have two tanks, Tank <m>A</m> and Tank <m>B</m>, that both have a volume of <m>V</m> liters and are both filled with a brine solution. Suppose that pure water enters Tank <m>A</m> at a rate of <m>r_{\text{in}}</m> liters per minute, and a salt mixture enters Tank <m>A</m> from Tank <m>B</m> at a rate of <m>r_B</m> liters per minute. Brine also enters Tank <m>B</m> from Tank <m>A</m> at a rate of <m>r_A</m> liters per minute. Finally, brine is drained from Tank <m>B</m> at a rate of <m>r_{\text{out}}</m> so that the volume in each tank is constant (Figure<nbsp /><xref ref="figure-linear07-mixing-example"/>).</p>
+
+        <figure xml:id="figure-linear07-mixing-example">
+
+            <image width="60%" xml:id="linear07-mixing-example">
+                <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=0.7]
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (0,0) arc (180:360: 2 and 0.5) -- (4,0) -- (4,6) arc (0:180: 2 and 0.5) -- (0,6) -- cycle;
+                    \draw[blue!50!black, thick] (2,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (7,0) arc (180:360: 2 and 0.5) -- (11,0) -- (11,6) arc (0:180: 2 and 0.5) -- (7,6) -- cycle;
+                    \draw[blue!50!black, thick] (9,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20] (4,1) -- (7,1) -- (7,1.5) -- (4,1.5) -- cycle;
+                    \filldraw[fill=blue!20] (4,4.5) -- (7,4.5) -- (7,5) -- (4,5) -- cycle;
+                    \filldraw[fill=blue!20] (11,1) -- (12,1) arc (90:0:0.5)-- (12.5,-0.5) -- (12,-0.5) -- (12,0.25) arc (0:90:0.25) --  (11,0.5) -- cycle;
+                    \filldraw[fill=blue!20] (-1,7) -- (-1,5.75) arc (180:270:0.25) -- (-0.5,5.5) -- (0,5.5) -- (0,5) -- (-1,5) arc (270:180:0.5) --  (-1.5,7) -- cycle;
+                    \draw[blue!50!black,<-,thick] (5,2) -- (6,2);
+                    \draw[blue!50!black,->,thick] (5,4) -- (6,4);
+                    \draw[blue!50!black,->,thick] (13,0.5) -- (13,-0.5);
+                    \draw[blue!50!black,<-,thick] (-2,5.5) -- (-2,6.5);
+                    \node at (2,-1) {Tank $A$};
+                    \node at (9,-1) {Tank $B$};
+                    \node at (5.5,1) [below] {$r_B$};
+                    \node at (5.5,5) [above] {$r_A$};
+                    \node at (12.25,-0.5) [below] {$r_{\text{out}}$};
+                    \node at (-1.25,7) [above] {$r_{\text{in}}$};
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>Mixing example with two tanks</caption>
+        </figure>
+
+        <p>If <m>x(t)</m> and <m>y(t)</m> are the amounts of salt in Tank <m>A</m> and Tank <m>B</m>, respectively, then our problem can be modeled with a linear system of two equations,
+        	<md>
+        		<mrow>\frac{dx}{dt} \amp = \text{rate in} - \text{rate out} = - r_A \frac{x}{V} + r_B \frac{y}{V}</mrow>
+        		<mrow>\frac{dy}{dt} \amp = \text{rate in} - \text{rate out} = r_A \frac{x}{V} - r_B \frac{y}{V} - r_{\text{out}} \frac{y}{V}.</mrow>
+        	</md>
+        Furthermore, <m>r_A = r_B + r_{\text{out}}</m>, since the volume in Tank <m>B</m> is constant. Consequently, our system now becomes
+            <md>
+        		<mrow>\frac{dx}{dt} \amp = - r_A \frac{x}{V} + r_B \frac{y}{V}</mrow>
+        		<mrow>\frac{dy}{dt} \amp  = r_A \frac{x}{V} - r_A \frac{y}{V}.</mrow>
+        	</md>
+       If we have initial conditions <m>x(0) = x_0</m> and <m>y(0) = y_0</m>, it is not too difficult to deduce that the amount of salt in each tank will approach zero as <m>t \to \infty</m>, and we will have a stable equilibrium solution at <m>(0, 0)</m>. Determining the nature of the equilibrium solution is a more difficult question.  For example, is it ever possible that the equilibrium solution is a spiral sink? One solution is provided by studying the <term>trace-determinant plane</term>.</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-linear07-trace-determinant">
+        <title>The Trace-Determinant Plane</title>
+
+        <p>The key to solving the system
+            <me>\begin{pmatrix}
+            x' \\ y'
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}
+            = 
+            A
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}</me>
+        is determining the eigenvalues of <m>A</m>. To find this eigenvalues, we need to derive the characteristic polynomial of <m>A</m>,
+            <me>\det(A - \lambda I)
+            =
+            \det
+            \begin{pmatrix}
+            a - \lambda &amp; b \\
+            c &amp; d - \lambda
+            \end{pmatrix}
+            =
+            \lambda^2 - (a + d) \lambda + (ad - bc).</me>
+        Of course, <m>D = \det(A) = ad -bc</m> is the determinant of <m>A</m>. The quantity <m>T = a + d</m> is the sum of the diagonal elements of the matrix <m>A</m>. We call this quantity the <term>trace</term> of <m>A</m> and write <m>\trace(A)</m>. Thus, we can rewrite the characteristic polynomial as
+            <me>\det(A - \lambda I) = \lambda^2 - T \lambda + D.</me>
+        We can use the trace and determinant to establish the nature of a solution to a linear system.</p>
+
+		<theorem xml:id="theorem-linear07-trace-determinant">
+            <statement>
+                <p>If a <m>2 \times 2</m> matrix <m>A</m> has eigenvalues <m>\lambda_1</m> and <m>\lambda_2</m>, then the trace of <m>A</m> is <m>\lambda_1 + \lambda_2</m> and <m>\det(A) = \lambda_1 \lambda_2</m>.</p>
+            </statement>
+            <proof>
+                <p>The proof follows from a direct computation. Indeed, we can rewrite the characteristic polynomial as
+                    <me>\det(A - \lambda I) = \lambda^2 - T \lambda + D.</me> 
+                The eigenvalues of <m>A</m> are now given by
+                    <me>\lambda_1 = \frac{T + \sqrt{T^2 - 4D}}{2} \quad \text{and} \quad \lambda_2 = \frac{T - \sqrt{T^2 - 4D}}{2}.</me>
+                Hence, <m>T = \lambda_1 + \lambda_2</m> and <m>D = \lambda_1 \lambda_2</m>.</p>
+            </proof>
+        </theorem> 
+
+		<p>Theorem <xref ref="theorem-linear07-trace-determinant" /> tells us that we can determine the determinant and trace of a <m>2 \times 2</m> matrix from its eigenvalues. Thus, we should be able to determine the phase portrait of a system <m>{\mathbf x}' = A {\mathbf x}</m> by simply examining the trace and determinant of <m>A</m>. Since the eigenvalues of <m>A</m> are given by
+            <me>\lambda = \frac{T \pm \sqrt{T^2 - 4D}}{2},</me>
+        we can immediately see that the expression <m>T^2 - 4D</m> determines the nature of the eigenvalues of <m>A</m>.
+            <ul>
+
+                <li>If <m>T^2 - 4D > 0</m>, we have two distinct real eigenvalues.</li>
+
+                <li>If <m>T^2 - 4D \lt 0</m>, we have two complex eigenvalues, and these eigenvalues are complex conjugates.</li>
+
+                <li>If <m>T^2 - 4D = 0</m>, we have repeated eigenvalues.</li>
+
+            </ul>
+        If <m>T^2 - 4D = 0</m> or equivalently if <m>D = T^2/4</m>, we have repeated eigenvalues. In fact, we can represent those systems with repeated eigenvalues by graphing the parabola <m>D= T^2/4</m> on the <m>TD</m>-plane or <term>trace-determinant plane</term> (Figure<nbsp /><xref ref="figure-linear07-trace-determinant-plane" />). Therefore, points on the parabola correspond to systems with repeated eigenvalues, points above the parabola (<m>D \gt T^2/4</m> or equivalently <m>T^2 - 4D \lt 0</m>) correspond to systems with complex eigenvalues, and points below the parabola  (<m>D \lt T^2/4</m> or equivalently <m>T^2 - 4D  \gt 0</m>) correspond to systems with real eigenvalues.</p>
+
+		<figure xml:id="figure-linear07-trace-determinant-plane">
+
+            <image width="60%" xml:id="linear07-trace-determinant-plane">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
+                    p += text("Complex Eigenvalues", (0, 0.5), fontstyle="oblique", color='black')
+                    p += text("Distinct Real Eigenvalues", (0, -0.3), fontstyle="oblique", color='black')
+                    p += text("Repeated Eigenvalues", (1.2, 0.3), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p
+                </sageplot>
+            </image>
+            <caption>The trace-determinant plane</caption>
+        </figure>
+
+        <theorem xml:id="theorem-linear07-trace-determinant-coordinates">
+            <statement>
+                <p>The trace and determinant of a <m>2 \times 2</m> matrix are invariant under a change of coordinates. That is, <m>\det(T^{-1} A T) = \det(A)</m> and <m>\trace(T^{-1} A T) = \trace(A)</m> for any <m>2 \times 2</m> matrix <m>A</m> and any invertible <m>2 \times 2</m> matrix <m>T</m>.</p>
+            </statement>
+            <proof>
+                <p>It is straightforward to verify that <m>\det(AB) = \det(A) \det(B)</m> and <m>\det(T^{-1}) = 1/\det(T)</m> for <m>2 \times 2</m> matrices <m>A</m> and <m>B</m>.  Therefore,
+                    <me>\det(T^{-1} A T) = \det(T^{-1}) \det(A) \det(T) = \frac{1}{\det(T)} \det(A) \det(T) = \det(A).</me>
+                A direct computation shows that <m>\trace(AB) = \trace(BA)</m>.  Thus,
+                    <me>\trace(T^{-1} A T) = \trace (T^{-1} T A ) = \trace(A).</me></p>
+            </proof>
+        </theorem> 
+
+		<p>Furthermore, each of the expression <m>T^2 - 4D</m> is not affected by a change of coordinates by Theorem <xref ref="theorem-linear07-trace-determinant-coordinates" />. That is, we only need to consider systems <m>{\mathbf x}' = A {\mathbf x}</m>, where <m>A</m> is one of the following matrices:
+            <me>\begin{pmatrix}
+            \alpha &amp;  \beta \\
+            -\beta &amp; \alpha
+            \end{pmatrix},
+            \begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \mu
+            \end{pmatrix},
+            \begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \lambda
+            \end{pmatrix},
+            \begin{pmatrix}
+            \lambda &amp; 1 \\
+            0 &amp; \lambda
+            \end{pmatrix}.</me></p>
+
+		<p>The system 
+            <me>{\mathbf x}' = \begin{pmatrix} \alpha &amp;  \beta \\ - \beta &amp; \alpha \end{pmatrix} {\mathbf x}</me>
+        has eigenvalues <m>\lambda = \alpha \pm i \beta</m>. The general solution to this system is
+            <me>{\mathbf x}(t) 
+            =
+            c_1
+            e^{\alpha t} 
+            \begin{pmatrix}
+            \cos \beta t \\ - \sin \beta t
+            \end{pmatrix}
+            +
+            c_2 e^{\alpha t}
+            \begin{pmatrix}
+            \sin \beta t \\ \cos \beta t
+            \end{pmatrix}.</me>
+        The <m>e^{\alpha t}</m> factor tells us that the solutions either spiral into the origin if <m>\alpha \lt 0</m>, spiral out to infinity if <m>\alpha \gt 0</m>, or stay in a closed orbit if <m>\alpha = 0</m>. The equilibrium points are <term>spiral sinks</term> and <term>spiral sources</term>, or <term>centers</term>, respectively.</p>
+
+        <p>The eigenvalues of <m>A</m> are given by
+            <me>\lambda = \frac{T \pm \sqrt{T^2 - 4D}}{2}.</me> 
+        If <m>T^2 - 4D \lt 0</m>, then we have a complex eigenvalues, and the type of equilibrium point depends on the real part of the eigenvalue.  The sign of the real part is determined solely by <m>T</m>.  If <m>T \gt 0</m> we have a source.  If <m>T \lt 0</m>, we have a sink.  If <m>T = 0</m>, we have a center.  See Figure<nbsp /><xref ref="figure-linear07-trace-determinant-complex" />.</p>
+
+		<figure xml:id="figure-linear07-trace-determinant-complex">
+            <image width="60%" xml:id="linear07-trace-determinant-plane-complex">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
+                    p += text("Center", (0, 0.75), fontstyle="oblique", color='black')
+                    p += text("Spiral Source", (1.2, 0.75), fontstyle="oblique", color='black')
+                    p += text("Spiral Sink", (-1.2, 0.75), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p
+                </sageplot>
+            </image>
+            <caption><m>D \gt T^2/4</m></caption>
+        </figure>
+
+		<p>The situation for distinct real eigenvalues is a bit more complicated. Suppose that we have a system
+            <me>{\mathbf x}'
+            =
+            \begin{pmatrix}
+            \lambda &amp; 0 \\
+            0 &amp; \mu
+            \end{pmatrix}
+             {\mathbf x}</me>
+        with distinct eigenvalues <m>\lambda</m> and <m>\mu</m>. We will have three cases to consider if none of our eigenvalues are zero:
+            <ul>
+
+                <li>Both eigenvalues are positive (source).</li>
+
+                <li>Both eigenvalues are negative (sink).</li>
+
+                <li>One eigenvalue is negative and the other is positive (saddle).</li>
+
+            </ul>
+        Our two eigenvalues are given by
+            <me>\lambda = \frac{T \pm \sqrt{T^2 - 4D}}{2}.</me></p>
+
+        <p>If <m>T \gt 0</m>, then the eigenvalue
+            <me>\frac{T + \sqrt{T^2 - 4D}}{2}</me>
+        is positive and we need only determine the sign of the second eigenvalue
+            <me>\frac{T - \sqrt{T^2 - 4D}}{2}</me>
+        If <m>D \lt 0</m>, we have one positive and one zero eigenvalue. That is, we have a <term>saddle</term> if <m>T \gt 0</m> and <m>D \lt 0</m>.</p>
+
+        <p>If <m>D \gt 0</m>, then
+            <me>T^2 - 4D \lt T^2.</me>
+        Since we are considering the case <m>T \gt 0</m>, we have 
+            <me>\sqrt{T^2 - 4D} \lt T</me>
+        and the value of the second eigenvalue <m>(T - \sqrt{T^2 - 4D}\,)/2</m> is postive. Therefore, any point in the first quadrant below the parabola corresponds to a system with two positive eigenvalues and must correspond to a <term>nodal source</term>.</p>
+
+		<p>One the other hand, suppose that <m>T \lt 0</m>. Then the eigenvalue <m>(T - \sqrt{T^2 - 4D}\,)/2</m> is always negative, and we need to determine if other eigenvalue is positive or negative.  If <m>D \lt 0</m>, then
+            <me>T^2 - 4D \gt T^2</me>
+        and
+            <me>\sqrt{T^2 - 4D} \gt T</me>
+        Therefore, the other eigenvalue <m>(T - \sqrt{T^2 - 4D}\,)/2</m> is positive, telling us that any point in the fourth quadrant must correspond to a saddle. If <m>D \gt 0</m>, then <m>\sqrt{T^2 - 4D} \lt T</m> and the second eigenvalue is negative. In this case, we will have a <term>nodal sink</term>. We summarize our findings in Figure<nbsp /><xref ref="figure-linear07-trace-determinant-real" />.</p>
+
+        <figure xml:id="figure-linear07-trace-determinant-real">
+            <image width="60%" xml:id="linear07-trace-determinant-plane-real">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
+                    p += text("Center", (0, 0.85), fontstyle="oblique", color='black')
+                    p += text("Spiral Source", (1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Nodal Source", (1.85, 0.3), fontstyle="oblique", color='black')
+                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
+                    p += text("Saddle", (0, -0.3), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p
+                </sageplot>
+            </image>
+
+            <caption>The trace-determinant plane for real and complex eigenvalues</caption>
+        </figure>
+    	
+    	<p>For repeated eigenvalues, the analysis depends only on <m>T</m>.  Since
+            <me>T^2 - 4D = 0,</me>
+        the only eigenvalue is <m>T/2</m>. Thus, we have sources if <m>T > 0</m> and sinks if <m>T \lt 0</m> (Figure<nbsp /><xref ref="figure-linear07-trace-determinant-repeated" />).</p>
+
+		<figure xml:id="figure-linear07-trace-determinant-repeated">
+            <image width="60%" xml:id="linear07-trace-determinant-plane-repeated">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
+                    p += text("Center", (0, 0.85), fontstyle="oblique", color='black')
+                    p += text("Spiral Source", (1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Nodal Source", (1.85, 0.3), fontstyle="oblique", color='black')
+                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
+                    p += text("Source (unstable line)", (1.6, 0.55), fontstyle="oblique", color='black')
+                    p += text("Sink (stable line)", (-1.6, 0.55), fontstyle="oblique", color='black')
+                    p += text("Saddle", (0, -0.3), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p
+                </sageplot>
+            </image>
+
+            <caption><m>D = T^2/4</m></caption>
+        </figure>
+
+        <example>
+        	<p>Let us return to the mixing problem that we proposed at the beginning of this section. The problem could be modeled by the system of equations
+	        	<md>
+	        		<mrow>\frac{dx}{dt} \amp = - r_A \frac{x}{V} + r_B \frac{y}{V}</mrow>
+	        		<mrow>\frac{dy}{dt} \amp  = r_A \frac{x}{V} - r_A \frac{y}{V}</mrow>
+	        		<mrow>x(0) \amp = x_0</mrow>
+	        		<mrow>y(0) \amp = y_0.</mrow>
+	        	</md>
+	        The matrix corresponding to this system is
+	        	<me>A = 
+	        	\begin{pmatrix} -r_A/V \amp + r_B/V \\
+	        	r_A / V \amp - r_A / V
+	        	\end{pmatrix}.</me>
+	        Computing the trace and determinant of the matrix yields <m>T = - 2 r_A/V</m> and <m>D = (r_A^2 - r_A r_B)/V^2</m>, where <m>r_A</m> and <m>r_B</m> are both positive. Certainly, <m>T \lt 0</m> and
+	    		<me>D = \frac{r_A^2 - r_A r_B}{V^2} = \frac{r_A(r_A - r_B)}{V^2} = \frac{r_A r_{\text{out}}}{V^2} \gt 0.</me>
+	    	Therefore, any solution must be stable. Finally, since
+	    		<me>4D - T^2 = 4 \frac{r_A^2 - r_A r_B}{V^2} - \left( \frac{-2 r_A}{V} \right)^2 = -\frac{4r_A r_B}{V^2} \lt 0,</me>
+	    	we are below the parabola in the trace-determinant plane and know that our solution must be a nodal sink.</p>
+	    </example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear07-parameterized-families">
+    	<title>Parameterized Families of Linear Systems</title>
+
+		<p>The trace-determinant plane is an example of a <term>parameter plane</term>. We can adjust the entries of a matrix <m>A</m> and, thus, change the value of the trace and the determinant.</p>
+
+        <example>
+    		<p>Consider the system
+                <me>\begin{pmatrix}
+                x' \\ y'
+                \end{pmatrix}
+                = A \mathbf x
+                \begin{pmatrix}
+                -2 &amp; a \\
+                -2 &amp; 0
+                \end{pmatrix}
+                {\mathbf x}.</me>
+            The trace of <m>A</m> is always <m>T = -2</m>, but <m>D = \det(A) = 2a</m>. We are on the parabola if 
+                <me>T^2 - 4D = 4 - 8a = 0 \qquad \text{or}\qquad a = \frac{1}{2}.</me>
+            Thus, a bifurcation occurs at <m>a = 1/2</m>.  If <m>a \gt 1/2</m>, we have a spiral sink. If <m>a \lt 1/2</m>, we have a sink with real eigenvalues. Further more, if <m>a \lt 0</m>, our sink becomes a saddle (Figure<nbsp /><xref ref="figure-linear07-one-parameter-family" />).</p>
+        </example>
+
+        <figure xml:id="figure-linear07-one-parameter-family">
+            <image width="60%" xml:id="linear07-one-parameter-family">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[-0.6],[]], tick_formatter=[["$a$"],[]], aspect_ratio=2)
+                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
+                    p += text("Sink (stable line)", (-1.6, 0.55), fontstyle="oblique", color='black')
+                    p += text("Saddle", (-1.2, -0.3), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p += line([(-0.6,0.05), (-0.6,1)], color="red", thickness=4)
+                    p += line([(-0.6,-0.5), (-0.6,-0.12)], color="red", thickness=4)
+                    p
+                </sageplot>
+            </image>
+            <caption>A one-parameter family of linear systems</caption>
+        </figure>
+
+
+		<p>Recall that a harmonic oscillator can be modeled by the second-order equation
+            <me>m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0,</me>
+        where <m>m > 0</m> is the mass, <m>b \geq 0</m> is the damping coefficient, and <m>k \gt 0</m> is the spring constant. If we rewrite this equation as a first-order system, we have
+            <me>{\mathbf x}'
+            =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            -k/m &amp; - b/m
+            \end{pmatrix}
+            {\mathbf x}.</me>
+        Thus, for the harmonic oscillator <m>T = -b/m</m> and <m>D= k/m</m>. If we use the trace-determinant plane to analyze the harmonic oscillator, we need only concern ourselves with the second quadrant (Figure <xref ref="figure-linear07-one-parameter-harmonic" />).</p>
+
+		<figure xml:id="figure-linear07-one-parameter-harmonic">
+            <image width="60%" xml:id="linear07-one-parameter-harmonic">
+                <sageplot>
+                    T, D = var('T, D')
+                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]], aspect_ratio=2)
+                    p += text("Under Damped", (-1.2, 0.85), fontstyle="oblique", color='black')
+                    p += text("Over Damped", (-1.6, 0.2), fontstyle="oblique", color='black')
+                    p += text("Critically Damped", (-1.6, 0.55), fontstyle="oblique", color='black')
+                    p += text("Undamped", (0, 0.5), fontstyle="oblique", color='black')
+                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                    p
+                </sageplot>
+            </image>
+            <caption>A one-parameter family for a harmonic oscillator</caption>
+        </figure>
+
+		<p>If <m>(T, D) = (-b/m, k/m)</m> lies above the parabola, we have an underdamped oscillator. If <m>(T, D) = (-b/m, k/m)</m> lies below the parabola, we have an overdamped oscillator. If <m>(T, D) = (-b/m, k/m)</m> lies on the parabola, we have a critically damped oscillator. If <m>b = 0</m>, we have an undamped oscillator.</p>
+
+        <example>
+    		<p>Now let us see what happens to our harmonic oscillator when we fix <m>m = 1</m> and <m>k = 3</m> and let the damping <m>b</m> vary between zero and infinity. We can rewrite our system as
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = - 3x - by.</mrow>
+                </md>
+            Thus, <m>T = -b</m> and <m>D = 3</m>.  We can see how the phase portrait varies with the parameter <m>b</m> in Figure  <xref ref="figure-linear07-varying-damping" />.</p>
+
+    		<figure xml:id="figure-linear07-varying-damping">
+                <image width="60%" xml:id="linear07-varying-damping">
+                    <sageplot>
+                        T, D = var('T, D')
+                        p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[0.7]], tick_formatter=[[],["3"]], aspect_ratio=2)
+                        p += text("Under Damped", (-1.2, 0.85), fontstyle="oblique", color='black')
+                        p += text("Over Damped", (-1.6, 0.2), fontstyle="oblique", color='black')
+                        p += text("Critically Damped", (-1.6, 0.55), fontstyle="oblique", color='black')
+                        p += text("Undamped", (0, 0.5), fontstyle="oblique", color='black')
+                        p += text("$D = T^2/4$", (2, 1.2), color='blue')
+                        p += line([(0,0.7), (-2,0.7)], color="red", thickness=4)
+                        p
+                    </sageplot>
+                </image>
+                <caption>The trace-determinant plane for varying damping</caption>
+            </figure>
+            
+    		<p>The line <m>D = 3</m> in the trace-determinant plane crosses the repeated eigenvalue parabola, <m>D = T^2/4</m> if <m>b^2 = 12</m> or when <m>b = 2 \sqrt{3}</m>. If <m>b = 0</m>, we have purely imaginary eigenvalues.  This is the undamped harmonic oscillator.  If <m>0 \lt b \lt 2 \sqrt{3}</m>, the eigenvalues are complex with a nonzero real part<mdash />the underdamped case.  If <m>b = 2 \sqrt{3}</m>, the eigenvalues are negative and repeated<mdash />the critically damped case.  Finally, if <m>b \gt 2 \sqrt{3}</m>, we have the overdamped case.  In this case, the eigenvalues are real, distinct, and negative.</p>
+        </example>
+
+        <example>
+            <p>Although the trace-determinant plane gives us a great deal of information about our system, we can not determine everything from this parameter plane. For example, the matrices
+                <me>A 
+                =
+                \begin{pmatrix}
+                0 &amp; 1 \\
+                -1 &amp; 0
+                \end{pmatrix}
+                \qquad\text{and}\qquad
+                B =
+                \begin{pmatrix}
+                0 &amp; -1 \\
+                1 &amp; 0
+                \end{pmatrix}</me>
+            both have the same trace and determinant, but the solutions to <m>{\mathbf x}' = A {\mathbf x}</m> wind around the origin in a clockwise direction while those of <m>{\mathbf x}' = B{\mathbf x}</m> wind around in a counterclockwise direction.</p>
+        </example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-linear07-important-lessons">
+    	<title>Important Lessons</title>
+		
+		<p><ul>
+		
+    		<li>The characteristic polynomial of a <m>2 \times 2</m> matrix can be written as 
+                <me>\lambda^2 - T \lambda + D,</me>
+            where <m>T = \trace(A)</m> and <m>D = \det(A)</m>.</li>
+
+    		<li>If a <m>2 \times 2</m> matrix <m>A</m> has eigenvalues <m>\lambda_1</m> and <m>\lambda_2</m>, then <m>\trace(A)</m> is <m>\lambda_1 + \lambda_2</m> and <m>\det(A) = \lambda_1 \lambda_2</m>.</li>
+
+
+    		<li>The trace and determinant of a <m>2 \times 2</m> matrix are invariant under a change of coordinates.</li>
+
+    		<li>The trace-determinant plane is determined by the graph of the parabola <m>D= T^2/4</m> on the <m>TD</m>-plane. Points on the trace-determinant plane correspond to the trace and determinant of a linear system <m>{\mathbf x}' = A {\mathbf x}</m>. Since the trace and the determinant of a matrix determine the eigenvalues of <m>A</m>, we can use the trace-determinant plane to parameterize the phase portraits of linear systems.</li>
+
+    		<li>The trace-determinant plane is useful for studying bifurcations.</li>
+
+        </ul></p>
+				
+	</subsection>
+
+    <xi:include href="./exercises/linear07.xml" />
+
+    <subsection number="no" xml:id="subsection-linear07-sage-project">
+        <title>Project<mdash /></title>
+
+    </subsection>
+
+</section>
+
+<!--</section>-->

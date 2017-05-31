@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!-- The Ordinary Differential Equations Project                   -->
+<!--                                                               -->
+<!-- Copyright (C) 2014-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="secondorder03" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Sinusoidal Forcing</title>
+    
+    <introduction>
+
+        <p>If we consider different forcing functions <m>g(t)</m> for the equation
+            <me>x'' + px' + qx = g(t),</me>
+        functions that are periodic are especially important. Recall that a function <m>g(t)</m> is <term>periodic</term> if
+            <me>g(t + T) = g(t)</me>
+        for all <m>t</m> and some fixed constant <m>T</m>. The most familiar periodic functions are 
+            <me>g(t) = \sin \omega t \mbox{ and } g(t) = \cos \omega t.</me>
+        The <term>period</term> for each of these two functions is <m>2 \pi / \omega</m> and the <term>frequency</term> is <m>\omega / 2 \pi</m>. These two functions share the additional property that their average value is zero.  That is,
+            <me>\frac{1}{T} \int_0^T g(t) \, dt = 0.</me>
+        We say that <term>sinusoidal forcing</term> occurs in the differential equation
+            <me>x'' + px' + qx = A \cos \omega t + B \sin \omega t.</me></p>
+        
+    </introduction>
+
+    <subsection xml:id="subsection-secondorder03-complexification">
+    	<title>Complexification</title>
+		
+		<p>Given a second-order linear differential equation
+            <me>a x'' + bx' + cx = A \cos \omega t + B \sin \omega t,</me>  
+        we can use Euler's formula, <m>e^{i \beta t} = \cos \beta t + i \sin \beta t</m> to derive a particular solution. That is, we will assume that our particular solution has the form
+            <me>x_c = x_\text{Re} + i x_\text{Im}</me>
+        and use the properties of complex numbers.<fn>If complex numbers make you uncomfortable, the alternative is to become an expert in trigonometric identities</fn></p>
+
+        <example xml:id="example-secondorder03-sinusoidal">
+            <p>Let us consider the equation
+                <men xml:id="equation-secondorder03-sinusoidal-1">x'' + 6 x' + 5x = \sin 2t.</men>
+            The solution to the corresponding homogeneous equation, <m>x'' + 6 x' + 5x = 0</m>, is
+                <me>x_h = c_1 e^{-5t} + c_2 e^{-t}.</me>
+            To find a particular solution, we can use the method of undetermined coefficients and assume that the solution has the form
+                <me>x_p = A \cos 2t + B \sin 2 t.</me>
+            If we carry out the appropriate calculations, we will obtain a particular solution
+                <me>x_p = - \frac{12}{145} \cos 2t + \frac{1}{145} \sin 2t.</me>
+            Thus, the general solution is
+                <me>x = x_h + x_p = c_1 e^{-5t} + c_2 e^{-t} - \frac{12}{145} \cos 2t + \frac{1}{145} \sin 2t.</me>
+            Notice that all solutions of <xref ref="equation-secondorder03-sinusoidal-1" /> will approach the particular solution as <m>t \to \infty</m>.</p>
+        </example>
+
+        <example>
+            
+            <p>Now let us solve <xref ref="equation-secondorder03-sinusoidal-1" /> using complex numbers. If we assume that the equation has a complex solution of the form <m>x_c = x_\text{Re} + i x_\text{Im}</m>, then
+                <md>
+                    <mrow>\frac{d^2}{dt^2} x_c+ 6 \frac{d}{dt}  x_c + 5  x_c &amp; = \frac{d^2}{dt^2} (x_\text{Re} + i x_\text{Im}) + 6 \frac{d}{dt}  (x_\text{Re} + i x_\text{Im}) + 5  (x_\text{Re} + i x_\text{Im})</mrow>
+                    <mrow>&amp; = e^{2it}</mrow>
+                    <mrow>&amp; = \cos 2t + i \sin 2t.</mrow>
+                </md>
+            Equating the real and imaginary parts of this equation, we obtain
+                <md>
+                    <mrow>x''_\text{Re} + 6 x'_\text{Re} + 5 x_\text{Re} &amp; = \cos 2t</mrow>
+                    <mrow>x''_\text{Im} + 6 x'_\text{Im} + 5 x_\text{Im} &amp; = \sin 2t.</mrow>
+                </md>
+            Thus, if we can find a complex solution, we can find a solution to 
+                <me>x'' + 6x' + 5x = \sin 2t</me>  
+            simply by examining the imaginary part of the solution.</p>
+
+            <p>Now let us assume that our solution has the form <m>x_c = A e^{2it}</m>.  Then
+                <md>
+                    <mrow>x_c''+ 6  x_c' + 5  x_c  &amp; = - 4 A e^{2it} + 12 A i e^{2it} + 5 A e^{2it}</mrow>
+                    <mrow>&amp; = (1 + 12i) A e^{2it}</mrow>
+                    <mrow>&amp; = (1 + 12i) A (\cos 2t + i \sin 2t).</mrow>
+                </md>
+            Equating the real and imaginary parts of this equation, we obtain
+                <md>
+                    <mrow>x''_\text{Re} + 6 x'_\text{Re} + 5 x_\text{Re} &amp; = \cos 2t</mrow>
+                    <mrow>x''_\text{Im} + 6 x'_\text{Im} + 5 x_\text{Im} &amp; = \sin 2t</mrow>
+                </md>
+            and we immediately see that
+                <me>A = \frac{1}{1 + 12i} = \frac{1}{145} - \frac{12}{145} i.</me>
+            Therefore, the complex solution to 
+                <me>x'' + 6 x' + 5x = e^{2it}</me>
+            is
+                <md>
+                    <mrow>x_c &amp; = A e^{2it}</mrow>
+                    <mrow>&amp; = \left( \frac{1}{145} - \frac{12}{145} i\right) \cdot (\cos 2t + i \sin 2t)</mrow>
+                    <mrow>&amp; = \left( \frac{1}{145} \cos 2t + \frac{12}{145} \sin 2t \right) + i \left( -\frac{12}{145} \cos 2t + \frac{1}{145} \sin 2t \right).</mrow>
+                </md>
+            The imaginary part of this function is
+                <me>x_\text{Im} = -\frac{12}{145} \cos 2t + \frac{1}{145} \sin 2t,</me>
+            which is the particular solution that we have been seeking. Thus, our general solution agrees with what we found in Example<nbsp /><xref ref="example-secondorder03-sinusoidal" />.</p>
+        </example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder03-qualitative-analysis">
+    	<title>Qualitative Analysis</title>
+
+        <p>We can use the complex solution of <m>a x'' + bx' + cx = A \cos \omega t + B \sin \omega t</m> to analyze the qualitative behavior of solutions.</p>
+
+        <example>
+    		<p>We discovered that the complex solution of
+                <me>x'' + 6 x' + 5x = e^{2it}</me>
+            to be <m>x_c = A e^{2it}</m>, where <m>A = (1 - 12i)/145</m>. Let us rewrite <m>A</m> in polar form.  Since 
+                <me>|A| = \frac{1}{\sqrt{145}},</me>
+            we know that
+                <me>A = \frac{1}{\sqrt{145}} e^{i \theta},</me>
+            where <m>\theta = \arctan(-12) \approx -1.4877</m>. Therefore,
+                <me>x_c = A e^{2it} = \frac{1}{\sqrt{145}} e^{i \theta} e^{2it} = \frac{1}{\sqrt{145}} e^{i (2t + \theta)}.</me>
+            Our particular solution is the imaginary part of <m>x_c</m>,
+                <me>x_p(t) = \frac{1}{\sqrt{145}} \sin(2t + \theta) = \frac{1}{\sqrt{145}} \cos\left(2t + \theta - \frac{\pi}{2} \right) = \frac{1}{\sqrt{145} }\cos\left(2t - \phi \right),</me>
+            where <m>\phi \approx 3.058451</m>. We say that <m>\phi</m> is the <term>phase angle</term> of our solution. The amplitude of our solution is <m>1/\sqrt{145}</m> and the period is <m>\pi</m> (Figure<nbsp /><xref ref="figure-secondorder03-long-term-solution" />).</p>
+        </example>
+
+        <figure xml:id="figure-secondorder03-long-term-solution">
+             <image width="60%" xml:id="secondorder03-long-term-solution">
+                <sageplot>
+					t = var('t')
+					A = 1/sqrt(145)
+					theta = arctan(-12)
+					f = A*cos(2*t + theta - pi/2)
+					p = plot(f, (t, 0, 5*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi)
+                    p
+                </sageplot>
+            </image>
+            <caption>Steady state solution to <m>x'' + 6 x' + 5x = \sin 2t</m></caption>
+        </figure>
+
+		<p>The corresponding first order system for the differential equation
+            <me>x'' + px' + qx = g(t),</me>
+        is
+            <md>
+                <mrow>x' &amp; = y</mrow>
+                <mrow>y' &amp; = -qx -py +g(t).</mrow>
+            </md>
+        This is a <term>nonautonomous system</term>, and the tangent vector of a solution curve in the phase plane depends not only on the position <m>(x, y)</m>, but also on the time <m>t</m>.  In other words, the direction field changes with time. Since the direction field changes with time, two solutions with the same <m>(x,y)</m> value at different times can follow different paths.  Consequently, solutions can cross each other in the <m>xy</m>-plane without violating the Existence and Uniqueness Theorem.</p>
+
+        <example>
+
+    		<p>Consider the harmonic oscillator that is modeled by the differential equation
+                <men xml:id="equation-secondorder03-sinusoidal-2">x'' + 2x' + 17x = - 2 \sin 3t.</men>
+            The solution to the homogeneous equation <m>x'' + 2x' + 17x = 0</m> is
+                <me>x_h = c_1 e^{-t} \cos 4t + c_2 e^{-t} \sin 4t</me>
+            The complex version of this equation is
+                <me>x'' + 2x' + 17x  = -2 e^{3it},</me>
+            and we will use the Method of Undetermined Coefficients and assume that we can find a particular solution of the form <m>x_c = A e^{3it}</m>. Substituting <m>x_c</m> into equation <xref ref="equation-secondorder03-sinusoidal-2" />, we find that
+                <me>(8 + 6i) A e^{3it} = -2 e^{3it}.</me>
+            Thus, <m>x_c</m> is a solution if 
+                <me>A = \frac{-2}{8 + 6i} = - \frac{4}{25} + \frac{3}{25} i</me>
+            We have
+                <md>
+                    <mrow>x_c(t) &amp; = \left(- \frac{4}{25} + \frac{3}{25} i \right) (\cos 3t + i \sin 3t)</mrow>
+                    <mrow>&amp; =
+                    \left(
+                    - \frac{4}{25}  \cos 3t - \frac{3}{25} \sin 3t
+                    \right)
+                    +
+                    i \left(
+                    \frac{3}{25} \cos 3t - \frac{4}{25} \sin 3t
+                    \right).</mrow>
+                </md>
+            The imaginary part of this function is the solution that we seek,
+                <me>x_p = \frac{3}{25} \cos 3t - \frac{4}{25} \sin 3t.</me>
+            Thus, the general solution to <xref ref="equation-secondorder03-sinusoidal-2" /> is
+                <me>x(t) = c_1 e^{-t} \cos 4t + c_2 e^{-t} \sin 4t + \frac{3}{25} \cos 3t - \frac{4}{25} \sin 3t.</me></p>
+
+    		<p>Now suppose that <m>x(0) = 0</m> and <m>x'(0) = 0</m>. We can quickly determine that 
+                <me>x'(t) = c_1 e^{-t}(4 \cos 4t - \sin 4t) + c_2 e^{-t}( -\cos 4t - 4 \sin 4t) - \frac{12}{25} \cos 3t - \frac{9}{25} \sin 3t</me>
+            To solve this initial value problem, we must solve the linear system
+                <md>
+                    <mrow>c_1 + \frac{3}{25} \amp = 0</mrow>
+                    <mrow>-4 c_1 - c_2 - \frac{9}{25} \amp = 0.</mrow>
+                </md>
+            We obtain <m>c_1 = -3/25</m> and <m>c_2 = 3/25</m>, and the solution to our initial value problem is 
+                <me>x(t) = -\frac{3}{40} e^{-2t} \cos 4t + \frac{3}{80} e^{-2t} \sin 4t + \frac{3}{40} \cos 2t - \frac{3}{20} \sin 2t.</me>
+            The graph of our solution is given in Figure <xref ref="figure-secondorder03-sinusoidal-forcing-1" />.</p>
+
+    		<figure xml:id="figure-secondorder03-sinusoidal-forcing-1">
+                <image width="60%" xml:id="secondorder03-sinusoidal-forcing-1">
+                    <sageplot>
+                        t = var('t')
+                        x = function('x')(t)
+                        de = diff(x,t,2)+2*diff(x,t)+17*x == -2*sin(3*t)
+                        f = desolve(de,x,[0,0,0])
+                        p = plot(f,(t,0,10),axes_labels=['$t$',"$x(t)$"], fontsize=12,ticks=pi,tick_formatter=pi)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Solution to <m>x'' + 2x' + 17x = - 2 \sin 3t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m></caption>
+            </figure>
+
+    		<p>Since <m>y = x'(t)</m>, we can now graph the solution curve in the phase plane (Figure <xref ref="figure-secondorder03-sinusoidal-forcing-2" />). Notice how the solution curve can intersect itself. The restoring force and damping are proportional to <m>x</m> and <m>y = x'</m>, respectively. When <m>x</m> and <m>y</m> are close to the origin, the external force is as large or larger than the restoring and damping forces. In this part of the <m>xy</m>-plane, the external force overcomes the damping and pushes the solution away from the origin.</p>
+
+    		<figure xml:id="figure-secondorder03-sinusoidal-forcing-2">
+                <image width="60%" xml:id="secondorder03-sinusoidal-forcing-2">
+                    <sageplot>
+                        t = var('t')
+                        x = function('x')(t)
+                        de = diff(x,t,2)+2*diff(x,t)+17*x == -2*sin(3*t)
+                        f = desolve(de,x,[0,0,0])
+                        g = diff(f,t)
+                        p = parametric_plot((f,g),(t,0,10),axes_labels=['$x$',"$y$"], fontsize=12, aspect_ratio=0.3)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Phase Plane for <m>x'' + 2x' + 17x = - 2 \sin 3t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m></caption>
+            </figure>
+
+    		<p>On the other hand, suppose we have initial conditions <m>x(0) = 2</m> and <m>x'(0) = 2</m>, we can solve the linear system
+                <md>
+                    <mrow>c_1 + \frac{3}{25} \amp = 2</mrow>
+                    <mrow>-4 c_1 - c_2 - \frac{9}{25} \amp = 2.</mrow>
+                </md>
+            to obtain <m>c_1 = 47/25</m> and <m>c_2 = 109/100</m>. Thus, solution to our initial value problem is 
+                <me>x(t) = \frac{47}{25} e^{-t} \cos 4t + \frac{109}{100} e^{-t} \sin 4t + \frac{3}{40} \cos 2t - \frac{3}{20} \sin 2t.</me>
+            The graph of our solution is given in Figure <xref ref="figure-secondorder03-sinusoidal-forcing-3" />.</p>
+
+    		<figure xml:id="figure-secondorder03-sinusoidal-forcing-3">
+                 <image width="60%" xml:id="secondorder03-sinusoidal-forcing-3">
+                    <sageplot>
+                        t = var('t')
+                        x = function('x')(t)
+                        de = diff(x,t,2)+2*diff(x,t)+17*x == -2*sin(3*t)
+                        f = desolve(de,x,[0,2,2])
+                        p = plot(f,(t,0,10),axes_labels=['$t$',"$x(t)$"], fontsize=12,ticks=pi,tick_formatter=pi)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Solution to <m>x'' + 2x' + 17x = - 2 \sin 3t</m>, <m>x(0) = 2</m>, <m>x'(0) = 2</m></caption>
+            </figure>
+            
+            <p>If we examine the phase plane for this solution (Figure <xref ref="figure-secondorder03-sinusoidal-forcing-4" />), we see that the initial damping and restoring forces are much larger than the external force. Thus, if we are far from the origin, the solutions in the <m>xy</m>-plane tend to spiral towards the origin and are similar to the solutions of the unforced equation.</p>
+
+        </example>
+		<figure xml:id="figure-secondorder03-sinusoidal-forcing-4">
+            <image width="60%" xml:id="secondorder03-sinusoidal-forcing-4">
+                <sageplot>
+                    t = var('t')
+                    x = function('x')(t)
+                    de = diff(x,t,2)+2*diff(x,t)+17*x == -2*sin(3*t)
+                    f = desolve(de,x,[0,2,2])
+                    g = diff(f,t)
+                    p = parametric_plot((f,g),(t,0,10),axes_labels=['$x$',"$y$"], fontsize=12, aspect_ratio=0.3)
+                    p
+                </sageplot>
+            </image>
+            <caption>Phase Plane for <m>x'' + 2x' + 17x = - 2 \sin 3t</m>, <m>x(0) = 2</m>, <m>x'(0) = 2</m></caption>
+        </figure>
+
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder03-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>The functions <m>\sin \omega t</m> and <m>g(t) = \cos \omega t</m> are periodic with period <m>2 \pi / \omega</m> and  frequency <m>\omega / 2 \pi</m>. These average value of each of these functions is zero.</li>  
+
+			<li>We can use Euler's formula and complexification to solve the equation
+                <me>x'' + px' + qx = g(t),</me>
+            where the forcing function <m>g(t)</m> is <m>\sin \omega t</m> or <m>\cos \omega t</m>. Furthermore, we can use complex numbers to express or solution in the form
+                <me>x(t) = A \cos(\omega t - \phi),</me>
+            where <m>A</m> is the amplitude of the solution, <m>\omega / 2 \pi</m> is the frequency of the solution, and <m>\phi</m> is the phase angle.</li>
+
+			<li>If we write the equation 
+                <me>x'' + px' + qx = g(t),</me>
+            as a first-order system,
+                <md>
+                    <mrow>x' &amp; = y</mrow>
+                    <mrow>y' &amp; = -qx -py +g(t),</mrow>
+                </md>
+            we obtain a nonautonomous system. In this case the direction field changes with time, and two solutions with the same <m>(x,y)</m> value at different times can follow different paths. Therefore, solutions can cross each other without violating the Existence and Uniqueness Theorem.</li>
+
+			<li>If we are far from the origin, the solutions in the <m>xy</m>-plane tend to spiral towards the origin and are similar to the solutions of the unforced equation. When <m>x</m> and <m>y</m> are close to the origin, the external force is as large or larger than the restoring and damping forces. In this part of the <m>xy</m>-plane, the external force overcomes the damping and pushes the solution away from the origin.</li>
+
+		</ul></p>
+	</subsection>
+
+    <xi:include href="./exercises/secondorder03.xml" />
+
+    <subsection number="no" xml:id="subsection-secondorder03-sage-project">
+        <title>Project</title>
+
+    </subsection>
+
+</section>
+
+<!--</section>-->

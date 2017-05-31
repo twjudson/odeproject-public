@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="laplace01" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>The Laplace Transform</title>
+    
+    <introduction>
+
+        <p>Consider the electrical circuit governed by the differential equation
+			<me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
+		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
+
+		<p>As a second example, let us consider a population of fish that is governed by exponential growth,
+			<md>
+				<mrow>\frac{dP}{dt} &amp; = kP</mrow>
+				<mrow>P(0) &amp; = P_0,</mrow>
+			</md>
+		and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow harvesting during the first half of the year,
+			<me>H(t)
+			=
+			\begin{cases}
+			r &amp; 0 \leq t \leq 1/2, \\
+			0 &amp; 1/2 \lt t \lt 1, \\
+			r &amp; 1 \leq t \leq 3/2, \\
+			0 &amp; 3/2 \lt t \lt 2, \\
+			&amp; \vdots
+			\end{cases}</me>
+		We do not yet have the tools to analyze differential equations possessing discontinuous terms.</p>
+
+		<p>Given an initial-value problem
+			<md>
+				<mrow>ay'' + by' + cy &amp; = g(t)</mrow>
+				<mrow>y(0) &amp; = y_0</mrow>
+				<mrow>y'(0) &amp; = y_0',</mrow>
+			</md>
+		the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the  algebraic solution back into a solution of the differential equation.  Surprisingly, this method will even work when <m>g</m> is a discontinuous function, provided the discontinuities are not too bad.</p>
+
+	</introduction>
+
+    <subsection xml:id="subsection-laplace01-definitions">
+    	<title>Definition of the Laplace Transform</title>
+
+		<p>We shall define the <term>Laplace transform</term> of a function <m>f(t)</m> by
+			<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
+		provided the integral converges.</p>
+
+		<p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
+			<ul>
+
+				<li>Let <m>f(t) = k</m>, where <m>k</m> is a constant.  Then
+					<me>{\mathcal L}(f)(s)  = \int_0^\infty ke^{-st} \; dt = \frac{k}{s},</me>
+				for  <m>s \gt 0</m>.</li>
+
+				<li>If <m>f(t) = e^{at}</m>, then the Laplace transform of <m>f</m> is
+					<me>{\mathcal L}(f)(s)  = \int_0^\infty e^{-st} e^{at}  \, dt = \frac{1}{s -a},</me>
+				for <m>s \gt a</m>.</li>
+
+				<li>For <m>f(t) = t</m>, the Laplace transform is
+					<me>{\mathcal L}(f)(s)  = \int_0^\infty t e^{-st}  \, dt = \frac{1}{s^2},</me>
+				for <m>s \gt 0</m>.</li>
+
+			</ul></p>
+
+		<p>The Laplace transform of does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
+			<me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
+		and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
+			<me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
+		does not converge.</p>
+
+		<p>The Laplace transform, however, does exist in many cases. We will show that the Laplace transform of a function exists if the function does not grow too quickly and has no bad discontinuities. We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
+			<ol>
+
+				<li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
+
+				<li>If <m>c \in [a, b]</m> is a discontinuity, then the one-sided limits
+					<me>\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)</me>
+				both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
+
+			</ol>
+		We say that a function is <term>piece-wise continuous</term> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term>. If a function is piecewise continuous, then the continuities are not too bad.</p>
+
+		<p>The square wave function
+			<me>f(t)
+			=
+			\begin{cases}
+			1, &amp; 0 \leq t \leq 1 \\
+			0, &amp; t \gt 1,
+			\end{cases}</me>
+		where <m>f(t + 2) = f(t)</m> is an example of a piecewise continuous function defined on <m>[0, \infty)</m>.</p>
+
+		<p>We also wish to be certain that a function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>. A function <m>f(t)</m> is <term>exponentially bounded</term> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
+			<me>|f(t)| \leq Me^{at},</me>
+		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>.</p>
+
+
+		<theorem xml:id="theorem-laplace01-existence">
+            <statement>
+                <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+				exists.</p>
+            </statement>
+        </theorem> 
+
+	</subsection>
+
+    <subsection xml:id="subsection-laplace01-properties">
+    	<title>Properties of the Laplace Transform</title>
+
+		<p>One of the most important properties of the Laplace transform is linearity.  That is,
+			<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
+		where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integrations.  Transforms of functions having the linearity property are called {\em linear operators}.</p>
+
+		<p>Laplace transforms forms behave very nicely with respect to derivatives. In fact, this is the reason why Laplace transforms are so useful when trying to solve initial value problems.</p>
+
+		<theorem xml:id="theorem-laplace01-derivative-1">
+            <statement>
+                <p>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
+					<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
+				where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</p>
+            </statement>
+        </theorem> 
+
+		<proof>
+			<p>We can evaluate the Laplace transform of <m>y'</m> by using integration by parts,
+				<md>
+					<mrow>{\mathcal L}(y')(s) &amp; = \int_0^\infty y'(t) e^{-st} \, dt</mrow>
+					<mrow>&amp; = \lim_{b \to \infty}\left[  e^{-st} y(t) \Big|_0^b + s \int_0^b y(t) e^{-st} \, dt \right]</mrow>
+					<mrow>&amp; =  \lim_{b \to \infty}\left[  e^{-sb} y(b) -y(0) + s {\mathcal L}(y)(s) \right].</mrow>
+				</md>
+			We claim that <m>\lim_{b \to \infty} e^{-sb} y(b) = 0</m>.  Since, <m>y</m> is exponentially bounded, there exist constants <m>M \geq 0</m> and <m>a</m> such that <m>|y(t)| \leq Me^{at}</m>, for all <m>t</m> in <m>[0, \infty)</m>.  Thus,
+				<me>|e^{-sb} y(b)| \leq Me^{-(s -a)b}.</me>
+			The right-hand side of this inequality as <m>b \to \infty</m> for <m>s \gt a</m>. Thus,
+				<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0).</me></p>
+		</proof>
+
+		<p>The Laplace transform also behave nicely with respect to higher order derivatives.</p>
+
+		<theorem xml:id="theorem-laplace01-derivative-2">
+            <statement>
+                <p>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is  exponentially bounded. Then for large values of <m>s</m>
+					<me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),</me>
+				where <m>Y(s)</m> is the Laplace transform of <m>y</m>.  In general, if <m>y = y(t)</m> and all of its derivatives up to order <m>k - 1</m> are piecewise continuous, exponentially bounded functions and <m>y^{(k)}</m> is piecewise continuous, then
+					<md>
+						<mrow>{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)</mrow>
+						<mrow>= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).</mrow>
+					</md></p>
+            </statement>
+        </theorem> 
+
+	</subsection>
+
+    <subsection xml:id="subsection-laplace01-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+		
+			<li>Many initial value problems have discontinuous forcing terms.</li>
+
+			<li>The <term>Laplace transform</term> of a function <m>f(t)</m> by
+				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
+			provided the integral converges.</li>
+
+			<li>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+			exists.</li>
+
+			<li>The Laplace transform is a linear operator; i.e.,
+				<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
+			where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist.</li>
+
+			<li>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
+				<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
+			where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</li>
+
+			<li>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is exponentially bounded. Then for large values of <m>s</m>
+				<me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),</me>
+			where <m>Y(s)</m> is the Laplace transform of <m>y</m>. In general, if <m>y = y(t)</m> and all of its derivatives up to order <m>k - 1</m> are piecewise continuous, exponentially bounded functions and <m>y^{(k)}</m> is piecewise continuous, then
+				<md>
+					<mrow>{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)</mrow>
+					<mrow>= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).</mrow>
+				</md></li>
+
+		</ul></p>
+		
+	</subsection>
+
+    <xi:include href="./exercises/laplace01.xml" />
+
+</section>
+
+<!--</section>-->

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="systems04" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Solving Systems Analytically</title>
+  
+    <introduction>
+
+        <p>Mixing problems model how substances flow back and forth between two or more compartments. These problems often arise in applications<mdash />for example, we might want to model how greenhouse gases flow back and forth between different layers of the earth's atomosphere<xref ref="malcolm-1994" />, how chemicals move between tanks in a refinery or a brewery, or how pollutants move between a series of lakes or pounds. Systems of differential equations can prove very useful when it comes to modeling such situations.</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-sytems04-partially-coupled">
+        <title>Mixing Problems</title>
+
+        <p>We will use linear systems of differential equations such as
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = ax + by</mrow>
+                <mrow>\frac{dy}{dt} &amp; = cx + dy</mrow>
+            </md>
+        to illustrate how we can use systems of differential equations to model how substances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (Figure<nbsp /><xref ref="figure-systems04-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 500 liters per hour. Brine is also drained at a rate 500 liters of brine per hour from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
+            <md>
+                <mrow>x(0) &amp; = 100</mrow>
+                <mrow>y(0) &amp; = 0</mrow>
+            </md>
+        We know that the salt concentrations in the two tanks are <m>x/300</m> kilograms per liter and <m>y/300</m> kilograms per liter.  Thus, we can describe the rate of change in each tank with a differential equation,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = - 500 \cdot \frac{x}{300}  = - \frac{5}{3} x,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = 500 \cdot \frac{x}{300} - 500 \cdot \frac{y}{300} - 500 \cdot \frac{y}{300} = \frac{5}{3} x - \frac{5}{3} y.</mrow>
+            </md></p>
+
+ 		<figure xml:id="figure-systems04-mixing-example">
+
+            <image width="60%" xml:id="systems04-mixing-example">
+                <latex-image-code><![CDATA[
+                    \begin{tikzpicture}[scale=0.7]
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (0,0) arc (180:360: 2 and 0.5) -- (4,0) -- (4,6) arc (0:180: 2 and 0.5) -- (0,6) -- cycle;
+                    \draw[blue!50!black, thick] (2,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (7,0) arc (180:360: 2 and 0.5) -- (11,0) -- (11,6) arc (0:180: 2 and 0.5) -- (7,6) -- cycle;
+                    \draw[blue!50!black, thick] (9,6) ellipse (2 and 0.5);
+                    \filldraw[fill=blue!20] (4,3) -- (7,3) -- (7,3.5) -- (4,3.5) -- cycle;
+                    \filldraw[fill=blue!20] (11,1) -- (12,1) arc (90:0:0.5)-- (12.5,-0.5) -- (12,-0.5) -- (12,0.25) arc (0:90:0.25) --  (11,0.5) -- cycle;
+                    \filldraw[fill=blue!20] (-1,7) -- (-1,5.75) arc (180:270:0.25) -- (-0.5,5.5) -- (0,5.5) -- (0,5) -- (-1,5) arc (270:180:0.5) --  (-1.5,7) -- cycle;
+                    \draw[blue!50!black,->,thick] (5,4) -- (6,4);
+                    \draw[blue!50!black,->,thick] (13,0.5) -- (13,-0.5);
+                    \draw[blue!50!black,<-,thick] (-2,5.5) -- (-2,6.5);
+                    \node at (2,3) {300 {\it l}};
+                    \node at (9,3) {300 {\it l}};
+                    \node at (2,-1) {Tank $A$};
+                    \node at (9,-1) {Tank $B$};
+                    \node at (5.5,2.8) [below] {500 {\it l}/{\it hr}};
+                    \node at (12.25,-0.5) [below] {500 {\it l}/{\it hr}};
+                    \node at (-1.25,7) [above] {500 {\it l}/{\it hr}};
+                    \end{tikzpicture}]]>
+                </latex-image-code>
+            </image>
+
+            <caption>Mixing example with two tanks</caption>
+        </figure>
+
+        <p>We can now ask how we might solve the system of equations
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = - \frac{5}{3} x,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = \frac{5}{3} x - \frac{5}{3} y.</mrow>
+            </md>
+        The task of solving the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =f(x,y),</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x,y),</mrow>
+            </md>
+        may be quite difficult or even impossible. However, we can find solutions in certain cases. For example, if we have a system of the form
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =f(x),</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(y),</mrow>
+            </md>
+        then each equation is an autonomous first-order equation. To solve our system, we only need to solve two first-order equations.  Such a system is said to be <term>decoupled</term><index><main>system</main><sub>decoupled</sub></index>. Generalizing slightly, we say the a <term>partially coupled system</term><index><main>system</main><sub>partially coupled</sub></index> is a system of the form
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =f(x),</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y).</mrow>
+            </md>
+        Since the first equation is an autonomous first-order equation in <m>x</m>, we can solve this equation separately, and substitute our solution into the second equation.</p>
+
+        <p>Consider the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = x </mrow>
+                <mrow>\frac{dy}{dt} &amp; = x + y.</mrow>
+            </md>
+        We can easily solve the first equation, <m>dx/dt = x</m>, to obtain <m>x = a e^t</m>. Using this information in the second equation, we have
+            <me>\frac{dy}{dt}  - y = a e^t</me>
+        which is a first-order linear equation.  This equation has an integrating factor <m>\mu(t) = e^{-t}</m>, and 
+            <me>\frac{d}{dt} (e^{-t} y) = \mu(t) \left(\frac{dy}{dt}  - y \right)= a e^t \mu(t) = a.</me>
+        Therefore, the solution to our second equation is
+            <me>y(t) = at e^t + be^t.</me></p>
+
+        <p>Revisiting the mixing problem that we posed at the beginning of this section, we have the following initial value problem,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = - \frac{5}{3} x,</mrow>
+                <mrow>\frac{dy}{dt} &amp; = \frac{5}{3} x - \frac{5}{3} y.</mrow>
+                <mrow>x(0) &amp; = 100,</mrow>
+                <mrow>y(0) &amp; = 0.</mrow>
+            </md>
+        Solving <m>dx/dt = - (5/3) x</m> is easy.  We can quickly determine that <m>x(t) = c_1 e^{-5t/3}</m>. Applying the initial condition <m>x(0) = 100</m>, we can determine that <m>c_1 = 100</m> and <m>x(t) = 100 e^{-5t/3}</m>. Our second equation now becomes
+            <me>\frac{dy}{dt}  = \frac{5}{3} x - \frac{5}{3} y = \frac{500}{3} e^{-5t/3} - \frac{5}{3} y.</me>
+        This last equation is a first-order linear equation
+            <me>\frac{dy}{dt} + \frac{5}{3} y = \frac{500}{3} e^{-5t/3}.</me>
+        Multiplying both sides of this last equation by the integrating factor <m>\mu(t) = e^{5t/3}</m> yields
+            <me>\frac{d}{dt} (e^{5t/3}y) = e^{5t/3}\frac{dy}{dt} + e^{5t/3}\frac{5}{3} y = \frac{500}{3}.</me>
+        Integrating both sides of this last equation gives us
+            <me>e^{5t/3}y = \frac{500}{3} t + c_2.</me>
+        Using our initial condition <m>y(0) = 0</m>, we can determine that <m>c_2 = 0</m>. Thus,
+            <me>y = \frac{500}{3} t e^{-5t/3}</me></p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-sytems04-sage-linear-systems">
+        <title>Using <em>Sage</em> to Solve Linear Systems</title>
+
+        <p>Solving linear systems such as
+            <md>
+                <mrow>x' &amp; = ax + by</mrow>
+                <mrow>y' &amp; = cx + dy</mrow>
+            </md>
+        is much more difficult, since we cannot use the same strategies that we used to solve partially-coupled systems.  We will devote all of Chapter<nbsp /><xref ref="linear" /> to find an answer.  However, we can use <em>Sage</em> to solve linear systems for the moment. The following is a <em>Sage</em> interact that will solve the initial-value problem
+            <md>
+                <mrow>x' &amp; = 3x - 4y</mrow>
+                <mrow>y' &amp; = 2x + y</mrow>
+                <mrow>x(0) \amp = 1</mrow>
+                <mrow>y() \amp = 1;</mrow>
+            </md>
+        however, we can change the coefficients and initial value to be anything that we like.</p>
+
+        <sage>
+            <input>
+                t = var('t')
+                x = function('x')(t)
+                y = function('y')(t)
+                @interact
+                def _(f = 3*x - 4*y, g = 2*x + y,
+                      t_start = input_box(default = 0), x_start = input_box(default = 1), y_start = input_box(default = 1)):
+                    de1 = diff(x,t) == f
+                    de2 = diff(y,t) == g
+                    sol = desolve_system([de1, de2], [x,y], ics=[t_start, x_start, y_start])
+                    sol[0].show()
+                    sol[1].show()
+                    pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))
+                    pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g)))
+            </input>
+            <output>
+            </output>
+        </sage>
+
+    </subsection>
+
+    <subsection xml:id="subsection-system04-harmonic-oscillator">
+        <title>Harmonic Oscillators</title>
+
+        <p>The equation
+            <me>\frac{d^2 x}{dt^2} + 3 \frac{dx}{dt} + 2 x = 0</me>
+        is a specific case of a damped harmonic oscillator, where <m>m = 1</m>, the spring constant is 2, and the damping constant is 3.  We can rewrite this equation as a first-order linear system,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - 2x - 3v.</mrow>
+            </md>
+       Suppose that <m>x(0) = 0</m> is the initial position of the mass and <m>v(0) = 1</m> is the initial velocity.  We can use Sage to verify that the solution to our system is
+            <md>
+                <mrow>x(t) &amp; = e^{-t} - e^{-2t},</mrow>
+                <mrow>v(t) &amp; = - e^{-t} + 2  e^{-2t}.</mrow>
+            </md>
+        This is an example of an over-damped harmonic oscillator (Figure <xref ref="figure-system04-over-damped-oscillator" />).  In other words, a spring-mass system that is modeled by this system of equations has so much damping that the mass will not oscillate.</p>
+
+        <sage>
+            <input>
+                t = var('t')
+                x = function('x')(t)
+                v = function('v')(t)
+                t_start = 0
+                x_start = 0
+                v_start =  1
+                de1 = diff(x,t) == v
+                de2 = diff(v,t) == -2*x - 3*v
+                sol = desolve_system([de1, de2], [x,v], ics=[t_start, x_start, v_start])
+                sol[0].show()
+                sol[1].show()
+            </input>
+            <output>
+            </output>
+        </sage>
+
+        <figure xml:id="figure-system04-over-damped-oscillator">
+
+              <image width="60%" xml:id="system04-over-damped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    x(t) = exp(-t) - exp(-2*t)
+                    v(t) = -exp(-t) + 2*exp(-2*t)
+                    p = plot(x, t, 0, 5, legend_label='$x(t) = e^{-t} - e^{-2t}$', axes_labels=['$t$','$x(t), v(t)$'])
+                    p += plot(v, t, 0, 5, color='red', legend_label='$v(t) = - e^{-t} + 2  e^{-2t}$')
+                    p
+                </sageplot>
+            </image>
+            <caption>An over-damped harmonic oscillator</caption>
+        </figure>
+
+        <p>Now let us relax the damping and increase the spring constant on our harmonic oscillator,
+            <me>\frac{d^2 x}{dt^2} + 2 \frac{dx}{dt} + 10 x = 0.</me>
+        The corresponding linear system is
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - 10x - 2v</mrow>
+                <mrow>x(0) \amp = 0</mrow>
+                <mrow>v(0) \amp = 1.</mrow>
+            </md>
+        Notice that our initial conditions have not changed.  We again use <em>Sage</em> to solve our system.</p>
+
+        <sage>
+            <input>
+                t = var('t')
+                x = function('x')(t)
+                v = function('v')(t)
+                t_start = 0
+                x_start = 0
+                v_start =  1
+                de1 = diff(x,t) == v
+                de2 = diff(v,t) == -10*x - 2*v
+                sol = desolve_system([de1, de2], [x,v], ics=[t_start, x_start, v_start])
+                sol[0].show()
+                sol[1].show()
+            </input>
+            <output>
+            </output>
+        </sage>
+
+        <p>The solution to our system is 
+            <md>
+                <mrow>x(t) &amp; = \frac{1}{3} e^{-t} \sin t,</mrow>
+                <mrow>v(t) &amp; = e^{-t} \cos 3t -  \frac{1}{3} e^{-t} \sin 3t.</mrow>
+            </md>
+        Notice that the system oscillates due to the sine and cosine terms in the solution.  This system is underdamped (Figure <xref ref="figure-system04-under-damped-oscillator" />).</p>
+
+        <figure xml:id="figure-system04-under-damped-oscillator">
+
+              <image width="60%" xml:id="system04-under-damped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    x(t) = exp(-t) * sin(3*t)/3
+                    v(t) = exp(-t)* cos(3*t) - exp(-t)*sin(3*t)/3
+                    p = plot(x, t, 0, 5, legend_label='$x(t) = (1/3)e^{-t} \sin 3t$', axes_labels=['$t$','$x(t), v(t)$'])
+                    p += plot(v, t, 0, 5, color='red', legend_label='$v(t) = e^{-t} \cos 3t - (1/3) e^{-t} \sin 3t$')
+                    p
+                </sageplot>
+            </image>
+            <caption>An under-damped harmonic oscillator</caption>
+        </figure>
+
+    </subsection>
+
+    <subsection xml:id="subsection-sytems04-important-lessons">
+        <title>Important Lessons</title>
+
+        <p><ul>
+
+                <li>A system of the form
+                    <md>
+                        <mrow>\frac{dx}{dt} &amp; =f(x),</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = g(y)</mrow>
+                    </md>
+                is said to be <em>decoupled</em>. Such a system can be solved by solving each equation independently.</li>
+     
+                <li>A system of the form
+                    <md>
+                        <mrow>\frac{dx}{dt} &amp; =f(x),</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+                    </md>
+                a <em>partially coupled system</em>.  Since the first equation is an autonomous first-order equation in <m>x</m>, we can solve this equation separately, and substitute our solution into the second equation.</li>
+
+                <li>We can use <em>Sage</em> to solve systems of the form
+                    <md>
+                        <mrow>x' &amp; = ax + by</mrow>
+                        <mrow>y' &amp; = cx + dy.</mrow>
+                    </md></li>
+
+                <li><em>Sage</em> is useful for investigating the behavior of harmonic oscillators.</li>
+
+            </ul></p>
+
+    </subsection>
+
+<todo>Write exercises.</todo>
+    <xi:include href="./exercises/systems04.xml" />
+
+
+</section>
+
+<!--</section>-->

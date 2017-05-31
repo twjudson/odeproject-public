@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="systems03" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Numerical Techniques for Systems</title>
+    
+    <introduction>
+
+        <p>If we are unable to find an analytic solution to a first-order differential equation <m>y' = f(t, y)</m>, there is no reason to expect that it will be any easier to solve a system of equations.  However, many of the numerical techniques that are used to solve a first-order equation can be extended to solve a system.</p>
+
+	</introduction>
+	
+    <subsection xml:id="subsection-sytems03-duffing">
+    	<title>Duffing's Equation</title>
+
+    	<p>Large mobile cranes can reach up to 700 feet (Figure<nbsp /><xref ref="figure-systems03-cranes" />). This is about the same height as a 50 story building. At such heights, cranes are susceptible to winds and the end of the boom can move back and forth several feet even in moderate winds. We can model the motion as a harmonic oscillator if the side-to-side motion is not too great. However, if the wind becomes too strong and the crane moves too much, gravity will become a factor and the crane may topple due to its weight.</p>
+
+    	<figure xml:id="figure-systems03-cranes">
+            <caption>Cranes</caption>
+            <image width="60%" source="images/cranes-london.jpg" />
+        </figure>
+	
+		<p>Before we can construct a model that might best describe the swaying of a large crane, we should remind ourselves of how harmonic oscillators work (see Section<nbsp /><xref ref="firstlook01" />). A simple mass-spring system can be modeled by the equation
+            <me>m \frac{d^2 x}{dt^2} = - kx,</me>
+        where <m>x = x(t)</m> is the displacement of the mass at time <m>t</m>. Given such a system, the mass will oscillate forever with constant amplitude. If we want to be a bit more realistic, we can introduce a damping force,
+            <me>-b \frac{dx}{dt},</me>
+        where <m>b \gt 0</m>.  Our equation now becomes
+            <me>m \frac{d^2 x}{dt^2} = - kx - b \frac{dx}{dt}.</me>
+        If we let <m>p = b/m</m> and <m>q = k/m</m>, we can rewrite this last equation as
+            <me>\frac{d^2 x}{dt^2} + p \frac{dx}{dt} + q x = 0.</me>
+        If we set <m>v = x'</m>, we can rewrite this second-order equation as a system of first-order equations,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - qx - pv.</mrow>
+            </md></p>
+
+		<p>In the case of our swaying crane, we will let <m>x = x(t)</m> be the displacement of the end of the boom from the perfect vertical position. When <m>x(t) \neq 0</m>, the boom is bent, and the structure of the boom supplies a strong restorative force to bring everything back to a true vertical position. Thus, the swaying of our crane's boom might be described by an equation such as 
+            <me>\frac{d^2 x}{dt^2} + 0.1 \frac{dx}{dt} + 0.3 x = 0</me>
+        or the equivalent system,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - 0.3 x - 0.1 v.</mrow>
+            </md>
+        We will learn how to solve such systems later, but it is easy to check that
+            <me>x(t) =  c_1 e^{-t/20} \cos \left(\frac{\sqrt{119}}{20} t\right) + c_2 e^{-t/20} \sin \left(\frac{\sqrt{119}}{20} t\right)</me> 
+        is a solution to our equation. The <em>Sage</em> code for solving this system is given below.</p>
+
+        <sage>
+			<input>
+			t = var('t')
+			x = function('x')(t)
+			b = 0.1
+			k = 0.3
+			position = desolve(diff(x,t,2)+b*diff(x,t)+ k*x == 0,x)
+			velocity = diff(position, t)
+			position.show()
+			velocity.show()
+			</input>
+			<output>
+			</output>
+		</sage>
+
+        <p>The constants <m>c_1</m> and <m>c_2</m> can be determined if we know the initial position and initial velocity of the end of the crane's boom.  We show several solutions to our equation in Figure <xref ref="figure-systems03-solutions-crane" />.</p>
+
+        <figure xml:id="figure-systems03-solutions-crane">
+			<image width="60%" xml:id="systems03-solutions-crane">
+				<sageplot>
+					x, v, t = var('x v t')
+					b = 0.1
+					k = 0.3
+					F = [v, -k*x - b*v]
+					P1 = [desolve_system_rk4(F,[x, v],ics=[0,0+0.2*n,1+0.2*n],ivar=t,end_points=80,step=0.05) for n in range(5)]
+					S1 = [[ [i, j] for i,j,k in P1[n]] for n in range(5)]
+					S2 = [[ [i, k] for i,j,k in P1[n]] for n in range(5)]
+					p = line(S1[0], axes_labels=['$t$','$x(t)$, $v(t)$'], fontsize=12, color='blue', legend_label='$x(t)$', legend_color='blue')
+					p += line(S2[0], fontsize=12, color='red', legend_label='$v(t)$', legend_color='red')
+					LP1 = [line(S1[n], color='blue') for n in range(5)]
+					LP2 = [line(S2[n], color='red') for n in range(5)]
+					for n in range(1,5):
+					    P += LP1[n] + LP2[n]
+					P
+	            </sageplot>
+			</image>
+            <caption>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></caption>
+        </figure>
+
+		<p>Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <m>x(t)</m> is large, part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane will cause the crane to bend even further. We can model this effect by setting the equation for our harmonic oscillator equal to a factor of <m>x^3</m>,
+            <men xml:id="equation-systems03-duffing">\frac{d^2 x}{dt^2}  + 0.1 \frac{dx}{dt} + 0.3 x = 0.02 x^3.</men>
+        When <m>x</m> is small, this forcing term will not contribute much to the motion of the building. However, when <m>x</m> is large, the term will contribute a great deal. The equation <m>x'' + 0.1 x' + 0.3 x = 0.02 x^3</m> is an example of <term>Duffing's equation</term><index><main>Duffing's equation</main></index>.</p>
+
+        <p>We can rewrite equation<nbsp /><xref ref="equation-systems03-duffing" /> as a system of first-order differential equations by letting <m>dx/dt = v</m>,
+        	<mdn>
+        		<mrow xml:id="equation-systems03-duffing-system-1">\frac{dx}{dt} \amp = v</mrow>
+        		<mrow xml:id="equation-systems03-duffing-system-2">\frac{dv}{dt} \amp = - 0.1 v - 0.3 x + 0.02 x^3.</mrow>
+        	</mdn>
+        Thus, one of our main objectives should be finding and analyzing solutions to such a system.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-sytems03-eulers-method">
+    	<title>Euler's Method for Systems</title>
+
+		<p>The system of equations <xref ref="equation-systems03-duffing-system-1" /><ndash /><xref ref="equation-systems03-duffing-system-1" /> is nonlinear due the <m>x^3</m> term. There is little hope to finding an analytic solution to such as system. We can use software to plot the phase plane in order to learn something about the solutions (Figure <xref ref="figure-systems03-duffings-equation-phase-plane" />). However, we still need to numerically generate solutions in order to plot the phase plane.</p>
+
+		<figure xml:id="figure-systems03-duffings-equation-phase-plane">
+			<image width="60%" xml:id="systems03-duffings-equation-phase-plane">
+				<sageplot>
+					x, v, t = var('x v t')
+					xmin = -5
+					xmax = 5
+					ymin = -5
+					ymax = 5
+					b = 0.1
+					k = 0.3
+					F = [v, -k*x - b*v + 0.02*x^3]
+					start1_x = -4
+					start1_y = 0.5
+					P1 = desolve_system_rk4(F,[x, v],ics=[0,start1_x,start1_y],ivar=t,end_points=25,step=0.01)
+					S1 = [ [j, k] for i,j,k in P1]
+					p = line(S1, thickness=2, axes_labels=['$x(t)$','$v(t)$'], fontsize=12, color='blue')
+					points_1 = [ (start1_x, start1_y) ]
+					p += point(points_1[0], pointsize=50)
+					p += arrow(S1[int(len(S1))-2], S1[int(len(S1))-1], width=1, arrowsize=4, color = "blue")
+					start2_x = -4
+					start2_y = 1.5
+					P2 = desolve_system_rk4(F,[x, v],ics=[0,start2_x,start2_y],ivar=t,end_points=10,step=0.01)
+					S2 = [ [j, k] for i,j,k in P2]
+					p += line(S2, thickness=2, color='red')
+					points_2 = [ (start2_x, start2_y) ]
+					p += point(points_2[0], pointsize=50, color="red")
+					p += arrow(S2[int(len(S2))-2], S2[int(len(S2))-1], width=1, arrowsize=4, color = "red")
+					start3_x = -4
+					start3_y = 1
+					P3 = desolve_system_rk4(F,[x, v],ics=[0,start3_x,start3_y],ivar=t,end_points=30,step=0.01)
+					S3 = [ [j, k] for i,j,k in P3]
+					p += line(S3, thickness=2, color='green')
+					points_3 = [ (start3_x, start3_y) ]
+					p += point(points_3[0], pointsize=50, color="green")
+					p += arrow(S3[int(len(S3))-2], S3[int(len(S3))-1], width=1, arrowsize=4, color = "green")
+					n = sqrt(F[0]^2 + F[1]^2)
+					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin,xmax), (v,ymin,ymax), aspect_ratio=1)
+					p
+	            </sageplot>
+			</image>
+            <caption>The phase plane for Duffing's equation</caption>
+        </figure>
+
+		<p>Let us see how we might find a numerical solution for a system. Consider the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(t, x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(t, x, y),</mrow>
+            </md>
+        with initial conditions <m>x(t_0) = x_0</m> and <m>y(t_0) = y_0</m>. We can rewrite our system in vector form
+            <md>
+                <mrow>\frac{d {\mathbf x}}{dt} &amp; = {\mathbf f}(t, {\mathbf x})</mrow>
+                <mrow>{\mathbf x}(t_0) &amp; = {\mathbf x}_0</mrow>
+            </md>
+        where <m>{\mathbf x} = (x, y)</m>, <m>d{\mathbf x}/dt = (dx/dt, dy/dt)</m>, <m>{\mathbf f} = (f, g)</m>, and <m>{\mathbf x}_0 = (x_0, y_0)</m>.
+        We wish to find approximate values <m>x_1, x_2, \ldots, x_n</m> and <m>y_1, y_2, \ldots, y_n</m> for the solution <m>x(t)</m> and <m>y(t)</m> at the points
+            <me>t_k = t_0 + kh, \qquad k = 1, 2, \ldots, n,</me>
+        where <m>h</m> is the step size. If we let <m>{\mathbf x}_k = (x_k, y_k)</m> and <m>{\mathbf f}_k = (f(x_k, y_k ), g(x_k, y_k ))</m>, then Euler's method now becomes
+            <me>{\mathbf x}_{k + 1} = {\mathbf x}_k + h {\mathbf f}_k</me>
+        or
+            <md>
+                <mrow>x_{k + 1} &amp; = x_k + h f(t_k, x_k, y_k)</mrow>
+                <mrow>y_{k + 1} &amp; = y_k + h g(t_k, x_k, y_k).</mrow>
+            </md>
+        The initial conditions are used to determine <m>{\mathbf f}_0</m>, which is the tangent vector to the graph of the solution <m>\mathbf x(t)</m> in the <m>xy</m>-plane (Figure <xref ref="figure-systems03-duffings-equation-phase-plane" />). We can move in the direction of this tangent vector for time <m>h</m> in order to find the next point <m>{\mathbf x}_1</m>. We then calculate a new tangent vector <m>{\mathbf f}_1</m> and then move along this new vector for a time step <m>h</m> to find <m>{\mathbf x}_2</m>. We can repeat this technique to generate an approximate solution curve in the phase plane.</p>
+
+<todo>Redo this plot with asymptote.</todo>
+
+		<figure xml:id="figure-systems03-euler">
+			<image width="60%" xml:id="systems03-euler">
+				<sageplot>
+					x,y,t=var('x y t')
+					t_start = 0
+					x_start = 1
+					y_start = 0
+					step_size = 1
+					f = t + x - y
+					g = t - x + y^2
+					sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 2,algorithm="none")
+					p = line(sol, color="red", thickness=2)
+					p
+	            </sageplot>
+			</image>
+            <caption>A solution curve for Duffing's equation</caption>
+        </figure>
+	
+        <example>
+	    	<title>Numerical Solutions for Duffing's Equation</title>
+
+			<p>We are now in a position to calculate some solutions to Duffing's equation. Suppose that
+	            <md>
+	                <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+	                <mrow>\frac{dv}{dt} &amp; = - 0.3 x + 0.02x^3 - 0.1 v,</mrow>
+	            </md>
+	        with initial conditions <m>(t_0, x_0, v_0) = (0, 0, 1.7652)</m>.  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (Figure<nbsp /><xref ref="figure-systems03-duffings-equation-solutions-1" />).</p>
+		
+		
+			<figure xml:id="figure-systems03-duffings-equation-solutions-1">
+				<image width="60%" xml:id="systems03-duffings-equation-solutions-1">
+					<sageplot>
+						x, v, t = var('x v t')
+						F = [v, -0.3*x + 0.02*x^3 - 0.1*v]
+						P1=desolve_system_rk4(F,[x, v],ics=[0,0,1.7652],ivar=t,end_points=50,step=0.01)
+						S1=[ [i, j] for i,j,k in P1]
+						S2=[ [i, k] for i,j,k in P1]
+						p = line(S1, thickness=2, axes_labels=['$t$',''], color='blue', legend_label='$x(t)$', legend_color='blue')
+						p += line(S2, thickness=2, color='red',legend_label='$v(t)$', legend_color='red')
+						p
+		            </sageplot>
+				</image>
+	            <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></caption>
+	        </figure>
+
+	        <p>The surprising thing about Duffing's equation is that it is so sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions If we change the initial velokcity to <m>v(0) = 1.7653</m>, we obtain a very different graph of the solution (Figure<nbsp /><xref ref="figure-systems03-duffings-equation-solutions-1" /> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
+
+	        <figure xml:id="figure-systems03-duffings-equation-solutions-2">
+				<image width="60%" xml:id="systems03-duffings-equation-solutions-2">
+					<sageplot>
+						x, v, t = var('x v t')
+						F = [v, -0.3*x + 0.02*x^3 - 0.1*v]
+						P1 = desolve_system_rk4(F,[x, v],ics=[0,0,1.7653],ivar=t,end_points=18,step=0.01)
+						S1 = [ [i, j] for i,j,k in P1]
+						S2 = [ [i, k] for i,j,k in P1]
+						p = line(S1, thickness=2, axes_labels=['$t$',''], color='blue', legend_label='$x(t)$', legend_color='blue')
+						p += line(S2, thickness=2, color='red',legend_label='$v(t)$', legend_color='red')
+						p
+		            </sageplot>
+				</image>
+	            <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></caption>
+	        </figure>
+
+		</example>
+
+		<example>
+			<p>Let us consider the system
+	            <md>
+	                <mrow>x' &amp; = x - y + t</mrow>
+	                <mrow>y' &amp; = -x + y^2 - t^2</mrow>
+	                <mrow>x(0) &amp; = 1</mrow>
+	                <mrow>y(0) &amp; = 0.</mrow>
+	            </md>
+	        Then <m>(x_0, y_0) = (1, 0)</m>.  Letting the step size be <m>h = 0.1</m>, we obtain and
+	            <md>
+	                <mrow>\begin{pmatrix}
+	                x_1 \\ y_1
+	                \end{pmatrix}
+	                &amp; =
+	                \begin{pmatrix}
+	                x_0 \\ y_0
+	                \end{pmatrix}
+	                + h
+	                \begin{pmatrix}
+	                f(t_0, x_0, y_0) \\  g(t_0, x_0, y_0)
+	                \end{pmatrix}</mrow>
+	                <mrow>&amp; =
+	                \begin{pmatrix}
+	                1 \\ 0
+	                \end{pmatrix}
+	                +
+	                (0.1)
+	                \begin{pmatrix}
+	                1 \\ -1
+	                \end{pmatrix}</mrow>
+	                <mrow>&amp; =
+	                \begin{pmatrix}
+	                1.1 \\ -0.1
+	                \end{pmatrix}.</mrow>
+	            </md>
+	        Similarly,
+	         <md>
+	                <mrow>\begin{pmatrix}
+	                x_2 \\ y_2
+	                \end{pmatrix}
+	                &amp; =
+	                \begin{pmatrix}
+	                x_1 \\ y_1
+	                \end{pmatrix}
+	                + h
+	                \begin{pmatrix}
+	                f(t_1, x_1, y_1) \\  g(t_1, x_1, y_1)
+	                \end{pmatrix}</mrow>
+	                <mrow>&amp; =
+	                \begin{pmatrix}
+	                1 \\ 0
+	                \end{pmatrix}
+	                +
+	                (0.1)
+	                \begin{pmatrix}
+	                1 \\ -1
+	                \end{pmatrix}</mrow>
+	                <mrow>&amp; =
+	                \begin{pmatrix}
+	                1.1 \\ -0.1
+	                \end{pmatrix}.</mrow>
+	            </md>
+			Using this procedure, we can generate a list of values that will approximate the solution to our system (Table <xref ref="table-systems03-euler-approximation" />).</p>
+
+			<table xml:id="table-systems03-euler-approximation">
+	           	<tabular halign="center" top="medium">
+	                <row bottom="medium">
+	                    <cell><m>k</m></cell><cell><m>t_k</m></cell><cell><m>x_k</m></cell><cell><m>hf(t_k, x_k, y_k)</m></cell><cell><m>y_k</m></cell><cell><m>hg(t_k, x_k, y_k)</m></cell>
+	                </row>
+	                <row>
+	                    <cell><m>0</m></cell><cell><m>0.0</m></cell><cell><m>1.0000</m></cell><cell><m>0.1000</m></cell><cell><m>0.0000</m></cell><cell><m>-0.1000</m></cell>
+	                </row>
+	                <row>
+	                    <cell><m>1</m></cell><cell><m>0.1</m></cell><cell><m>1.1000</m></cell><cell><m>0.1300</m></cell><cell><m>-0.1000</m></cell><cell><m>-0.0990</m></cell>
+	                </row> 
+	                <row>
+	                    <cell><m>2</m></cell><cell><m>0.2</m></cell><cell><m>1.2300</m></cell><cell><m>0.1629</m></cell><cell><m>-0.1990</m></cell><cell><m>-0.0990</m></cell>
+	                </row>
+	                <row>
+	                    <cell><m>3</m></cell><cell><m>0.3</m></cell><cell><m>1.3930</m></cell><cell><m>0.1991</m></cell><cell><m>-0.2980</m></cell><cell><m>-0.1004</m></cell>
+	                </row>
+	          		<row>
+	                    <cell><m>4</m></cell><cell><m>0.4</m></cell><cell><m>1.5920</m></cell><cell><m>0.2390</m></cell><cell><m>-0.3984</m></cell><cell><m>-0.1033</m></cell>
+	                </row>
+	                <row>
+	                    <cell><m>5</m></cell><cell><m>0.5</m></cell><cell><m>1.8310</m></cell><cell><m>0.2833</m></cell><cell><m>-0.5018</m></cell><cell><m>-0.1079</m></cell>
+	                </row>
+	               <row>
+	                    <cell><m>6</m></cell><cell><m>0.6</m></cell><cell><m>2.1143</m></cell><cell><m>0.3324</m></cell><cell><m>-0.6097</m></cell><cell><m>-0.1143</m></cell>
+	                </row>
+	                <row>
+	                    <cell><m>7</m></cell><cell><m>0.7</m></cell><cell><m>2.4467</m></cell><cell><m>0.3871</m></cell><cell><m>-0.7240</m></cell><cell><m>-0.1223</m></cell>
+	                </row>
+	           		<row>
+	                    <cell><m>8</m></cell><cell><m>0.8</m></cell><cell><m>2.8338</m></cell><cell><m>0.4480</m></cell><cell><m>-0.8462</m></cell><cell><m>-0.1318</m></cell>
+	                </row>
+	            	<row>
+	                    <cell><m>9</m></cell><cell><m>0.9</m></cell><cell><m>3.2818</m></cell><cell><m>0.5160</m></cell><cell><m>-0.9780</m></cell><cell><m>-0.1425</m></cell>
+	                </row>         
+	                <row bottom="medium">
+	                    <cell><m>10</m></cell><cell><m>1.0</m></cell><cell><m>3.7978</m></cell><cell><m>0.5918</m></cell><cell><m>-1.1205</m></cell><cell><m>-0.1542</m></cell>
+	                </row>
+	           </tabular>
+	            <caption>Euler's approximation for a system of equations</caption>
+	        </table>
+
+
+	   		<p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve (Figure <xref ref="figure-systems03-euler" />).</p>
+
+	   	</example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-sytems03-taylor-series">
+    	<title>Taylor Series Methods</title>
+
+		<p>Just as in the case of a single first-order differential equation, we can think of Euler's approximation as the first two terms of the Taylor series expansion,
+            <md>
+                <mrow>\begin{pmatrix}
+                x_{k + 1} \\ y_{k + 1}
+                \end{pmatrix}
+                &amp; =
+                \begin{pmatrix}
+                x_{k} \\ y_{k}
+                \end{pmatrix}
+                + h
+                \begin{pmatrix}
+                x'_{k} \\ y'_{k}
+                \end{pmatrix}
+                +
+                \frac{h^2}{2}
+                \begin{pmatrix}
+                x''_{k} \\ y''_{k}
+                \end{pmatrix}
+                + \cdots</mrow>
+                <mrow>&amp; =
+                \begin{pmatrix}
+                x_{k} \\ y_{k}
+                \end{pmatrix}
+                + h
+                \begin{pmatrix}
+                f(t_k, x_k, y_k) \\ g(t_k, x_k, y_k)
+                \end{pmatrix}
+                +
+                \frac{h^2}{2}
+                \begin{pmatrix}
+                x''_{k} \\ y''_{k}
+                \end{pmatrix}
+                + \cdots.</mrow>
+            </md>
+        To get a more accurate approximation, we can take the first two terms of the Taylor series. In this case, we must compute <m>{\mathbf x}''</m>.  If we return our example,
+            <md>
+                <mrow>x' &amp; = x - y + t</mrow>
+                <mrow>y' &amp; = -x + y^2 - t^2</mrow>
+                <mrow>x(0) &amp; = 1</mrow>
+                <mrow>y(0) &amp; = 0.</mrow>
+            </md>
+        we can see how this is done. First, note that 
+            <md>
+                <mrow>{\mathbf x}'' 
+                &amp; =
+                \begin{pmatrix}
+                x''  \\ y''
+                \end{pmatrix}</mrow>
+                <mrow>&amp; =
+                \begin{pmatrix}
+                x' -  y' + 1 \\ -x' + 2yy' - 2t
+                \end{pmatrix}</mrow>
+                <mrow>&amp; =
+                \begin{pmatrix}
+                (x - y + t) - (-x^2 + y^2 - t^2) \\
+                -(x - y + t) + 2y(-x +y^2 - t^2) - 2t
+                \end{pmatrix}</mrow>
+                <mrow>&amp; = 
+                \begin{pmatrix}
+                2x - y - y^2 + t + t^2 \\
+                -x + y - 2xy + 2y^3 - 2t^2y - 3t
+                \end{pmatrix}.</mrow>
+            </md>
+        Our algorithm now becomes clear,
+            <md>
+                <mrow>\begin{pmatrix}
+                x_{k + 1} \\ y_{k + 1}
+                \end{pmatrix}
+                &amp; =
+                \begin{pmatrix}
+                x_{k} \\ y_{k}
+                \end{pmatrix}
+                + h
+                \begin{pmatrix}
+                f(t_k, x_k, y_k) \\ g(t_k, x_k, y_k)
+                \end{pmatrix}
+                +
+                \frac{h^2}{2}
+                \begin{pmatrix}
+                x''_{k} \\ y''_{k}
+                \end{pmatrix}</mrow>
+                <mrow>&amp; =
+                \begin{pmatrix}
+                x_k + h(x_k - y_k + t_k) + h^2(2x_k - y_k - y_k^2 + t_k + t_k^2)/2 \\
+                y_k + h(-x_k + y_k^2 - t_k^2) + h^2(-x_k + y_k - 2x_ky_k + 2y_k^3 - 2t_k^2y_k - 3t_k)/2
+                \end{pmatrix}.</mrow>
+            </md>
+        Of course, this algorithm requires us to compute some derivatives.</p>
+	
+	</subsection>
+
+    <subsection xml:id="subsection-sytems03-existence-uniqueness">
+    	<title>A Word about Existence and Uniqueness</title>
+
+		<theorem xml:id="theorem-systems03-existence-uniqueness-systems">
+            <statement>
+                <p>Let
+                    <me>\frac{d {\mathbf x}}{dt} = {\mathbf f}(t, {\mathbf x})</me>
+                be a system of differential equations such that <m>{\mathbf f}</m> is continuously differentiable. If <m>{\mathbf x}_0</m> is the initial value at time <m>t_0</m>, there exists a unique solution for the initial value problem on some open interval <m>t_0 - \epsilon \lt t \lt t_0 + \epsilon</m> for some <m>\epsilon > 0</m>.</p>
+            </statement>
+        </theorem> 
+
+		<p>The consequences of the Existence and Uniqueness Theorem are much the same as they were for first-order differential equations.
+            <ul>
+
+                <li>If we are interested in a certain system of differential equations, it is very nice to know that a unique solution exists.</li>
+
+                <li>Uniqueness tells us that two solutions cannot start at the same place. Geometrically, this implies that solution curves cannot cross.</li>
+
+                <li>If we have an autonomous system <m>{\mathbf x}' = {\mathbf f}({\mathbf x})</m>, our solution does not depend on time.  Thus, we obtain the same solution curve if we start at the same point even though we might start at different times.</li>
+
+            </ul>
+        For a proof of existence and uniqueness for systems of differential equations, see <xref ref="hirsch-2004"/>.</p>
+
+	
+	</subsection>
+
+    <subsection xml:id="subsection-sytems03-important-lessons">
+    	<title>Important Lessons</title>
+
+		<p><ul>
+
+			<li>A damped harmonic oscillator can be described by the second-order equation
+                <me>\frac{d^2 x}{dt^2}  + p \frac{dx}{dt} + q x = 0.</me>
+            We can rewrite this equation as a first-order system,
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = v,</mrow>
+                    <mrow>\frac{dv}{dt} &amp; = - qx - pv.</mrow>
+                </md></li>
+
+			<li><em>Duffing's equation</em>,
+                <me>\frac{d^2 x}{dt^2}  + p \frac{dx}{dt} + q x = x^3,</me>
+            is an example of a differential equation that is very sensitive to initial conditions.</li>
+
+			<li>Many systems of equations cannot be solved analytically. However, we can use numerical techniques such as <em>Euler's Method</em> to find approximate solutions for the system.  Given the system
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                </md>
+            with initial condition <m>(x_0, y_0)</m> and step size <m>h</m>, we can approximate a solution to the system by
+                <md>
+                    <mrow>x_{k+1} &amp; = x_k + f(x_k, y_k) h</mrow>
+                    <mrow>y_{k+1} &amp; = y_k + g(x_k, y_k) h.</mrow>
+                </md>
+            We can extend this method to the improved Euler's method, Taylor series methods, or Runge-Kutta methods.</li>
+
+            <li>Provided certain conditions are met, we are guaranteed unique local solutions to any system of first-order differential equations. Some of the following are consequences of existence and uniqueness.</li>
+
+			<li>Uniqueness tells us that two distinct solutions cannot start at the same place. Geometrically, this implies that solution curves cannot cross.</li>
+
+			<li>If we have an autonomous system <m>{\mathbf x}' = {\mathbf f}({\mathbf x})</m>, our solution does not depend on time. Thus, we obtain the same solution curve if we start at the same point even though we might start at different times.</li>
+
+        </ul></p>
+	
+	</subsection>
+
+<todo>More exercises needed.</todo>
+
+	<xi:include href="./exercises/systems03.xml" />
+
+		<subsection number="no"  xml:id="subsection-sytems03-sage-project">
+        	<title>Project<mdash />Comparing Numerical Methods</title>
+
+<todo>Write the project.</todo>
+
+        </subsection>
+
+</section>
+
+
+<!--</section>-->

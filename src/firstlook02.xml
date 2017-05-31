@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="firstlook02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Separable Differential Equations</title>
+
+    <introduction>
+        <p>We will define a <term>differential equation</term><index><main>differential equation</main></index> of <term>order</term><index><main>differential equation</main><sub>order</sub></index> <m>n</m> to be an equation that can be put in the form
+            <me>F(t, x, x', x'', \ldots, x^{(n)}) = 0,</me>
+        where <m>F</m> is a function of <m>n + 2</m> variables. A <term>solution</term><index><main>differential equation</main><sub>solution</sub></index> to this equation on an interval <m>I = (a, b)</m> is a function <m>u = u(t)</m> such that the first <m>n</m> derivatives of <m>u</m> are defined on <m>I</m>, and
+            <me>F(t, u, u', u'', \ldots, u^{(n)}) = 0.</me>
+        We will concentrate on first-order differential equations in this chapter. That is, we will consider equations of the form
+            <me>\frac{dx}{dt} = f(t, x).</me></p>
+
+    </introduction>
+    
+    <subsection xml:id="subsection-firstlook02-separable-de">
+    	<title>Separable Differential Equations</title>
+
+        <p> For some first-order differential equations such as
+            <me>\frac{dx}{dt} = k x</me>
+        the solution is given by an explicit formula. In this particular case, the solution is <m>x(t) = Ce^{kt}</m>. In general, we cannot generally find such a formula for an arbitrary first-order differential equation. We can, however, solve a differential equation <m>y' = f(x, y)</m> if we can write the equation in the form
+            <me>f(x) + g(y) \frac{dy}{dx} = 0.</me>
+        Such equations are called <term>separable</term><index><main>differential equation</main><sub>separable</sub></index>. We can solve separable equations by integrating the first term with respect to <m>x</m> and the second term with respect to <m>y</m>.</p>
+
+        <example>
+            <p>Suppose that we wish to solve the initial value problem
+                <md>
+                    <mrow>\frac{dy}{dx} &amp; =  xy</mrow>
+                    <mrow>y(0) &amp; =  1.</mrow>
+                </md>
+            We can rewrite this equation in the form
+                <me>\frac{1}{y} \frac{dy}{dx} = x</me>
+            or in the alternate form
+                <me>\frac{1}{y} \, dy = x \, dx.</me>
+            Integrating both sides of the equation, we have
+                <me>\ln |y| = \frac{1}{2} x^2 + C,</me>
+            where <m>C</m> is an arbitrary constant. Using the initial condition, <m>y(0) = 1</m> to find <m>C</m>, we see that 
+                <me>0 = \ln|1| = 0 + C.</me>
+            Thus, the solution to our initial value problem can be given implicitly by <m>\ln y = x^2/2</m>. In this example, we can actually write down an explicit solution that is defined everywhere,
+                <me>y = e^{x^2/2}.</me>
+            The <em>Sage</em> commands for solving our initial value problem are below.</p>
+
+            <sage>
+                <input>
+                x = var('x') #declare x as a variable
+                y = function('y')(x) #declare y as a function of x
+                de = diff(y, x) == x*y #write the differential equation
+                solution = desolve(de, y, ics=[0, 1]) #find the solution
+                solution
+                </input>
+                <output>
+                e^(1/2*x^2)
+                </output>
+            </sage>
+
+        </example>
+
+        <p>If we ask <em>Sage</em> to solve a differential equation that is impossible to solve analytically, the computation will return an error. <em>Sage</em> will not solve the initial value problem
+            <md>
+                <mrow>\frac{dy}{dx} &amp; =  \sin(xy)</mrow>
+                <mrow>y(0) &amp; =  1.</mrow>
+            </md></p>
+
+        <sage>
+            <input>
+            x = var('x')
+            y = function('y')(x)
+            de = diff(y, x) == sin(x*y)
+            solution = desolve(de, y, ics=[0, 1])
+            solution
+            </input>
+        </sage>
+
+        <example>
+            <p>Consider the initial-value problem
+                <md>
+                    <mrow>\frac{dy}{dt} &amp; =  \frac{t}{y - t^2y}</mrow>
+                    <mrow>y(0) &amp; = 4.</mrow>
+                </md>
+            First, we separate the variables of the equations and write
+                <me>y \, dy = \frac{t}{1 - t^2} \, dt.</me>
+            Integrating both sides of the equation, we have
+                <me>\frac{1}{2} y^2 = - \frac{1}{2} \ln|1 - t^2| + C \qquad \text{or} \qquad y^2 = - \ln|1 - t^2| + C.</me>
+            Using the initial condition, <m>y(0) = 4</m>, we can determine the value of <m>C</m>,
+                <me>y^2 = 16 - \ln|1 - t^2| \qquad \text{or} \qquad y = \sqrt{16 - \ln|1 - t^2| }.</me>
+            Notice that the solution does not make sense for all values of <m>t</m>. In fact, the solution is only defined on the interval <m>-1 \lt t \lt 1</m>, if we require that our solution be continuous. Let us see what <em>Sage</em> has to say.</p>
+
+            <sage>
+                <input>
+                t = var('t')
+                y = function('y')(t)
+                de = diff(y, t) == t/(y - t*2*y)
+                solution = desolve(de, y, ics=[0, 4])
+                show(solution)
+                </input>
+                <output>
+                -1/2*y(t)^2 == -1/4*I*pi + 1/2*t + 1/4*log(2*t - 1) - 8
+                </output>
+            </sage>
+
+        	<p><em>Sage</em> does return a solution even if it looks a bit different than the one that we arrived at above. Notice that we have an imaginary term in our solution, where <m>i^2 = -1</m>. We will examine the role of complex numbers and how useful they are in the study of ordinary differential equations in a later chapter, but for the moment complex numbers will just muddy the situation.</p>
+        </example>
+
+        <example>
+            <p>The initial value problem in Example<nbsp /><xref ref="example-firstlook01-logistic-growth" /> is a good example of a separable differential equation,
+                <md>
+                    <mrow>\frac{dP}{dt} &amp; = k \left( 1 - \frac{P}{1000} \right) P</mrow>
+                    <mrow>P(0) &amp; = 100.</mrow>
+                </md>
+            Using partial fractions, we can rewrite this equation as 
+                <men xml:id="equation-firstlook02-logistic-IVP">\frac{1000}{P(1000 - P)} \, dP = \left( \frac{1}{P} + \frac{1}{1000-P}\right)  \, dP = k \, dt.</men>
+            Integrating both sides of <xref ref="equation-firstlook02-logistic-IVP" />, we obtain
+                <me>\ln|P| - \ln|1000 - P| = \ln \left|\frac{P}{1000 - P}\right| = kt + C.</me>
+            Taking the exponential of both sides yields
+            	<me>\frac{P}{1000 - P} = e^{kt + C} = e^{kt} e^C.</me>
+            Since <m>C</m> is an arbitrary constant, we know that <m>e^C</m> is an arbitrary postive constant, which we will also call <m>C</m>.  So we can rewrite this last equation as
+            	<me>P = Ce^{kt} (1000 - P) = 1000 Ce^{kt} - Ce^{kt}P.</me>
+            Solving for <m>P</m> yields
+                <me>P = \frac{1000Ce^{kt}}{Ce^{kt} + 1} = \frac{1000}{Ce^{-kt} + 1}.</me>
+            Using our initial condition <m>P(0) = 100</m>, we can determine that <m>C = 9</m>. </p>
+        </example>
+  
+	</subsection>
+	
+	<subsection xml:id="subsection-firstlook02-newtons-law-cooling">
+    	<title>Newton's Law of Cooling</title>
+        	
+        <p>Separable equations arise in a wide range of application problems. The time of death of a murder victim is an important question on many popular movies and television programs. How does a forensic scientist or a medical examiner determine the time of death? Human beings have a temperature of <m>98.6^\circ</m>F. If the surrounding temperature is cooler, then the body will cool down after death. Eventually, the temperature of the body will match the temperature of the environment. We should not expect the body to cool at a constant rate either. Think of how a hot cup of coffee or tea cools. The liquid will cool quite quickly during the first few minutes but will remain relatively warm for quite a long period.</p>
+        
+        <p>The answer to our forensic question can be found by using <term>Newton's law of cooling</term><index><main>Newton's law of cooling</main></index>, which tells us that the rate of change of the temperature of a object is proportional to the difference between the temperature of the object and the temperature of the surrounding medium. Newton's law of cooling can be easily stated as a differential equation,
+            <me>\frac{dT}{dt} = k(T - T_m),</me>
+        where <m>T</m> is the temperature of the object, <m>T_m</m> is the temperature of the surrounding medium, and <m>k</m> is the proportionality constant.</p>
+
+		<p>Suppose that the temperature of the surrounding environment is <m>70^\circ</m>F, and we know from experience that a body under these conditions cools off approximately <m>2^\circ</m>F  during the first hour after death.  In order to determine a formula for the time of death, we must solve the initial value problem
+            <md>
+                <mrow>\frac{dT}{dt} &amp; =  k(T - 70)</mrow>
+                <mrow>T(0) &amp; =  98.6,</mrow>
+            </md>
+        where <m>T(1) = 96.6</m>.  If we rewrite the equation 
+            <me>\frac{dT}{dt} = k(T - 70) </me>
+        as
+            <me>\frac{1}{T - 70} \frac{dT}{dt} = k,</me>
+        we see that this equation is separable.  Integrating both sides of the last equation, we obtain <m>\ln | T - 70| = kt + C</m>. Since we are assuming that <m>T \gt 70</m>, we can write <m>T - 70</m> instead of <m>|T - 70|</m>.  Thus, we have
+            <me>\ln( T- 70) = kt + C \qquad \text{or} \qquad T - 70 = e^{kt + C} = e^{kt}e^C.</me>
+        Letting <m>D = e^C</m>, the solution  becomes
+            <me>T(t) = D e^{kt} + 70.</me>
+        The initial condition,  <m>T(0) = 98.6</m>, tells us that <m>D = 28.6</m>. Thus,
+            <me>T(t) = 28.6 e^{kt} + 70.</me>
+        Since
+            <me>96.6 = T(1) =28.6 e^{k \cdot 1} + 70,</me>
+        we can determine the constant <m>k</m> to be
+            <me>k = \ln\left( \frac{26.6}{28.6} \right) \approx -0.0725.</me>
+        and
+            <me>T(t) =28.6 e^{-0.0725 t} + 70.</me>
+        The graph of the <m>T</m> seems appropriate to our model (Figure<nbsp /><xref ref="figure-firstlook02-newton-cooling" />).</p>
+
+        <figure xml:id="figure-firstlook02-newton-cooling">
+
+            <image width="60%" xml:id="firstlook02-newton-cooling">
+                <sageplot>
+                    f(x) = 28.6 * exp(-0.0725 * x) + 70
+                    p = plot(f, (x, 0, 50), ymin = 55, ymax = 110, thickness=2, aspect_ratio=0.4, axes_labels=['$t$','$T(t)$'], fontsize=12)
+                    p
+                </sageplot>
+            </image>
+
+            <caption>Newton's law of cooling</caption>
+
+        </figure>
+            
+        <p>Let us solve our differential equation using <em>Sage</em>.</p>
+
+        <sage>
+            <input>
+            k,t = var('k,t')
+            T = function('T')(t)
+            de = diff(T,t) == k*(T - 70)
+            solution = desolve(de, T, ivar=t)
+            solution
+            </input>
+            <output>
+            (c + 70*e^(-k*t))*e^(k*t)
+            </output>
+        </sage>
+            
+        <p>We can use <em>Sage</em> to plot our solution.</p>
+
+        <sage>
+            <input>
+            t = var('t')
+            T(t) = 28.6 * exp(-0.0725 * t) + 70
+            plot(T, (t, 0, 24))
+            </input>
+            <output>
+            </output>
+        </sage>
+
+	</subsection>
+
+    <subsection xml:id="subsection-firstlook02-mixing-problem">
+
+        <title>Mixing Problems</title>
+   	
+    	<p>There is a large class of problems in modeling known as <term>mixing problems</term><index><main>mixing problems</main></index>.  These problems refer to situations where two are more substances are mixed together in a container or containers.  For example, we might wish to model how chemicals are mixed together in a refinery, how pollutants are mixed together in a pond or a lake, how ingredients are mixed together when brewing beer, or even how various greenhouse gases mix together across different layers of the atmosphere.</p>
+
+    	<p>Suppose that we have a large tank containing 1000 gallons of water and that water containing 0.5 pounds of salt per gallon flows into the tank at a rate of 10 gallons per minute.  If the tank is also draining at a rate of 10 gallons per minute, the water level in the tank will remain constant.  We will assume that the water in the tank is constantly stirred so that the mixture of salt and water is uniform in the tank.</p>
+
+        <p>We can model the amount of salt in the tank using differential equations. If <m>x(t)</m> is the amount of salt in the tank at time <m>t</m>, then the rate at which the salt is changing in the tank is the difference between the rate at which salt is flowing into the tank and the rate at which it is leaving the tank, or
+            <men xml:id="equation-firstlook02-mixing-problem">\frac{dx}{dt} = \text{rate in} - \text{rate out}.</men>
+        Of course, the salt flows into the tank at the rate of <m>10 \cdot 0.5 = 5</m> pounds of salt per minute.  However, the rate at which the salt leaves the tank depends on <m>x(t)</m>, the amount salt in the tank at time <m>t</m>.  At time <m>t</m>, there is <m>x(t)/1000</m> pounds of salt in one gallon.  Therefore, salt flows out of the tank at a rate of <m>10x(t)/1000 = x(t)/100</m> pounds per minute. Equation<nbsp /><xref ref="equation-firstlook02-mixing-problem" /> now becomes
+            <md>
+                <mrow>\frac{dx}{dt} \amp = 5 - \frac{x}{100}</mrow>
+                <mrow>x(0) \amp = 0.</mrow>
+            </md>
+        This equation is separable,
+            <me>\frac{dx}{500 - x} = \frac{dt}{100}.</me>
+        Integrating both sides of the equation, we have
+            <me>-\ln|500 - x| = \frac{t}{100} + k</me>
+        or
+            <me>\ln|500 - x| = - \frac{t}{100} - k.</me>
+        Consequently,
+            <me>500 - x = C e^{-0.01t},</me>
+        where <m>C = e^{-0.01k}</m>.  From our intial condition, we can quickly determine that <m>C = 500</m> and 
+            <me>x(t) = 500 - 500 e^{-0.01t}</me>
+        models the amount of salt in the tank at time <m>t</m>.</p>
+    	
+	</subsection>
+
+	<subsection xml:id="subsection-firstlook02-retirement">
+    	<title>A Retirement Model</title>
+
+    	<p>Differential equations have many applications in economics and finance. For example, Dr.<nbsp />J., a college professor, wisely started saving for his retirement as soon as he entered the workforce, and he now has <dollar />500,000 in a retirement account earning an interest of 5<percent /> compounded continuously. The initial value problem,
+    		<md>
+    			<mrow>\frac{dP}{dt} \amp = 0.05 P</mrow>
+    			<mrow>P(0) \amp = 500</mrow>
+    		</md>
+    	provides a nice model of Dr.<nbsp />J.'s investment, where <m>P(t)</m> is the amount in thousands of dollars in the fund at time <m>t</m>. The solution to our initial value problem is
+    		<me>P(t) = 500e^{0.05t}.</me>
+    	If Dr.<nbsp />J. plans to retire in 10 years, he can expect a nest egg of <m>P(10) \approx 824.360635350064</m> or about <dollar />824,360.</p>
+
+    	<p>Of course, Dr.<nbsp />J. still plans to make contributions to his retirement fund during his next ten years of employment.  His annual contribution will be <dollar />5,000, which his employer will generously match.  If we assume that these contributions will spread out evenly over the course of the year, we can incorporate this information into our original initial value problem,
+    		<md>
+    			<mrow>\frac{dP}{dt} \amp = 0.05 P + 10</mrow>
+    			<mrow>P(0) \amp = 500</mrow>
+    		</md>
+    	This differential equation is separable, so we have
+    		<me>\int \frac{dP}{0.05P + 10} = \int dt.</me>
+    	Integrating both sides of this equation, we have
+    		<me>20\ln|0.05P + 10| = t + k,</me>
+    	where <m>k</m> is an arbitrary constant.  Since <m>0.05P + 10 \gt 0</m>, we have
+			<me>20\ln(0.05P + 10) = t + k.</me>
+    	This last equation is equivalent to
+    		<me>0.05P + 10 = e^{0.05(t + k)} = e^{0.05t} e^{0.05k}.</me>
+    	If we let <m>C = e^{0.05k}</m> and solve for <m>P</m>, we obtain
+    		<me>P = 20 C e^{0.05t} - 200.</me>
+    	Using our initial condition,
+    		<me>500 = P(0) = 20 C e^{0.05 \cdot 0} - 200 = 20 C - 200,</me>
+    	we have <m>C = 35</m>.  Thus, the solution that we seek is
+    		<me>P(t) = 700e^{0.05t} - 200.</me>
+    	Dr.<nbsp />J.'s nest egg is now <m>P(10) \approx 954.104889490090</m> or about <dollar />954,105.</p>
+
+    	<p>Once Dr.<nbsp />J. retires, he will need to begin withdrawing money from his account.  He estimates that he will need to withdraw <dollar />60,000 a year for living expenses if he wishes to travel and enjoy his golden years.  Of course, whatever remains in his account at any given time will still collect interest. We describe <nbsp />J.'s retirement situation with the initial value problem,
+    		<md>
+    			<mrow>\frac{dP}{dt} \amp = \begin{cases}  0.05 P + 10, \amp t \leq 10 \\ 0.05 P - 60, \amp t \gt 10 \end{cases}</mrow>
+    			<mrow>P(0) \amp = 5.</mrow>
+    		</md>
+    	If <m>P = 954</m>, then
+    		<me>\frac{dP}{dt} = 0.05 P - 60 \approx -12.3 \lt 0.</me>
+    	Hence, the rate of withdrawal exceed the rate at which Dr.<nbsp />J.'s account is earning interest.  Eventually, Dr. J.'s retirement fund will be disappear. This may pose a problem, if Dr. J. plans to retire early and live a long life.</p>
+
+    	<p>Again, the differential equation <m>dP/dt = 0.05 P - 60</m> is separable, and we have
+    		<me>\int \frac{dP}{0.05P - 60} = \int dt.</me>
+    	Intergrating both sides of this equation yields
+    		<me>20\ln|0.05P - 60| = t + k.</me>
+    	Since <m>0.05 P - 60 \lt 0</m>,
+    		<me>|0.05P - 60| = 60 - 0.05P,</me>
+    	and
+    		<me>20\ln(60 - 0.05P) = t + k.</me>
+    	Consequently,
+    		<me>60 - 0.05P = e^{0.05(t + k)/20} = Ce^{0.05t},</me>
+    	or
+    		<me>P = 1200 - C e^{0.05t},</me>
+    	where <m>C = e^{0.05k}</m>.  Now, we can apply our initial condition <m>P(10) = 954</m> to determine that <m>C \approx 149.21</m>.  Therefore,
+    		<me>P = 1200 - 149.21 e^{0.05t}</me>
+    	describes how much money Dr.<nbsp />J. after he retires (<m>t \geq 10</m>).</p>
+
+    	<p>If Dr.<nbsp />J. want to know how long his retirement fund will last, he must solve the equation
+    		<me>1200 - 149.21 e^{0.05t} = 0.</me>
+    	In this case, 
+    		<me>t = 20 \ln\left( \frac{1200}{149.21} \right) \approx 41.7.</me>
+    	This means that if Dr.<nbsp />J. retires in 10 years at the age of 65, he can expect his retirement to last into his mid 90s.</p>
+
+    </subsection>
+
+	<subsection xml:id="subsection-firstlook02-some-theory">
+    	<title>Some Theory</title>
+ 
+    	<p>We now give a theoretical basis for solving first-order separable differential equations. A differential equation <m>y' = F(x, y)</m> is called <term>separable</term><index><main>differential equation</main><sub>separable</sub></index> if it can be written in the form
+            <men xml:id="equation-firstlook02-separable">f(x) + g(y) \frac{dy}{dx} = 0.</men>
+        We now will prove that such an equation can solved by integrating the first term with respect to <m>x</m> and the second term with respect to <m>y</m>. If
+            <md>
+                <mrow>h_1(s) &amp; =  \int f(s) \, ds</mrow>
+                <mrow>h_2(s) &amp; =  \int g(s) \, ds,</mrow>
+            </md>
+        then we can rewrite equation <xref ref="equation-firstlook02-separable" /> as
+            <me>h_1'(x) + h_2'(y) \frac{dy}{dx} = 0.</me>
+        Applying the chain rule to the second term, we obtain
+            <me>h_2'(y) \frac{dy}{dx} = \frac{d}{dx} [ h_2(y)].</me>
+        Hence, equation <xref ref="equation-firstlook02-separable" /> now becomes
+            <me>\frac{d}{dx} (h_1(x) + h_2(y)) = 0.</me>
+        Integrating,  we obtain
+            <me>h_1(x) + h_2(y) = C,</me>
+        where <m>C</m> is any arbitrary constant.</p>
+
+		<p>Now suppose that <m>y(x_0) = y_0</m> is an initial condition for
+            <me>f(x) + g(y) \frac{dy}{dx} = 0.</me>
+        Then <m>h_1(x_0) + h_2(y_0) = C</m>.  By the Fundamental Theorem of Calculus
+            <md>
+                <mrow>h_1(x) - h_1(x_0) &amp; =  \int_{x_0}^x f(s) \; ds,</mrow>
+                <mrow>h_2(y) - h_2(y_0) &amp; =  \int_{y_0}^y g(s) \; ds.</mrow>
+            </md>
+        Consequently, we can replace equation <xref ref="equation-firstlook02-separable" /> with the <term>integral equation</term><index><main>integral equation</main></index>
+            <me>\int_{x_0}^x f(s) \; ds + \int_{y_0}^y g(s) \, ds = 0.</me>
+        In other words, we simply need to integrate each term to solve the differential equation.</p>
+	</subsection>
+
+	<subsection xml:id="subsection-firstlook02-what-can-go-wrong">
+        <title>What Can Go Wrong</title>
+
+		<example>
+            <p>It is not always possible to explicitly solve a separable differential equation. Consider the equation
+                <me>\frac{dy}{dx} = \frac{y(1 + y^2)}{y^2 + y + 1}.</me>
+            This equation can be rewritten in the form
+                <me>\left( \frac{1}{1+ y^2} + \frac{1}{y} \right) \, dy = dx</me>
+            Integrating both sides of the equation, we have
+                <me>\arctan y + \ln|y| = x + C.</me>
+            However, we have no method of solving this last equation explicitly for <m>y</m>.</p>
+        </example>
+
+		<example>
+            <p>Another difficulty arises if we consider the equation
+                <me>y' = t e^{-y^2}.</me>
+            This equation is separable since we can rewrite it in the form
+                <me>e^{y^2} \, dy = t \, dt.</me>
+            Although the Fundamental Theorem of Calculus guarantees that every continuous function has an antiderivative, we cannot find an antiderivative for the function <m>e^{y^2}</m> in terms of elementary functions. Thus, we are forced to write our solution as
+                <me>\int_0^y e^{s^2} \, ds = \frac{1}{2} t^2 + C.</me></p>
+        </example>
+
+		<example>
+            <p>Even if we have a separable differential equation, we are not guaranteed a unique solution. Consider the initial value problem <m>y' = y^{1/3}</m> with <m>y(0) = 0</m> and <m>t \geq 0</m>. Separating the variables,
+                <me>y^{-1/3} \, dy = dt.</me>
+            Thus,
+                <me>\frac{3}{2} y^{2/3} = t + C</me>
+            or
+                <me>y = \left( \frac{2}{3} ( t + C)\right)^{3/2}.</me>
+            If <m>C = 0</m>, the initial condition is satisfied and
+                <me>y = \left(  \frac{2}{3} t \right)^{3/2}</me>
+            is a solution for <m>t \geq 0</m>. However, we can find at least two additional solutions for <m>t \geq 0</m>:
+                <md>
+                    <mrow>y &amp; =  - \left( \frac{2}{3} t \right)^{3/2},</mrow>
+                    <mrow>y &amp; \equiv  0.</mrow>
+                </md>
+                In Section<nbsp /><xref ref="firstlook05" /> we will learn sufficient conditions for a first-order initial value problem to have a unique solution.</p>
+        </example>
+
+		<example>
+            <p>Suppose that <m>y' = y^2</m> with <m>y(0) = 1</m>. Separating the variables,
+                <me>\frac{1}{y^2} \, dy = dt,</me>
+            we see that
+                <me>y = - \frac{1}{t + C}</me>
+            or
+                <me>y = \frac{1}{1-t}.</me>
+            Therefore, a continuous solution also exists on <m>(-\infty, 1)</m> if <m>y(0) = -1</m>.  In the  case that <m>y(0) = -1</m>, the solution is
+                <me>y = - \frac{1}{t + 1},</me>
+            and a continuous solution exists on <m>(-1, \infty)</m>.</p>
+        </example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-firstlook02-important-lessons">
+    	<title>Important Lessons</title>
+	
+	      <p><ul>
+	
+            <li>A differential equation of <term>order</term> <m>n</m> is an equation that can be put in the form
+                <me>F(t, x, x', x'', \ldots, x^{(n)}) = 0,</me>
+            where <m>F</m> is a function of <m>n + 2</m> variables.  A <term>solution</term> to the equation on an interval <m>I = (a, b)</m> is a function <m>u = u(t)</m> such that the first <m>n</m> derivatives of <m>u</m> are defined on <m>I</m>, and
+                <me>F(t, u, u', u'', \ldots, u^{(n)}) = 0.</me></li>
+
+            <li>A <term>first-order differential equation</term> is an equation that can be written in the form
+                <me>\frac{dx}{dt} = f(t, x).</me></li>
+
+            <li>A differential equation is separable if it can be written in the form
+                <me>\frac{dy}{dx} =M(x) N(y).</me>
+            In this case we can rewrite the equation in the form
+                <me>f(x) + g(y)\frac{dy}{dx} = 0</me>
+            or
+                <me>g(y) \, dy = f(x) \, dx</me>
+            and solve by integrating both sides.</li>
+
+        </ul></p>
+	
+	</subsection>
+
+<todo>More execises are needed.</todo> 
+
+    <xi:include href="./exercises/firstlook02.xml" />
+
+    <subsection xml:id="subsection-firstlook02-sage-project">
+        <title>Sage<mdash />Quick Start Guide to Solving Ordinary Differential Equations</title>
+    
+        <p><em>Sage</em> has powerful algorithms for finding exact and numerical solutions of differential equations. In addition, we can plot solutions and direction fields. Although some differential equations have an exact solution and can be solved using analytic techniques with calculus, many differential equations can only be solved nusing numerical techniques. This should not be too surprising if we consider how we solve polynomials. It is quite easy to find the roots of any equation of the form <m>ax^2 + bx + c = 0</m> by either factoring or using the quadratic equation, but solving an equation such as 
+            <me>5x^7 - 6x^4 +3x^3 -23 x^2 +3x -17 = 0</me>
+        is a much more difficult problem.  Unlike the situation for quadratic equations, there does not exist a general formula for solving seventh degree equations. We can even encounter difficulties when using numerical algorithms such as the Newton-Raphson algorithm.</p>
+
+        <p>In general, <em>Sage</em> needs three things to solve a differential equation: 
+            <ul>
+                
+                <li>An abstract function</li>
+                
+                <li>A differential equation</li> 
+                
+                <li>A <em>Sage</em> command to solve the equation.</li>
+            
+            </ul>
+        Suppose we wish to solve the equation
+            <me>\frac{dy}{dx} = x + y.</me>
+        We can use the following sequence of <em>Sage</em> commands.</p>
+
+        <sage>
+            <input>
+            y = function('y')(x)
+            de = diff(y,x) == x + y
+            h = desolve(de, y)
+            h
+            </input>
+            <output>
+            -((x + 1)*e^(-x) - _C)*e^x
+            </output>
+        </sage>
+
+       <p>The first command defines the abstract function. The second describes the actual differential equation. Finally, we use the Sage command <c>desolve</c> to find the actual solution. Try replacing the <c>h</c> command with <c>show(h)</c> or <c>show(expand(h))</c>.</p>
+
+       <p>We can also specify an initial condition for our differential equation, say <m>y(0) = 1</m>.</p>
+
+        <sage>
+            <input>
+            y = function('y')(x)
+            de = diff(y,x) == x + y
+            h = desolve(de, y, ics=[0,1])
+            h
+            </input>
+            <output>
+            h
+            </output>
+        </sage>
+
+        <p>There are many other commands and packages to solve ordinary differential equations using Sage. For more information, see <url href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" />. An empty Sage cell is below for practice and exploration.</p>
+
+        <sage>
+            <input>
+            </input>
+            <output>
+            </output>
+        </sage>
+
+    </subsection>
+ 
+</section>
+
+<!--</csection>-->

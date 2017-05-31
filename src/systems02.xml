@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="systems02" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>The Geometry of Systems</title>
+
+    <introduction>
+    	 <p>We can use <term>direction fields</term><index><main>system</main><sub>direction field</sub></index> in the phase plane to represent <term>autonomous systems</term><index><main>system</main><sub>autonomous</sub></index>
+			<mdn>
+				<mrow xml:id="equation-systems02-harmonic-oscillator-1">\frac{dx}{dt} &amp; = f(x, y),</mrow>
+				<mrow xml:id="equation-systems02-harmonic-oscillator-2">\frac{dy}{dt} &amp; = g(x, y).</mrow>
+			</mdn>
+		Equation<nbsp /><xref ref="equation-systems02-harmonic-oscillator-1" /> tells us how a solution curve changes in the <m>x</m> direction, while equation<nbsp /><xref ref="equation-systems02-harmonic-oscillator-2" /> tells us how a solution curve changes in the <m>y</m> direction.</p>
+
+	</introduction>
+
+	<subsection xml:id="subsection-sytems02-direction-fields">
+    	<title>Direction Fields</title>
+
+		<example>
+			<p>Consider the differential equation for a simple harmonic oscillator that we developed in Section<nbsp /><xref ref="firstlook01" />,
+                <me>mx'' + kx = 0.</me>
+            If we assume that <m>k</m> and <m>m</m> are both equal to one and let <m>x' = v</m>, we can rewrite this equation as the first order system,
+	            <md>
+    	            <mrow>x' &amp; = v,</mrow>
+    	            <mrow>v' &amp; = -x.</mrow>
+    	        </md>
+	        The direction field is relatively easy to understand. After plotting only few vectors, we can very quickly see that the vectors are tangent to circles at the origin (Figure<nbsp /><xref ref="figure-systems02-harmonic-oscillator" />). Since the solutions to the undamped harmonic oscillator <m>x'' + x = 0</m> are of the form
+        		<me>x(t) =  A \cos t + B \sin t</me>
+        	for arbitrary constants <m>A</m> and <m>B</m>, this should not be too surprising.</p>
+
+			<figure xml:id="figure-systems02-harmonic-oscillator">
+				<image width="60%" xml:id="systems02-harmonic-oscillator">
+					<sageplot>
+						x, v, t = var('x v t')
+						F = [v, -x]
+						P1 = desolve_system_rk4(F,[x,v],ics=[0,2,2],ivar=t,end_points=10,step=0.01)
+						S1 = [ [j, k] for i,j,k in P1]
+						p = line(S1, thickness=2, axes_labels=['$x(t)$','$v(t)$'], fontsize=12)
+						p += arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
+						n = sqrt(F[0]^2 + F[1]^2)
+						p += plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (v,-3,3), aspect_ratio=1)
+						Lp
+		            </sageplot>
+				</image>
+	            <caption>The direction field for a harmonic oscillator</caption>
+	        </figure>
+
+        </example>
+
+        <p>Let us examine some systems of equations with direction fields that are easily plotted.</p>
+
+         <example>
+            <p>The system 
+                <md>
+                    <mrow>x' &amp; = x</mrow>
+                    <mrow>y' &amp; = y</mrow>
+                </md> 
+            gives us a direction field where the vectors point away from the origin (Figure <xref ref="figure-systems02-direction-field-example-1" />).</p>
+
+			<figure xml:id="figure-systems02-direction-field-example-1">
+				<image width="60%" xml:id="systems02-direction-field-example-1">
+					<sageplot>
+						x, y, t = var('x y t')
+						F = [x, y]
+						n = sqrt(F[0]^2 + F[1]^2)
+						p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+						p
+		            </sageplot>
+				</image>
+	            <caption>The direction field for <m>x' = x</m> and <m>y' = y</m></caption>
+	        </figure>
+
+            <p>The system
+                <md>
+                    <mrow>x' &amp; = -x,</mrow>
+                    <mrow>y' &amp; = -y.</mrow>
+                </md> 
+            gives us a direction field where the vectors point towards the origin (Figure <xref ref="figure-systems02-direction-field-example-2" />).</p>
+
+			<figure xml:id="figure-systems02-direction-field-example-2">
+				<image width="60%" xml:id="systems02-direction-field-example-2">
+					<sageplot>
+						x, y, t = var('x y t')
+						F = [-x, -y]
+						n = sqrt(F[0]^2 + F[1]^2)
+						p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+						p
+		            </sageplot>
+				</image>
+	            <caption>The direction field for <m>x' = x</m> and <m>y' = y</m></caption>
+	        </figure>
+
+            <p>The system
+                <md>
+                    <mrow>x' &amp; = -x,</mrow>
+                    <mrow>y' &amp; = -5y.</mrow>
+                </md> 
+            also gives us a direction field where the vectors point towards the origin; however, we shall soon see that there are important differences between this direction field and the direction field of the previous system (Figure <xref ref="figure-systems02-direction-field-example-2" />).</p>
+
+			<figure xml:id="figure-systems02-direction-field-example-3">
+				<image width="60%" xml:id="systems02-direction-field-example-3">
+					<sageplot>
+						x, y, t = var('x y t')
+						F = [-x, -5*y]
+						n = sqrt(F[0]^2 + F[1]^2)
+						p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+						p
+		            </sageplot>
+				</image>
+                <caption>The direction field for <m>x' = -x</m> and <m>y' = -5y</m></caption>
+            </figure>
+
+        </example>
+
+    </subsection>
+
+    <subsection xml:id="subsection-sytems02-predator-prey">
+    	<title>Modified Predator-Prey System</title>
+
+    	<p>Let us recall the modified predator-prey system that we developed in the last section. That is, we will assume that the prey in our model has logistic growth,
+			<md>
+				<mrow>\frac{dR}{dt} &amp; = aR(1 - R/\alpha) - bRF,</mrow>
+				<mrow>\frac{dF}{dt} &amp; = -cF + dRF,</mrow>
+			</md>
+		where <m>N</m> is the carrying capacity.  In order to investigate the geometric properties of our system, we will rewrite our system in vector form.  For each value of <m>t</m>, we will use <m>{\mathbf x}(t)</m> to denote the vector-valued function
+			<me>{\mathbf x}(t) = \begin{pmatrix} R(t) \\ F(t) \end{pmatrix}.</me>
+		This vector-valued function, <m>\mathbf x(t)</m> corresponds to our solution curve <m>(R(t), F(t))</m> in the <m>RF</m>-plane.  Now we can write our predator-prey model as a single vector equation,
+			<me>\frac{d \mathbf x}{dt} =  \begin{pmatrix} R'(t) \\ F'(t) \end{pmatrix} = \begin{pmatrix} aR(1 - R/N) - bRF, \\ -cF + dRF \end{pmatrix}.</me></p>
+
+		<p>We can view the right side of the equation as a <term>vector field</term><index><main>vector field</main></index>. The specific example that we examined was
+			<md>
+				<mrow>\frac{dH}{dt} &amp; = 2R\left(1 - \frac{R}{10}\right) - RF,</mrow>
+				<mrow>\frac{dL}{dt} &amp; = -5F + RF.</mrow>
+			</md>
+		The vector field form of this system is
+            <me>\frac{d \mathbf x}{dt} = \begin{pmatrix} 2R(1 - R/10) - RF \\ -5F + RF \end{pmatrix}.</me>
+        We can associate a vector in the <m>RF</m>-plane for each value of <m>R</m> and <m>F</m>. For example, if we let <m>(R, F) = (10, 10)</m>, we have <m>(R', F') = (-100, 50)</m>.  At this particular point, the population of rabbits is falling rapidly while the number of foxes is climbing very quickly, We can represent this vector in the phase plane by drawing an arrow in the proper direction. Thus, we obtain an direction field for our system of differential equations (Figure <xref ref="figure-systems02-predator-prey" />).</p>
+
+        <figure xml:id="figure-systems02-predator-prey">
+        	<image width="60%" xml:id="systems02-predator-prey">
+                <sageplot>
+    				H,L,t = var('H L t')
+    				F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
+    				P1 = desolve_system_rk4(F,[H,L],ics=[0,0.5,2.5],ivar=t,end_points=10,step=0.01)
+    				S1 =[ [j, k] for i,j,k in P1]
+    				p = line(S1, thickness=2, axes_labels=['$H(t)$','$L(t)$'], fontsize=12)
+    				p += arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
+    				n = sqrt(F[0]^2 + F[1]^2)
+    				p += plot_vector_field((F[0]/n, F[1]/n), (H,0,9), (L,0,3))
+    				p
+                </sageplot>
+            </image>
+
+            <caption>A vector field for the predator-prey system</caption>
+        </figure>
+	
+	</subsection>
+
+    <subsection xml:id="subsection-sytems02-competing-species">
+    	<title>A Competing Species Model</title>
+
+<todo>This example is from Cliff's book.  Give credit.</todo>
+
+		<p>Suppose that <m>x</m> and <m>y</m> are the population of two distinct species that compete for the same resources. For example, two species of fish may compete for the same food in a lake or cattle and sheep may compete for the same grazing land. We can model two competing species using the following system of first-order differential equations,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \alpha x \left(1 - \frac{x}{M} \right) - \beta xy</mrow>
+                <mrow>\frac{dy}{dt} &amp; = \gamma y \left(1 - \frac{y}{N} \right) - \delta xy.</mrow>
+            </md>
+        The first term in each equation is the logistic growth of each species. The second term is how the species is affected by interacting with the competing species.</p>
+
+        <example xml:id="example-systems02-competing-species">
+    		<p>Suppose that <m>x = x(t)</m> and <m>y = y(t)</m> are two populations who compete for the same resources are governed by the following system of differential equations,
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = x(1-x) - \alpha xy</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = y(1-y) - \alpha xy.</mrow>
+                </md>
+            If we study how the two populations interact, we will discover two very different cases depending on the value of the parameter <m>\alpha</m>.</p>
+
+    		<p>If we let <m>\alpha = 2</m>, then there is a strong interaction between the two species and our system becomes
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = x(1-x) - 2xy</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = y(1-y) - 2xy.</mrow>
+                </md>
+            We are interested in what happens as <m>t \to \infty</m>. First we will examine what happens when <m>dx/dt =0</m> and <m>dy/dt =0</m>:
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = x(1 - x - 2y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = y(1 - y - 2x).</mrow>
+                </md>
+            If <m>dx/dt = 0</m>, then
+                <mdn>
+                    <mrow xml:id="equation-systems02-nullcline-competing-species-1">x &amp; = 0</mrow>
+                    <mrow xml:id="equation-systems02-nullcline-competing-species-2">y &amp; = (1 - x)/2.</mrow>
+                </mdn>
+            Similarly, if <m>dy/dt = 0</m>, we have
+                <mdn>
+                    <mrow xml:id="equation-systems02-nullcline-competing-species-3">y &amp; = 0</mrow>
+                    <mrow xml:id="equation-systems02-nullcline-competing-species-4">y &amp; = 1 - 2x.</mrow>
+                </mdn>
+            The lines in equations <xref ref="equation-systems02-nullcline-competing-species-1" /><ndash /><xref ref="equation-systems02-nullcline-competing-species-4" /> are called <term>nullclines</term><index><main>nullcline</main></index>. In general, if we are given the system
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                </md>
+            then the values of <m>x</m> and <m>y</m> satisfying <m>dx/dt = f(x, y) = 0</m> are called the <term><m>x</m>-nullclines</term> of the system and the values of <m>x</m> and <m>y</m> satisfying the equation <m>dy/dt = g(x, y) = 0</m> are called the <term><m>y</m>-nullclines</term> of the system.</p>
+
+    		<figure xml:id="figure-systems02-nullclines-competing-species-1">
+    			<image width="60%" xml:id="systems02-nullclines-competing-species-1">
+                    <sageplot>
+                    	a = 2
+    					xmin = 0
+    					xmax = 1.5
+    					ymin = 0
+    					ymax = 1.5
+    					start_x = 1.4
+    					start_y = 1.3
+    					start_t = 0
+    					end_t = 20
+    					step_size = 0.1
+    					f = x*(1 - x) - a*x*y
+    					g =  y*(1 - y) - a*x*y
+    					points = [ (start_x, start_y) ] 
+    					P = desolve_system_rk4([f,g],[x, y],ics=[start_t,start_x,start_y],ivar=t,end_points=end_t,step=step_size)
+    					Q = [ [j,k] for i,j,k in P]
+    					p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)   
+    					n = sqrt(f^2 + g^2)
+    					p += plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax) )  
+    					p += implicit_plot(f, (x,xmin,xmax), (y,ymin,ymax), color='green', legend_label='$x$-nullcline')
+    					p += implicit_plot(g, (x,xmin,xmax), (y,ymin,ymax), color='red', legend_label='$y$-nullcline')  
+    					p += point(points[0], pointsize=50)
+    					p += arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4)
+    					p
+                    </sageplot>
+                </image>
+                <caption>Nullclines for the case <m>\beta = 2</m></caption>
+            </figure>
+
+    		<p>In our example, we can plot the <m>x</m> and <m>y</m>-nullclines to help us understand our system (Figure <xref ref="figure-systems02-nullclines-competing-species-1" />). Of course, we have an equilibrium solution whenever an <m>x</m>-nullcline intersects with a <m>y</m>-nullcline. Thus, the equilibrium points for our particular system are <m>(0,0)</m>, <m>(1, 0)</m>, <m>(0, 1)</m>, and <m>(1/3, 1/3)</m>. Furthermore, we can choose a representative point in each region to find how the direction field is oriented. If we are given the  initial condition <m>(1.4, 1.3)</m> for example, we can see that 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -4.2</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = -4.03.</mrow>
+                </md>
+            Since both of these numbers are negative, we can see that our initial trajectory is headed down and to the left<mdash />slightly more to the left than down. However, we have no guarantee that the trajectory will continue in this direction.</p>
+
+    		<p>Before we proceed further with our analysis, let us determine what happens on the nullclines themselves. That is, we will examine the case when <m>dx/dt = 0</m> or <m>dy/dt = 0</m>. If <m>dx/dt = 0</m>, then any solution crossing this <m>x</m>-nullcline must be moving vertically.  There can be no right or left movement at this point in the phase portrait. We can indicate this fact along with the direction of vertical movement by drawing a vertical slash with an arrow on the <m>x</m>-nullcline (Figure <xref ref="figure-systems02-nullclines-competing-species-1" />).  For example, the point <m>(0.5, 0.25)</m> lies on the <m>x</m>-nullcline and 
+                <me>\frac{dy}{dt}(0.5, 0.25) \lt 0.</me>
+            Therefore, the trajectory that crosses the <m>R</m>-nullcline at <m>(0.5, 0.25)</m> is moving down. As we move along the <m>x</m>-nullcline, the direction of this arrow can only change when we cross an <m>y</m>-nullcline.</p>
+
+    		<p>Similarly, there can be no vertical motion on an <m>y</m>-nullcline. We will indicate the direction of horizontal motion by drawing a horizontal line with an arrow pointing to the right if <m>dx/dt \gt 0</m> on the <m>y</m>-nullcline and an arrow pointing to the left if <m>dx/dt \lt 0</m> on the <m>y</m>-nullcline.</p>
+    		
+    		<p>We can also determine the basic direction of the solution curve by checking what happens at a point in each of the regions bounded by the nullclines. For example, at the point <m>(0.1, 0.1)</m> we find that 
+                <md>
+                    <mrow>\frac{d}{dt}x(0.1, 0.1) &amp; = 0.7</mrow>
+                    <mrow>\frac{d}{dt}y(0.1, 0.1) &amp; = 0.7.</mrow>
+                </md>
+            Thus, the general direction of any solution curve in this region is up and right (Figure <xref ref="figure-systems02-nullclines-competing-species-1" />).</p>
+
+    		<p>What happens to the initial condition <m>(1.4, 1.3)</m>? We see three possible scenarios if we follow the nullclines for large values of <m>t</m>.
+                <ul>
+
+                    <li>Only species <m>x</m> survives and species <m>y</m> becomes extinct.</li>
+
+                    <li>Only species <m>y</m> survives and species <m>x</m> becomes extinct.</li>
+
+                    <li>There are essentially equal numbers of species <m>x</m> and <m>y</m>.</li>
+
+                </ul></p>
+
+           
+        </example>
+
+        <example>
+			<p>There is no reason why our nullclines should be limited to straight lines. The system
+	            <md>
+	                <mrow>x' &amp; = y - x^2</mrow>
+	                <mrow>y' &amp; = x - 2</mrow>
+	            </md>
+	        has an <m>x</m>-nullcline <m>y = x^2</m> and a <m>y</m>-nullcline <m>x = 2</m>. These two nullclines intersect at <m>(2, 4)</m>, and the system has equilibrium solution. The nullclines divide the plane into four basic regions (Figure <xref ref="figure-systems02-nullclines-nonlinear" />). By choosing a point in each of these regions and determining the direction of the slope field at that point, we can decide the direction of the slope field in the entire region.</p>
+
+			<figure xml:id="figure-systems02-nullclines-nonlinear">
+				<image width="60%" xml:id="systems02-nullclines-nonlinear">
+					<sageplot>
+						x, y, t = var('x y t')
+						F = [y - x^2, x - 2]
+						start_x = 0
+						start_y = 5
+						start_t = 0
+						P1=desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=11,step=0.1)
+						S1=[ [j, k] for i,j,k in P1]
+						p = line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+						p += arrow(S1[int(len(S1))-2], S1[int(len(S1))-1], width=1, arrowsize=4)
+						points = [ (start_x, start_y) ]
+						p += point(points[0], pointsize=50)
+						n = sqrt(F[0]^2 + F[1]^2)
+						p += plot_vector_field((F[0]/n, F[1]/n), (x,-4,4), (y,-1,9), aspect_ratio=1)
+						p += implicit_plot(F[0], (x,-4,4), (y,-1,9), color='green')
+						p += implicit_plot(F[1], (x,-4,4), (y,-1,9), color='red')
+						p
+		            </sageplot>
+				</image>
+
+	            <caption>The system <m>x' = y - x^2</m> and <m>y' = x - 2</m></caption>
+	        </figure>
+
+			<p>The only equilibrium solution of our system occurs at <m>(2, 4)</m>.</p>
+		</example>
+
+	</subsection>
+
+    <subsection xml:id="subsection-sytems02-sage-direction-fields">
+        <title>Plotting Direction Fields with <em>Sage</em></title>
+
+        <p>It is easy to plot direction fields using <em>Sage</em>. We can plot the direction field for the system 
+            <md>
+                <mrow>x' &amp; = y - 2x,</mrow>
+                <mrow>y' &amp; = x - xy - x^3</mrow>
+            </md>
+        using the following <em>Sage</em> interact. You can evaluate the cell below to get a menu driven applet for drawing direction fields for systems of two differential equations.</p>
+
+          <sage>
+                <input>
+                    x,y,t = var('x,y,t')
+                    @interact
+                    def _(f = input_box(default = x*(1 - x) - 2*x*y),
+                          g = input_box(default = y*(1-y) - 2*x*y),
+                          x_min = input_box(default = 0), x_max = input_box(default = 1.5),
+                          y_min = input_box(default = 0), y_max = input_box(default = 1.5),
+                          t_start = input_box(default = 0.0), x_start = input_box(default = 1.4), y_start = input_box(default = 1.3),
+                          step_size = (0.01, (0.001, 1.0)), t_end = (10, (5, 50)),
+                          x_null = checkbox(False, "Show \(x\)-nullcline (green)"),
+                          y_null = checkbox(False, "Show \(y\)-nullcline (red)")):
+                        n = sqrt(f^2 + g^2)
+                        p = plot_vector_field( (f/n, g/n), (x, x_min, x_max), (y, y_min, y_max))
+                        p += point((x_start, y_start), pointsize=50)
+                        P = desolve_system_rk4([f, g], [x, y],ics = [t_start, x_start, y_start], ivar = t, end_points = t_end, step = step_size)
+                        Q = [ [j,k] for i,j,k in P]
+                        p += line(Q, axes_labels = ['$x(t)$','$y(t)$'])
+                        p += arrow(Q[int(len(Q)) - 2], Q[int(len(Q)) - 1], width = 1, arrowsize = 4)
+                        x_nullcline = implicit_plot(f, (x, x_min, x_max), (y, y_min, y_max), color = 'green', legend_label = '\(x\)-nullcline')
+                        y_nullcline = implicit_plot(g, (x, x_min, x_max), (y, y_min, y_max), color = 'red', legend_label = '\(y\)-nullcline')
+                        if x_null:
+                            p += x_nullcline
+                        if y_null:
+                            p += y_nullcline
+                        p.show(xmin = x_min, xmax = x_max, ymin = y_min, ymax = y_max)
+                        <![CDATA[pretty_print(html("<br />"))]]>
+                        pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))
+                        <![CDATA[pretty_print(html("<br />"))]]>
+                        pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g)))
+                </input>
+                <output>
+                </output>
+            </sage>
+
+    </subsection>
+
+    <subsection xml:id="subsection-sytems02-phase-plane-analysis">
+    	<title>A Summary of Phase Plane Analysis</title>
+
+		<p>We can use the following series of steps to summarize phase plane analysis for the nonlinear system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y).</mrow>
+            </md>
+            <ul>
+
+                <li><em>Step 1.</em> Draw the curves where <m>f(x, y) = 0</m>. These curves are called the <term><m>x</m>-nullclines</term>. When a solution curve <m>{\mathbf x}(t)</m> lies on one of these curves, <m>dx/dt = 0</m>, draw vertical slash marks on the <m>x</m>-nullclines to remind yourself that a trajectory crossing the nullcline can only do so if it is moving in a vertical direction at the instant of crossing.</li>
+
+                <li><em>Step 2.</em> Draw the curves where <m>g(x, y) = 0</m>. These curves are called the <term><m>y</m>-nullclines</term>. When <m>{\mathbf x}(t)</m> lies on one of these curves, <m>dg/dt = 0</m>. Draw horizontal slash marks on the <m>y</m>-nullclines to remind yourself that a trajectory crossing the nullcline can only do so if it is moving in a horizontal direction at the instant of crossing.</li>
+
+                <li><em>Step 3.</em> Label the points where the <m>x</m> and <m>y</m>-nullclines intersect. These intersections are the <term>equilibrium points</term>. If <m>{\mathbf x}(t)</m> is ever at one of these points, then both <m>dx/dt</m> and <m>dy/dt</m> vanish. This means that the trajectory stays at the equilibrium point for all time. If our system is going to tend towards as steady state, then  <m>{\mathbf x}(t)</m> will approach on of the equilibrium points as <m>t \to \infty</m>.</li>
+
+                <li><em>Step 4.</em> Label the regions of the <m>xy</m>-plane where <m>dx/dt \lt 0</m> and where <m>dx/dy \gt 0</m>. These regions are always separated by <m>x</m>-nullclines.  Likewise, label the regions where <m>dy/dt</m> is positive and negative.</li>
+
+                <li><em>Step 5.</em>Go back and put arrows on the vertical hash marks of the <m>x</m> null clines. These arrows indicate whether the motion across the null cline is up or down. The arrows are up on the parts of the <m>x</m>-nullclines that are in the <m>dy/dt \gt 0</m> region, and down on those parts of the <m>x</m>-nullclines in the <m>dy/dt \lt 0</m> regions. Likewise, draw arrows on the horizontal slash marks of the <m>y</m>-nullclines. These arrows are pointing right on the parts of the <m>y</m>-nullclines in the <m>dx/dt \gt 0</m> regions and left point on the parts in the <m>dx/dt \lt 0</m> regions.</li>
+
+                <li><p><em>Step 6.</em>
+    			     <ul>
+
+        				<li>If <m>dx/dt \gt 0</m> and <m>dy/dt \gt 0</m>, then both <m>x(t)</m> and <m>y(t)</m> are increasing and the trajectory moves up and right.</li>
+
+        				<li>If <m>dx/dt \gt 0</m> and <m>dy/dt \lt 0</m>, the trajectory moves down and right.</li>
+
+        				<li>If <m>dx/dt \lt 0</m> and <m>dy/dt \gt 0</m>, the trajectory moves up and left.</li>
+
+        				<li>If <m>dx/dt \lt 0</m> and <m>dy/dt \lt 0</m>, the trajectory moves down and left.</li>
+
+                    </ul></p></li></ul></p>
+
+	</subsection>
+
+<todo>Add more exercises.</todo>
+
+	<xi:include href="./exercises/systems02.xml" />     
+
+	<subsection number="no"  xml:id="subsection-sytems02-sage-project">
+        <title>Project<mdash />Plotting Nullclines with <em>Sage</em></title>
+
+<todo>Rethink this project.</todo>
+
+ 		<p>Let us use <em>Sage</em> to analyze the system 
+            <md>
+                <mrow>x' &amp; = x + y,</mrow>
+                <mrow>y' &amp; = -2x + y.</mrow>
+            </md>
+        First let us plot the phase plane of the system without nullclines.</p>
+
+ 		<sage>
+            <input>
+            x, y, t = var('x y t')
+            F = [x + y, -2*x + y]
+            P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=2,step=0.01)
+            Q = [ [j,k] for i,j,k in P]
+            p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
+            n = sqrt(F[0]^2 + F[1]^2)
+            F_unit = [F[0]/n, F[1]/n]
+            p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
+            p
+            </input>
+            <output>         
+            </output>
+ 		</sage>
+
+ 		<p>If these <em>Sage</em> commands seem unfamiliar to you, you may want to refer to Subsection<nbsp /><xref ref="systems01-subsection-sage-project" /></p>
+     		
+ 		<p>We can add nullclines to our plot using the <c>implicit_plot</c> function from <em>Sage</em>.</p>
+
+ 		<sage>
+            <input>
+            x, y, t = var('x y t')
+            F = [x + y, -2*x + y]
+            P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=2,step=0.01)
+            Q = [ [j,k] for i,j,k in P]
+            p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
+            n = sqrt(F[0]^2 + F[1]^2)
+            F_unit = [F[0]/n, F[1]/n]
+            p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
+            p += implicit_plot(F[0], (x,-4,4), (y,-4,4), color='green')
+            p += implicit_plot(F[1], (x,-4,4), (y,-4,4), color='red')
+            p
+            </input>
+            <output>
+            </output>
+ 		</sage>
+
+ 		<p>The <m>x</m>-nullclines are plotted in green and the <m>y</m>-nullclines are in red.</p>
+				 		 			
+    </subsection>
+
+</section>
+
+<!--</section>-->

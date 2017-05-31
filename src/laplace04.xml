@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                            	   -->
+<!--                                                          	   -->
+<!--    Ordinary Differential Equations Project      		  	   -->
+<!--                                                         	   -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
+<!-- See the file COPYING for copying conditions.             	   -->
+
+<section xml:id="laplace04" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Convolution</title>
+    
+    <subsection xml:id="subsection-laplace04-convolution">
+    	<title>Convolution</title>
+
+    	<p>If <m>f</m> and <m>g</m> are two piecewise continuous exponentially bounded functions, then we define the <term>convolution product</term> of <m>f</m> and <m>g</m> to be
+			<me>(f*g)(t) = \int_0^t f(t - \tau) g(\tau) \, d\tau = \int_0^t f(\tau) g(t - \tau) \, d\tau.</me>
+		The convolution product has many properties similar to those of ordinary multiplication.
+			<ul>
+
+				<li>Commutivity: <m>f*g = g*f</m>.</li>
+
+				<li>Distribution: <m>f*(g + h) = f*g + f*h</m>.</li>
+
+				<li>Associativity:  <m>f*(g*h) = (f*g)*h</m>.</li>
+
+				<li><m>0 *f = f*0 = 0</m>.</li>
+
+			</ul>All of these properties can be proven using the definition of convolution and the properties of integration.</p>
+
+		<p>There is, however, no multiplicative identity. In other words, <m>f*1 \neq f</m>. For example, suppose that <m>f(t) = \cos t</m>.  Then
+			<me>(f*1)(t) = \int_0^t \cos(t - \tau) \cdot 1 \, d\tau = \sin t.</me>
+		Also, it may not be the case that <m>f*f</m> is a nonnegative function.</p>
+
+		<p>One important property of the Laplace transform is how convolution products behave.</p>
+
+		<theorem xml:id="theorem-laplace04-convolution">
+            <statement>
+                <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions, and suppose that <m>{\mathcal L}(f)(s) = F(s)</m> and <m>{\mathcal L}(g)(s) = G(s)</m> for <m>s \geq a \gt 0</m>. Then
+					<me>F(s) G(s) = {\mathcal L}(f*g)(s)</me>
+				for <m>s \gt a</m>.</p>
+            </statement>
+        </theorem> 
+
+		<proof>
+			<p>If
+				<md>
+					<mrow>F(s) &amp; = \int_0^\infty e^{-s\xi} f(\xi) \, d\xi</mrow>
+					<mrow>G(s) &amp; = \int_0^\infty e^{-s\tau} g(\tau) \, d\tau,</mrow>
+				</md>
+			then
+				<md>
+					<mrow>F(s) G(s) &amp; = \int_0^\infty e^{-s\xi} f(\xi) \, d\xi \int_0^\infty e^{-s\tau} g(\tau) \, d\tau</mrow>
+					<mrow>&amp; = \int_0^\infty  g(\tau) \left(  \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau,</mrow>
+				</md>
+			where <m>\xi = t - \tau</m> is the change of variable.  Reversing the order of integration, we have
+				<me>\int_0^\infty  g(\tau) \left(  \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau = \int_0^\infty  e^{-st} \left(  \int_0^t  f(t - \tau) g(\tau) \, d\tau \right) \, dt.</me>
+			However, this last expression is just the Laplace transform of <m>f*g</m>.</p>
+		</proof>
+
+    	<title>Applying the Convolution Theorem</title>
+
+		<p>Let us use the Convolution Theorem (Theorem<nbsp /><xref ref="theorem-laplace04-convolution" />) to calculate the inverse Laplace transform of
+			<me>H(s)= \frac{a}{s^2(s^2 + a^2)} = \frac{1}{s^2} \cdot \frac{a}{s^2 + a^2}.</me>
+		instead of using partial fractions. The inverse Laplace transform of <m>1/s^2</m>  is <m>t</m>, and the inverse Laplace transform of <m>a/(s^2 + a^2)</m>. is <m>\sin at</m>. Using the Convolution Theorem, the inverse Laplace transform of <m>H(s)</m> is
+			<me>h(t) = \int_0^t (t - \tau) \sin a \tau \, d \tau = \frac{at - \sin at}{a^2}.</me></p>
+
+		<p>We can also use the Convolution Theorem to solve initial value problems. Consider the IVP
+			<md>
+				<mrow>y'' + 4y &amp; = g(t)</mrow>
+				<mrow>y(0) &amp; = 3</mrow>
+				<mrow>y'(0) &amp; = -1.</mrow>
+			</md>
+		Taking the Laplace transform of both sides of the differential equation and applying the initial conditions, we obtain
+			<me>s^2 Y(s)  - 3s + 1 + 4Y(s) = G(s),</me>
+		where <m>G(s)</m> is the Laplace transform of <m>g(t)</m>.  Solving for <m>Y(s)</m>, we have
+			<me>Y(s) = \frac{3s-1}{s^2 + 4} + \frac{G(s)}{s^2 + 4} = 3\frac{s}{s^2 + 4} - \frac{1}{2} \frac{2}{s^2 + 4} + \frac{1}{2} \frac{2}{s^2 + 4} G(s).</me>
+		The last term corresponds to the forcing term of our differential equation. Taking the inverse Laplace transform of both sides and applying the Convolution Theorem, we get
+			<me>y = 3 \cos 2t - \frac{2}{2} \sin 2t + \frac{1}{2} \int_0^t \sin 2(t - \tau) g(\tau) \, d \tau.</me></p>
+
+		<p>It is possible to write a solution for the initial value problem
+			<md>
+				<mrow>ay'' + by' + cy &amp; = g(t)</mrow>
+				<mrow>y(0) &amp; = y_0</mrow>
+				<mrow>y'(0) &amp; = y_1</mrow>
+			</md>
+		using the Convolution Theorem. Taking the Laplace transform of both sides of the differential equation and using the initial conditions, we have
+			<me>(as^2 + bs + c)Y(s) - (as + b)y_0 - ay_1 = G(s)</me>
+		or
+			<me>Y(s) = \Phi(s) + \Psi(s),</me>
+		where
+			<md>
+				<mrow>\Phi(s) &amp; = \frac{(as + b)y_0 + ay_1 }{as^2 + bs + c}</mrow>
+				<mrow>\Psi(s) &amp; = \frac{G(s)}{as^2 + bs + c}.</mrow>
+			</md>
+		Therefore,
+			<me>y = \phi(t) + \psi(t),</me>
+		where <m>\phi(t) = {\mathcal L}^{-1}( \Phi(s))</m> and <m> \psi(t) = {\mathcal L}^{-1}( \Psi(s))</m>. Observe that <m>\phi(t)</m> is the solution to the initial value problem
+			<md>
+				<mrow>ay'' + by' + cy &amp; = 0</mrow>
+				<mrow>y(0) &amp; = y_0</mrow>
+				<mrow>y'(0) &amp; = y_1.</mrow>
+			</md>
+		Once we have values for <m>a</m>, <m>b</m>, and <m>c</m>, the function <m>\phi(t)</m> is easy to find. To find <m>\psi(t)</m>, we first write 
+			<me>\Psi(s) = \frac{1}{as^2 + bs + c} G(s) = H(s) G(s),</me>
+		where <m>H(s) = 1/(as^2 + bs + c)</m>.  If <m>h(t)</m> is the inverse Laplace transform of <m>H(s)</m>, then
+			<me>\psi(t)  = {\mathcal L}^{-1}(H(s)G(s)) = \int_0^t h(t - \tau) g(\tau) \, d\tau.</me></p>
+
+		<p>Let us consider the case where <m>G(s) = 1</m>. Consequently, <m>g(t) = \delta(t)</m> and <m>\psi(s) = H(s)</m>. This means that <m>h(t)</m> is a solution to the initial value problem
+			<md>
+				<mrow>ay'' + by' + cy &amp; = \delta(t)</mrow>
+				<mrow>y(0) &amp; = y_0</mrow>
+				<mrow>y'(0) &amp; = y_1.</mrow>
+			</md>
+		For this reason, <m>h(t)</m> is sometimes called the <term>impulse response</term> of the system.</p>
+
+	</subsection>
+
+    <subsection xml:id="subsection-laplace04-important-lessons">    	
+    	<title>Important Lessons</title>
+
+		<p><ul>
+
+			<li>If <m>f</m> and <m>g</m> are two piecewise continuous exponentially bounded functions, then we define the <term>convolution production</term> of <m>f</m> and <m>g</m> to be
+				<me>(f*g)(t) = \int_0^t f(t - \tau) g(\tau) \, d\tau = \int_0^t f(\tau) g(t - \tau) \, d\tau.</me></li>
+
+			<li><p>The convolution product has many properties similar to those of ordinary multiplication.<ul>
+
+				<li>Commutivity: <m>f*g = g*f</m></li>
+
+				<li>Distribution: <m>f*(g + h) = f*g + f*h</m></li>
+
+				<li>Associativity:  <m>f*(g*h) = (f*g)*h</m></li>
+
+				<li><m>0 *f = f*0 = 0</m></li>
+
+			</ul>There is, however, no multiplicative identity. In other words, <m>f*1 \neq f</m>.  Also, it may not be the case that <m>f*f</m> is a nonnegative function.</p></li>
+
+			<li>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions, and suppose that <m>{\mathcal L}(f)(s) = F(s)</m> and <m>{\mathcal L}(g)(s) = G(s)</m> for <m>s \geq a \gt 0</m>. Then
+				<me>F(s) G(s) = {\mathcal L}(f*g)(s)</me>
+			for <m>s \gt a</m>.</li>
+
+			<li>It is possible to write a solution for the initial value problem
+				<md>
+					<mrow>ay'' + by' + cy &amp; = g(t)</mrow>
+					<mrow>y(0) &amp; = y_0</mrow>
+					<mrow>y'(0) &amp; = y_1.</mrow>
+				</md>
+			using the Convolution Theorem.</li>
+		
+		</ul></p>
+		
+	</subsection>
+
+    <xi:include href="./exercises/laplace04.xml" />
+
+ </section>
+
+<!--</chapter>-->

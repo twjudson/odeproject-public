@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!-- The Ordinary Differential Equations Project                   -->
+<!--                                                               -->
+<!-- Copyright (C) 2014-2017 Thomas W. Judson 					   -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="secondorder04" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Forcing and Resonance</title>
+    
+    <introduction>
+
+    	<p>Resonance happens when the natural frequency and the forcing frequency of an undamped harmonic oscillator are the same. There are many real world examples of resonance. For example, it is possible for an trained singer shatter a champaign glass by simply singing the correct note (see <url href="https://www.youtube.com/watch?v=IZD8ffPwXRo" />). Shattering a glass by singing the correct note is can be modeled by an equation of an undamped harmonic oscillator with sinusoidal forcing. While a certain amount of damping occurs in all physical systems, the damping is often so small that it makes sense to use an undamped harmonic oscillator.</p>
+
+    </introduction>
+
+    <subsection xml:id="subsection-secondorder04-resonance">
+    	<title>Resonance</title>
+
+    	<p>Resonance was responsible for the collapse of the Broughton suspension bridge near Manchester, England in 1831. The collapse occurred when a column of soldiers marched in cadence over the bridge, setting up a periodic force of rather large amplitude. The frequency of the force was approximately equal to the natural frequency of the bridge. Thus, the bridge collapsed when large oscillations occurred. For this reason soldiers are ordered to break cadence whenever they cross a bridge.</p>
+		
+		<p>The Millennium Bridge, the first new bridge to span the Thames River in London in over 100 years, is a modern example of how resonance can effect a bridge (Figure<nbsp /><xref ref="figure-secondorder04-millennium-bridge" />). This pedestrian bridge, which opened to the public in June 2000, was quickly closed after the bridge experienced high amplitude horizontal oscillations during periods of high traffic. Studies by designers found that the bridge experienced high amplitude horizontal oscillations in response to horizontal forcing at a rate of one cycle per second. Typically, people walk at a rate of two steps per second, so the time between two successive steps of the left foot is about one second. Thus, if people were to walk in cadence, they would could set up strong horizontal forcing that would place a destructive load on the bridge. The engineers did not envision this to be a problem since tourists do not generally march in time. However, a video of tourists crossing the bridge revealed the opposite.  When the bridge began oscillating, people tended to walk in cadence in order to keep their balance (<url href="https://www.youtube.com/watch?v=gQK21572oSU" />).</p>
+
+		<figure xml:id="figure-secondorder04-millennium-bridge">
+        	<caption>The Millennium Bridge</caption>
+            <image width="60%" source="images/millennium-bridge.jpg" />
+  		</figure>
+
+    	<p>Consider the case of an undamped harmonic oscillator with a sinusoidal forcing function. We know that we can model this situation with the second-order linear differential equation
+    		<me>x'' + \omega_0^2 x = A \cos \omega t</me>
+    	Since the homogeneous solution to this equation is 
+    		<me>x_h(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t,</me>
+    	we can see that the <term>natural frequency</term> of the harmonic oscillator is <m>\omega_0</m>. This is the frequency of the oscillations if there is no forcing term. Depending on whether or not the frequency of the forcing term <m>\omega</m> is equal to the natural frequency, we will have two very different situations. If the two frequencies are equal, then they will re-enforce one another and we will have <term>resonance</term>. If the two frequencies are close but not equal, we will see the phenomenon of <term>beats</term>. We wish to investigate what happens when the <term>driving frequency</term> <m>\omega</m> is equal to the natural frequency and when it is not.</p>
+
+		<p>Let us examine the case where the forcing frequency and the natural frequency of the oscillator are the same,
+			<men xml:id="equation-secondorder04-resonance-5">x'' + \omega_0^2 x = A \cos \omega_0 t.</men>
+		Since <m>A \cos \omega_0 t</m> is a solution to the homogeneous equation <m>x'' + \omega_0^2 x = 0</m>, we cannot assume that a particular solution to equation <xref ref="equation-secondorder04-resonance-5" /> has the form <m>a \cos \omega_0 t + b \sin \omega_0 t</m>. Equivalently, if we use the complex method, we cannot assume that our solution has the form <m>ae^{i \omega_0t}</m>. Therefore, we will look for a complex solution of the form
+			<me>x_c = a t e^{i \omega_0 t}</me>
+		for the complex equation that corresponds to <xref ref="equation-secondorder04-resonance-5" />,
+			<men xml:id="equation-secondorder04-resonance-6">x'' + \omega_0^2 x = A e^{i \omega_0 t}.</men>
+		In this case,
+			<md>
+				<mrow>x_c' &amp;  = a ( 1 + i \omega_0 t )e^{i \omega_0 t} </mrow>
+				<mrow>x_c'' &amp;  = a (2 i \omega_0 - \omega_0^2 t) e^{i \omega_0 t}.</mrow>
+			</md>
+		Substituting <m>x_c</m> and <m>x_c''</m> into the left-hand side of <xref ref="equation-secondorder04-resonance-6" />, we have
+			<md>
+				<mrow>x_c'' + \omega_0^2 x_c &amp;  = a (2 i \omega_0 - \omega_0^2 t )e^{i \omega_0 t} + \omega_0^2 a t e^{i \omega_0 t}</mrow>
+				<mrow>&amp; = 2ai \omega_0 e^{i \omega t}.</mrow>
+			</md>
+		In order for <m>x_c = a t e^{i \omega_0 t}</m> to be a solution to <xref ref="equation-secondorder04-resonance-6" />, we must have
+			<me>a = \frac{A}{2 i \omega_0}.</me>
+		Thus, our solution to the complex form of the differential equation is
+			<md>
+				<mrow>x_c &amp;  = \frac{A}{2i \omega_0} t e^{i \omega_0 t}</mrow>
+				<mrow>&amp; = - \frac{Ai}{2 \omega_0} t e^{i \omega_0 t}</mrow>
+				<mrow>&amp; = - \frac{Ai}{2 \omega_0} t (\cos \omega_0 t + i \sin \omega_0 t)</mrow>
+				<mrow>&amp; = \frac{A}{2 \omega_0} t \sin \omega_0 t - i \frac{A}{2 \omega_0} t \cos \omega_0 t.</mrow>
+			</md>
+		 The real part of <m>x_c</m>,
+		 		<me>x_p(t) = \frac{A}{2 \omega_0} t \sin \omega_0 t,</me>
+		 is a particular solution to <xref ref="equation-secondorder04-resonance-5" />. Thus, our general solution is
+			<me>x(t) = x_h(t) + x_p(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t + \frac{A}{2 \omega_0} t \sin \omega_0 t.</me></p>
+
+		<example>
+
+			<p>Now let us consider the initial-value problem
+				<md>
+					<mrow>x'' + 144 x &amp; = 4 \cos 12t</mrow>
+					<mrow>x(0) &amp; = 0</mrow>
+					<mrow>x'(0) &amp; = 0.</mrow>
+				</md>
+			where <m>A = 4</m> and <m>\omega_0 = 12</m>. The solution to the homogeneous equation <m>x'' + 144 x = 0</m> is
+				<me>x_h(t) = c_1 \cos 12t + c_2 \sin 12t.</me>
+			To find a particular solution to <m>x'' + 144 x = 4 \cos 12t</m>, we will use the complex method and try to find a particular solution to <m>x'' + 144 x = 4 e^{12it}</m>. We must assume that the solution has the form <m>x_c(t) = a t e^{12it}</m>, since <m>a e^{12it}</m> is a solution to the homogeneous equation. As before, we have <m>x_c'' = a (24i - 144 t) e^{12it}</m>. If we substitute <m>x_c</m> and <m>x_c''</m> into the left-hand side of our differential equation, we have
+				<me>x_c'' + 144 x_c = a (24i - 144 t) e^{12it} + 144 a t e^{12i t} = 24ai e^{12i t}.</me>
+			Therefore,
+				<me>a = \frac{4}{24i} = - \frac{1}{6}i,</me>
+			and our complex solution is
+				<me>- \frac{1}{6} i e^{12it} = - \frac{1}{6} i (\cos 12t + i \sin 12 t) = \frac{1}{6} \sin 12 t - \frac{1}{6} i \cos 12 t.</me>
+			Taking the real part of our complex solution, we have a particular solution
+				<me>x_p(t) = \frac{1}{6} t \sin 12t.</me>
+			Thus, the general solution to <m>x'' + 144 x = 4 \cos 12t</m> is
+				<me>x(t) = x_h(t)  + x_p(t)= c_1 \cos 12t + c_2 \sin 12t + \frac{1}{6} t \sin 12t.</me>
+			Applying the initial conditions, both <m>c_1 = 0</m> and <m>c_2 = 0</m>. Consequently, the solution to the initial-value problem is 
+				<me>x(t) = \frac{1}{6} t \sin 12t.</me>
+			The graph of this solution is given in Figure<nbsp /><xref ref="figure-secondorder04-resonance-3" />. Notice that our solution grows with time. This growth is due to the fact that the frequency of the forcing term is equal to the natural frequency of the oscillator. Since the force pulls and pushes at a frequency equal to the natural frequency of the oscillator, the amplitude increases with time. This type of behavior is called <term>resonance</term>.</p>
+		</example>
+
+		<figure xml:id="figure-secondorder04-resonance-3">
+
+			<image width="60%" xml:id="secondorder04-resonance-3">
+                <sageplot>
+					t = var('t')
+					x = function('x')(t)
+					f = desolve(diff(x,t,2)+ 144*x == 4*cos(12*t),x,[0,0,0])
+					p = plot(f, (t, 0, 4*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi)
+					p
+                </sageplot>
+            </image>
+            <caption>The solution to <m>x'' + 4 x = 4 \sin 2t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m>.</caption>
+        </figure>
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder04-beats">
+    	<title>Beats or the Case <m>\omega \neq \omega_0</m></title>
+
+    	<p>If the forcing frequency and natural frequency are not equal but close, then we have the phenomenon of beats. For example, a piano tuner uses this phenomenon to make certain that a particular string is correctly tuned. The tuner will strike a tuning fork which vibrates at the correct frequency. Next, the tuner hits the poorly tuned piano string. This modulation gives rise to beats in the tone that are readily audible. When the string is properly tuned, the beats will go away. To see another example of beats, watch the video <url href="https://www.youtube.com/watch?v=pRpN9uLiouI" />.</p>
+
+    	<p>To understand the situation where the forcing and natural frequencies differ by a small amount, <m>\omega \neq \omega_0</m>, we will first consider the equation,
+    		<men xml:id="equation-secondorder04-beats-1">x'' + \omega_0^2 = A \cos \omega t.</men>
+		The solution to the homogeneous equation <m>x'' + \omega_0^2 x = 0</m> is
+			<me>x_h(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t.</me>
+		Since the forcing frequency is not equal to the natural frequency, we can look for a particular solution to the complex of the form of equation <xref ref="equation-secondorder04-beats-1" />, 
+			<men xml:id="equation-secondorder04-beats-2">x'' + \omega_0^2 = A e^{i \omega t}.</men>
+		If we assume out solution has the form <m>x_c = a e^{i\omega t}</m> and substitute <m>x_c</m> into the left-hand side of <xref ref="equation-secondorder04-beats-2" />, we find
+			<md>
+				<mrow>x_c'' + \omega_0^2 x_c \amp = -a \omega^2 e^{i \omega t} + \omega_0^2 a e^{i \omega t}</mrow>
+				<mrow>\amp = a(\omega_0^2 - \omega^2)e^{i \omega t}.</mrow>
+			</md>
+		Therefore, for <m>x_c = a e^{i\omega t}</m> to be a solution for
+			<me>x'' + \omega_0^2 x = Ae^{i\omega t},</me>
+		we must have
+			<me>a = \frac{A}{\omega_0^2 - \omega^2}.</me>
+		The real part of <m>x_c</m> is a particular solution to <xref ref="equation-secondorder04-beats-1" />,
+			<me>x_p(t) = \frac{A}{\omega_0^2 - \omega^2} \cos \omega t.</me>
+		Thus, the general solution to <xref ref="equation-secondorder04-beats-1" /> is
+			<me>x(t) = x_h(t) + x_p(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t + \frac{A}{\omega_0^2 - \omega^2} \cos \omega t.</me></p>
+
+		<p>Now let us examine the case where the motion starts at equilibrium. That is, we will investigate what happens when <m>x(0) = 0</m> and <m>x'(0) = 0</m>. In this case, we can easily determine that <m>c_1 = -A/(\omega_0^2 - \omega^2)</m> and <m>c_2 = 0</m>.  Hence the solution to our initial value problem is
+			<men xml:id="equation-secondorder04-resonance-2">x(t) = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t).</men>
+		Thus, we have a superposition to two oscillations of different frequencies.</p>
+
+		<p>To understand how the superposition of the two frequencies works, we will let
+			<me>\overline{\omega} = \frac{\omega_0 + \omega}{2}</me>
+		be the <term>mean frequency</term> and
+			<me>\delta = \frac{\omega_0 -  \omega}{2}</me>
+		be the <term>half difference</term>. Since 
+			<md>
+				<mrow>\omega &amp; = \overline{\omega} - \delta,</mrow>
+				<mrow>\omega_0 &amp; = \overline{\omega} + \delta.</mrow>
+			</md>
+		we know that
+			<md>
+				<mrow>x(t) &amp; = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t)</mrow>
+				<mrow>&amp; = \frac{A}{(\overline{\omega} + \delta)^2 - (\overline{\omega} - \delta)^2} (\cos [(\overline{\omega} - \delta) t] - \cos[(\overline{\omega} + \delta) t])</mrow>
+				<mrow>&amp; = \frac{A}{4\overline{\omega} \delta} [\cos(\overline{\omega} t - \delta t) - \cos(\overline{\omega}t + \delta t)]</mrow>
+				<mrow>&amp; = \frac{A}{4\overline{\omega} \delta} [\cos(\overline{\omega} t) \cos( \delta t)  + \sin(\overline{\omega} t) \sin( \delta t) - \cos(\overline{\omega} t) \cos( \delta t) + \sin(\overline{\omega} t) \sin( \delta t)]</mrow>
+				<mrow>&amp; = \frac{A}{4\overline{\omega} \delta} [2 \sin(\overline{\omega} t) \sin( \delta t)]</mrow>
+				<mrow>&amp; = \frac{A \sin \delta t}{2 \overline{\omega} \delta} \sin \overline{\omega} t.</mrow>
+			</md>
+		Thus, we have a sine function, <m>\sin \overline{\omega} t</m> whose amplitude varies according to <m>|(A/2 \overline{\omega} \delta) \sin \delta t|</m>, and 
+			<men xml:id="equation-secondorder04-resonance-3">x(t) = \frac{A \sin \delta t}{2 \overline{\omega} \delta} \sin \overline{\omega} t.</men></p>
+
+        <example>
+	        <p>In the initial-value problem
+				<mdn>
+					<mrow xml:id="equation-secondorder04-resonance-7">x'' + 144 x \amp = 4 \cos(13t)</mrow>
+					<mrow>x(0) \amp = 0</mrow>
+					<mrow>x'(0) \amp = 0,</mrow>
+				</mdn>
+				we have <m>A= 4</m>, <m>\omega_0 = 12</m>, and <m>\omega = 13</m>. The solution to this equation is
+				<me>x(t) = \frac{4}{25}(\cos 12 t - \cos 13 t).</me>
+			The graph of this solution is given in Figure<nbsp /><xref ref="figure-secondorder04-resonance-1" /> and illustrate the phenomenon of <term>beats</term>. The two frequencies are almost equal and interfere with each other.</p>
+
+			<figure xml:id="figure-secondorder04-resonance-1">
+				<image width="60%" xml:id="secondorder04-resonance-4">
+	                <sageplot>
+						t = var('t')
+						A = 4
+						omega = 13
+						omega0 = 12
+						y = function('y')(t)
+						g = desolve(diff(y,t,2)+omega0^2*y == A*cos(omega*t),y,[0,0,0])
+						p = plot(g, (t, 0, 10*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi)
+						p
+	                </sageplot>
+	            </image>
+	            <caption>Solution to the initial-value problem<nbsp /><xref ref="equation-secondorder04-resonance-7" /></caption>
+	        </figure>
+
+			<p>In our example, <m>\delta = -1/2</m> and <m>\overline{\omega} = 25/2</m>. The factor  <m>\sin \delta t = \sin( - t/2)</m> in <xref ref="equation-secondorder04-resonance-3" /> oscillates very slowly in comparison to <m>\sin(\overline{\omega}) = \sin(25t/2)</m>. Thus, we can view the solution <xref ref="equation-secondorder04-resonance-3" /> as a fast oscillation with a frequency <m>\overline{\omega}</m> and amplitude
+				<men xml:id="equation-secondorder04-resonance-4">\left| \frac{A \sin \delta t}{2 \overline{\omega} \delta} \right| = \left| \frac{8}{25} \sin\left( \frac{t}{2}\right)\right|,</men>
+			which oscillates much more slowly. If we superimpose the graph of <xref ref="equation-secondorder04-resonance-4" /> onto the graph in Figure<nbsp /><xref ref="figure-secondorder04-resonance-1" />, we obtain an <term>envelope</term> of the faster oscillation.</p>
+
+		</example>
+		
+		<figure xml:id="figure-secondorder04-resonance-2">
+			<image width="60%" xml:id="secondorder04-resonance-5">
+                <sageplot>
+					t = var('t')
+					A = 4
+					omega = 13
+					omega0 = 12
+					y = function('y')(t)
+					g = desolve(diff(y,t,2)+omega0^2*y == A*cos(omega*t),y,[0,0,0])
+					p = plot(g, (t, 0, 10*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x(t)$')
+					delta = (omega0 - omega)/2
+					omegabar = (omega0 + omega)/2
+					p += plot((A/(2*omegabar*delta))*sin(delta*t), (t, 0, 10*pi), color='red',thickness=3, legend_label='$|(A/2 \overline{\omega} \delta) \sin \delta t|$')
+					p += plot(-A*sin(delta*t)/(2*omegabar*delta), (t, 0, 10*pi), color='red',thickness=3)
+					p
+                </sageplot>
+            </image>
+            <caption>Envelope for the initial-value problem<nbsp /><xref ref="equation-secondorder04-resonance-7" /></caption>
+        </figure>
+
+	</subsection>
+
+	<subsection xml:id="subsection-secondorder04-forced-damped">
+    	<title>Forced Damped Harmonic Motion</title>
+
+        <p>Since perpetual motion does not really exist, we should consider what happens when we add some damping to our harmonic oscillator,
+            <men xml:id="equation-secondorder04-force-damped-1">x'' + 2c x' + \omega_0^2 x = A \cos \omega t.</men></p>
+
+        <example xml:id="example-secondorder04-force-damped">
+        	<p>Let us consider the differential equation
+        		<men xml:id="equation-secondorder04-example-0">x'' + 2x' + 2x = 3 \cos 4t.</men>
+        	The corresponding homogeneous equation is
+        		<me>x'' + 2x' + 2x = 0,</me>
+        	which has solution
+        		<me>x_h(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t.</me>
+        	To find a particular solution for the equation <xref ref="equation-secondorder04-example-0" />, we will look for a solution of the form <m>x_c = a e^{4 i t}</m> to the equation
+            	<men xml:id="equation-secondorder04-example-3">x'' + 2x' + 2x = 3e^{4 it}</men>
+        	and then set <m>x_p(t)</m> to the real part of the solution. Substituting <m>x_c</m> into the lefthand side of <xref ref="equation-secondorder04-example-3" />, we obtain
+        		<me>x_c'' + 2x_c' + 2 x_c = (-14 + 8i) a e^{4it} = P(4i)a e^{4it} = 3e^{4 it},</me>
+        	where <m>P(\lambda) = \lambda^2 + 2 \lambda + 2</m> is the characteristic polynomial of <m>x'' + 2x' + 2x = 0</m>.
+        	Therefore, 
+        		<me>a = \frac{3}{P(4i)} = \frac{3}{-14 + 8i} = - \frac{3}{130}(7 + 4i),</me>
+        	and the solution to the complex equation is
+        		<md>
+        			<mrow>x_c \amp = - \frac{3}{130}(7 + 4i)e^{4 i t}</mrow>
+        			<mrow>\amp = - \frac{3}{130}(7 + 4i)(\cos 4t + i \sin 4t)</mrow>
+        			<mrow>\amp = \frac{3}{130}[(- 7 \cos 4t + 4 \sin 4t) + i(- 4 \cos 4t - 7 \sin 4t)].</mrow>
+        		</md>
+        	Thus, we can determine a particular solution by taking the real part of <m>x_c</m>,
+        		<me>x_p(t) = \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).</me>
+        	The general solution for <xref ref="equation-secondorder04-example-0" /> is
+        		<me>x(t) = x_h(t) + x_p(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t +  \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).</me>
+        	It is easy to see that all solutions approach <m>x_p(t)</m> as <m>t \to \infty</m> no matter what the initial conditions may be. However, it would be much more useful if we would write the particular solution in the form
+        		<me>x_p(t) = K \cos(4 t - \phi )</me>
+        	for some constants <m>K</m> and <m>\phi</m> rather than a linear combination of <m>\cos 4t</m> and <m>\sin 4t</m>.</p>
+        </example>
+
+        <p>Returning to the general case, the associated homogeneous equation for <xref ref="equation-secondorder04-force-damped-1" /> is 
+            <men xml:id="equation-secondorder04-force-damped-2">x'' + 2c x' + \omega_0^2 x = 0.</men>
+        The characteristic polynomial of <xref ref="equation-secondorder04-force-damped-2" />,
+            <men xml:id="equation-secondorder04-force-damped-3">P(\lambda ) = \lambda^2 + 2c \lambda + \omega_0^2,</men>
+        has roots
+            <me>\lambda = - c \pm \sqrt{c^2 - \omega_0^2}.</me>
+        If our harmonic oscillator is undedamped (<m>c \lt \omega_0</m>), then the solution to the homogeneous equation<nbsp /><xref ref="equation-secondorder04-force-damped-2" /> is
+            <me>x_h = e^{-ct} (c_1 \cos \beta t + c_2 \sin \beta t),</me>
+        where <m>\beta = \sqrt{\omega_0^2 - c^2}</m>.</p>
+
+		<p>As in Example<nbsp /><xref ref="example-secondorder04-force-damped" />, we will look for a particular solution to <xref ref="equation-secondorder04-force-damped-1" /> by examining the equivalent complex differential equation. That is, we shall look for a solution of the form <m>x_c = a e^{i \omega t}</m> to the equation
+            <men xml:id="equation-secondorder04-force-damped-4">x_c'' + 2c x_c' + \omega_0^2 x_c = Ae^{i \omega t},</men>
+        and then set <m>x_p</m> equal to the real part of our solution. Substituting <m>x_c</m> into the right-hand side of <xref ref="equation-secondorder04-force-damped-4" />, we obtain
+            <me>x_c'' + 2c x_c' + \omega_0^2 x_c = [(i\omega)^2 + 2c(i \omega) + \omega_0^2] a e^{i \omega t} = P(i \omega) a e^{i \omega t},</me>
+        where <m>P</m> is the characteristic polynomial<nbsp /><xref ref="equation-secondorder04-force-damped-3" />. Thus, equation<nbsp /><xref ref="equation-secondorder04-force-damped-4" /> becomes
+            <me>P(i \omega) a e^{i \omega t} =  Ae^{i \omega t},</me>
+        and
+            <me>x_c(t) = a e ^{i \omega t} = \frac{A}{P(i \omega)} e^{i \omega t} =  H(i \omega) A e^{i \omega t},</me>
+        where
+            <me>H(i \omega) = \frac{1}{P(i \omega)}.</me>
+        We say that <m>H(\lambda) = 1 / P(\lambda)</m> is the <term>transfer function</term>.</p>
+
+		<p>Let us examine the transfer function more closely to see if we can use it to write our particular solution in a more useable form. First, let us write 
+            <me>P(i \omega ) = (i\omega)^2 + 2c(i \omega) + \omega_0^2 = (\omega_0^2 - \omega^2) + 2ic \omega.</me>
+        in polar form,
+            <me>P(i \omega) = R e^{i \phi} = R(\cos \phi + i \sin \phi),</me>
+        where
+            <me>R = \sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}</me>
+        and <m>\phi</m> is the angle defined by the equations
+            <md>
+                <mrow>\cos \phi &amp; = \frac{\omega_0^2 - \omega^2}{\sqrt{(\omega_0^2 - \omega^2)^2 - 4 c^2  \omega^2}},</mrow>
+                <mrow>\sin \phi &amp; = \frac{2c\omega}{\sqrt{(\omega_0^2 - \omega^2)^2 - 4 c^2  \omega^2}}.</mrow>
+            </md>
+        Since <m>2 c \omega \gt 0</m>, we know that <m>\sin \phi \gt 0</m>.  Equivalently, <m>0 \lt \phi \lt \pi</m>.  Thus,
+            <me>\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right).</me>
+        Therefore, we can write the transfer function as
+            <me>H(i \omega) = \frac{1}{P(i \omega)} = \frac{1}{R} e^{-i \phi}.</me>
+        We define the <term>gain</term> to be 
+            <me>G(\omega) = \frac{1}{R} = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}},</me>
+        and we will rewrite the transfer function as
+            <me>H(i \omega) = G(\omega) e^{-i \phi(\omega)}.</me>
+        Thus, the solution to
+            <me>x_c'' + 2c x_c' + \omega_0^2 x_c = Ae^{i \omega t}</me>
+        is
+            <men xml:id="equation-secondorder04-force-damped-complex">x_c(t) = H(i \omega) A e^{i \omega t} = G(\omega) A e^{i(\omega t - \phi)}.</men>
+        Taking the real part of <xref ref="equation-secondorder04-force-damped-complex" />, our particular solution is
+            <me>x_p(t) =  \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi ).</me></p>
+
+		<p>It is now clear that particular solution has the same frequency as the forcing term. In addition, <m>x_p</m> is out of phase with the driving force by the amount
+            <me>\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega}\right).</me>
+        The general solution to
+            <me>x'' + 2c x' + \omega_0^2 x = A \cos \omega t</me>
+        is
+            <me>x(t) = x_h(t) + x_p(t) = e^{-ct} (c_1 \cos(\eta t) + c_2 \sin(\eta t)) + G(\omega) A \cos(\omega t - \phi).</me>
+        Since <m>x_h</m> has the factor <m>e^{-ct}</m>, the homogeneous part of the solution quickly decays to zero as <m>t \to \infty</m>. For this reason, <m>x_h</m> is called the <term>transient term</term> while <m>x_p</m> is called the <term>steady-state term</term>.</p>
+
+        <example>
+            <p>Let us examine the steady-state solution of the harmonic oscillator in Example<nbsp /><xref ref="example-secondorder04-force-damped" />. We have already determined that the second-order linear differential equation
+                <me>x'' + 2x' + 2x = 3 \cos 4t</me>
+            has solution
+            	<me>x(t) = x_h(t) + x_p(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t + \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).</me>
+            The natural frequency is <m>\omega_0 = \sqrt{2} \approx 1.4142</m>
+            If we choose the initial conditions so that <m>c_1 = 0</m> and <m>c_2 = 1</m>, our transient term is
+                <me>x_h(t) = e^{-ct} \sin \beta t = e^{-t} \sin t.</me>
+            Since <m>c = 1</m>, <m>\omega = 4</m>, and <m>A = 3</m>, the gain is <m>G(4) \approx 0.0620</m>, the amplitude of the steady state solution is <m>G(4) \cdot 4 \approx 0.2481</m>. The phase is <m>\phi = \phi(4) \approx 2.6224.</m> The solution and the steady-state solution are given in Figure<nbsp /><xref ref="figure-secondorder04-forced-spring-steady-state" />. As we can see, transient solutions can be quite large when compared to steady-state solutions.</p>
+
+        </example>
+
+        <figure xml:id="figure-secondorder04-forced-spring-steady-state">
+        	<image width="60%" xml:id="secondorder04-secondorder04-forced-spring-steady-state">
+                <sageplot>
+					t = var('t')
+					xh = exp(-t)*sin(t)
+					xp = - 21/130*cos(4*t) + 6/65*sin(4*t)
+					p = plot(xh + xp, (t, 0, 3*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x_h + x_p$')
+					p += plot(xp, (t, 0, 3*pi),ticks=pi,tick_formatter=pi, color="red", legend_label='$x_p$')
+					p
+                </sageplot>
+            </image>
+            <caption>A forced damped harmonic oscillator and the steady-state solution.</caption>
+        </figure>
+
+         <p>Large transient currents can be destructive in electrical circuits. For example, a light bulb usually burns out when a large transient flows through an already weakened bulb. This, usually occurs at the time the light bulb is turned out or turned off. Large transient currents are particularly harmful to the hard drive in a computer. For this reason, computers should be left on except in the case that they are not being used for a period of several days.</p>
+
+
+	</subsection>
+
+    <subsection xml:id="subsection-secondorder04-important-lessons">
+    	<title>Important Lessons</title>
+        	
+        <p><ul>
+        
+        	<li>A forced damped harmonic oscillator,
+                <me>x'' + 2c x' + \omega_0^2 x = A \cos \omega t</me>
+            has homogeneous solution
+                <me>x_h = e^{-ct} (c_1 \cos \eta t + c_2 \sin \eta t),</me>
+            where <m>\eta = \sqrt{\omega_0^2 - c^2}</m>. A particular solution is given by
+                <me>x_p(t) = \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi ),</me>
+            where the phase angle <m>\phi</m> is
+                <me>\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right)</me>
+            and the gain <m>G</m> is given by
+                <me>G(\omega) = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}}.</me></li>
+
+			<li>The amplitude and phase of the steady-state solution,
+                <me>x_p(t) = G(\omega) A \cos(\omega t - \phi),</me>
+            are determined by
+                <me>\omega_0^2G = \frac{1}{\sqrt{(1- s^2)^2 + D^2 s^2}},</me>
+            where <m>\omega = s \omega_0</m> and <m>D = 2c/\omega_0</m>.</li>
+		
+			<li>In an undamped harmonic oscillators with a sinusoidal forcing term, the natural frequency of the solution interacts with the frequency of the forcing term. As the frequency of the forcing term approaches the natural frequency of the equation, we can observe a phenomenon called <term>resonance</term>. We can use the equation
+				<me>x'' + \omega_0^2 x = A \cos \omega t</me>
+			to model an undamped harmonic oscillator with sinusoidal forcing.</li>
+
+			<li>If the driving frequency is not equal to the natural frequency (<m>\omega \neq \omega_0</m>), we have a particular solution
+				<me>x_p(t) = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t).</me>
+			If the two frequencies are close, we can see a phenomenon called <term>beats</term>.</li>
+
+			<li>If the driving frequency is equal to the natural frequency, we have a particular solution
+				<me>x_p(t)  = \frac{A}{2 \omega_0} t \sin \omega_0 t</me>
+			In this case, we can see the <term>resonance</term> phenomenon.</li>
+
+			<li>A forced damped harmonic oscillator,
+                <me>x'' + 2c x' + \omega_0^2 x = A \cos \omega t</me>
+            has homogeneous solution
+                <me>x_h = e^{-ct} (c_1 \cos \eta t + c_2 \sin \eta t),</me>
+            where <m>\eta = \sqrt{\omega_0^2 - c^2}</m>. A particular solution is given by
+                <me>x_p(t) = \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi),</me>
+            where the phase angle <m>\phi</m> is
+                <me>\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right)</me>
+            and the gain <m>G</m> is given by
+                <me>G(\omega) = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}}.</me></li>
+
+		</ul></p>
+	
+	</subsection>
+
+    <xi:include href="./exercises/secondorder04.xml" />
+
+    <subsection number="no" xml:id="subsection-secondorder04-sage-project">
+        <title>Project<mdash />The Tacoma Narrows Bridge</title>
+
+        <subsubsection xml:id="subsubsection-secondorder04-history-tacoma-narrows">
+            <title>The History of the Tacoma Narrows Bridge</title>
+
+            <p>On July 1, 1940, the Tacoma Narrows Bridge was completed and opened to traffic (Figure<nbsp /><xref ref="figure-secondorder04-tacoma-narrows-bridge" />). From the first day of operation, the bridge experienced vertical oscillations of several feet. The bridge received the nickname <q>Galloping Gertie</q> for its wild behavior. On the morning of November 7, the bridge began undulating up and down with motions as large as three feet. Later, the bridge began to experience torsional oscillations as large as 23 degrees. The bridge finally came crashing down at 11:10 a.m. For a long time, the collapse of the Tacoma Narrows Bridge was attributed to resonance. However, we shall soon see the the story is more complicated.</p>
+
+            <figure xml:id="figure-secondorder04-tacoma-narrows-bridge">
+                <caption>The Tacoma Narrows Bridge</caption>
+                <image width="80%" source="images/tacoma-narrows-bridge.png" />
+            </figure>
+
+            <p>Construction on first Tacoma Narrows Bridge, A.K.A. <q>Galloping Gertie</q>, was completed on July 1, 1940, the bridge was opened to traffic (Figure<nbsp /><xref ref="figure-secondorder06-tacoma-narrows-bridge" />). Even on the first day of operation, people driving bridge experienced vertical oscillations of several feet. On the morning of November 7, these vertical oscillations were as large as three feet. Later that morning, the bridge began to experience torsional oscillations as great as 23 degrees. The bridge failed castrophically at 11:10 a.m. with the center span falling into Puget Sound below.</p>
+            
+            <figure xml:id="figure-secondorder06-tacoma-narrows-bridge">
+                <image width="80%" source="images/Tacoma_Narrows_Bridge_2017.jpg" />
+                <caption>The Tacoma Narrows Bridge (2017)</caption>
+            </figure>
+            
+            <p>There are many interesting stories connected with the first Tacoma Narrows bridge. One of the insurance policies had been written by a local travel agent who pocketed the premium and failed to report the <dollar />800,000 policy to his company. During sentencing at his trial, he pointed out that bridge officials had planned to cancel all policies in one more week after which his crime would have never been discovered. After the collapse of the Tacoma Narrows bridge, the governor of the State of Washington announced, <q>We are going to build the exact same bridge, exactly as before.</q> Theodore Von Kármán, director of the Guggenheim Aeronautical Laboratory at the California Institute of Technology and a member of the board of inquiry into the collapse,<fn>The Jet Propulsion Laboratory, managed by the California Institute of Technology for the National Aeronautics and Space Administration grew out of the Guggenheim Aeronautical Laboratory.</fn> sent a telegram to the governor stating, <q>If you build the exact same bridge exactly as before, it will fall into the exact same river exactly as before.</q></p>
+        </subsubsection>
+
+        <subsubsection xml:id="subsubsection-secondorder04-design-tacoma-narrows">
+            <title>The Design of the Narrows Bridge</title>
+
+            <p>The Tacoma Narrows bridge is a suspension bridge like the Golden Gate bridge. The road bed of the suspension bridge was hung from vertical cables attached to other cables strung between the two towers. If we think of the cables as long springs, it is tempting to model the oscillations of the road bed with an harmonic oscillator, and one's first guess as to the reason for the collapse of the bridge would be resonance.</p>
+
+            <p>However, the answer may not be so simple. If the collapse of the bridge was due to resonance, the forcing frequency of a forced harmonic oscillator must be close to its natural frequency, but the wind (the forcing) simply does not behave like this.  One explanation might be the fact that cables are not true springs. They act more like rubber bands. Imagine a mass suspended by both a spring and a rubber band. The rubber band acts like a spring when it is stretched, but there is no restoring force if the oscillator is in a compressed position (Figure<nbsp /><xref ref="figure-secondorder06-spring-rubber-band" />).<fn>For the arguments for and against resonance, consult the references at the end of this section.</fn></p>
+
+            <figure xml:id="figure-secondorder06-spring-rubber-band">
+				<image xml:id="secondorder06-spring-rubber-band">
+                   <latex-image-code><![CDATA[
+						\begin{tikzpicture}[scale=0.75]
+						\shadedraw[top color=gray!10,bottom color=blue!50] (-3,5) -- (6,5) -- (6,6) -- (-3,6) -- cycle;
+						\filldraw[fill=blue!20,draw=blue!60!black, thick] (0,0) -- (3,0) -- (3,2) -- (0,2) -- cycle;
+						\draw[ultra thick] (0.5,2) -- (0.5,2.5) (0.5,4.5) --(0.5,5);
+						\draw[snake=coil,segment length=5pt,segment amplitude=5pt,ultra thick] (0.5,2.5) -- (0.5,4.5); 
+						\draw[ultra thick] (2.5,2) -- (2.5,2.5) (2.5,4.5) --(2.5,5);
+						\draw[ultra thick] (2.5,3.5) ellipse (0.2 and 1);
+						\draw[->] (6,3.5)  node[right] {rubber band} -- (4,3.5);
+						\draw[->] (-3,3.5)  node[left] {spring} -- (-1,3.5);
+						\node at (1.5,1) {$m$};
+						\end{tikzpicture}]]>
+	                </latex-image-code>
+	            </image>
+                <caption>A spring-rubber band system</caption>
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection xml:id="subsubsection-secondorder04-spring-rubberband">
+            <title>The Spring-Rubber Band Model</title>
+
+            <p>Suppose that <m>y(t)</m> is vertical displacement of the mass the spring-rubber band model (Figure<nbsp /><xref ref="figure-secondorder06-spring-rubber-band" />), where the displacement is positive in the downward direction and negative in the upward direction. We will also assume that we have a damped system. If this is the case, we can model the motion of the mass with the differential equation
+                <men xml:id="equation-secondorder06-spring-rubber-band-1">my'' = - b y' - k_1 y -  k_2 y^+ + F(t),</men>
+            where <m>y^+ = \max(y, 0)</m>.  Here,  <m>m</m> is the mass, <m>b</m> is the damping coefficient, <m>k_1</m> is the spring constant, and <m>F(t)</m> is the forcing term. The term <m>k_2 y^+</m> corresponds to the rubber band in our system and can be explained as follows:
+                <me>y^+(t) =
+                \begin{cases}
+                y(t), &amp; \text{the rubber band is stretched}, \\
+                0,    &amp; \text{the rubber band is slack or tight but not stretched}.
+                \end{cases}</me>
+            Thus, the rubber band acts as a spring with spring coefficient <m>k_2</m>, if the rubber band is stretched, but has no effect on the system if the rubber band is slack. Of course, the term <m>my''</m> is just an application of Newton's Second law of Motion.</p>
+
+            <p>We can rewrite equation<nbsp /><xref ref="equation-secondorder06-spring-rubber-band-1" /> in the more familiar form
+                <men xml:id="equation-secondorder06-spring-rubber-band-2">my'' + b y' + k_1 y +  k_2 y^+ = F(t),</men>
+            Our first observation is that this equation is a nonlinear due to the <m>y^+</m> term. This may effect how sensitive the system is to initial conditions. A linear harmonic oscillator is not sensitive to initial conditions. For example, suppose we consider the harmonic oscillator
+                <me>y'' + 2 y' + 2y = \sin t</me>
+            and examine the behavior of the solutions for different initial conditions. In Figure<nbsp /><xref ref="figure-secondorder06-tacoma-solutions-1" />, we give the solutions for <m>y(0) = 0</m> with <m>y'(0) = -4</m>, <m>y'(0) = 1</m>, and <m>y'(0) = 3</m>. Even though the transient part of the solution can differ a great deal depending on the initial conditions, all of the solutions eventually approach the steady-state solution.</p>
+
+            <figure xml:id="figure-secondorder06-tacoma-solutions-1">
+                <caption>Solutions of <m>y'' + 2 y' + 2y = \sin t</m></caption>
+                <image width="80%" source="images/tacoma-solutions-1.png" />
+            </figure>
+
+            <p>Let us return to our spring-rubber band model and let us assume that <m>m = 1</m>. We can rewrite equation<nbsp /><xref ref="equation-secondorder06-spring-rubber-band-2" /> as a system of first-order equations,
+                <md>
+                    <mrow>y' &amp; = v</mrow>
+                    <mrow>v' &amp; = - k_1 y  - k_2 y^+ - b v + F(t)</mrow>
+                </md>
+            or
+                <md>
+                    <mrow>x' &amp; = v</mrow>
+                    <mrow>v' &amp; = - h(y) -  b v + F(t),</mrow>
+                </md>
+            where
+                <me>h(y)
+                =
+                \begin{cases}
+                k_1 y &amp; \text{if } y \lt 0 \\
+                (k_1 + k_2) y &amp; \text{if } y \geq 0.
+                \end{cases}</me>
+            Let us assume that the forcing term is <m>F(t) = 10 + \lambda \sin \mu t</m>. If we keep <m>\lambda</m> small and assume that both <m>y(0)</m> and <m>y'(0)</m> are small, there will always be tension on the rubber band. Or in the case of the Tacoma Narrows Bridge, there will always be tension on the cables of the suspension bridge. However, a large initial velocity such as a gust of wind on the bridge, might cause the cables to go slack.</p>
+
+            <p>To see how this works in practice, we choose constants <m>\lambda = 0.1</m>, <m>\mu = 4</m>, <m>k_1 = 13</m>, <m>k_2 = 4</m>, and <m>b = 0.01</m>, the system becomes
+                <md>
+                    <mrow>y' &amp; = v</mrow>
+                    <mrow>v' &amp; = - h(y) -  0.01v + 10 + 4 \sin 0.1 t</mrow>
+                </md>
+            where
+                <me>h(y)
+                =
+                \begin{cases}
+                13 x &amp; \text{if } x \lt 0 \\
+                17 x &amp; \text{if } x \geq 0.
+                \end{cases}</me>
+            This is a nonautonomous (and nonlinear) system and can be very sensitive to initial conditions. If we find a numerical solution to this system with <m>y(0) = 0</m> and <m>v(0) = 4.764</m>, we obtain low amplitude solutions (Figure<nbsp /><xref ref="figure-secondorder06-tacoma-solutions-2" />). However, we only have to change the initial velocity of the system slightly to <m>v(0) = 4.765</m> in order to obtain large amplitude solutions that do not die out over time.</p>
+
+            <figure xml:id="figure-secondorder06-tacoma-solutions-2">
+                <caption>Initial conditions <m>y(0) = 0</m> with <m>y'(0) = 4.764</m> and <m>y'(0) = 4.765</m></caption>
+                <image width="80%" source="images/tacoma-solutions-2a.png" />
+                <image width="80%" source="images/tacoma-solutions-2b.png" />
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection xml:id="subsubsection-secondorder04-bridge-model">
+            <title>The Bridge Model</title>
+
+            <p>We can now model the bridge by 
+                <me>m y'' + \alpha y' + \beta y + \gamma y^+ = -gm + F(t),</me>
+            where
+                <ul>
+
+                    <li><m>y</m> is the height of the road bed at the center of the bridge.</li>
+
+                    <li><m>m</m> is the mass of the bridge.</li>
+
+                    <li><m>\alpha y'</m> is the damping term. We assume that <m>\alpha</m> is small since suspension bridges are relatively flexible structures.</li>
+
+                    <li><m>\beta y</m> is the force provided by the material of the bridge pulling the bridge back to <m>y = 0</m>.</li>
+
+                    <li><m>\gamma y^+</m> is the force provided by the pull of the cables.</li>
+
+                    <li><m>-gm</m> is the force provided by gravity.</li>
+
+                    <li><m>F(t)</m> is the periodic force provided by the wind. Yes, wind does provide a periodic force. Just think of how a flag flutters in a wind.</li>
+
+                </ul></p>
+
+        </subsubsection>
+
+        <subsubsection xml:id="subsubsection-secondorder04-torsion-model">
+            <title>The Model for Torsion</title>
+
+            <p>We have still not accounted for the large torsional oscillations that occurred on November 7, 1940, the day that the Tacoma Narrows bridge collapsed. If we look down the bridge (Figure<nbsp /><xref ref="figure-secondorder06-tacoma-narrows-bridge" />), we see the road bed suspended from two cables<mdash />one on each side of the road. Thus, we can view a cross-section of the bridge as a rod suspended by cables or springs on each end. The bar is free to move vertically and rotate about its center of mass.</p>
+
+            <p>If a spring with spring constant <m>k</m> is extended by a distance <m>y</m>, the potential energy is <m>ky^2/2</m>. Let <m>\theta</m> be the angle of the rod from the horizontal. If a rod of mass <m>m</m> and length <m>2l</m> rotates about its center of gravity with angular velocity <m>d\theta/dt</m>, then its kinetic energy is given by<fn>Consult your local physicist.</fn>
+                <me>\frac{1}{6} m l^2 \left( \frac{d \theta}{dt} \right)^2.</me>
+            The potential due to gravity is <m>-mgy</m>.</p>
+
+            <p>The extension of one spring is given by <m>(y - l \sin \theta)^+</m> and  <m>(y + l \sin \theta)^+</m> in the other, where <m>y^+ = \max(y,0)</m>. We are making the assumption that the cables remain vertical. Since the cables are relatively long compared to the length of the roadbed, this is a reasonable assumption.</p>
+
+            <p>The total potential energy is given by
+                <me>V = \left(\frac{k}{2}\right) \left( \left( (y - l \sin \theta)^+\right)^2 + (y + l \sin \theta)^+ \right)^2 - mgy,</me>
+            and the total kinetic energy is given by
+                <me>T = \frac{m}{2}   \left(  \frac{dy}{dt}\right)^2 + \frac{1}{6} m l^2 \left(  \frac{d \theta}{dt} \right)^2.</me>
+            Let <m>L = T - V</m> and put 
+                <me>\frac{d}{dt} \left(  \frac{\delta L}{\delta \theta'} \right) = \frac{\delta L}{\delta \theta}</me>
+            and
+                <me>\frac{d}{dt} \left(  \frac{\delta L}{\delta y'} \right) = \frac{\delta L}{\delta y}</me>
+            where <m>\delta \theta'</m> and <m>\delta y'</m> are small damping terms.  Thus, we obtain the equations
+                <md>
+                    <mrow>\frac{1}{3} m l^2 \theta'' &amp; = k l \cos \theta [(y - l \sin \theta)^+ - (y + l \sin \theta)^+]</mrow>
+                    <mrow>y'' &amp; = -k [(y - l \sin \theta)^+ + (y + l \sin \theta)^+] + mg</mrow>
+                </md>
+            Since the force exerted by the springs (cables) is not perpendicular to the rod but at an angle <m>\theta</m>, <m>\cos \theta</m> must appear in the first equation. Adding forcing and damping terms,  we have
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta'  + \frac{3k}{ml}\cos \theta [(y - l \sin \theta)^+ - (y + l \sin \theta)^+]  + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{k}{m}[(y - l \sin \theta)^+ + (y + l \sin \theta)^+] + g.</mrow>
+                </md></p>
+
+            <p>If we assume that the cables never lose tension, then
+                <md>
+                    <mrow>(y - l \sin \theta)^+ &amp; = y - l \sin \theta</mrow>
+                    <mrow>(y + l \sin \theta)^+ &amp; = y + l \sin \theta</mrow>
+                </md>
+            and we end up with the uncoupled equations
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta' - \frac{6k}{m}\cos \theta \sin \theta + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{2k}{m} y + g.</mrow>
+                </md>
+            The first equation models the torsional motion while the second models the vertical motion.</p>
+
+            <p>If the torsional oscillations are very small, then we can assume that
+                <me>\sin \theta \approx \theta \qquad \text{and} \qquad \cos \theta \approx 1,</me>
+            or
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta'  - \frac{6k}{m}\theta + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{2k}{m} y + g,</mrow>
+                </md>
+            each of which is which is linear. However, the torsional oscillations for the Narrow bridge were as large as 23 degrees. The linear model
+                <me>\theta'' = - 0.01 \theta' - (2.4) \theta + (1.2) \sin(0.06 t)</me>
+            and the nonlinear model
+                <me>\theta'' = - 0.01 \theta' - (2.4) \cos \theta \sin \theta + (1.2) \sin(0.06 t)</me>
+            behave very differently under the initial conditions <m>\theta(0) = 1.2</m> and <m>\theta'(0) = 0</m>. See Figures<nbsp /><xref ref="figure-secondorder06-tacoma-linear-torsion" /> and <xref ref="figure-secondorder06-tacoma-nonlinear-torsion" /></p>
+
+            <figure xml:id="figure-secondorder06-tacoma-linear-torsion">
+                <caption>Solution of the linear model for torsion</caption>
+                <image width="60%" source="images/tacoma-linear-torsion.png" />
+            </figure>
+
+            <figure xml:id="figure-secondorder06-tacoma-nonlinear-torsion">
+                <caption>Solution of the nonlinear model for torsion</caption>
+                <image width="60%" source="images/tacoma-nonlinear-torsion.png" />
+            </figure>
+
+        </subsubsection>
+
+    </subsection>
+
+
+</section>
+
+<!--</section>-->
