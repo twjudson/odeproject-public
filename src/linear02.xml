@@ -12,14 +12,14 @@
 
     <introduction>
 
-        <p>A <term>first-order linear system of <m>n</m> equations and <m>n</m> variables</term><index><main>system</main><sub>first-order linear</sub></index> is any system that can be written in the form
+        <p>A <term>first-order linear system of <m>n</m> equations and <m>n</m> variables</term><idx><h>system</h><h>first-order linear</h></idx> is any system that can be written in the form
             <md>
                 <mrow>\frac{dx_1}{dt} &amp; = a_{11}(t) x_1(t) + \cdots + a_{1n}(t) x_n(t) + f_1(t),</mrow>
                 <mrow>\frac{dx_2}{dt} &amp; = a_{21}(t) x_1(t) + \cdots + a_{2n}(t) x_n(t) + f_2(t),</mrow>
                 <mrow>&amp; \vdots</mrow>
                 <mrow>\frac{dx_n}{dt} &amp; = a_{n1}(t) x_1(t) + \cdots + a_{nn}(t) x_n(t) + f_n(t).</mrow>
             </md>
-        If each of the coefficients is constant and the functions <m>f_i</m> vanish, then we have a <term>homogeneous first-order linear system with constant coefficients</term><index><main>system</main><sub>homogeneous first-order linear</sub></index>,
+        If each of the coefficients is constant and the functions <m>f_i</m> vanish, then we have a <term>homogeneous first-order linear system with constant coefficients</term><idx><h>system</h><h>homogeneous first-order linear</h></idx>,
             <md>
                 <mrow>\frac{dx_1}{dt} &amp; = a_{11} x_1 + \cdots + a_{1n} x_n</mrow>
                 <mrow>\frac{dx_2}{dt} &amp; = a_{21} x_1 + \cdots + a_{2n} x_n,</mrow>
@@ -27,7 +27,7 @@
                 <mrow>\frac{dx_n}{dt} &amp; = a_{n1} x_1 + \cdots + a_{nn} x_n.</mrow>
             </md></p>
 
-        <p>We will concentrate on <m>2 \times 2</m> homogeneous first-order linear systems or <term>planar systems</term><index><main>system</main><sub>planar</sub></index> for the time being,
+        <p>We will concentrate on <m>2 \times 2</m> homogeneous first-order linear systems or <term>planar systems</term><idx><h>system</h><h>planar</h></idx> for the time being,
             <mdn>
                 <mrow xml:id="equation-linear02-2x2-1">\frac{dx}{dt} &amp; = a x + b y,</mrow>
                 <mrow xml:id="equation-linear02-2x2-2">\frac{dy}{dt} &amp; = c x + d y.</mrow>
@@ -38,7 +38,7 @@
     <subsection xml:id="subsection-linear02-planar-systems">
         <title>Planar Systems and <m>2 \times 2</m> Matrices</title>
 
-         <p>We will use linear systems of differential equations to illustrate how we can use systems of differential equations to model how subtances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (Figure<nbsp /><xref ref="figure-linear02-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 900 liters per hour. Brine is also pumped back into Tank <m>A</m> from Tank <m>B</m> at the rate of 400 liters per hour, and an additional 500 liters of brine per hour is drained from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
+         <p>We will use linear systems of differential equations to illustrate how we can use systems of differential equations to model how subtances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (<xref ref="figure-linear02-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 900 liters per hour. Brine is also pumped back into Tank <m>A</m> from Tank <m>B</m> at the rate of 400 liters per hour, and an additional 500 liters of brine per hour is drained from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
             <md>
                 <mrow>x(0) &amp; = 100</mrow>
                 <mrow>y(0) &amp; = 0</mrow>
@@ -52,30 +52,9 @@
         <figure xml:id="figure-linear02-mixing-example">
 
             <image width="60%" xml:id="linear02-mixing-example">
-                <latex-image-code><![CDATA[
-                    \begin{tikzpicture}[scale=0.7]
-                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (0,0) arc (180:360: 2 and 0.5) -- (4,0) -- (4,6) arc (0:180: 2 and 0.5) -- (0,6) -- cycle;
-                    \draw[blue!50!black, thick] (2,6) ellipse (2 and 0.5);
-                    \filldraw[fill=blue!20,draw=blue!50!black, thick] (7,0) arc (180:360: 2 and 0.5) -- (11,0) -- (11,6) arc (0:180: 2 and 0.5) -- (7,6) -- cycle;
-                    \draw[blue!50!black, thick] (9,6) ellipse (2 and 0.5);
-                    \filldraw[fill=blue!20] (4,1) -- (7,1) -- (7,1.5) -- (4,1.5) -- cycle;
-                    \filldraw[fill=blue!20] (4,4.5) -- (7,4.5) -- (7,5) -- (4,5) -- cycle;
-                    \filldraw[fill=blue!20] (11,1) -- (12,1) arc (90:0:0.5)-- (12.5,-0.5) -- (12,-0.5) -- (12,0.25) arc (0:90:0.25) --  (11,0.5) -- cycle;
-                    \filldraw[fill=blue!20] (-1,7) -- (-1,5.75) arc (180:270:0.25) -- (-0.5,5.5) -- (0,5.5) -- (0,5) -- (-1,5) arc (270:180:0.5) --  (-1.5,7) -- cycle;
-                    \draw[blue!50!black,<-,thick] (5,2) -- (6,2);
-                    \draw[blue!50!black,->,thick] (5,4) -- (6,4);
-                    \draw[blue!50!black,->,thick] (13,0.5) -- (13,-0.5);
-                    \draw[blue!50!black,<-,thick] (-2,5.5) -- (-2,6.5);
-                    \node at (2,3) {300 {\it l}};
-                    \node at (9,3) {300 {\it l}};
-                    \node at (2,-1) {Tank $A$};
-                    \node at (9,-1) {Tank $B$};
-                    \node at (5.5,1) [below] {400 {\it l}/{\it hr}};
-                    \node at (5.5,5) [above] {900 {\it l}/{\it hr}};
-                    \node at (12.25,-0.5) [below] {500 {\it l}/{\it hr}};
-                    \node at (-1.25,7) [above] {500 {\it l}/{\it hr}};
-                    \end{tikzpicture}]]>
-                </latex-image-code>
+                <latex-image>
+                    <xi:include href="tikz/linear02-mixing-example.tex" parse="text"/>
+                </latex-image>
             </image>
 
             <caption>Mixing example with two tanks</caption>
@@ -319,7 +298,7 @@
 
 		<p>We can now proceed to the proof of the theorem. Suppose that we have a linear system <m>{\mathbf x}' = A{\mathbf x}</m> such that <m>A</m> has a pair of distinct real eigenvalues, <m>\lambda_1</m> and <m>\lambda_2</m>, with associated eigenvectors <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>.  By the Principle of Superposition, we know that
             <me>{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2.</me>
-        is a solution to the linear system <m>{\mathbf x}' = A {\mathbf x}</m>. To show that this is the general solution, we must show that we can choose <m>c_1</m> and <m>c_2</m> to satisfy a given initial condition <m>{\mathbf x}_0 = {\mathbf x}(0) = (x_0, y_0)</m>. By Lemma<nbsp /><xref ref="lemma-linear02-distinct-real-eigenvalues" />, we know that <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> form a basis for <m>{\mathbb R}^2</m>.  That is, we can write  <m>{\mathbf x}_0</m> as a linear combination of <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>.  In other words, we can find <m>c_1</m> and <m>c_2</m> such that
+        is a solution to the linear system <m>{\mathbf x}' = A {\mathbf x}</m>. To show that this is the general solution, we must show that we can choose <m>c_1</m> and <m>c_2</m> to satisfy a given initial condition <m>{\mathbf x}_0 = {\mathbf x}(0) = (x_0, y_0)</m>. By <xref ref="lemma-linear02-distinct-real-eigenvalues" />, we know that <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m> form a basis for <m>{\mathbb R}^2</m>.  That is, we can write  <m>{\mathbf x}_0</m> as a linear combination of <m>{\mathbf v}_1</m> and <m>{\mathbf v}_2</m>.  In other words, we can find <m>c_1</m> and <m>c_2</m> such that
             <me>{\mathbf x}_0 = {\mathbf x}(0) = c_1 {\mathbf v}_1 + c_2 {\mathbf v}_2.</me></p>
 
 		<p>It remains to show that <m>{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2</m> is the unique solution to the system
@@ -374,7 +353,227 @@
 
 <todo>Exercises needed.</todo>
 
-    <xi:include href="./exercises/linear02.xml" />
+
+    <exercises xml:id="exercises-linear02"  filenamebase="linear02">
+    <title>Exercises</title>
+
+ 
+    <exercise>
+        <statement>
+            <p>Solve each of the following linear systems for the given initial values.
+                <ol>
+                
+                    <li><md>
+                            <mrow>x' &amp; = x + 2y</mrow>
+                            <mrow>y' &amp; = -x + 4y</mrow>
+                            <mrow>x(0) &amp; = 3</mrow>
+                            <mrow>y(0) &amp; = 2</mrow>
+                        </md></li>
+
+                    <li><md>
+                            <mrow>x' &amp; = -x + 3y</mrow>
+                            <mrow>y' &amp; = -3x - y</mrow>
+                            <mrow>x(0) &amp; = 3</mrow>
+                            <mrow>y(0) &amp; = 2</mrow>
+                        </md></li>
+
+                    <li><md>
+                            <mrow>x' &amp; = -2 x + y</mrow>
+                            <mrow>y' &amp; = -9x + 4y</mrow>
+                            <mrow>x(0) &amp; = 5</mrow>
+                            <mrow>y(0) &amp; = 3</mrow>
+                        </md></li>
+                                    
+                </ol></p>
+        </statement>
+
+        <hint>
+
+        </hint>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+
+    <exercise>
+        <statement>
+            <p>Consider the nonhomogeneous system of linear differential equations
+                <mdn>
+                    <mrow xml:id="equation-exercise-linear02-nonhomogeneous-system">x' &amp; = a(t)x + b(t)y + f(t)</mrow>
+                    <mrow>y' &amp; = c(t)x + d(t)y + g(t)</mrow>
+                </mdn>
+            and assume that the general solution of 
+                <md>
+                    <mrow>x' &amp; = a(t)x + b(t)y</mrow>
+                    <mrow>y' &amp; = c(t)x + d(t)y</mrow>
+                </md>
+            is given by
+                <me>{\mathbf x}_h =
+                \begin{pmatrix}
+                x(t) \\ y(t)
+                \end{pmatrix}
+                =
+                c_1 \begin{pmatrix} u_1(t) \\ u_2(t) \end{pmatrix} +
+                c_2 \begin{pmatrix} v_1(t) \\ v_2(t) \end{pmatrix}.</me>
+            If
+                <me>{\mathbf x}_p
+                =
+                \begin{pmatrix}
+                \phi_1(t) \\ \phi_2(t)
+                \end{pmatrix}</me>
+            is a <em>particular solution</em> of (<xref ref="equation-exercise-linear02-nonhomogeneous-system" />), show that 
+                <me>{\mathbf x}_h + {\mathbf x}_p =
+                \begin{pmatrix}
+                x(t) + \phi_1(t) \\ y(t) + \phi_2(t)
+                \end{pmatrix}</me>
+            is the general solution to the system.  Thus, to solve a nonhomogeneous system of linear differential equations, we need to find the solution of the corresponding homogeneous system and one particular solution of the nonhomogeneous system.</p>
+        </statement>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+
+    <exercise>
+        <statement>
+            <p>Consider the linear system
+                <md>
+                    <mrow>x' &amp; = x + 3y + (t - 3t^2)</mrow>
+                    <mrow>y' &amp; = x - y + (2 - t + t^2)</mrow>
+                    <mrow>x(0) &amp; = 1</mrow>
+                    <mrow>y(0) &amp; = -1.</mrow>
+                </md>
+                <ol>
+
+                    <li>Find the general solution of the homogeneous system
+                        <md>
+                            <mrow>x' &amp; = x + 3y</mrow>
+                            <mrow>y' &amp; = x - y</mrow>
+                        </md></li>
+
+                    <li>Find a particular solution for 
+                        <md>
+                            <mrow>x' &amp; = x + 3y + (t - 3t^2)</mrow>
+                            <mrow>y' &amp; = x - y + (2 - t + t^2)</mrow>
+                        </md></li>
+
+                    <li>Find the solution of 
+                        <md>
+                            <mrow>x' &amp; = x + 3y + (t - 3t^2)</mrow>
+                            <mrow>y' &amp; = x - y + (2 - t + t^2)</mrow>
+                            <mrow>x(0) &amp; = 1</mrow>
+                            <mrow>y(0) &amp; = -1.</mrow>
+                        </md></li>
+
+                </ol></p>
+        </statement>
+
+        <hint>
+            <p>Assume that your solution must be of the form
+                <me>{\mathbf x}_p =
+                \begin{pmatrix}
+                a_2 t^2 + a_1 t + a_0 \\
+                b_2 t^2 + b_1 t + b_0.
+                \end{pmatrix}</me>
+            This is called the <em>method of undetermined coefficients</em>.</p>
+        </hint>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+<todo>This exercise is from another ODE book.</todo>
+
+    <exercise>
+        <statement>
+            <p>Since 6000 B.C., when beer was already known in Babylonia and Sumeria, hundreds of brewing techniques have been used.  One such technique requires two tanks, <m>A</m> and <m>B</m>, in which water mixes with two kinds of sugar, and a larger tank, <m>C</m>, that collects the combined mixture for fermentation.  Tanks <m>A</m> and <m>B</m>, initially contain 1000 liters and 2000 liters of water, respectively.  From an external source 5 liters of liquid sugar flows into Tank <m>A</m> every minute.  From another external source, 10 liters of the second kind of liquid sugar flows into Tank <m>B</m> every minute.  The mixture from Tank <m>A</m> flows into Tank <m>B</m> at the rate of 10 liters per minute.  The mixture from Tank <m>B</m> is pumped back into Tank <m>A</m> at the rate of 5 liters per minute.  The mixture from from Tank <m>B</m> is also pumped into Tank <m>C</m> at the rate of 15 liters per minute.  This technique requires that the amount of sugar in Tanks <m>A</m> and <m>B</m> be known for the duration of the the process.  Assuming that the liquid in each tank is constantly stirred, derive the functions that give the amount of sugar in each tank at time <m>t</m>.</p>
+        </statement>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+<todo>This exercise is from another ODE book.</todo>
+
+    <exercise>
+        <statement>
+            <p>Scottish economist Adam Smith (1723<ndash />1790) asserted that in a free market economy governed by the law of supply and demand, prices will eventually tend toward an equilibrium.  Suppose that we wish to derive a system of differential equations that model the price change for one commodity.  Let <m>d = d(t)</m> and <m>s = s(t)</m> be the time dependent functions that denote the <em>demand</em> and the <em>supply</em> of the commodity, respectively.  The <em>escess demand</em> is <m>r = d - s</m>.  Let <m>p = p(t)</m> be the price of the commodity.  We will assume that both <m>p</m> and <m>r</m> have continuous derivatives.</p>
+
+            <p>Assume that the laws of supply and demand works as follows.
+                <ul>
+
+                    <li>If at a given time, demand is less than supply, prices decrease, so the demand increases.  Thus, excess demand increases.</li>
+
+                    <li>If at a given time, demand is greater than supply, prices increase, so the supply increases.  Thus, excess demand decreases.</li>
+
+                    <li>If at a given time, demand equals supply, prices are constant, so excess demand remains constant, namely zero.</li>
+
+                </ul>
+                <ol>
+
+                    <li>Rewrite the laws of supply and demand in terms of <m>r</m>, <m>p</m>, and derivatives of <m>r</m> and <m>p</m>.</li>
+
+                    <li>Derive a linear system of equations in <m>p</m> and <m>r</m> that describe the law of supply and demand.  That is, express both <m>p'</m> and <m>r'</m> as linear functions of <m>r</m> and <m>p</m>.</li>
+
+                    <li>From the system that you derived in part (1), show that prices must tend toward an equilibrium.</li>
+
+                </ol></p>
+        </statement>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+
+    <exercise>
+        <statement>
+            <p>Consider the system
+                <md>
+                    <mrow>x' &amp; = ax + y</mrow>
+                    <mrow>y' &amp; = 2ax + 2y,</mrow>
+                </md>
+            where <m>a \in {\mathbb R}</m>.  For what values of <m>a</m> do you find a bifurcation (a change in the type of phase portrait)?  Sketch  typical phase portraits for a values of <m>a</m> above and below the bifurcation point.</p>
+        </statement>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+
+    <exercise>
+        <statement>
+            <p>Prove that
+                <me>\alpha e^{\lambda t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta e^{\lambda t} \begin{pmatrix} t \\ 1 \end{pmatrix}</me>
+            is the general solution of 
+                <me>{\mathbf x}' 
+                =
+                \begin{pmatrix}
+                \lambda &amp; 1 \\
+                0 &amp; \lambda
+                \end{pmatrix}
+                {\mathbf x}.</me></p>
+        </statement>
+
+        <solution>
+
+        </solution>
+
+    </exercise>
+
+</exercises>
 
     <subsection number="no" xml:id="subsection-linear02-sage-project">
         <title>Project</title>

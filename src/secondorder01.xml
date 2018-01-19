@@ -22,28 +22,14 @@
         
    	<subsection xml:id="subsection-secondorder01-rlc-circuit">
 
-        <p>Recall the RC circuits that we studied earlier (see Section<nbsp /><xref ref="firstlook03" />). Such circuits contained a voltage source, a capacitor, and a resistor. A battery or generator is an example of a voltage source, and a toaster or an electric stove is an example of something that might provide a resistance in a circuit. Capacitors store an electrical charge and are used in electronic flashes for cameras. We will now add an inductor such as a solenoid, a coil that generates a magnetic field. Inductor applications include transformers, power supplies, televisions, radios. Our new circuit is called an RLC circuit (Figure <xref ref="figure-secondorder01-rlc-circuit" />).</p>
+        <p>Recall the RC circuits that we studied earlier (see <xref ref="firstlook03" />). Such circuits contained a voltage source, a capacitor, and a resistor. A battery or generator is an example of a voltage source, and a toaster or an electric stove is an example of something that might provide a resistance in a circuit. Capacitors store an electrical charge and are used in electronic flashes for cameras. We will now add an inductor such as a solenoid, a coil that generates a magnetic field. Inductor applications include transformers, power supplies, televisions, radios. Our new circuit is called an RLC circuit (<xref ref="figure-secondorder01-rlc-circuit" />).</p>
         
     	<figure xml:id="figure-secondorder01-rlc-circuit">
 
  			<image width="80%" xml:id="secondorder01-rlc-circuit">
-                  <latex-image-code><![CDATA[\begin{tikzpicture}[scale=0.5]
-                        \draw (0,0) -- (0,2.75) (0,4.25) -- (0,7) -- (4.125,7) (6.125,7) -- (10,7) -- (10,5) (10,4.5) -- (10,0) -- (6,0) (4,0) -- (0,0);
-                        \draw (0,3.5) circle (0.75);
-                        \draw (4.125,7) -- (4.25,7.5) -- (4.5,6.5) -- (4.75,7.5) -- (5,6.5) -- (5.25,7.5) -- (5.5,6.5) -- (5.75, 7.5) -- (6,6.5) -- (6.125,7);
-                        \draw (9.5,4.5) -- (10.5,4.5);
-                        \draw (9.5,5) -- (10.5,5);
-                        \draw[snake=coil,segment length=5pt,segment amplitude=5pt] (4,0) -- (6,0); 
-                        \node at (-1,3.5) [left] {$E(t)$};   
-                        \node at (-0.6,4.2) [above] {$+$};  
-                        \node at (-0.6,2.8) [below] {$-$};     
-                        \node at (5,8) [above] {$R$};    
-                        \node at (5,-1) [below] {$L$}; 
-                        \node at (11,5) [right] {$C$};
-      					\node at (5,3.5) {$I(t)$};
-                        \draw [->] (3.5,3) .. controls (4,5) and (7,5.5) .. (6.5,3);
-                	\end{tikzpicture}]]>
-                </latex-image-code>
+ 				<latex-image>
+                    <xi:include href="tikz/secondorder01-rlc-circuit.tex" parse="text"/>
+                </latex-image>   
             </image>
            
             <caption>An RLC Circuit</caption>
@@ -127,7 +113,7 @@
 
 		<p>In general, suppose that 
 			<me>a x'' + b x' + c x = 0,</me>
-		where <m>a \neq 0</m>.  Applying the startegy in Example<nbsp /><xref ref="example-secondorder01-real-solutions" />, we can find the general solution for this equation by finding the roots of the quadratic polynomial <m>a \lambda^2 + b \lambda + c</m>,
+		where <m>a \neq 0</m>.  Applying the startegy in <xref ref="example-secondorder01-real-solutions" />, we can find the general solution for this equation by finding the roots of the quadratic polynomial <m>a \lambda^2 + b \lambda + c</m>,
 			<me>\lambda = - \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.</me>
 		If <m>b^2 - 4ac \gt 0</m>, we have real roots
 			<me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a},</me>
@@ -240,7 +226,7 @@
 			We leave it as an exercise to show that our solution agrees with the solution that we would obtain from solving the equivalent first-order linear system.</p>
 		</example>
 
-		<p>The technique that we have used in Example<nbsp /><xref ref="example-secondorder01-reduction-of-order" /> is called <term>reduction of order</term>. We leave it as an exercise to show that this technique works in general. That is, given a second-order linear differential equation
+		<p>The technique that we have used in <xref ref="example-secondorder01-reduction-of-order" /> is called <term>reduction of order</term>. We leave it as an exercise to show that this technique works in general. That is, given a second-order linear differential equation
 			<me>a x'' + bx' + cx = 0</me>
 		such that <m>b^2 - 4ac = 0</m>, then the general solution is given by
 			<me>x(t) = c_1 e^{\lambda t} + c_2 t e^{\lambda t},</me>
@@ -285,7 +271,145 @@
 			
 	</subsection>
 
-    <xi:include href="./exercises/secondorder01.xml" />
+
+	<exercises xml:id="exercises-secondorder01"  filenamebase="secondorder01">
+    <title>Exercises</title>
+
+	<exercise>
+		<statement>
+			<p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
+				<ol>
+				
+					<li>Show that <m>x_1(t) = e^{-bt/2a}</m> is a solution to <m>a x'' + b x' + cx = 0</m>.</li>
+					
+					<li>Assume that
+						<me>y = v(t) x_1(t) = v(t) e^{-bt/2a}</me>
+					is a solution to  <m>a x'' + b x' + cx = 0</m> and show that <m>v(t) = c_1  + c_2 t</m>.  Thus, 
+						<me>x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}</me>
+					is a general solution for <m>a x'' + b x' + cx = 0</m>.</li>
+
+					</ol></p>
+
+		</statement>
+
+		<hint>
+			<p><ol>
+				
+				<li>Observe that
+					<md>
+						<mrow>a x_1'' + b_1' + cx_1 &amp; = a \left(\frac{-b}{2a}\right)^2e^{-bt/2a} + b \left( \frac{-b}{2a} \right) e^{-bt/2a} + c e^{-bt/2a}</mrow>
+						<mrow>&amp; = e^{-bt/2a} \left( \frac{b^2}{4a} - \frac{b^2}{2a}  + c  \right)</mrow>
+						<mrow>&amp; = e^{-bt/2a} \left( \frac{-b^2 + 4ac}{4a}  \right)</mrow>
+						<mrow>&amp; = 0.</mrow>
+					</md></li>
+
+				<li>If <m>y = v(t) x_1(t) = v(t) e^{-bt/2a}</m> is a solution to our differential equation, then
+					<md>
+						<mrow>a y'' + b y' + cy &amp; = a (v''x_1 + 2 v'x_1' + vx_1'' ) + b(v' x_1 + v x_1') + cv x_1</mrow>
+						<mrow>&amp; = a v''x_1 + 2a v'x_1'   + bv' x_1 + v(a x_1'' +b  x_1' + c x_1)</mrow>
+						<mrow>&amp; = a v'' e^{-bt/2a} + \left[2a \left( \frac{-b}{2a} \right) e^{-bt/2a}   + b e^{-bt/2a} \right] v'</mrow>
+						<mrow>&amp; = a v'' e^{-bt/2a}</mrow>
+						<mrow>&amp; = 0.</mrow>
+					</md>
+				Since <m>a \neq 0</m>, we know that <m>v'' = 0</m>.  Hence, <m>v(t) = c_1  + c_2 t</m>.</li>
+
+			</ol></p>
+		</hint>
+			
+		<solution>
+			<p><ol>
+				
+				<li>Observe that
+					<md>
+						<mrow>a x_1'' + b_1' + cx_1 &amp; = a \left(\frac{-b}{2a}\right)^2e^{-bt/2a} + b \left( \frac{-b}{2a} \right) e^{-bt/2a} + c e^{-bt/2a}</mrow>
+						<mrow>&amp; = e^{-bt/2a} \left( \frac{b^2}{4a} - \frac{b^2}{2a}  + c  \right)</mrow>
+						<mrow>&amp; = e^{-bt/2a} \left( \frac{-b^2 + 4ac}{4a}  \right)</mrow>
+						<mrow>&amp; = 0.</mrow>
+					</md></li>
+
+				<li>If <m>y = v(t) x_1(t) = v(t) e^{-bt/2a}</m> is a solution to our differential equation, then
+					<md>
+						<mrow>a y'' + b y' + cy &amp; = a (v''x_1 + 2 v'x_1' + vx_1'' ) + b(v' x_1 + v x_1') + cv x_1</mrow>
+						<mrow>&amp; = a v''x_1 + 2a v'x_1'   + bv' x_1 + v(a x_1'' +b  x_1' + c x_1)</mrow>
+						<mrow>&amp; = a v'' e^{-bt/2a} + \left[2a \left( \frac{-b}{2a} \right) e^{-bt/2a}   + b e^{-bt/2a} \right] v'</mrow>
+						<mrow>&amp; = a v'' e^{-bt/2a}</mrow>
+						<mrow>&amp; = 0.</mrow>
+					</md>
+				Since <m>a \neq 0</m>, we know that <m>v'' = 0</m>.  Hence, <m>v(t) = c_1  + c_2 t</m>.</li>
+
+			</ol></p>
+		</solution>
+
+	</exercise>		
+
+	<exercise>
+		<statement>
+			<p><em>Reduction of Order</em>.  Suppose that <m>x_1(t)</m> is a solution (not identically zero) to the equation
+				<me>x'' + p(t) x' + q(t) x = 0.</me>
+				<ol>
+
+					<li>Assume that <m>x(t) = v(t) x_1(t)</m> is a solution to <m>x'' + p(t) x' + q(t) x = 0</m> and derive the equation
+						<men xml:id="equation-exercise-secondorder01-reduction-of-order-1">x_1 v'' +(2x_1' + px_1)v' = 0.</men></li>
+
+
+					<li>Let <m>u = v'</m> and show that <xref ref="equation-exercise-secondorder01-reduction-of-order-1" /> is a first-order linear differential equation in <m>u</m>.</li>
+
+
+					<li>Show that <m>x_1(t) = 1/t</m> is a solution to 
+						<men xml:id="equation-exercise-secondorder01-reduction-of-order-2">2 t^2 x'' + 3t x' - x = 0 </men>
+					for <m>t \gt 0</m> and find a second linearly independent solution to <xref ref="equation-exercise-secondorder01-reduction-of-order-2" />.</li>
+
+				</ol></p>
+		</statement>
+
+		<hint>
+			<p><ol>
+			
+				<li><md>
+					<mrow>x'' + px' + qx &amp; = (v''x_1 + 2 v' x_1' + vx_1'') + p(v'x_1 + vx_1') + q(vx_1)</mrow>
+					<mrow>&amp; = x_1 v'' + 2v' x_1' + p x_1 v' + v (x_1'' + p x_1' + q x_1)</mrow>
+					<mrow>&amp; = x_1 v'' +(2x_1' + px_1)v' </mrow>
+					<mrow>&amp; = 0.</mrow>
+				</md></li>
+
+				<li>If <m>u = v'</m>, then <m>x_1 u' +(2x_1' + px_1)u= 0</m>.</li>
+					
+				<li>If <m>x_1(t) = 1/t</m>, then
+					<me>2 t^2 x_1'' + 3t x_1' - x_1 = 2 t^2 \left(\frac{2}{t^3}\right) + 3t \left(\frac{-1}{t^2}\right) - \frac{1}{t} = 0.</me>
+				If we assume that <m>x = v/t</m> is a second solution, then
+					<me>2 t^2 x'' + 3t x' - x = 2tv'' - v' = 0.</me>
+				If we let <m>u = v'</m>, then a solution of <m>2tu' - u = 0</m> is <m>u = \sqrt{t}</m> and <m>v = \int \sqrt{t} \, dt = 2 t^{3/2} / 3</m>.  Therefore, the second solution to our equation is
+					<me>x = \frac{v}{t} = \frac{2}{3} \sqrt{t}.</me></li>
+
+			</ol></p>
+		</hint>
+				
+		<solution>
+			<p><ol>
+			
+				<li><md>
+					<mrow>x'' + px' + qx &amp; = (v''x_1 + 2 v' x_1' + vx_1'') + p(v'x_1 + vx_1') + q(vx_1)</mrow>
+					<mrow>&amp; = x_1 v'' + 2v' x_1' + p x_1 v' + v (x_1'' + p x_1' + q x_1)</mrow>
+					<mrow>&amp; = x_1 v'' +(2x_1' + px_1)v' </mrow>
+					<mrow>&amp; = 0.</mrow>
+				</md></li>
+
+				<li>If <m>u = v'</m>, then <m>x_1 u' +(2x_1' + px_1)u= 0</m>.</li>
+					
+				<li>If <m>x_1(t) = 1/t</m>, then
+					<me>2 t^2 x_1'' + 3t x_1' - x_1 = 2 t^2 \left(\frac{2}{t^3}\right) + 3t \left(\frac{-1}{t^2}\right) - \frac{1}{t} = 0.</me>
+				If we assume that <m>x = v/t</m> is a second solution, then
+					<me>2 t^2 x'' + 3t x' - x = 2tv'' - v' = 0.</me>
+				If we let <m>u = v'</m>, then a solution of <m>2tu' - u = 0</m> is <m>u = \sqrt{t}</m> and <m>v = \int \sqrt{t} \, dt = 2 t^{3/2} / 3</m>.  Therefore, the second solution to our equation is
+					<me>x = \frac{v}{t} = \frac{2}{3} \sqrt{t}.</me></li>
+
+			</ol></p>
+		</solution>
+
+	</exercise>		
+		
+</exercises>
+
 
 	<subsection number="no" xml:id="subsection-secondorder01-sage-project">
         <title>Project</title>
