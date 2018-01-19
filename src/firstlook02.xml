@@ -430,19 +430,6 @@
             <hint>
                 <p>(a) <m>y = -x^2 + 8x + C</m>; (c) <m>x = 3/(3 - t^3)</m>.</p>
             </hint>
-            <solution>
-                <p><ol>
-
-                    <li><m>y = -x^2 + 8x + C</m></li>
-
-                    <li><m>y^2/2 = x^2/2 + x + C</m></li>
-
-                    <li><m>x = \dfrac{3}{3 - t^3}</m></li>
-
-                    <li><m>y + \ln y = \dfrac{t^3}{3} - t + \dfrac{5}{3}</m></li>
-
-                </ol></p>
-            </solution>
         </exercise>
 
         <exercise>
@@ -471,59 +458,6 @@
                 </ol></p>
 
             </hint>
-            <solution>
-                <p><ol>
-
-                    <li><sage>
-                        <input>
-                            x = var('x')
-                            y = function('y')(x)
-                            de = diff(y, x) == 8 - 2*x
-                            desolve(de, y)
-                        </input>
-                        <output>
-                            -x^2 + _C + 8*x
-                        </output>
-                    </sage></li>
-
-                    <li><sage>
-                        <input>
-                            x = var('x')
-                            y = function('y')(x)
-                            de = diff(y, x) == (x + 1)/y
-                            desolve(de, y)
-                        </input>
-                        <output>
-                            1/2*y(x)^2 == 1/2*x^2 + _C + x
-                        </output>
-                    </sage></li>
-
-                    <li><sage>
-                        <input>
-                            t = var('t')
-                            x = function('x')(t)
-                            de = diff(x, t) == x^2*t^2
-                            desolve(de, x, ics=[0, 1])
-                        </input>
-                        <output>
-                            -1/x(t) == 1/3*t^3 - 1
-                        </output>
-                    </sage></li>
-
-                    <li><sage>
-                        <input>
-                            t = var('t')
-                            y = function('y')(t)
-                            de = diff(y, t) == (t^2*y - y)/(y + 1)
-                            desolve(de, y, ics=[0, -1])
-                        </input>
-                        <output>
-                            log(y(t)) + y(t) == I*pi + 1/3*t^3 - t - 1
-                        </output>
-                    </sage></li>
-
-                </ol></p>
-            </solution>
         </exercise>
 
         <exercise>
@@ -535,8 +469,6 @@
                     </md>
                 What is the domain of your solution?</p>
             </statement>
-            <solution>
-            </solution>
         </exercise>
 
 
@@ -565,78 +497,12 @@
 
                     </ol></p>
             </statement>
-            <solution>
-                <p><ol>
-
-                    <li>The equation
-                        <me>\frac{dy}{dx} = f(x, y) = \frac{x^2 + y^2}{2xy}</me>
-                    is homogeneous, since
-                        <me>f(tx, ty) = \frac{(tx)^2 + (ty)^2}{2(tx)(ty)} = \frac{t^2(x^2 + y^2)}{t^2(2xy)} = \frac{x^2 + y^2}{2xy} = f(x, y).</me></li>
-
-                    <li>If <m>y = xv</m>, then
-                        <me>\frac{dy}{dx} = v + \frac{dv}{dx},</me>
-                    and
-                        <me>\frac{dy}{dx} = \frac{x^2 + y^2}{2xy}</me>
-                    becomes
-                        <me>v + \frac{dv}{dx} = \frac{x^2 + (xv)^2}{2x(xv)} = \frac{x^2 + v^2 x^2}{2v x^2} = \frac{1 + v^2}{2v}.</me>
-                    We can rewrite this last equation as
-                        <me>\frac{2v}{1 - v^2} \, dv = \frac{1}{x} \, dx,</me>
-                    which is separable.  Integrating both sides, we have
-                        <me>C - \ln |v^2 - 1| = \ln|x|,</me>
-                    where <m>C</m> is an arbitrary constant. The last equation can be rewritten as
-                        <me>\ln|(v^2 - 1)x| = \ln| ((y/x)^2 - 1)x| = C</me>
-                    or
-                        <me>\ln|y^2/x - x| = C.</me></li>
-
-                    <li>If we have a homogeneous equation <m>dy/dx = f(x, y)</m> and make the substitution <m>y = vx</m>, then
-                        <me>v + \frac{dv}{dx} = f(x, vx) = f(1, v).</me>
-                    This last equation is separable
-                        <me>\frac{1}{f(1, v) - v} \, dv = dx.</me></li>
-
-                    <li>If <m>P</m> and <m>Q</m> are both homogeneous of degree <m>n</m> and we define 
-                        <me>f(x, y) = - \frac{P(x, y)}{Q(x, y}</me>
-                    then the equation <m>P(x, y) \, dx + Q(x, y)\,  dy = 0</m> becomes
-                        <me>\frac{dy}{dx} = f(x, y) = - \frac{P(x, y)}{Q(x, y)}.</me>
-                    However,
-                        <me>f(tx, ty) = - \frac{P(tx, ty)}{Q(tx, ty)} = - \frac{t^n P(x, y)}{t^n Q(x, y} = - \frac{P(x, y)}{Q(x, y)} = f(x, y).</me>
-                    Thus, the equation
-                        <me>\frac{dy}{dx} = f(x, y) = - \frac{P(x, y)}{Q(x, y)}.</me>
-                    is homogeneous and can be solved by substituting <m>y = xv</m> as in part (c).</li>
-
-                    <li>Substituting <m>y = vx</m> into the equation <m>x^2 y' = y^2 - x^2</m> yields
-                        <me>x^2 \left( v + x \frac{dv}{dx} \right) = (xv)^2 - x^2</me>
-                    or equivalently
-                        <me>v + x \frac{dv}{dx} = v^2 - 1,</me>
-                    which is separable.  Integrating both sides of
-                        <me>\frac{dv}{v^2 - v -1} = \frac{dx}{x},</me>
-                    we obtain
-                        <me>\ln\left|  \frac{2v - \sqrt{5} - 1}{2v + \sqrt{5} - 1} \right| = \sqrt{5} \ln |x| + C.</me>
-                    Since <m>v = y/x</m>, the solution that we seek is
-                        <me>\ln\left|  \frac{2 y - \sqrt{5} x - x}{2 y + \sqrt{5} x - x}\right| = \sqrt{5} \ln |x| + C.</me></li>
-
-                </ol></p>
-            </solution>
         </exercise>
 
         <exercise>
             <statement>
                 <p>Mr. Ratchett, an elderly American, was found murdered in his train compartment on the Orient Express at 7 A.M.  When his body was discovered, the famous detective Hercule Poirot noted that Ratchett had a body temperature of 28 degress. The body had cooled to a temperture of 27 degrees one hour later.  If the normal temperature of a human being is 37 degrees and the air temperature in the train is 22 degrees, estimate the time of Ratchett's death using Newton's Law of Cooling.</p>
             </statement>
-            <solution>
-                <p>Newton's Law of Cooling tells us to think of this as an initial value problem,
-                    <md>
-                        <mrow>\frac{dT}{dt} \amp = k (T - 22)</mrow>
-                        <mrow>T(0) \amp = 37.</mrow>
-                    </md>
-                Solving the IVP, yields
-                    <me>T(t) = 15 e^{kt} + 22.</me>
-                Now suppose that the body was discovered at time <m>t_1</m>.  Then
-                    <md>
-                        <mrow>15 e^{kt_1} + 22 = 28</mrow>
-                        <mrow>15 e^{k (t_1 + 1)} + 22 = 27.</mrow>
-                    </md>
-                From these two equations, we can determine that <m>k \approx -0.1823</m> and <m>t_1 \approx 5.0256</m>.  Therefore, Mr. Ratchett was murdered at approximately 2 A.M.</p>
-            </solution>
         </exercise>
 
 

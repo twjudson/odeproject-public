@@ -423,116 +423,7 @@
 
                 </ol></p>
         </statement>
-        <solution>
-            <p><ol>
 
-                <li>The equation <m>y' = 2y(1 - y)</m>  has equilibrium solutions at <m>y = 0</m> (a source) and <m>y = 1</m> (a sink).
-                    <sage>
-                        <input>
-                            y, t = var('y, t')
-                            f = 2*y*(1 - y)
-                            t_min = -2
-                            t_max = 2
-                            t_start = 0
-                            y_start = 0.5
-                            P = desolve_rk4(f, y, ics=[t_start, y_start], ivar = t, end_points=[t_min, t_max])
-                            p = line(P, title="$y' = 2y(1-y)$")
-                            y_start = 1.01
-                            P = desolve_rk4(f, y, ics=[t_start, y_start], ivar = t, end_points=[t_min, t_max])
-                            p += line(P)
-                            y_start = -0.01
-                            P = desolve_rk4(f, y, ics=[t_start, y_start], ivar = t, end_points=[t_min, t_max])
-                            p += line(P)
-                            y_min = -2.5
-                            y_max = 2.5
-                            p += plot_slope_field(f, (t, t_min, t_max), (y, y_min, y_max), headaxislength=3, headlength=3, axes_labels = ['$t$','$y$'])
-                            p
-                        </input>
-                        <output>
-                        </output>
-                    </sage></li>               
-
-                    <li>The equation <m>\dfrac{dP}{dt} = 0.1P(P - 100)</m> has equilibrium solutions at <m>P = 0</m> (a sink) and <m>P = 100</m> (a source).
-                    <sage>
-                        <input>
-                            P, t = var('y, t')
-                            f = 0.1*P*(P - 100)
-                            t_min = -1
-                            t_max = 5
-                            y_min = -20
-                            y_max = 120
-                            t_start = 0
-                            step_size = 0.01
-                            P_start = -10
-                            sol = desolve_rk4(f, P, ics=[t_start, P_start], ivar = t, end_points=[t_min, t_max], step = step_size)
-                            p = line(sol, title="$P' = 0.1P(P - 100)$")
-                            P_start = 50
-                            sol = desolve_rk4(f, P, ics=[t_start, P_start], ivar = t, end_points=[t_min, t_max], step = step_size)
-                            p += line(sol)
-                            P_start = 101
-                            sol = desolve_rk4(f, P, ics=[t_start, P_start], ivar = t, end_points=[t_min, t_max], step = step_size)
-                            p += line(sol, ymin = y_min, ymax = y_max)
-                            p += plot_slope_field(f, (t, t_min, t_max), (P, y_min, y_max), headaxislength=3, headlength=3, axes_labels = ['$t$','$P$'])
-                            p
-                        </input>
-                        <output>
-                        </output>
-                    </sage></li>                
-
-                    <li>The equation <m>\dfrac{dx}{dt} = (2 - x)\cos x</m> has equilibrium solutions at <m>x = 2</m> (a source) and <m>x = \pm n (\pi /2)</m> for <m>n = 1, 2, \ldots</m>. Sources are also located at <m>5 \pi/2, 9 \pi/2, \ldots</m> and <m>-\pi/2, -5 \pi/ 2, \ldots</m>. Sinks can be found at <m>\pi/2, 3 \pi/ 2, 7 \pi/2, \ldots</m> and <m>-3 \pi /2, - 7 \pi/ 2, \ldots</m>.
-                    <sage>
-                        <input>
-                            x, t = var('x, t')
-                            f = (2 - x)*cos(x)
-                            t_min = -2
-                            t_max = 2
-                            y_min = -2*pi
-                            y_max = 2*pi
-                            t_start = 0
-                            x_start = 0.5
-                            sol = desolve_rk4(f, x, ics=[t_start, x_start], ivar = t, end_points=[t_min, t_max])
-                            p = line(sol, title="$dx/dt = (2 - x)\cos x$")
-                            x_start = 4
-                            sol = desolve_rk4(f, x, ics=[t_start, x_start], ivar = t, end_points=[t_min, t_max])
-                            p += line(sol)
-                            x_start = -3
-                            sol = desolve_rk4(f, x, ics=[t_start, x_start], ivar = t, end_points=[t_min, t_max])
-                            p += line(sol)
-                            p += plot_slope_field(f, (t, t_min, t_max), (x, y_min, y_max), headaxislength=3, headlength=3, axes_labels = ['$t$','$x$'])
-                            p
-                        </input>
-                        <output>
-                        </output>
-                    </sage></li>
-
-                    <li>This is not an autonomous equation but does have an equilibrium solution at <m>y = 2</m>.
-                    <sage>
-                        <input>
-                            y, x = var('y, x')
-                            f = (2 - y)*cos(x)
-                            x_min = -2
-                            x_max = 2
-                            y_min = -8
-                            y_max = 8
-                            x_start = 0
-                            y_start = 0.5
-                            P = desolve_rk4(f, y, ics=[x_start, y_start], ivar = x, end_points=[x_min, x_max])
-                            p = line(P, title="$y' = 2y(1-y)$")
-                            y_start = 4
-                            P = desolve_rk4(f, y, ics=[x_start, y_start], ivar = x, end_points=[x_min, x_max])
-                            p += line(P)
-                            y_start = -1
-                            P = desolve_rk4(f, y, ics=[x_start, y_start], ivar = x, end_points=[x_min, x_max])
-                            p += line(P)
-                            p += plot_slope_field(f, (x, x_min, x_max), (y, y_min, y_max), headaxislength=3, headlength=3, axes_labels = ['$x$','$y$'])
-                            p
-                        </input>
-                        <output>
-                        </output>
-                    </sage></li> 
-
-                </ol></p>
-        </solution>
     </exercise>
 
 <!--
@@ -565,73 +456,14 @@
         <statement>
             <p>Consider the differential equation <m>y' = f(y)</m>, where the graph of <m>f(y)</m> is given below.  Identify any equilibrium solutions and classify each equilibrium solution as a sink, source, or node.</p>
         </statement>
-        <hint>
-        </hint>
-        <solution>
-            <p>We have a sink at <m>(0, 0)</m> and a source at <m>(3,0)</m>.</p>
-        </solution>
     </exercise>
 
     <exercise>
         <statement>
             <p>What happens if we increase the harvest rate to 100 in Example<nbsp /><xref ref="example-firstlook03-harvesting" />.? What should be our strategy to maintain a viable population in the trout pond?</p>
         </statement>
-        <hint>
-        </hint>
-        <solution>
-        </solution>
     </exercise>
-<!--
-    <exercise>
-        <statement>
-            <p>Suppose that we know that the graph below is the graph of <m>f(x)</m>, where 
-                <me>\frac{dx}{dt} = f(x).</me>
-            Give a rough sketch of the slope field of this differential equation.</p>
 
-            <image width="350" source="images/slope-field-problem-3.png" />
-        </statement>
-        <solution>
-        </solution>
-    </exercise>
--->
-
-
-<!--
-
-    <exercise>
-        <statement>
-            <p>Determine which slope field corresponds to which differential equation.  Briefly justify your answer.
-                <ol>
-
-                    <li><m>\dfrac{dx}{dt} = 1- x</m></li>
-
-                    <li><m>\dfrac{dx}{dt} = 1 - x^2</m></li>
-
-                    <li><m>\dfrac{dx}{dt} = x^2 - 1</m></li>
-
-                    <li><m>\dfrac{dx}{dt} = t - x</m></li>
-
-                    <li><m>\dfrac{dx}{dt} = t^2 - x^2</m></li>
-
-                    <li><m>\dfrac{dx}{dt} = t-1</m></li>
-
-                </ol>
-                <ol>
-
-                    <li><image width="350" source="images/slope-field-problem-5.png" /></li>
-
-                    <li><image width="350" source="images/slope-field-problem-7.png" /></li>
-
-                    <li><image width="350" source="images/slope-field-problem-4.png" /></li>
-
-                    <li><image width="350" source="images/slope-field-problem-6.png" /></li>
-
-                </ol></p>
-        </statement>
-        <solution>
-        </solution>
-    </exercise>
--->
 </exercises>
 
     <subsection number="no" xml:id="subsection-firstlook03-sage-project">

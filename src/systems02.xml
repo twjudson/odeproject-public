@@ -421,52 +421,7 @@
             </ol></p>
         </statement>
 
-        <hint>
-        </hint>
 
-        <solution>
-            <p><ol>
-            
-                <li>The <m>x</m>-nullclines are
-                <md>
-                    <mrow>x &amp; = 0</mrow>
-                    <mrow>y &amp; = 2(1 - x),</mrow>
-                </md>
-            and the  <m>y</m>-nullclines are
-                <md>
-                    <mrow>y &amp; = 0</mrow>
-                    <mrow>y &amp; = 1 - x/2.</mrow>
-                </md></li>
-
-                <li>The equilibrium points are <m>(0,0)</m>, <m>(1, 0)</m>, <m>(0, 1)</m>, and <m>(2/3, 2/3)</m>.</li>
-
-                <li>We can choose a representative point in each region to find how the direction field is oriented and also to find out what happens on each of the nullclines (Figure <xref ref="figure-systems02-nullclines-competing-species-2" />).</li>
-
-                <li>From our analysis, it seems that no matter where we begin, both populations will approach <m>(2/3, 2/3)</m> as <m>t \to \infty</m>.</li>
-
-            </ol></p>
-
-            <figure xml:id="figure-systems02-nullclines-competing-species-2">
-                <image xml:id="systems02-nullclines-competing-species-2">
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        a = 0.5
-                        F = [x*(1 - x) - a*x*y, y*(1 - y) - a*x*y]
-                        P1=desolve_system_rk4(F,[x,y],ics=[0,2.4,0.3],ivar=t,end_points=10,step=0.1)
-                        S1=[ [j, k] for i,j,k in P1]
-                        LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=18)
-                        P1_arrow = arrow(S1[int(len(S1)/2)], S1[int(len(S1)/2) + 1])
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        v = plot_vector_field((F[0]/n, F[1]/n), (x,0,2.5), (y,0,2.5), aspect_ratio=1)
-                        xnullcline = implicit_plot(F[0], (x,0,2.5), (y,0,2.5), color='green')
-                        ynullcline = implicit_plot(F[1], (x,0,2.5), (y,0,2.5), color='red')
-                        LP1 + P1_arrow + v + xnullcline + ynullcline
-                    </sageplot>
-                </image>
-                <caption>Nullclines for the case <m>\beta = 1/2</m></caption>
-            </figure>
-
-        </solution>
 
     </exercise>
 
@@ -498,12 +453,7 @@
                 </ol></p>
         </statement>
 
-        <hint>
-        </hint>
 
-        <solution>
-
-        </solution>
 
     </exercise>
 
@@ -541,74 +491,7 @@
                 </ol></p>
         </statement>
 
-        <hint>
-        </hint>
-
-        <solution>
-
-            <p><ol>
-                
-                <li>From equation <xref ref="equation-systems02-epidemic-1" />, the <m>S</m>-nullclines are 
-                    <md>
-                        <mrow>S &amp; = 0</mrow>
-                        <mrow>I &amp; = \frac{0.0003}{\alpha}.</mrow>
-                    </md>
-                The <m>I</m>-nullclines are
-                    <md>
-                        <mrow>S &amp; = \frac{0.1}{\alpha}</mrow>
-                        <mrow>I &amp; = 0.</mrow>
-                    </md>
-                The <m>S</m>-nullclines are <m>S = 0</m> and <m>I = 0.006</m>, and the <m>I</m>-nullclines as  <m>I = 0</m> and <m>S = 2</m>.  In Figure <xref ref="figure-systems02-epidemic-ebola" />, we plot the nullcline behavior as well as a solution for the initial condition of 1000 susceptible individuals and a single infected individual.  The solution curve shows that the disease quickly burns itself out.</li>
-
-                <li>The <m>S</m>-nullclines are <m>S = 0</m> and <m>I = 300</m>.  The <m>I</m>-nullclines are <m>I = 0</m> and <m>S = 100,000</m>.   If we take our initial  value of <m>S = 1000</m> and <m>I = 1</m>, the number of susceptible individuals will increase while the number of infected individuals decrease (but never really reach zero).  Eventually, the number of susceptible individuals will hit 200,000, and the epidemic will take off (Figure <xref ref="figure-systems02-epidemic-hiv" />).  In this particular model, we have a situation where the effects of the epidemic disease are in fact cyclic (and catastrophic).</li>
-
-                <li>If <m>\alpha</m> is high relative when compared to the birth rate, say in an Ebola epidemic, then the disease will burn itself out.  On the other hand, if relatively small, when compare to the birthrate, such as in an HIV epidemic, the disease will spread through the population in a different manner and will become endemic if the infection rate is low compared to the birth rate.</li>
-
-            </ol></p>
-
-            <figure xml:id="figure-systems02-epidemic-ebola">
-                <image xml:id="systems02-epidemic-ebola">
-                    <sageplot>
-                        S, I, t = var('S I t')
-                        alpha = 0.05
-                        start_x = 1000
-                        start_y = 1
-                        start_t = 0
-                        F = [-alpha*S*I + 0.0003*S, alpha*S*I - 0.1*I]
-                        P=desolve_system_rk4(F,[S, I],ics=[start_t,start_x,start_y],ivar=t,end_points=20,step=0.05)
-                        points = [ (start_x, start_y) ]
-                        starting_point = point(points[0], pointsize=50)
-                        Q=[ [j,k] for i,j,k in P]
-                        LQ=line(Q, axes_labels=['$S(t)$','$I(t)$'], fontsize=12, thickness=2)
-                        Q_arrow = arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4)
-                        Snullcline = implicit_plot(F[0], (S,0,1000), (I,0,1000), color='green')
-                        Inullcline = implicit_plot(F[1], (S,0,1000), (I,0,1000), color='red')
-                        p = LQ + Q_arrow + Snullcline + Inullcline + starting_point
-                        p
-                    </sageplot>
-                </image>
-                <caption>An epidemic where <m>\alpha = 0.05</m></caption>
-            </figure>
-
-            <figure xml:id="figure-systems02-epidemic-hiv">
-                <image xml:id="systems02-epidemic-hiv">
-                    <sageplot>
-                        S, I, t = var('S I t')
-                        alpha = 0.000001
-                        F = [-alpha*S*I + 0.0003*S, alpha*S*I - 0.1*I]
-                        P=desolve_system_rk4(F,[S, I],ics=[0,30000,1],ivar=t,end_points=6950,step=3)
-                        Q=[ [j,k] for i,j,k in P]
-                        LQ=line(Q, axes_labels=['$S(t)$','$I(t)$'], fontsize=18, thickness=2,aspect_ratio=10)
-                        Q_arrow = arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
-                        Snullcline = implicit_plot(F[0], (S,0,260000), (I,0,11000), color='green')
-                        Inullcline = implicit_plot(F[1], (S,0,260000), (I,0,11000), color='red')
-                        LQ + Q_arrow + Snullcline + Inullcline
-                    </sageplot>
-                </image>
-                <caption>An epidemic where <m>\alpha = 0.000001</m></caption>
-            </figure>
-
-        </solution>
+ 
 
     </exercise>
 
