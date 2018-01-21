@@ -4,7 +4,7 @@
 ##                                                  			##
 ## Ordinary Differential Equations Project      				##
 ##                                                         	   	##
-## Copyright (C) 2013-2014 Theron J. Hitchman, Thomas W. Judson	##
+## Copyright (C) 2013-2018 Thomas W. Judson	                    ##
 ## See the file COPYING for copying conditions.            		##
 
 #######################
@@ -27,10 +27,6 @@
 # operate on dependencies.  It is more of a shell
 # script, sharing common configurations
 
-# The manufacture of the solutions manual is somewhat
-# complicated due to the public nature of the problem
-# statements, but the private nature of the solutions
-
 # This is mostly offered as an example of one approach
 # to managing a project with multiple output formats. and
 # is not claimed to be "best practice"
@@ -52,6 +48,8 @@
 #	A) Set default directory to be the location of this file
 #	B) At command line:  make solutions  (and employ targets)
 
+
+
 # The included file contains customized versions
 # of locations of the principal components of this
 # project and names of various helper executables
@@ -70,8 +68,6 @@ MBDTD = $(MB)/schema/dtd
 # for the two ODE repositories
 SRC = $(ODE)/src
 XSL = $(ODE)/xsl
-EXR = $(ODESOLNS)/src
-SOLNXSL = $(ODESOLNS)/xsl
 
 # These paths are subdirectories of
 # a scratch directory
@@ -104,30 +100,6 @@ diagrams:
 	$(MBSCRIPT)/mbx -vv -c latex-image -f svg -d $(HTMLOUT)/images $(SRC)/odeproject.xml
 	$(MBSCRIPT)/mbx -vv -c sageplot    -f pdf -d $(HTMLOUT)/images $(SRC)/odeproject.xml
 	$(MBSCRIPT)/mbx -vv -c sageplot    -f svg -d $(HTMLOUT)/images $(SRC)/odeproject.xml
-
-# Update exercises
-#   Extract problems, with statements and hints only,
-#   from private solutions project to main ODE repository
-#   Will require a subsequent commit in the ODE repo if
-#   there have been edits to statements or hints
-#update-exercises:
-	# XSL file writes into exercises subdirectory,
-	# so do not change to that subdirectory
-#	cd $(SRC); \
-#	xsltproc --xinclude  $(SOLNXSL)/statements-only.xsl  $(EXR)/odeproject-solution-manual.xml
-
-# Proofread exercises
-#   Extract problems, with statements, solutions, hints, and answers
-#	switches can be set in full-exercises.xsl in the solutions repo
-#   from private solutions project to main ODE repository
-#   Will require a subsequent commit in the ODE repo if
-#   there have been edits to statements or hints
-#proofread-exercises:
-	# XSL file writes into exercises subdirectory,
-	# so do not change to that subdirectory
-#	cd $(SRC); \
-#	xsltproc --xinclude  $(SOLNXSL)/full-exercises.xsl  $(EXR)/odeproject-solution-manual.xml
-
 
 ##########
 # Products
@@ -202,7 +174,7 @@ viewelectronic:
 print:
 	# delete old  xsltproc  output
 	# dash prevents error if not found
-	-rm $(PDFOUT)/aata.tex
+	-rm $(PDFOUT)/odeproject.tex
 	install -d $(PDFOUT) $(MBUSR)
 	cp -a $(SRC)/images $(PDFOUT)
 	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-latex.xsl $(XSL)/odeproject-print.xsl $(MBUSR)
@@ -214,29 +186,6 @@ print:
 # View PDF from correct directory
 viewprint:
 	$(PDFVIEWER) $(PDFOUT)/odeproject-print.pdf &
-
-# Solution manual
-#   setup directories, clean out old *.tex
-#   copy XSL files to user directory
-#   copy in main source files
-#   copy full exercise/solution files into scratch directory
-#   these will land on top of exercise files with just problem statements
-solutions:
-	install -d $(PDFOUT) $(MBUSR) $(PDFOUT)/exercises
-	# delete old  xsltproc  output
-	# dash prevents error if not found
-	-rm $(PDFOUT)/odeproject-solution-manual.tex
-	cp $(XSL)/odeproject-common.xsl $(SOLNXSL)/odeproject-solution-manual.xsl $(MBUSR)
-	cp -a $(SRC)/* $(PDFOUT)
-	cp -a $(EXR)/*.xml $(PDFOUT)/exercises
-#	mv $(PDFOUT)/exercises/*-sage-exercises.xml $(PDFOUT)/sage
-	mv $(PDFOUT)/exercises/odeproject-solution-manual.xml $(PDFOUT)
-	cd  $(PDFOUT); \
-	xsltproc --xinclude $(MBUSR)/odeproject-solution-manual.xsl $(PDFOUT)/odeproject-solution-manual.xml; \
-	$(ENGINE) odeproject-solution-manual.tex; $(ENGINE) odeproject-solution-manual.tex
-
-viewsolutions:
-	$(PDFVIEWER) $(PDFOUT)/odeproject-solution-manual.pdf &
 
 # Author's Draft
 #   Like electronic PDF version, but for:
@@ -297,8 +246,8 @@ doctest-exercises:
 
 # SageMathCloud worksheets
 #   can upload, extract tarball
-#   that has "aata-smc" as root directory
-#     $ tar -xvf aata-smc.tgz
+#   that has "odeproject-smc" as root directory
+#     $ tar -xvf odeproject-smc.tgz
 smc:
 	install -d $(SMCOUT) $(MBUSR)
 	cp -a $(SRC)/images $(SMCOUT)
@@ -314,6 +263,9 @@ smc:
 # Utilities
 ###########
 
+
+	## THESE NEED WORK ##
+
 # Check document source against the DTD
 #   Leaves "dtderrors.txt" in SCRATCH
 #   can then grep on, eg
@@ -325,7 +277,7 @@ smc:
 check:
 	install -d $(SCRATCH)
 	-rm $(SCRATCH)/dtderrors.*
-	-xmllint --xinclude --noout --dtdvalid $(MBDTD)/mathbook.dtd $(SRC)/aata.xml 2> $(SCRATCH)/dtderrors.txt
+	-xmllint --xinclude --noout --dtdvalid $(MBDTD)/mathbook.dtd $(SRC)/odeproject.xml 2> $(SCRATCH)/dtderrors.txt
 	less $(SCRATCH)/dtderrors.txt
 
 viewcheck:
@@ -359,7 +311,6 @@ sagenb:
 
 # EPUB 3.0 assembly
 #	TODO: fix retrieval of CSS (via wget?)
-#	Not implemented yet
 epub:
 	rm -rf $(EPUBOUT)
 	install -d $(EPUBOUT) $(EPUBOUT)/EPUB/css $(EPUBOUT)/EPUB/xhtml
@@ -368,9 +319,9 @@ epub:
 	rm -rf $(EPUBOUT)/knowl
 	cp ~/mathbook/local/epub-trial/mathbook-content.css $(EPUBOUT)/EPUB/css/
 	cp -a $(SRC)/images $(EPUBOUT)/EPUB/xhtml
-	cp -a $(EPUBOUT)/EPUB/xhtml/images/cover_odeproject_2015.png $(EPUBOUT)/EPUB/xhtml/images/cover.png
+	cp -a $(EPUBOUT)/EPUB/xhtml/images/cover_odeproject_2014.png $(EPUBOUT)/EPUB/xhtml/images/cover.png
 	#
 	cp -a /media/rob/disk/mathjax-out/*.html $(EPUBOUT)/EPUB/xhtml
 	#
 	cd $(EPUBOUT); \
-	zip -0Xq  aata-mathml.epub mimetype; zip -Xr9Dq aata-mathml.epub *
+	zip -0Xq  odeproject-mathml.epub mimetype; zip -Xr9Dq odeproject-mathml.epub *
