@@ -29,9 +29,9 @@
 <!--              any public print version -->
 <!-- HTML: knowlize as available/appropriate -->
 <xsl:param name="exercise.text.statement" select="'yes'" />
-<xsl:param name="exercise.text.hint" select="'no'" />
+<xsl:param name="exercise.text.hint" select="'yes'" />
 <xsl:param name="exercise.backmatter.statement" select="'no'" />
-<xsl:param name="exercise.backmatter.hint" select="'yes'" />
+<xsl:param name="exercise.backmatter.hint" select="'no'" />
 
 <!-- Each Chapter has a <paragraphs> about Sage, -->
 <!-- which will be included by default           -->
