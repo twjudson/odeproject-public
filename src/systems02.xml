@@ -512,15 +512,15 @@
 
  		<sage>
             <input>
-            x, y, t = var('x y t')
-            F = [x + y, -2*x + y]
-            P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=2,step=0.01)
-            Q = [ [j,k] for i,j,k in P]
-            p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
-            n = sqrt(F[0]^2 + F[1]^2)
-            F_unit = [F[0]/n, F[1]/n]
-            p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
-            p
+                x, y, t = var('x y t')
+                F = [x + y, -2*x + y]
+                P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=10,step=0.01)
+                Q = [ [j,k] for i,j,k in P]
+                p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2)
+                n = sqrt(F[0]^2 + F[1]^2)
+                F_unit = [F[0]/n, F[1]/n] #set all vectors in the vector field to be same length
+                p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'], xmax = 4, xmin = -4, ymax = 4, ymin = -4, aspect_ratio=1)
+                p
             </input>
             <output>         
             </output>
@@ -532,17 +532,17 @@
 
  		<sage>
             <input>
-            x, y, t = var('x y t')
-            F = [x + y, -2*x + y]
-            P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=2,step=0.01)
-            Q = [ [j,k] for i,j,k in P]
-            p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
-            n = sqrt(F[0]^2 + F[1]^2)
-            F_unit = [F[0]/n, F[1]/n]
-            p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
-            p += implicit_plot(F[0], (x,-4,4), (y,-4,4), color='green')
-            p += implicit_plot(F[1], (x,-4,4), (y,-4,4), color='red')
-            p
+                x, y, t = var('x y t')
+                F = [x + y, -2*x + y]
+                P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=10,step=0.01)
+                Q = [ [j,k] for i,j,k in P]
+                p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2)
+                n = sqrt(F[0]^2 + F[1]^2)
+                F_unit = [F[0]/n, F[1]/n] #set all vectors in the vector field to be same length
+                p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'], xmax = 4, xmin = -4, ymax = 4, ymin = -4, aspect_ratio=1)
+                p += implicit_plot(F[0], (x,-4,4), (y,-4,4), color="green")
+                p += implicit_plot(F[1], (x,-4,4), (y,-4,4), color="red")
+                p
             </input>
             <output>
             </output>
