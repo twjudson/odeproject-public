@@ -255,23 +255,23 @@
 
     	<sage>
             <input><![CDATA[
-				x, t = var('x,t')
-				@interact
-				def _(f = input_box(default = x^2/2 - t),
-				                    t_min = input_box(default = -1.0), 
-				                    t_max = input_box(default = 6), 
-				                    t_start = input_box(default = 1), 
-				                    x_start = input_box(default = -0.1), 
-				                    step_size = (0.1, (0.001, 1.0))):
-				    P = desolve_rk4(f,x,ics=[t_start, x_start],ivar=t,end_points=[t_min, t_max], step = step_size, thickness=3)
-				    p = line(P, thickness = 2, axes_labels = ['$t$','$x$'],)
-				    x_min = min([P[i][1]] for i in (0..len(P)-1))[0]
-				    x_max = max([P[i][1]] for i in (0..len(P)-1))[0]
-				    p += plot_slope_field(f, (t, t_min, t_max), (x, x_min, x_max), headaxislength=3, headlength=3)
-				    p += arrow(P[int(len(P)/2)], P[int(len(P)/2) + 1], width = 1, arrowsize = 8)
-				    p += point((t_start, x_start), size=60, color="red")
-				    p.show()
-				    pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))]]>
+                y, t = var('y,t')
+                @interact
+                def _(f = input_box(default = y^2/2 - t),
+                                    t_min = input_box(default = -1.0), 
+                                    t_max = input_box(default = 6), 
+                                    t_start = input_box(default = 1), 
+                                    y_start = input_box(default = -0.1), 
+                                    step_size = (0.1, (0.001, 1.0))):
+                    P = desolve_rk4(f,y,ics=[t_start, y_start],ivar=t,end_points=[t_min, t_max], step = step_size, thickness=3)
+                    p = line(P, thickness = 2, axes_labels = ['$t$','$y$'],)
+                    y_min = min([P[i][1]] for i in (0..len(P)-1))[0]
+                    y_max = max([P[i][1]] for i in (0..len(P)-1))[0]
+                    p += plot_slope_field(f, (t, t_min, t_max), (y, y_min, y_max), headaxislength=3, headlength=3)
+                    p += arrow(P[int(len(P)/2)], P[int(len(P)/2) + 1], width = 1, arrowsize = 8)
+                    p += point((t_start, y_start), size=60, color="red")
+                    p.show(ymin=y_min, ymax = y_max)
+                    pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(f)))]]>
             </input>
             <output>       
             </output>
@@ -523,11 +523,11 @@
 
 	       <sage>
 	            <input><![CDATA[
-	            t, y = var('t, y')
-	            f(t, y) = y^2/2 - t
-	            p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'], fontsize=12)
-	            p += desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
-	            p]]>
+                    t, y = var('t, y')
+                    f(t, y) = y^2/2 - t
+                    p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'], fontsize=12)
+                    p += desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+                    p.show(xmin = -1, xmax = 5, ymin = -5, ymax = 10)  #set the size of the plot window]]>
 	            </input>
 	            <output>
 	            </output>
