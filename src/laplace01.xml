@@ -103,43 +103,6 @@
                <me>{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.</me></p>
 		</example>
 
-		<p>Laplace transforms forms behave very nicely with respect to derivatives. In fact, this is the reason why Laplace transforms are so useful when trying to solve initial value problems.</p>
-
-		<theorem xml:id="theorem-laplace01-derivative-1">
-            <statement>
-                <p>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
-					<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
-				where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</p>
-            </statement>
-        </theorem> 
-
-		<proof>
-			<p>We can evaluate the Laplace transform of <m>y'</m> by using integration by parts,
-				<md>
-					<mrow>{\mathcal L}(y')(s) &amp; = \int_0^\infty y'(t) e^{-st} \, dt</mrow>
-					<mrow>&amp; = \lim_{b \to \infty}\left[  e^{-st} y(t) \Big|_0^b + s \int_0^b y(t) e^{-st} \, dt \right]</mrow>
-					<mrow>&amp; =  \lim_{b \to \infty}\left[  e^{-sb} y(b) -y(0) + s {\mathcal L}(y)(s) \right].</mrow>
-				</md>
-			We claim that <m>\lim_{b \to \infty} e^{-sb} y(b) = 0</m>.  Since, <m>y</m> is exponentially bounded, there exist constants <m>M \geq 0</m> and <m>a</m> such that <m>|y(t)| \leq Me^{at}</m>, for all <m>t</m> in <m>[0, \infty)</m>.  Thus,
-				<me>|e^{-sb} y(b)| \leq Me^{-(s -a)b}.</me>
-			The right-hand side of this inequality as <m>b \to \infty</m> for <m>s \gt a</m>. Thus,
-				<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0).</me></p>
-		</proof>
-
-		<p>The Laplace transform also behave nicely with respect to higher order derivatives.</p>
-
-		<theorem xml:id="theorem-laplace01-derivative-2">
-            <statement>
-                <p>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is  exponentially bounded. Then for large values of <m>s</m>
-					<me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),</me>
-				where <m>Y(s)</m> is the Laplace transform of <m>y</m>.  In general, if <m>y = y(t)</m> and all of its derivatives up to order <m>k - 1</m> are piecewise continuous, exponentially bounded functions and <m>y^{(k)}</m> is piecewise continuous, then
-					<md>
-						<mrow>{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)</mrow>
-						<mrow>= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).</mrow>
-					</md></p>
-            </statement>
-        </theorem> 
-
         <p>We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
 			<ol>
 
@@ -180,6 +143,48 @@
 				exists.</p>
             </statement>
         </theorem> 
+
+    </subsection>
+
+    <subsection xml:id="subsection-laplace01-inverse-transform">
+      	<title>The Inverse Laplace Transform</title>
+
+        <p>As we mentioned in the previous section, we can use Laplace transforms to help us solve initial value problems. The idea is to convert an initial value problem into an algebraic equation. Consider
+          <md>
+            <mrow>y'' - y' - 6y &amp; = 0</mrow>
+            <mrow>y(0) &amp; = 2</mrow>
+            <mrow>y'(0) &amp; = -1,</mrow>
+          </md>
+        and recall that
+          <md>
+            <mrow>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)</mrow>
+            <mrow>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).</mrow>
+          </md>
+        where <m>Y(s)</m> is the Laplace transform of <m>y</m>. If we take the Laplace transform of both sides of the equation <m>y'' - y' - 6y = 0</m>, we have
+          <md>
+            <mrow>{\mathcal L}(y'' - y' - 6y) &amp; = {\mathcal L}(y'') - {\mathcal L}(y') - 6{\mathcal L}(y)</mrow>
+            <mrow>&amp; = [s^2 Y(s) - sy(0) - y'(0)] - [s Y(s) - y(0)] - 6Y(s)</mrow>
+            <mrow>&amp; = [s^2 Y(s) - 2 s + 1] - [s Y(s) - 2] - 6Y(s)</mrow>
+            <mrow>&amp; = {\mathcal L}(0) = 0.</mrow>
+          </md>
+        Solving for <m>Y(s)</m>, we get
+          <me>Y(s) = \frac{2s -3}{(s - 3)(s + 2)}  = \frac{3/5}{s - 3} + \frac{7/5}{s + 2},</me>
+        where we have used partial fractions to get the last expression.  If we know the Laplace transform of a function, we can recover the original function. We state the following theorem without proof.</p>
+
+      	<theorem xml:id="theorem-laplace01-inverse">
+          <statement>
+            <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions with Laplace transforms, <m>F(s)</m> and <m>G(s)</m>, respectively. Suppose that <m>F(s) = G(s)</m> for all <m>s \gt c</m>, where <m>c</m> is some positive number. Then <m>f(t) = g(t)</m> for all <m>t \geq 0</m>.</p>
+          </statement>
+        </theorem> 
+
+    	<p>It now makes sense to define the <term>inverse Laplace transform</term> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>.  Furthermore, the inverse Laplace transform is linear, 
+            <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></p>
+
+    	<p>We can now solve our initial value problem. Since the Laplace transform of <m>e^{at}</m> is <m>1/(s - a)</m>, we know that
+            <me>{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at},</me>
+        and the solution that we seek is
+            <me>y(t) = \frac{3}{5} e^{3t} + \frac{7}{5} e^{-2t}.</me>
+        Of course, there are much easier methods that we can use if we would like to solve this particular initial value problem, but it is nice to see that the two methods agree.</p>
 
     </subsection>
 
