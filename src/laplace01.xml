@@ -46,66 +46,39 @@
     <subsection xml:id="subsection-laplace01-definitions">
     	<title>Definition of the Laplace Transform</title>
 
-		<p>We shall define the <term>Laplace transform</term> of a function <m>f(t)</m> by
+		<p>We shall define the <term>Laplace transform</term><idx><h>Laplace transform</h><h>definition</h></idx> of a function <m>f(t)</m> by
 			<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
 		provided the integral converges.</p>
 
-		<p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
+		<example xml:id="example-laplace01-basic-examples">
+			<p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
 			<ul>
 
 				<li>Let <m>f(t) = k</m>, where <m>k</m> is a constant.  Then
-					<me>{\mathcal L}(f)(s)  = \int_0^\infty ke^{-st} \; dt = \frac{k}{s},</me>
+					<me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k  \; dt = \frac{k}{s},</me>
 				for  <m>s \gt 0</m>.</li>
 
-				<li>If <m>f(t) = e^{at}</m>, then the Laplace transform of <m>f</m> is
-					<me>{\mathcal L}(f)(s)  = \int_0^\infty e^{-st} e^{at}  \, dt = \frac{1}{s -a},</me>
-				for <m>s \gt a</m>.</li>
-
 				<li>For <m>f(t) = t</m>, the Laplace transform is
-					<me>{\mathcal L}(f)(s)  = \int_0^\infty t e^{-st}  \, dt = \frac{1}{s^2},</me>
+					<me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st} t \, dt = \frac{1}{s^2},</me>
 				for <m>s \gt 0</m>.</li>
 
+				<li>If <m>f(t) = e^{at}</m> with <m>t > 0</m>, then
+				    <me>{\mathcal L}(f)(s) = \int_0^\infty  e^{-st} e^{at} \, dt = \int_0^\infty  e^{-(s -a)t} \, dt = \left[ - \frac{e^{-(s -a)t}}{s - a} \right]_0^\infty.</me>
+			    Noting that <m>e^{-(s -a)t} \to 0</m> as <m>t \to \infty</m> for <m>s \gt a</m>, we find that
+			        <me>{\mathcal L}(e^{at}) = \frac{1}{s - a} \quad \text{for} \quad s \gt a</me></li>
+
 			</ul></p>
+		</example>
 
-		<p>The Laplace transform of does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
-			<me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
-		and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
-			<me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
-		does not converge.</p>
+		<example>
+			<p>The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
+			    <me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
+			and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
+			    <me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
+		    does not converge.</p>
+		</example>
 
-		<p>The Laplace transform, however, does exist in many cases. We will show that the Laplace transform of a function exists if the function does not grow too quickly and has no bad discontinuities. We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
-			<ol>
-
-				<li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
-
-				<li>If <m>c \in [a, b]</m> is a discontinuity, then the one-sided limits
-					<me>\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)</me>
-				both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
-
-			</ol>
-		We say that a function is <term>piece-wise continuous</term> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term>. If a function is piecewise continuous, then the continuities are not too bad.</p>
-
-		<p>The square wave function
-			<me>f(t)
-			=
-			\begin{cases}
-			1, &amp; 0 \leq t \leq 1 \\
-			0, &amp; t \gt 1,
-			\end{cases}</me>
-		where <m>f(t + 2) = f(t)</m> is an example of a piecewise continuous function defined on <m>[0, \infty)</m>.</p>
-
-		<p>We also wish to be certain that a function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>. A function <m>f(t)</m> is <term>exponentially bounded</term> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
-			<me>|f(t)| \leq Me^{at},</me>
-		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>.</p>
-
-
-		<theorem xml:id="theorem-laplace01-existence">
-            <statement>
-                <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
-					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-				exists.</p>
-            </statement>
-        </theorem> 
+		<p>The Laplace transform, however, does exist in many cases. We will show that the Laplace transform of a function exists if the function does not grow too quickly and has no bad discontinuities.</p>
 
 	</subsection>
 
@@ -114,7 +87,21 @@
 
 		<p>One of the most important properties of the Laplace transform is linearity.  That is,
 			<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
-		where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integrations.  Transforms of functions having the linearity property are called {\em linear operators}.</p>
+		where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integration,
+            <md>
+            	<mrow>{\mathcal L} ( \alpha f + \beta g )(s) \amp = \int_0^\infty e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
+            	<mrow>\amp = \lim_{b \to \infty} \int_0^b e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
+            	<mrow>\amp = \alpha \lim_{b \to \infty} \int_0^b e^{-st} f(t) \, dt + \beta \lim_{b \to \infty} \int_0^b e^{-st}\beta g(t) \, dt</mrow>
+            	<mrow>\amp = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s)</mrow>
+            </md>
+		Transforms of functions having the linearity property are called <term>linear operators</term><idx><h>linear operator</h></idx>.</p>
+
+		<example>
+			<p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="example-laplace01-basic-examples"/>,
+               <me>{\mathcal L} ( \sinh at) = \frac{1}{2} {\mathcal L} ( e^{at}) - \frac{1}{2} {\mathcal L} ( e^{-at}) = \frac{1}{2} \left( \frac{1}{s - k} - \frac{1}{s + k} \right).</me>
+               Thus, for <m>s \gt k \gt 0</m>,
+               <me>{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.</me></p>
+		</example>
 
 		<p>Laplace transforms forms behave very nicely with respect to derivatives. In fact, this is the reason why Laplace transforms are so useful when trying to solve initial value problems.</p>
 
@@ -153,7 +140,48 @@
             </statement>
         </theorem> 
 
+        <p>We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
+			<ol>
+
+				<li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
+
+				<li>If <m>c \in [a, b]</m> is a discontinuity, then the one-sided limits
+					<me>\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)</me>
+				both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
+
+			</ol>
+		We say that a function is <term>piece-wise continuous</term><idx><h>piece-wise continuous</h></idx> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term><idx><h>jump discontinuities</h></idx>. If a function is piecewise continuous, then the continuities are not too bad.</p>
+
+        <example>
+        	<p>The square wave function
+				<me>f(t)
+				=
+				\begin{cases}
+				1, &amp; 0 \leq t \leq 1 \\
+				0, &amp; t \gt 1,
+				\end{cases}</me>
+		    where <m>f(t + 2) = f(t)</m> is an example of a piecewise continuous function defined on <m>[0, \infty)</m>.</p>
+		</example>
+
 	</subsection>
+
+	<subsection xml:id="subsection-laplace01-existence-and-uniqueness">
+    	<title>Existence and Uniqueness of the Laplace Transform</title>
+
+		<p>We also wish to be certain that a function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>. A function <m>f(t)</m> is <term>exponentially bounded</term> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
+			<me>|f(t)| \leq Me^{at},</me>
+		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>.</p>
+
+
+		<theorem xml:id="theorem-laplace01-existence">
+            <statement>
+                <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+				exists.</p>
+            </statement>
+        </theorem> 
+
+    </subsection>
 
     <subsection xml:id="subsection-laplace01-important-lessons">
     	<title>Important Lessons</title>
@@ -219,7 +247,7 @@
             </exercise>
             <exercise>
                 <statement>
-                    <p><m>f(t) = \sinh at</m></p>
+                    <p><m>f(t) = 2 \cos at - 3\sinh at</m></p>
                 </statement>
             </exercise>
             <exercise>
