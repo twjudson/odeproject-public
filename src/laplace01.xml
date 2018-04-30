@@ -103,7 +103,7 @@
                <me>{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.</me></p>
 		</example>
 
-        <p>We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
+        <p>The Laplace transform of discontinuous functions also exist, provided the disconinuities are not too bad.  We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
 			<ol>
 
 				<li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
@@ -113,17 +113,28 @@
 				both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
 
 			</ol>
-		We say that a function is <term>piece-wise continuous</term><idx><h>piece-wise continuous</h></idx> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term><idx><h>jump discontinuities</h></idx>. If a function is piecewise continuous, then the continuities are not too bad.</p>
+		We say that a function is <term>piecewise continuous</term><idx><h>piecewise continuous</h></idx> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term><idx><h>jump discontinuities</h></idx>. If a function is piecewise continuous, then the continuities are not too bad.</p>
 
         <example>
-        	<p>The square wave function
-				<me>f(t)
+        	<p>One of the simplest piecewise continuous functions is
+				<me>u(t)
 				=
 				\begin{cases}
-				1, &amp; 0 \leq t \leq 1 \\
-				0, &amp; t \gt 1,
+				0, &amp; t \lt 0 \\
+				1, &amp; t \geq 0.
 				\end{cases}</me>
-		    where <m>f(t + 2) = f(t)</m> is an example of a piecewise continuous function defined on <m>[0, \infty)</m>.</p>
+		    The function <m>u(t)</m> has a jump discontinuity at <m>t = 0</m>. It follows very quickly that <m>{\mathcal L}(u(t)) = 1/s</m> for <m>s \gt 0</m>.</p>
+
+		    <p>If we define the unit step function at <m>a</m> to be
+		    	<me>u_a(t) = u(t - a) 
+				=
+				\begin{cases}
+				0, &amp; t \lt a \\
+				1, &amp; t \geq a,
+				\end{cases}</me>
+			then we have a jump discontinuity at <m>t = a</m>. If <m>a \gt 0</m>, then
+			    <me>{\mathcal L}(u_a(t)) = \int_0^\infty e^{-st} u_a(t) \, dt = \int_a^\infty e^{-st} \, dt = \lim_{b \to \infty} \left[ -\frac{e^{-st}}{s} \right]_a^b = \frac{e^{-sa}}{s},</me>
+			where <m>s \gt 0</m> and <m>a \gt 0</m>.</p>
 		</example>
 
 	</subsection>
