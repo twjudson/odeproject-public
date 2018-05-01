@@ -14,7 +14,7 @@
 
         <p>Consider the electrical circuit governed by the differential equation
 			<me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
-		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
+		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx><h>Laplace transform</h></idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
 
 		<p>As a second example, let us consider a population of fish that is governed by exponential growth,
 			<md>
@@ -142,9 +142,9 @@
 	<subsection xml:id="subsection-laplace01-existence-and-uniqueness">
     	<title>Existence and Uniqueness of the Laplace Transform</title>
 
-		<p>We also wish to be certain that a function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>. A function <m>f(t)</m> is <term>exponentially bounded</term> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
+		<p>If we are to use Laplace transforms to study differential equations, we would like to know which functions actually have Laplace transforms. Furthermore, if two functions have the same Laplace transform, we can ask if the functions must be the same.  In other words, we wish to know if the Laplace transform of a function exists and is unique.  We can answer both of these questions affirmatively if the function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>.  We say a function <m>f(t)</m> is <term>exponentially bounded</term><idx><h>function</h><h>exponentially bounded</h></idx> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
 			<me>|f(t)| \leq Me^{at},</me>
-		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>.</p>
+		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>. The following two theorems tell us that Laplace transforms exist and are unique for exponentially bounded functions on the interval <m>[0, \infty)</m>. We leave the proofs of these theorem as exercises.</p>
 
 
 		<theorem xml:id="theorem-laplace01-existence">
@@ -155,32 +155,16 @@
             </statement>
         </theorem> 
 
+		<theorem xml:id="theorem-laplace01-uniqueness">
+            <statement>
+                <p>Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>. In other words, Laplace transforms are unique.</p>
+            </statement>
+        </theorem> 
+
     </subsection>
 
     <subsection xml:id="subsection-laplace01-inverse-transform">
       	<title>The Inverse Laplace Transform</title>
-
-        <p>As we mentioned in the previous section, we can use Laplace transforms to help us solve initial value problems. The idea is to convert an initial value problem into an algebraic equation. Consider
-          <md>
-            <mrow>y'' - y' - 6y &amp; = 0</mrow>
-            <mrow>y(0) &amp; = 2</mrow>
-            <mrow>y'(0) &amp; = -1,</mrow>
-          </md>
-        and recall that
-          <md>
-            <mrow>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)</mrow>
-            <mrow>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).</mrow>
-          </md>
-        where <m>Y(s)</m> is the Laplace transform of <m>y</m>. If we take the Laplace transform of both sides of the equation <m>y'' - y' - 6y = 0</m>, we have
-          <md>
-            <mrow>{\mathcal L}(y'' - y' - 6y) &amp; = {\mathcal L}(y'') - {\mathcal L}(y') - 6{\mathcal L}(y)</mrow>
-            <mrow>&amp; = [s^2 Y(s) - sy(0) - y'(0)] - [s Y(s) - y(0)] - 6Y(s)</mrow>
-            <mrow>&amp; = [s^2 Y(s) - 2 s + 1] - [s Y(s) - 2] - 6Y(s)</mrow>
-            <mrow>&amp; = {\mathcal L}(0) = 0.</mrow>
-          </md>
-        Solving for <m>Y(s)</m>, we get
-          <me>Y(s) = \frac{2s -3}{(s - 3)(s + 2)}  = \frac{3/5}{s - 3} + \frac{7/5}{s + 2},</me>
-        where we have used partial fractions to get the last expression.  If we know the Laplace transform of a function, we can recover the original function. We state the following theorem without proof.</p>
 
       	<theorem xml:id="theorem-laplace01-inverse">
           <statement>
@@ -199,6 +183,75 @@
 
     </subsection>
 
+    <subsection xml:id="subsection-laplace01-finding-laplace-transforms">
+    	<title>Finding Laplace Transforms and Inverse Transforms</title>
+
+		<p>To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
+
+		<table xml:id="table-laplace01-transforms">
+            <tabular halign="center" top="medium">
+                <row bottom="medium">
+                    <cell><m>f(t) = {\mathcal L}^{-1}(F(s))</m></cell><cell><m>F(s) = {\mathcal L}(f(t))</m></cell>
+                </row>
+                <row>
+                    <cell>1</cell><cell><m>1/s</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at}</m></cell><cell><m>1/(s - a)</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^n</m>, <m>n \in {\mathbb N}</m></cell><cell><m>n!/s^{n+1}</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^a</m>, <m>a > -1</m></cell><cell><m>\Gamma(a + 1)/s^{a + 1}</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\sin at</m></cell><cell><m>a/(s^2 + a^2)</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\cos at</m></cell><cell><m>s/(s^2 + a^2)</m>, <m>s \gt 0</m></cell>
+                </row>
+                <row>
+                    <cell><m>\sinh at</m></cell><cell><m>a/(s^2 - a^2)</m>, <m>s \gt |a|</m></cell>
+                </row>
+                <row>
+                    <cell><m>\cosh at</m></cell><cell><m>s/(s^2 - a^2)</m>, <m>s \gt |a|</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at} \sin bt</m></cell><cell><m>b/[(s-a)^2 + b^2]</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{at} \cos bt</m></cell><cell><m>(s-a)/[(s-a)^2 + b^2]</m>, <m>s \gt a</m></cell>
+                </row>
+                <row>
+                    <cell><m>t^n e^{at}</m>, <m>n \in {\mathbb N}</m></cell><cell><m>n!/(s - a)^{n + 1}</m>, <m>s \gt a</m> </cell>
+                </row>
+                <row>
+                    <cell><m>u_c(t)</m></cell><cell><m>e^{-cs}/ s</m>, <m>s \gt 0</m> </cell>
+                </row>
+                <row>
+                    <cell><m>u_c(t) f(t - c)</m></cell><cell><m>e^{-cs} F(s)</m></cell>
+                </row>
+                <row>
+                    <cell><m>e^{ct} f(t)</m></cell><cell><m>F(s - c)</m></cell>
+                </row>
+                <row>
+                    <cell><m>f(ct)</m></cell><cell><m>(1/c) F(s/c)</m>, <m>c \gt 0</m> </cell>
+                </row>
+                <row>
+                    <cell><m>\delta(t - c)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                <row>
+                    <cell><m>f'(t)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                <row bottom="medium">
+                    <cell><m>f''(t)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
+                </row>
+                </tabular>
+            <caption>Table of Laplace Transforms</caption>
+        </table>	
+
+	</subsection>
     <subsection xml:id="subsection-laplace01-important-lessons">
     	<title>Important Lessons</title>
 
@@ -286,13 +339,24 @@
 
 	<exercise>
 		<statement>
+			<p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+			exists.</p>
+		</statement>
+	</exercise>
+
+	<exercise>
+		<statement>
+			<p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
+		</statement>
+	</exercise>
+
+	<exercise>
+		<statement>
 			<p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, prove that the Laplace transform of <m>f</m>,
 				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
 			exists.</p>
 		</statement>
-
-
-
 	</exercise>			
 
 	<exercise>
