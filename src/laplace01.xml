@@ -14,7 +14,7 @@
 
         <p>Consider the electrical circuit governed by the differential equation
 			<me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
-		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx><h>Laplace transform</h></idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
+		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx>Laplace transform</idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
 
 		<p>As a second example, let us consider a population of fish that is governed by exponential growth,
 			<md>
@@ -94,7 +94,16 @@
             	<mrow>\amp = \alpha \lim_{b \to \infty} \int_0^b e^{-st} f(t) \, dt + \beta \lim_{b \to \infty} \int_0^b e^{-st}\beta g(t) \, dt</mrow>
             	<mrow>\amp = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s)</mrow>
             </md>
-		Transforms of functions having the linearity property are called <term>linear operators</term><idx><h>linear operator</h></idx>.</p>
+		We state the linearity of the Laplace transform as a theorem.
+
+		<theorem xml:id="theorem-laplace01-linearity">
+            <statement>
+                <p>Let <m>f</m> and <m>g</m> be two functions whose Laplace transforms <m>{\mathcal L} ( f)(s)</m> and <m>{\mathcal L} ( g)(s)</m> exist for <m>s \gt a</m> and <m>s \gt b</m>, respectively. Then for any real constants <m>\alpha</m> and <m>\beta</m> and <m>s \gt \max\{a, b\}</m>
+                    <me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s).</me></p>
+            </statement>
+        </theorem> 
+
+		Transforms of functions having the linearity property are called <term>linear operators</term><idx>linear operator</idx>.</p>
 
 		<example>
 			<p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="example-laplace01-basic-examples"/>,
@@ -163,12 +172,6 @@
 
     	<p>In light of <xref ref="theorem-laplace01-uniqueness"/>, it now makes sense to define the <term>inverse Laplace transform</term><idx><h>Laplace transform</h><h>inverse Laplace transform</h></idx> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>. Furthermore, the inverse Laplace transform is linear, 
             <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></p>
-
-    	<p>We can now solve our initial value problem. Since the Laplace transform of <m>e^{at}</m> is <m>1/(s - a)</m>, we know that
-            <me>{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at},</me>
-        and the solution that we seek is
-            <me>y(t) = \frac{3}{5} e^{3t} + \frac{7}{5} e^{-2t}.</me>
-        Of course, there are much easier methods that we can use if we would like to solve this particular initial value problem, but it is nice to see that the two methods agree.</p>
 
     </subsection>
 
@@ -324,7 +327,45 @@
                 </statement>
             </exercise>              
         </exercisegroup>
-	      	
+
+        <exercisegroup cols="2" xml:id="exercises-laplace01-finding-inverse-transforms">
+            <title>Finding inverse Laplace transforms</title>
+            <introduction><p>Find the inverse Laplace transform for each of the functions in <xref ref="exercises-laplace01-finding-inverse-transforms"/>.  You will find partial fraction decompositin very useful.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{s(s + 1)}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = s^{-3/2}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{s + 7}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{2}{s^2 + 9}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{5s - 4}{2s^2 + s - 1}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{2s^2 - s + 4}{s^3 + 4s}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{(s + 2)^3}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{(s + 1)^2(s^2 - 9)}</m></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
 
 	<exercise>
 		<statement>
@@ -333,6 +374,15 @@
 			exists.</p>
 		</statement>
 	</exercise>
+
+	<exercise>
+		<statement>
+			<p>Let <m>f</m> be a function whose Laplace transform <m>{\mathcal L}(f)(s)= F(s)</m> exists for <m>s \gt a</m>. Prove that
+				<me>{\mathcal L}(e^{ct} f(t))(s)= F(s - c)</me>
+				for <m>s \gt a + c</m>.</p>
+		</statement>
+	</exercise>
+
 
 	<exercise>
 		<statement>
@@ -346,28 +396,7 @@
 				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
 			exists.</p>
 		</statement>
-	</exercise>			
-
-	<exercise>
-		<statement>
-			<p><ol>
-
-				<li>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is  exponentially bounded.  Prove that
-					<me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0)</me>
-				for large values of <m>s</m>, where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</li>
-
-				<li>If <m>y = y(t)</m> and all of its derivatives up to order <m>k - 1</m> are piecewise continuous, exponentially bounded functions and <m>y^{(k)}</m> is piecewise continuous, prove that
-					<md>
-						<mrow>{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)</mrow>
-						<mrow>= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).</mrow>
-					</md></li>
-
-				</ol></p>
-		</statement>
-
-
-
-	</exercise>		
+	</exercise>
 
 	<exercise>
 		<statement>
