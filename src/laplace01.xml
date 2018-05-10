@@ -367,58 +367,131 @@
             </exercise>
         </exercisegroup>
 
-	<exercise>
-		<statement>
-			<p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
-				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-			exists.</p>
-		</statement>
-	</exercise>
+		<exercise>
+			<statement>
+				<p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+				exists.</p>
+			</statement>
+		</exercise>
 
-	<exercise>
-		<statement>
-			<p>Let <m>f</m> be a function whose Laplace transform <m>{\mathcal L}(f)(s)= F(s)</m> exists for <m>s \gt a</m>. Prove that
-				<me>{\mathcal L}(e^{ct} f(t))(s)= F(s - c)</me>
-				for <m>s \gt a + c</m>.</p>
-		</statement>
-	</exercise>
-
-
-	<exercise>
-		<statement>
-			<p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
-		</statement>
-	</exercise>
-
-	<exercise>
-		<statement>
-			<p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, prove that the Laplace transform of <m>f</m>,
-				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-			exists.</p>
-		</statement>
-	</exercise>
-
-	<exercise>
-		<statement>
-			<p>Define the <em>gamma function</em> to be
-				<me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt.</me>
-				<ol>
-
-					<li>Show that <m>\Gamma(1) = 1</m>.</li>
-
-					<li>Prove that <m>\Gamma(x + 1) = x\Gamma(x)</m> and deduce that <m>\Gamma(n+1) = n!</m> for <m>n \in {\mathbb N}</m>.</li>
-
-					<li>Show that the Laplace transform of <m>f(t) = t^\alpha</m> is
-						<me>{\mathcal L}(f)(s) = \frac{\Gamma(\alpha + 1)}{s^{\alpha + 1}}.</me>
-					If <m>n</m> is a positive integer, then <m>{\mathcal L}(t^n)(s) = n!/s^{n + 1}</m>.</li>
-
-				</ol></p>
-		</statement>
+		<exercise>
+			<statement>
+				<p>Let <m>f</m> be a function whose Laplace transform <m>{\mathcal L}(f)(s)= F(s)</m> exists for <m>s \gt a</m>. Prove that
+					<me>{\mathcal L}(e^{ct} f(t))(s)= F(s - c)</me>
+					for <m>s \gt a + c</m>.</p>
+			</statement>
+		</exercise>
 
 
-	</exercise>		
-        	
-</exercises>
+		<exercise>
+			<statement>
+				<p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
+			</statement>
+		</exercise>
+
+		<exercise>
+			<statement>
+				<p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, prove that the Laplace transform of <m>f</m>,
+					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+				exists.</p>
+			</statement>
+		</exercise>
+
+		<exercise>
+			<statement>
+				<p>Define the <em>gamma function</em> to be
+					<me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt.</me>
+					<ol>
+
+						<li>Show that <m>\Gamma(1) = 1</m>.</li>
+
+						<li>Prove that <m>\Gamma(x + 1) = x\Gamma(x)</m> and deduce that <m>\Gamma(n+1) = n!</m> for <m>n \in {\mathbb N}</m>.</li>
+
+						<li>Show that the Laplace transform of <m>f(t) = t^\alpha</m> is
+							<me>{\mathcal L}(f)(s) = \frac{\Gamma(\alpha + 1)}{s^{\alpha + 1}}.</me>
+						If <m>n</m> is a positive integer, then <m>{\mathcal L}(t^n)(s) = n!/s^{n + 1}</m>.</li>
+
+					</ol></p>
+			</statement>
+
+
+		</exercise>		
+	        	
+	</exercises>
+
+
+    <subsection number="no" xml:id="subsection-laplace01-sage-project">
+        <title>Laplace Transforms with Sage</title>
+    
+         <p>Computer algebra systems have now replaced tables of Laplace transforms just as the calculator has replaced the slide rule. It is easy to calculate Laplace transforms with Sage. For example, suppose that we wish to compute the Laplace transform of <m>f(x) = t^3 e^t - \cos t</m>.  We can use the Sage command <c>laplace</c>.</p>
+        
+        <sage>
+            <input>
+            s = var("s")
+            t = var("t")
+            f = t^3*exp(t) - cos(t)
+            f.laplace(t,s)
+            </input>
+            <output>
+            -s/(s^2 + 1) + 6/(s - 1)^4
+            </output>
+        </sage>
+
+        <p>To recover the original function, we can use the Sage command <c>inverse_laplace</c>. Suppose that
+            <me>F(s) = -\frac{s}{s^2 + 1} + \frac{6}{(s - 1)^4}.</me></p>
+
+        <sage>
+            <input>
+            s = var("s")
+            t = var("t")
+            F = -s/(s^2 + 1) + 6/(s - 1)^4
+            F.inverse_laplace(s,t)
+            </input>
+            <output>
+            t^3*exp(t) - cos(t)
+            </output>
+        </sage>
+
+        <p>We can even use Sage to find the Laplace transform of piecewise-defined functions. Suppose that
+            <me>f(x) =
+            	\begin{cases}
+            	1, \amp x \lt 3 \\
+            	0, \amp x \geq 3.
+            	\end{cases}</me>
+        The Sage command to define a piecewise-defined function is <c>piecewise</c>.</p>
+        
+        <sage>
+            <input>
+            f1(y) = (y+3)^2
+            f2(y) = y+3
+            f3(y) = 3
+            f = piecewise([[(-infinity, -3), f1], [(-3, 0), f2], [(0, infinity), f3]])
+            </input>
+            <output>
+            </output>
+        </sage>
+
+        <exercises>
+
+        	<exercise>
+        		<statement>
+        			<p>In the Sage cell below enter <c>2 + 2</c> and then evaluate the cell. Your answer should be <c>4</c> of course.  Next try entering <c>2^1000</c>.  You should see a very large number.</p>
+
+			        <sage>
+			            <input>
+			            </input>
+			            <output>
+			            </output>
+			        </sage>
+
+        		</statement>
+        	</exercise>
+
+        </exercises>
+
+
+    </subsection>
 
 </section>
 
