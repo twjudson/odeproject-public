@@ -146,6 +146,16 @@
 			where <m>s \gt 0</m> and <m>a \gt 0</m>.</p>
 		</example>
 
+		<example xml:id="example-laplace01-shift">
+            <p>Given a function <m>f(t)</m>, consider the new function
+                <me>g(t) = u_a(t) f( t - a).</me>
+            To obtain the function <m>g</m> from <m>f</m>, we shift the graph of the <m>f</m> to the right by <m>c</m> units and let <m>g(t) = 0</m> for <m>0 \leq t \lt a</m>. Let us compute the Laplace transform of <m>g</m>,
+                <me>{\mathcal L}(g) = \int_0^\infty g(t) e^{-st} \, dt =\int_a^\infty f(t - a) e^{-st} \, dt.</me>
+            If we make the substitution <m>w = t - a</m>, then
+                <me>{\mathcal L}(g) = \int_0^\infty f(w) e^{-s(w+a)} \, dt = e^{-sa} \int_0^\infty f(w) e^{-sw} \, dt = e^{-sa} {\mathcal L}(f).</me>
+            In other words, if <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s)</m>. </p>
+        </example>
+
 	</subsection>
 
 	<subsection xml:id="subsection-laplace01-existence-and-uniqueness">
@@ -263,17 +273,12 @@
 				<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
 			where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist.</li>
 
-			<li>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
-				<me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
-			where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</li>
+			<li>If we know the Laplace transform <m>F(s)</m> of a function, we can recover the original function using the inverse Laplace transform of a function <m>{\mathcal L}^{-1}(F(s))(t)</m>.</li>
 
-			<li>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is exponentially bounded. Then for large values of <m>s</m>
-				<me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),</me>
-			where <m>Y(s)</m> is the Laplace transform of <m>y</m>. In general, if <m>y = y(t)</m> and all of its derivatives up to order <m>k - 1</m> are piecewise continuous, exponentially bounded functions and <m>y^{(k)}</m> is piecewise continuous, then
-				<md>
-					<mrow>{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)</mrow>
-					<mrow>= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).</mrow>
-				</md></li>
+			<li>The inverse Laplace transform is linear, 
+                <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></li>
+
+			<li>If <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)</m>.</li>
 
 		</ul></p>
 		
@@ -400,8 +405,9 @@
 
 		<exercise>
 			<statement>
-				<p>Define the <em>gamma function</em> to be
-					<me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt.</me>
+				<p>Define the <term>gamma function</term><idx>gamma function</idx> to be
+					<me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt</me>
+				for <m>x \gt 0</m>. The gamma function is very useful for expressing the Laplace transform of the function <m>t^\alpha</m>.
 					<ol>
 
 						<li>Show that <m>\Gamma(1) = 1</m>.</li>
