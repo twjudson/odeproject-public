@@ -384,6 +384,7 @@
                 </statement>
             </exercise>        
         </exercisegroup>
+
     <exercise>
         <statement>
             <p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
@@ -477,7 +478,61 @@
 
 
     <subsection number="no" xml:id="subsection-secondorder01-sage-project">
-        <title>Project</title>
+        <title>Solving Second Order Linear Equations with Sage</title>
+
+        <p>Second order homogeneous linear differential equations with constant coefficeints can be solved sybolically using <em>Sage</em>. For example,
+            <me>x'' + 2 x' + x = 0</me>
+        can be solved using the following Sage commands.</p>
+
+        <sage>
+            <input>
+            t = var('t')  
+            x = function('x')(t)
+            DE = diff(x,t,2)+3*diff(x,t)+2*x == 0
+            desolve(DE, [x,t])
+            </input>
+            <output>
+            _K1*e^(-t) + _K2*e^(-2*t)
+            </output>
+        </sage>
+
+        <p>We can even solve initial value problems such as
+        	<md>
+        		<mrow>x'' + 2 x' + x \amp = 0</mrow>
+        		<mrow>x(0) \amp = 1</mrow>
+        		<mrow>x'(0) \amp = 2</mrow>
+        	</md></p>
+
+        <sage>
+            <input>
+            t = var('t')  
+            x = function('x')(t)
+            DE = diff(x,t,2)+3*diff(x,t)+2*x == 0
+            desolve(DE, [x,t], ics=[0, 1, 2])
+            </input>
+            <output>
+            4*e^(-t) - 3*e^(-2*t)
+            </output>
+        </sage>
+
+        <p>Of course, we can add a forcing term to our initial value problem,
+        	<md>
+        		<mrow>x'' + 2 x' + x \amp = t \cos 2t</mrow>
+        		<mrow>x(0) \amp = 1</mrow>
+        		<mrow>x'(0) \amp = 2</mrow>
+        	</md></p>
+
+        <sage>
+            <input>
+            t = var('t')  
+            x = function('x')(t)
+            DE = diff(x,t,2)+3*diff(x,t)+2*x == t*cos(2*t)
+            desolve(DE, [x,t], ics=[0, 1, 2])
+            </input>
+            <output>
+            -1/100*(5*t - 12)*cos(2*t) + 1/200*(30*t - 7)*sin(2*t) + 97/25*e^(-t) - 3*e^(-2*t)
+            </output>
+        </sage>
 
     </subsection>
 
