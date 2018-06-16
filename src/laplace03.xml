@@ -1,163 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson 					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace03" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>Delta Functions and Forcing</title>
     
     <subsection xml:id="subsection-laplace03-impulse-forcing">
-    	<title>Impulse Forcing</title>
+        <title>Impulse Forcing</title>
 
         <p><term>Impulse forcing</term> is the term used to describe a very quick push or pull on a system, such as the blow of a hammer or the force of an explosion.  For example, consider the equation for a damped harmonic oscillator
-			<me>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y = g(t),</me>
-		where <m>g(t)</m> is a function that is very large in a very short time interval, say <m>|t - t_0| \lt \tau</m> and zero otherwise.  The integral
-			<me>I(\tau) = \int_{t_0 - \tau}^{t_0 + \tau} g(t) \, dt</me>
-		or since <m>g(t)</m> is zero outside of the interval <m>|t - t_0| \lt \tau</m>
-			<me>I(\tau) = \int_{-\infty}^{\infty} g(t) \, dt</me>
-		measures the strength  or <term>impulse</term> of the forcing function <m>g(t)</m>.  In particular, assume that <m>t_0 = 0</m> and 
-			<me>g(t) = d_{\tau}(t) 
-			=
-			\begin{cases}
-			1/ 2\tau, &amp; -\tau \lt t \lt \tau \\
-			0, &amp; \text{otherwise.}
-			\end{cases}</me>
-		It is easy to see that <m>I(\tau) = 1</m> in this case.</p>
+            <me>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y = g(t),</me>
+        where <m>g(t)</m> is a function that is very large in a very short time interval, say <m>|t - t_0| \lt \tau</m> and zero otherwise.  The integral
+            <me>I(\tau) = \int_{t_0 - \tau}^{t_0 + \tau} g(t) \, dt</me>
+        or since <m>g(t)</m> is zero outside of the interval <m>|t - t_0| \lt \tau</m>
+            <me>I(\tau) = \int_{-\infty}^{\infty} g(t) \, dt</me>
+        measures the strength  or <term>impulse</term> of the forcing function <m>g(t)</m>.  In particular, assume that <m>t_0 = 0</m> and 
+            <me>g(t) = d_{\tau}(t) 
+            =
+            \begin{cases}
+            1/ 2\tau, &amp; -\tau \lt t \lt \tau \\
+            0, &amp; \text{otherwise.}
+            \end{cases}</me>
+        It is easy to see that <m>I(\tau) = 1</m> in this case.</p>
 
-		<p>Now let us realize the forcing function over shorter and shorter time intervals with <m>\tau</m> getting closer and closer to zero, we find that <m>I(\tau) = 1</m> in all cases.  Thus,
-			<me>\lim_{\tau \to 0} d_\tau(t) = 0</me>
-		for <m>t \neq 0</m>; however, 
-			<me>\lim_{\tau \to 0} I(\tau ) = 1.</me></p>
+        <p>Now let us realize the forcing function over shorter and shorter time intervals with <m>\tau</m> getting closer and closer to zero, we find that <m>I(\tau) = 1</m> in all cases.  Thus,
+            <me>\lim_{\tau \to 0} d_\tau(t) = 0</me>
+        for <m>t \neq 0</m>; however, 
+            <me>\lim_{\tau \to 0} I(\tau ) = 1.</me></p>
 
-		<p>We can use this information to define the <term>unit impulse function</term>, <m>\delta(t)</m>, to be the ``function'' that imparts an impulse of magnitude one at <m>t = 0</m>, but is zero for all values of <m>t</m> other than zero.  In other words, <m>\delta(t)</m> has the properties
-			<md>
-				<mrow>\delta(t) = 0, \qquad t \neq 0;</mrow>
-				<mrow>\int_{-\infty}^{\infty} \delta(t) \, dt = 1.</mrow>
-			</md>
-		Of course, we study no such function in calculus.  The ``function'' <m>\delta</m> is an example of what is known as a <term>generalized function</term>.   We call <m>\delta</m>, the <term>Dirac delta function</term>.</p>
+        <p>We can use this information to define the <term>unit impulse function</term>, <m>\delta(t)</m>, to be the ``function'' that imparts an impulse of magnitude one at <m>t = 0</m>, but is zero for all values of <m>t</m> other than zero.  In other words, <m>\delta(t)</m> has the properties
+            <md>
+                <mrow>\delta(t) = 0, \qquad t \neq 0;</mrow>
+                <mrow>\int_{-\infty}^{\infty} \delta(t) \, dt = 1.</mrow>
+            </md>
+        Of course, we study no such function in calculus.  The ``function'' <m>\delta</m> is an example of what is known as a <term>generalized function</term>.   We call <m>\delta</m>, the <term>Dirac delta function</term>.</p>
 
-		<p>We can define a unit impulse at a point <m>t_0</m> by considering the function <m>\delta( t - t_0)</m>.  In this case,
-			<md>
-				<mrow>\delta(t - t_0) = 0, \qquad t \neq t_0;</mrow>
-				<mrow>\int_{-\infty}^{\infty} \delta(t - t_0) \, dt = 1.</mrow>
-			</md></p>
+        <p>We can define a unit impulse at a point <m>t_0</m> by considering the function <m>\delta( t - t_0)</m>.  In this case,
+            <md>
+                <mrow>\delta(t - t_0) = 0, \qquad t \neq t_0;</mrow>
+                <mrow>\int_{-\infty}^{\infty} \delta(t - t_0) \, dt = 1.</mrow>
+            </md></p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-laplace03-dirac-delta">
-    	<title>The Laplace Transform of the Dirac Delta Function</title>
+        <title>The Laplace Transform of the Dirac Delta Function</title>
 
-		<p>Even though the Dirac delta function is not a piecewise continuous, exponentially bounded function, we can define its Laplace transform as the limit of the Laplace transform of <m>d_\tau(t)</m> as <m>\tau \to 0</m>.  More specifically, assume that <m>t_0 \gt 0</m> and 
-			<me>{\mathcal L}(\delta(t - t_0)) = \lim_{\tau \to 0} {\mathcal L}(d_\tau(t - t_0)).</me>
-		Assuming that <m>t_0 - \tau \gt 0</m>, the Laplace transform of <m>d_\tau(t - t_0)</m> is
-			<md>
-				<mrow>{\mathcal L}(d_\tau(t - t_0)) &amp; = \int_0^\infty e^{-st} d_\tau(t - t_0) \, dt</mrow>
-				<mrow>&amp; = \int_{t_0 - \tau}^{t_0 + \tau} e^{-st} d_\tau(t - t_0) \, dt</mrow>
-				<mrow>&amp; = \frac{1}{2 \tau} \int_{t_0 - \tau}^{t_0 + \tau} e^{-st}  \, dt</mrow>
-				<mrow>&amp; = \frac{1}{2 s \tau} e^{-st} \bigg|_{t = t_0 - \tau}^{t = t_0 + \tau}</mrow>
-				<mrow>&amp; = \frac{1}{2 s \tau} e^{-st_0} (e^{s\tau} - e^{-s \tau})</mrow>
-				<mrow>&amp; = \frac{\sinh s \tau}{s \tau} e^{-st_0}.</mrow>
-			</md>
-		We can use l'Hospital's rule to evaluate <m>(\sinh s \tau)/ s \tau</m> as <m>\tau \to 0</m>,
-			<me>\lim_{\tau \to 0} \frac{\sinh s \tau}{s \tau} = \lim_{\tau \to 0} \frac{s \cosh s \tau}{s} = 1.</me>
-		Thus,
-			<me>{\mathcal L}(\delta(t - t_0)) = e^{-st_0}.</me>
-		We can extend this result to allow <m>t_0 = 0</m>, by 
-			<me>\lim_{t_0 \to 0} {\mathcal L}(\delta(t - t_0)) =\lim_{t_0 \to 0}  e^{-st_0} = 1.</me></p>
+        <p>Even though the Dirac delta function is not a piecewise continuous, exponentially bounded function, we can define its Laplace transform as the limit of the Laplace transform of <m>d_\tau(t)</m> as <m>\tau \to 0</m>.  More specifically, assume that <m>t_0 \gt 0</m> and 
+            <me>{\mathcal L}(\delta(t - t_0)) = \lim_{\tau \to 0} {\mathcal L}(d_\tau(t - t_0)).</me>
+        Assuming that <m>t_0 - \tau \gt 0</m>, the Laplace transform of <m>d_\tau(t - t_0)</m> is
+            <md>
+                <mrow>{\mathcal L}(d_\tau(t - t_0)) &amp; = \int_0^\infty e^{-st} d_\tau(t - t_0) \, dt</mrow>
+                <mrow>&amp; = \int_{t_0 - \tau}^{t_0 + \tau} e^{-st} d_\tau(t - t_0) \, dt</mrow>
+                <mrow>&amp; = \frac{1}{2 \tau} \int_{t_0 - \tau}^{t_0 + \tau} e^{-st}  \, dt</mrow>
+                <mrow>&amp; = \frac{1}{2 s \tau} e^{-st} \bigg|_{t = t_0 - \tau}^{t = t_0 + \tau}</mrow>
+                <mrow>&amp; = \frac{1}{2 s \tau} e^{-st_0} (e^{s\tau} - e^{-s \tau})</mrow>
+                <mrow>&amp; = \frac{\sinh s \tau}{s \tau} e^{-st_0}.</mrow>
+            </md>
+        We can use l'Hospital's rule to evaluate <m>(\sinh s \tau)/ s \tau</m> as <m>\tau \to 0</m>,
+            <me>\lim_{\tau \to 0} \frac{\sinh s \tau}{s \tau} = \lim_{\tau \to 0} \frac{s \cosh s \tau}{s} = 1.</me>
+        Thus,
+            <me>{\mathcal L}(\delta(t - t_0)) = e^{-st_0}.</me>
+        We can extend this result to allow <m>t_0 = 0</m>, by 
+            <me>\lim_{t_0 \to 0} {\mathcal L}(\delta(t - t_0)) =\lim_{t_0 \to 0}  e^{-st_0} = 1.</me></p>
 
-		<p>Let us now solve the initial value problem
-			<md>
-				<mrow>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y  &amp; = \delta_4(t)</mrow>
-				<mrow>y(0) &amp; = 1</mrow>
-				<mrow>y'(0) &amp; = 0.</mrow>
-			</md>
-		We can think of this as a damped harmonic oscillator that is struck by a hammer at time <m>t = 4</m>.   Let <m>Y(s) = {\mathcal L}(y)(s)</m> and take the Laplace transform of both sides of the differential equation to obtain
-			<me>s^2 Y(s)  - sy(0) - y'(0) + 2(sY(s) - y(0))  + 26 Y(s) = {\mathcal L}(\delta_4)(s)</me>
-		or
-			<me>s^2 Y(s)  - s + 2sY(s) - 2  + 26 Y(s) = e^{-4s}.</me>
-		Solving for <m>Y(s)</m>, we have
-			<me>Y(s) = \frac{s + 2}{s^2 + 2s + 26} + \frac{e^{-4s}}{s^2 + 2s + 26}.</me>
-		The inverse Laplace transform of <m>Y(s)</m> is
-			<md>
-				<mrow>y &amp; = {\mathcal L}\left( \frac{s + 2}{s^2 + 2s + 26} \right) + {\mathcal L}\left(\frac{e^{-4s}}{s^2 + 2s + 26}\right)</mrow>
-				<mrow>&amp; = {\mathcal L}\left( \frac{s + 2}{(s+ 1)^2 + 25} \right) + \frac{1}{5} {\mathcal L}\left(\frac{5e^{-4s}}{(s + 1)^2 + 25}\right)</mrow>
-				<mrow>&amp; = e^{-t} \cos 5t + \frac{1}{5} e^{-t} \sin 5t + \frac{1}{5} u_4(t) e^{-(t - 4)} \sin(5(t-4)).</mrow>
-			</md></p>
+        <p>Let us now solve the initial value problem
+            <md>
+                <mrow>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y  &amp; = \delta_4(t)</mrow>
+                <mrow>y(0) &amp; = 1</mrow>
+                <mrow>y'(0) &amp; = 0.</mrow>
+            </md>
+        We can think of this as a damped harmonic oscillator that is struck by a hammer at time <m>t = 4</m>.   Let <m>Y(s) = {\mathcal L}(y)(s)</m> and take the Laplace transform of both sides of the differential equation to obtain
+            <me>s^2 Y(s)  - sy(0) - y'(0) + 2(sY(s) - y(0))  + 26 Y(s) = {\mathcal L}(\delta_4)(s)</me>
+        or
+            <me>s^2 Y(s)  - s + 2sY(s) - 2  + 26 Y(s) = e^{-4s}.</me>
+        Solving for <m>Y(s)</m>, we have
+            <me>Y(s) = \frac{s + 2}{s^2 + 2s + 26} + \frac{e^{-4s}}{s^2 + 2s + 26}.</me>
+        The inverse Laplace transform of <m>Y(s)</m> is
+            <md>
+                <mrow>y &amp; = {\mathcal L}\left( \frac{s + 2}{s^2 + 2s + 26} \right) + {\mathcal L}\left(\frac{e^{-4s}}{s^2 + 2s + 26}\right)</mrow>
+                <mrow>&amp; = {\mathcal L}\left( \frac{s + 2}{(s+ 1)^2 + 25} \right) + \frac{1}{5} {\mathcal L}\left(\frac{5e^{-4s}}{(s + 1)^2 + 25}\right)</mrow>
+                <mrow>&amp; = e^{-t} \cos 5t + \frac{1}{5} e^{-t} \sin 5t + \frac{1}{5} u_4(t) e^{-(t - 4)} \sin(5(t-4)).</mrow>
+            </md></p>
 
-		<figure xml:id="figure-laplace03-solution-dirac">
+        <figure xml:id="figure-laplace03-solution-dirac">
             <caption>Solution to <m>y'' + 2y' + 26 y -\delta_4(t)</m></caption>
             <image width="60%" source="images/solution-dirac.png" />
         </figure>
 
-		<p>It is important to notice that we are using the Dirac delta function like an ordinary function.  This requires some rigorous mathematics to justify that we can actually do this.</p>
+        <p>It is important to notice that we are using the Dirac delta function like an ordinary function.  This requires some rigorous mathematics to justify that we can actually do this.</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-laplace03-important-lessons">
-    	<title>Important Lessons</title>
+        <title>Important Lessons</title>
 
-		<p><ul>
-		
-			<li><term>Impulse forcing</term> is the term used to describe a very quick push or pull on a system, such as the blow of a hammer or the force of an explosion.  For example, consider the equation for a damped harmonic oscillator
-				<me>\frac{d^2y}{dt^2} + p \frac{dy}{dt} + q y = g(t),</me>
-			where <m>g(t)</m> is a function that is very large in a very short time interval, say <m>|t - t_0| \lt \tau</m> and zero otherwise.  The integral
-				<me>I(\tau) = \int_{t_0 - \tau}^{t_0 + \tau} g(t) \, dt</me>
-			or since <m>g(t)</m> is zero outside of the interval <m>|t - t_0| \lt \tau</m>
-				<me>I(\tau) = \int_{-\infty}^{\infty} g(t) \, dt</me>
-			measures the strength  or <term>impulse</term> of the forcing function <m>g(t)</m>.</li>
+        <p><ul>
+        
+            <li><term>Impulse forcing</term> is the term used to describe a very quick push or pull on a system, such as the blow of a hammer or the force of an explosion.  For example, consider the equation for a damped harmonic oscillator
+                <me>\frac{d^2y}{dt^2} + p \frac{dy}{dt} + q y = g(t),</me>
+            where <m>g(t)</m> is a function that is very large in a very short time interval, say <m>|t - t_0| \lt \tau</m> and zero otherwise.  The integral
+                <me>I(\tau) = \int_{t_0 - \tau}^{t_0 + \tau} g(t) \, dt</me>
+            or since <m>g(t)</m> is zero outside of the interval <m>|t - t_0| \lt \tau</m>
+                <me>I(\tau) = \int_{-\infty}^{\infty} g(t) \, dt</me>
+            measures the strength  or <term>impulse</term> of the forcing function <m>g(t)</m>.</li>
 
-			<li>We define the <term>unit impulse function</term>, <m>\delta(t)</m>, to be the ``function'' that imparts an impulse of magnitude one at <m>t = 0</m>, but is zero for all values of <m>t</m> other than zero.  In other words, <m>\delta(t)</m> has the properties
-				<md>
-					<mrow>\delta(t) = 0, \qquad t \neq 0;</mrow>
-					<mrow>\int_{-\infty}^{\infty} \delta(t) \, dt = 1.</mrow>
-				</md>
-			The <q>function</q> <m>\delta</m> is an example of what is known as a <term>generalized function</term>.   We call <m>\delta</m>, the <term>Dirac delta function</term>.</li>
+            <li>We define the <term>unit impulse function</term>, <m>\delta(t)</m>, to be the ``function'' that imparts an impulse of magnitude one at <m>t = 0</m>, but is zero for all values of <m>t</m> other than zero.  In other words, <m>\delta(t)</m> has the properties
+                <md>
+                    <mrow>\delta(t) = 0, \qquad t \neq 0;</mrow>
+                    <mrow>\int_{-\infty}^{\infty} \delta(t) \, dt = 1.</mrow>
+                </md>
+            The <q>function</q> <m>\delta</m> is an example of what is known as a <term>generalized function</term>.   We call <m>\delta</m>, the <term>Dirac delta function</term>.</li>
 
-			<li>Similarly, we can define a unit impulse at a point <m>t_0</m> by considering the function <m>\delta( t - t_0)</m>.  In this case,
-				<md>
-					<mrow>\delta(t - t_0) = 0, \qquad t \neq 0;</mrow>
-					<mrow>\int_{-\infty}^{\infty} \delta(t - t_0) \, dt = 1.</mrow>
-				</md></li>
+            <li>Similarly, we can define a unit impulse at a point <m>t_0</m> by considering the function <m>\delta( t - t_0)</m>.  In this case,
+                <md>
+                    <mrow>\delta(t - t_0) = 0, \qquad t \neq 0;</mrow>
+                    <mrow>\int_{-\infty}^{\infty} \delta(t - t_0) \, dt = 1.</mrow>
+                </md></li>
 
-			<li>The Laplace transform of the Dirac delta function is
-				<me>{\mathcal L}(\delta(t - t_0)) = e^{-st_0}.</me>
-			We can extend this result to allow <m>t_0 = 0</m>, by 
-				<me>\lim_{t_0 \to 0} {\mathcal L}(\delta(t - t_0)) =\lim_{t_0 \to 0}  e^{-st_0} = 1.</me></li>
+            <li>The Laplace transform of the Dirac delta function is
+                <me>{\mathcal L}(\delta(t - t_0)) = e^{-st_0}.</me>
+            We can extend this result to allow <m>t_0 = 0</m>, by 
+                <me>\lim_{t_0 \to 0} {\mathcal L}(\delta(t - t_0)) =\lim_{t_0 \to 0}  e^{-st_0} = 1.</me></li>
 
-			<li>We can use the Dirac delta function to solve initial value problems such as
-				<md>
-					<mrow>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y  &amp; = \delta_4(t)</mrow>
-					<mrow>y(0) &amp; = 1</mrow>
-					<mrow>y'(0) &amp; = 0,</mrow>
-				</md>
-			or
-				<me>\frac{d^2y}{dt^2} + p \frac{dy}{dt} + q y = g(t),</me>
-			where <m>g(t)</m> is a function that is very large in a very short time interval.</li>
+            <li>We can use the Dirac delta function to solve initial value problems such as
+                <md>
+                    <mrow>\frac{d^2y}{dt^2} + 2 \frac{dy}{dt} + 26 y  &amp; = \delta_4(t)</mrow>
+                    <mrow>y(0) &amp; = 1</mrow>
+                    <mrow>y'(0) &amp; = 0,</mrow>
+                </md>
+            or
+                <me>\frac{d^2y}{dt^2} + p \frac{dy}{dt} + q y = g(t),</me>
+            where <m>g(t)</m> is a function that is very large in a very short time interval.</li>
 
-		</ul></p>
+        </ul></p>
 
-	</subsection>
+    </subsection>
 
     <exercises xml:id="exercises-laplace03" filenamebase="laplace03">
     <title>Exercises</title>
 
-	<exercise>
-		<statement>
-			<p>Find the solution of the initial value problem
-				<md>
-					<mrow>2 y'' + y' + 2y = \delta(t - 5)</mrow>
-					<mrow>y(0) = y'(0) = 0,</mrow>
-				</md>
-			where <m>\delta(t)</m> is the unit impulse function.</p>
-		</statement>
+    <exercise>
+        <statement>
+            <p>Find the solution of the initial value problem
+                <md>
+                    <mrow>2 y'' + y' + 2y = \delta(t - 5)</mrow>
+                    <mrow>y(0) = y'(0) = 0,</mrow>
+                </md>
+            where <m>\delta(t)</m> is the unit impulse function.</p>
+        </statement>
 
 
 
-	</exercise>		
+    </exercise>     
 
 </exercises>
 

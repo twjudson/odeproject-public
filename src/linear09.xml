@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="linear09" xmlns:xi="http://www.w3.org/2001/XInclude">
         <title>The Matrix Exponential</title>
@@ -13,703 +13,703 @@
     <introduction>
 
         <p>Consider the linear system
-			<md>
-				<mrow>x' &amp; = -17x -46y -7z</mrow>
-				<mrow>y' &amp; = 8x + 21y + 3z</mrow>
-				<mrow>z' &amp; = -7x - 15y - z</mrow>
-			</md>
-		The matrix associated with this system is
-			<me>A 
-			=
-			\begin{pmatrix}
-			-17 &amp; -46 &amp; -7 \\
-			8 &amp; 21 &amp; 3 \\
-			-7 &amp; -15 &amp; -1
-			\end{pmatrix}.</me>
-		The characteristic polynomial of <m>A</m> is
-			<me>p(\lambda) = \det(A - \lambda I) = \lambda^3 - 3\lambda^2 + 3\lambda - 1 = (\lambda - 1)^3</me>
-		hence, there is only a single eigenvalue <m>\lambda = 1</m>. Moreover, we can only find a single linearly independent eigenvector <m>(1, -1, 4)</m>.  Thus, 
-			<me>{\mathbf x}(t) = c e^{-t} \begin{pmatrix} 1 \\ -1 \\ 4\end{pmatrix}</me>
-		is a solution to our system. However, this is not the general solution to the system. We can only solve initial value problems where the initial condition lies on the line through the origin containing the vector <m>(1, -1, 4)</m>. To construct a general solution to our system, we will need two other linearly independent solutions.</p>
+            <md>
+                <mrow>x' &amp; = -17x -46y -7z</mrow>
+                <mrow>y' &amp; = 8x + 21y + 3z</mrow>
+                <mrow>z' &amp; = -7x - 15y - z</mrow>
+            </md>
+        The matrix associated with this system is
+            <me>A 
+            =
+            \begin{pmatrix}
+            -17 &amp; -46 &amp; -7 \\
+            8 &amp; 21 &amp; 3 \\
+            -7 &amp; -15 &amp; -1
+            \end{pmatrix}.</me>
+        The characteristic polynomial of <m>A</m> is
+            <me>p(\lambda) = \det(A - \lambda I) = \lambda^3 - 3\lambda^2 + 3\lambda - 1 = (\lambda - 1)^3</me>
+        hence, there is only a single eigenvalue <m>\lambda = 1</m>. Moreover, we can only find a single linearly independent eigenvector <m>(1, -1, 4)</m>.  Thus, 
+            <me>{\mathbf x}(t) = c e^{-t} \begin{pmatrix} 1 \\ -1 \\ 4\end{pmatrix}</me>
+        is a solution to our system. However, this is not the general solution to the system. We can only solve initial value problems where the initial condition lies on the line through the origin containing the vector <m>(1, -1, 4)</m>. To construct a general solution to our system, we will need two other linearly independent solutions.</p>
 
-	</introduction>
-	
-	<subsection xml:id="subsection-linear09-matrix-exponential">
-    	<title>The Exponential of a Matrix</title>
+    </introduction>
+    
+    <subsection xml:id="subsection-linear09-matrix-exponential">
+        <title>The Exponential of a Matrix</title>
 
-		<p>Our goal is to construct a solution to the initial value problem
-			<md>
-				<mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
-				<mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0,</mrow>
-			</md>
-		where <m>A</m> is an <m>n \times n</m> matrix. Recalling that the solution to the initial value problem
-			<md>
-				<mrow>x' &amp; = kx</mrow>
-				<mrow>x(0) &amp; = x_0</mrow>
-			</md>
-		is <m>x(t) = x_0 e^{kt}</m>, we might guess that a solution to the initial value problem
-			<md>
-				<mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
-				<mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
-			</md>
-		has the form
-			<me>{\mathbf x}(t) = e^{tA} {\mathbf x}_0</me>
-		if we can make sense of the expression <m>e^{tA}</m>.</p>
+        <p>Our goal is to construct a solution to the initial value problem
+            <md>
+                <mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
+                <mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0,</mrow>
+            </md>
+        where <m>A</m> is an <m>n \times n</m> matrix. Recalling that the solution to the initial value problem
+            <md>
+                <mrow>x' &amp; = kx</mrow>
+                <mrow>x(0) &amp; = x_0</mrow>
+            </md>
+        is <m>x(t) = x_0 e^{kt}</m>, we might guess that a solution to the initial value problem
+            <md>
+                <mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
+                <mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
+            </md>
+        has the form
+            <me>{\mathbf x}(t) = e^{tA} {\mathbf x}_0</me>
+        if we can make sense of the expression <m>e^{tA}</m>.</p>
 
-		<p>We will define the <term>exponential</term> of <m>A</m> using the power series for <m>e^t</m>. Thus,
-			<me>e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k,</me>
-		where <m>A</m> is an <m>n \times n</m> matrix, where <m>A^0 = I</m> by convention. Each term makes sense in our definition since each is an expression of <m>n \times n</m> matrices; however, there are some issues surrounding the convergence of the power series. A series, even a series whose individual terms are matrix expressions, converges if and only if its partial sums,
-			<me>S_N =  \sum_{k=0}^N \frac{1}{k!} A^k</me>
-		converge. Although we shall not provide a proof, the matrix exponential <m>e^A</m> converges for all <m>A</m>.</p>
+        <p>We will define the <term>exponential</term> of <m>A</m> using the power series for <m>e^t</m>. Thus,
+            <me>e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k,</me>
+        where <m>A</m> is an <m>n \times n</m> matrix, where <m>A^0 = I</m> by convention. Each term makes sense in our definition since each is an expression of <m>n \times n</m> matrices; however, there are some issues surrounding the convergence of the power series. A series, even a series whose individual terms are matrix expressions, converges if and only if its partial sums,
+            <me>S_N =  \sum_{k=0}^N \frac{1}{k!} A^k</me>
+        converge. Although we shall not provide a proof, the matrix exponential <m>e^A</m> converges for all <m>A</m>.</p>
 
-		<example xml:id="example-linear09-exp-diag-matrix">
-			<p>Let us compute the exponential of
-				<me>A
-				=
-				\begin{pmatrix}
-				s &amp; 0 \\
-				0 &amp; t
-				\end{pmatrix}.</me>
-			Actually, this is quite easy,
-				<md>
-					<mrow>e^A &amp; = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					1 &amp; 0 \\
-					0 &amp; 1
-					\end{pmatrix}
-					+
-					\begin{pmatrix}
-					s &amp; 0 \\
-					0 &amp; t
-					\end{pmatrix}
-					+
-					\frac{1}{2!}
-					\begin{pmatrix}
-					s^2 &amp; 0 \\
-					0 &amp; t^2
-					\end{pmatrix}
-					+
-					\frac{1}{3!}
-					\begin{pmatrix}
-					s^3 &amp; 0 \\
-					0 &amp; t^3
-					\end{pmatrix}
-					+
-					\cdots</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					1 + s + s^2/2! + s^3/3! + \cdots &amp; 0 \\
-					0 &amp; 1 + t + t^2/2! + t^3/3! + \cdots
-					\end{pmatrix}</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					e^s &amp; 0 \\
-					0 &amp; e^t
-					\end{pmatrix}.</mrow>
-				</md></p>
-		</example>
+        <example xml:id="example-linear09-exp-diag-matrix">
+            <p>Let us compute the exponential of
+                <me>A
+                =
+                \begin{pmatrix}
+                s &amp; 0 \\
+                0 &amp; t
+                \end{pmatrix}.</me>
+            Actually, this is quite easy,
+                <md>
+                    <mrow>e^A &amp; = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    1 &amp; 0 \\
+                    0 &amp; 1
+                    \end{pmatrix}
+                    +
+                    \begin{pmatrix}
+                    s &amp; 0 \\
+                    0 &amp; t
+                    \end{pmatrix}
+                    +
+                    \frac{1}{2!}
+                    \begin{pmatrix}
+                    s^2 &amp; 0 \\
+                    0 &amp; t^2
+                    \end{pmatrix}
+                    +
+                    \frac{1}{3!}
+                    \begin{pmatrix}
+                    s^3 &amp; 0 \\
+                    0 &amp; t^3
+                    \end{pmatrix}
+                    +
+                    \cdots</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    1 + s + s^2/2! + s^3/3! + \cdots &amp; 0 \\
+                    0 &amp; 1 + t + t^2/2! + t^3/3! + \cdots
+                    \end{pmatrix}</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    e^s &amp; 0 \\
+                    0 &amp; e^t
+                    \end{pmatrix}.</mrow>
+                </md></p>
+        </example>
 
-		<theorem xml:id="theorem-linear09-matrix-exponential">
-        	<statement>
-            	<p>If <m>A</m> is an <m>n \times n</m> matrix, then 
-					<me>\frac{d}{dt} e^{tA} = A e^{tA}.</me></p>
-			</statement>
-		</theorem> 
+        <theorem xml:id="theorem-linear09-matrix-exponential">
+            <statement>
+                <p>If <m>A</m> is an <m>n \times n</m> matrix, then 
+                    <me>\frac{d}{dt} e^{tA} = A e^{tA}.</me></p>
+            </statement>
+        </theorem> 
 
-		<proof><p>We simply need to differentiate 
-			<me>e^{tA} = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3+ \cdots</me>
-		term by term.<fn>Since we are differentiating an infinite series, we still need to show that differentiating term by term is something that can be done. We will, however, leave the details to a course in advanced calculus.</fn> However,
-			<md>
-				<mrow>\frac{d}{dt} e^{tA} &amp; = \frac{d}{dt} \left( I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots \right)</mrow>
-				<mrow>&amp; = A + tA^2 + \frac{t^2}{2!} A^3 + \cdots</mrow>
-				<mrow>&amp; = A\left(I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} + \cdots\right)</mrow>
-				<mrow>&amp; = Ae^{tA}.</mrow>
-			</md></p>
-		</proof>
+        <proof><p>We simply need to differentiate 
+            <me>e^{tA} = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3+ \cdots</me>
+        term by term.<fn>Since we are differentiating an infinite series, we still need to show that differentiating term by term is something that can be done. We will, however, leave the details to a course in advanced calculus.</fn> However,
+            <md>
+                <mrow>\frac{d}{dt} e^{tA} &amp; = \frac{d}{dt} \left( I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots \right)</mrow>
+                <mrow>&amp; = A + tA^2 + \frac{t^2}{2!} A^3 + \cdots</mrow>
+                <mrow>&amp; = A\left(I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} + \cdots\right)</mrow>
+                <mrow>&amp; = Ae^{tA}.</mrow>
+            </md></p>
+        </proof>
 
-		<corollary xml:id="corollary-linear09-matrix-exponential">
-        	<statement>
-            	<p>Let <m>A</m> be an <m>n \times n</m> matrix. Then <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m> is the solution to the initial value problem
-					<md>
-						<mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
-						<mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
-					</md></p>
-			</statement>
-		</corollary> 
+        <corollary xml:id="corollary-linear09-matrix-exponential">
+            <statement>
+                <p>Let <m>A</m> be an <m>n \times n</m> matrix. Then <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m> is the solution to the initial value problem
+                    <md>
+                        <mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
+                        <mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
+                    </md></p>
+            </statement>
+        </corollary> 
 
-		<proof>
-			<p>The corollary follows immediately from <xref ref="theorem-linear09-matrix-exponential" />. If <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m>, then
-				<me>{\mathbf x}'(t) 
-				= \frac{d}{dt} \left( e^{tA}{\mathbf x}_0 \right)
-				= \frac{d}{dt} \left( e^{tA} \right) {\mathbf x}_0
-				= Ae^{tA} {\mathbf x}_0
-				= A {\mathbf x}(t).</me></p>
-		</proof>
-				
-		<p>Thus, solving linear systems is simply a matter of computing matrix exponentials. The problem is that matrix exponentials may not be so easy to compute.</p>
+        <proof>
+            <p>The corollary follows immediately from <xref ref="theorem-linear09-matrix-exponential" />. If <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m>, then
+                <me>{\mathbf x}'(t) 
+                = \frac{d}{dt} \left( e^{tA}{\mathbf x}_0 \right)
+                = \frac{d}{dt} \left( e^{tA} \right) {\mathbf x}_0
+                = Ae^{tA} {\mathbf x}_0
+                = A {\mathbf x}(t).</me></p>
+        </proof>
+                
+        <p>Thus, solving linear systems is simply a matter of computing matrix exponentials. The problem is that matrix exponentials may not be so easy to compute.</p>
 
-		<example>
-			<p>The matrix 
-				<me>A = 
-				\begin{pmatrix}
-				4 \amp 4 \\
-				-9 \amp -8
-				\end{pmatrix}</me>
-			has repeated eigenvalues <m>\lambda = -2</m>. If we try to compute <m>e^{tA}</m>, then
-				<md>
-					<mrow>e^{tA} &amp; = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					1 &amp; 0 \\
-					0 &amp; 1
-					\end{pmatrix}
-					+
-					t\begin{pmatrix}
-					4 \amp 4 \\
-					-9 \amp -8
-					\end{pmatrix}
-					+
-					\frac{t^2}{2!}
-					\begin{pmatrix}
-					4 \amp 4 \\
-					-9 \amp -8
-					\end{pmatrix}^2
-					+
-					\frac{t^3}{3!}
-					\begin{pmatrix}
-					4 \amp 4 \\
-					-9 \amp -8
-					\end{pmatrix}^3
-					+
-					\cdots</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					1 &amp; 0 \\
-					0 &amp; 1
-					\end{pmatrix}
-					+
-					t\begin{pmatrix}
-					4 \amp 4 \\
-					-9 \amp -8
-					\end{pmatrix}
-					+
-					\frac{t^2}{2!}
-					\begin{pmatrix}
-					-20 \amp -16 \\
-					-36 \amp 28
-					\end{pmatrix}
-					+
-					\frac{t^3}{3!}
-					\begin{pmatrix}
-					64 \amp 48 \\
-					-108 \amp -80
-					\end{pmatrix}
-					+
-					\cdots</mrow>
-					<mrow>&amp; =
-					\begin{pmatrix}
-					1 + t - 20t^2/2! + 64t^3/3! + \cdots &amp;  4t - 16t^2/2! + 48t^3/ 3! + \cdots \\
-					-9t - 36t^2/2! - 108t^3/3! + \cdots &amp; 1 - 8t + 28t^2/2! - 80t^3/3! + \cdots
-					\end{pmatrix}.</mrow>
-				</md>
-			It is not at all clear that this series converges to a matrix whose entries can be expressed in terms of elementary functions.</p>
-		</example>
+        <example>
+            <p>The matrix 
+                <me>A = 
+                \begin{pmatrix}
+                4 \amp 4 \\
+                -9 \amp -8
+                \end{pmatrix}</me>
+            has repeated eigenvalues <m>\lambda = -2</m>. If we try to compute <m>e^{tA}</m>, then
+                <md>
+                    <mrow>e^{tA} &amp; = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    1 &amp; 0 \\
+                    0 &amp; 1
+                    \end{pmatrix}
+                    +
+                    t\begin{pmatrix}
+                    4 \amp 4 \\
+                    -9 \amp -8
+                    \end{pmatrix}
+                    +
+                    \frac{t^2}{2!}
+                    \begin{pmatrix}
+                    4 \amp 4 \\
+                    -9 \amp -8
+                    \end{pmatrix}^2
+                    +
+                    \frac{t^3}{3!}
+                    \begin{pmatrix}
+                    4 \amp 4 \\
+                    -9 \amp -8
+                    \end{pmatrix}^3
+                    +
+                    \cdots</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    1 &amp; 0 \\
+                    0 &amp; 1
+                    \end{pmatrix}
+                    +
+                    t\begin{pmatrix}
+                    4 \amp 4 \\
+                    -9 \amp -8
+                    \end{pmatrix}
+                    +
+                    \frac{t^2}{2!}
+                    \begin{pmatrix}
+                    -20 \amp -16 \\
+                    -36 \amp 28
+                    \end{pmatrix}
+                    +
+                    \frac{t^3}{3!}
+                    \begin{pmatrix}
+                    64 \amp 48 \\
+                    -108 \amp -80
+                    \end{pmatrix}
+                    +
+                    \cdots</mrow>
+                    <mrow>&amp; =
+                    \begin{pmatrix}
+                    1 + t - 20t^2/2! + 64t^3/3! + \cdots &amp;  4t - 16t^2/2! + 48t^3/ 3! + \cdots \\
+                    -9t - 36t^2/2! - 108t^3/3! + \cdots &amp; 1 - 8t + 28t^2/2! - 80t^3/3! + \cdots
+                    \end{pmatrix}.</mrow>
+                </md>
+            It is not at all clear that this series converges to a matrix whose entries can be expressed in terms of elementary functions.</p>
+        </example>
 
-		<p>Now let us see how we can use the matrix exponential to solve a linear system as well as invent a more direct way to compute the matrix exponential.</p>
-
-
-		<theorem xml:id="theorem-linear09-compute-matrix-exponential-1">
-        	<statement>
-            	<p>Let <m>\lambda</m> be an eigenvalue of an <m>n \times n</m> matrix <m>A</m>. If <m>{\mathbf v}</m> is an eigenvector for <m>\lambda</m>, then <m>e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}</m>.</p>
-			</statement>
-		</theorem> 
-			
-		<proof>
-			<p>Since <m>{\mathbf v}</m> is an eigenvalue for <m>\lambda</m>, we know that <m>A{\mathbf v} = \lambda {\mathbf v}</m>.  Using mathematical induction, we can show that <m>A^n</m> has eigenvalue <m>\lambda^n</m> with associated eigenvector <m>{\mathbf v}</m>.  Indeed,
-				<me>A^n {\mathbf v}
-				=
-				A (A^{n-1} {\mathbf v})
-				=
-				A(\lambda^{n-1} {\mathbf v})
-				=
-				\lambda^{n-1} A {\mathbf v}
-				=
-				\lambda^n {\mathbf v}.</me>
-			Hence,
-				<md>
-					<mrow>e^{tA} {\mathbf v}
-					&amp; =
-					\left(
-					 I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!}A^3 + \cdots
-					\right) 
-					{\mathbf v}</mrow>
-					<mrow>&amp; = {\mathbf v} + tA{\mathbf v} + \frac{t^2}{2!} A^2{\mathbf v} + \frac{t^3}{3!} A^3{\mathbf v}+ \cdots</mrow>
-					<mrow>&amp; = {\mathbf v} + t\lambda{\mathbf v} + \frac{t^2}{2!} \lambda^2{\mathbf v} + \frac{t^3}{3!} \lambda^3{\mathbf v}+ \cdots</mrow>
-					<mrow>&amp; =
-					\left(
-					 I + t\lambda + \frac{t^2}{2!} \lambda^2 + \frac{t^3}{3!}\lambda^3 + \cdots
-					\right) 
-					{\mathbf v}</mrow>
-					<mrow>&amp; = e^{\lambda t} {\mathbf v}.</mrow>
-				</md></p>
-		</proof>
-
-		<p>The matrix exponential shares several properties with the exponential function <m>e^x</m> that we studied in calculus.</p>
-
-		<theorem xml:id="theorem-linear09-matrix-exponential-properties">
-        	<statement>
-            	<p>Let <m>A</m> and <m>B</m> be <m>n \times n</m> matrices. Then
-            		<ol>
-
-						<li><m>Ae^A = e^A A</m>;</li>
+        <p>Now let us see how we can use the matrix exponential to solve a linear system as well as invent a more direct way to compute the matrix exponential.</p>
 
 
-						<li>if <m>AB = BA</m>, then <m>e^A e^B = e^{A+B}</m>;</li>
+        <theorem xml:id="theorem-linear09-compute-matrix-exponential-1">
+            <statement>
+                <p>Let <m>\lambda</m> be an eigenvalue of an <m>n \times n</m> matrix <m>A</m>. If <m>{\mathbf v}</m> is an eigenvector for <m>\lambda</m>, then <m>e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}</m>.</p>
+            </statement>
+        </theorem> 
+            
+        <proof>
+            <p>Since <m>{\mathbf v}</m> is an eigenvalue for <m>\lambda</m>, we know that <m>A{\mathbf v} = \lambda {\mathbf v}</m>.  Using mathematical induction, we can show that <m>A^n</m> has eigenvalue <m>\lambda^n</m> with associated eigenvector <m>{\mathbf v}</m>.  Indeed,
+                <me>A^n {\mathbf v}
+                =
+                A (A^{n-1} {\mathbf v})
+                =
+                A(\lambda^{n-1} {\mathbf v})
+                =
+                \lambda^{n-1} A {\mathbf v}
+                =
+                \lambda^n {\mathbf v}.</me>
+            Hence,
+                <md>
+                    <mrow>e^{tA} {\mathbf v}
+                    &amp; =
+                    \left(
+                     I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!}A^3 + \cdots
+                    \right) 
+                    {\mathbf v}</mrow>
+                    <mrow>&amp; = {\mathbf v} + tA{\mathbf v} + \frac{t^2}{2!} A^2{\mathbf v} + \frac{t^3}{3!} A^3{\mathbf v}+ \cdots</mrow>
+                    <mrow>&amp; = {\mathbf v} + t\lambda{\mathbf v} + \frac{t^2}{2!} \lambda^2{\mathbf v} + \frac{t^3}{3!} \lambda^3{\mathbf v}+ \cdots</mrow>
+                    <mrow>&amp; =
+                    \left(
+                     I + t\lambda + \frac{t^2}{2!} \lambda^2 + \frac{t^3}{3!}\lambda^3 + \cdots
+                    \right) 
+                    {\mathbf v}</mrow>
+                    <mrow>&amp; = e^{\lambda t} {\mathbf v}.</mrow>
+                </md></p>
+        </proof>
 
-						<li><m>e^A</m> has inverse <m>e^{-A}</m>.</li>
+        <p>The matrix exponential shares several properties with the exponential function <m>e^x</m> that we studied in calculus.</p>
 
-					</ol></p>
-			</statement>
-		</theorem> 
-	
-		<proof>
-			<p>To prove (1), we can simply expand both sides of the equality in a power series,
-				<md>
-					<mrow>A e^A&amp; = A \left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right)</mrow>
-					<mrow>&amp; =A + A^2 + \frac{1}{2!} A^3 + \frac{1}{3!} A^4 + \cdots</mrow>
-					<mrow>&amp; =\left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right) A</mrow>
-					<mrow>&amp; =e^A A.</mrow>
-				</md>
-			Proving (2) is a only bit more complicated if we notice that the binomial expansion holds for matrices,
-				<me>(A + B)^n  = \sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k},</me>
-			where
-				<me>\begin{pmatrix} n \\ k \end{pmatrix} = \frac{n!}{k! (n-k)!},</me>
-			providing <m>AB = BA</m>.
-				<md>
-					<mrow>e^{A + B} &amp; = \sum_{n=0}^\infty \frac{1}{n!} (A + B)^n</mrow>
-					<mrow>&amp; = \sum_{n=0}^\infty \frac{1}{n!} \left(\sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k} \right)</mrow>
-					<mrow>&amp; = \sum_{n=0}^\infty \left( \sum_{k = 0}^n  \frac{1}{k!(n-k)!}  A^k B^{n-k} \right)</mrow>
-					<mrow>&amp; =
-					\left(
-					\sum_{n=0}^\infty \frac{1}{n!} A^n
-					\right)
-					\left(
-					\sum_{n=0}^\infty \frac{1}{n!} B^n
-					\right)</mrow>
-					<mrow>&amp; = e^A e^B.</mrow>
-				</md>
-			Simply expand each series out to see that this is true. Part (3) follows directly from Part (2), since <m>A</m> and <m>-A</m> commute.</p>
-		</proof>
+        <theorem xml:id="theorem-linear09-matrix-exponential-properties">
+            <statement>
+                <p>Let <m>A</m> and <m>B</m> be <m>n \times n</m> matrices. Then
+                    <ol>
 
-		<example>
-			<p>Now let us compute <m>e^{tA}</m> once again for 
-				<me>A
-				=
-				\begin{pmatrix}
-				4 \amp 4 \\
-				-9 \amp -8
-				\end{pmatrix}.</me>
-			First notice that 
-				<me>A = \lambda I + (A - \lambda I).</me>
-			Since the identity matrix <m>I</m> commutes with every matrix, we know that
-				<me>e^{t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t(A - \lambda I)}.</me>
-			We also know that <m>e^{\lambda t I } = e^{\lambda t} I</m> by <xref ref="example-linear09-exp-diag-matrix" />.  Thus,
-				<me>e^{ t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t (A - \lambda I)} = e^{\lambda t} e^{t (A - \lambda I)}.</me>
-			The matrix <m>A</m> has repeated eigenvalue <m>\lambda = -2</m>. Consequently,
-				<me>A - \lambda I = A + 2I = \begin{pmatrix} 6 &amp; 4 \\ -9 &amp; -6 \end{pmatrix},</me>
-			and <m>(A - \lambda I)^2</m> is the zero matrix. Thus,
-				<md>
-					<mrow>e^{ t A} &amp; = e^{\lambda t} e^{t (A - \lambda I)}</mrow>
-					<mrow>&amp; = e^{\lambda t} \left(  I + t (A - \lambda I ) + \frac{t^2}{2!} (A - \lambda I )^2 +  \frac{t^2}{3!} (A - \lambda I )^3 + \cdots \right)</mrow>
-					<mrow>&amp; =e^{- 2t} \left(  I + t (A + 2I ) + \frac{t^2}{2!} (A + 2I )^2 +  \frac{t^2}{3!} (A + 2I )^3 + \cdots \right)</mrow>
-					<mrow>&amp; =e^{- 2t} \left(  I + t (A + 2I )  \right)</mrow>
-					<mrow>&amp; =
-					e^{-2t}
-					\begin{pmatrix}
-					1 + 6t \amp 4t \\
-					-9t \amp -6t
-					\end{pmatrix}.</mrow>
-				</md></p>
-			</example>
-
-		<p>Our example suggests at the following proposition. We leave the proof of this proposition as an exercise.</p>
-
-		<proposition xml:id="proposition-linear09-compute-matrix-exponential-2">
-        	<statement>
-            	<p>If <m>A</m> is an <m>n \times n</m> matrix with a single eigenvalue <m>\lambda</m>, then there exists a nonnegative integer <m>k \lt n</m> such that
-					<me>e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).</me></p>
-			</statement>
-		</proposition> 
-
-		<example>
-			<p>We are now ready to return to our original system <m>{\mathbf x}' = A {\mathbf x}</m>, where
-				<me>A 
-				=
-				\begin{pmatrix}
-				-17 &amp; -46 &amp; -7 \\
-				8 &amp; 21 &amp; 3 \\
-				-7 &amp; -15 &amp; -1
-				\end{pmatrix}.</me>
-			This matrix has a single eigenvalue <m>\lambda = 1</m>. It is easy to show that the only nonzero powers of <m>A - \lambda I = A - I</m> are
-				<md>
-					<mrow>(A + I) &amp; = 
-					\begin{pmatrix}
-					-18 &amp; -46 &amp; -7 \\
-					8 &amp; 20 &amp; 3 \\
-					-7 &amp; -15 &amp; -2
-					\end{pmatrix}</mrow>
-					<mrow>(A + I)^2 &amp; = 
-					\begin{pmatrix}
-					5 &amp; 13 &amp; 2 \\
-					-5 &amp; -13 &amp; -2 \\
-					20 &amp; 52 &amp; 8
-					\end{pmatrix}.</mrow>
-				</md>
-			Therefore,
-				<md>
-					<mrow>e^{tA} &amp; =
-					e^{t} \left(
-					 I + t (A+I ) + \frac{t^2}{2!} (A + I )^2
-					\right)</mrow>
-					<mrow>&amp; =
-					e^{t}
-					\begin{pmatrix}
-					1 - 18t + 5t^2/2 \amp -46t +13t^2/2 \amp - 7t + t^2 \\
-					8t - 5t^2/2 \amp 1 + 20t -13t^2/2 \amp 3t - t^2 \\
-					-7t + 10t^2 \amp -15t + 26t^2 \amp 1 - 2t + 4t^2
-					\end{pmatrix}.</mrow>
-				</md>
-			Now, to compute three linearly independent solutions for <m>{\mathbf x}' = A {\mathbf x}</m>, we simply compute <m>e^{t A} {\mathbf v}</m> for three linearly independent vectors. We will use the standard basis vectors
-				<me>{\mathbf e}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, 
-				{\mathbf e}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, 
-				{\mathbf e}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.</me>
-			Thus,  the general solution to our system  is
-				<me>{\mathbf x}(t)
-				=
-				c_1 
-				e^{-t}
-				\begin{pmatrix}
-				1 - 18t + 5t^2/2  \\
-				8t - 5t^2/2  \\
-				-7t + 10t^2 
-				\end{pmatrix}
-				+
-				c_2
-				e^{-t}
-				\begin{pmatrix}
-				 -46t +13t^2/2 \\
-				1 + 20t -13t^2/2 \\
-				-15t + 26t^2
-				\end{pmatrix}
-				+
-				c_3
-				e^{-t}
-				\begin{pmatrix}
-				- 7t + t^2 \\
-				3t - t^2 \\
-				1 - 2t + 4t^2
-				\end{pmatrix}.</me></p>
-			</example>
-
-	</subsection>
-	
-	<subsection xml:id="subsection-linear09-generalized-eigenvalues">
-    	<title>Generalized Eigenvalues</title>
-
-    	<example>
-			<p>Consider the system <m>{\mathbf x}' = A {\mathbf x}</m>, where
-				<me>A
-				=
-				\begin{pmatrix}
-				7 \amp -1 \amp 2 \\
-				18 \amp -2 \amp 6 \\
-				-9 \amp 2 \amp -1
-				\end{pmatrix}</me>.
-			The characteristic polynomial of <m>A</m> is
-				<me>\det(A - \lambda I) = \lambda^3 - 4\lambda^2 + 5 \lambda - 2 = (\lambda - 1)^2 (\lambda - 2).</me>
-			The eigenvalue <m>\lambda_1 = 1</m> has eigenvector <m>\mathbf v_1 = (2, 6, -3)</m> and the eigenvalue <m>\lambda_2 = 2</m> has eigenvector <m>\mathbf v_2 = (1, 3, -1)</m>. Thus, we can find two linearly independent solutions in this case
-				<me>{\mathbf x}_1(t) = e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
-				\qquad\text{and}\qquad
-				{\mathbf x}_2(t) = e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}.</me>
-			Since <m>\lambda_1 = 1</m> has multiplicity two and we can find only one linearly independent eigenvector, it is not possible to apply <xref ref="proposition-linear09-compute-matrix-exponential-2" /> in this case.</p>
-
-			<p>If we consider the exponential
-				<md>
-					<mrow>e^{ t A} {\mathbf v} &amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}</mrow>
-					<mrow>&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v} + \frac{t^2}{2!} (A - \lambda_1 I )^2 {\mathbf v} +  \frac{t^2}{3!} (A - \lambda_1 I )^3 {\mathbf v} + \cdots \right)</mrow>
-				</md>
-			where <m>\mathbf v, \mathbf v_1</m> and <m>\mathbf v_2</m> are linearly independent, our goal is to choose <m>{\mathbf v}</m> for which the series truncates. That is, we must look for vectors <m>{\mathbf v}</m> such that <m>(A - \lambda_1 I)^k {\mathbf v} = (A - I)^k{\mathbf v} = {\mathbf 0}</m>.  If <m>k = 1</m>, then <m>(A - \lambda_1 I) {\mathbf v} = (A - I){\mathbf v} = {\mathbf 0}</m>, which means that <m>{\mathbf v}</m> is an eigenvector. Thus, <m>{\mathbf v}</m> must be a multiple of <m>\mathbf v_1 = (2, 6, -3)</m> in this case. Since we already know that the eigenspace associated with this eigenvector has dimension one and is generated by <m>\mathbf v_1</m>, we must consider higher powers.</p>
-
-			<p>Since 
-				<me>(A - \lambda I) = (A - I) = 
-				\begin{pmatrix}
-				6 \amp -1 \amp 2 \\
-				18 \amp -3 \amp 6 \\
-				-9 \amp 2 \amp -2
-				\end{pmatrix},</me>
-			we have 
-				<me>(A - \lambda I)^2 = (A - I)^2 = 
-				\begin{pmatrix}
-				0 &amp; 1 &amp; 2 \\
-				0 &amp; 3 &amp; 6 \\
-				0 &amp; -1 &amp; -2
-				\end{pmatrix}.</me>
-			The nullspace of this matrix has dimension two. Certainly, <m>\mathbf v_1 = (2, 6, -3)</m> is in the nullspace of <m>(A - I)^2</m>, since it is the nullspace of <m>A - I</m>. We wish to find a vector in the nullspace that is not a multiple of the vector <m>\mathbf v_1</m> that is also in the nullspace of <m>A - I</m>. The vector <m>\mathbf v = (0, 1, 0)</m> will do.  Now our series truncates,
-				<md>
-					<mrow>{\mathbf x}_3(t) &amp; = e^{ t A} {\mathbf v}</mrow>
-					<mrow>&amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}</mrow>
-					<mrow>&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v}  \right)</mrow>
-					<mrow>&amp; = e^{\lambda_1 t} \left[  \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + t (A  -  I )\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}  \right]</mrow>
-					<mrow>&amp; = e^{t} \begin{pmatrix}  t \\ 1 + 3t \\ - t \end{pmatrix}</mrow>
-				</md>
-			We now have a general solution for our system,
-				<me>{\mathbf x}(t)
-				=
-				c_1
-				e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
-				+
-				c_2
-				e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}
-				+
-				c_3
-				e^{t} \begin{pmatrix}  t \\ 1 + 3t \\ - t \end{pmatrix}.</me></p>
-		</example>
-
-		<p>If <m>\lambda</m> is an eigenvalue of <m>A</m> and <m>(A - \lambda I)^p {\mathbf v} = {\mathbf 0}</m> for some <m>p \geq 1</m>, then <m>{\mathbf v}</m> is called a <term>generalized eigenvector</term> of <m>A</m>. When eigenvalues have algebraic multiplicity greater than one, we can compute extra solutions by looking for vectors in the nullspace of  <m>(A - \lambda I)^p</m> for <m>p > 1</m>. The following theorem tells us that this is always possible. We leave the proof of the theorem as an exercise in linear algebra.</p>
-
-		<theorem xml:id="theorem-linear09-dimension-nullspace">
-        	<statement>
-            	<p>Suppose that <m>\lambda</m> is an eigenvalue of <m>A</m> with multiplicity <m>q</m>. Then there exists an integer <m>p \leq q</m> such that the dimension of the nullspace of <m>(A - \lambda I)^p</m> is <m>q</m>.</p>
-			</statement>
-		</theorem> 
-
-		<p>We now have a procedure for finding <m>q</m> linearly independent solutions corresponding to an eigenvalue <m>\lambda</m> of multiplicity <m>q</m>.
-			<ol>
-
-				<li>Find the smallest integer <m>p</m> such that the nullspace of <m>(A - \lambda I)^p</m> has dimension <m>q</m>.</li>
-
-				<li>Find a basis <m>\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}</m> for the nullspace of <m>(A - \lambda I)^p</m>.</li>
-
-				<li>For each <m>{\mathbf v}_j</m> (<m>j = 1, 2, \ldots, q</m>), we have the solution
-					<md>
-					<mrow>{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j</mrow>
-					<mrow>&amp; =
-					e^{\lambda t}
-					\left(
-					{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
-					\right).</mrow>
-					</md></li>
-
-			</ol>This procedure works for complex eigenvalues as well as real. If <m>\lambda = \alpha + i \beta</m> has eigenvector <m>{\mathbf z} = \mathbf x + i \mathbf y</m>, then set <m>{\mathbf x} = \real{\mathbf z}</m> and <m>{\mathbf y} = \imaginary{\mathbf z}</m>.</p>
-	
-	</subsection>
-	
-	<subsection xml:id="subsection-linear09-important-lessons">
-    	<title>Important Lessons</title>
-
-		<p><ul>
-		
-			<li>If <m>A</m> is an <m>n \times n</m> matrix, we define the <term>exponential</term> of <m>A</m> to be
-				<me>e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k.</me></li>
-
-			<li>If <m>A</m> is an <m>n \times n</m> matrix, then 
-				<me>\frac{d}{dt} e^{tA} = A e^{tA}.</me></li>
-
-			<li>Let <m>A</m> be an <m>n \times n</m> matrix. Then <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m> is the solution to the initial value problem
-				<md>
-					<mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
-					<mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
-				</md></li>
-
-			<li>Let <m>\lambda</m> be an eigenvalue of an <m>n \times n</m> matrix A. If <m>{\mathbf v}</m> is an eigenvector for <m>\lambda</m>, then <m>e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}</m>.</li>
+                        <li><m>Ae^A = e^A A</m>;</li>
 
 
-			<li><p>Let <m>A</m> and <m>B</m> be <m>n \times n</m> matrices. Then
-				<ul>
+                        <li>if <m>AB = BA</m>, then <m>e^A e^B = e^{A+B}</m>;</li>
 
-					<li><m>Ae^A = e^A A</m>;</li>
+                        <li><m>e^A</m> has inverse <m>e^{-A}</m>.</li>
 
-					<li>if <m>AB = BA</m>, then <m>e^A e^B = e^{A+B}</m>;</li>
+                    </ol></p>
+            </statement>
+        </theorem> 
+    
+        <proof>
+            <p>To prove (1), we can simply expand both sides of the equality in a power series,
+                <md>
+                    <mrow>A e^A&amp; = A \left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right)</mrow>
+                    <mrow>&amp; =A + A^2 + \frac{1}{2!} A^3 + \frac{1}{3!} A^4 + \cdots</mrow>
+                    <mrow>&amp; =\left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right) A</mrow>
+                    <mrow>&amp; =e^A A.</mrow>
+                </md>
+            Proving (2) is a only bit more complicated if we notice that the binomial expansion holds for matrices,
+                <me>(A + B)^n  = \sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k},</me>
+            where
+                <me>\begin{pmatrix} n \\ k \end{pmatrix} = \frac{n!}{k! (n-k)!},</me>
+            providing <m>AB = BA</m>.
+                <md>
+                    <mrow>e^{A + B} &amp; = \sum_{n=0}^\infty \frac{1}{n!} (A + B)^n</mrow>
+                    <mrow>&amp; = \sum_{n=0}^\infty \frac{1}{n!} \left(\sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k} \right)</mrow>
+                    <mrow>&amp; = \sum_{n=0}^\infty \left( \sum_{k = 0}^n  \frac{1}{k!(n-k)!}  A^k B^{n-k} \right)</mrow>
+                    <mrow>&amp; =
+                    \left(
+                    \sum_{n=0}^\infty \frac{1}{n!} A^n
+                    \right)
+                    \left(
+                    \sum_{n=0}^\infty \frac{1}{n!} B^n
+                    \right)</mrow>
+                    <mrow>&amp; = e^A e^B.</mrow>
+                </md>
+            Simply expand each series out to see that this is true. Part (3) follows directly from Part (2), since <m>A</m> and <m>-A</m> commute.</p>
+        </proof>
 
-					<li><m>e^A</m> is nonsingular with inverse <m>e^{-A}</m>.</li>
+        <example>
+            <p>Now let us compute <m>e^{tA}</m> once again for 
+                <me>A
+                =
+                \begin{pmatrix}
+                4 \amp 4 \\
+                -9 \amp -8
+                \end{pmatrix}.</me>
+            First notice that 
+                <me>A = \lambda I + (A - \lambda I).</me>
+            Since the identity matrix <m>I</m> commutes with every matrix, we know that
+                <me>e^{t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t(A - \lambda I)}.</me>
+            We also know that <m>e^{\lambda t I } = e^{\lambda t} I</m> by <xref ref="example-linear09-exp-diag-matrix" />.  Thus,
+                <me>e^{ t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t (A - \lambda I)} = e^{\lambda t} e^{t (A - \lambda I)}.</me>
+            The matrix <m>A</m> has repeated eigenvalue <m>\lambda = -2</m>. Consequently,
+                <me>A - \lambda I = A + 2I = \begin{pmatrix} 6 &amp; 4 \\ -9 &amp; -6 \end{pmatrix},</me>
+            and <m>(A - \lambda I)^2</m> is the zero matrix. Thus,
+                <md>
+                    <mrow>e^{ t A} &amp; = e^{\lambda t} e^{t (A - \lambda I)}</mrow>
+                    <mrow>&amp; = e^{\lambda t} \left(  I + t (A - \lambda I ) + \frac{t^2}{2!} (A - \lambda I )^2 +  \frac{t^2}{3!} (A - \lambda I )^3 + \cdots \right)</mrow>
+                    <mrow>&amp; =e^{- 2t} \left(  I + t (A + 2I ) + \frac{t^2}{2!} (A + 2I )^2 +  \frac{t^2}{3!} (A + 2I )^3 + \cdots \right)</mrow>
+                    <mrow>&amp; =e^{- 2t} \left(  I + t (A + 2I )  \right)</mrow>
+                    <mrow>&amp; =
+                    e^{-2t}
+                    \begin{pmatrix}
+                    1 + 6t \amp 4t \\
+                    -9t \amp -6t
+                    \end{pmatrix}.</mrow>
+                </md></p>
+            </example>
 
-				</ul></p></li>
+        <p>Our example suggests at the following proposition. We leave the proof of this proposition as an exercise.</p>
 
-			<li>If <m>A</m> is an <m>n \times n</m> matrix with a single eigenvalue <m>\lambda</m>, then there exists nonnegative integer <m>k \lt n</m> such that
-				<me>e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).</me></li>
+        <proposition xml:id="proposition-linear09-compute-matrix-exponential-2">
+            <statement>
+                <p>If <m>A</m> is an <m>n \times n</m> matrix with a single eigenvalue <m>\lambda</m>, then there exists a nonnegative integer <m>k \lt n</m> such that
+                    <me>e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).</me></p>
+            </statement>
+        </proposition> 
 
-			<li>Suppose that <m>\lambda</m> is an eigenvalue of <m>A</m> with multiplicity <m>q</m>. Then there exists an integer <m>p \leq q</m> such that the dimension of the nullspace of <m>(A - \lambda I)^p</m> is <m>q</m>.</li>
+        <example>
+            <p>We are now ready to return to our original system <m>{\mathbf x}' = A {\mathbf x}</m>, where
+                <me>A 
+                =
+                \begin{pmatrix}
+                -17 &amp; -46 &amp; -7 \\
+                8 &amp; 21 &amp; 3 \\
+                -7 &amp; -15 &amp; -1
+                \end{pmatrix}.</me>
+            This matrix has a single eigenvalue <m>\lambda = 1</m>. It is easy to show that the only nonzero powers of <m>A - \lambda I = A - I</m> are
+                <md>
+                    <mrow>(A + I) &amp; = 
+                    \begin{pmatrix}
+                    -18 &amp; -46 &amp; -7 \\
+                    8 &amp; 20 &amp; 3 \\
+                    -7 &amp; -15 &amp; -2
+                    \end{pmatrix}</mrow>
+                    <mrow>(A + I)^2 &amp; = 
+                    \begin{pmatrix}
+                    5 &amp; 13 &amp; 2 \\
+                    -5 &amp; -13 &amp; -2 \\
+                    20 &amp; 52 &amp; 8
+                    \end{pmatrix}.</mrow>
+                </md>
+            Therefore,
+                <md>
+                    <mrow>e^{tA} &amp; =
+                    e^{t} \left(
+                     I + t (A+I ) + \frac{t^2}{2!} (A + I )^2
+                    \right)</mrow>
+                    <mrow>&amp; =
+                    e^{t}
+                    \begin{pmatrix}
+                    1 - 18t + 5t^2/2 \amp -46t +13t^2/2 \amp - 7t + t^2 \\
+                    8t - 5t^2/2 \amp 1 + 20t -13t^2/2 \amp 3t - t^2 \\
+                    -7t + 10t^2 \amp -15t + 26t^2 \amp 1 - 2t + 4t^2
+                    \end{pmatrix}.</mrow>
+                </md>
+            Now, to compute three linearly independent solutions for <m>{\mathbf x}' = A {\mathbf x}</m>, we simply compute <m>e^{t A} {\mathbf v}</m> for three linearly independent vectors. We will use the standard basis vectors
+                <me>{\mathbf e}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, 
+                {\mathbf e}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, 
+                {\mathbf e}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.</me>
+            Thus,  the general solution to our system  is
+                <me>{\mathbf x}(t)
+                =
+                c_1 
+                e^{-t}
+                \begin{pmatrix}
+                1 - 18t + 5t^2/2  \\
+                8t - 5t^2/2  \\
+                -7t + 10t^2 
+                \end{pmatrix}
+                +
+                c_2
+                e^{-t}
+                \begin{pmatrix}
+                 -46t +13t^2/2 \\
+                1 + 20t -13t^2/2 \\
+                -15t + 26t^2
+                \end{pmatrix}
+                +
+                c_3
+                e^{-t}
+                \begin{pmatrix}
+                - 7t + t^2 \\
+                3t - t^2 \\
+                1 - 2t + 4t^2
+                \end{pmatrix}.</me></p>
+            </example>
 
-			<li><p>The procedure for finding <m>q</m> linearly independent solutions corresponding to an eigenvalue <m>\lambda</m> of multiplicity <m>q</m> is the following.
-				<ul>
+    </subsection>
+    
+    <subsection xml:id="subsection-linear09-generalized-eigenvalues">
+        <title>Generalized Eigenvalues</title>
 
-					<li>Find the smallest integer <m>p</m> such that the nullspace of <m>(A - \lambda I)^p</m> has dimension <m>q</m>.</li>
+        <example>
+            <p>Consider the system <m>{\mathbf x}' = A {\mathbf x}</m>, where
+                <me>A
+                =
+                \begin{pmatrix}
+                7 \amp -1 \amp 2 \\
+                18 \amp -2 \amp 6 \\
+                -9 \amp 2 \amp -1
+                \end{pmatrix}</me>.
+            The characteristic polynomial of <m>A</m> is
+                <me>\det(A - \lambda I) = \lambda^3 - 4\lambda^2 + 5 \lambda - 2 = (\lambda - 1)^2 (\lambda - 2).</me>
+            The eigenvalue <m>\lambda_1 = 1</m> has eigenvector <m>\mathbf v_1 = (2, 6, -3)</m> and the eigenvalue <m>\lambda_2 = 2</m> has eigenvector <m>\mathbf v_2 = (1, 3, -1)</m>. Thus, we can find two linearly independent solutions in this case
+                <me>{\mathbf x}_1(t) = e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
+                \qquad\text{and}\qquad
+                {\mathbf x}_2(t) = e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}.</me>
+            Since <m>\lambda_1 = 1</m> has multiplicity two and we can find only one linearly independent eigenvector, it is not possible to apply <xref ref="proposition-linear09-compute-matrix-exponential-2" /> in this case.</p>
 
-					<li>Find a basis <m>\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}</m> for the nullspace of <m>(A - \lambda I)^p</m>.</li>
+            <p>If we consider the exponential
+                <md>
+                    <mrow>e^{ t A} {\mathbf v} &amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}</mrow>
+                    <mrow>&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v} + \frac{t^2}{2!} (A - \lambda_1 I )^2 {\mathbf v} +  \frac{t^2}{3!} (A - \lambda_1 I )^3 {\mathbf v} + \cdots \right)</mrow>
+                </md>
+            where <m>\mathbf v, \mathbf v_1</m> and <m>\mathbf v_2</m> are linearly independent, our goal is to choose <m>{\mathbf v}</m> for which the series truncates. That is, we must look for vectors <m>{\mathbf v}</m> such that <m>(A - \lambda_1 I)^k {\mathbf v} = (A - I)^k{\mathbf v} = {\mathbf 0}</m>.  If <m>k = 1</m>, then <m>(A - \lambda_1 I) {\mathbf v} = (A - I){\mathbf v} = {\mathbf 0}</m>, which means that <m>{\mathbf v}</m> is an eigenvector. Thus, <m>{\mathbf v}</m> must be a multiple of <m>\mathbf v_1 = (2, 6, -3)</m> in this case. Since we already know that the eigenspace associated with this eigenvector has dimension one and is generated by <m>\mathbf v_1</m>, we must consider higher powers.</p>
 
-					<li>For each <m>{\mathbf v}_j</m> (<m>j = 1, 2, \ldots, q</m>), we have the solution
-						<md>
-							<mrow>{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j</mrow>
-							<mrow>&amp; =
-							e^{\lambda t}
-							\left(
-							{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
-							\right).</mrow>
-						</md></li>
+            <p>Since 
+                <me>(A - \lambda I) = (A - I) = 
+                \begin{pmatrix}
+                6 \amp -1 \amp 2 \\
+                18 \amp -3 \amp 6 \\
+                -9 \amp 2 \amp -2
+                \end{pmatrix},</me>
+            we have 
+                <me>(A - \lambda I)^2 = (A - I)^2 = 
+                \begin{pmatrix}
+                0 &amp; 1 &amp; 2 \\
+                0 &amp; 3 &amp; 6 \\
+                0 &amp; -1 &amp; -2
+                \end{pmatrix}.</me>
+            The nullspace of this matrix has dimension two. Certainly, <m>\mathbf v_1 = (2, 6, -3)</m> is in the nullspace of <m>(A - I)^2</m>, since it is the nullspace of <m>A - I</m>. We wish to find a vector in the nullspace that is not a multiple of the vector <m>\mathbf v_1</m> that is also in the nullspace of <m>A - I</m>. The vector <m>\mathbf v = (0, 1, 0)</m> will do.  Now our series truncates,
+                <md>
+                    <mrow>{\mathbf x}_3(t) &amp; = e^{ t A} {\mathbf v}</mrow>
+                    <mrow>&amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}</mrow>
+                    <mrow>&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v}  \right)</mrow>
+                    <mrow>&amp; = e^{\lambda_1 t} \left[  \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + t (A  -  I )\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}  \right]</mrow>
+                    <mrow>&amp; = e^{t} \begin{pmatrix}  t \\ 1 + 3t \\ - t \end{pmatrix}</mrow>
+                </md>
+            We now have a general solution for our system,
+                <me>{\mathbf x}(t)
+                =
+                c_1
+                e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
+                +
+                c_2
+                e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}
+                +
+                c_3
+                e^{t} \begin{pmatrix}  t \\ 1 + 3t \\ - t \end{pmatrix}.</me></p>
+        </example>
 
-				</ul>The procedure works for complex eigenvalues as well as real. If <m>\lambda = \alpha + i \beta</m> has eigenvector <m>{\mathbf z}</m>, then set <m>{\mathbf x} = \real{\mathbf z}</m> and <m>{\mathbf y} = \imaginary{\mathbf z}</m>.</p></li>
+        <p>If <m>\lambda</m> is an eigenvalue of <m>A</m> and <m>(A - \lambda I)^p {\mathbf v} = {\mathbf 0}</m> for some <m>p \geq 1</m>, then <m>{\mathbf v}</m> is called a <term>generalized eigenvector</term> of <m>A</m>. When eigenvalues have algebraic multiplicity greater than one, we can compute extra solutions by looking for vectors in the nullspace of  <m>(A - \lambda I)^p</m> for <m>p > 1</m>. The following theorem tells us that this is always possible. We leave the proof of the theorem as an exercise in linear algebra.</p>
 
-			</ul></p>
-		
-	</subsection>
+        <theorem xml:id="theorem-linear09-dimension-nullspace">
+            <statement>
+                <p>Suppose that <m>\lambda</m> is an eigenvalue of <m>A</m> with multiplicity <m>q</m>. Then there exists an integer <m>p \leq q</m> such that the dimension of the nullspace of <m>(A - \lambda I)^p</m> is <m>q</m>.</p>
+            </statement>
+        </theorem> 
+
+        <p>We now have a procedure for finding <m>q</m> linearly independent solutions corresponding to an eigenvalue <m>\lambda</m> of multiplicity <m>q</m>.
+            <ol>
+
+                <li>Find the smallest integer <m>p</m> such that the nullspace of <m>(A - \lambda I)^p</m> has dimension <m>q</m>.</li>
+
+                <li>Find a basis <m>\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}</m> for the nullspace of <m>(A - \lambda I)^p</m>.</li>
+
+                <li>For each <m>{\mathbf v}_j</m> (<m>j = 1, 2, \ldots, q</m>), we have the solution
+                    <md>
+                    <mrow>{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j</mrow>
+                    <mrow>&amp; =
+                    e^{\lambda t}
+                    \left(
+                    {\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+                    \right).</mrow>
+                    </md></li>
+
+            </ol>This procedure works for complex eigenvalues as well as real. If <m>\lambda = \alpha + i \beta</m> has eigenvector <m>{\mathbf z} = \mathbf x + i \mathbf y</m>, then set <m>{\mathbf x} = \real{\mathbf z}</m> and <m>{\mathbf y} = \imaginary{\mathbf z}</m>.</p>
+    
+    </subsection>
+    
+    <subsection xml:id="subsection-linear09-important-lessons">
+        <title>Important Lessons</title>
+
+        <p><ul>
+        
+            <li>If <m>A</m> is an <m>n \times n</m> matrix, we define the <term>exponential</term> of <m>A</m> to be
+                <me>e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k.</me></li>
+
+            <li>If <m>A</m> is an <m>n \times n</m> matrix, then 
+                <me>\frac{d}{dt} e^{tA} = A e^{tA}.</me></li>
+
+            <li>Let <m>A</m> be an <m>n \times n</m> matrix. Then <m>{\mathbf x}(t) = e^{tA}{\mathbf x}_0</m> is the solution to the initial value problem
+                <md>
+                    <mrow>{\mathbf x}' &amp; = A {\mathbf x}</mrow>
+                    <mrow>{\mathbf x}(0) &amp; = {\mathbf x}_0</mrow>
+                </md></li>
+
+            <li>Let <m>\lambda</m> be an eigenvalue of an <m>n \times n</m> matrix A. If <m>{\mathbf v}</m> is an eigenvector for <m>\lambda</m>, then <m>e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}</m>.</li>
+
+
+            <li><p>Let <m>A</m> and <m>B</m> be <m>n \times n</m> matrices. Then
+                <ul>
+
+                    <li><m>Ae^A = e^A A</m>;</li>
+
+                    <li>if <m>AB = BA</m>, then <m>e^A e^B = e^{A+B}</m>;</li>
+
+                    <li><m>e^A</m> is nonsingular with inverse <m>e^{-A}</m>.</li>
+
+                </ul></p></li>
+
+            <li>If <m>A</m> is an <m>n \times n</m> matrix with a single eigenvalue <m>\lambda</m>, then there exists nonnegative integer <m>k \lt n</m> such that
+                <me>e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).</me></li>
+
+            <li>Suppose that <m>\lambda</m> is an eigenvalue of <m>A</m> with multiplicity <m>q</m>. Then there exists an integer <m>p \leq q</m> such that the dimension of the nullspace of <m>(A - \lambda I)^p</m> is <m>q</m>.</li>
+
+            <li><p>The procedure for finding <m>q</m> linearly independent solutions corresponding to an eigenvalue <m>\lambda</m> of multiplicity <m>q</m> is the following.
+                <ul>
+
+                    <li>Find the smallest integer <m>p</m> such that the nullspace of <m>(A - \lambda I)^p</m> has dimension <m>q</m>.</li>
+
+                    <li>Find a basis <m>\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}</m> for the nullspace of <m>(A - \lambda I)^p</m>.</li>
+
+                    <li>For each <m>{\mathbf v}_j</m> (<m>j = 1, 2, \ldots, q</m>), we have the solution
+                        <md>
+                            <mrow>{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j</mrow>
+                            <mrow>&amp; =
+                            e^{\lambda t}
+                            \left(
+                            {\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+                            \right).</mrow>
+                        </md></li>
+
+                </ul>The procedure works for complex eigenvalues as well as real. If <m>\lambda = \alpha + i \beta</m> has eigenvector <m>{\mathbf z}</m>, then set <m>{\mathbf x} = \real{\mathbf z}</m> and <m>{\mathbf y} = \imaginary{\mathbf z}</m>.</p></li>
+
+            </ul></p>
+        
+    </subsection>
 
     <exercises xml:id="exercises-linear09"  filenamebase="linear09">
     <title>Exercises</title>
 
-	<exercise>
-		<statement>
-			<p>Solve the system
-				<md>
-					<mrow>x' &amp; = -5x + 15y - 4z</mrow>
-					<mrow>y' &amp; = -x + 5y - z</mrow>
-					<mrow>z' &amp; =4 x -6y + 3z</mrow>
-					<mrow>x(0) &amp; = -1</mrow>
-					<mrow>y(0) &amp; = 2</mrow>
-					<mrow>z(0) &amp; = 0</mrow>
-				</md></p>
-		</statement>
+    <exercise>
+        <statement>
+            <p>Solve the system
+                <md>
+                    <mrow>x' &amp; = -5x + 15y - 4z</mrow>
+                    <mrow>y' &amp; = -x + 5y - z</mrow>
+                    <mrow>z' &amp; =4 x -6y + 3z</mrow>
+                    <mrow>x(0) &amp; = -1</mrow>
+                    <mrow>y(0) &amp; = 2</mrow>
+                    <mrow>z(0) &amp; = 0</mrow>
+                </md></p>
+        </statement>
 
 
 
-	</exercise>
-		
-	<exercise>
-		<statement>
-			<p>Find the general solution of the system
-				<md>
-				<mrow>x_1' &amp; = 6x_1 + 9x_2 + x_3 + 4 x_4</mrow>
-				<mrow>x_2' &amp; = -x_1 + x_2 + x_3</mrow>
-				<mrow>x_3' &amp; = 3x_1 + 8x_2 + 4x_3 + 4 x_4</mrow>
-				<mrow>x_4' &amp; = -3x_1 - 8x_2 -7 x_3 - 5 x_4</mrow>
-				</md></p>
-		</statement>
+    </exercise>
+        
+    <exercise>
+        <statement>
+            <p>Find the general solution of the system
+                <md>
+                <mrow>x_1' &amp; = 6x_1 + 9x_2 + x_3 + 4 x_4</mrow>
+                <mrow>x_2' &amp; = -x_1 + x_2 + x_3</mrow>
+                <mrow>x_3' &amp; = 3x_1 + 8x_2 + 4x_3 + 4 x_4</mrow>
+                <mrow>x_4' &amp; = -3x_1 - 8x_2 -7 x_3 - 5 x_4</mrow>
+                </md></p>
+        </statement>
 
 
 
-	</exercise>
-		
-	<exercise>
-		<statement>
-			<p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
-				<ol>
+    </exercise>
+        
+    <exercise>
+        <statement>
+            <p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
+                <ol>
 
-					<li>Show that <m>x_1(t) = e^{-bt/2a}</m> is a solution to <m>a x'' + b x' + cx = 0</m>.</li>
+                    <li>Show that <m>x_1(t) = e^{-bt/2a}</m> is a solution to <m>a x'' + b x' + cx = 0</m>.</li>
 
-					<li>Assume that
-						<me>y = v(t) x_1(t) = v(t) e^{-bt/2a}</me>
-					is a solution to  <m>a x'' + b x' + cx = 0</m> and show that <m>v(t) = c_1  + c_2 t</m>.  Thus, 
-						<me>x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}</me>
-					is a general solution for <m>a x'' + b x' + cx = 0</m>.</li>
+                    <li>Assume that
+                        <me>y = v(t) x_1(t) = v(t) e^{-bt/2a}</me>
+                    is a solution to  <m>a x'' + b x' + cx = 0</m> and show that <m>v(t) = c_1  + c_2 t</m>.  Thus, 
+                        <me>x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}</me>
+                    is a general solution for <m>a x'' + b x' + cx = 0</m>.</li>
 
-				</ol></p>
-		</statement>
-
-
-
-	</exercise>
-		
-	<exercise>
-		<statement>
-			<p>Consider the equation
-				<me>y'' - (2 \alpha -1) y' + \alpha (\alpha - 1) y =0.</me>
-			Determine all values of <m>\alpha</m>, if any, for which all solutions tend toward zero as <m>t \to \infty</m>.  Also, determine the values of <m>\alpha</m>, if any, for which all nonzero solutions become unbounded as <m>t \to \infty</m>.</p>
-		</statement>
+                </ol></p>
+        </statement>
 
 
 
-	</exercise>
-
-	<exercise>
-		<statement>
-			<p>Solve each of the following initial value problems.
-				<ol>
-
-					<li><md>
-						<mrow>y'' - 2y' + 5y &amp; = 0</mrow>
-						<mrow>y(\pi/2) &amp; = 0</mrow>
-						<mrow>y'(\pi/2) &amp; = 2</mrow>
-					</md></li>
-
-					<li><md>
-						<mrow>9y'' - 12y' + 4y &amp; = 0</mrow>
-						<mrow>y(0) &amp; = 2</mrow>
-						<mrow>y'(0) &amp; = -1</mrow>
-					</md></li>
-
-					<li><md>
-						<mrow>y'' + 8y' -9y &amp; = 0</mrow>
-						<mrow>y(1) &amp; = 1</mrow>
-						<mrow>y'(1) &amp; = 0</mrow>
-					</md></li>
-
-					<li><md>
-						<mrow>y''  + 2ay' + (a^2 + 1)y &amp; = 0</mrow>
-						<mrow>y(0) &amp; = 1</mrow>
-						<mrow>y'(0) &amp; = 0</mrow>
-					</md></li>
-
-				</ol></p>
-		</statement>
+    </exercise>
+        
+    <exercise>
+        <statement>
+            <p>Consider the equation
+                <me>y'' - (2 \alpha -1) y' + \alpha (\alpha - 1) y =0.</me>
+            Determine all values of <m>\alpha</m>, if any, for which all solutions tend toward zero as <m>t \to \infty</m>.  Also, determine the values of <m>\alpha</m>, if any, for which all nonzero solutions become unbounded as <m>t \to \infty</m>.</p>
+        </statement>
 
 
 
-	</exercise>
-		
-	<exercise>
-		<statement>
-			<p><em>Reduction of Order</em>.  Suppose that <m>x_1(t)</m> is a solution (not identically zero) to the equation
-				<me>x'' + p(t) x' + q(t) x = 0.</me>
-				<ol>
+    </exercise>
 
-					<li>Assume that <m>x(t) = v(t) x_1(t)</m> is a solution to <m>x'' + p(t) x' + q(t) x = 0</m> and derive the equation
-						<men xml:id="equation-exercise-linear08-reduction-of-order-1">x_1 v'' +(2x_1' + px_1)v' = 0.</men></li>
+    <exercise>
+        <statement>
+            <p>Solve each of the following initial value problems.
+                <ol>
 
-					<li>Let <m>u = v'</m> and show that (<xref ref="equation-exercise-linear08-reduction-of-order-1" />) is a first-order linear differential equation in <m>u</m>.</li>
+                    <li><md>
+                        <mrow>y'' - 2y' + 5y &amp; = 0</mrow>
+                        <mrow>y(\pi/2) &amp; = 0</mrow>
+                        <mrow>y'(\pi/2) &amp; = 2</mrow>
+                    </md></li>
 
-					<li>Show that <m>x_1(t) = 1/t</m> is a solution to 
-						<men xml:id="equation-exercise-linear08-reduction-of-order-2">2 t^2 x'' + 3t x' - x = 0</men>
-					for <m>t \gt 0</m> and find a second linearly independent solution to (<xref ref="equation-exercise-linear08-reduction-of-order-2" />).</li>
+                    <li><md>
+                        <mrow>9y'' - 12y' + 4y &amp; = 0</mrow>
+                        <mrow>y(0) &amp; = 2</mrow>
+                        <mrow>y'(0) &amp; = -1</mrow>
+                    </md></li>
 
-				</ol></p>
-		</statement>
+                    <li><md>
+                        <mrow>y'' + 8y' -9y &amp; = 0</mrow>
+                        <mrow>y(1) &amp; = 1</mrow>
+                        <mrow>y'(1) &amp; = 0</mrow>
+                    </md></li>
 
+                    <li><md>
+                        <mrow>y''  + 2ay' + (a^2 + 1)y &amp; = 0</mrow>
+                        <mrow>y(0) &amp; = 1</mrow>
+                        <mrow>y'(0) &amp; = 0</mrow>
+                    </md></li>
 
-
-	</exercise>
-
-	<exercise>
-		<statement>
-			<p><em>Euler Equations</em>.  An important class of second-order linear differential equations are equations of the form
-				<me>t^2 y'' + \alpha t y' + \beta y = 0,</me>
-			where <m>t \gt 0</m> and <m>\alpha</m> and <m>\beta</m> are real constants.  An equation of this form is called an <em>Euler equation</em>.
-				<ol>
-
-					<li>Show that the substitution <m>x = \ln t</m> transforms an Euler equation into an equation of constant coefficients. {\em Hint}:  Show that
-						<md>
-							<mrow>\frac{dy}{dt} &amp; = \frac{dx}{dt} \frac{dy}{dx}</mrow>
-							<mrow>\frac{d^2y}{dt^2} &amp; = \left( \frac{dx}{dt} \right)^2 \frac{d^2y}{dx^2} + \frac{d^2x}{dt^2} \frac{dy}{dx}.</mrow>
-						</md></li>
-
-					<li>Solve the equation
-						<me>t^2 y'' + 4ty' + 2y = 0.</me></li>
-
-				</ol></p>
-		</statement>
+                </ol></p>
+        </statement>
 
 
 
-	</exercise>
+    </exercise>
+        
+    <exercise>
+        <statement>
+            <p><em>Reduction of Order</em>.  Suppose that <m>x_1(t)</m> is a solution (not identically zero) to the equation
+                <me>x'' + p(t) x' + q(t) x = 0.</me>
+                <ol>
+
+                    <li>Assume that <m>x(t) = v(t) x_1(t)</m> is a solution to <m>x'' + p(t) x' + q(t) x = 0</m> and derive the equation
+                        <men xml:id="equation-exercise-linear08-reduction-of-order-1">x_1 v'' +(2x_1' + px_1)v' = 0.</men></li>
+
+                    <li>Let <m>u = v'</m> and show that (<xref ref="equation-exercise-linear08-reduction-of-order-1" />) is a first-order linear differential equation in <m>u</m>.</li>
+
+                    <li>Show that <m>x_1(t) = 1/t</m> is a solution to 
+                        <men xml:id="equation-exercise-linear08-reduction-of-order-2">2 t^2 x'' + 3t x' - x = 0</men>
+                    for <m>t \gt 0</m> and find a second linearly independent solution to (<xref ref="equation-exercise-linear08-reduction-of-order-2" />).</li>
+
+                </ol></p>
+        </statement>
+
+
+
+    </exercise>
+
+    <exercise>
+        <statement>
+            <p><em>Euler Equations</em>.  An important class of second-order linear differential equations are equations of the form
+                <me>t^2 y'' + \alpha t y' + \beta y = 0,</me>
+            where <m>t \gt 0</m> and <m>\alpha</m> and <m>\beta</m> are real constants.  An equation of this form is called an <em>Euler equation</em>.
+                <ol>
+
+                    <li>Show that the substitution <m>x = \ln t</m> transforms an Euler equation into an equation of constant coefficients. {\em Hint}:  Show that
+                        <md>
+                            <mrow>\frac{dy}{dt} &amp; = \frac{dx}{dt} \frac{dy}{dx}</mrow>
+                            <mrow>\frac{d^2y}{dt^2} &amp; = \left( \frac{dx}{dt} \right)^2 \frac{d^2y}{dx^2} + \frac{d^2x}{dt^2} \frac{dy}{dx}.</mrow>
+                        </md></li>
+
+                    <li>Solve the equation
+                        <me>t^2 y'' + 4ty' + 2y = 0.</me></li>
+
+                </ol></p>
+        </statement>
+
+
+
+    </exercise>
 
 </exercises>
 

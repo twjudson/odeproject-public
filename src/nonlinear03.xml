@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="nonlinear03" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>More Nonlinear Mechanics</title>
@@ -13,577 +13,577 @@
     <introduction>
 
         <p>The equation for the nonlinear pendulum with damping is
-			<me>\frac{d^2 \theta}{dt^2} + \frac{b}{m} \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.</me>
-		As a system, we can model the pendulum as
-			<mdn>
-				<mrow xml:id="equation-nonlinear03-nonlinear-damped-pend-1">\frac{d \theta}{dt} &amp; = v</mrow>
-				<mrow xml:id="equation-nonlinear03-nonlinear-damped-pend-2">\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
-			</mdn>
-		This system is not Hamiltonian since
-			<me>\frac{\partial v}{\partial \theta} = 0,</me>
-		but 
-			<me>-\frac{\partial }{\partial v}  \left(  - \frac{b}{m} v - \frac{g}{L} \sin \theta \right) = \frac{b}{m} \neq 0.</me>
-		We shall have to invent new techniques to analyze such systems.</p>
+            <me>\frac{d^2 \theta}{dt^2} + \frac{b}{m} \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.</me>
+        As a system, we can model the pendulum as
+            <mdn>
+                <mrow xml:id="equation-nonlinear03-nonlinear-damped-pend-1">\frac{d \theta}{dt} &amp; = v</mrow>
+                <mrow xml:id="equation-nonlinear03-nonlinear-damped-pend-2">\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
+            </mdn>
+        This system is not Hamiltonian since
+            <me>\frac{\partial v}{\partial \theta} = 0,</me>
+        but 
+            <me>-\frac{\partial }{\partial v}  \left(  - \frac{b}{m} v - \frac{g}{L} \sin \theta \right) = \frac{b}{m} \neq 0.</me>
+        We shall have to invent new techniques to analyze such systems.</p>
 
-	</introduction>
+    </introduction>
 
     <subsection xml:id="subsection-nonlinear03-pendulum-damping">
-    	<title>The Nonlinear Pendulum and Damping</title>
+        <title>The Nonlinear Pendulum and Damping</title>
 
-    	<p>To find the nullclines of the nonlinear pendulum, let
-			<md>
-				<mrow>\frac{d \theta}{dt} &amp; = v = 0</mrow>
-				<mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta = 0.</mrow>
-			</md>
-		The <m>\theta</m>-nullcline is <m>v = 0</m>, while the <m>v</m>-nullcline is
-			<me>v = -\frac{mg}{bL} \sin \theta.</me>
-		It follows that the equilibrium solutions for the nonlinear pendulum occur at
-			<me>(\theta, v) = (0,0), (\pm \pi, 0), (\pm 2\pi, 0), \ldots.</me>
-		This makes sense since the pendulum should not move if the bob is initially hanging downward (<m>\theta = 2 \pi n</m>) or is at the very top or the very bottom of a swing (<m>\theta = (2n + 1)\pi</m>). Since our first goal is to determine the nature of each equilibrium solution, we will compute the Jacobian of the system <xref ref="equation-nonlinear03-nonlinear-damped-pend-1" /><ndash /><xref ref="equation-nonlinear03-nonlinear-damped-pend-2" />. This is just
-			<me>\begin{pmatrix}
-			0 &amp; 1 \\
-			-(g/L) \cos \theta &amp; - b/m
-			\end{pmatrix}.</me>
-		At the equilibrium solutions <m>(\theta, v) = (0,0), (\pm 2\pi, 0), (\pm 4\pi, 0), \ldots</m>, the pendulum is hanging downward, and the Jacobian matrix becomes
-			<me>J_1
-			=
-			\begin{pmatrix}
-			0 &amp; 1 \\
-			-g/L &amp; - b/m
-			\end{pmatrix}.</me>
-		On the other hand, if <m>(\theta, v) = (\pm \pi, 0),  (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots</m>, the pendulum is at the top of its swing, and the Jacobian matrix is
-			<me>J_2
-			=
-			\begin{pmatrix}
-			0 &amp; 1 \\
-			g/L &amp; - b/m
-			\end{pmatrix}.</me></p>
-
-
-		<p>We will first examine the case where the pendulum is hanging downward. The characteristic polynomial of <m>J_1</m> is
-			<me>\lambda^2 + \frac{b}{m} \lambda + \frac{g}{L}.</me>
-		Thus, the eigenvalues of <m>J_1</m> are
-			<men xml:id="equation-nonlinear03-mechanics-1">\lambda = -\frac{b}{2m} \pm \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.</men>
-		We can analyze the nature of these eigenvalues by examining the sign of
-			<me>\Delta = \left(  \frac{b}{2m} \right)^2 - \frac{g}{L}.</me>
-			<ul>
-
-				<li>If <m>\Delta \lt 0</m>, the eigenvalues of the Jacobian are complex. Since the real part of <xref ref="equation-nonlinear03-mechanics-1" /> is negative, these equilibrium solutions are spiral sinks.</li>
-
-				<li>If <m>\Delta \gt 0</m>, we have two distinct real eigenvalues. Since 
-					<me>\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} \lt \left(  \frac{b}{2m} \right)^2,</me>
-				we know that
-					<me>\left(  \frac{b}{2m} \right) \gt \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.</me>
-				Thus, both of our eigenvalues must be negative.  Therefore, we have a nodal sink.</li>
+        <p>To find the nullclines of the nonlinear pendulum, let
+            <md>
+                <mrow>\frac{d \theta}{dt} &amp; = v = 0</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta = 0.</mrow>
+            </md>
+        The <m>\theta</m>-nullcline is <m>v = 0</m>, while the <m>v</m>-nullcline is
+            <me>v = -\frac{mg}{bL} \sin \theta.</me>
+        It follows that the equilibrium solutions for the nonlinear pendulum occur at
+            <me>(\theta, v) = (0,0), (\pm \pi, 0), (\pm 2\pi, 0), \ldots.</me>
+        This makes sense since the pendulum should not move if the bob is initially hanging downward (<m>\theta = 2 \pi n</m>) or is at the very top or the very bottom of a swing (<m>\theta = (2n + 1)\pi</m>). Since our first goal is to determine the nature of each equilibrium solution, we will compute the Jacobian of the system <xref ref="equation-nonlinear03-nonlinear-damped-pend-1" /><ndash /><xref ref="equation-nonlinear03-nonlinear-damped-pend-2" />. This is just
+            <me>\begin{pmatrix}
+            0 &amp; 1 \\
+            -(g/L) \cos \theta &amp; - b/m
+            \end{pmatrix}.</me>
+        At the equilibrium solutions <m>(\theta, v) = (0,0), (\pm 2\pi, 0), (\pm 4\pi, 0), \ldots</m>, the pendulum is hanging downward, and the Jacobian matrix becomes
+            <me>J_1
+            =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            -g/L &amp; - b/m
+            \end{pmatrix}.</me>
+        On the other hand, if <m>(\theta, v) = (\pm \pi, 0),  (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots</m>, the pendulum is at the top of its swing, and the Jacobian matrix is
+            <me>J_2
+            =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            g/L &amp; - b/m
+            \end{pmatrix}.</me></p>
 
 
-				<li>If <m>\Delta = 0</m>, we have a single real negative eigenvalue. Thus, we also have a sink.</li>
+        <p>We will first examine the case where the pendulum is hanging downward. The characteristic polynomial of <m>J_1</m> is
+            <me>\lambda^2 + \frac{b}{m} \lambda + \frac{g}{L}.</me>
+        Thus, the eigenvalues of <m>J_1</m> are
+            <men xml:id="equation-nonlinear03-mechanics-1">\lambda = -\frac{b}{2m} \pm \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.</men>
+        We can analyze the nature of these eigenvalues by examining the sign of
+            <me>\Delta = \left(  \frac{b}{2m} \right)^2 - \frac{g}{L}.</me>
+            <ul>
 
-			</ul>
-		Consequently, if we assume that <m>b</m> is small, then <m>\Delta \lt 0</m> and we will only have spiral sinks (<xref ref="figure-nonlinear03-damped-pendulum-nullclines" />).</p>
+                <li>If <m>\Delta \lt 0</m>, the eigenvalues of the Jacobian are complex. Since the real part of <xref ref="equation-nonlinear03-mechanics-1" /> is negative, these equilibrium solutions are spiral sinks.</li>
 
-		<figure xml:id="figure-nonlinear03-damped-pendulum-nullclines">
-			<image width="60%" xml:id="nonlinear03-damped-pendulum-nullclines">
+                <li>If <m>\Delta \gt 0</m>, we have two distinct real eigenvalues. Since 
+                    <me>\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} \lt \left(  \frac{b}{2m} \right)^2,</me>
+                we know that
+                    <me>\left(  \frac{b}{2m} \right) \gt \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.</me>
+                Thus, both of our eigenvalues must be negative.  Therefore, we have a nodal sink.</li>
+
+
+                <li>If <m>\Delta = 0</m>, we have a single real negative eigenvalue. Thus, we also have a sink.</li>
+
+            </ul>
+        Consequently, if we assume that <m>b</m> is small, then <m>\Delta \lt 0</m> and we will only have spiral sinks (<xref ref="figure-nonlinear03-damped-pendulum-nullclines" />).</p>
+
+        <figure xml:id="figure-nonlinear03-damped-pendulum-nullclines">
+            <image width="60%" xml:id="nonlinear03-damped-pendulum-nullclines">
                 <sageplot>
-					v, theta, t = var('v, theta, t')
-					v_min = -4
-					v_max = 4
-					theta_min = -3*pi
-					theta_max = 3*pi
-					b = 0.5
-					m = 1
-					g = 1
-					L = 1
-					step_size = 0.1
-					f = v
-					g = -(b/m)*v - (g/L)*sin(theta)
-					n = sqrt(f^2 + g^2)
-					p = plot_vector_field( (f/n,g/n), (theta, theta_min,theta_max), (v,v_min,v_max), axes_labels=['$\\theta(t)$','$v(t)$'], aspect_ratio=2, ticks=[pi,1], tick_formatter=[pi,1] )
-					p += implicit_plot(f, (theta, theta_min,theta_max), (v,v_min,v_max), color='green', legend_label='$\\theta$-nullcline')
-					p += implicit_plot(g, (theta, theta_min,theta_max), (v,v_min,v_max), color='red', legend_label='$v$-nullcline')
-					start_theta = -3*pi
-					start_v = 3
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = -2*pi
-					start_v = 4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = -pi
-					start_v = 4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = 0
-					start_v = 4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = pi
-					start_v = 4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = 3*pi
-					start_v = -4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = 3*pi
-					start_v = -3
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = -pi
-					start_v = -4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = 0
-					start_v = -4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					start_theta = pi
-					start_v = -4
-					start_t = 0
-					end_t = 20
-					points = [ (start_theta, start_v) ]
-					P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
-					Q = [ [j,k] for i,j,k in P]
-					p += line(Q)
-					p
+                    v, theta, t = var('v, theta, t')
+                    v_min = -4
+                    v_max = 4
+                    theta_min = -3*pi
+                    theta_max = 3*pi
+                    b = 0.5
+                    m = 1
+                    g = 1
+                    L = 1
+                    step_size = 0.1
+                    f = v
+                    g = -(b/m)*v - (g/L)*sin(theta)
+                    n = sqrt(f^2 + g^2)
+                    p = plot_vector_field( (f/n,g/n), (theta, theta_min,theta_max), (v,v_min,v_max), axes_labels=['$\\theta(t)$','$v(t)$'], aspect_ratio=2, ticks=[pi,1], tick_formatter=[pi,1] )
+                    p += implicit_plot(f, (theta, theta_min,theta_max), (v,v_min,v_max), color='green', legend_label='$\\theta$-nullcline')
+                    p += implicit_plot(g, (theta, theta_min,theta_max), (v,v_min,v_max), color='red', legend_label='$v$-nullcline')
+                    start_theta = -3*pi
+                    start_v = 3
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = -2*pi
+                    start_v = 4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = -pi
+                    start_v = 4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = 0
+                    start_v = 4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = pi
+                    start_v = 4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = 3*pi
+                    start_v = -4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = 3*pi
+                    start_v = -3
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = -pi
+                    start_v = -4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = 0
+                    start_v = -4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    start_theta = pi
+                    start_v = -4
+                    start_t = 0
+                    end_t = 20
+                    points = [ (start_theta, start_v) ]
+                    P=desolve_system_rk4([f,g],[theta,v],ics=[start_t,start_theta,start_v],ivar=t,end_points=end_t,step=step_size)
+                    Q = [ [j,k] for i,j,k in P]
+                    p += line(Q)
+                    p
                 </sageplot>
             </image>
             <caption>Nullclines of the damped pendulum</caption>
         </figure>
 
-		<p>Now let us consider the type of equilibrium solutions that we will obtain when the pendulum is standing upright. These solutions will occur at <m>(\theta, v) = (\pm \pi, 0), (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots</m>.  The characteristic polynomial of the Jacobian matrix <m>J_2</m> at these points is
-			<me>\lambda^2 + \frac{b}{m} \lambda - \frac{g}{L};</me>
-		hence, the eigenvalues of <m>J_2</m> are 
-			<men xml:id="equation-nonlinear03-mechanics-2">\lambda  = -\frac{b}{2m} \pm \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} }.</men>
-		Furthermore, we have distinct real eigenvalues since
-			<me>\left(  \frac{b}{2m} \right)^2 + \frac{g}{L} \gt 0.</me>
-		In fact, the eigenvalues will have opposite sign
-			<md>
-				<mrow>\lambda_1 &amp; = -\frac{b}{2m} + \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \gt 0</mrow>
-				<mrow>\lambda_2 &amp; = -\frac{b}{2m} - \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \lt 0.</mrow>
-			</md>
-		Thus, the equilibrium solutions are saddles.</p>
+        <p>Now let us consider the type of equilibrium solutions that we will obtain when the pendulum is standing upright. These solutions will occur at <m>(\theta, v) = (\pm \pi, 0), (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots</m>.  The characteristic polynomial of the Jacobian matrix <m>J_2</m> at these points is
+            <me>\lambda^2 + \frac{b}{m} \lambda - \frac{g}{L};</me>
+        hence, the eigenvalues of <m>J_2</m> are 
+            <men xml:id="equation-nonlinear03-mechanics-2">\lambda  = -\frac{b}{2m} \pm \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} }.</men>
+        Furthermore, we have distinct real eigenvalues since
+            <me>\left(  \frac{b}{2m} \right)^2 + \frac{g}{L} \gt 0.</me>
+        In fact, the eigenvalues will have opposite sign
+            <md>
+                <mrow>\lambda_1 &amp; = -\frac{b}{2m} + \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \gt 0</mrow>
+                <mrow>\lambda_2 &amp; = -\frac{b}{2m} - \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \lt 0.</mrow>
+            </md>
+        Thus, the equilibrium solutions are saddles.</p>
  
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-nonlinear03-lyapunov-functions">
-    	<title>Lyapunov Functions</title>
+        <title>Lyapunov Functions</title>
 
-		<p>The function 
-			<me>H(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta </me>
-		is a Hamiltonian function for the ideal pendulum
-			<md>
-				<mrow>\frac{d \theta}{dt} &amp; = v</mrow>
-				<mrow>\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta,</mrow>
-			</md>
-		since <m>d H/ dt = 0</m>. However, if <m>b \gt 0</m>, then our system
-			<md>
-				<mrow>\frac{d \theta}{dt} &amp; = v</mrow>
-				<mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
-			</md>
-		has damping and
-			<md>
-				<mrow>\frac{dH}{dt} &amp; =\frac{\partial H}{\partial \theta} \frac{d \theta}{dt} + \frac{\partial H}{\partial v} \frac{dv}{dt}</mrow>
-				<mrow>&amp; = \left( \frac{g}{L} \sin \theta \right) v + v\left(  -\frac{b}{m} v - \frac{g}{L} \sin \theta \right)</mrow>
-				<mrow>&amp; = - \frac{b}{m} v^2 \leq 0.</mrow>
-			</md>
-		Thus, <m>H</m> is decreasing whenever <m>v \neq 0</m>. Hence, solution curves in the <m>\theta v</m>-plane cross the level sets of <m>H</m> moving from larger to smaller <m>H</m> values.</p>
+        <p>The function 
+            <me>H(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta </me>
+        is a Hamiltonian function for the ideal pendulum
+            <md>
+                <mrow>\frac{d \theta}{dt} &amp; = v</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta,</mrow>
+            </md>
+        since <m>d H/ dt = 0</m>. However, if <m>b \gt 0</m>, then our system
+            <md>
+                <mrow>\frac{d \theta}{dt} &amp; = v</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
+            </md>
+        has damping and
+            <md>
+                <mrow>\frac{dH}{dt} &amp; =\frac{\partial H}{\partial \theta} \frac{d \theta}{dt} + \frac{\partial H}{\partial v} \frac{dv}{dt}</mrow>
+                <mrow>&amp; = \left( \frac{g}{L} \sin \theta \right) v + v\left(  -\frac{b}{m} v - \frac{g}{L} \sin \theta \right)</mrow>
+                <mrow>&amp; = - \frac{b}{m} v^2 \leq 0.</mrow>
+            </md>
+        Thus, <m>H</m> is decreasing whenever <m>v \neq 0</m>. Hence, solution curves in the <m>\theta v</m>-plane cross the level sets of <m>H</m> moving from larger to smaller <m>H</m> values.</p>
 
-		<p>We can now devise a strategy for sketching the phase plane of the damped pendulum. If <m>b/m</m>  and <m>v</m> are both small, the value of <m>H</m> decreases slowly along the solutions (<xref ref="figure-nonlinear03-damped-pendulum-nullclines" />).</p>
-	
-    	<p>The function <m>H</m> in the case of the damped pendulum is an example of a Lyapunov function. Specifically, a function <m>L(x, y)</m> is called a <term>Lyapunov function</term> for the system
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-				<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
-			</md>
-		if for every solution of the system, <m>(x(t), y(t))</m>, that is not an equilibrium solution of the system,
-			<me>\frac{dL}{dt} \leq  0,</me>
-		with strict inequality except possible for a discrete set of <m>t</m>s.</p>
+        <p>We can now devise a strategy for sketching the phase plane of the damped pendulum. If <m>b/m</m>  and <m>v</m> are both small, the value of <m>H</m> decreases slowly along the solutions (<xref ref="figure-nonlinear03-damped-pendulum-nullclines" />).</p>
+    
+        <p>The function <m>H</m> in the case of the damped pendulum is an example of a Lyapunov function. Specifically, a function <m>L(x, y)</m> is called a <term>Lyapunov function</term> for the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+            </md>
+        if for every solution of the system, <m>(x(t), y(t))</m>, that is not an equilibrium solution of the system,
+            <me>\frac{dL}{dt} \leq  0,</me>
+        with strict inequality except possible for a discrete set of <m>t</m>s.</p>
 
-		<p>As an example, let us return to the damped harmonic oscillator
-			<md>
-				<mrow>\frac{dy}{dt} &amp; = v</mrow>
-				<mrow>\frac{dv}{dt} &amp; = - qy - pv.</mrow>
-			</md>
-		If <m>p = 0</m>, then
-			<me>H(y, v) = \frac{1}{2} v^2 + \frac{q}{2} y^2</me>
-		is a Hamiltonian function for our system.  Recall that we also call <m>H</m> the energy function of the system. However, if <m>p \gt 0</m> and <m>(y(t), v(t))</m> is a solution for our system, we have
-			<md>
-				<mrow>\frac{dH}{dt}(y, v) &amp; = \frac{\partial H}{\partial y} \frac{dy}{dt} + \frac{\partial H}{\partial v} \frac{dy}{dt}</mrow>
-				<mrow>&amp; = (qy)v + v(-qy - pv)</mrow>
-				<mrow>&amp; = -pv^2 \leq 0.</mrow>
-			</md>
-		Consequently, <m>H(y(t), v(t))</m> decreases at a nonzero rate (except when <m>v = 0</m>), and <m>H</m> is a Lyapunov function. The level sets of <m>H</m> are ellipses in the <m>yv</m>-plane.  As <m>H</m> decreases, the energy dissipates and the ellipses become spiral sinks.</p>
+        <p>As an example, let us return to the damped harmonic oscillator
+            <md>
+                <mrow>\frac{dy}{dt} &amp; = v</mrow>
+                <mrow>\frac{dv}{dt} &amp; = - qy - pv.</mrow>
+            </md>
+        If <m>p = 0</m>, then
+            <me>H(y, v) = \frac{1}{2} v^2 + \frac{q}{2} y^2</me>
+        is a Hamiltonian function for our system.  Recall that we also call <m>H</m> the energy function of the system. However, if <m>p \gt 0</m> and <m>(y(t), v(t))</m> is a solution for our system, we have
+            <md>
+                <mrow>\frac{dH}{dt}(y, v) &amp; = \frac{\partial H}{\partial y} \frac{dy}{dt} + \frac{\partial H}{\partial v} \frac{dy}{dt}</mrow>
+                <mrow>&amp; = (qy)v + v(-qy - pv)</mrow>
+                <mrow>&amp; = -pv^2 \leq 0.</mrow>
+            </md>
+        Consequently, <m>H(y(t), v(t))</m> decreases at a nonzero rate (except when <m>v = 0</m>), and <m>H</m> is a Lyapunov function. The level sets of <m>H</m> are ellipses in the <m>yv</m>-plane.  As <m>H</m> decreases, the energy dissipates and the ellipses become spiral sinks.</p>
 
         <p>It is easy to see that the system
-			<mdn>
-				<mrow xml:id="equation-nonlinear03-lyapunov-1">\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)</mrow>
-				<mrow xml:id="equation-nonlinear03-lyapunov-2">\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2)</mrow>
-			</mdn>
-		has an equilibrium solution at the origin no matter what the value of <m>\alpha</m> is. The Jacobian of this system is
-			<me>J
-			=
-			\begin{pmatrix}
-			3 \alpha x^2 + \alpha y^2 &amp; 1 + 2 \alpha xy \\
-			-1 + 2 \alpha x y &amp; \alpha x^2 + 3 \alpha y^2
-			\end{pmatrix}.</me>
-		Since our equilibrium solution is the origin, 
-			<me>J =
-			\begin{pmatrix}
-			0 &amp; 1 \\
-			-1 &amp; 0
-			\end{pmatrix}</me>
-		and the linearization of our system at the origin is
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = y</mrow>
-				<mrow>\frac{dy}{dt} &amp; = -x.</mrow>
-			</md>
-		Since the eigenvalues of 
-			<me>J =
-			\begin{pmatrix}
-			0 &amp; 1 \\
-			-1 &amp; 0
-			\end{pmatrix},</me>
-		are <m>\pm i</m>, the linearization has a center at the origin. The phase plane consists of circles about the origin (<xref ref="figure-nonlinear03-linearization-solution-curves-1" />).  Notice that the linearization does not depend on <m>\alpha</m>.</p>
+            <mdn>
+                <mrow xml:id="equation-nonlinear03-lyapunov-1">\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)</mrow>
+                <mrow xml:id="equation-nonlinear03-lyapunov-2">\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2)</mrow>
+            </mdn>
+        has an equilibrium solution at the origin no matter what the value of <m>\alpha</m> is. The Jacobian of this system is
+            <me>J
+            =
+            \begin{pmatrix}
+            3 \alpha x^2 + \alpha y^2 &amp; 1 + 2 \alpha xy \\
+            -1 + 2 \alpha x y &amp; \alpha x^2 + 3 \alpha y^2
+            \end{pmatrix}.</me>
+        Since our equilibrium solution is the origin, 
+            <me>J =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            -1 &amp; 0
+            \end{pmatrix}</me>
+        and the linearization of our system at the origin is
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = y</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -x.</mrow>
+            </md>
+        Since the eigenvalues of 
+            <me>J =
+            \begin{pmatrix}
+            0 &amp; 1 \\
+            -1 &amp; 0
+            \end{pmatrix},</me>
+        are <m>\pm i</m>, the linearization has a center at the origin. The phase plane consists of circles about the origin (<xref ref="figure-nonlinear03-linearization-solution-curves-1" />).  Notice that the linearization does not depend on <m>\alpha</m>.</p>
 
-		<figure xml:id="figure-nonlinear03-linearization-solution-curves-1">  
+        <figure xml:id="figure-nonlinear03-linearization-solution-curves-1">  
             <image width="60%" xml:id="nonlinear03-linearization-solution-curves-1">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 0
-					F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
-					xmin = -3
-					xmax = 3
-					ymin = -3
-					ymax = 3
-					start_x = -1.5
-					start_y = 1.5
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					n = sqrt(F[0]^2 + F[1]^2)
-					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 0
+                    F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
+                    xmin = -3
+                    xmax = 3
+                    ymin = -3
+                    ymax = 3
+                    start_x = -1.5
+                    start_y = 1.5
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
                 </sageplot>
             </image>
             <caption>Solution curves for the linearization.</caption>
         </figure>
 
-		<p>Now let us consider what happens to system<nbsp /><xref ref="equation-nonlinear03-lyapunov-1" /><ndash /><xref ref="equation-nonlinear03-lyapunov-2" /> if we consider different values of <m>\alpha</m>. If <m>\alpha = 5</m>, the situation is quite different than the linearization of our system. A solution curve spirals out from the origin as <m>t \to \infty</m> (<xref ref="figure-nonlinear03-linearization-solution-curves-2" />). As <m>t \to - \infty</m>, the solution curve spirals back into the origin, but it seems to stop before actually reaching the origin. If <m>\alpha = -5</m> on the other hand, we seem to have the opposite behavior with the solution curves spiraling into the origin as <m>t \to \infty</m>. As before, the solutions do not seem to reach the origin (<xref ref="figure-nonlinear03-linearization-solution-curves-3" />).</p>
+        <p>Now let us consider what happens to system<nbsp /><xref ref="equation-nonlinear03-lyapunov-1" /><ndash /><xref ref="equation-nonlinear03-lyapunov-2" /> if we consider different values of <m>\alpha</m>. If <m>\alpha = 5</m>, the situation is quite different than the linearization of our system. A solution curve spirals out from the origin as <m>t \to \infty</m> (<xref ref="figure-nonlinear03-linearization-solution-curves-2" />). As <m>t \to - \infty</m>, the solution curve spirals back into the origin, but it seems to stop before actually reaching the origin. If <m>\alpha = -5</m> on the other hand, we seem to have the opposite behavior with the solution curves spiraling into the origin as <m>t \to \infty</m>. As before, the solutions do not seem to reach the origin (<xref ref="figure-nonlinear03-linearization-solution-curves-3" />).</p>
 
-		<figure xml:id="figure-nonlinear03-linearization-solution-curves-2">
-			<image width="60%" xml:id="nonlinear03-linearization-solution-curves-2">
+        <figure xml:id="figure-nonlinear03-linearization-solution-curves-2">
+            <image width="60%" xml:id="nonlinear03-linearization-solution-curves-2">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = -5
-					F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
-					xmin = -3
-					xmax = 3
-					ymin = -3
-					ymax = 3
-					start_x = 2.5
-					start_y = 2.5
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=1,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					n = sqrt(F[0]^2 + F[1]^2)
-					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					p
+                    x, y, t = var('x y t')
+                    alpha = -5
+                    F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
+                    xmin = -3
+                    xmax = 3
+                    ymin = -3
+                    ymax = 3
+                    start_x = 2.5
+                    start_y = 2.5
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=1,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
                 </sageplot>
             </image>
             <caption>Solution curves <m>\alpha = 5</m>.</caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear03-linearization-solution-curves-3">
-			<image width="60%" xml:id="nonlinear03-linearization-solution-curves-3">
+        <figure xml:id="figure-nonlinear03-linearization-solution-curves-3">
+            <image width="60%" xml:id="nonlinear03-linearization-solution-curves-3">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 5
-					F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
-					xmin = -3
-					xmax = 3
-					ymin = -3
-					ymax = 3
-					start_x = 0.25
-					start_y = 0.25
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=0.46,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					n = sqrt(F[0]^2 + F[1]^2)
-					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 5
+                    F = [y + alpha*x*(x^2 + y^2), -x + alpha*(x^2 + y^2)]
+                    xmin = -3
+                    xmax = 3
+                    ymin = -3
+                    ymax = 3
+                    start_x = 0.25
+                    start_y = 0.25
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=0.46,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
                 </sageplot>
             </image>
             <caption>Solution curves for <m>\alpha = -5</m>.</caption>
         </figure>
 
-		<p>Suppose that <m>(x(t), y(t))</m> is a solution to the nonlinear system. The function
-			<me>r(t) = \sqrt{x(t)^2 + y(t)^2}</me>
-		is the distance of a point on the solution curve  to the origin in the <m>xy</m>-plane. To see how <m>r</m> changes as <m>t \to \pm \infty</m>, we can compute the derivative of <m>r</m>. Actually, it is easier to work with the equation <m>r(t)^2 = x(t)^2 + y(t)^2</m>.  Thus,
-			<md>
-				<mrow>\frac{d}{dt} r^2 &amp; = \frac{d}{dt} (x(t)^2 + y(t)^2)</mrow>
-				<mrow>&amp; = 2 x \frac{dx}{dt} + 2y \frac{dy}{dt}</mrow>
-				<mrow>&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))</mrow>
-				<mrow>&amp; = 2 \alpha (x^2 + y^2)^2</mrow>
-				<mrow>&amp; = 2 \alpha r^4.</mrow>
-			</md>
-		Since <m>(r^2)' = 2r r'</m>, we have 
-			<men xml:id="equation-nonlinear03-lyapunov-3">r' = \alpha r^3</men>
-		for <m>r \neq 0</m>.</p>
+        <p>Suppose that <m>(x(t), y(t))</m> is a solution to the nonlinear system. The function
+            <me>r(t) = \sqrt{x(t)^2 + y(t)^2}</me>
+        is the distance of a point on the solution curve  to the origin in the <m>xy</m>-plane. To see how <m>r</m> changes as <m>t \to \pm \infty</m>, we can compute the derivative of <m>r</m>. Actually, it is easier to work with the equation <m>r(t)^2 = x(t)^2 + y(t)^2</m>.  Thus,
+            <md>
+                <mrow>\frac{d}{dt} r^2 &amp; = \frac{d}{dt} (x(t)^2 + y(t)^2)</mrow>
+                <mrow>&amp; = 2 x \frac{dx}{dt} + 2y \frac{dy}{dt}</mrow>
+                <mrow>&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))</mrow>
+                <mrow>&amp; = 2 \alpha (x^2 + y^2)^2</mrow>
+                <mrow>&amp; = 2 \alpha r^4.</mrow>
+            </md>
+        Since <m>(r^2)' = 2r r'</m>, we have 
+            <men xml:id="equation-nonlinear03-lyapunov-3">r' = \alpha r^3</men>
+        for <m>r \neq 0</m>.</p>
 
-		<p>Equation<nbsp /><xref ref="equation-nonlinear03-lyapunov-3" /> is separable, and it is quite easy to determine the solution as
-			<me>r(t) = \frac{1}{\sqrt{C - 2 \alpha t}}.</me>
-		However, we do not need to know this solution  to determine the nature of the equilibrium solution at the origin. If <m>\alpha \gt 0</m> and <m>t \to -\infty</m>, equation<nbsp /><xref ref="equation-nonlinear03-lyapunov-3" /> tells us that <m>r(t) \to 0</m>. Thus, any solution to the system<nbsp /><xref ref="equation-nonlinear03-lyapunov-1" /><ndash /><xref ref="equation-nonlinear03-lyapunov-2" /> we have a spiral sink at the origin if <m>\alpha = -5</m>.  Even though linearization fails to tell us the nature of the equilibrium solution at the origin, we were able to determine the nature of the equilibrium solution with further analysis.</p>
+        <p>Equation<nbsp /><xref ref="equation-nonlinear03-lyapunov-3" /> is separable, and it is quite easy to determine the solution as
+            <me>r(t) = \frac{1}{\sqrt{C - 2 \alpha t}}.</me>
+        However, we do not need to know this solution  to determine the nature of the equilibrium solution at the origin. If <m>\alpha \gt 0</m> and <m>t \to -\infty</m>, equation<nbsp /><xref ref="equation-nonlinear03-lyapunov-3" /> tells us that <m>r(t) \to 0</m>. Thus, any solution to the system<nbsp /><xref ref="equation-nonlinear03-lyapunov-1" /><ndash /><xref ref="equation-nonlinear03-lyapunov-2" /> we have a spiral sink at the origin if <m>\alpha = -5</m>.  Even though linearization fails to tell us the nature of the equilibrium solution at the origin, we were able to determine the nature of the equilibrium solution with further analysis.</p>
 
-		<p>We will now try to exploit what we have learned from our last example and from Hamiltonian systems to see if it is possible to analyze more general systems. If we consider solutions, <m>(x(t), y(t))</m>, of the system
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-				<mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
-			</md>
-		we might ask how a function <m>V(x, y)</m> varies along the solution curve. We already have an answer if our system is Hamiltonian, and <m>V</m> is the corresponding Hamiltonian function. In this case <m>dV/dt = 0</m>.  In general, we  know that
-			<md>
-				<mrow>\frac{dV}{dt} (x(t), y(t)) &amp; = \frac{\partial V}{\partial x} \frac{dx}{dt} + \frac{\partial V}{\partial y} \frac{dy}{dt}</mrow>
-				<mrow>&amp; =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y).</mrow>
-			</md>
-		Thus, if we let
-			<me>\dot{V} =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y),</me>
-		we know that
-			<me>\frac{dV}{dt}(x(t), y(t)) = \dot{V} (x(t), y(t)).</me>
-		Thus, <m>V</m> is increasing along a solution curve if <m>\dot{V}(x, y) \gt 0</m> and decreasing along a solution curve if <m>\dot{V}(x, y) \lt 0</m>. Our example suggests that we can determine this information without finding the solution.</p>
+        <p>We will now try to exploit what we have learned from our last example and from Hamiltonian systems to see if it is possible to analyze more general systems. If we consider solutions, <m>(x(t), y(t))</m>, of the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+            </md>
+        we might ask how a function <m>V(x, y)</m> varies along the solution curve. We already have an answer if our system is Hamiltonian, and <m>V</m> is the corresponding Hamiltonian function. In this case <m>dV/dt = 0</m>.  In general, we  know that
+            <md>
+                <mrow>\frac{dV}{dt} (x(t), y(t)) &amp; = \frac{\partial V}{\partial x} \frac{dx}{dt} + \frac{\partial V}{\partial y} \frac{dy}{dt}</mrow>
+                <mrow>&amp; =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y).</mrow>
+            </md>
+        Thus, if we let
+            <me>\dot{V} =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y),</me>
+        we know that
+            <me>\frac{dV}{dt}(x(t), y(t)) = \dot{V} (x(t), y(t)).</me>
+        Thus, <m>V</m> is increasing along a solution curve if <m>\dot{V}(x, y) \gt 0</m> and decreasing along a solution curve if <m>\dot{V}(x, y) \lt 0</m>. Our example suggests that we can determine this information without finding the solution.</p>
 
-		<p>Recall that the gradient of a function <m>V: {\mathbb R}^2 \rightarrow {\mathbb R}</m> is 
-			<me>\nabla V = \left(\frac{\partial V}{\partial x}, \frac{\partial V}{\partial y}\right).</me>
-		If 
-			<me>{\mathbf F}(x, y) =
-			\begin{pmatrix}
-			f(x, y) \\ g(x, y)
-			\end{pmatrix},</me>
-		then
-			<me>\dot{V} = \nabla V \cdot {\mathbf F},</me>
-		is the directional derivative of <m>V</m> in the direction of <m>{\mathbf F}</m>.</p>
+        <p>Recall that the gradient of a function <m>V: {\mathbb R}^2 \rightarrow {\mathbb R}</m> is 
+            <me>\nabla V = \left(\frac{\partial V}{\partial x}, \frac{\partial V}{\partial y}\right).</me>
+        If 
+            <me>{\mathbf F}(x, y) =
+            \begin{pmatrix}
+            f(x, y) \\ g(x, y)
+            \end{pmatrix},</me>
+        then
+            <me>\dot{V} = \nabla V \cdot {\mathbf F},</me>
+        is the directional derivative of <m>V</m> in the direction of <m>{\mathbf F}</m>.</p>
 
-		<p>Let us use this new information about <m>V</m> to obtain information about equilibrium solutions of our system. We do know that <m>V(x, y)</m> graphs as a surface in <m>{\mathbb R}^3</m> and 
-			<me>V(x, y) = \text{constant}</me>
-		gives the contour lines or level curves of the surface in the <m>xy</m>-plane.<fn>See Figures 1 and 2 in John Polking, Albert Boggess, and David Arnold. {\it Differential Equations}.  Prentice Hall, Upper Saddle River, NJ, 2001, p. 611.</fn>  We also know that the gradient of <m>V</m> points in the direction that <m>V</m> is increasing the fastest and that the gradient is orthogonal to the level curves of <m>V</m>.  Thus, if <m>\dot{V}(x, y) \gt 0</m>, we know that <m>V</m> is increasing in the direction of the vector field <m>{\mathbf F}</m> and the elevation of the solution curve through <m>(x, y)</m> in <m>{\mathbb R}^3</m> is increasing. That is, the solution curve is traveling uphill.  Similarly, if <m>\dot{V}(x, y) \lt 0</m>, we know that the solution curve at <m>(x, y)</m> is going downhill.<fn>The argument that we have made here also works in higher dimensions.</fn></p>
+        <p>Let us use this new information about <m>V</m> to obtain information about equilibrium solutions of our system. We do know that <m>V(x, y)</m> graphs as a surface in <m>{\mathbb R}^3</m> and 
+            <me>V(x, y) = \text{constant}</me>
+        gives the contour lines or level curves of the surface in the <m>xy</m>-plane.<fn>See Figures 1 and 2 in John Polking, Albert Boggess, and David Arnold. {\it Differential Equations}.  Prentice Hall, Upper Saddle River, NJ, 2001, p. 611.</fn>  We also know that the gradient of <m>V</m> points in the direction that <m>V</m> is increasing the fastest and that the gradient is orthogonal to the level curves of <m>V</m>.  Thus, if <m>\dot{V}(x, y) \gt 0</m>, we know that <m>V</m> is increasing in the direction of the vector field <m>{\mathbf F}</m> and the elevation of the solution curve through <m>(x, y)</m> in <m>{\mathbb R}^3</m> is increasing. That is, the solution curve is traveling uphill.  Similarly, if <m>\dot{V}(x, y) \lt 0</m>, we know that the solution curve at <m>(x, y)</m> is going downhill.<fn>The argument that we have made here also works in higher dimensions.</fn></p>
 
-		<p>Now suppose that <m>V</m> is a real-valued function defined on a set <m>S</m> in the <m>xy</m>-plane, where the point <m>{\mathbf x}_0 = (x_0, y_0)</m> is in <m>S</m>. We say that <m>V</m> is <term>positive definite</term> if <m>V({\mathbf x}) \gt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>, and <m>V</m> is <term>positive semidefinite</term> if <m>V({\mathbf x}) \geq 0</m>. Similarly, we say that <m>V</m> is <term>negative definite</term> and <term>negative semidefinite</term> if <m>V({\mathbf x}) \lt 0</m> and <m>V({\mathbf x}) \leq 0</m>, respectively.</p>
+        <p>Now suppose that <m>V</m> is a real-valued function defined on a set <m>S</m> in the <m>xy</m>-plane, where the point <m>{\mathbf x}_0 = (x_0, y_0)</m> is in <m>S</m>. We say that <m>V</m> is <term>positive definite</term> if <m>V({\mathbf x}) \gt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>, and <m>V</m> is <term>positive semidefinite</term> if <m>V({\mathbf x}) \geq 0</m>. Similarly, we say that <m>V</m> is <term>negative definite</term> and <term>negative semidefinite</term> if <m>V({\mathbf x}) \lt 0</m> and <m>V({\mathbf x}) \leq 0</m>, respectively.</p>
 
-		<p>For example, if we consider the system for a harmonic oscillator
-			<md>
-				<mrow>y' &amp; = v</mrow>
-				<mrow>v' &amp; = -\frac{k}{m} y - \frac{b}{m} v,</mrow>
-			</md>
-		then the energy function, 
-			<me>E(y, v) = \frac{1}{2} mv^2 + \frac{1}{2} ky^2,</me>
-		is positive definite.</p>
+        <p>For example, if we consider the system for a harmonic oscillator
+            <md>
+                <mrow>y' &amp; = v</mrow>
+                <mrow>v' &amp; = -\frac{k}{m} y - \frac{b}{m} v,</mrow>
+            </md>
+        then the energy function, 
+            <me>E(y, v) = \frac{1}{2} mv^2 + \frac{1}{2} ky^2,</me>
+        is positive definite.</p>
 
-		<theorem xml:id="theorem-nonlinear03-lyapunov">
+        <theorem xml:id="theorem-nonlinear03-lyapunov">
             <statement>
                 <p>Suppose that the system
-					<md>
-						<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-						<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
-					</md>
-				has an equilibrium solution at <m>(x_0, y_0)</m>.  Let <m>V</m> be a continuously differentiable function defined on a neighborhood <m>U</m> of <m>(x_0, y_0)</m> that is positive definite with minimum at <m>(x_0, y_0)</m>.
-					<ol>
+                    <md>
+                        <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+                    </md>
+                has an equilibrium solution at <m>(x_0, y_0)</m>.  Let <m>V</m> be a continuously differentiable function defined on a neighborhood <m>U</m> of <m>(x_0, y_0)</m> that is positive definite with minimum at <m>(x_0, y_0)</m>.
+                    <ol>
 
-						<li>If <m>\dot{V}</m> is negative semidefinite on <m>U</m>, then <m>(x_0, y_0)</m> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</li>
+                        <li>If <m>\dot{V}</m> is negative semidefinite on <m>U</m>, then <m>(x_0, y_0)</m> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</li>
 
-						<li>If <m>\dot{V}</m> is negative definite on <m>U</m>, then <m>(x_0, y_0)</m> is an asymptotically stable equilibrium solution or a sink.</li>
+                        <li>If <m>\dot{V}</m> is negative definite on <m>U</m>, then <m>(x_0, y_0)</m> is an asymptotically stable equilibrium solution or a sink.</li>
 
-					</ol></p>
+                    </ol></p>
             </statement>
         </theorem> 
 
-		<p>Recall our example,
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)</mrow>
-				<mrow>\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2).</mrow>
-			</md>
-		The function <m>V(x, y) = x^2 + y^2</m> is positive definite on <m>{\mathbb R}^2</m>, with an isolated minimum at the origin.  We can compute
-			<md>
-				<mrow>\dot{V}&amp; = \frac{\partial V}{\partial x}(x, y)  f(x, y) + \frac{\partial V}{\partial y}(x, y) g(x, y)</mrow>
-				<mrow>&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))</mrow>
-				<mrow>&amp; = 2 \alpha (x^2 + y^2)^2.</mrow>
-			</md>
-		If <m>\alpha \lt 0</m>, then <m>\dot{V}</m> is negative definite on <m>{\mathbb R}^2</m>. <xref ref="theorem-nonlinear03-lyapunov" /> tells us that the origin is a stable equilibrium point.</p>
+        <p>Recall our example,
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2).</mrow>
+            </md>
+        The function <m>V(x, y) = x^2 + y^2</m> is positive definite on <m>{\mathbb R}^2</m>, with an isolated minimum at the origin.  We can compute
+            <md>
+                <mrow>\dot{V}&amp; = \frac{\partial V}{\partial x}(x, y)  f(x, y) + \frac{\partial V}{\partial y}(x, y) g(x, y)</mrow>
+                <mrow>&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))</mrow>
+                <mrow>&amp; = 2 \alpha (x^2 + y^2)^2.</mrow>
+            </md>
+        If <m>\alpha \lt 0</m>, then <m>\dot{V}</m> is negative definite on <m>{\mathbb R}^2</m>. <xref ref="theorem-nonlinear03-lyapunov" /> tells us that the origin is a stable equilibrium point.</p>
 
-		<p>The function <m>V</m> in <xref ref="theorem-nonlinear03-lyapunov" /> is called a <term>Lyapunov function</term>. If we compare Theorem 1 to using linearization to determine stability of an equilibrium solution, we will find that we can apply this result where linearization fails.  Also, Lyapunov functions are defined on a domain <m>U</m>, where linearization only tells us what happens on a small neighborhood around the equilibrium solution. Unfortunately, there are no general ways of finding Lyapunov functions.</p>
+        <p>The function <m>V</m> in <xref ref="theorem-nonlinear03-lyapunov" /> is called a <term>Lyapunov function</term>. If we compare Theorem 1 to using linearization to determine stability of an equilibrium solution, we will find that we can apply this result where linearization fails.  Also, Lyapunov functions are defined on a domain <m>U</m>, where linearization only tells us what happens on a small neighborhood around the equilibrium solution. Unfortunately, there are no general ways of finding Lyapunov functions.</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-nonlinear03-gradient-systems">
-    	<title>Gradient Systems</title>
+        <title>Gradient Systems</title>
 
-		<p>Let <m>S</m> be a real-valued function on the <m>xy</m>-plane. The gradient of <m>S</m> is
-			<me>\nabla S = \left(  \frac{\partial S}{\partial x}, \frac{\partial S}{\partial y} \right).</me>
-		The system
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-				<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
-			</md>
-		is a <term>gradient system</term> if 
-			<md>
-				<mrow>f(x, y) &amp; = \frac{\partial S}{\partial x}</mrow>
-				<mrow>g(x, y) &amp; = \frac{\partial S}{\partial y}.</mrow>
-			</md>
-		For example, the system
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = x - x^3</mrow>
-				<mrow>\frac{dy}{dt} &amp; = -y</mrow>
-			</md>
-		is a gradient system, where
-			<me>S(x, y) = \frac{x^2}{2} - \frac{x^4}{4} - \frac{y^2}{2} + 8.</me>
-		Now, let us see what happens on the solution curves of this gradient system. If <m>(x(t), y(t))</m> is a solution curve, 
-			<me>\frac{dS}{dt} = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = (x - x^3)^2 + y^2 \geq 0.</me>
-		Thus, <m>S</m> increases at the point on the solution curve where the gradient of <m>S</m> is nonzero. That is, <m>S</m> increases at every point on the solution curve except at the equilibrium points.</p>
+        <p>Let <m>S</m> be a real-valued function on the <m>xy</m>-plane. The gradient of <m>S</m> is
+            <me>\nabla S = \left(  \frac{\partial S}{\partial x}, \frac{\partial S}{\partial y} \right).</me>
+        The system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+            </md>
+        is a <term>gradient system</term> if 
+            <md>
+                <mrow>f(x, y) &amp; = \frac{\partial S}{\partial x}</mrow>
+                <mrow>g(x, y) &amp; = \frac{\partial S}{\partial y}.</mrow>
+            </md>
+        For example, the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = x - x^3</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -y</mrow>
+            </md>
+        is a gradient system, where
+            <me>S(x, y) = \frac{x^2}{2} - \frac{x^4}{4} - \frac{y^2}{2} + 8.</me>
+        Now, let us see what happens on the solution curves of this gradient system. If <m>(x(t), y(t))</m> is a solution curve, 
+            <me>\frac{dS}{dt} = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = (x - x^3)^2 + y^2 \geq 0.</me>
+        Thus, <m>S</m> increases at the point on the solution curve where the gradient of <m>S</m> is nonzero. That is, <m>S</m> increases at every point on the solution curve except at the equilibrium points.</p>
 
-		<p>In general, suppose that 
-			<md>
-				<mrow>\frac{dx}{dt} &amp; =  \frac{\partial S}{\partial x}</mrow>
-				<mrow>\frac{dy}{dt} &amp; =  \frac{\partial S}{\partial y}</mrow>
-			</md>
-		is a gradient system.  Since
-			<me>\frac{dS}{dt} (x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = \left( \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,</me>
-		we know that <m>S</m> increases on every solution to the system except at the critical points of <m>S(x(t), y(t))</m>.</p> 
+        <p>In general, suppose that 
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =  \frac{\partial S}{\partial x}</mrow>
+                <mrow>\frac{dy}{dt} &amp; =  \frac{\partial S}{\partial y}</mrow>
+            </md>
+        is a gradient system.  Since
+            <me>\frac{dS}{dt} (x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = \left( \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,</me>
+        we know that <m>S</m> increases on every solution to the system except at the critical points of <m>S(x(t), y(t))</m>.</p> 
 
-		<p>Let us see what this means in terms of the linearization of the system. The Jacobian matrix of <m>(f, g)</m> is
-			<me>J =
-			\begin{pmatrix}
-			f_x &amp; f_y \\
-			g_x &amp; g_y
-			\end{pmatrix}
-			=
-			\begin{pmatrix}
-			S_{xx} &amp; S_{xy} \\
-			S_{yx} &amp; S_{yy}
-			\end{pmatrix}.</me>
-		Since <m>S_{xy} = S_{yx}</m>, the matrix <m>J</m> must have the form
-			<me>J=
-			\begin{pmatrix}
-			\alpha &amp; \beta \\
-			\beta &amp; \gamma
-			\end{pmatrix},</me>
-		where <m>\alpha = S_{xx}</m>, <m>\beta = S_{xy}</m>, and <m>\gamma = S_{yy}</m>. The characteristic polynomial of <m>J</m> is 
-			<me>\lambda^2 - (\alpha + \gamma) \lambda + \alpha \gamma - \beta^2.</me>
-		Therefore, the eigenvalues are 
-			<me>\lambda = \frac{1}{2}( \alpha + \beta) \pm \frac{1}{2} \sqrt{(\alpha - \gamma)^2 + 4 \beta^2}.</me>
-		Since we have real eigenvalues, a gradient system can have no spiral sources, spiral sinks, or centers.</p>
+        <p>Let us see what this means in terms of the linearization of the system. The Jacobian matrix of <m>(f, g)</m> is
+            <me>J =
+            \begin{pmatrix}
+            f_x &amp; f_y \\
+            g_x &amp; g_y
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            S_{xx} &amp; S_{xy} \\
+            S_{yx} &amp; S_{yy}
+            \end{pmatrix}.</me>
+        Since <m>S_{xy} = S_{yx}</m>, the matrix <m>J</m> must have the form
+            <me>J=
+            \begin{pmatrix}
+            \alpha &amp; \beta \\
+            \beta &amp; \gamma
+            \end{pmatrix},</me>
+        where <m>\alpha = S_{xx}</m>, <m>\beta = S_{xy}</m>, and <m>\gamma = S_{yy}</m>. The characteristic polynomial of <m>J</m> is 
+            <me>\lambda^2 - (\alpha + \gamma) \lambda + \alpha \gamma - \beta^2.</me>
+        Therefore, the eigenvalues are 
+            <me>\lambda = \frac{1}{2}( \alpha + \beta) \pm \frac{1}{2} \sqrt{(\alpha - \gamma)^2 + 4 \beta^2}.</me>
+        Since we have real eigenvalues, a gradient system can have no spiral sources, spiral sinks, or centers.</p>
 
-		<p>For example, <m>x^2 + y^2</m> is a Lyapunov function for the system
-			<md>
-				<mrow>\frac{dx}{dt} &amp; =  -x + y</mrow>
-				<mrow>\frac{dy}{dt} &amp; = -x - y.</mrow>
-			</md>
-		However, the origin is a spiral sink, so this system cannot be a gradient system.</p>
+        <p>For example, <m>x^2 + y^2</m> is a Lyapunov function for the system
+            <md>
+                <mrow>\frac{dx}{dt} &amp; =  -x + y</mrow>
+                <mrow>\frac{dy}{dt} &amp; = -x - y.</mrow>
+            </md>
+        However, the origin is a spiral sink, so this system cannot be a gradient system.</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-nonlinear03-important-lessons">
-    	<title>Important Lessons</title>
+        <title>Important Lessons</title>
 
-			<p><ul>
-			
-				<li>The equation for the nonlinear pendulum with damping
-					<md>
-						<mrow>\frac{d \theta}{dt} &amp; = v</mrow>
-						<mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
-					</md>
-				can be analyzed by examining <m>dH/dt</m>, where <m>H</m> is the Hamiltonian function for the ideal pendulum. The function <m>H</m> for this system is an example of a <term>Lyapunov function</term>.</li>
-		
-			<li><p>Let <m>V</m> be a real-valued function defined on a set <m>S</m> in the <m>xy</m>-plane such that the point <m>{\mathbf x}_0 = (x_0, y_0)</m> is in <m>S</m> and <m>V({\mathbf x}_0) = 0</m>.
-				<ul>
+            <p><ul>
+            
+                <li>The equation for the nonlinear pendulum with damping
+                    <md>
+                        <mrow>\frac{d \theta}{dt} &amp; = v</mrow>
+                        <mrow>\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.</mrow>
+                    </md>
+                can be analyzed by examining <m>dH/dt</m>, where <m>H</m> is the Hamiltonian function for the ideal pendulum. The function <m>H</m> for this system is an example of a <term>Lyapunov function</term>.</li>
+        
+            <li><p>Let <m>V</m> be a real-valued function defined on a set <m>S</m> in the <m>xy</m>-plane such that the point <m>{\mathbf x}_0 = (x_0, y_0)</m> is in <m>S</m> and <m>V({\mathbf x}_0) = 0</m>.
+                <ul>
 
-					<li>We say that <m>V</m> is <term>positive definite</term> if <m>V({\mathbf x}) \gt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>.</li>
+                    <li>We say that <m>V</m> is <term>positive definite</term> if <m>V({\mathbf x}) \gt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>.</li>
 
-					<li>We say that <m>V</m> is <term>positive semidefinite</term> if <m>V({\mathbf x}) \geq 0</m> for all <m>{\mathbf x}</m> in <m>S</m>.</li>
+                    <li>We say that <m>V</m> is <term>positive semidefinite</term> if <m>V({\mathbf x}) \geq 0</m> for all <m>{\mathbf x}</m> in <m>S</m>.</li>
 
-					<li>We say that <m>V</m> is <term>negative definite</term> if <m>V({\mathbf x}) \lt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>.</li>
+                    <li>We say that <m>V</m> is <term>negative definite</term> if <m>V({\mathbf x}) \lt 0</m> for all <m>{\mathbf x}</m> in <m>S</m>, where <m>{\mathbf x} \neq {\mathbf x}_0</m>.</li>
 
-					<li>We say that <m>V</m> is <term>negative semidefinite</term> if <m>V({\mathbf x}) \leq 0</m> for all <m>{\mathbf x}</m> in <m>S</m>.</li>
+                    <li>We say that <m>V</m> is <term>negative semidefinite</term> if <m>V({\mathbf x}) \leq 0</m> for all <m>{\mathbf x}</m> in <m>S</m>.</li>
 
-				</ul></p></li>
+                </ul></p></li>
 
-			<li><p>Suppose that the system
-				<md>
-					<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-					<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
-				</md>
-			has an equilibrium solution at <m>(x_0, y_0)</m>. Let <m>V</m> be a continuously differentiable function defined on a neighborhood <m>U</m> of <m>(x_0, y_0)</m> that is positive definite with minimum at <m>(x_0, y_0)</m>.
-				<ol>
-				
-					<li>If <m>\dot{V}</m> is negative semidefinite on <m>U</m>, then <m>(x_0, y_0)</m> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</li>
+            <li><p>Suppose that the system
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+                </md>
+            has an equilibrium solution at <m>(x_0, y_0)</m>. Let <m>V</m> be a continuously differentiable function defined on a neighborhood <m>U</m> of <m>(x_0, y_0)</m> that is positive definite with minimum at <m>(x_0, y_0)</m>.
+                <ol>
+                
+                    <li>If <m>\dot{V}</m> is negative semidefinite on <m>U</m>, then <m>(x_0, y_0)</m> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</li>
 
-					<li>If <m>\dot{V}</m> is negative definite on <m>U</m>, then <m>(x_0, y_0)</m> is an asymptotically stable equilibrium solution or a sink.</li>
+                    <li>If <m>\dot{V}</m> is negative definite on <m>U</m>, then <m>(x_0, y_0)</m> is an asymptotically stable equilibrium solution or a sink.</li>
 
-				</ol>
-			We can use these results to analyze the behavior of equilibrium solutions where linearization fails. The function <m>V</m> is called a <term>Lyapunov function</term>. We have no general methods for finding Lyapunov functions.</p></li>
+                </ol>
+            We can use these results to analyze the behavior of equilibrium solutions where linearization fails. The function <m>V</m> is called a <term>Lyapunov function</term>. We have no general methods for finding Lyapunov functions.</p></li>
 
-			<li>The system
-				<md>
-					<mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-					<mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
-				</md>
-			is a <term>gradient system</term> if 
-				<md>
-					<mrow>f(x, y) &amp; = \frac{\partial S}{\partial x}</mrow>
-					<mrow>g(x, y) &amp; = \frac{\partial S}{\partial y},</mrow>
-				</md>
-			where <m>S</m> is a real-valued function on the <m>xy</m>-plane. Since
-				<me>\frac{dS}{dt} (x(t), y(t)) = \left(  \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,</me>
-			<m>S</m> increases on every solution to the system except at the critical points of <m>S(x(t), y(t))</m>. Since the eigenvalues of a gradient system are real, a gradient system has no spiral sources, spiral sinks, or centers.</li>
+            <li>The system
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(x, y)</mrow>
+                </md>
+            is a <term>gradient system</term> if 
+                <md>
+                    <mrow>f(x, y) &amp; = \frac{\partial S}{\partial x}</mrow>
+                    <mrow>g(x, y) &amp; = \frac{\partial S}{\partial y},</mrow>
+                </md>
+            where <m>S</m> is a real-valued function on the <m>xy</m>-plane. Since
+                <me>\frac{dS}{dt} (x(t), y(t)) = \left(  \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,</me>
+            <m>S</m> increases on every solution to the system except at the critical points of <m>S(x(t), y(t))</m>. Since the eigenvalues of a gradient system are real, a gradient system has no spiral sources, spiral sinks, or centers.</li>
 
-		</ul></p>
+        </ul></p>
 
-	</subsection>
+    </subsection>
 
     <exercises xml:id="exercises-nonlinear03"  filenamebase="nonlinear03">
     <title>Exercises</title>
@@ -601,83 +601,83 @@
 </exercises>
 
         <subsection number="no" xml:id="subsection-nonlinear03-sage-project">
-	        <title>Project<mdash />Tuned-Mass Dampers</title>
-	    
-	         <p>The 60-story, 790-foot mirror-glass John Hancock Tower, New England's tallest building, was completed in 1976 and was designed by Henry N. Cobb, who founded the firm Pei Cobb Freed <ampersand /> Partners with famed architect I.M. Pei. (<xref ref="figure-nonlinear03-john-hancock-tower" />).<fn>The John Hancock Tower is officially known by its street address, 200 Clarendon.</fn>  The building suffered many problems during construction, the most notorious of which was how the original glass windows were attached. In early 1972 when construction was still underway, one of the 500-pound windows popped out of the building and committed suicide on the sidewalk below. In all, more than 100 of the building's windows suffered the same fate. Fortunately, no one was injured. Initially, the architects and engineers thought that the problem was caused by the building's tendancy to sway excessively in high winds. However, they later determined that the falling-window problem was caused by the air space between the double-paned windows and pressure differentials between the interior and exterior of the building. The problem was solved by replacing all of the windows  with single sheets of fully tempered glass. During the repairs, the windows were replaced with plywood, and the building was nicknamed the <q>Plywood Palace.</q></p>
+            <title>Project<mdash />Tuned-Mass Dampers</title>
+        
+             <p>The 60-story, 790-foot mirror-glass John Hancock Tower, New England's tallest building, was completed in 1976 and was designed by Henry N. Cobb, who founded the firm Pei Cobb Freed <ampersand /> Partners with famed architect I.M. Pei. (<xref ref="figure-nonlinear03-john-hancock-tower" />).<fn>The John Hancock Tower is officially known by its street address, 200 Clarendon.</fn>  The building suffered many problems during construction, the most notorious of which was how the original glass windows were attached. In early 1972 when construction was still underway, one of the 500-pound windows popped out of the building and committed suicide on the sidewalk below. In all, more than 100 of the building's windows suffered the same fate. Fortunately, no one was injured. Initially, the architects and engineers thought that the problem was caused by the building's tendancy to sway excessively in high winds. However, they later determined that the falling-window problem was caused by the air space between the double-paned windows and pressure differentials between the interior and exterior of the building. The problem was solved by replacing all of the windows  with single sheets of fully tempered glass. During the repairs, the windows were replaced with plywood, and the building was nicknamed the <q>Plywood Palace.</q></p>
 
-			<figure xml:id="figure-nonlinear03-john-hancock-tower">
-	            <caption>The John Hancock Tower</caption>
-	            <image width="80%" source="images/john-hancock-tower.jpg" />
-	        </figure>
+            <figure xml:id="figure-nonlinear03-john-hancock-tower">
+                <caption>The John Hancock Tower</caption>
+                <image width="80%" source="images/john-hancock-tower.jpg" />
+            </figure>
 
-	        <p>Another flaw  in the design of the building resulted in an extreme amount of swaying. In fact, office workers in the upper stories of the building complained of motion sickness. The building actually twisted as it was swaying back and forth. Engineers determined that the building's natural sway period was dangerously close to the period of its torsion. To remedy the problem, the engineers installed a pair of tuned mass dampeners on the 58th floor of the building. This is the floor of concrete that you see near the top of the structure (<xref ref="figure-nonlinear03-john-hancock-tower" />). In addition, 1,500 tons of steel braces were installed to keep the building from falling over in a high wind.</p>
+            <p>Another flaw  in the design of the building resulted in an extreme amount of swaying. In fact, office workers in the upper stories of the building complained of motion sickness. The building actually twisted as it was swaying back and forth. Engineers determined that the building's natural sway period was dangerously close to the period of its torsion. To remedy the problem, the engineers installed a pair of tuned mass dampeners on the 58th floor of the building. This is the floor of concrete that you see near the top of the structure (<xref ref="figure-nonlinear03-john-hancock-tower" />). In addition, 1,500 tons of steel braces were installed to keep the building from falling over in a high wind.</p>
 
 
-			<p>To construct a simple model of a tuned-mass damper, we will consider a mass-spring system connected to a fixed wall. The mass is allowed to slide freely with no damping. We can think of this mass as the top of the building moving back and forth.  To this first mass, we attach a second mass by using a spring and a dashpot. This second mass is called the <term>tuned mass-damper</term>. If we <q>tune</q> the  mass-damper by choosing the appropriate spring, we can remove energy from the system and the motion of the first mass (the building) will decrease.</p>
+            <p>To construct a simple model of a tuned-mass damper, we will consider a mass-spring system connected to a fixed wall. The mass is allowed to slide freely with no damping. We can think of this mass as the top of the building moving back and forth.  To this first mass, we attach a second mass by using a spring and a dashpot. This second mass is called the <term>tuned mass-damper</term>. If we <q>tune</q> the  mass-damper by choosing the appropriate spring, we can remove energy from the system and the motion of the first mass (the building) will decrease.</p>
 
-			<p>We will first model our system without a dashpot. If we let <m>L_1</m> and <m>L_2</m> be the natural lengths of the  springs, the first spring will exert a force <m>-k_1(x_1 - L_1)</m>. The second spring pushes the two masses in opposite directions according to <m>\pm k_2(x_2 - x_1 - L_2)</m>. Thus, we can use Newton's second law to derive two equations
-				<mdn>
-					<mrow xml:id="equation-nonlinear03-tuned-mass-damper-1">m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
-					<mrow xml:id="equation-nonlinear03-tuned-mass-damper-2">m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
-				</mdn>
-			If we let
-				<md>
-					<mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
-					<mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
-				</md>
-			be the momenta of the two masses, we can rewrite this system as a system of four first-order linear equations,
-				<md>
-					<mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
-					<mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
-					<mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
-					<mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
-				</md>
-			If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
-				<me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}(x_1 - L_1)^2 + \frac{k_2}{L}(x_2 - x_1 - L_2)^2.</me>
-			Indeed, it is easy to check that
-				<md>
-					<mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
-					<mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
-					<mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
-					<mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
-				</md>
-			We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
-				<md>
-					<mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
-					<mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
-				</md>
-			for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
+            <p>We will first model our system without a dashpot. If we let <m>L_1</m> and <m>L_2</m> be the natural lengths of the  springs, the first spring will exert a force <m>-k_1(x_1 - L_1)</m>. The second spring pushes the two masses in opposite directions according to <m>\pm k_2(x_2 - x_1 - L_2)</m>. Thus, we can use Newton's second law to derive two equations
+                <mdn>
+                    <mrow xml:id="equation-nonlinear03-tuned-mass-damper-1">m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                    <mrow xml:id="equation-nonlinear03-tuned-mass-damper-2">m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+                </mdn>
+            If we let
+                <md>
+                    <mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
+                    <mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
+                </md>
+            be the momenta of the two masses, we can rewrite this system as a system of four first-order linear equations,
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+                </md>
+            If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
+                <me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}(x_1 - L_1)^2 + \frac{k_2}{L}(x_2 - x_1 - L_2)^2.</me>
+            Indeed, it is easy to check that
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
+                </md>
+            We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
+                <md>
+                    <mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
+                    <mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
+                </md>
+            for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
 
-			<p>Now suppose that we add a damping term to our system,
-				<me>\pm b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right) = \pm b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</me>
-			Then equations<nbsp /><xref ref="equation-nonlinear03-tuned-mass-damper-1" /> and <xref ref="equation-nonlinear03-tuned-mass-damper-2" /> become
-				<md>
-					<mrow>m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)  + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
-					<mrow>m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2) - b \left( \frac{p_2}{m_2} - \frac{p_1}{m_1} \right),</mrow>
-				</md>
-			and our new first-order system is
-				<md>
-					<mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
-					<mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
-					<mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
-					<mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
-				</md>
-			Indeed,
-				<men xml:id="equation-nonlinear03-tuned-mass-damper-3">\frac{dH}{dt} = - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)^2 = - b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right)^2.</men></p>
+            <p>Now suppose that we add a damping term to our system,
+                <me>\pm b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right) = \pm b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</me>
+            Then equations<nbsp /><xref ref="equation-nonlinear03-tuned-mass-damper-1" /> and <xref ref="equation-nonlinear03-tuned-mass-damper-2" /> become
+                <md>
+                    <mrow>m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)  + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                    <mrow>m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2) - b \left( \frac{p_2}{m_2} - \frac{p_1}{m_1} \right),</mrow>
+                </md>
+            and our new first-order system is
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
+                </md>
+            Indeed,
+                <men xml:id="equation-nonlinear03-tuned-mass-damper-3">\frac{dH}{dt} = - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)^2 = - b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right)^2.</men></p>
 
-			<p>Equation<nbsp /><xref ref="equation-nonlinear03-tuned-mass-damper-3" /> tells us that <m>dH/dt \leq 0</m>.  Moreover, <m>dH/dt \lt 0</m> whenever the distance between the two masses is changing. Thus, energy decreases whenever the second mass is moving relative to the first.  Thus, if the wind or an earthquake starts our building (<m>m_1</m>) swaying back and forth, then the tuned mass-damper (<m>m_2</m>) located on one of the top floors of the building will start to move relative to the building and energy will be removed from the system by the dampers.</p>
+            <p>Equation<nbsp /><xref ref="equation-nonlinear03-tuned-mass-damper-3" /> tells us that <m>dH/dt \leq 0</m>.  Moreover, <m>dH/dt \lt 0</m> whenever the distance between the two masses is changing. Thus, energy decreases whenever the second mass is moving relative to the first.  Thus, if the wind or an earthquake starts our building (<m>m_1</m>) swaying back and forth, then the tuned mass-damper (<m>m_2</m>) located on one of the top floors of the building will start to move relative to the building and energy will be removed from the system by the dampers.</p>
 
-			<p>Of course, <m>m_1</m> and <m>k_1</m> involve the building and are set by the architects and engineers. We, however, are free to choose <m>m_2</m>, <m>k_2</m> and <m>b</m>. We want to choose <m>b</m> fairly large so that there is a rapid loss of energy; i.e., the magnitude of <m>dH/dt</m> is large.  We should choose <m>m_2</m> large enough so that this mass oscillates with respect to <m>m_1</m>. If we choose <m>m_2</m> two small, then the strong damper will almost serve as a rigid connection between <m>m_1</m> and <m>m_2</m>. Therefore, we wish to choose <m>m_2</m> to be large so that we guaranteed that this mass will oscillate with respect to  <m>m_1</m>.  We should, however, remember that <m>m_2</m> is sitting on top of a very tall building. Finally, we should choose <m>k_2</m> to maximize the rate at which the second mass oscillates with respect to the first and to maximize the oscillations of <m>m_2</m>. If we choose <m>k_2</m> so that the second spring is in resonance with the first, the oscillations of the first mass force the second at its resonance frequency. Thus, we will have relatively large oscillations of the second mass and a large loss of energy.</p>
+            <p>Of course, <m>m_1</m> and <m>k_1</m> involve the building and are set by the architects and engineers. We, however, are free to choose <m>m_2</m>, <m>k_2</m> and <m>b</m>. We want to choose <m>b</m> fairly large so that there is a rapid loss of energy; i.e., the magnitude of <m>dH/dt</m> is large.  We should choose <m>m_2</m> large enough so that this mass oscillates with respect to <m>m_1</m>. If we choose <m>m_2</m> two small, then the strong damper will almost serve as a rigid connection between <m>m_1</m> and <m>m_2</m>. Therefore, we wish to choose <m>m_2</m> to be large so that we guaranteed that this mass will oscillate with respect to  <m>m_1</m>.  We should, however, remember that <m>m_2</m> is sitting on top of a very tall building. Finally, we should choose <m>k_2</m> to maximize the rate at which the second mass oscillates with respect to the first and to maximize the oscillations of <m>m_2</m>. If we choose <m>k_2</m> so that the second spring is in resonance with the first, the oscillations of the first mass force the second at its resonance frequency. Thus, we will have relatively large oscillations of the second mass and a large loss of energy.</p>
 
-			<p>Let us consider example.  Suppose that <m>m_1 = 1</m>, <m>k_1 = 1</m>,   We will also choose <m>m_2</m> to be 0.05 and <m>b = 0.1</m>.  If the initial conditions for our system are
-				<md>
-					<mrow>x_1(0) &amp; = 10</mrow>
-					<mrow>x_2(0) &amp; = 0</mrow>
-					<mrow>p_1(0) &amp; = 0</mrow>
-					<mrow>p_2(0) &amp; = 0,</mrow>
-				</md>
-			we will choose <m>k_2</m> to tune our system. To do this we will plot the time <m>t</m> that it takes for the amplitude of the oscillations of <m>m_1</m> to reach and stay below 2.5 for various values of <m>k_2</m>.<fn>See Figure 5.42 in Paul Blanchard, Robert L. Devaney, and Glen R. Hall. <em>Differential Equations</em>, Second edition. Brooks/Cole, Pacific Grove, CA, 2002, p.~499.</fn>  If we choose <m>k_2 \approx 0.05</m>, then we can  minimize the time to be <m>t \approx 120</m>.</p>
-	    
+            <p>Let us consider example.  Suppose that <m>m_1 = 1</m>, <m>k_1 = 1</m>,   We will also choose <m>m_2</m> to be 0.05 and <m>b = 0.1</m>.  If the initial conditions for our system are
+                <md>
+                    <mrow>x_1(0) &amp; = 10</mrow>
+                    <mrow>x_2(0) &amp; = 0</mrow>
+                    <mrow>p_1(0) &amp; = 0</mrow>
+                    <mrow>p_2(0) &amp; = 0,</mrow>
+                </md>
+            we will choose <m>k_2</m> to tune our system. To do this we will plot the time <m>t</m> that it takes for the amplitude of the oscillations of <m>m_1</m> to reach and stay below 2.5 for various values of <m>k_2</m>.<fn>See Figure 5.42 in Paul Blanchard, Robert L. Devaney, and Glen R. Hall. <em>Differential Equations</em>, Second edition. Brooks/Cole, Pacific Grove, CA, 2002, p.~499.</fn>  If we choose <m>k_2 \approx 0.05</m>, then we can  minimize the time to be <m>t \approx 120</m>.</p>
+        
     </subsection>
 
 </section>

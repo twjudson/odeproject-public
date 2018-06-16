@@ -1,469 +1,469 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="linear03" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<title>Phase Plane Analysis of Linear Systems</title>
+    <title>Phase Plane Analysis of Linear Systems</title>
         
-	<introduction>
+    <introduction>
 
         <p>In <xref ref="linear02" />, we learned how to solve the system
-			<me>\begin{pmatrix}
-			dx/dt \\ dy/dt
-			\end{pmatrix}
-			=
-			\begin{pmatrix}
-			a &amp; b \\
-			c &amp; d 
-			\end{pmatrix}
-			\begin{pmatrix}
-			x \\ y
-			\end{pmatrix}
-			=
-			A
-			\begin{pmatrix}
-			x \\ y
-			\end{pmatrix}</me> 
-		provided the system has distinct real eigenvalues. If <m>A</m> has distinct real eigenvalues <m>\lambda</m> and <m>\mu</m> with eigenvectors <m>\mathbf u</m> and <m>\mathbf v</m>, respectively, then the general solution of the system is 
-			<me>\mathbf x(t) = c_1 e^{\lambda t} \mathbf u + c_2 e^{\mu t} \mathbf v.</me>
-		Furthermore, we can use the general solution of such a system to find the straight-line solutions to the system. If <m>c_2 = 0</m>, then all solutions will lie along the line in the <m>xy</m>-plane that contains the vector <m>\mathbf u</m>. Similarly, if <m>c_1 = 0</m>, then all solutions will lie along the line in the <m>xy</m>-plane that contains the vector <m>\mathbf v</m>.</p>
+            <me>\begin{pmatrix}
+            dx/dt \\ dy/dt
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            a &amp; b \\
+            c &amp; d 
+            \end{pmatrix}
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}
+            =
+            A
+            \begin{pmatrix}
+            x \\ y
+            \end{pmatrix}</me> 
+        provided the system has distinct real eigenvalues. If <m>A</m> has distinct real eigenvalues <m>\lambda</m> and <m>\mu</m> with eigenvectors <m>\mathbf u</m> and <m>\mathbf v</m>, respectively, then the general solution of the system is 
+            <me>\mathbf x(t) = c_1 e^{\lambda t} \mathbf u + c_2 e^{\mu t} \mathbf v.</me>
+        Furthermore, we can use the general solution of such a system to find the straight-line solutions to the system. If <m>c_2 = 0</m>, then all solutions will lie along the line in the <m>xy</m>-plane that contains the vector <m>\mathbf u</m>. Similarly, if <m>c_1 = 0</m>, then all solutions will lie along the line in the <m>xy</m>-plane that contains the vector <m>\mathbf v</m>.</p>
 
-	</introduction>
+    </introduction>
 
     <subsection xml:id="subsection-linear03-eigenvalues-different-signs">
-    	<title>The Case <m>\lambda_1 \lt 0 \lt \lambda_2</m></title>
+        <title>The Case <m>\lambda_1 \lt 0 \lt \lambda_2</m></title>
 
-    	<example xml:id="example-linear03-saddle-phase-portrait-0">
-    		<p>The system 
-    			<md>
-    				<mrow>x' \amp = x + 3y</mrow>
-    				<mrow>y' \amp = x - y</mrow>
-    			</md>
-    		can be written in matrix form <m>\mathbf x' = A \mathbf x</m>, where
-	    		<me>A
-				=
-				\begin{pmatrix}
-				1 &amp; 3 \\
-				1 &amp; -1
-				\end{pmatrix}.</me>
-			The eigenvalues of <m>A</m> are  <m>\lambda = -2</m> or <m>\lambda = 2</m> with eigenvectors <m>\mathbf u = (1, -1)</m> and <m>\mathbf v = (3,1)</m>, respectively. Therefore, the straightline solutions must be lines containing <m>\mathbf u</m> and <m>\mathbf v</m> (<xref ref="figure-linear03-saddle-phase-portrait-0" />).</p>
-		</example>
+        <example xml:id="example-linear03-saddle-phase-portrait-0">
+            <p>The system 
+                <md>
+                    <mrow>x' \amp = x + 3y</mrow>
+                    <mrow>y' \amp = x - y</mrow>
+                </md>
+            can be written in matrix form <m>\mathbf x' = A \mathbf x</m>, where
+                <me>A
+                =
+                \begin{pmatrix}
+                1 &amp; 3 \\
+                1 &amp; -1
+                \end{pmatrix}.</me>
+            The eigenvalues of <m>A</m> are  <m>\lambda = -2</m> or <m>\lambda = 2</m> with eigenvectors <m>\mathbf u = (1, -1)</m> and <m>\mathbf v = (3,1)</m>, respectively. Therefore, the straightline solutions must be lines containing <m>\mathbf u</m> and <m>\mathbf v</m> (<xref ref="figure-linear03-saddle-phase-portrait-0" />).</p>
+        </example>
 
-		<figure xml:id="figure-linear03-saddle-phase-portrait-0">
-			<image width="60%" xml:id="linear03-saddle-phase-portrait-0">
+        <figure xml:id="figure-linear03-saddle-phase-portrait-0">
+            <image width="60%" xml:id="linear03-saddle-phase-portrait-0">
                 <sageplot>
-					x, y ,t = var('x y t')
-					F = [x + 3*y, x - y]
-					n = sqrt(F[0]^2 + F[1]^2)
-					p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					p += line([(-3,-1), (3,1)], thickness = 2)
-					p += line([(-3,3), (3,-3)], thickness = 2)
-					p += arrow((0,0), (1,-1), color="red", arrowsize=3, width = 4)
-					p += arrow((0,0), (3,1), color="red", arrowsize=3, width = 4)
-					p
+                    x, y ,t = var('x y t')
+                    F = [x + 3*y, x - y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    p += line([(-3,-1), (3,1)], thickness = 2)
+                    p += line([(-3,3), (3,-3)], thickness = 2)
+                    p += arrow((0,0), (1,-1), color="red", arrowsize=3, width = 4)
+                    p += arrow((0,0), (3,1), color="red", arrowsize=3, width = 4)
+                    p
                 </sageplot>
             </image>
             <caption>Straightline solutions</caption>
         </figure>
 
-		<p>Let us consider the special case of the  system <m>{\mathbf x}' = A {\mathbf x}</m>, where <m>\lambda_1 \lt 0 \lt \lambda_2</m> and
-			<me>A
-			=
-			\begin{pmatrix}
-			\lambda_1 &amp; 0 \\
-			0 &amp; \lambda_2
-			\end{pmatrix}.</me>
-		Since this is a decoupled system, 
-			<md>
-				<mrow>\frac{dx}{dt} &amp; = \lambda_1 x</mrow>
-				<mrow>\frac{dy}{dt} &amp; = \lambda_2 y,</mrow>
-			</md>
-		we already know how to find the solutions.  However, in keeping with the spirit of our investigation, we will find the eigenvalues of <m>A</m>.  The characteristic equation of <m>A</m> is
-			<me>(\lambda - \lambda_1)(\lambda - \lambda_2) = 0,</me>
-		and our eigenvalues are <m>\lambda_1</m> and <m>\lambda_2</m>. It is easy to see that we can associate eigenvectors <m>(1,0)</m> and <m>(0, 1)</m> to <m>\lambda_1</m> and <m>\lambda_2</m>, respectively. Thus, our general solution is
-			<me>{\mathbf x}(t) 
-			=
-			c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-			+
-			c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.</me></p>
-			
+        <p>Let us consider the special case of the  system <m>{\mathbf x}' = A {\mathbf x}</m>, where <m>\lambda_1 \lt 0 \lt \lambda_2</m> and
+            <me>A
+            =
+            \begin{pmatrix}
+            \lambda_1 &amp; 0 \\
+            0 &amp; \lambda_2
+            \end{pmatrix}.</me>
+        Since this is a decoupled system, 
+            <md>
+                <mrow>\frac{dx}{dt} &amp; = \lambda_1 x</mrow>
+                <mrow>\frac{dy}{dt} &amp; = \lambda_2 y,</mrow>
+            </md>
+        we already know how to find the solutions.  However, in keeping with the spirit of our investigation, we will find the eigenvalues of <m>A</m>.  The characteristic equation of <m>A</m> is
+            <me>(\lambda - \lambda_1)(\lambda - \lambda_2) = 0,</me>
+        and our eigenvalues are <m>\lambda_1</m> and <m>\lambda_2</m>. It is easy to see that we can associate eigenvectors <m>(1,0)</m> and <m>(0, 1)</m> to <m>\lambda_1</m> and <m>\lambda_2</m>, respectively. Thus, our general solution is
+            <me>{\mathbf x}(t) 
+            =
+            c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+            +
+            c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.</me></p>
+            
 
-		<figure xml:id="figure-linear03-saddle-phase-portrait-1">
-			<image width="60%" xml:id="linear03-saddle-phase-portrait-1">
+        <figure xml:id="figure-linear03-saddle-phase-portrait-1">
+            <image width="60%" xml:id="linear03-saddle-phase-portrait-1">
                 <sageplot>
-					x, y ,t = var('x y t')
-					F = [-x, y]
-					n = sqrt(F[0]^2 + F[1]^2)
-					v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-					P1=desolve_system_rk4(F,[x,y],ics=[0,-3,0.1],ivar=t,end_points=3.4,step=0.1)
-					P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-0.1],ivar=t,end_points=3.4,step=0.1)
-					P3=desolve_system_rk4(F,[x,y],ics=[0,3,0.1],ivar=t,end_points=3.4,step=0.1)
-					P4=desolve_system_rk4(F,[x,y],ics=[0,3,-0.1],ivar=t,end_points=3.4,step=0.1)
-					S1=[ [j, k] for i,j,k in P1]
-					S2=[ [j, k] for i,j,k in P2]
-					S3=[ [j, k] for i,j,k in P3]
-					S4=[ [j, k] for i,j,k in P4]
-					LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					LP2=line(S2, thickness=2)
-					LP3=line(S3, thickness=2)
-					LP4=line(S4, thickness=2)
-					LP1 + LP2 + LP3 + LP4 + v
+                    x, y ,t = var('x y t')
+                    F = [-x, y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,0.1],ivar=t,end_points=3.4,step=0.1)
+                    P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-0.1],ivar=t,end_points=3.4,step=0.1)
+                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,0.1],ivar=t,end_points=3.4,step=0.1)
+                    P4=desolve_system_rk4(F,[x,y],ics=[0,3,-0.1],ivar=t,end_points=3.4,step=0.1)
+                    S1=[ [j, k] for i,j,k in P1]
+                    S2=[ [j, k] for i,j,k in P2]
+                    S3=[ [j, k] for i,j,k in P3]
+                    S4=[ [j, k] for i,j,k in P4]
+                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    LP2=line(S2, thickness=2)
+                    LP3=line(S3, thickness=2)
+                    LP4=line(S4, thickness=2)
+                    LP1 + LP2 + LP3 + LP4 + v
                 </sageplot>
             </image>
             <caption>Saddle phase portrait</caption>
         </figure>
 
-		<p>Since <m>\lambda_1 \lt 0</m>, the straight-line solutions of the form <m>c_1 e^{\lambda_1 t} (1, 0)</m> lie on the <m>x</m>-axis.  These solutions approach zero as <m>t \to \infty</m>.  On the other hand, the solutions <m>c_2 e^{\lambda_2 t} (0, 1)</m> line on the <m>y</m>-axis and approach infinity as <m>t \to \infty</m>.  The <m>x</m>-axis is called the <term>stable line</term>, and the <m>y</m>-axis is called the <term>unstable line</term>.  All other solutions
-			<me>{\mathbf x}(t) 
-			=
-			c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-			+
-			c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}</me>
-		(with <m>c_1, c_2 \neq 0</m>) tend to infinity in the direction of the unstable line, since <m>{\mathbf x}(t)</m> approaches <m>(0, c_2 e^{\lambda_2 t}  )</m> as <m>t \to \infty</m>. The phase portrait for the system 
-			<md>
-				<mrow>x' &amp; = -x</mrow>
-				<mrow>y' &amp; = y</mrow>
-			</md>
-		is given in <xref ref="figure-linear03-saddle-phase-portrait-1" />. The equilibrium point of such systems is called a <term>saddle</term>.</p>
+        <p>Since <m>\lambda_1 \lt 0</m>, the straight-line solutions of the form <m>c_1 e^{\lambda_1 t} (1, 0)</m> lie on the <m>x</m>-axis.  These solutions approach zero as <m>t \to \infty</m>.  On the other hand, the solutions <m>c_2 e^{\lambda_2 t} (0, 1)</m> line on the <m>y</m>-axis and approach infinity as <m>t \to \infty</m>.  The <m>x</m>-axis is called the <term>stable line</term>, and the <m>y</m>-axis is called the <term>unstable line</term>.  All other solutions
+            <me>{\mathbf x}(t) 
+            =
+            c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+            +
+            c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}</me>
+        (with <m>c_1, c_2 \neq 0</m>) tend to infinity in the direction of the unstable line, since <m>{\mathbf x}(t)</m> approaches <m>(0, c_2 e^{\lambda_2 t}  )</m> as <m>t \to \infty</m>. The phase portrait for the system 
+            <md>
+                <mrow>x' &amp; = -x</mrow>
+                <mrow>y' &amp; = y</mrow>
+            </md>
+        is given in <xref ref="figure-linear03-saddle-phase-portrait-1" />. The equilibrium point of such systems is called a <term>saddle</term>.</p>
 
-		<example>
-			<p>For the system in <xref ref="example-linear03-saddle-phase-portrait-0" />, the unstable line of solutions is 
-				<me>{\mathbf x}_1(t) = c_1 e^{2t} 
-				\begin{pmatrix}
-				3 \\ 1
-				\end{pmatrix}.</me>
-			Each solution tends away from the origin as <m>t \to \infty</m>. The stable line of solutions is given by
-				<me>{\mathbf x}_2(t) = c_2 e^{-2t}
-				\begin{pmatrix}
-				1 \\ - 1
-				\end{pmatrix},</me>
-			and each solution on this line approaches the origin as <m>t \to \infty</m>. By the Principle of Superposition, the general solution to the system is
-				<me>{\mathbf x}(t) = c_1 e^{2t} 
-				\begin{pmatrix}
-				3 \\ 1
-				\end{pmatrix}
-				+
-				c_2 e^{-2t}
-				\begin{pmatrix}
-				1 \\ - 1
-				\end{pmatrix}.</me>
-			If <m>c_1 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_1(t)</m> as <m>t \to \infty</m>. If <m>c_2 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_2(t)</m> as <m>t \to -\infty</m>. Thus, we have the phase portrait in <xref ref="figure-linear03-saddle-phase-portrait-2" />.</p>
-		</example>
+        <example>
+            <p>For the system in <xref ref="example-linear03-saddle-phase-portrait-0" />, the unstable line of solutions is 
+                <me>{\mathbf x}_1(t) = c_1 e^{2t} 
+                \begin{pmatrix}
+                3 \\ 1
+                \end{pmatrix}.</me>
+            Each solution tends away from the origin as <m>t \to \infty</m>. The stable line of solutions is given by
+                <me>{\mathbf x}_2(t) = c_2 e^{-2t}
+                \begin{pmatrix}
+                1 \\ - 1
+                \end{pmatrix},</me>
+            and each solution on this line approaches the origin as <m>t \to \infty</m>. By the Principle of Superposition, the general solution to the system is
+                <me>{\mathbf x}(t) = c_1 e^{2t} 
+                \begin{pmatrix}
+                3 \\ 1
+                \end{pmatrix}
+                +
+                c_2 e^{-2t}
+                \begin{pmatrix}
+                1 \\ - 1
+                \end{pmatrix}.</me>
+            If <m>c_1 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_1(t)</m> as <m>t \to \infty</m>. If <m>c_2 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_2(t)</m> as <m>t \to -\infty</m>. Thus, we have the phase portrait in <xref ref="figure-linear03-saddle-phase-portrait-2" />.</p>
+        </example>
 
-		<figure xml:id="figure-linear03-saddle-phase-portrait-2">
-			<image width="60%" xml:id="linear03-saddle-phase-portrait-2">
+        <figure xml:id="figure-linear03-saddle-phase-portrait-2">
+            <image width="60%" xml:id="linear03-saddle-phase-portrait-2">
                 <sageplot>
-					x, y ,t = var('x y t')
-					F = [x + 3*y, x - y]
-					n = sqrt(F[0]^2 + F[1]^2)
-					v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-					P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
-					P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
-					P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
-					P4=desolve_system_rk4(F,[x,y],ics=[0,2.9,-3],ivar=t,end_points=1.86,step=0.1)
-					S1=[ [j, k] for i,j,k in P1]
-					S2=[ [j, k] for i,j,k in P2]
-					S3=[ [j, k] for i,j,k in P3]
-					S4=[ [j, k] for i,j,k in P4]
-					LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					LP2=line(S2, thickness=2)
-					LP3=line(S3, thickness=2)
-					LP4=line(S4, thickness=2)
-					L1 = line([(-3,-1), (3,1)], thickness = 2, color="red")
-					L2 = line([(-3,3), (3,-3)], thickness = 2, color="red")
-					LP1 + LP2 + LP3 + LP4 + v + L1 + L2
+                    x, y ,t = var('x y t')
+                    F = [x + 3*y, x - y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
+                    P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
+                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
+                    P4=desolve_system_rk4(F,[x,y],ics=[0,2.9,-3],ivar=t,end_points=1.86,step=0.1)
+                    S1=[ [j, k] for i,j,k in P1]
+                    S2=[ [j, k] for i,j,k in P2]
+                    S3=[ [j, k] for i,j,k in P3]
+                    S4=[ [j, k] for i,j,k in P4]
+                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    LP2=line(S2, thickness=2)
+                    LP3=line(S3, thickness=2)
+                    LP4=line(S4, thickness=2)
+                    L1 = line([(-3,-1), (3,1)], thickness = 2, color="red")
+                    L2 = line([(-3,3), (3,-3)], thickness = 2, color="red")
+                    LP1 + LP2 + LP3 + LP4 + v + L1 + L2
                 </sageplot>
             </image>
-	        <caption>Saddle phase portrait</caption>
-	    </figure>
+            <caption>Saddle phase portrait</caption>
+        </figure>
             
-		<p>For the general case, where <m>A</m> has eigenvalues <m>\lambda_1 \lt 0 \lt \lambda_2</m>, we always have a stable line of solutions and an unstable line of solutions. All other solutions approach the unstable line as <m>t \to \infty</m> and the stable line as <m>t \to - \infty</m>.</p>
+        <p>For the general case, where <m>A</m> has eigenvalues <m>\lambda_1 \lt 0 \lt \lambda_2</m>, we always have a stable line of solutions and an unstable line of solutions. All other solutions approach the unstable line as <m>t \to \infty</m> and the stable line as <m>t \to - \infty</m>.</p>
 
-	</subsection>
+    </subsection>
 
-	<subsection xml:id="subsection-linear03-eigenvalues-negative">
+    <subsection xml:id="subsection-linear03-eigenvalues-negative">
         <title>The Case <m>\lambda_1  \lt \lambda_2 \lt 0</m></title>
 
-		<p>Suppose <m>\lambda_1 \lt \lambda_2 \lt  0</m> and consider the diagonal system 
-			<me>\begin{pmatrix}
-			x'(t) \\ y'(t)
-			\end{pmatrix}
-			=
-			\begin{pmatrix}
-			\lambda_1 &amp; 0 \\
-			0 &amp; \lambda_2
-			\end{pmatrix}
-			\begin{pmatrix}
-			x(t) \\ y(t)
-			\end{pmatrix}.</me>
-		The general solution of this system is
-			<me>{\mathbf x}(t) 
-			=
-			c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-			+
-			c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix},</me>
-		but unlike the case of the saddle, all solutions tend towards the origin as <m>t \to \infty</m>. To see how the solutions approach the origin, we will compute  <m>dy/dx</m> for <m>c_2 \neq 0</m>.  If
-			<md>
-				<mrow>x(t) &amp; = c_1 e^{\lambda_1 t}</mrow>
-				<mrow>y(t) &amp; = c_2 e^{\lambda_2 t},</mrow>
-			</md>
-		then
-			<me>\frac{dy}{dx}
-			=
-			\frac{y'(t)}{x'(t)}
-			=
-			\frac{\lambda_2 c_2 e^{\lambda_2 t}}{\lambda_1c_1 e^{\lambda_1 t}}
-			=
-			\frac{\lambda_2 c_2}{\lambda_1c_1 } e^{(\lambda_2 - \lambda_1) t}.</me>
-		Since <m>\lambda_2 - \lambda_1 \gt 0</m>, the derivative, <m>dy/dx</m>, must approach <m>\pm \infty</m>, provided <m>c_2 \neq 0</m>. Therefore, the solutions tend towards the origin tangentially to the <m>y</m>-axis (<xref ref="figure-linear03-sink-phase-portrait-2" />). We say that the equilibrium point for this system is a <term>sink</term>.</p>
+        <p>Suppose <m>\lambda_1 \lt \lambda_2 \lt  0</m> and consider the diagonal system 
+            <me>\begin{pmatrix}
+            x'(t) \\ y'(t)
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+            \lambda_1 &amp; 0 \\
+            0 &amp; \lambda_2
+            \end{pmatrix}
+            \begin{pmatrix}
+            x(t) \\ y(t)
+            \end{pmatrix}.</me>
+        The general solution of this system is
+            <me>{\mathbf x}(t) 
+            =
+            c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+            +
+            c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix},</me>
+        but unlike the case of the saddle, all solutions tend towards the origin as <m>t \to \infty</m>. To see how the solutions approach the origin, we will compute  <m>dy/dx</m> for <m>c_2 \neq 0</m>.  If
+            <md>
+                <mrow>x(t) &amp; = c_1 e^{\lambda_1 t}</mrow>
+                <mrow>y(t) &amp; = c_2 e^{\lambda_2 t},</mrow>
+            </md>
+        then
+            <me>\frac{dy}{dx}
+            =
+            \frac{y'(t)}{x'(t)}
+            =
+            \frac{\lambda_2 c_2 e^{\lambda_2 t}}{\lambda_1c_1 e^{\lambda_1 t}}
+            =
+            \frac{\lambda_2 c_2}{\lambda_1c_1 } e^{(\lambda_2 - \lambda_1) t}.</me>
+        Since <m>\lambda_2 - \lambda_1 \gt 0</m>, the derivative, <m>dy/dx</m>, must approach <m>\pm \infty</m>, provided <m>c_2 \neq 0</m>. Therefore, the solutions tend towards the origin tangentially to the <m>y</m>-axis (<xref ref="figure-linear03-sink-phase-portrait-2" />). We say that the equilibrium point for this system is a <term>sink</term>.</p>
 
-		<figure xml:id="figure-linear03-sink-phase-portrait-2">
-			<image width="60%" xml:id="linear03-sink-phase-portrait-2">
+        <figure xml:id="figure-linear03-sink-phase-portrait-2">
+            <image width="60%" xml:id="linear03-sink-phase-portrait-2">
                 <sageplot>
-					x, y ,t = var('x y t')
-					F = [-2*x, -y]
-					n = sqrt(F[0]^2 + F[1]^2)
-					v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-					P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.7],ivar=t,end_points=5,step=0.1)
-					P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-2.7],ivar=t,end_points=5,step=0.1)
-					P3=desolve_system_rk4(F,[x,y],ics=[0,3,2.7],ivar=t,end_points=5,step=0.1)
-					P4=desolve_system_rk4(F,[x,y],ics=[0,3,-2.7],ivar=t,end_points=5,step=0.1)
-					S1=[ [j, k] for i,j,k in P1]
-					S2=[ [j, k] for i,j,k in P2]
-					S3=[ [j, k] for i,j,k in P3]
-					S4=[ [j, k] for i,j,k in P4]
-					LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					LP2=line(S2, thickness=2)
-					LP3=line(S3, thickness=2)
-					LP4=line(S4, thickness=2)
-					LP1 + LP2 + LP3 + LP4 + v
+                    x, y ,t = var('x y t')
+                    F = [-2*x, -y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.7],ivar=t,end_points=5,step=0.1)
+                    P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-2.7],ivar=t,end_points=5,step=0.1)
+                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,2.7],ivar=t,end_points=5,step=0.1)
+                    P4=desolve_system_rk4(F,[x,y],ics=[0,3,-2.7],ivar=t,end_points=5,step=0.1)
+                    S1=[ [j, k] for i,j,k in P1]
+                    S2=[ [j, k] for i,j,k in P2]
+                    S3=[ [j, k] for i,j,k in P3]
+                    S4=[ [j, k] for i,j,k in P4]
+                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    LP2=line(S2, thickness=2)
+                    LP3=line(S3, thickness=2)
+                    LP4=line(S4, thickness=2)
+                    LP1 + LP2 + LP3 + LP4 + v
                 </sageplot>
             </image>
-	        <caption>Sink phase portrait</caption>
-	    </figure>
-	            
-		<p>Since  <m>\lambda_1  \lt \lambda_2 \lt 0</m>, we say that <m>\lambda_1</m> is the <term>dominant eigenvalue</term>. The <m>x</m>-coordinates of the solutions approach the origin much faster than the <m>y</m>-coordinates.</p>
+            <caption>Sink phase portrait</caption>
+        </figure>
+                
+        <p>Since  <m>\lambda_1  \lt \lambda_2 \lt 0</m>, we say that <m>\lambda_1</m> is the <term>dominant eigenvalue</term>. The <m>x</m>-coordinates of the solutions approach the origin much faster than the <m>y</m>-coordinates.</p>
 
-		<p>To see what happens in the general case, suppose that <m>\lambda_1  \lt \lambda_2 \lt 0</m>, the eigenvectors associated with <m>\lambda_1</m> and <m>\lambda_2</m> are <m>(u_1, u_2)</m> and <m>(v_1, v_2)</m>, respectively. The general solution of our system is
-			<me>{\mathbf x}(t) 
-			=
-			c_1 e^{\lambda_1 t} \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
-			+
-			c_2 e^{\lambda_2 t} \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}.</me>
-		The slope of a solution curve at <m>(x, y)</m> is given by
-			<md>
-				<mrow>\frac{dy}{dx} &amp; = \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1}</mrow>
-				<mrow>&amp; = \left(  \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1} \right) \frac{e^{-\lambda_2 t}}{e^{-\lambda_2 t}}</mrow>
-				<mrow>&amp; = \frac{\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_2 + \lambda_2 c_2 v_2} {\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_1 + \lambda_2 c_2  v_1}.</mrow>
-			</md>
-		This last expression tends toward the slope <m>v_2/v_1</m> of the eigenvector of <m>\lambda_2</m> (unless <m>c_2 = 0</m>). If <m>c_2 = 0</m>, then we have the straight-line solution corresponding to the eigenvalue <m>\lambda_1</m>. Hence, all the solutions for this case (except those on the straight-line belonging to the dominant eigenvalue) tend toward the origin tangentially to the straight-line solution corresponding to the weaker eigenvalue, <m>\lambda_2</m>.</p>
+        <p>To see what happens in the general case, suppose that <m>\lambda_1  \lt \lambda_2 \lt 0</m>, the eigenvectors associated with <m>\lambda_1</m> and <m>\lambda_2</m> are <m>(u_1, u_2)</m> and <m>(v_1, v_2)</m>, respectively. The general solution of our system is
+            <me>{\mathbf x}(t) 
+            =
+            c_1 e^{\lambda_1 t} \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
+            +
+            c_2 e^{\lambda_2 t} \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}.</me>
+        The slope of a solution curve at <m>(x, y)</m> is given by
+            <md>
+                <mrow>\frac{dy}{dx} &amp; = \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1}</mrow>
+                <mrow>&amp; = \left(  \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1} \right) \frac{e^{-\lambda_2 t}}{e^{-\lambda_2 t}}</mrow>
+                <mrow>&amp; = \frac{\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_2 + \lambda_2 c_2 v_2} {\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_1 + \lambda_2 c_2  v_1}.</mrow>
+            </md>
+        This last expression tends toward the slope <m>v_2/v_1</m> of the eigenvector of <m>\lambda_2</m> (unless <m>c_2 = 0</m>). If <m>c_2 = 0</m>, then we have the straight-line solution corresponding to the eigenvalue <m>\lambda_1</m>. Hence, all the solutions for this case (except those on the straight-line belonging to the dominant eigenvalue) tend toward the origin tangentially to the straight-line solution corresponding to the weaker eigenvalue, <m>\lambda_2</m>.</p>
 
-		<example>
-			<p>Consider the system
-				<me>\begin{pmatrix}
-				x'(t) \\ y'(t)
-				\end{pmatrix}
-				=
-				\begin{pmatrix}
-				-5 \amp -2 \\
-				-1 \amp -4
-				\end{pmatrix}
-				\begin{pmatrix}
-				x(t) \\ y(t)
-				\end{pmatrix}.</me>
-			The eigenvalues of this system are <m>\lambda_1 = -6</m> and <m>\lambda_2 = -3</m> with eigenvectors <m>\mathbf v_1 = (2,1 )</m> and <m>\mathbf v_2 = (1, -1)</m>, respectively.  Since the dominant eigenvalue is <m>\lambda_2 = -6</m>, solutions tend towards the straightline solution containing the vector <m>\mathbf v_2 = (1, -1)</m> more quickly (<xref ref="figure-linear03-nodal-sink-phase-portrait" />).</p>
-		</example>
+        <example>
+            <p>Consider the system
+                <me>\begin{pmatrix}
+                x'(t) \\ y'(t)
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                -5 \amp -2 \\
+                -1 \amp -4
+                \end{pmatrix}
+                \begin{pmatrix}
+                x(t) \\ y(t)
+                \end{pmatrix}.</me>
+            The eigenvalues of this system are <m>\lambda_1 = -6</m> and <m>\lambda_2 = -3</m> with eigenvectors <m>\mathbf v_1 = (2,1 )</m> and <m>\mathbf v_2 = (1, -1)</m>, respectively.  Since the dominant eigenvalue is <m>\lambda_2 = -6</m>, solutions tend towards the straightline solution containing the vector <m>\mathbf v_2 = (1, -1)</m> more quickly (<xref ref="figure-linear03-nodal-sink-phase-portrait" />).</p>
+        </example>
 
-		<figure xml:id="figure-linear03-nodal-sink-phase-portrait">
-			<image width="60%" xml:id="linear03-nodal-sink-phase-portrait">
+        <figure xml:id="figure-linear03-nodal-sink-phase-portrait">
+            <image width="60%" xml:id="linear03-nodal-sink-phase-portrait">
                 <sageplot>
-					x, y ,t = var('x y t')
-					f = -5*x - 2*y
-					g = -x - 4*y
-					n = sqrt(f^2 + g^2)
-					xmin = -4
-					xmax = 4
-					ymin = -4
-					ymax = 4
-					v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-					result = v
-					L1 = line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
-					L2 = line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
-					result = result + L1 + L2
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					result
+                    x, y ,t = var('x y t')
+                    f = -5*x - 2*y
+                    g = -x - 4*y
+                    n = sqrt(f^2 + g^2)
+                    xmin = -4
+                    xmax = 4
+                    ymin = -4
+                    ymax = 4
+                    v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                    result = v
+                    L1 = line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
+                    L2 = line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
+                    result = result + L1 + L2
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    result
                 </sageplot>
             </image>
             <caption>Source phase portrait</caption>
         </figure>
 
-	</subsection>
+    </subsection>
 
-	<subsection xml:id="subsection-linear03-eigenvalues-positive">
+    <subsection xml:id="subsection-linear03-eigenvalues-positive">
         <title>The Case <m>\lambda_1  \gt \lambda_2 \gt 0</m></title>
 
-		<p>If <m>\lambda_1 \gt \lambda_2 \gt 0</m>, we can regard our direction field as the negative of the direction field of the previous case.  The general solution and the direction field are the same, but the arrows are reversed (<xref ref="figure-linear03-nodal-source-phase-portrait" />). In this case, we say that the equilibrium point is a <term>source</term>.</p>
+        <p>If <m>\lambda_1 \gt \lambda_2 \gt 0</m>, we can regard our direction field as the negative of the direction field of the previous case.  The general solution and the direction field are the same, but the arrows are reversed (<xref ref="figure-linear03-nodal-source-phase-portrait" />). In this case, we say that the equilibrium point is a <term>source</term>.</p>
 
-		<figure xml:id="figure-linear03-nodal-source-phase-portrait">
-			<image width="60%" xml:id="linear03-nodal-source-phase-portrait">
+        <figure xml:id="figure-linear03-nodal-source-phase-portrait">
+            <image width="60%" xml:id="linear03-nodal-source-phase-portrait">
                 <sageplot>
-					x, y ,t = var('x y t')
-					F = [2*x, y]
-					n = sqrt(F[0]^2 + F[1]^2)
-					v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-					P1=desolve_system_rk4(F,[x,y],ics=[0,0.01,0.1],ivar=t,end_points=2.9,step=0.1)
-					P2=desolve_system_rk4(F,[x,y],ics=[0,-0.01,0.1],ivar=t,end_points=2.9,step=0.1)
-					P3=desolve_system_rk4(F,[x,y],ics=[0,0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
-					P4=desolve_system_rk4(F,[x,y],ics=[0,-0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
-					S1=[ [j, k] for i,j,k in P1]
-					S2=[ [j, k] for i,j,k in P2]
-					S3=[ [j, k] for i,j,k in P3]
-					S4=[ [j, k] for i,j,k in P4]
-					LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					LP2=line(S2, thickness=2)
-					LP3=line(S3, thickness=2)
-					LP4=line(S4, thickness=2)
-					LP1 + LP2 + LP3 + LP4 + v
+                    x, y ,t = var('x y t')
+                    F = [2*x, y]
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    P1=desolve_system_rk4(F,[x,y],ics=[0,0.01,0.1],ivar=t,end_points=2.9,step=0.1)
+                    P2=desolve_system_rk4(F,[x,y],ics=[0,-0.01,0.1],ivar=t,end_points=2.9,step=0.1)
+                    P3=desolve_system_rk4(F,[x,y],ics=[0,0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
+                    P4=desolve_system_rk4(F,[x,y],ics=[0,-0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
+                    S1=[ [j, k] for i,j,k in P1]
+                    S2=[ [j, k] for i,j,k in P2]
+                    S3=[ [j, k] for i,j,k in P3]
+                    S4=[ [j, k] for i,j,k in P4]
+                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    LP2=line(S2, thickness=2)
+                    LP3=line(S3, thickness=2)
+                    LP4=line(S4, thickness=2)
+                    LP1 + LP2 + LP3 + LP4 + v
                 </sageplot>
             </image>
             <caption>Source phase portrait</caption>
         </figure>
 
         <example>
-			<p>Consider the system
-				<me>\begin{pmatrix}
-				x'(t) \\ y'(t)
-				\end{pmatrix}
-				=
-				\begin{pmatrix}
-				-5 \amp -2 \\
-				-1 \amp -4
-				\end{pmatrix}
-				\begin{pmatrix}
-				x(t) \\ y(t)
-				\end{pmatrix}.</me>
-			The eigenvalues of this system are <m>\lambda_1 = 5</m> and <m>\lambda_2 = 1</m> with eigenvectors <m>\mathbf v_1 = (3, -4)</m> and <m>\mathbf v_2 = (1, 1)</m>, respectively. Since the dominant eigenvalue is <m>\lambda_1 = 5</m>, solutions are closer to  the straightline solution containing the vector <m>\mathbf v_2 = (3, -4)</m> more as <m>t \to \infty</m> (<xref ref="figure-linear03-nodal-source-phase-portrait-1" />).</p>
-		</example>
+            <p>Consider the system
+                <me>\begin{pmatrix}
+                x'(t) \\ y'(t)
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                -5 \amp -2 \\
+                -1 \amp -4
+                \end{pmatrix}
+                \begin{pmatrix}
+                x(t) \\ y(t)
+                \end{pmatrix}.</me>
+            The eigenvalues of this system are <m>\lambda_1 = 5</m> and <m>\lambda_2 = 1</m> with eigenvectors <m>\mathbf v_1 = (3, -4)</m> and <m>\mathbf v_2 = (1, 1)</m>, respectively. Since the dominant eigenvalue is <m>\lambda_1 = 5</m>, solutions are closer to  the straightline solution containing the vector <m>\mathbf v_2 = (3, -4)</m> more as <m>t \to \infty</m> (<xref ref="figure-linear03-nodal-source-phase-portrait-1" />).</p>
+        </example>
 
-		<figure xml:id="figure-linear03-nodal-source-phase-portrait-1">
-			<image width="60%" xml:id="linear03-nodal-source-phase-portrait-1">
+        <figure xml:id="figure-linear03-nodal-source-phase-portrait-1">
+            <image width="60%" xml:id="linear03-nodal-source-phase-portrait-1">
                 <sageplot>
-					x, y ,t = var('x y t')
-					f = 4*x - 3*y
-					g = -x + 2*y
-					n = sqrt(f^2 + g^2)
-					xmin = -4
-					xmax = 4
-					ymin = -4
-					ymax = 4
-					v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-					result = v
-					L1 = line([(-4,-4), (4,4)], thickness = 2, color="red")
-					L2 = line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
-					result = result + L1 + L2
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
-					S=[ [j, k] for i,j,k in P]
-					LP=line(S, thickness=2)
-					result = result + LP
-					result
+                    x, y ,t = var('x y t')
+                    f = 4*x - 3*y
+                    g = -x + 2*y
+                    n = sqrt(f^2 + g^2)
+                    xmin = -4
+                    xmax = 4
+                    ymin = -4
+                    ymax = 4
+                    v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                    result = v
+                    L1 = line([(-4,-4), (4,4)], thickness = 2, color="red")
+                    L2 = line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
+                    result = result + L1 + L2
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
+                    S=[ [j, k] for i,j,k in P]
+                    LP=line(S, thickness=2)
+                    result = result + LP
+                    result
                 </sageplot>
             </image>
             <caption>Source phase portrait</caption>
         </figure>
-		
-	</subsection>
+        
+    </subsection>
 
-	<subsection xml:id="subsection-linear03-important-lessons">
+    <subsection xml:id="subsection-linear03-important-lessons">
         <title>Important Lessons</title>
 
-		<p><ul>
-			
-			<li>Given a system of linear differential equations
-				<me>\begin{pmatrix}
-				dx/dt \\ dy/dt
-				\end{pmatrix}
-				=
-				\begin{pmatrix}
-				a &amp; b \\
-				c &amp; d 
-				\end{pmatrix}
-				\begin{pmatrix}
-				x \\ y
-				\end{pmatrix}
-				=
-				A
-				\begin{pmatrix}
-				x \\ y
-				\end{pmatrix},</me> 
-			we can use the eigenvalues of <m>A</m> to find and classify the solutions of the system.</li>
+        <p><ul>
+            
+            <li>Given a system of linear differential equations
+                <me>\begin{pmatrix}
+                dx/dt \\ dy/dt
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                a &amp; b \\
+                c &amp; d 
+                \end{pmatrix}
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix}
+                =
+                A
+                \begin{pmatrix}
+                x \\ y
+                \end{pmatrix},</me> 
+            we can use the eigenvalues of <m>A</m> to find and classify the solutions of the system.</li>
 
-			<li><p>If
-				<me>A = \begin{pmatrix}
-				\lambda_1 &amp; 0 \\
-				0 &amp; \lambda_2
-				\end{pmatrix},</me>
-			then <m>A</m> has two distinct real eigenvalues. The general solution to the system <m>{\mathbf x}' = A {\mathbf x}</m> is
-				<me>{\mathbf x}(t) = \alpha e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.</me>
-				<ul>
+            <li><p>If
+                <me>A = \begin{pmatrix}
+                \lambda_1 &amp; 0 \\
+                0 &amp; \lambda_2
+                \end{pmatrix},</me>
+            then <m>A</m> has two distinct real eigenvalues. The general solution to the system <m>{\mathbf x}' = A {\mathbf x}</m> is
+                <me>{\mathbf x}(t) = \alpha e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.</me>
+                <ul>
 
-					<li>For the case <m>\lambda_1 \lt 0 \lt \lambda_2</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a saddle.</li> 
-
-
-					<li>For the case <m>\lambda_1 \lt \lambda_2 \lt 0</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a sink.</li>
+                    <li>For the case <m>\lambda_1 \lt 0 \lt \lambda_2</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a saddle.</li> 
 
 
-					<li>For the case <m>0 \lt \lambda_1 \lt \lambda_2</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a source.</li>
+                    <li>For the case <m>\lambda_1 \lt \lambda_2 \lt 0</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a sink.</li>
 
-				</ul></p></li>
-		</ul></p>
-			
-	</subsection>
 
-	<todo>More exercises needed.</todo>
+                    <li>For the case <m>0 \lt \lambda_1 \lt \lambda_2</m>, the equilibrium point of the system <m>{\mathbf x}' = A {\mathbf x}</m> is a source.</li>
+
+                </ul></p></li>
+        </ul></p>
+            
+    </subsection>
+
+    <todo>More exercises needed.</todo>
 
     <exercises xml:id="exercises-linear03"  filenamebase="linear03">
     <title>Exercises</title>
 
 
-	<exercise>
-		<statement>
-			<p>Determine a computable condition that guarantees that, if a <m>2 \times 2</m> matrix <m>A</m> has complex eigenvalues, then the solutions of <m>{\mathbf x}' = A{\mathbf x}</m> travel around the origin in a counterclockwise direction.</p>  
-		</statement>
+    <exercise>
+        <statement>
+            <p>Determine a computable condition that guarantees that, if a <m>2 \times 2</m> matrix <m>A</m> has complex eigenvalues, then the solutions of <m>{\mathbf x}' = A{\mathbf x}</m> travel around the origin in a counterclockwise direction.</p>  
+        </statement>
 
 
-	</exercise>
+    </exercise>
 
 
 

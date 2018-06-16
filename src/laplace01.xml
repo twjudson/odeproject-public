@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace01" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>The Laplace Transform</title>
@@ -13,140 +13,140 @@
     <introduction>
 
         <p>Consider the electrical circuit governed by the differential equation
-			<me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
-		The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx>Laplace transform</idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
+            <me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
+        The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx>Laplace transform</idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
 
-		<p>As a second example, let us consider a population of fish that is governed by exponential growth,
-			<md>
-				<mrow>\frac{dP}{dt} &amp; = kP</mrow>
-				<mrow>P(0) &amp; = P_0,</mrow>
-			</md>
-		and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow harvesting during the first half of the year,
-			<me>H(t)
-			=
-			\begin{cases}
-			r &amp; 0 \leq t \leq 1/2, \\
-			0 &amp; 1/2 \lt t \lt 1, \\
-			r &amp; 1 \leq t \leq 3/2, \\
-			0 &amp; 3/2 \lt t \lt 2, \\
-			&amp; \vdots
-			\end{cases}</me>
-		We do not yet have the tools to analyze differential equations possessing discontinuous terms.</p>
+        <p>As a second example, let us consider a population of fish that is governed by exponential growth,
+            <md>
+                <mrow>\frac{dP}{dt} &amp; = kP</mrow>
+                <mrow>P(0) &amp; = P_0,</mrow>
+            </md>
+        and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow harvesting during the first half of the year,
+            <me>H(t)
+            =
+            \begin{cases}
+            r &amp; 0 \leq t \leq 1/2, \\
+            0 &amp; 1/2 \lt t \lt 1, \\
+            r &amp; 1 \leq t \leq 3/2, \\
+            0 &amp; 3/2 \lt t \lt 2, \\
+            &amp; \vdots
+            \end{cases}</me>
+        We do not yet have the tools to analyze differential equations possessing discontinuous terms.</p>
 
-		<p>Given an initial-value problem
-			<md>
-				<mrow>ay'' + by' + cy &amp; = g(t)</mrow>
-				<mrow>y(0) &amp; = y_0</mrow>
-				<mrow>y'(0) &amp; = y_0',</mrow>
-			</md>
-		the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the  algebraic solution back into a solution of the differential equation.  Surprisingly, this method will even work when <m>g</m> is a discontinuous function, provided the discontinuities are not too bad.</p>
+        <p>Given an initial-value problem
+            <md>
+                <mrow>ay'' + by' + cy &amp; = g(t)</mrow>
+                <mrow>y(0) &amp; = y_0</mrow>
+                <mrow>y'(0) &amp; = y_0',</mrow>
+            </md>
+        the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the  algebraic solution back into a solution of the differential equation.  Surprisingly, this method will even work when <m>g</m> is a discontinuous function, provided the discontinuities are not too bad.</p>
 
-	</introduction>
+    </introduction>
 
     <subsection xml:id="subsection-laplace01-definitions">
-    	<title>Definition of the Laplace Transform</title>
+        <title>Definition of the Laplace Transform</title>
 
-		<p>We shall define the <term>Laplace transform</term><idx><h>Laplace transform</h><h>definition</h></idx> of a function <m>f(t)</m> by
-			<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
-		provided the integral converges.</p>
+        <p>We shall define the <term>Laplace transform</term><idx><h>Laplace transform</h><h>definition</h></idx> of a function <m>f(t)</m> by
+            <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
+        provided the integral converges.</p>
 
-		<example xml:id="example-laplace01-basic-examples">
-			<p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
-			<ul>
+        <example xml:id="example-laplace01-basic-examples">
+            <p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
+            <ul>
 
-				<li>Let <m>f(t) = k</m>, where <m>k</m> is a constant.  Then
-					<me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k  \; dt = \frac{k}{s},</me>
-				for  <m>s \gt 0</m>.</li>
+                <li>Let <m>f(t) = k</m>, where <m>k</m> is a constant.  Then
+                    <me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k  \; dt = \frac{k}{s},</me>
+                for  <m>s \gt 0</m>.</li>
 
-				<li>For <m>f(t) = t</m>, the Laplace transform is
-					<me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st} t \, dt = \frac{1}{s^2},</me>
-				for <m>s \gt 0</m>.</li>
+                <li>For <m>f(t) = t</m>, the Laplace transform is
+                    <me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st} t \, dt = \frac{1}{s^2},</me>
+                for <m>s \gt 0</m>.</li>
 
-				<li>If <m>f(t) = e^{at}</m> with <m>t > 0</m>, then
-				    <me>{\mathcal L}(f)(s) = \int_0^\infty  e^{-st} e^{at} \, dt = \int_0^\infty  e^{-(s -a)t} \, dt = \left[ - \frac{e^{-(s -a)t}}{s - a} \right]_0^\infty.</me>
-			    Noting that <m>e^{-(s -a)t} \to 0</m> as <m>t \to \infty</m> for <m>s \gt a</m>, we find that
-			        <me>{\mathcal L}(e^{at}) = \frac{1}{s - a} \quad \text{for} \quad s \gt a</me></li>
+                <li>If <m>f(t) = e^{at}</m> with <m>t > 0</m>, then
+                    <me>{\mathcal L}(f)(s) = \int_0^\infty  e^{-st} e^{at} \, dt = \int_0^\infty  e^{-(s -a)t} \, dt = \left[ - \frac{e^{-(s -a)t}}{s - a} \right]_0^\infty.</me>
+                Noting that <m>e^{-(s -a)t} \to 0</m> as <m>t \to \infty</m> for <m>s \gt a</m>, we find that
+                    <me>{\mathcal L}(e^{at}) = \frac{1}{s - a} \quad \text{for} \quad s \gt a</me></li>
 
-			</ul></p>
-		</example>
+            </ul></p>
+        </example>
 
-		<example>
-			<p>The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
-			    <me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
-			and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
-			    <me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
-		    does not converge.</p>
-		</example>
+        <example>
+            <p>The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
+                <me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
+            and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
+                <me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
+            does not converge.</p>
+        </example>
 
-		<p>The Laplace transform, however, does exist in many cases. We will show that the Laplace transform of a function exists if the function does not grow too quickly and has no bad discontinuities.</p>
+        <p>The Laplace transform, however, does exist in many cases. We will show that the Laplace transform of a function exists if the function does not grow too quickly and has no bad discontinuities.</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-laplace01-properties">
-    	<title>Properties of the Laplace Transform</title>
+        <title>Properties of the Laplace Transform</title>
 
-		<p>One of the most important properties of the Laplace transform is linearity.  That is,
-			<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
-		where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integration,
+        <p>One of the most important properties of the Laplace transform is linearity.  That is,
+            <me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
+        where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integration,
             <md>
-            	<mrow>{\mathcal L} ( \alpha f + \beta g )(s) \amp = \int_0^\infty e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
-            	<mrow>\amp = \lim_{b \to \infty} \int_0^b e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
-            	<mrow>\amp = \alpha \lim_{b \to \infty} \int_0^b e^{-st} f(t) \, dt + \beta \lim_{b \to \infty} \int_0^b e^{-st}\beta g(t) \, dt</mrow>
-            	<mrow>\amp = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s)</mrow>
+                <mrow>{\mathcal L} ( \alpha f + \beta g )(s) \amp = \int_0^\infty e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
+                <mrow>\amp = \lim_{b \to \infty} \int_0^b e^{-st} [\alpha f(t) + \beta g(t)] \, dt</mrow>
+                <mrow>\amp = \alpha \lim_{b \to \infty} \int_0^b e^{-st} f(t) \, dt + \beta \lim_{b \to \infty} \int_0^b e^{-st}\beta g(t) \, dt</mrow>
+                <mrow>\amp = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s)</mrow>
             </md>
-		We state the linearity of the Laplace transform as a theorem.
+        We state the linearity of the Laplace transform as a theorem.
 
-		<theorem xml:id="theorem-laplace01-linearity">
+        <theorem xml:id="theorem-laplace01-linearity">
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two functions whose Laplace transforms <m>{\mathcal L} ( f)(s)</m> and <m>{\mathcal L} ( g)(s)</m> exist for <m>s \gt a</m> and <m>s \gt b</m>, respectively. Then for any real constants <m>\alpha</m> and <m>\beta</m> and <m>s \gt \max\{a, b\}</m>
                     <me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s).</me></p>
             </statement>
         </theorem> 
 
-		Transforms of functions having the linearity property are called <term>linear operators</term><idx>linear operator</idx>.</p>
+        Transforms of functions having the linearity property are called <term>linear operators</term><idx>linear operator</idx>.</p>
 
-		<example>
-			<p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="example-laplace01-basic-examples"/>,
+        <example>
+            <p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="example-laplace01-basic-examples"/>,
                <me>{\mathcal L} ( \sinh at) = \frac{1}{2} {\mathcal L} ( e^{at}) - \frac{1}{2} {\mathcal L} ( e^{-at}) = \frac{1}{2} \left( \frac{1}{s - k} - \frac{1}{s + k} \right).</me>
                Thus, for <m>s \gt k \gt 0</m>,
                <me>{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.</me></p>
-		</example>
+        </example>
 
         <p>The Laplace transform of discontinuous functions also exist, provided the disconinuities are not too bad.  We say that a function <m>f</m> is <term>piecewise continuous</term> on an interval <m>[a, b]</m> if <m>f</m> satisfies the following conditions.
-			<ol>
+            <ol>
 
-				<li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
+                <li>There are a finite number of discontinuities of <m>f</m> on <m>[a, b]</m>.</li>
 
-				<li>If <m>c \in [a, b]</m> is a discontinuity, then the one-sided limits
-					<me>\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)</me>
-				both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
+                <li>If <m>c \in [a, b]</m> is a discontinuity, then the one-sided limits
+                    <me>\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)</me>
+                both exist.  We also assume that <m>\lim_{t \to a^+} f(t)</m> and <m>\lim_{t \to b^-} f(t)</m> exist.</li>
 
-			</ol>
-		We say that a function is <term>piecewise continuous</term><idx><h>piecewise continuous</h></idx> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term><idx><h>jump discontinuities</h></idx>. If a function is piecewise continuous, then the continuities are not too bad.</p>
+            </ol>
+        We say that a function is <term>piecewise continuous</term><idx><h>piecewise continuous</h></idx> on an interval <m>[0, \infty)</m> if it is piecewise continuous on the interval <m>[0, b]</m> for all <m>b \gt 0</m>. The types of discontinuities that we are describing are sometimes called <term>jump discontinuities</term><idx><h>jump discontinuities</h></idx>. If a function is piecewise continuous, then the continuities are not too bad.</p>
 
         <example>
-        	<p>One of the simplest piecewise continuous functions is
-				<me>u(t)
-				=
-				\begin{cases}
-				0, &amp; t \lt 0 \\
-				1, &amp; t \geq 0.
-				\end{cases}</me>
-		    The function <m>u(t)</m> has a jump discontinuity at <m>t = 0</m>. It follows very quickly that <m>{\mathcal L}(u(t)) = 1/s</m> for <m>s \gt 0</m>.</p>
+            <p>One of the simplest piecewise continuous functions is
+                <me>u(t)
+                =
+                \begin{cases}
+                0, &amp; t \lt 0 \\
+                1, &amp; t \geq 0.
+                \end{cases}</me>
+            The function <m>u(t)</m> has a jump discontinuity at <m>t = 0</m>. It follows very quickly that <m>{\mathcal L}(u(t)) = 1/s</m> for <m>s \gt 0</m>.</p>
 
-		    <p>If we define the unit step function at <m>a</m> to be
-		    	<me>u_a(t) = u(t - a) 
-				=
-				\begin{cases}
-				0, &amp; t \lt a \\
-				1, &amp; t \geq a,
-				\end{cases}</me>
-			then we have a jump discontinuity at <m>t = a</m>. If <m>a \gt 0</m>, then
-			    <me>{\mathcal L}(u_a(t)) = \int_0^\infty e^{-st} u_a(t) \, dt = \int_a^\infty e^{-st} \, dt = \lim_{b \to \infty} \left[ -\frac{e^{-st}}{s} \right]_a^b = \frac{e^{-sa}}{s},</me>
-			where <m>s \gt 0</m> and <m>a \gt 0</m>.</p>
-		</example>
+            <p>If we define the unit step function at <m>a</m> to be
+                <me>u_a(t) = u(t - a) 
+                =
+                \begin{cases}
+                0, &amp; t \lt a \\
+                1, &amp; t \geq a,
+                \end{cases}</me>
+            then we have a jump discontinuity at <m>t = a</m>. If <m>a \gt 0</m>, then
+                <me>{\mathcal L}(u_a(t)) = \int_0^\infty e^{-st} u_a(t) \, dt = \int_a^\infty e^{-st} \, dt = \lim_{b \to \infty} \left[ -\frac{e^{-st}}{s} \right]_a^b = \frac{e^{-sa}}{s},</me>
+            where <m>s \gt 0</m> and <m>a \gt 0</m>.</p>
+        </example>
 
-		<example xml:id="example-laplace01-shift">
+        <example xml:id="example-laplace01-shift">
             <p>Given a function <m>f(t)</m>, consider the new function
                 <me>g(t) = u_a(t) f( t - a).</me>
             To obtain the function <m>g</m> from <m>f</m>, we shift the graph of the <m>f</m> to the right by <m>c</m> units and let <m>g(t) = 0</m> for <m>0 \leq t \lt a</m>. Let us compute the Laplace transform of <m>g</m>,
@@ -156,41 +156,41 @@
             In other words, if <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s)</m>. </p>
         </example>
 
-	</subsection>
+    </subsection>
 
-	<subsection xml:id="subsection-laplace01-existence-and-uniqueness">
-    	<title>Existence and Uniqueness of the Laplace Transform</title>
+    <subsection xml:id="subsection-laplace01-existence-and-uniqueness">
+        <title>Existence and Uniqueness of the Laplace Transform</title>
 
-		<p>If we are to use Laplace transforms to study differential equations, we would like to know which functions actually have Laplace transforms. Furthermore, if two functions have the same Laplace transform, we can ask if the functions must be the same.  In other words, we wish to know if the Laplace transform of a function exists and is unique.  We can answer both of these questions affirmatively if the function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>.  We say a function <m>f(t)</m> is <term>exponentially bounded</term><idx><h>function</h><h>exponentially bounded</h></idx> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
-			<me>|f(t)| \leq Me^{at},</me>
-		for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>. The following two theorems tell us that Laplace transforms exist and are unique for piecewise continuous, exponentially bounded functions on the interval <m>[0, \infty)</m>. We leave the proofs of these theorem as exercises.</p>
+        <p>If we are to use Laplace transforms to study differential equations, we would like to know which functions actually have Laplace transforms. Furthermore, if two functions have the same Laplace transform, we can ask if the functions must be the same.  In other words, we wish to know if the Laplace transform of a function exists and is unique.  We can answer both of these questions affirmatively if the function <m>f(t)</m> defined on <m>[0, \infty)</m> does not grow too quickly as <m>t \to \infty</m>.  We say a function <m>f(t)</m> is <term>exponentially bounded</term><idx><h>function</h><h>exponentially bounded</h></idx> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
+            <me>|f(t)| \leq Me^{at},</me>
+        for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>. The following two theorems tell us that Laplace transforms exist and are unique for piecewise continuous, exponentially bounded functions on the interval <m>[0, \infty)</m>. We leave the proofs of these theorem as exercises.</p>
 
 
-		<theorem xml:id="theorem-laplace01-existence">
+        <theorem xml:id="theorem-laplace01-existence">
             <statement>
                 <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
-					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-				exists.</p>
+                    <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+                exists.</p>
             </statement>
         </theorem> 
 
-		<theorem xml:id="theorem-laplace01-uniqueness">
+        <theorem xml:id="theorem-laplace01-uniqueness">
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions with Laplace transforms, <m>F(s)</m> and <m>G(s)</m>, respectively. Suppose that <m>F(s) = G(s)</m> for all <m>s \gt c</m>, where <m>c</m> is some positive number. Then <m>f(t) = g(t)</m> for all <m>t \geq 0</m>.</p>
             </statement>
         </theorem> 
 
-    	<p>In light of <xref ref="theorem-laplace01-uniqueness"/>, it now makes sense to define the <term>inverse Laplace transform</term><idx><h>Laplace transform</h><h>inverse Laplace transform</h></idx> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>. Furthermore, the inverse Laplace transform is linear, 
+        <p>In light of <xref ref="theorem-laplace01-uniqueness"/>, it now makes sense to define the <term>inverse Laplace transform</term><idx><h>Laplace transform</h><h>inverse Laplace transform</h></idx> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>. Furthermore, the inverse Laplace transform is linear, 
             <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></p>
 
     </subsection>
 
     <subsection xml:id="subsection-laplace01-finding-laplace-transforms">
-    	<title>Finding Laplace Transforms and Inverse Transforms</title>
+        <title>Finding Laplace Transforms and Inverse Transforms</title>
 
-		<p>To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
+        <p>To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
 
-		<table xml:id="table-laplace01-transforms">
+        <table xml:id="table-laplace01-transforms">
             <tabular halign="center" top="medium">
                 <row bottom="medium">
                     <cell><m>f(t) = {\mathcal L}^{-1}(F(s))</m></cell><cell><m>F(s) = {\mathcal L}(f(t))</m></cell>
@@ -251,38 +251,38 @@
                 </row>
                 </tabular>
             <caption>Table of Laplace Transforms</caption>
-        </table>	
+        </table>    
 
-	</subsection>
+    </subsection>
     <subsection xml:id="subsection-laplace01-important-lessons">
-    	<title>Important Lessons</title>
+        <title>Important Lessons</title>
 
-		<p><ul>
-		
-			<li>Many initial value problems have discontinuous forcing terms.</li>
+        <p><ul>
+        
+            <li>Many initial value problems have discontinuous forcing terms.</li>
 
-			<li>The <term>Laplace transform</term> of a function <m>f(t)</m> by
-				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
-			provided the integral converges.</li>
+            <li>The <term>Laplace transform</term> of a function <m>f(t)</m> by
+                <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
+            provided the integral converges.</li>
 
-			<li>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
-				<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-			exists.</li>
+            <li>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+                <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+            exists.</li>
 
-			<li>The Laplace transform is a linear operator; i.e.,
-				<me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
-			where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist.</li>
+            <li>The Laplace transform is a linear operator; i.e.,
+                <me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),</me>
+            where <m>\alpha, \beta \in {\mathbb R}</m> provided the Laplace transforms of <m>f</m> and <m>g</m> exist.</li>
 
-			<li>If we know the Laplace transform <m>F(s)</m> of a function, we can recover the original function using the inverse Laplace transform of a function <m>{\mathcal L}^{-1}(F(s))(t)</m>.</li>
+            <li>If we know the Laplace transform <m>F(s)</m> of a function, we can recover the original function using the inverse Laplace transform of a function <m>{\mathcal L}^{-1}(F(s))(t)</m>.</li>
 
-			<li>The inverse Laplace transform is linear, 
+            <li>The inverse Laplace transform is linear, 
                 <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></li>
 
-			<li>If <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)</m>.</li>
+            <li>If <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)</m>.</li>
 
-		</ul></p>
-		
-	</subsection>
+        </ul></p>
+        
+    </subsection>
 
     <exercises xml:id="exercises-laplace01"  filenamebase="laplace01">
         <title>Exercises</title>
@@ -372,59 +372,59 @@
             </exercise>
         </exercisegroup>
 
-		<exercise>
-			<statement>
-				<p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
-					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-				exists.</p>
-			</statement>
-		</exercise>
+        <exercise>
+            <statement>
+                <p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+                    <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+                exists.</p>
+            </statement>
+        </exercise>
 
-		<exercise>
-			<statement>
-				<p>Let <m>f</m> be a function whose Laplace transform <m>{\mathcal L}(f)(s)= F(s)</m> exists for <m>s \gt a</m>. Prove that
-					<me>{\mathcal L}(e^{ct} f(t))(s)= F(s - c)</me>
-					for <m>s \gt a + c</m>.</p>
-			</statement>
-		</exercise>
-
-
-		<exercise>
-			<statement>
-				<p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
-			</statement>
-		</exercise>
-
-		<exercise>
-			<statement>
-				<p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, prove that the Laplace transform of <m>f</m>,
-					<me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
-				exists.</p>
-			</statement>
-		</exercise>
-
-		<exercise>
-			<statement>
-				<p>Define the <term>gamma function</term><idx>gamma function</idx> to be
-					<me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt</me>
-				for <m>x \gt 0</m>. The gamma function is very useful for expressing the Laplace transform of the function <m>t^\alpha</m>.
-					<ol>
-
-						<li>Show that <m>\Gamma(1) = 1</m>.</li>
-
-						<li>Prove that <m>\Gamma(x + 1) = x\Gamma(x)</m> and deduce that <m>\Gamma(n+1) = n!</m> for <m>n \in {\mathbb N}</m>.</li>
-
-						<li>Show that the Laplace transform of <m>f(t) = t^\alpha</m> is
-							<me>{\mathcal L}(f)(s) = \frac{\Gamma(\alpha + 1)}{s^{\alpha + 1}}.</me>
-						If <m>n</m> is a positive integer, then <m>{\mathcal L}(t^n)(s) = n!/s^{n + 1}</m>.</li>
-
-					</ol></p>
-			</statement>
+        <exercise>
+            <statement>
+                <p>Let <m>f</m> be a function whose Laplace transform <m>{\mathcal L}(f)(s)= F(s)</m> exists for <m>s \gt a</m>. Prove that
+                    <me>{\mathcal L}(e^{ct} f(t))(s)= F(s - c)</me>
+                    for <m>s \gt a + c</m>.</p>
+            </statement>
+        </exercise>
 
 
-		</exercise>		
-	        	
-	</exercises>
+        <exercise>
+            <statement>
+                <p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
+            </statement>
+        </exercise>
+
+        <exercise>
+            <statement>
+                <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, prove that the Laplace transform of <m>f</m>,
+                    <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
+                exists.</p>
+            </statement>
+        </exercise>
+
+        <exercise>
+            <statement>
+                <p>Define the <term>gamma function</term><idx>gamma function</idx> to be
+                    <me>\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt</me>
+                for <m>x \gt 0</m>. The gamma function is very useful for expressing the Laplace transform of the function <m>t^\alpha</m>.
+                    <ol>
+
+                        <li>Show that <m>\Gamma(1) = 1</m>.</li>
+
+                        <li>Prove that <m>\Gamma(x + 1) = x\Gamma(x)</m> and deduce that <m>\Gamma(n+1) = n!</m> for <m>n \in {\mathbb N}</m>.</li>
+
+                        <li>Show that the Laplace transform of <m>f(t) = t^\alpha</m> is
+                            <me>{\mathcal L}(f)(s) = \frac{\Gamma(\alpha + 1)}{s^{\alpha + 1}}.</me>
+                        If <m>n</m> is a positive integer, then <m>{\mathcal L}(t^n)(s) = n!/s^{n + 1}</m>.</li>
+
+                    </ol></p>
+            </statement>
+
+
+        </exercise>     
+                
+    </exercises>
 
 
     <subsection number="no" xml:id="subsection-laplace01-sage-project">
@@ -461,10 +461,10 @@
 
         <p>We can even use Sage to find the Laplace transform of piecewise-defined functions. Suppose that
             <me>f(t) =
-            	\begin{cases}
-            	1, \amp 0 \leq t \leq 3 \\
-            	0, \amp t \gt 3.
-            	\end{cases}</me>
+                \begin{cases}
+                1, \amp 0 \leq t \leq 3 \\
+                0, \amp t \gt 3.
+                \end{cases}</me>
         The Sage command to define a piecewise-defined function is <c>piecewise</c>.</p>
         
         <sage>
@@ -496,24 +496,24 @@
 
         <exercises>
 
-        	<exercise>
-        		<statement>
-        			<p>Use Sage to find the Laplace transform of 
+            <exercise>
+                <statement>
+                    <p>Use Sage to find the Laplace transform of 
                         <me>f(t) =
                         \begin{cases}
                         -t, \amp 0 \leq t \leq 1 \\
                         2, \amp t \gt 1.
                         \end{cases}</me></p>
 
-			        <sage>
-			            <input>
-			            </input>
-			            <output>
-			            </output>
-			        </sage>
+                    <sage>
+                        <input>
+                        </input>
+                        <output>
+                        </output>
+                    </sage>
 
-        		</statement>
-        	</exercise>
+                </statement>
+            </exercise>
 
         </exercises>
 

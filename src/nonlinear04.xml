@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
 <!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="nonlinear04" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>The Hopf Bifurcation</title>
@@ -24,14 +24,14 @@
     <subsection xml:id="subsection-nonlinear04-bifurcations">
         <title>Bifurcations</title>
 
-		<p>The simplest bifurcations occur when an equilibrium solution appears, disappears, or splits into two or more equilibrium solutions. For example, the system
+        <p>The simplest bifurcations occur when an equilibrium solution appears, disappears, or splits into two or more equilibrium solutions. For example, the system
             <md>
                 <mrow>\frac{dx}{dt} &amp; = \alpha + x^2</mrow>
                 <mrow>\frac{dy}{dt} &amp; = -y</mrow>
             </md>
         has no equilibrium solution if <m>\alpha \gt 0</m> (<xref ref="figure-nonlinear04-hopf-1" />). However, we have a single equilibrium solution at the origin if <m>\alpha = 0</m> and two equilibrium solutions, <m>(\pm \sqrt{-\alpha}, 0)</m>, if <m>\alpha \lt 0</m>.</p>
 
-		<figure xml:id="figure-nonlinear04-hopf-1">
+        <figure xml:id="figure-nonlinear04-hopf-1">
              <image width="60%" xml:id="nonlinear04-hopf-1">
                 <sageplot>
                     x, y, t = var('x y t')
@@ -58,7 +58,7 @@
             <caption>Solutions for <m>\alpha \gt 0</m></caption>
         </figure>
             
-		<p>The Jacobian of the system
+        <p>The Jacobian of the system
             <md>
                 <mrow>\frac{dx}{dt} &amp; = \alpha + x^2</mrow>
                 <mrow>\frac{dy}{dt} &amp; = -y</mrow>
@@ -72,7 +72,7 @@
             \end{pmatrix}.</me>
         If <m>\alpha = 0</m>, then <m>J</m> has eigenvalues 0 and <m>-1</m>. This is not an elementary equilibrium point such a saddle, a sink, or a spiral source. We call this type of equilibrium solution a <term>saddle-node</term>.  On the right half of the <m>xy</m>-plane, the equilibrium solution resembles a saddle, while on the left half it resembles a sink (<xref ref="figure-nonlinear04-hopf-2" />).</p>
             
-		<figure xml:id="figure-nonlinear04-hopf-2">
+        <figure xml:id="figure-nonlinear04-hopf-2">
             <image width="60%" xml:id="nonlinear04-hopf-2">
                 <sageplot>
                     x, y, t = var('x y t')
@@ -99,7 +99,7 @@
             <caption>Solutions for <m>\alpha \lt 0</m></caption>
         </figure>
 
-		<p>If <m>\alpha \lt 0</m>, then 
+        <p>If <m>\alpha \lt 0</m>, then 
             <me>J
             =
             \begin{pmatrix}
@@ -113,30 +113,30 @@
             \end{pmatrix}.</me>
         In the first case, we have a saddle since the eigenvalues are real and of opposite sign. In the second case, we have a nodal sink, since both eigenvalues are negative.  The two equilibrium solutions move in opposite directions as <m>\alpha</m> decreases. We can summarize what happens for various values of <m>\alpha</m> with a bifurcation diagram such as the one in <xref ref="figure-nonlinear04-bifurcation" />.</p>
 
-		<figure xml:id="figure-nonlinear04-bifurcation">
-			<image width="60%" xml:id="nonlinear04-bifurcation">
+        <figure xml:id="figure-nonlinear04-bifurcation">
+            <image width="60%" xml:id="nonlinear04-bifurcation">
                 <sageplot>
-					p = plot(sqrt(-x), ( -1.5 , 0), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
-					p += plot(-sqrt(-x), x, -1.5, 0, thickness = 2)
-					points = [ (0,0) ]
-					p += point(points[0], pointsize=70)
-					points = [ (1.5,0) ]
-					p += point(points[0], pointsize=0.1)
-					p += text("Bifurcation Point",(0.5,0.1))
-					p += text("$x = \sqrt{\\alpha}$, Saddle Point",(-0.5,1.4))
-					p += text("$x = -\sqrt{\\alpha}$, Stable Equilibrium",(-0.5,-1.4))
-					p
+                    p = plot(sqrt(-x), ( -1.5 , 0), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
+                    p += plot(-sqrt(-x), x, -1.5, 0, thickness = 2)
+                    points = [ (0,0) ]
+                    p += point(points[0], pointsize=70)
+                    points = [ (1.5,0) ]
+                    p += point(points[0], pointsize=0.1)
+                    p += text("Bifurcation Point",(0.5,0.1))
+                    p += text("$x = \sqrt{\\alpha}$, Saddle Point",(-0.5,1.4))
+                    p += text("$x = -\sqrt{\\alpha}$, Stable Equilibrium",(-0.5,-1.4))
+                    p
                 </sageplot>
             </image>
             <caption>Bifurcation diagram</caption>
         </figure>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-nonlinear04-hopf-bifurcation">
-    	<title>The Hopf Bifurcation</title>
+        <title>The Hopf Bifurcation</title>
 
-		<p>Now let us consider an entirely different type of bifurcation by examining the system
+        <p>Now let us consider an entirely different type of bifurcation by examining the system
             <md>
                 <mrow>\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)</mrow>
                 <mrow>\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2).</mrow>
@@ -148,106 +148,106 @@
             </md>
         Since the eigenvalues of this system are <m>\alpha \pm 5i</m>, we can easily determine the nature of of our linearization. If <m>\alpha \lt 0</m>, we have a spiral sink. As <m>\alpha</m> moves from negative values to positive values, the origin changes to a center (<m>\alpha = 0</m>), and then to a spiral source (<m>\alpha \gt 0</m>).</p>
 
-		<p>In the case of the nonlinear system, the origin is still a spiral sink for <m>\alpha \gt 0</m> (<xref ref="figure-nonlinear04-hopf-5" />). If <m>\alpha \gt 0</m>, the origin is still a spiral source (<xref ref="figure-nonlinear04-hopf-6" />). However, something quite different happens at <m>\alpha = 0</m>. The origin is stable equilibrium solution with solutions spiraling into the origin very slowly. As <m>\alpha</m> increases past zero, the equilibrium solution destabilizes and becomes a source. In addition, a closed orbit of radius <m>\sqrt{\alpha}</m> develops.  Solutions inside of this closed orbit spiral out towards the orbit, while solutions outside of the orbit spiral inward (<xref ref="figure-nonlinear04-hopf-7" />).</p>
+        <p>In the case of the nonlinear system, the origin is still a spiral sink for <m>\alpha \gt 0</m> (<xref ref="figure-nonlinear04-hopf-5" />). If <m>\alpha \gt 0</m>, the origin is still a spiral source (<xref ref="figure-nonlinear04-hopf-6" />). However, something quite different happens at <m>\alpha = 0</m>. The origin is stable equilibrium solution with solutions spiraling into the origin very slowly. As <m>\alpha</m> increases past zero, the equilibrium solution destabilizes and becomes a source. In addition, a closed orbit of radius <m>\sqrt{\alpha}</m> develops.  Solutions inside of this closed orbit spiral out towards the orbit, while solutions outside of the orbit spiral inward (<xref ref="figure-nonlinear04-hopf-7" />).</p>
 
-		<figure xml:id="figure-nonlinear04-hopf-5">
-			<image width="60%" xml:id="nonlinear04-hopf-5">
+        <figure xml:id="figure-nonlinear04-hopf-5">
+            <image width="60%" xml:id="nonlinear04-hopf-5">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = -1
-					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
-					xmin = -2
-					xmax = 2
-					ymin = -2
-					ymax = 2
-					start_x = -1.5
-					start_y = 1.5
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=3,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					n = sqrt(F[0]^2 + F[1]^2)
-					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					p
+                    x, y, t = var('x y t')
+                    alpha = -1
+                    F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+                    xmin = -2
+                    xmax = 2
+                    ymin = -2
+                    ymax = 2
+                    start_x = -1.5
+                    start_y = 1.5
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=3,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
                 </sageplot>
             </image>
             <caption>Solutions for <m>\alpha \lt 0</m></caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear04-hopf-6">
-			<image width="60%" xml:id="nonlinear04-hopf-6">
+        <figure xml:id="figure-nonlinear04-hopf-6">
+            <image width="60%" xml:id="nonlinear04-hopf-6">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 0
-					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
-					xmin = -2
-					xmax = 2
-					ymin = -2
-					ymax = 2
-					start_x = -1.5
-					start_y = 1.5
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					n = sqrt(F[0]^2 + F[1]^2)
-					p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 0
+                    F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+                    xmin = -2
+                    xmax = 2
+                    ymin = -2
+                    ymax = 2
+                    start_x = -1.5
+                    start_y = 1.5
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    p
                 </sageplot>
             </image>
             <caption>Solutions for <m>\alpha = 0</m></caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear04-hopf-7">
-			<image width="60%" xml:id="nonlinear04-hopf-7">
+        <figure xml:id="figure-nonlinear04-hopf-7">
+            <image width="60%" xml:id="nonlinear04-hopf-7">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 1
-					F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
-					xmin = -2
-					xmax = 2
-					ymin = -2
-					ymax = 2
-					n = sqrt(F[0]^2 + F[1]^2)
-					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					start_x = -1.5
-					start_y = 1.5
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					start_x = -0.2
-					start_y = 0.2
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p += line(S, axes_labels=['$x(t)$','$y(t)$'], color="red")
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4, color="red")
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50, color="red")
-					p
+                    x, y, t = var('x y t')
+                    alpha = 1
+                    F = [alpha*x + 5*y -x*(x^2 + y^2), -5*x + alpha*y - y*(x^2 + y^2)]
+                    xmin = -2
+                    xmax = 2
+                    ymin = -2
+                    ymax = 2
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    start_x = -1.5
+                    start_y = 1.5
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    start_x = -0.2
+                    start_y = 0.2
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=25,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p += line(S, axes_labels=['$x(t)$','$y(t)$'], color="red")
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4, color="red")
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50, color="red")
+                    p
                 </sageplot>
             </image>
             <caption>Solutions for <m>\alpha \gt 0</m></caption>
         </figure>
 
-		<p>To see exactly what happens as <m>\alpha</m> passes zero and becomes positive, we will rewrite our system in polar coordinates. If we make the substitution <m>x = r \cos \theta</m> and <m>y = r \sin \theta</m>, our nonlinear system can be rewritten as
+        <p>To see exactly what happens as <m>\alpha</m> passes zero and becomes positive, we will rewrite our system in polar coordinates. If we make the substitution <m>x = r \cos \theta</m> and <m>y = r \sin \theta</m>, our nonlinear system can be rewritten as
             <md>
                 <mrow>\frac{dr}{dt} &amp; = \alpha r - r^3</mrow>
                 <mrow>\frac{d\theta}{dt} &amp; = -5.</mrow>
             </md>
         If <m>\alpha \lt 0</m>, the origin is a sink since <m>\alpha r - r^3 \lt 0</m> for all <m>r \gt 0</m>. In this case all solutions tend towards the origin as <m>t \to \infty</m>. When <m>\alpha \gt 0</m>, the origin is still an equilibrium solution. Moreover, <m>r' = 0</m>, when <m>r = \sqrt{\alpha}</m>. We also know that <m>r' \gt 0</m> for <m>0 \lt r \lt \sqrt{\alpha}</m> and <m>r' \lt 0</m> if <m>r \gt \sqrt{\alpha}</m>. So the circle of radius <m>\sqrt{\alpha}</m> is a periodic solution with the trajectory moving clockwise since <m>\theta' = -5 \lt 0</m>. All nonzero solutions spiral towards this orbit as <m>t \to \infty</m>. This type of bifurcation is called a <term>Hopf bifurcation</term>. No new equilibrium solutions arise, but a periodic solution develops as <m>\alpha</m> passes through the bifurcation value.</p>
 
-		<theorem xml:id="theorem-nonlinear04-lyapunov">
+        <theorem xml:id="theorem-nonlinear04-lyapunov">
             <title>Hopf Bifurcation</title>
             <statement>
                 <p>Suppose that <m>(x_0(\alpha), y_0(\alpha))</m> is a equilibrium solution for the family of systems
@@ -259,7 +259,7 @@
             </statement>
         </theorem> 
 
-		<p>Recall that our example system
+        <p>Recall that our example system
             <md>
                 <mrow>\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)</mrow>
                 <mrow>\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2)</mrow>
@@ -321,7 +321,7 @@
             <caption>Van der Pol's equation</caption>
         </figure>
 
-		<p>Let us examine how a bifurcation might occur in a predator-prey model.  In our model, we will assume that a predator's appetite is satiated when food is abundant. If this is the case, an increase in the prey population has little effect on the interaction terms in our model.  We might model this satiable predator-prey scenario by the equations
+        <p>Let us examine how a bifurcation might occur in a predator-prey model.  In our model, we will assume that a predator's appetite is satiated when food is abundant. If this is the case, an increase in the prey population has little effect on the interaction terms in our model.  We might model this satiable predator-prey scenario by the equations
             <md>
                 <mrow>\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha x}</mrow>
                 <mrow>\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha x},</mrow>
@@ -333,141 +333,141 @@
             </md>
         The constant <m>\alpha</m> is know as the <term>satiation constant</term>. The larger the value of <m>\alpha</m>, the more quickly a predator's appetite is satiated as the prey population increases.</p>
 
-		<p>Let us see examine the phase portrait for several values of <m>\alpha</m>. If <m>\alpha = 0</m>, then there is no satiation effect. In this case, all trajectories inside the population quadrant spiral asymptotically towards a single stable equilibrium point (<xref ref="figure-nonlinear04-satiated-predator-prey-1" />).  If <m>\alpha = 1.35</m>, we have a very similar phase portrait with solutions spiraling in towards a stable equilibrium solution (<xref ref="figure-nonlinear04-satiated-predator-prey-2" />). However, if <m>\alpha = 0.9</m>, we have a periodic trajectory. All other trajectories are pulled toward this attracting periodic orbit (<xref ref="figure-nonlinear04-satiated-predator-prey-3" />).</p>
+        <p>Let us see examine the phase portrait for several values of <m>\alpha</m>. If <m>\alpha = 0</m>, then there is no satiation effect. In this case, all trajectories inside the population quadrant spiral asymptotically towards a single stable equilibrium point (<xref ref="figure-nonlinear04-satiated-predator-prey-1" />).  If <m>\alpha = 1.35</m>, we have a very similar phase portrait with solutions spiraling in towards a stable equilibrium solution (<xref ref="figure-nonlinear04-satiated-predator-prey-2" />). However, if <m>\alpha = 0.9</m>, we have a periodic trajectory. All other trajectories are pulled toward this attracting periodic orbit (<xref ref="figure-nonlinear04-satiated-predator-prey-3" />).</p>
 
-		<figure xml:id="figure-nonlinear04-satiated-predator-prey-1">
-			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-1">
+        <figure xml:id="figure-nonlinear04-satiated-predator-prey-1">
+            <image width="60%" xml:id="nonlinear04-satiated-predator-prey-1">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 0
-					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
-					xmin = -0.02
-					xmax = 1
-					ymin = -0.02
-					ymax = 1
-					n = sqrt(F[0]^2 + F[1]^2)
-					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					start_x = 0.9
-					start_y = 0.1
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=30,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 0
+                    F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+                    xmin = -0.02
+                    xmax = 1
+                    ymin = -0.02
+                    ymax = 1
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    start_x = 0.9
+                    start_y = 0.1
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=30,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    p
                 </sageplot>
             </image>
             <caption>Predator-prey model with <m>\alpha = 0</m></caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear04-satiated-predator-prey-2">
-			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-2">
+        <figure xml:id="figure-nonlinear04-satiated-predator-prey-2">
+            <image width="60%" xml:id="nonlinear04-satiated-predator-prey-2">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 1.35
-					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
-					xmin = -0.02
-					xmax = 1
-					ymin = -0.02
-					ymax = 1
-					n = sqrt(F[0]^2 + F[1]^2)
-					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					start_x = 0.9
-					start_y = 0.1
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 1.35
+                    F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+                    xmin = -0.02
+                    xmax = 1
+                    ymin = -0.02
+                    ymax = 1
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    start_x = 0.9
+                    start_y = 0.1
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    p
                 </sageplot>
             </image>
             <caption>Predator-prey model with <m>\alpha = 1.35</m></caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear04-satiated-predator-prey-3">
-			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-3">
+        <figure xml:id="figure-nonlinear04-satiated-predator-prey-3">
+            <image width="60%" xml:id="nonlinear04-satiated-predator-prey-3">
                 <sageplot>
-					x, y, t = var('x y t')
-					alpha = 0.9
-					F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
-					xmin = -0.02
-					xmax = 1
-					ymin = -0.02
-					ymax = 1
-					n = sqrt(F[0]^2 + F[1]^2)
-					p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-					start_x = 0.9
-					start_y = 0.1
-					start_t = 0
-					P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
-					S = [[j, k] for i,j,k in P]
-					p += line(S, axes_labels=['$x(t)$','$y(t)$'])
-					p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-					points = [ (start_x, start_y) ]
-					p += point(points[0], pointsize=50)
-					p
+                    x, y, t = var('x y t')
+                    alpha = 0.9
+                    F = [(1 - x)*x - x*y/(0.3 + alpha*x), -0.5*y + x*y/(0.3 + alpha*x)]
+                    xmin = -0.02
+                    xmax = 1
+                    ymin = -0.02
+                    ymax = 1
+                    n = sqrt(F[0]^2 + F[1]^2)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                    start_x = 0.9
+                    start_y = 0.1
+                    start_t = 0
+                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=80,step=0.01)
+                    S = [[j, k] for i,j,k in P]
+                    p += line(S, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    points = [ (start_x, start_y) ]
+                    p += point(points[0], pointsize=50)
+                    p
                 </sageplot>
             </image>
             <caption>Predator-prey model with <m>\alpha = 0.9</m></caption>
         </figure>
 
-		<figure xml:id="figure-nonlinear04-satiated-predator-prey-4">
-			<image width="60%" xml:id="nonlinear04-satiated-predator-prey-4">
+        <figure xml:id="figure-nonlinear04-satiated-predator-prey-4">
+            <image width="60%" xml:id="nonlinear04-satiated-predator-prey-4">
                 <sageplot>
-					f(x) = 0.15/(1 - 0.5*x)
-					p = plot(f(x), (0, 1.5), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
-					points = [ (0.85,f(0.85)) ]
-					p += point(points[0], pointsize=70)
-					points = [ (1.2,f(1.2)) ]
-					p += point(points[0], pointsize=70)
-					p += text("Bifurcation Point",(0.85,0.2))
-					p += text("Bifurcation Point",(1.25,0.3))
-					p += text("sink",(0.5, 0.25))
-					p += text("source",(1, 0.37))
-					p += text("sink",(1.37, 0.55))
-					p
+                    f(x) = 0.15/(1 - 0.5*x)
+                    p = plot(f(x), (0, 1.5), thickness = 2, axes_labels=['$\\alpha$','$x$'], aspect_ratio=1)
+                    points = [ (0.85,f(0.85)) ]
+                    p += point(points[0], pointsize=70)
+                    points = [ (1.2,f(1.2)) ]
+                    p += point(points[0], pointsize=70)
+                    p += text("Bifurcation Point",(0.85,0.2))
+                    p += text("Bifurcation Point",(1.25,0.3))
+                    p += text("sink",(0.5, 0.25))
+                    p += text("source",(1, 0.37))
+                    p += text("sink",(1.37, 0.55))
+                    p
                 </sageplot>
             </image>
             <caption>Bifurcation diagram for the satiable predator-prey model</caption>
         </figure>
 
-		<p>As <m>\alpha</m> continues to increase a Hopf bifurcation occurs at <m>\alpha \approx 0.5</m>. At this point the equilibrium solution destabilizes and spawns an attracting periodic orbit. As <m>\alpha</m> continues to increase, the amplitude of this periodic orbit increases. However, at <m>\alpha \approx 0.85</m>, the amplitude of the periodic solution begins to decrease. At <m>\alpha \approx 1.2</m>, the equilibrium point re-stabilizes and the periodic solution is absorbed. For <m>\alpha > 1.2</m>, we only have a stable equilibrium solution in the first quadrant. The <m>x</m>-coordinate of our equilibrium solution is
+        <p>As <m>\alpha</m> continues to increase a Hopf bifurcation occurs at <m>\alpha \approx 0.5</m>. At this point the equilibrium solution destabilizes and spawns an attracting periodic orbit. As <m>\alpha</m> continues to increase, the amplitude of this periodic orbit increases. However, at <m>\alpha \approx 0.85</m>, the amplitude of the periodic solution begins to decrease. At <m>\alpha \approx 1.2</m>, the equilibrium point re-stabilizes and the periodic solution is absorbed. For <m>\alpha > 1.2</m>, we only have a stable equilibrium solution in the first quadrant. The <m>x</m>-coordinate of our equilibrium solution is
             <me>x = \frac{0.15}{1 - 0.5 \alpha},</me>
         and we can summarize our findings with a bifurcation diagram  (<xref ref="figure-nonlinear04-satiated-predator-prey-4" />).</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-nonlinear04-important-lessons">
-    	<title>Important Lessons</title>
+        <title>Important Lessons</title>
 
-		<p><ul>
-		
-			<li>If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink.  However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <term>bifurcation</term> has occurred.</li>
+        <p><ul>
+        
+            <li>If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink.  However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <term>bifurcation</term> has occurred.</li>
 
-			<li>A <term>Hopf bifurcation</term> if an attracting periodic solution encircling an equilibrium solution develops as <m>\alpha</m> passes through the bifurcation value.</li>
+            <li>A <term>Hopf bifurcation</term> if an attracting periodic solution encircling an equilibrium solution develops as <m>\alpha</m> passes through the bifurcation value.</li>
 
-			<li>Suppose that <m>(x_0(\alpha), y_0(\alpha))</m> is a equilibrium solution for the family of systems
+            <li>Suppose that <m>(x_0(\alpha), y_0(\alpha))</m> is a equilibrium solution for the family of systems
                 <md>
                     <mrow>\frac{dx}{dt} &amp; = f_\alpha(x, y)</mrow>
                     <mrow>\frac{dy}{dt} &amp; = g_\alpha(x, y)</mrow>
                 </md>
             parameterized by <m>\alpha</m>, and the Jacobian matrix for the system evaluated at this equilibrium has eigenvalues <m>a(\alpha) \pm i b(\alpha)</m>. Assume that at some <m>\alpha = \alpha_0</m>, we have <m>a(\alpha_0) = 0</m>, <m>a'(\alpha_0) \gt 0</m>, <m>b(\alpha_0) \neq 0</m>, and that the equilibrium point is asymptotically stable. Then there exists an <m>\alpha_1</m> such that the system has a periodic solution encircling the equilibrium solution for <m>\alpha_0 \lt \alpha \lt \alpha_1</m>.</li>
 
-			<li>A satiable predator-prey scenario can be modeled by the equations
+            <li>A satiable predator-prey scenario can be modeled by the equations
                 <md>
                     <mrow>\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha y}</mrow>
                     <mrow>\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha y},</mrow>
                 </md>
             where <m>x(t)</m> is the prey population at time <m>t</m> and <m>y(t)</m> is the predator population at time <m>t</m>. Here, <m>a, \ldots, f</m> and <m>\alpha</m> are constants. The constant <m>\alpha</m> is know as the <term>satiation constant</term>. The larger the value of <m>\alpha</m>, the more quickly a predator's appetite is satiated as the prey population increases.</li>
 
-		</ul></p>
+        </ul></p>
 
-	</subsection>
+    </subsection>
 
     <exercises xml:id="exercises-nonlinear04"  filenamebase="nonlinear04">
     <title>Exercises</title>

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- This file is part of the book                            	   -->
-<!--                                                          	   -->
-<!--    Ordinary Differential Equations Project      		  	   -->
-<!--                                                         	   -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson  					   -->
-<!-- See the file COPYING for copying conditions.             	   -->
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="secondorder01" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<title>Homogeneous Linear Equations</title>
+    <title>Homogeneous Linear Equations</title>
 
-	<introduction>
+    <introduction>
 
-		<p>A differential equation of the form
-			<me>a(t) x'' + b(t) x' + c(t) x = g(t)</me>
-		is called a <term>second-order linear differential equation</term>. We will first consider the case
-			<me>a x'' + b x' + cx = 0,</me>
-		where <m>a</m>, <m>b</m>, and <m>c</m> are constants and <m>a \neq 0</m>. An equation of this form is said to be <term>homogeneous</term> with <term>constant coefficients</term>. We already know how to solve such equations since we can rewrite them as a system of first-order linear equations. Thus, we can find the general solution of a homogeneous second-order linear differential equation with constant coefficients by computing the eigenvalues and eigenvectors of the matrix of the corresponding system.</p>
+        <p>A differential equation of the form
+            <me>a(t) x'' + b(t) x' + c(t) x = g(t)</me>
+        is called a <term>second-order linear differential equation</term>. We will first consider the case
+            <me>a x'' + b x' + cx = 0,</me>
+        where <m>a</m>, <m>b</m>, and <m>c</m> are constants and <m>a \neq 0</m>. An equation of this form is said to be <term>homogeneous</term> with <term>constant coefficients</term>. We already know how to solve such equations since we can rewrite them as a system of first-order linear equations. Thus, we can find the general solution of a homogeneous second-order linear differential equation with constant coefficients by computing the eigenvalues and eigenvectors of the matrix of the corresponding system.</p>
 
-	</introduction>
+    </introduction>
         
-   	<subsection xml:id="subsection-secondorder01-rlc-circuit">
+    <subsection xml:id="subsection-secondorder01-rlc-circuit">
 
         <p>Recall the RC circuits that we studied earlier (see <xref ref="firstlook03" />). Such circuits contained a voltage source, a capacitor, and a resistor. A battery or generator is an example of a voltage source, and a toaster or an electric stove is an example of something that might provide a resistance in a circuit. Capacitors store an electrical charge and are used in electronic flashes for cameras. We will now add an inductor such as a solenoid, a coil that generates a magnetic field. Inductor applications include transformers, power supplies, televisions, and radios. Our new circuit is called an RLC circuit (<xref ref="figure-secondorder01-rlc-circuit" />).</p>
         
-    	<figure xml:id="figure-secondorder01-rlc-circuit">
+        <figure xml:id="figure-secondorder01-rlc-circuit">
 
- 			<image width="80%" xml:id="secondorder01-rlc-circuit">
- 				<latex-image>
+            <image width="80%" xml:id="secondorder01-rlc-circuit">
+                <latex-image>
                     <xi:include href="tikz/secondorder01-rlc-circuit.tex" parse="text"/>
                 </latex-image>   
             </image>
@@ -37,242 +37,242 @@
         
         <p>Current, <m>I(t)</m>, is the rate at which a charge flows through this circuit and is measured in amperes or amps. We assign a direction to the current, and a current flowing in the opposite direction will be given negative values. The impressed voltage, <m>E(t)</m>, is measured in volts, the resistance <m>R</m> is measured in ohms, and the capacitance <m>C</m> is measured in farads. The charge on the capacitor <m>Q(t)</m> at time <m>t</m> is measured in coulombs. Inductance on the coil, <m>L</m>, is measured in henrys.</p>
 
-		<p>The following laws from physics govern how our circuit behaves.
-			<ul>
+        <p>The following laws from physics govern how our circuit behaves.
+            <ul>
 
-				<li><m>I = \dfrac{dQ}{dt}</m>.</li>
+                <li><m>I = \dfrac{dQ}{dt}</m>.</li>
 
-				<li>The voltage drop across a resistor is <m>IR</m> (Ohm's Law).</li>
+                <li>The voltage drop across a resistor is <m>IR</m> (Ohm's Law).</li>
 
-				<li>The voltage drop across a capacitor is <m>Q/C</m>.</li>
+                <li>The voltage drop across a capacitor is <m>Q/C</m>.</li>
 
-				<li>The voltage drop across an inductor is <m>L (dI/dt)</m>.</li>
+                <li>The voltage drop across an inductor is <m>L (dI/dt)</m>.</li>
 
-				<li>In a closed circuit the impressed voltage is equal to the sum of the voltage drops in the rest of the circuit (Kirchhoff's Second Law).</li>
+                <li>In a closed circuit the impressed voltage is equal to the sum of the voltage drops in the rest of the circuit (Kirchhoff's Second Law).</li>
 
-			</ul>
-		Applying Kirchhoff's Second Law  to our circuit, we have the differential equation
-			<men xml:id="equation-secondorder01-RLC">L \frac{dI}{dt} + RI + \frac{1}{C} Q = E(t)</men>
-		or
-			<me>LQ'' + RQ' + \frac{1}{C} Q = E(t).</me>
-		Differentiating both sides of <xref ref="equation-secondorder01-RLC" />, we have
-			<me>L I'' + RI' + \frac{1}{C} I = E'(t).</me></p>
+            </ul>
+        Applying Kirchhoff's Second Law  to our circuit, we have the differential equation
+            <men xml:id="equation-secondorder01-RLC">L \frac{dI}{dt} + RI + \frac{1}{C} Q = E(t)</men>
+        or
+            <me>LQ'' + RQ' + \frac{1}{C} Q = E(t).</me>
+        Differentiating both sides of <xref ref="equation-secondorder01-RLC" />, we have
+            <me>L I'' + RI' + \frac{1}{C} I = E'(t).</me></p>
 
-		<p>For example, we might consider an RLC circuit with <m>R = 1</m>, <m>L = 1</m>, and <m>C = 1</m>. At <m>t = 0</m> when both <m>I(0) =0</m> and <m>I'(0) = Q(0) = 0</m>, the impressed voltage on the circuit is given by <m>E(t) = \sin(t)</m>. Our equation becomes
-			<me>I'' + I' + I = E'(t) = \cos t.</me>
-		This is an example of a <term>second-order linear differential equation</term>.</p>
+        <p>For example, we might consider an RLC circuit with <m>R = 1</m>, <m>L = 1</m>, and <m>C = 1</m>. At <m>t = 0</m> when both <m>I(0) =0</m> and <m>I'(0) = Q(0) = 0</m>, the impressed voltage on the circuit is given by <m>E(t) = \sin(t)</m>. Our equation becomes
+            <me>I'' + I' + I = E'(t) = \cos t.</me>
+        This is an example of a <term>second-order linear differential equation</term>.</p>
 
-	</subsection>
+    </subsection>
 
     <subsection xml:id="subsection-secondorder01-second-order-linear-de">
-    	<title>Second-Order Linear Equations</title>
+        <title>Second-Order Linear Equations</title>
 
-	    <p>Suppose that we have a homogeneous second-order linear differential equation with constant coefficients,
-			<men xml:id="equation-secondorder01-constant-coef">a x'' + b x' + cx = 0.</men>
-		Since we can rewrite this equation as a system of first-order linear equations,
-			<md>
-				<mrow>x' &amp; = y</mrow>
-				<mrow>y' &amp; = -\frac{c}{a} x - \frac{b}{a} y.</mrow>
-			</md>
-		we can find the general solution by computing the eigenvalues and eigenvectors of the matrix of the corresponding system. Solutions of a linear system <m>{\mathbf x}' = A {\mathbf x}</m> often include terms of the form <m>e^{r t}</m>. It makes sense that solutions to equation <xref ref="equation-secondorder01-constant-coef" /> take the same form.</p>
+        <p>Suppose that we have a homogeneous second-order linear differential equation with constant coefficients,
+            <men xml:id="equation-secondorder01-constant-coef">a x'' + b x' + cx = 0.</men>
+        Since we can rewrite this equation as a system of first-order linear equations,
+            <md>
+                <mrow>x' &amp; = y</mrow>
+                <mrow>y' &amp; = -\frac{c}{a} x - \frac{b}{a} y.</mrow>
+            </md>
+        we can find the general solution by computing the eigenvalues and eigenvectors of the matrix of the corresponding system. Solutions of a linear system <m>{\mathbf x}' = A {\mathbf x}</m> often include terms of the form <m>e^{r t}</m>. It makes sense that solutions to equation <xref ref="equation-secondorder01-constant-coef" /> take the same form.</p>
 
         <example xml:id="example-secondorder01-real-solutions">
-        	<p>Consider the equation
-				<men xml:id="equation-secondorder01-guess">x'' + 7 x' + 10 x = 0.</men>
-			If we assume that a solution is of the form <m>e^{rt}</m>, we can substitute this expression into the left-hand side of <xref ref="equation-secondorder01-guess" /> to obtain
-				<md>
-					<mrow>\frac{d^2}{dt^2} e^{rt} + \frac{d}{dt} 7e^{rt} + 10 e^{rt} &amp; = r^2 e^{rt} + 7 r e^{rt} + 10 e^{rt}</mrow>
-					<mrow>&amp; = (r^2 + 7r + 10) e^{rt}</mrow>
-					<mrow>&amp; = (r + 5)(r+ 2) e^{rt}.</mrow>
-				</md>
-			Since <m>e^{rt}</m> is never zero, we find that <m>(r + 5)(r+ 2) = 0</m> or <m>r = -5</m> or <m>-2</m>. Thus, we have two solutions
-				<me>x_1(t) = e^{-5t} \mbox{ and } x_2(t) = e^{-2t}.</me>
-			By the Principle of Superposition, 
-				<men xml:id="equation-secondorder01-guess-soln">x(t) = c_1 x_1(t) + c_2 x_2(t) = c_1 e^{-5t} + c_2 e^{-2t}</men>
-			is a solution to <m>x'' + 7x' + 10 x = 0</m>.</p>
+            <p>Consider the equation
+                <men xml:id="equation-secondorder01-guess">x'' + 7 x' + 10 x = 0.</men>
+            If we assume that a solution is of the form <m>e^{rt}</m>, we can substitute this expression into the left-hand side of <xref ref="equation-secondorder01-guess" /> to obtain
+                <md>
+                    <mrow>\frac{d^2}{dt^2} e^{rt} + \frac{d}{dt} 7e^{rt} + 10 e^{rt} &amp; = r^2 e^{rt} + 7 r e^{rt} + 10 e^{rt}</mrow>
+                    <mrow>&amp; = (r^2 + 7r + 10) e^{rt}</mrow>
+                    <mrow>&amp; = (r + 5)(r+ 2) e^{rt}.</mrow>
+                </md>
+            Since <m>e^{rt}</m> is never zero, we find that <m>(r + 5)(r+ 2) = 0</m> or <m>r = -5</m> or <m>-2</m>. Thus, we have two solutions
+                <me>x_1(t) = e^{-5t} \mbox{ and } x_2(t) = e^{-2t}.</me>
+            By the Principle of Superposition, 
+                <men xml:id="equation-secondorder01-guess-soln">x(t) = c_1 x_1(t) + c_2 x_2(t) = c_1 e^{-5t} + c_2 e^{-2t}</men>
+            is a solution to <m>x'' + 7x' + 10 x = 0</m>.</p>
 
-			<p>Indeed, this is the general solution of our second-order equation since we have a one-to-one correspondence between the solutions of 
-				<me>x'' + 7x' + 10 x = 0</me>
-			and the system
-				<md>
-					<mrow>x' &amp; = y</mrow>
-					<mrow>y' &amp; = - 10x - 7 y.</mrow>
-				</md>
-			The matrix associated with this system
-				<me>A = \begin{pmatrix} 0 \amp 1 \\ -10 \amp -7 \end{pmatrix}</me>
-			has eigenvalues <m>\lambda_1 = -5</m> and <m>\lambda_2 = -2</m> with eigenvectors <m>\mathbf v_1 = (1, -5)</m> and <m>\mathbf v_2 = (1, -2)</m>, respectively. Consequently, the solution to our system is
-				<me>\begin{pmatrix}
-				x(t) \\ y(t)
-				\end{pmatrix}
-				=
-				c_1 e^{-5t} \begin{pmatrix} 1 \\ -5 \end{pmatrix}
-				+
-				c_2 e^{-2t} \begin{pmatrix} 1 \\ -2 \end{pmatrix},</me>
-			which agrees with<nbsp /><xref ref="equation-secondorder01-guess-soln" />.</p>
-		</example>
+            <p>Indeed, this is the general solution of our second-order equation since we have a one-to-one correspondence between the solutions of 
+                <me>x'' + 7x' + 10 x = 0</me>
+            and the system
+                <md>
+                    <mrow>x' &amp; = y</mrow>
+                    <mrow>y' &amp; = - 10x - 7 y.</mrow>
+                </md>
+            The matrix associated with this system
+                <me>A = \begin{pmatrix} 0 \amp 1 \\ -10 \amp -7 \end{pmatrix}</me>
+            has eigenvalues <m>\lambda_1 = -5</m> and <m>\lambda_2 = -2</m> with eigenvectors <m>\mathbf v_1 = (1, -5)</m> and <m>\mathbf v_2 = (1, -2)</m>, respectively. Consequently, the solution to our system is
+                <me>\begin{pmatrix}
+                x(t) \\ y(t)
+                \end{pmatrix}
+                =
+                c_1 e^{-5t} \begin{pmatrix} 1 \\ -5 \end{pmatrix}
+                +
+                c_2 e^{-2t} \begin{pmatrix} 1 \\ -2 \end{pmatrix},</me>
+            which agrees with<nbsp /><xref ref="equation-secondorder01-guess-soln" />.</p>
+        </example>
 
-		<p>In general, suppose that 
-			<me>a x'' + b x' + c x = 0,</me>
-		where <m>a \neq 0</m>.  Applying the strategy in <xref ref="example-secondorder01-real-solutions" />, we can find the general solution for this equation by finding the roots of the quadratic polynomial <m>a \lambda^2 + b \lambda + c</m>,
-			<me>\lambda = - \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.</me>
-		If <m>b^2 - 4ac \gt 0</m>, we have real roots
-			<me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a},</me>
-		and the solution to our second-order differential equation is
-			<men xml:id="equation-secondorder01-real-soln">x(t) = c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t},</men>
-		where <m>c_1</m> and <m>c_2</m> are arbitrary constants.</p>
+        <p>In general, suppose that 
+            <me>a x'' + b x' + c x = 0,</me>
+        where <m>a \neq 0</m>.  Applying the strategy in <xref ref="example-secondorder01-real-solutions" />, we can find the general solution for this equation by finding the roots of the quadratic polynomial <m>a \lambda^2 + b \lambda + c</m>,
+            <me>\lambda = - \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.</me>
+        If <m>b^2 - 4ac \gt 0</m>, we have real roots
+            <me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a},</me>
+        and the solution to our second-order differential equation is
+            <men xml:id="equation-secondorder01-real-soln">x(t) = c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t},</men>
+        where <m>c_1</m> and <m>c_2</m> are arbitrary constants.</p>
 
-		<p>To prove that equation<nbsp /><xref ref="equation-secondorder01-real-soln" /> is indeed the general solution to the second-order equation <m>a x'' + b x' + c x = 0</m>, we can study the equivalent system of linear equations. If we let <m>y = x'</m>, the corresponding linear system is <m>\mathbf x' = A \mathbf x</m>, where
-			<me>A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.</me>
-		The characteristic polynomial of <m>A</m> is
-			<me>p(\lambda) = \det(A - \lambda I) = \lambda^2 + \frac{b}{a} \lambda + \frac{c}{a}.</me>
-		The roots of <m>p(\lambda)</m> are the same as the roots of <m>a\lambda^2 + b\lambda + c</m>. If <m>b^2 - 4ac \gt 0</m>, we have real roots
-			<me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}.</me>
-		We can find eigenvectors
-			<md>
-				<mrow>\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b + \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix}</mrow>
-				<mrow>\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b - \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix}</mrow>
-			</md> for <m>\lambda_1</m> and <m>\lambda_2</m>, respectively. Thus, the general solution to the system of differential equations <m>\mathbf x' = A \mathbf x</m> is 
-			<me>\mathbf x(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix} = c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix} + c_2 e^{\lambda_2 t} \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix},</me>
-		which agrees with<nbsp /><xref ref="equation-secondorder01-real-soln" />.</p>
+        <p>To prove that equation<nbsp /><xref ref="equation-secondorder01-real-soln" /> is indeed the general solution to the second-order equation <m>a x'' + b x' + c x = 0</m>, we can study the equivalent system of linear equations. If we let <m>y = x'</m>, the corresponding linear system is <m>\mathbf x' = A \mathbf x</m>, where
+            <me>A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.</me>
+        The characteristic polynomial of <m>A</m> is
+            <me>p(\lambda) = \det(A - \lambda I) = \lambda^2 + \frac{b}{a} \lambda + \frac{c}{a}.</me>
+        The roots of <m>p(\lambda)</m> are the same as the roots of <m>a\lambda^2 + b\lambda + c</m>. If <m>b^2 - 4ac \gt 0</m>, we have real roots
+            <me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}.</me>
+        We can find eigenvectors
+            <md>
+                <mrow>\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b + \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix}</mrow>
+                <mrow>\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b - \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix}</mrow>
+            </md> for <m>\lambda_1</m> and <m>\lambda_2</m>, respectively. Thus, the general solution to the system of differential equations <m>\mathbf x' = A \mathbf x</m> is 
+            <me>\mathbf x(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix} = c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix} + c_2 e^{\lambda_2 t} \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix},</me>
+        which agrees with<nbsp /><xref ref="equation-secondorder01-real-soln" />.</p>
 
-		<example>
-			<p>Now let us solve the initial value problem
-				<md>
-					<mrow>x'' + 4 x' + 5 x &amp; = 0</mrow>
-					<mrow>x(0) &amp; = 1</mrow>
-					<mrow>x'(0) &amp; = 1.</mrow>
-				</md>
-			Again, we will assume that our solution has the form <m>x(t) = e^{rt}</m>. Substituting this function into our differential equation, we find that
-				<me>0 = x'' + 4 x' + 5 x = r^2 e^{rt} + 4r e^{rt} + 5 e^{rt} = (r^2 + 4r + 5) e^{rt}.</me>
-			As with the real case, <m>r^2 + 4r + 5 = 0</m> or
-				<me>r = \frac{-4 \pm \sqrt{-4}}{2} = - 2 \pm i.</me>
-			Thus, we can find a solution
-				<me>x(t) = e^{(-2 + i)t} = e^{-2t} e^{it} = e^{-2t} (\cos t + i \sin t).</me>
-			The real and imaginary parts of our solution are
-				<md>
-					<mrow>x_1(t) \amp = e^{-2t} \cos t</mrow>
-					<mrow>x_2(t) \amp = e^{-2t} \sin t,</mrow>
-				</md>
-			respectively. We claim that both <m>x_1(t)</m> and <m>x_2(t)</m> are solutions to our differential equation. Indeed, since <m>x(t) = x_1(t) + i x_2(t)</m> is a solution,
-				<md>
-					<mrow>0 \amp = ax'' + bx' + cx</mrow>
-					<mrow>\amp = a(x_1 + i x_2)'' + b(x_1 + i x_2)' + c(x_1 + i x_2)</mrow>
-					<mrow>\amp = (ax_1'' + bx_1' + cx_1) + i(ax_2'' + bx_2' + cx_2).</mrow>
-				</md>
-			Since the real part and the imaginary part of <m>x(t)</m> must both be zero, we can conclude that <m>ax_1'' + bx_1' + cx_1 = 0</m> and <m>ax_2'' + bx_2' + cx_2 = 0</m>. Therefore, the general solution to our equation is
-				<me>x(t) = c_1 e^{-2t} \cos t + c_2 e^{-2t} \sin t.</me></p>
+        <example>
+            <p>Now let us solve the initial value problem
+                <md>
+                    <mrow>x'' + 4 x' + 5 x &amp; = 0</mrow>
+                    <mrow>x(0) &amp; = 1</mrow>
+                    <mrow>x'(0) &amp; = 1.</mrow>
+                </md>
+            Again, we will assume that our solution has the form <m>x(t) = e^{rt}</m>. Substituting this function into our differential equation, we find that
+                <me>0 = x'' + 4 x' + 5 x = r^2 e^{rt} + 4r e^{rt} + 5 e^{rt} = (r^2 + 4r + 5) e^{rt}.</me>
+            As with the real case, <m>r^2 + 4r + 5 = 0</m> or
+                <me>r = \frac{-4 \pm \sqrt{-4}}{2} = - 2 \pm i.</me>
+            Thus, we can find a solution
+                <me>x(t) = e^{(-2 + i)t} = e^{-2t} e^{it} = e^{-2t} (\cos t + i \sin t).</me>
+            The real and imaginary parts of our solution are
+                <md>
+                    <mrow>x_1(t) \amp = e^{-2t} \cos t</mrow>
+                    <mrow>x_2(t) \amp = e^{-2t} \sin t,</mrow>
+                </md>
+            respectively. We claim that both <m>x_1(t)</m> and <m>x_2(t)</m> are solutions to our differential equation. Indeed, since <m>x(t) = x_1(t) + i x_2(t)</m> is a solution,
+                <md>
+                    <mrow>0 \amp = ax'' + bx' + cx</mrow>
+                    <mrow>\amp = a(x_1 + i x_2)'' + b(x_1 + i x_2)' + c(x_1 + i x_2)</mrow>
+                    <mrow>\amp = (ax_1'' + bx_1' + cx_1) + i(ax_2'' + bx_2' + cx_2).</mrow>
+                </md>
+            Since the real part and the imaginary part of <m>x(t)</m> must both be zero, we can conclude that <m>ax_1'' + bx_1' + cx_1 = 0</m> and <m>ax_2'' + bx_2' + cx_2 = 0</m>. Therefore, the general solution to our equation is
+                <me>x(t) = c_1 e^{-2t} \cos t + c_2 e^{-2t} \sin t.</me></p>
 
-			<p>To apply our initial conditions <m>x(0) = 1</m> and <m>x'(0) = 1</m>, we first calculate
-				<me>x'(t) = -2 e^{-2t} (c_1  \cos t + c_2 \sin t) + e^{-2t} (- c_1  \sin t + c_2 \cos t).</me>
-			Thus,
-				<md>
-					<mrow>1 \amp = x(0) = c_1</mrow>
-					<mrow>1 \amp = x'(0) = -2c_1  + c_2,</mrow>
-				</md>
-			and <m>c_1 =1</m> and <m>c_2= 3</m>. Hence, the solution to our initial value problem is
-				<me>x(t) = e^{-2t} \cos t + 3 e^{-2t} \sin t.</me></p>
-		</example>
+            <p>To apply our initial conditions <m>x(0) = 1</m> and <m>x'(0) = 1</m>, we first calculate
+                <me>x'(t) = -2 e^{-2t} (c_1  \cos t + c_2 \sin t) + e^{-2t} (- c_1  \sin t + c_2 \cos t).</me>
+            Thus,
+                <md>
+                    <mrow>1 \amp = x(0) = c_1</mrow>
+                    <mrow>1 \amp = x'(0) = -2c_1  + c_2,</mrow>
+                </md>
+            and <m>c_1 =1</m> and <m>c_2= 3</m>. Hence, the solution to our initial value problem is
+                <me>x(t) = e^{-2t} \cos t + 3 e^{-2t} \sin t.</me></p>
+        </example>
 
-		<p>As before, the corresponding linear sytem is <m>\mathbf x' = A \mathbf x</m>, where
-			<me>A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.</me>
-		If <m>b^2 - 4ac \lt 0</m>, the eigenvalue of <m>A</m> are <m>\lambda = \alpha + i \beta</m> and <m>\overline{\lambda} = \alpha - i \beta</m>, where
-			<me>\alpha = - \frac{b}{2a} \quad \text{and} \quad \beta = \frac{\sqrt{4ac - b^2}}{2a}.</me>
-		The vector <m>\mathbf v = (1, \alpha + i \beta)</m> is an eigenvector for <m>\lambda</m>. Thus, a solution to our system of differential equations is
-			<md>
-				<mrow>\mathbf x(t) \amp = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix}</mrow>
-				<mrow>\amp = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix}</mrow>
-				<mrow>\amp = e^{(\alpha + i \beta)t} \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}</mrow>
-				<mrow>\amp = e^{\alpha t} (\cos \beta t + i \sin \beta t) \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}</mrow>
-				<mrow>\amp = e^{\alpha t} \begin{pmatrix} \cos \beta t  \\ \alpha \cos \beta t - \beta \sin \beta t \end{pmatrix} + i e^{\alpha t} \begin{pmatrix} \sin \beta t \\ \alpha \sin \beta t + \beta \cos \beta t \end{pmatrix}.</mrow>
-			</md>
-			Taking the real and imaginary parts of <m>x(t)</m>, we obtain two real solutions to the system, <m>x_1(t) = e^{\alpha t} \cos \beta t</m> and <m>x_2(t) = e^{\alpha t} \sin \beta t</m>. Therefore, the general solution to <m>ax_1'' + bx_1' + cx_1 = 0</m> is 
-				<me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t.</me></p>
-	</subsection>
+        <p>As before, the corresponding linear sytem is <m>\mathbf x' = A \mathbf x</m>, where
+            <me>A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.</me>
+        If <m>b^2 - 4ac \lt 0</m>, the eigenvalue of <m>A</m> are <m>\lambda = \alpha + i \beta</m> and <m>\overline{\lambda} = \alpha - i \beta</m>, where
+            <me>\alpha = - \frac{b}{2a} \quad \text{and} \quad \beta = \frac{\sqrt{4ac - b^2}}{2a}.</me>
+        The vector <m>\mathbf v = (1, \alpha + i \beta)</m> is an eigenvector for <m>\lambda</m>. Thus, a solution to our system of differential equations is
+            <md>
+                <mrow>\mathbf x(t) \amp = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix}</mrow>
+                <mrow>\amp = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix}</mrow>
+                <mrow>\amp = e^{(\alpha + i \beta)t} \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}</mrow>
+                <mrow>\amp = e^{\alpha t} (\cos \beta t + i \sin \beta t) \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}</mrow>
+                <mrow>\amp = e^{\alpha t} \begin{pmatrix} \cos \beta t  \\ \alpha \cos \beta t - \beta \sin \beta t \end{pmatrix} + i e^{\alpha t} \begin{pmatrix} \sin \beta t \\ \alpha \sin \beta t + \beta \cos \beta t \end{pmatrix}.</mrow>
+            </md>
+            Taking the real and imaginary parts of <m>x(t)</m>, we obtain two real solutions to the system, <m>x_1(t) = e^{\alpha t} \cos \beta t</m> and <m>x_2(t) = e^{\alpha t} \sin \beta t</m>. Therefore, the general solution to <m>ax_1'' + bx_1' + cx_1 = 0</m> is 
+                <me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t.</me></p>
+    </subsection>
 
-	<subsection xml:id="subsection-secondorder01-reduction-of-order">
-		<title>Reduction of Order</title>
+    <subsection xml:id="subsection-secondorder01-reduction-of-order">
+        <title>Reduction of Order</title>
 
-		<p>Given a second-order linear differential equation with constant coefficients, <m>ax'' + bx' + cx = 0</m>, our strategy has been to solve the <term>characteristic equation</term> <m>a \lambda^2 + b \lambda + c = 0</m> to obtain two linearly independent solutions. We have covered the case where this equation has two distinct real solutions as well as when there are complex solutions, but what if there is only a single real solution <m>\lambda = -b/2a</m>?</p>
+        <p>Given a second-order linear differential equation with constant coefficients, <m>ax'' + bx' + cx = 0</m>, our strategy has been to solve the <term>characteristic equation</term> <m>a \lambda^2 + b \lambda + c = 0</m> to obtain two linearly independent solutions. We have covered the case where this equation has two distinct real solutions as well as when there are complex solutions, but what if there is only a single real solution <m>\lambda = -b/2a</m>?</p>
 
-		<example xml:id="example-secondorder01-reduction-of-order">
-			<p>Consider the equation
+        <example xml:id="example-secondorder01-reduction-of-order">
+            <p>Consider the equation
 
-				<me>x'' + 2x' + x = 0.</me>
-			If we choose <m>e^{\lambda t}</m> as our guess, we find
-				<md>
-					<mrow>x'' + 2 x' + x &amp; = \lambda^2 e^{\lambda t} + 2\lambda e^{\lambda t} + e^{\lambda t}</mrow>
-					<mrow>&amp; = e^{\lambda t} (\lambda + 1)^2</mrow>
-					<mrow>&amp; = 0.</mrow>
-				</md>
-			Thus, <m>\lambda  = -1</m> and we have a solution <m>x_1(t) = e^{-t}</m>.</p>
+                <me>x'' + 2x' + x = 0.</me>
+            If we choose <m>e^{\lambda t}</m> as our guess, we find
+                <md>
+                    <mrow>x'' + 2 x' + x &amp; = \lambda^2 e^{\lambda t} + 2\lambda e^{\lambda t} + e^{\lambda t}</mrow>
+                    <mrow>&amp; = e^{\lambda t} (\lambda + 1)^2</mrow>
+                    <mrow>&amp; = 0.</mrow>
+                </md>
+            Thus, <m>\lambda  = -1</m> and we have a solution <m>x_1(t) = e^{-t}</m>.</p>
 
-			<p>In order to find a general solution to <m>x'' + 2x' + x = 0</m>, we must find a second solution that is not a multiple of <m>x_1(t) = e^{-t}</m>. Since we already know that <m>c x_1(t)</m> is a solution to our differential equation, we will try to generalize this observation by replacing <m>c</m> with a nonconstant function <m>v(t)</m> and then try to determine <m>v(t)</m> so that <m>v(t) x_1(t)</m> is a solution to <m>x'' + 2x' + x = 0</m>. Indeed, if 
-				<me>x(t) = v(t) x_1(t) = v(t) e^{-t},</me>
-			then
-				<me>x'(t) = v(t) x_1'(t) + v'(t) x_1(t) = -v(t) e^{-t} + v'(t) e^{-t}</me>
-			and
-				<md>
-					<mrow>x''(t) &amp; = v''(t) x_1(t) + 2v'(t) x_1'(t) + v(t) x_1''(t)</mrow>
-					<mrow>&amp; = v''(t) e^{-t} - 2 v'(t) e^{-t} + v(t) e^{-t}.</mrow>
-				</md>
-			Consequently,
-				<md>
-					<mrow>x'' + 2 x' + x &amp; = [v'' e^{-t} - 2 v' e^{-t} + v e^{-t}] + 2 [-v e^{-t} + v' e^{-t}]  + [v e^{-t}]</mrow>
-					<mrow>&amp; = e^{-t} v''</mrow>
-					<mrow>&amp; = 0,</mrow>
-				</md>
-			and <m>v'' = 0</m>. Therefore, <m>v = c_1 t + c_2</m>. Letting <m>c_1 = 1</m> and <m>c_2 = 0</m>, we can assume that <m>v(t) = t</m>, and the second solution to our equation is <m>x = t e^{-t}</m>. Hence, the general solution to  <m>x'' + 2x' + x = 0</m> is
-				<me>x(t) = c_1 e^{-t} + c_2 t e^{-t}.</me>
-			We leave it as an exercise to show that our solution agrees with the solution that we would obtain from solving the equivalent first-order linear system.</p>
-		</example>
+            <p>In order to find a general solution to <m>x'' + 2x' + x = 0</m>, we must find a second solution that is not a multiple of <m>x_1(t) = e^{-t}</m>. Since we already know that <m>c x_1(t)</m> is a solution to our differential equation, we will try to generalize this observation by replacing <m>c</m> with a nonconstant function <m>v(t)</m> and then try to determine <m>v(t)</m> so that <m>v(t) x_1(t)</m> is a solution to <m>x'' + 2x' + x = 0</m>. Indeed, if 
+                <me>x(t) = v(t) x_1(t) = v(t) e^{-t},</me>
+            then
+                <me>x'(t) = v(t) x_1'(t) + v'(t) x_1(t) = -v(t) e^{-t} + v'(t) e^{-t}</me>
+            and
+                <md>
+                    <mrow>x''(t) &amp; = v''(t) x_1(t) + 2v'(t) x_1'(t) + v(t) x_1''(t)</mrow>
+                    <mrow>&amp; = v''(t) e^{-t} - 2 v'(t) e^{-t} + v(t) e^{-t}.</mrow>
+                </md>
+            Consequently,
+                <md>
+                    <mrow>x'' + 2 x' + x &amp; = [v'' e^{-t} - 2 v' e^{-t} + v e^{-t}] + 2 [-v e^{-t} + v' e^{-t}]  + [v e^{-t}]</mrow>
+                    <mrow>&amp; = e^{-t} v''</mrow>
+                    <mrow>&amp; = 0,</mrow>
+                </md>
+            and <m>v'' = 0</m>. Therefore, <m>v = c_1 t + c_2</m>. Letting <m>c_1 = 1</m> and <m>c_2 = 0</m>, we can assume that <m>v(t) = t</m>, and the second solution to our equation is <m>x = t e^{-t}</m>. Hence, the general solution to  <m>x'' + 2x' + x = 0</m> is
+                <me>x(t) = c_1 e^{-t} + c_2 t e^{-t}.</me>
+            We leave it as an exercise to show that our solution agrees with the solution that we would obtain from solving the equivalent first-order linear system.</p>
+        </example>
 
-		<p>The technique that we have used in <xref ref="example-secondorder01-reduction-of-order" /> is called <term>reduction of order</term>. We leave it as an exercise to show that this technique works in general. That is, given a second-order linear differential equation
-			<me>a x'' + bx' + cx = 0</me>
-		such that <m>b^2 - 4ac = 0</m>, then the general solution is given by
-			<me>x(t) = c_1 e^{\lambda t} + c_2 t e^{\lambda t},</me>
-		where <m>\lambda = -b/2a</m>.</p>
-
-
-		<p>We did a great deal of work finding unique solutions to first-order linear systems of equations,
-			<md>
-				<mrow>x' &amp; = ax + by</mrow>
-				<mrow>y' &amp; = cx + dy.</mrow>
-			</md>
-		Our efforts are now rewarded. Since each second-order homogeneous system with constant coefficients can be rewritten as a first-order linear system, we are guaranteed the existence and uniqueness of solutions.</p>
-
-	</subsection>
-
-	<subsection xml:id="subsection-secondorder01-important-lessons">
-		<title>Important Lessons</title>
-
-		<p><ul>
-		
-			<li>A second-order linear differential equation with constant coefficients is an equation of the form
-				<me>a x'' + bx' + cx = 0.</me>
-			We can guess the solution to this equation. Since we can rewrite this equation as a system of first-order linear differential equations, we can determine the general solution to <m>a x'' + bx' + cx = 0</m>.</li>
-
-			<li>Suppose that 
-				<me>a x'' + b x' + c x = 0,</me>
-			where <m>a \neq 0</m> and <m>b^2 - 4ac \gt 0</m>. If the roots of <m>ar^2 + br + c</m> are <m>r_1</m> and <m>r_2</m>, the general solution to this differential equation is
-				<me>x(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}.</me></li>
-
-			<li>If  <m>b^2 - 4ac \lt 0</m>, the differential equation 
-				<me>a x'' + b x' + c x = 0</me>
-			has a general solution 
-				<me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t,</me>
-			where <m>\alpha \pm i \beta</m> are the roots of <m>a r^2 + br + c = 0</m>.</li>  
-
-			<li>If <m>b^2 - 4ac = 0</m>, the differential equation 
-				<me>a x'' + b x' + c x = 0</me>
-			has a general solution 
-				<me>x(t) = c_1 e^{- bt/2a}  + c_2 t e^{-bt/2a}.</me></li>
-
-		</ul></p>
-			
-	</subsection>
+        <p>The technique that we have used in <xref ref="example-secondorder01-reduction-of-order" /> is called <term>reduction of order</term>. We leave it as an exercise to show that this technique works in general. That is, given a second-order linear differential equation
+            <me>a x'' + bx' + cx = 0</me>
+        such that <m>b^2 - 4ac = 0</m>, then the general solution is given by
+            <me>x(t) = c_1 e^{\lambda t} + c_2 t e^{\lambda t},</me>
+        where <m>\lambda = -b/2a</m>.</p>
 
 
-	<exercises xml:id="exercises-secondorder01"  filenamebase="secondorder01">
+        <p>We did a great deal of work finding unique solutions to first-order linear systems of equations,
+            <md>
+                <mrow>x' &amp; = ax + by</mrow>
+                <mrow>y' &amp; = cx + dy.</mrow>
+            </md>
+        Our efforts are now rewarded. Since each second-order homogeneous system with constant coefficients can be rewritten as a first-order linear system, we are guaranteed the existence and uniqueness of solutions.</p>
+
+    </subsection>
+
+    <subsection xml:id="subsection-secondorder01-important-lessons">
+        <title>Important Lessons</title>
+
+        <p><ul>
+        
+            <li>A second-order linear differential equation with constant coefficients is an equation of the form
+                <me>a x'' + bx' + cx = 0.</me>
+            We can guess the solution to this equation. Since we can rewrite this equation as a system of first-order linear differential equations, we can determine the general solution to <m>a x'' + bx' + cx = 0</m>.</li>
+
+            <li>Suppose that 
+                <me>a x'' + b x' + c x = 0,</me>
+            where <m>a \neq 0</m> and <m>b^2 - 4ac \gt 0</m>. If the roots of <m>ar^2 + br + c</m> are <m>r_1</m> and <m>r_2</m>, the general solution to this differential equation is
+                <me>x(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}.</me></li>
+
+            <li>If  <m>b^2 - 4ac \lt 0</m>, the differential equation 
+                <me>a x'' + b x' + c x = 0</me>
+            has a general solution 
+                <me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t,</me>
+            where <m>\alpha \pm i \beta</m> are the roots of <m>a r^2 + br + c = 0</m>.</li>  
+
+            <li>If <m>b^2 - 4ac = 0</m>, the differential equation 
+                <me>a x'' + b x' + c x = 0</me>
+            has a general solution 
+                <me>x(t) = c_1 e^{- bt/2a}  + c_2 t e^{-bt/2a}.</me></li>
+
+        </ul></p>
+            
+    </subsection>
+
+
+    <exercises xml:id="exercises-secondorder01"  filenamebase="secondorder01">
         <title>Exercises</title>
 
         <exercisegroup cols="2" xml:id="exercises-secondorder01-find-solutions">
@@ -384,99 +384,99 @@
                 </statement>
             </exercise>        
         </exercisegroup>
-	<exercise>
-		<statement>
-			<p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
-				<ol>
-				
-					<li>Show that <m>x_1(t) = e^{-bt/2a}</m> is a solution to <m>a x'' + b x' + cx = 0</m>.</li>
-					
-					<li>Assume that
-						<me>y = v(t) x_1(t) = v(t) e^{-bt/2a}</me>
-					is a solution to  <m>a x'' + b x' + cx = 0</m> and show that <m>v(t) = c_1  + c_2 t</m>.  Thus, 
-						<me>x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}</me>
-					is a general solution for <m>a x'' + b x' + cx = 0</m>.</li>
+    <exercise>
+        <statement>
+            <p>Let <m>a x'' + b x' + cx = 0</m>, where <m>a \neq 0</m> and <m>b^2 - 4ac = 0</m>.
+                <ol>
+                
+                    <li>Show that <m>x_1(t) = e^{-bt/2a}</m> is a solution to <m>a x'' + b x' + cx = 0</m>.</li>
+                    
+                    <li>Assume that
+                        <me>y = v(t) x_1(t) = v(t) e^{-bt/2a}</me>
+                    is a solution to  <m>a x'' + b x' + cx = 0</m> and show that <m>v(t) = c_1  + c_2 t</m>.  Thus, 
+                        <me>x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}</me>
+                    is a general solution for <m>a x'' + b x' + cx = 0</m>.</li>
 
-					</ol></p>
+                    </ol></p>
 
-		</statement>
+        </statement>
 
-		<hint>
-			<p><ol>
-				
-				<li>Observe that
-					<md>
-						<mrow>a x_1'' + b_1' + cx_1 &amp; = a \left(\frac{-b}{2a}\right)^2e^{-bt/2a} + b \left( \frac{-b}{2a} \right) e^{-bt/2a} + c e^{-bt/2a}</mrow>
-						<mrow>&amp; = e^{-bt/2a} \left( \frac{b^2}{4a} - \frac{b^2}{2a}  + c  \right)</mrow>
-						<mrow>&amp; = e^{-bt/2a} \left( \frac{-b^2 + 4ac}{4a}  \right)</mrow>
-						<mrow>&amp; = 0.</mrow>
-					</md></li>
+        <hint>
+            <p><ol>
+                
+                <li>Observe that
+                    <md>
+                        <mrow>a x_1'' + b_1' + cx_1 &amp; = a \left(\frac{-b}{2a}\right)^2e^{-bt/2a} + b \left( \frac{-b}{2a} \right) e^{-bt/2a} + c e^{-bt/2a}</mrow>
+                        <mrow>&amp; = e^{-bt/2a} \left( \frac{b^2}{4a} - \frac{b^2}{2a}  + c  \right)</mrow>
+                        <mrow>&amp; = e^{-bt/2a} \left( \frac{-b^2 + 4ac}{4a}  \right)</mrow>
+                        <mrow>&amp; = 0.</mrow>
+                    </md></li>
 
-				<li>If <m>y = v(t) x_1(t) = v(t) e^{-bt/2a}</m> is a solution to our differential equation, then
-					<md>
-						<mrow>a y'' + b y' + cy &amp; = a (v''x_1 + 2 v'x_1' + vx_1'' ) + b(v' x_1 + v x_1') + cv x_1</mrow>
-						<mrow>&amp; = a v''x_1 + 2a v'x_1'   + bv' x_1 + v(a x_1'' +b  x_1' + c x_1)</mrow>
-						<mrow>&amp; = a v'' e^{-bt/2a} + \left[2a \left( \frac{-b}{2a} \right) e^{-bt/2a}   + b e^{-bt/2a} \right] v'</mrow>
-						<mrow>&amp; = a v'' e^{-bt/2a}</mrow>
-						<mrow>&amp; = 0.</mrow>
-					</md>
-				Since <m>a \neq 0</m>, we know that <m>v'' = 0</m>.  Hence, <m>v(t) = c_1  + c_2 t</m>.</li>
+                <li>If <m>y = v(t) x_1(t) = v(t) e^{-bt/2a}</m> is a solution to our differential equation, then
+                    <md>
+                        <mrow>a y'' + b y' + cy &amp; = a (v''x_1 + 2 v'x_1' + vx_1'' ) + b(v' x_1 + v x_1') + cv x_1</mrow>
+                        <mrow>&amp; = a v''x_1 + 2a v'x_1'   + bv' x_1 + v(a x_1'' +b  x_1' + c x_1)</mrow>
+                        <mrow>&amp; = a v'' e^{-bt/2a} + \left[2a \left( \frac{-b}{2a} \right) e^{-bt/2a}   + b e^{-bt/2a} \right] v'</mrow>
+                        <mrow>&amp; = a v'' e^{-bt/2a}</mrow>
+                        <mrow>&amp; = 0.</mrow>
+                    </md>
+                Since <m>a \neq 0</m>, we know that <m>v'' = 0</m>.  Hence, <m>v(t) = c_1  + c_2 t</m>.</li>
 
-			</ol></p>
-		</hint>
+            </ol></p>
+        </hint>
 
-	</exercise>		
+    </exercise>     
 
-	<exercise>
-		<statement>
-			<p><em>Reduction of Order</em>.  Suppose that <m>x_1(t)</m> is a solution (not identically zero) to the equation
-				<me>x'' + p(t) x' + q(t) x = 0.</me>
-				<ol>
+    <exercise>
+        <statement>
+            <p><em>Reduction of Order</em>.  Suppose that <m>x_1(t)</m> is a solution (not identically zero) to the equation
+                <me>x'' + p(t) x' + q(t) x = 0.</me>
+                <ol>
 
-					<li>Assume that <m>x(t) = v(t) x_1(t)</m> is a solution to <m>x'' + p(t) x' + q(t) x = 0</m> and derive the equation
-						<men xml:id="equation-exercise-secondorder01-reduction-of-order-1">x_1 v'' +(2x_1' + px_1)v' = 0.</men></li>
-
-
-					<li>Let <m>u = v'</m> and show that <xref ref="equation-exercise-secondorder01-reduction-of-order-1" /> is a first-order linear differential equation in <m>u</m>.</li>
+                    <li>Assume that <m>x(t) = v(t) x_1(t)</m> is a solution to <m>x'' + p(t) x' + q(t) x = 0</m> and derive the equation
+                        <men xml:id="equation-exercise-secondorder01-reduction-of-order-1">x_1 v'' +(2x_1' + px_1)v' = 0.</men></li>
 
 
-					<li>Show that <m>x_1(t) = 1/t</m> is a solution to 
-						<men xml:id="equation-exercise-secondorder01-reduction-of-order-2">2 t^2 x'' + 3t x' - x = 0 </men>
-					for <m>t \gt 0</m> and find a second linearly independent solution to <xref ref="equation-exercise-secondorder01-reduction-of-order-2" />.</li>
-
-				</ol></p>
-		</statement>
-
-		<hint>
-			<p><ol>
-			
-				<li><md>
-					<mrow>x'' + px' + qx &amp; = (v''x_1 + 2 v' x_1' + vx_1'') + p(v'x_1 + vx_1') + q(vx_1)</mrow>
-					<mrow>&amp; = x_1 v'' + 2v' x_1' + p x_1 v' + v (x_1'' + p x_1' + q x_1)</mrow>
-					<mrow>&amp; = x_1 v'' +(2x_1' + px_1)v' </mrow>
-					<mrow>&amp; = 0.</mrow>
-				</md></li>
-
-				<li>If <m>u = v'</m>, then <m>x_1 u' +(2x_1' + px_1)u= 0</m>.</li>
-					
-				<li>If <m>x_1(t) = 1/t</m>, then
-					<me>2 t^2 x_1'' + 3t x_1' - x_1 = 2 t^2 \left(\frac{2}{t^3}\right) + 3t \left(\frac{-1}{t^2}\right) - \frac{1}{t} = 0.</me>
-				If we assume that <m>x = v/t</m> is a second solution, then
-					<me>2 t^2 x'' + 3t x' - x = 2tv'' - v' = 0.</me>
-				If we let <m>u = v'</m>, then a solution of <m>2tu' - u = 0</m> is <m>u = \sqrt{t}</m> and <m>v = \int \sqrt{t} \, dt = 2 t^{3/2} / 3</m>.  Therefore, the second solution to our equation is
-					<me>x = \frac{v}{t} = \frac{2}{3} \sqrt{t}.</me></li>
-
-			</ol></p>
-		</hint>
-				
+                    <li>Let <m>u = v'</m> and show that <xref ref="equation-exercise-secondorder01-reduction-of-order-1" /> is a first-order linear differential equation in <m>u</m>.</li>
 
 
-	</exercise>		
-		
+                    <li>Show that <m>x_1(t) = 1/t</m> is a solution to 
+                        <men xml:id="equation-exercise-secondorder01-reduction-of-order-2">2 t^2 x'' + 3t x' - x = 0 </men>
+                    for <m>t \gt 0</m> and find a second linearly independent solution to <xref ref="equation-exercise-secondorder01-reduction-of-order-2" />.</li>
+
+                </ol></p>
+        </statement>
+
+        <hint>
+            <p><ol>
+            
+                <li><md>
+                    <mrow>x'' + px' + qx &amp; = (v''x_1 + 2 v' x_1' + vx_1'') + p(v'x_1 + vx_1') + q(vx_1)</mrow>
+                    <mrow>&amp; = x_1 v'' + 2v' x_1' + p x_1 v' + v (x_1'' + p x_1' + q x_1)</mrow>
+                    <mrow>&amp; = x_1 v'' +(2x_1' + px_1)v' </mrow>
+                    <mrow>&amp; = 0.</mrow>
+                </md></li>
+
+                <li>If <m>u = v'</m>, then <m>x_1 u' +(2x_1' + px_1)u= 0</m>.</li>
+                    
+                <li>If <m>x_1(t) = 1/t</m>, then
+                    <me>2 t^2 x_1'' + 3t x_1' - x_1 = 2 t^2 \left(\frac{2}{t^3}\right) + 3t \left(\frac{-1}{t^2}\right) - \frac{1}{t} = 0.</me>
+                If we assume that <m>x = v/t</m> is a second solution, then
+                    <me>2 t^2 x'' + 3t x' - x = 2tv'' - v' = 0.</me>
+                If we let <m>u = v'</m>, then a solution of <m>2tu' - u = 0</m> is <m>u = \sqrt{t}</m> and <m>v = \int \sqrt{t} \, dt = 2 t^{3/2} / 3</m>.  Therefore, the second solution to our equation is
+                    <me>x = \frac{v}{t} = \frac{2}{3} \sqrt{t}.</me></li>
+
+            </ol></p>
+        </hint>
+                
+
+
+    </exercise>     
+        
 </exercises>
 
 
-	<subsection number="no" xml:id="subsection-secondorder01-sage-project">
+    <subsection number="no" xml:id="subsection-secondorder01-sage-project">
         <title>Project</title>
 
     </subsection>
