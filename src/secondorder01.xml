@@ -21,6 +21,7 @@
     </introduction>
         
     <subsection xml:id="subsection-secondorder01-rlc-circuit">
+        <title>RLC Circuits</title>
 
         <p>Recall the RC circuits that we studied earlier (see <xref ref="firstlook03" />). Such circuits contained a voltage source, a capacitor, and a resistor. A battery or generator is an example of a voltage source, and a toaster or an electric stove is an example of something that might provide a resistance in a circuit. Capacitors store an electrical charge and are used in electronic flashes for cameras. We will now add an inductor such as a solenoid, a coil that generates a magnetic field. Inductor applications include transformers, power supplies, televisions, and radios. Our new circuit is called an RLC circuit (<xref ref="figure-secondorder01-rlc-circuit" />).</p>
         
@@ -187,6 +188,24 @@
             </md>
             Taking the real and imaginary parts of <m>x(t)</m>, we obtain two real solutions to the system, <m>x_1(t) = e^{\alpha t} \cos \beta t</m> and <m>x_2(t) = e^{\alpha t} \sin \beta t</m>. Therefore, the general solution to <m>ax_1'' + bx_1' + cx_1 = 0</m> is 
                 <me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t.</me></p>
+    </subsection>
+
+    <subsection xml:id="subsection-secondorder01-harmonic-oscillators">
+        <title>Classifying Harmonic Oscillators</title>
+        <p>Recall from <xref ref="subsection-firstlook01-spring-mass"/> that we can model harmonic motion using the equation
+            <me>m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.</me>
+        In the case of a spring-mass system, <m>m</m> is the oscillating mass, <m>b</m> is the damping coefficient, and <m>k</m> is the spring constant. It is important to remember that both <m>m</m> and <m>k</m> are positive constants and <m>b \geq 0</m>.</p>
+
+        <p>If <m>b = 0</m>, then the oscillator is <term>undamped</term>.<h>harmonic oscillator</h><h>damped</h> In this case,
+            <men xml:id="equation-secondorder01-harmonic">m \frac{d^2 x}{dt^2} + k x = 0.</men>
+        The characteristic equation is
+            <me>m \lambda^2 + k = 0,</me>
+        and we have eigenvalues <m>\lambda = \pm i \sqrt{k/m}</m>. Hence, the complex solution to our undamped oscillator is
+            <me>e^{i \omega t} = \cos \omega t + i \sin \omega t,</me>
+        where <m>\omega = \sqrt{k/m}</m>. Since both the real and imaginary parts of the complex solution are also solutions to <xref ref="equation-secondorder01-harmonic"/>, the general solution to the undamped harmonic oscillator is
+            <me>x(t) = c_1 \cos \omega t + c_2 \sin \omega t,</me>
+        giving us the position of the mass at time <m>t</m>. Now, of course, it is easy to determine the velocity of the mass at time <m>t</m> to be
+            <me>v(t) = x'(t) = - c_1 \omega \sin \omega t + c_2 \omega \cos \omega t.</me></p>
     </subsection>
 
     <subsection xml:id="subsection-secondorder01-reduction-of-order">
@@ -505,7 +524,7 @@
 
         <sage>
             <input>
-            t = var('t')  
+            t = var('t')
             x = function('x')(t)
             DE = diff(x,t,2)+3*diff(x,t)+2*x == 0
             desolve(DE, [x,t], ics=[0, 1, 2])
@@ -524,7 +543,7 @@
 
         <sage>
             <input>
-            t = var('t')  
+            t = var('t')
             x = function('x')(t)
             DE = diff(x,t,2)+3*diff(x,t)+2*x == t*cos(2*t)
             desolve(DE, [x,t], ics=[0, 1, 2])
