@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2018 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="firstlook04" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -29,7 +29,7 @@
                 <mrow>y' &amp;= f(t, y)</mrow>
                 <mrow>y(t_0) &amp;= y_0, </mrow>
             </md>
-        we might be able to find approximations at <m>a = t_0, t_1, t_2, \ldots, t_N = b</m> in <m>[a, b]</m> at best.  If we choose <m>t_1, t_2, \ldots, t_N</m> to be equally spaced on <m>[a, b]</m>, we can write
+        we might be able to find approximations at <m>a = t_0, t_1, t_2, \ldots, t_N = b</m> in <m>[a, b]</m> at best. If we choose <m>t_1, t_2, \ldots, t_N</m> to be equally spaced on <m>[a, b]</m>, we can write
             <me>t_k = t_0 + kh,</me>
         where <m>h = 1/N</m> and <m>k = 1, 2, \ldots, N</m>.  We say that <m>h</m> is the <term>step size</term> for our approximation.</p>
 
@@ -40,9 +40,9 @@
         or equivalently
             <me>y(t_0 + h) = y(t_1) \approx y(t_0) + h y'(t_0, y_0),</me>
         the estimate for our solution at <m>t_1 = t_0 + h</m> is
-            <me>Y_1 =  Y_0 + h f(t_0, Y_0).</me>
-        Similarly,  the approximation at <m>t_2 = t_0 + 2h</m> will be
-            <me>Y_2 =  Y_1 + h f(t_1, Y_1).</me>
+            <me>Y_1 = Y_0 + h f(t_0, Y_0).</me>
+        Similarly, the approximation at <m>t_2 = t_0 + 2h</m> will be
+            <me>Y_2 = Y_1 + h f(t_1, Y_1).</me>
         Our general algorithm is
             <me>Y_{k+1} = Y_k + h f(t_k, Y_k).</me>
         The idea is to compute tangent lines at each step and use this information to get our next approximation.</p>
@@ -52,22 +52,22 @@
         To generate the second approximation, we will construct a tangent line to the solution at <m>y(0) = 1</m>. If we use slope of the solution curve at <m>t_0 = 0</m>, 
             <me>y'(0) = f(y(0), 0) = y(0) + 0 = 1 + 0 = 1,</me>
         and make use of the fact that 
-            <me>\frac{y(h) - y(0)}{h} \approx  y'(0, y(0))  \qquad \text{or} \qquad y(h) \approx y(0) + y'(0, y(0)),</me>
+            <me>\frac{y(h) - y(0)}{h} \approx y'(0, y(0)) \qquad \text{or} \qquad y(h) \approx y(0) + y'(0, y(0)),</me>
         the estimate for our solution at <m>t = 0.1</m> is
             <md>
-                <mrow>Y_1 &amp; =  Y_0 + h f(t_0, Y_0)</mrow>
-                <mrow>&amp; =  Y_0 + h[Y_0 + t_0]</mrow>
+                <mrow>Y_1 &amp; = Y_0 + h f(t_0, Y_0)</mrow>
+                <mrow>&amp; = Y_0 + h[Y_0 + t_0]</mrow>
                 <mrow>&amp; = 1 + (0.1) [1 + 0]</mrow>
-                <mrow>&amp; =  1.1000.</mrow>
+                <mrow>&amp; = 1.1000.</mrow>
             </md>
         Similarly,  the approximation at <m>t = 0.2</m> will be
             <md>
-                <mrow>Y_2 &amp; =  Y_1 + h f(t_1, Y_1)</mrow>
+                <mrow>Y_2 &amp; = Y_1 + h f(t_1, Y_1)</mrow>
                 <mrow>&amp; = Y_1 + h[Y_1 + t_1]</mrow>
                 <mrow>&amp; = 1.1000 + (0.1) [1.1000 + 0.1]</mrow>
-                <mrow>&amp; =  1.2200.</mrow>
+                <mrow>&amp; = 1.2200.</mrow>
             </md>
-        Our general  algorithm is
+        Our general algorithm is
             <me>Y_{k+1} = Y_k + h f(t_k, Y_k) = Y_k + h[Y_k + t_k] = (1.1) Y_k + (0.01)k.</me></p>
 
         <p>The initial value problem <xref ref="equation-firstlook04-euler-1" /><ndash /><xref ref="equation-firstlook04-euler-2" /> is, in fact, solvable analytically with solution <m>y(t) = 2e^t - t - 1</m>. We can compare our approximation to the exact solution in <xref ref="table-firstlook04-euler-approximation" />. We can also see graphs of the approximate and exact solutions in <xref ref="figure-firstlook04-euler-approximation" />. Notice that the error grows as we get further away from our initial value. In fact, the graph of the approximation for <m>h = 0.001</m> is obscured by the graph of the exact solution. In addition, a smaller step size gives us a more accurate approximation (<xref ref="table-firstlook04-euler-approximation-step-size" />).</p>
@@ -196,11 +196,11 @@
             <me>y_{k + 1} = y(t_{k+1}) \approx y(t_k) + y'(t_k) h = y(t_k) + f(t_k, y_k) h.</me>
         This gives us Euler's method,
             <md>
-                <mrow>Y_0 &amp; =  y(t_0)</mrow>
-                <mrow>Y_1 &amp; =  Y_0 + h f(t_0, Y_0)</mrow>
-                <mrow>Y_2 &amp; =  Y_1 + h f(t_1, Y_1)</mrow>
+                <mrow>Y_0 &amp; = y(t_0)</mrow>
+                <mrow>Y_1 &amp; = Y_0 + h f(t_0, Y_0)</mrow>
+                <mrow>Y_2 &amp; = Y_1 + h f(t_1, Y_1)</mrow>
                 <mrow>&amp; \vdots</mrow>
-                <mrow>Y_{k+1} &amp; =  Y_k + h f(t_k, Y_k).</mrow>
+                <mrow>Y_{k+1} &amp; = Y_k + h f(t_k, Y_k).</mrow>
             </md>
         The terms that we are omitting, all contain powers of <m>h</m> of at least degree two. If <m>h</m> is small, then <m>h^n</m> for <m>n = 2, 3, \ldots</m> will be very small and these terms will not matter much.</p>
         
@@ -213,7 +213,7 @@
                         <mrow>y' &amp; =  f(t, y),</mrow>
                         <mrow>y(a) &amp; =  \alpha,</mrow>
                     </md>
-                where <m>t \in [a, b]</m>.  Suppose that <m>f</m> is continuous and  there exists a constant <m>L \gt 0</m> such that 
+                where <m>t \in [a, b]</m>. Suppose that <m>f</m> is continuous and  there exists a constant <m>L \gt 0</m> such that 
                     <me>|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|,</me>
                 whenever <m>(t, y_1)</m> and <m>(t, y_2)</m> are in <m>D = [a, b] \times {\mathbb R}</m>. Also assume that there exists an <m>M</m> such that
                     <me>|y''(t)| \leq M</me>
@@ -222,9 +222,9 @@
             </statement>
         </theorem> 
             
-        <p>The condition that  there exists a constant <m>L \gt 0</m> such that 
+        <p>The condition that  there exists a constant <m>L \gt 0</m> such that
             <me>|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|,</me>
-        whenever <m>(t, y_1)</m> and <m>(t, y_2)</m> are in <m>D = [a, b] \times {\mathbb R}</m> is called a <term>Lipschitz condition</term><idx>Lipschitz condition</idx>.  Many of the functions that we will consider satisfy such a condition. If the condition is satisfied, we can usually say a great deal about the function.</p>
+        whenever <m>(t, y_1)</m> and <m>(t, y_2)</m> are in <m>D = [a, b] \times {\mathbb R}</m> is called a <term>Lipschitz condition</term><idx>Lipschitz condition</idx>. Many of the functions that we will consider satisfy such a condition. If the condition is satisfied, we can usually say a great deal about the function.</p>
 
         <table xml:id="table-firstlook04-euler-approximation-error-bound">
             <tabular halign="center" top="medium">
@@ -268,11 +268,11 @@
             <caption>Error bound and actual error</caption>
         </table>
 
-        <p>We can now compare the estimated error from our theorem to the actual error of our example. We first need to determine <m>M</m> and <m>L</m>.  Since
-            <me>|f(t, y_1) - f(t, y_2)| = |(y_1 + t) - (y_2 + t)| =   |y_1 - y_2|,</me>
+        <p>We can now compare the estimated error from our theorem to the actual error of our example. We first need to determine <m>M</m> and <m>L</m>. Since
+            <me>|f(t, y_1) - f(t, y_2)| = |(y_1 + t) - (y_2 + t)| = |y_1 - y_2|,</me>
         we can take <m>L</m> to be one.  Since <m>y'' = 2e^t</m>, we can bound <m>y''</m> on the interval <m>[0, 1]</m> by <m>M = 2e</m>. Thus, we can bound the error by
             <me>|y(t_i) - Y_i| \leq \frac{hM}{2L} [ e^{L(t_i - a)} - 1] = 0.1e( e^{t_i } - 1)</me>
-        for <m>h =0.1</m>.  Our results are in <xref ref="table-firstlook04-euler-approximation-error-bound" />.</p>
+        for <m>h =0.1</m>. Our results are in <xref ref="table-firstlook04-euler-approximation-error-bound" />.</p>
 
     </subsection>
 
@@ -281,19 +281,19 @@
 
         <p>If we wish to improve upon Euler's method, we could add more terms of Taylor series. For example, we can obtain a more accurate approximation by using a quadratic Taylor polynomial,
             <me>y(t_1) \approx y_0 + f(t_0, y_0) h + \frac{y''(t_0)}{2} h^2.</me>
-        However, we need to know <m>y''(t_0)</m> in order to use this approximation.  Using the chain rule from multivariable calculus, we can differentiate both sides of <m>y' = f(t, y)</m> to obtain
-            <me>y'' = \frac{\partial f}{\partial t}  \frac{dt}{dt} + \frac{\partial f}{\partial y}  \frac{dy}{dt} = f_t + f f_y.</me>
+        However, we need to know <m>y''(t_0)</m> in order to use this approximation. Using the chain rule from multivariable calculus, we can differentiate both sides of <m>y' = f(t, y)</m> to obtain
+            <me>y'' = \frac{\partial f}{\partial t} \frac{dt}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} = f_t + f f_y.</me>
         Thus, our approximation becomes
-            <me>y(t_1) \approx y_0 + f(t_0, y_0) h + \frac{1}{2} \left( f_t(t_0, y_0) + f(t_0, y_0)  f_y (t_0, y_0)   \right) h^2.</me></p>
+            <me>y(t_1) \approx y_0 + f(t_0, y_0) h + \frac{1}{2} \left( f_t(t_0, y_0) + f(t_0, y_0) f_y (t_0, y_0) \right) h^2.</me></p>
         
-        <p>The problem is that some preliminary analytic work must be done. That is, before we can write a program to compute our solution, we must find <m>\partial f/\partial t</m> and <m>\partial f / \partial y</m>, although this is less of a problem with the availability of computer algebra systems such as Sage.</p>
+        <p>The problem is that some preliminary analytic work must be done. That is, before we can write a program to compute our solution, we must find <m>\partial f/\partial t</m> and <m>\partial f / \partial y</m>, although this is less of a problem with the availability of computer algebra systems such as <em>Sage</em>.</p>
             
         <p>Around 1900, two German mathematicians, Carle Runge and Martin Kutta, independently invented several numerical algorithms to solve differential equations. These methods, known as <term>Runge-Kutta methods</term><idx>Runge-Kutta method</idx>, estimate the higher-order terms of the Taylor series to find an approximation that does not depend on computing derivatives of <m>f(t, y)</m>.</p>
 
         <p>If we consider the initial value problem
             <md>
-                <mrow>y' &amp; =  f(t, y),</mrow>
-                <mrow>y(t_0) &amp; =  y_0,</mrow>
+                <mrow>y' &amp; = f(t, y),</mrow>
+                <mrow>y(t_0) &amp; = y_0,</mrow>
             </md>
         then
             <me>y(t_1) = y(t_0) + \int_{t_0}^{t_1} f(s, y(s)) \, ds</me>
@@ -308,7 +308,7 @@
             </md>
         Thus, our algorithm becomes
             <men xml:id="equation-firstlook04-runge-kutta-2">y_1 = y_0 + \left( f(t_0, y_0) + f(t_1, y_1) \right) \frac{h}{2}.</men>
-        However, we have a problem since <m>y_1</m> appears in the right-hand side of our approximation. To get around this difficulty, we will replace <m>y_1</m> in the right-hand side of <xref ref="equation-firstlook04-runge-kutta-2" /> with the Euler approximation for <m>y_1</m>. Thus, 
+        However, we have a problem since <m>y_1</m> appears in the right-hand side of our approximation. To get around this difficulty, we will replace <m>y_1</m> in the right-hand side of <xref ref="equation-firstlook04-runge-kutta-2" /> with the Euler approximation for <m>y_1</m>. Thus,
             <me>y_1 = y_0 + \left( f(t_0, y_0) + f(t_1, y_0 + f(t_0, y_0) h) \right) \frac{h}{2}.</me></p>
 
         <p>To understand that the second-order Runge-Kutta method is actually an improvement over the traditional Euler's method, we will need to use the Taylor approximation for a function of two variables. Let us assume that <m>f(x,y)</m> is defined on some rectangle and that all of the derivatives of <m>f</m> are continuously differentiable. Then 
@@ -329,8 +329,8 @@
             <me>y(t + h) = y(t) + w_1 F_1 + w_2 F_2,</me>
         where
             <md>
-                <mrow>F_1 &amp; =  h f(t, y)</mrow>
-                <mrow>F_2 &amp; =  h f(t + \alpha h, y + \beta F_1).</mrow>
+                <mrow>F_1 &amp; = h f(t, y)</mrow>
+                <mrow>F_2 &amp; = h f(t + \alpha h, y + \beta F_1).</mrow>
             </md>
         That is,
             <men xml:id="equation-firstlook04-runge-kutta-3">y(t + h) = y(t) + w_1 h f(t, y) + w_2 h f(t + \alpha h, y + \beta h f(t, y)).</men>
@@ -338,20 +338,20 @@
             <men xml:id="equation-firstlook04-runge-kutta-4">y(t + h) = y(t) + h y'(t) + \frac{h^2}{2!} y''(t) + \frac{h^3}{3!} y''(t) + \cdots.</men>
         We can make equations <xref ref="equation-firstlook04-runge-kutta-3" /> and <xref ref="equation-firstlook04-runge-kutta-4" /> agree if we choose <m>w_1 = 1</m> and <m>w_2 = 0</m>. Since <m>y' = f</m>, we obtain Euler's method.</p>
 
-        <p>If we are more careful about choosing our parameters, we can obtain agreement up through the <m>h^2</m> term.  If we use the two variable Taylor series to expand <m>f(t + \alpha h, y + \beta h f)</m>, we have
-            <me>f(t + \alpha h, y + \beta h f) = f + \alpha h f_t + \beta h f f_y +  {\mathcal O}(h^2),</me>
+        <p>If we are more careful about choosing our parameters, we can obtain agreement up through the <m>h^2</m> term. If we use the two variable Taylor series to expand <m>f(t + \alpha h, y + \beta h f)</m>, we have
+            <me>f(t + \alpha h, y + \beta h f) = f + \alpha h f_t + \beta h f f_y + {\mathcal O}(h^2),</me>
         where <m>{\mathcal O}(h^2)</m> means that of the subsequent terms have a factor of <m>h^n</m> with <m>n \geq 2</m>. Using this expression, we obtain a new form for <xref ref="equation-firstlook04-runge-kutta-3" />, 
             <men xml:id="equation-firstlook04-runge-kutta-5">y(t + h) = y(t) + (w_1 + w_2) hf + \alpha w_2 h^2 f_t + \beta w_2 h^2 f f_y + {\mathcal O}(h^3).</men>
         Since <m>y'' = f_t + f_y f</m> by the chain rule, we can rewrite <xref ref="equation-firstlook04-runge-kutta-4" /> as
             <men xml:id="equation-firstlook04-runge-kutta-6">y(t + h) = y(t) + h f + \frac{h^2}{2!}( f_t +  f f_y) + {\mathcal O}(h^3).</men>
         We can make equations <xref ref="equation-firstlook04-runge-kutta-5" /> and <xref ref="equation-firstlook04-runge-kutta-6" /> agree up through the quadratic terms if we require that
             <md>
-                <mrow>w_1 + w_2 &amp; =  1,</mrow>
-                <mrow>\alpha w_2 &amp; =  \frac{1}{2},</mrow>
-                <mrow>\beta w_2 &amp; =  \frac{1}{2}.</mrow>
+                <mrow>w_1 + w_2 &amp; = 1,</mrow>
+                <mrow>\alpha w_2 &amp; = \frac{1}{2},</mrow>
+                <mrow>\beta w_2 &amp; = \frac{1}{2}.</mrow>
             </md>
         If we choose <m>\alpha = \beta = 1</m> and <m>w_1 = w_2 = 1/2</m>, these equations are satisfied and we obtain the improved Euler's method
-            <me>y(t + h) =  y(t) + \frac{h}{2} f(t, h) + \frac{h}{2} f(t + h, y  + h f(t, y)).</me></p>
+            <me>y(t + h) = y(t) + \frac{h}{2} f(t, h) + \frac{h}{2} f(t + h, y  + h f(t, y)).</me></p>
 
         <p>The improved Euler's method or the second-order Runge-Kutta method is a more sophisticated algorithm that is less prone to error due to the step size <m>h</m>. Euler's method is based on truncating the Taylor series after the linear term. Since
             <me>y(t + h) = y(t) + h y'(t) + {\mathcal O}(h^2),</me>
@@ -360,14 +360,14 @@
 
         <p>If we use Simpson's rule to estimate the integral in 
             <me>y(t_1) - y(t_0) = \int_{t_0}^{t_1} f(s, y(s)) \, ds</me>
-        we can improve our accuracy up to <m>h^4</m>.  The idea is exactly the same, but the algebra become much more tedious.  This method is known as the Runge-Kutta method of order 4 and is given by
+        we can improve our accuracy up to <m>h^4</m>.  The idea is exactly the same, but the algebra become much more tedious. This method is known as the Runge-Kutta method of order 4 and is given by
             <me>y(t + h) = y(t) + \frac{1}{6} (F_1 + 2 F_2 + 2 F_3 + F_4),</me>
         where
             <md>
-                <mrow>F_1 &amp; =  h f(t, y)</mrow>
-                <mrow>F_2 &amp; =  hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)</mrow>
-                <mrow>F_3 &amp; =  hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)</mrow>
-                <mrow>F_4 &amp; =  hf(t + h, y + F_3).</mrow>
+                <mrow>F_1 &amp; = h f(t, y)</mrow>
+                <mrow>F_2 &amp; = hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)</mrow>
+                <mrow>F_3 &amp; = hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)</mrow>
+                <mrow>F_4 &amp; = hf(t + h, y + F_3).</mrow>
             </md></p>
 
     </subsection>
@@ -379,17 +379,17 @@
         
             <li>We can use Euler's method to find an approximate solution to the initial value problem
                 <md>
-                    <mrow>y' &amp; =  f(t, y),</mrow>
-                    <mrow>y(a) &amp; =  \alpha</mrow>
+                    <mrow>y' &amp; = f(t, y),</mrow>
+                    <mrow>y(a) &amp; = \alpha</mrow>
                 </md>
             on an interval <m>[a, b]</m>.  If we wish to find approximations at <m>N</m> equally spaced points <m>t_1, \ldots, t_N</m>, where <m>h = (b-a)/N</m> and <m>t_i = a + i h</m>, our approximations should be
                 <md>
-                    <mrow>Y_0 &amp; =  \alpha,</mrow>
-                    <mrow>Y_1 &amp; =  Y_0 + h f(\alpha, Y_0),</mrow>
-                    <mrow>Y_2 &amp; =  Y_1 + h f(t_1, Y_1,)</mrow>
+                    <mrow>Y_0 &amp; = \alpha,</mrow>
+                    <mrow>Y_1 &amp; = Y_0 + h f(\alpha, Y_0),</mrow>
+                    <mrow>Y_2 &amp; = Y_1 + h f(t_1, Y_1,)</mrow>
                     <mrow>&amp; \vdots</mrow>
-                    <mrow>Y_{k+1} &amp; =  Y_k + h f(t_k, Y_k),</mrow>
-                    <mrow>Y_N &amp; =  Y_{N-1} + h f(t_{N-1}, Y_{N-1}).</mrow>
+                    <mrow>Y_{k+1} &amp; = Y_k + h f(t_k, Y_k),</mrow>
+                    <mrow>Y_N &amp; = Y_{N-1} + h f(t_{N-1}, Y_{N-1}).</mrow>
                 </md></li>
 
             <li>Taylor's Theorem theorem is a very useful tool for studying differential equations. If <m>x > x_0</m>, then
@@ -400,8 +400,8 @@
                 <me>|y(t_i) - Y_i| \leq \frac{hM}{2L} [ e^{L(t_i - a)} - 1],</me>
             where <m>y</m> is the unique solution to the initial value problem
                 <md>
-                    <mrow>y' &amp; =  f(t, y),</mrow>
-                    <mrow>y(a) &amp; =  \alpha.</mrow>
+                    <mrow>y' &amp; = f(t, y),</mrow>
+                    <mrow>y(a) &amp; = \alpha.</mrow>
                 </md></li>
 
             <li>The condition that there exists a constant <m>L \gt 0</m> such that 
@@ -418,10 +418,10 @@
                 <me>y(t + h) = y(t) + \frac{1}{6} (F_1 + 2 F_2 + 2 F_3 + F_4),</me>
             where
                 <md>
-                    <mrow>F_1 &amp; =  h f(t, y)</mrow>
-                    <mrow>F_2 &amp; =  hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)</mrow>
-                    <mrow>F_3 &amp; =  hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)</mrow>
-                    <mrow>F_4 &amp; =  hf(t + h, y + F_3)</mrow>
+                    <mrow>F_1 &amp; = h f(t, y)</mrow>
+                    <mrow>F_2 &amp; = hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)</mrow>
+                    <mrow>F_3 &amp; = hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)</mrow>
+                    <mrow>F_4 &amp; = hf(t + h, y + F_3)</mrow>
                 </md>
             with the error bound depending on <m>h^4</m>.</li>
 
@@ -459,7 +459,7 @@
                 <p>In this series of exercises, we will prove the error bound theorem for Euler's method (Theorem <xref ref="theorem-firstlook04-euler-error-bound" />).
                     <ol>
 
-                        <li>Use Taylor's Theorem to show that for all <m>x \geq -1</m> and any positive <m>m</m>, 
+                        <li>Use Taylor's Theorem to show that for all <m>x \geq -1</m> and any positive <m>m</m>,
                             <me>0 \leq (1 + x)^m \leq e^{mx}.</me></li>
 
                         <li>Use part (1) and geometric series to prove the following statement: If <m>s</m> and <m>t</m> are positive real numbers, and <m>\{ a_i \}_{i = 0}^k</m> is a sequence satisfying
@@ -478,7 +478,7 @@
                             <me>|y_{i + 1} - Y_{i + 1} | \leq  |y_i - Y_i| (1 + hL) + \frac{Mh^2}{2}. </me></li>
 
                         <li>Let <m>a_j = |y_j - Y_j|</m> for <m>j = 0, 1, \ldots, N</m>, <m>s = hL</m>, and <m>t = M h^2/2</m> and apply part (2) to show
-                            <me>|y_{i + 1} - Y_{i + 1} | \leq e^{(1 + i)hL} \left(  |y_0 - Y_0| + \frac{M h^2 }{2hL} \right) - \frac{M h^2}{2hL}. </me>
+                            <me>|y_{i + 1} - Y_{i + 1} | \leq e^{(1 + i)hL} \left( |y_0 - Y_0| + \frac{M h^2 }{2hL} \right) - \frac{M h^2}{2hL}. </me>
                         and derive that
                             <me>|y_{i + 1} - Y_{i + 1} | \leq \frac{M h }{2L} \left( e^{(t_{i+ 1} - a)L} - 1\right)</me>
                         for each <m>i = 0, 1, \ldots, N-1</m>.</li>
@@ -544,7 +544,7 @@
             x,y = PolynomialRing(RR, 2, "xy").gens() #declare x, y as generators of a polynomial ring
             eulers_method(x + y, 0,1, 0.5, 5)
             </input>
-            <output>        
+            <output>
             </output>
         </sage> 
 
@@ -553,7 +553,7 @@
                 <mrow>y \amp = f(x,y)</mrow>
                 <mrow>f(x_0) \amp = y_0</mrow>
             </md>
-        with step size <m>h</m> on the interval <m>[x_0, x_1]</m> is <c>eulers_method(f, x0, y0, h, x1)</c> Notice that we obtained a table of values.  However, we can use the <c>line</c> command from <em>Sage</em> to plot the values <m>(x, y)</m>.</p>
+        with step size <m>h</m> on the interval <m>[x_0, x_1]</m> is <c>eulers_method(f, x0, y0, h, x1)</c> Notice that we obtained a table of values. However, we can use the <c>line</c> command from <em>Sage</em> to plot the values <m>(x, y)</m>.</p>
 
         <sage>
             <input>
@@ -563,7 +563,7 @@
             p += line(pts)
             p
             </input>
-            <output>  
+            <output>
             </output>
         </sage> 
 
@@ -574,7 +574,7 @@
             x,y = var('x y')
             desolve_rk4(x + y, y, ics=[0, 1], end_points = 5, step = 0.5)
             </input>
-            <output>             
+            <output>
             </output>
         </sage> 
 
@@ -586,7 +586,7 @@
             p = desolve_rk4(x + y, y, ics = [0,1], ivar = x, output = 'slope_field', end_points = [0, 5], thickness = 2, color = 'red')
             p
             </input>
-            <output>               
+            <output>
             </output>
         </sage> 
 
@@ -596,13 +596,13 @@
         <sage>
             <input>
             </input>
-            <output>               
+            <output>
             </output>
-        </sage>        
+        </sage>
 
         <p>Not only is <c>desolve_rk4</c> more accurate, it is much easier to use. For more information, see <url href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" />.</p>
 
-    </subsection>           
+    </subsection>
 
 </section>
 
