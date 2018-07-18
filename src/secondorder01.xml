@@ -70,45 +70,45 @@
 
         <p>Suppose that we have a homogeneous second-order linear differential equation with constant coefficients,
             <men xml:id="equation-secondorder01-constant-coef">a x'' + b x' + cx = 0.</men>
-        Since we can rewrite this equation as a system of first-order linear equations,
+        The goal of this section is to be able to solve all such equations. Of course, we can rewrite this equation as a system of first-order linear equations,
             <md>
                 <mrow>x' &amp; = y</mrow>
-                <mrow>y' &amp; = -\frac{c}{a} x - \frac{b}{a} y.</mrow>
+                <mrow>y' &amp; = -\frac{c}{a} x - \frac{b}{a} y,</mrow>
             </md>
-        we can find the general solution by computing the eigenvalues and eigenvectors of the matrix of the corresponding system. Solutions of a linear system <m>{\mathbf x}' = A {\mathbf x}</m> often include terms of the form <m>e^{r t}</m>. It makes sense that solutions to equation <xref ref="equation-secondorder01-constant-coef" /> take the same form.</p>
+        and then find the general solution by computing the eigenvalues and eigenvectors of the matrix of the corresponding system.</p>
 
         <example xml:id="example-secondorder01-real-solutions">
-            <p>Consider the equation
-                <men xml:id="equation-secondorder01-guess">x'' + 7 x' + 10 x = 0.</men>
+            <p>Solutions of a linear system <m>{\mathbf x}' = A {\mathbf x}</m> often include terms of the form <m>e^{r t}</m>. It makes sense that solutions to equation <xref ref="equation-secondorder01-constant-coef" /> take the same form. Consider the equation
+                <men xml:id="equation-secondorder01-guess">x'' + 3 x' - 10 x = 0.</men>
             If we assume that a solution is of the form <m>e^{rt}</m>, we can substitute this expression into the left-hand side of <xref ref="equation-secondorder01-guess" /> to obtain
                 <md>
-                    <mrow>\frac{d^2}{dt^2} e^{rt} + \frac{d}{dt} 7e^{rt} + 10 e^{rt} &amp; = r^2 e^{rt} + 7 r e^{rt} + 10 e^{rt}</mrow>
-                    <mrow>&amp; = (r^2 + 7r + 10) e^{rt}</mrow>
-                    <mrow>&amp; = (r + 5)(r+ 2) e^{rt}.</mrow>
+                    <mrow>\frac{d^2}{dt^2} e^{rt} + \frac{d}{dt} 3 e^{rt} - 10 e^{rt} &amp; = r^2 e^{rt} + 3 r e^{rt} - 10 e^{rt}</mrow>
+                    <mrow>&amp; = (r^2 + 3r - 10) e^{rt}</mrow>
+                    <mrow>&amp; = (r + 5)(r - 2) e^{rt}.</mrow>
                 </md>
-            Since <m>e^{rt}</m> is never zero, we find that <m>(r + 5)(r+ 2) = 0</m> or <m>r = -5</m> or <m>-2</m>. Thus, we have two solutions
-                <me>x_1(t) = e^{-5t} \mbox{ and } x_2(t) = e^{-2t}.</me>
+            Since <m>e^{rt}</m> is never zero, we find that <m>(r + 5)(r - 2) = 0</m> or <m>r = -5</m> or <m>2</m>. Thus, we have two solutions
+                <me>x_1(t) = e^{-5t} \mbox{ and } x_2(t) = e^{2t}.</me>
             By the Principle of Superposition, 
-                <men xml:id="equation-secondorder01-guess-soln">x(t) = c_1 x_1(t) + c_2 x_2(t) = c_1 e^{-5t} + c_2 e^{-2t}</men>
-            is a solution to <m>x'' + 7x' + 10 x = 0</m>.</p>
+                <men xml:id="equation-secondorder01-guess-soln">x(t) = c_1 x_1(t) + c_2 x_2(t) = c_1 e^{-5t} + c_2 e^{2t}</men>
+            is a solution to <m>x'' + 3x' - 10 x = 0</m>.</p>
 
             <p>Indeed, this is the general solution of our second-order equation since we have a one-to-one correspondence between the solutions of 
-                <me>x'' + 7x' + 10 x = 0</me>
+                <me>x'' + 3x' - 10 x = 0</me>
             and the system
                 <md>
                     <mrow>x' &amp; = y</mrow>
-                    <mrow>y' &amp; = - 10x - 7 y.</mrow>
+                    <mrow>y' &amp; = 10x - 3 y.</mrow>
                 </md>
             The matrix associated with this system
-                <me>A = \begin{pmatrix} 0 \amp 1 \\ -10 \amp -7 \end{pmatrix}</me>
-            has eigenvalues <m>\lambda_1 = -5</m> and <m>\lambda_2 = -2</m> with eigenvectors <m>\mathbf v_1 = (1, -5)</m> and <m>\mathbf v_2 = (1, -2)</m>, respectively. Consequently, the solution to our system is
+                <me>A = \begin{pmatrix} 0 \amp 1 \\ 10 \amp -3 \end{pmatrix}</me>
+            has characteristic polynomial <m>\lambda^2 + 3 \lambda - 10</m>. The eigenvalues of <m>A</m> are <m>\lambda_1 = -5</m> and <m>\lambda_2 = 2</m> with eigenvectors <m>\mathbf v_1 = (1, -5)</m> and <m>\mathbf v_2 = (1, 2)</m>, respectively. Consequently, the solution to our system is
                 <me>\begin{pmatrix}
                 x(t) \\ y(t)
                 \end{pmatrix}
                 =
                 c_1 e^{-5t} \begin{pmatrix} 1 \\ -5 \end{pmatrix}
                 +
-                c_2 e^{-2t} \begin{pmatrix} 1 \\ -2 \end{pmatrix},</me>
+                c_2 e^{2t} \begin{pmatrix} 1 \\ 2 \end{pmatrix},</me>
             which agrees with<nbsp /><xref ref="equation-secondorder01-guess-soln" />.</p>
         </example>
 
@@ -126,7 +126,9 @@
             <me>A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.</me>
         The characteristic polynomial of <m>A</m> is
             <me>p(\lambda) = \det(A - \lambda I) = \lambda^2 + \frac{b}{a} \lambda + \frac{c}{a}.</me>
-        The roots of <m>p(\lambda)</m> are the same as the roots of <m>a\lambda^2 + b\lambda + c</m>. If <m>b^2 - 4ac \gt 0</m>, we have real roots
+        The roots of <m>p(\lambda)</m> are the same as the roots of <m>a\lambda^2 + b\lambda + c</m>.</p>
+
+        <p>If <m>b^2 - 4ac \gt 0</m>, we have real roots
             <me>\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}.</me>
         We can find eigenvectors
             <md>
@@ -188,28 +190,6 @@
             </md>
             Taking the real and imaginary parts of <m>x(t)</m>, we obtain two real solutions to the system, <m>x_1(t) = e^{\alpha t} \cos \beta t</m> and <m>x_2(t) = e^{\alpha t} \sin \beta t</m>. Therefore, the general solution to <m>ax_1'' + bx_1' + cx_1 = 0</m> is 
                 <me>x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t.</me></p>
-    </subsection>
-
-    <subsection xml:id="subsection-secondorder01-harmonic-oscillators">
-        <title>Classifying Harmonic Oscillators</title>
-        <p>Recall from <xref ref="subsection-firstlook01-spring-mass"/> that we can model harmonic motion using the equation
-            <me>m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.</me>
-        In the case of a spring-mass system, <m>m</m> is the oscillating mass, <m>b</m> is the damping coefficient, and <m>k</m> is the spring constant. It is important to remember that both <m>m</m> and <m>k</m> are positive constants and <m>b \geq 0</m>.</p>
-
-        <p>If <m>b = 0</m>, then the oscillator is <term>undamped</term>.<h>harmonic oscillator</h><h>damped</h> In this case,
-            <men xml:id="equation-secondorder01-harmonic">m \frac{d^2 x}{dt^2} + k x = 0.</men>
-        The characteristic equation is
-            <me>m \lambda^2 + k = 0,</me>
-        and we have eigenvalues <m>\lambda = \pm i \sqrt{k/m}</m>. Hence, the complex solution to our undamped oscillator is
-            <me>e^{i \omega t} = \cos \omega t + i \sin \omega t,</me>
-        where <m>\omega = \sqrt{k/m}</m>. Since both the real and imaginary parts of the complex solution are also solutions to <xref ref="equation-secondorder01-harmonic"/>, the general solution to the undamped harmonic oscillator is
-            <me>x(t) = c_1 \cos \omega t + c_2 \sin \omega t,</me>
-        giving us the position of the mass at time <m>t</m>. Now, of course, it is easy to determine the velocity of the mass at time <m>t</m> to be
-            <me>v(t) = x'(t) = - c_1 \omega \sin \omega t + c_2 \omega \cos \omega t.</me></p>
-    </subsection>
-
-    <subsection xml:id="subsection-secondorder01-reduction-of-order">
-        <title>Reduction of Order</title>
 
         <p>Given a second-order linear differential equation with constant coefficients, <m>ax'' + bx' + cx = 0</m>, our strategy has been to solve the <term>characteristic equation</term> <m>a \lambda^2 + b \lambda + c = 0</m> to obtain two linearly independent solutions. We have covered the case where this equation has two distinct real solutions as well as when there are complex solutions, but what if there is only a single real solution <m>\lambda = -b/2a</m>?</p>
 
@@ -258,7 +238,24 @@
                 <mrow>y' &amp; = cx + dy.</mrow>
             </md>
         Our efforts are now rewarded. Since each second-order homogeneous system with constant coefficients can be rewritten as a first-order linear system, we are guaranteed the existence and uniqueness of solutions.</p>
+    </subsection>
 
+        <subsection xml:id="subsection-secondorder01-harmonic-oscillators">
+        <title>Classifying Harmonic Oscillators</title>
+        <p>Recall from <xref ref="subsection-firstlook01-spring-mass"/> that we can model harmonic motion using the equation
+            <me>m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.</me>
+        In the case of a spring-mass system, <m>m</m> is the oscillating mass, <m>b</m> is the damping coefficient, and <m>k</m> is the spring constant. It is important to remember that both <m>m</m> and <m>k</m> are positive constants and <m>b \geq 0</m>.</p>
+
+        <p>If <m>b = 0</m>, then the oscillator is <term>undamped</term>.<h>harmonic oscillator</h><h>damped</h> In this case,
+            <men xml:id="equation-secondorder01-harmonic">m \frac{d^2 x}{dt^2} + k x = 0.</men>
+        The characteristic equation is
+            <me>m \lambda^2 + k = 0,</me>
+        and we have eigenvalues <m>\lambda = \pm i \sqrt{k/m}</m>. Hence, the complex solution to our undamped oscillator is
+            <me>e^{i \omega t} = \cos \omega t + i \sin \omega t,</me>
+        where <m>\omega = \sqrt{k/m}</m>. Since both the real and imaginary parts of the complex solution are also solutions to <xref ref="equation-secondorder01-harmonic"/>, the general solution to the undamped harmonic oscillator is
+            <me>x(t) = c_1 \cos \omega t + c_2 \sin \omega t,</me>
+        giving us the position of the mass at time <m>t</m>. Now, of course, it is easy to determine the velocity of the mass at time <m>t</m> to be
+            <me>v(t) = x'(t) = - c_1 \omega \sin \omega t + c_2 \omega \cos \omega t.</me></p>
     </subsection>
 
     <subsection xml:id="subsection-secondorder01-important-lessons">
