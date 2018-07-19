@@ -262,41 +262,146 @@
                     <mrow>x(t) \amp = 2 \cos 3t +\frac{1}{3} \sin 3t</mrow>
                     <mrow>v(t) \amp = \cos 3t - 6 \sin 3t,</mrow>
                 </md>
-            where <m>v(t) = x'(t)</m> is the velocity of the oscillator (<xref ref="figure-secondorder01-undamped-oscillator" />). Examining the phase plane of the undamped oscillator, we find that the frequency of the oscilations is given by <m>\omega/2 \pi = 3 / 2 \pi \approx 4.712</m> (<xref ref="figure-secondorder01-undamped-oscillator-phase-plane" />).</p>
+            where <m>v(t) = x'(t)</m> is the velocity of the oscillator (<xref ref="figure-secondorder01-undamped-oscillator" />). Examining the phase plane of the undamped oscillator, we find that the period of the oscillations is given by <m>2 \pi / \omega = 2 \pi / 3 \approx 2.094</m> (<xref ref="figure-secondorder01-undamped-oscillator-phase-plane" />).</p>
         </example>
 
         <figure xml:id="figure-secondorder01-undamped-oscillator">
-
-                <image width="70%" xml:id="secondorder01-undamped-oscillator">
-                    <sageplot>
-                        t = var('t')
-                        f(t) = 2*cos(3*t) + (1/3)* sin(3*t)
-                        g(t) = cos(3*t) - 6*sin(3*t)
-                        p = plot(f(t), (t, 0, 5), ymin = 6, ymax = 6, color='blue', thickness=2, axes_labels=['$t$','$x(t), v(t)$'], legend_label='$x(t)$')
-                        p += plot(g(t), (t, 0, 5),ymin = -6, ymax = 6, color='red', thickness=2, legend_label='$v(t)$')
-                        p
-                    </sageplot>
-                </image>
-
-                <caption>Position and velocity of an undamped harmonic oscillator</caption>
-
-            </figure>
+            <image width="70%" xml:id="secondorder01-undamped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    f(t) = 2*cos(3*t) + (1/3)* sin(3*t)
+                    g(t) = cos(3*t) - 6*sin(3*t)
+                    p = plot(f(t), (t, 0, 5), ymin = 6, ymax = 6, color='blue', thickness=2, axes_labels=['$t$','$x(t), v(t)$'], legend_label='$x(t)$')
+                    p += plot(g(t), (t, 0, 5),ymin = -6, ymax = 6, color='red', thickness=2, legend_label='$v(t)$')
+                    p
+                </sageplot>
+            </image>
+            <caption>Position and velocity of an undamped harmonic oscillator</caption>
+        </figure>
 
         <figure xml:id="figure-secondorder01-undamped-oscillator-phase-plane">
+            <image width="20%" xml:id="secondorder01-undamped-oscillator-phase-plane">
+                <sageplot>
+                    t = var('t')
+                    f(t) = 2*cos(3*t) + (1/3)* sin(3*t)
+                    g(t) = cos(3*t) - 6*sin(3*t)
+                    p = parametric_plot([f(t),g(t)], (t, 0, 5), xmax = 3, xmin = -3, ymin = -7, ymax = 7, color='blue', thickness=2, axes_labels=['$x(t)$','$v(t)$'])
+                    p
+                </sageplot>
+            </image>
+            <caption>The phase plane of an undamped harmonic oscillator</caption>
+        </figure>
 
-                <image width="20%" xml:id="secondorder01-undamped-oscillator-phase-plane">
-                    <sageplot>
-                        t = var('t')
-                        f(t) = 2*cos(3*t) + (1/3)* sin(3*t)
-                        g(t) = cos(3*t) - 6*sin(3*t)
-                        p = parametric_plot([f(t),g(t)], (t, 0, 5),  xmax = 3, xmin = -3, ymin = -7, ymax = 7, color='blue', thickness=2, axes_labels=['$x(t)$','$v(t)$'])
-                        p
-                    </sageplot>
-                </image>
+        <p>If we add damping to the oscillator, the equation becomes
+            <men xml:id="equation-secondorder01-damped-oscillator">m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.</men>
+       where <m>b \gt 0</m>. The charactersitic equation of <xref ref="equation-secondorder01-damped-oscillator" /> is
+            <me>m\lambda^2 + b\lambda + k = 0</me>,
+        which has roots
+            <men xml:id="equation-secondorder01-characteristic-eq-roots">\lambda = \frac{-b \pm \sqrt{b^2 - 4mk}}{2m}.</men>
+        There are three possible types of types of motion for the oscillator depending on the nature of the roots of <xref ref="equation-secondorder01-characteristic-eq-roots" />.
+            <ul>
+                <li><p>If the damping value of <m>b</m> is small when compared to <m>4mk</m>, then <m>b^2 - 4mk \lt 0</m> and the roots of <xref ref="equation-secondorder01-characteristic-eq-roots" /> will be complex. Furthermore, the real part of each root, <m>-b/ 2m</m>, is always negative. In such a situation, we say that the oscillator is <term>under-damped</term>. <idx><h>harmonic oscillator</h><h>under-damped</h></idx></p></li>
+                <li><p>If the damping value of <m>b</m> is large , then <m>b^2 - 4mk \gt 0</m>, and we obtain distinct real negative roots for <xref ref="equation-secondorder01-characteristic-eq-roots" />. The oscillator is <term>over-damped</term>. <idx><h>harmonic oscillator</h><h>over-damped</h></idx></p></li>
+                <li><p>Finally, we say that the oscillator is <term>critically-damped</term> <idx><h>harmonic oscillator</h><h>critically-damped</h></idx> if <m>b^2 - 4mk = 0</m>.</p></li>
+            </ul></p>
 
-                <caption>The phase plane of an undamped harmonic oscillator</caption>
+        <example>
+            <title>An Under-Damped Oscillator</title>
+            <p>Suppose that an oscillator is modeled by the initial-value problem
+                <md>
+                    <mrow>\frac{d^2 x}{dt^2} + 0.4 \frac{dx}{dt} + 1.04 x \amp = 0</mrow>
+                    <mrow>x(0) \amp = 0</mrow>
+                    <mrow>x'(0) \amp = 1.</mrow>
+                </md>
+            Notice that the damping <m>b = 0.4</m> is very small compared with the spring constant <m>k = 1.04</m>. The characteristic equation of the differential equation is <m>\lambda^2 + 0.4 \lambda + 1.04 = 0</m>, which has roots <m>\lambda = -0.2 \pm i</m>. Therefore, the complex solution must be
+                <me>x(t) = e^{(-0.2 \pm i)t} = e^{-0.2t} ( \cos t + i \sin t),</me>
+            and the general solution must be
+                <me>x(t) = c_1 e^{-0.2t} \cos t + c_2 e^{-0.2t} \sin t.</me>
+            Applying the initial conditions, our solution becomes
+                <md>
+                    <mrow>x(t) \amp =  e^{-0.2t} \sin t</mrow>
+                    <mrow>v(t) \amp = x'(t) = e^{-0.2t} (\cos t - 0.2 \sin t).</mrow>
+                </md>
+                Notice that the period of the oscillations, <m>2 \pi / \omega = 2 \pi \approx 6.283</m>, does not change; however, the amplitude slowly decreases.</p>
+        </example>
 
-            </figure>
+       <figure xml:id="figure-secondorder01-under-damped-oscillator">
+            <image width="70%" xml:id="secondorder01-under-damped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    f(t) = exp(-0.2*t)*sin(t)
+                    g(t) = diff(f,t)
+                    p = plot(f(t), (t, 0, 15), ymin = 1.1, ymax = 1.1, color='blue', thickness=2, axes_labels=['$t$','$x(t), v(t)$'], legend_label='$x(t)$')
+                    p += plot(g(t), (t, 0, 15),ymin = -1.1, ymax = 1.1, color='red', thickness=2, legend_label='$v(t)$')
+                    p
+                </sageplot>
+            </image>
+            <caption>Position and velocity of an under-ddamped harmonic oscillator</caption>
+        </figure>
+
+        <figure xml:id="figure-secondorder01-under-damped-oscillator-phase-plane">
+            <image width="30%" xml:id="secondorder01-under-damped-oscillator-phase-plane">
+                <sageplot>
+                    t = var('t')
+                    f(t) = exp(-0.2*t)*sin(t)
+                    g(t) = diff(f,t)
+                    p = parametric_plot([f(t),g(t)], (t, 0, 20),  xmax = 3, xmin = -3, ymin = -1.1, ymax = 1.1, aspect_ratio = 1, color='blue', thickness=2, axes_labels=['$x(t)$','$v(t)$'])
+                    p
+                </sageplot>
+            </image>
+            <caption>The phase plane of an under-ddamped harmonic oscillator</caption>
+        </figure>
+
+        <example>
+            <title>An Over-Damped Oscillator</title>
+            <p>We can expect a different type of behavior in the case of an over-damped oscillator. For example,
+                <md>
+                    <mrow>\frac{d^2 x}{dt^2} + 4 \frac{dx}{dt} + 3 x \amp = 0</mrow>
+                    <mrow>x(0) \amp = 0</mrow>
+                    <mrow>x'(0) \amp = 1.</mrow>
+                </md>
+            The characteristic equation of this initial-value problem is
+                <me>\lambda^2 + 4 \lambda + 3 = (\lambda + 3)(\lambda + 1) = 0;</me>
+            hence, we have the general solution
+                <me>x(t) = c_1 e^{-t} + c_2 e^{-3t}.</me>
+            Applying the initial conditions, our solution is
+                <md>
+                    <mrow>x(t) \amp =  x(t) = \frac{1}{2}e^{-t} - \frac{1}{2} e^{-3t}</mrow>
+                    <mrow>v(t) \amp = x'(t) = -\frac{1}{2}e^{-t} + \frac{3}{2} e^{-3t}.</mrow>
+                </md></p>
+        </example>
+
+       <figure xml:id="figure-secondorder01-over-damped-oscillator">
+            <image width="70%" xml:id="secondorder01-over-damped-oscillator">
+                <sageplot>
+                    t = var('t')
+                    f(t) = exp(-t)/2 - exp(-3*t)/2
+                    g(t) = diff(f,t)
+                    p = plot(f(t), (t, 0, 5), ymin = 1.1, ymax = 1.1, color='blue', thickness=2, axes_labels=['$t$','$x(t), v(t)$'], legend_label='$x(t)$')
+                    p += plot(g(t), (t, 0, 5),ymin = -1.1, ymax = 1.1, color='red', thickness=2, legend_label='$v(t)$')
+                    p
+                </sageplot>
+            </image>
+            <caption>Position and velocity of an over-damped harmonic oscillator</caption>
+        </figure>
+
+        <figure xml:id="figure-secondorder01-over-damped-oscillator-phase-plane">
+            <image width="30%" xml:id="secondorder01-over-damped-oscillator-phase-plane">
+                <sageplot>
+                    t = var('t')
+                    f(t) = exp(-t)/2 - exp(-3*t)/2
+                    g(t) = diff(f,t)
+                    p = parametric_plot([f(t),g(t)], (t, 0, 20),  xmax = 3, xmin = -3, ymin = -1.1, ymax = 1.1, color='blue', aspect_ratio = 0.1, thickness=2, axes_labels=['$x(t)$','$v(t)$'])
+                    p
+                </sageplot>
+            </image>
+            <caption>The phase plane of an over-damped harmonic oscillator</caption>
+        </figure>
+
+        <example>
+            <title>A Critically-Damped Oscillator</title>
+            <p>Suppose</p>
+        </example>
 
     </subsection>
 
