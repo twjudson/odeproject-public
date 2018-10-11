@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2017 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2018 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace01" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -14,14 +14,14 @@
 
         <p>Consider the electrical circuit governed by the differential equation
             <me>L I'' + RI' + \frac{1}{C} I = E'(t).</me>
-        The function <m>E'(t)</m> can have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here.  However, the <term>Laplace transform</term><idx>Laplace transform</idx>, an integral transform, allows us to change a differential equation to an algebraic equation.</p>
+        The voltage function, <m>E'(t)</m>, might have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here. However, the <term>Laplace transform</term><idx>Laplace transform</idx>, an integral transform, gives a method of solving such equations.</p>
 
         <p>As a second example, let us consider a population of fish that is governed by exponential growth,
             <md>
                 <mrow>\frac{dP}{dt} &amp; = kP</mrow>
                 <mrow>P(0) &amp; = P_0,</mrow>
             </md>
-        and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow harvesting during the first half of the year,
+        and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow fishing during the first half of the year,
             <me>H(t)
             =
             \begin{cases}
@@ -31,7 +31,7 @@
             0 &amp; 3/2 \lt t \lt 2, \\
             &amp; \vdots
             \end{cases}</me>
-        We do not yet have the tools to analyze differential equations possessing discontinuous terms.</p>
+        It should be clear that we need tools to analyze differential equations possessing discontinuous terms.</p>
 
         <p>Given an initial-value problem
             <md>
@@ -39,7 +39,7 @@
                 <mrow>y(0) &amp; = y_0</mrow>
                 <mrow>y'(0) &amp; = y_0',</mrow>
             </md>
-        the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the  algebraic solution back into a solution of the differential equation.  Surprisingly, this method will even work when <m>g</m> is a discontinuous function, provided the discontinuities are not too bad.</p>
+        the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the algebraic solution back into a solution of the differential equation. Surprisingly, this method will even work when <m>g</m> is a discontinuous function, provided the discontinuities are not too bad.</p>
 
     </introduction>
 
@@ -48,33 +48,35 @@
 
         <p>We shall define the <term>Laplace transform</term><idx><h>Laplace transform</h><h>definition</h></idx> of a function <m>f(t)</m> by
             <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
-        provided the integral converges.</p>
+        provided the integral converges. The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.</p>
 
         <example xml:id="example-laplace01-basic-examples">
-            <p>The Laplace transform has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.
-            <ul>
+            <p><ol>
 
-                <li>Let <m>f(t) = k</m>, where <m>k</m> is a constant.  Then
-                    <me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k  \; dt = \frac{k}{s},</me>
-                for  <m>s \gt 0</m>.</li>
+                <li><p>Let <m>f(t) = k</m>, where <m>k</m> is a constant. Then
+                    <me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k \; dt = \frac{k}{s},</me>
+                for  <m>s \gt 0</m>.</p></li>
 
-                <li>For <m>f(t) = t</m>, the Laplace transform is
+                <li><p>For <m>f(t) = t</m>, the Laplace transform is
                     <me>{\mathcal L}(f)(s) = \int_0^\infty e^{-st} t \, dt = \frac{1}{s^2},</me>
-                for <m>s \gt 0</m>.</li>
+                for <m>s \gt 0</m>.</p></li>
 
-                <li>If <m>f(t) = e^{at}</m> with <m>t > 0</m>, then
+                <li><p>If <m>f(t) = e^{at}</m> with <m>t > 0</m>, then
                     <me>{\mathcal L}(f)(s) = \int_0^\infty  e^{-st} e^{at} \, dt = \int_0^\infty  e^{-(s -a)t} \, dt = \left[ - \frac{e^{-(s -a)t}}{s - a} \right]_0^\infty.</me>
                 Noting that <m>e^{-(s -a)t} \to 0</m> as <m>t \to \infty</m> for <m>s \gt a</m>, we find that
-                    <me>{\mathcal L}(e^{at}) = \frac{1}{s - a} \quad \text{for} \quad s \gt a</me></li>
+                    <me>{\mathcal L}(e^{at}) = \frac{1}{s - a}</me>
+                for <m>s \gt a</m>.</p></li>
 
-            </ul></p>
+            </ol></p>
         </example>
 
         <example>
-            <p>The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>,
-                <me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)}  \, dt,</me>
-            and the integrand is greater then one for <m>t \gt s</m>. Thus, the integral
-                <me>\int_0^\infty e^{t^2} e^{-st}  \, dt </me>
+            <p>The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <m>f(t) = e^{t^2}</m>. Then for any real number <m>s</m>, we know that
+            	<me>e^{t^2} e^{-st} = e^{t(t-s)} \gt 1</me>,
+            for <m>t \gt s</m> with <m>t \geq 0</m>; hence,
+                <me>\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)} \, dt \geq b.</me>
+            Thus, the integral
+                <me>\int_0^\infty e^{t^2} e^{-st} \, dt </me>
             does not converge.</p>
         </example>
 
