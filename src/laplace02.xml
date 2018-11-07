@@ -11,7 +11,20 @@
     <title>Solving Initial Value Problems</title>
 
     <introduction>
-        <p>Suppose that we have a harmonic oscillator with a discontinuous forcing term,
+
+        <p>There is no need for Laplace transforms when solving many initial value problems. If we consider the initial value problem
+                <md>
+                    <mrow>y''  + 7y' + 10y &amp; = 0</mrow>
+                    <mrow>y(0) &amp; = 1</mrow>
+                    <mrow>y'(0) &amp; = 1,</mrow>
+                </md>
+        the methods described in <xref ref="secondorder" /> work quite well. The characteristic polynomial of <m>y'' + 7y' + 10y = 0</m> is
+           <me>r^2 + 7r + 10 = (r + 2)(r + 5),</me>
+        and the general solution of the differential equation must be 
+            <me>y(t) = c_1 e^{-2t} + c_2 e^{-5t}.</me>
+        Applying the initial conditions, we find that the solution to our initial value problem is
+            <me>y(t) = 2 e^{-2t} - e^{-5t}.</me>
+        However, suppose that we have a harmonic oscillator with a discontinuous forcing term,
             <md>
                 <mrow>y'' + 2 y' + 5y = h(t)</mrow>
                 <mrow>y(0) = y'(0) = 0,</mrow>
@@ -23,7 +36,9 @@
             7 &amp; t \lt 5 \\
             0 &amp; t \geq 5.
             \end{cases}</me>
-        The techniques that we described in <xref ref="secondorder" /> are no longer sufficient to solve such an initial value problem.  Yet, we can easily imagine such equations arising in physics or engineering. Fortunately, Laplace transforms forms behave very nicely with respect to derivatives. We can use Laplace transforms to transform an initial value problem into an algebraic equation. Once the algebraic equation is solved, we can use the inverse transform to obtain the solution to our original initial value problem.</p>
+        None of the previous techniques that we described are sufficient to solve such an initial value problem. Yet, we can easily imagine such equations arising in physics or engineering.</p>
+
+        <p>Fortunately, Laplace transforms forms behave very nicely with respect to derivatives. We can use Laplace transforms to transform an initial value problem into an algebraic equation. Once the algebraic equation is solved, we can use the inverse transform to obtain the solution to our original initial value problem.</p>
     </introduction>
   
     <subsection xml:id="subsection-laplace02-derivatives">
@@ -77,14 +92,7 @@
                     <mrow>y(0) &amp; = 1</mrow>
                     <mrow>y'(0) &amp; = 1.</mrow>
                 </md>
-            The characteristic polynomial of <m>y''  + 7y' + 10y = 0</m> is
-               <me>r^2 + 7r + 10 = (r + 2)(r + 5),</me>
-            and the general solution of the differential equation must be 
-                <me>y(t) = c_1 e^{-2t} + c_2 e^{-5t}.</me>
-            Applying the initial conditions, we find that the solution to our initial value problem is
-                <me>y(t) = 2 e^{-2t} - e^{-5t}.</me></p>
-
-            <p>Now let us see how we can use Laplace transforms to find the solution. By <xref ref="theorem-laplace02-derivative"/> and <xref ref="theorem-laplace02-derivative-higher"/>
+            Let us see how we can use Laplace transforms to find the solution. By <xref ref="theorem-laplace02-derivative"/> and <xref ref="theorem-laplace02-derivative-higher"/>
                 <md>
                     <mrow>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)</mrow>
                     <mrow>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).</mrow>
@@ -104,8 +112,8 @@
             <p>Since the Laplace transform of <m>e^{at}</m> is <m>1/(s - a)</m>, we know that
                 <me>{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at}.</me>
             We can now solve our initial value problem,
-                <me>y(t) = 2 e^{-2t} - e^{-5t}.</me>
-            Thus, our two solutions agree.</p> 
+                <me>y(t) = 2 e^{-2t} - e^{-5t},</me>
+            and our solution agrees with the one that we found at the beginning of this section.</p> 
         </example>
 
     </subsection>
@@ -114,23 +122,18 @@
     <subsection xml:id="subsection-laplace02-discontinuous-functions">
         <title>Discontinuous Functions</title>
 
-        <p>In order for the Laplace transform to be useful in solving initial value problems, we need to be able to handle discontinuous functions. If <m>c \geq 0</m>, we define the function
+        <p>If <m>c \geq 0</m> and we define the function
             <me>u_c(t)
             =
             \begin{cases}
             0 &amp; t \lt c \\
-            1 &amp; t \geq c.
+            1 &amp; t \geq c,
             \end{cases}</me>
-        A function of this form is called a <term>step function</term><idx>step function</idx> or <term>Heaviside function</term><idx>Heaviside function</idx>, named for the British engineer Oliver Heaviside. The Laplace transform of <m>u_c</m> is given by
-            <md>
-                <mrow>{\mathcal L}(u_c(t))(s) &amp; = \int_0^\infty u_c(t) e^{-st} \, dt</mrow>
-                <mrow>&amp; = \int_0^c u_c(t) e^{-st} \, dt + \int_c^\infty u_c(t) e^{-st} \, dt</mrow>
-                <mrow>&amp; = \int_c^\infty  e^{-st} \, dt</mrow>
-                <mrow>&amp; = \frac{e^{-cs}}{s}.</mrow>
-            </md></p>
+        recall that the Laplace transform of <m>u_c</m> is given by
+            <me>{\mathcal L}(u_c(t))(s) = \int_0^\infty u_c(t) e^{-st} \, dt = \frac{e^{-cs}}{s}.</me></p>
 
         <example>
-            <p>With this new information, we can now solve initial value problems such as
+            <p>We can use this information to solve initial value problems such as
                 <md>
                     <mrow>y' + y&amp; = u_3(t)</mrow>
                     <mrow>y(0) &amp; = 1.</mrow>
@@ -143,7 +146,7 @@
                 <me>y(t) = {\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) + {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right).</me>
             The inverse Laplace transform of the first term is
                 <me>{\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) = e^{-t}.</me>
-            To compute the Laplace transform of the second term, recall from <xref ref="example-laplace01-shift"/> that if <m>{\mathcal L}(f) = F(s)</m>, then
+            To compute the inverse Laplace transform of the second term, recall from <xref ref="example-laplace01-shift"/> that if <m>{\mathcal L}(f) = F(s)</m>, then
                 <me>{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s).</me>
             Using partial fractions to obtain
                 <me>\frac{1}{s(s+1)} = \frac{1}{s} - \frac{1}{s - 1}.</me>
