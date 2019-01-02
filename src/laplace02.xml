@@ -192,9 +192,7 @@
                 5 &amp; t \lt 7 \\
                 0 &amp; t \geq 7.
                 \end{cases}</me>
-            That is, <m>h(t) = 5 (1 - u_7(t))</m>.</p>
-
-            <p>We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <m>t \lt 7</m> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <m>t = 7</m>, the table is suddenly returned to the level position.</p>
+            That is, <m>h(t) = 5 (1 - u_7(t))</m>. We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <m>t \lt 7</m> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <m>t = 7</m>, the table is suddenly returned to the level position.</p>
 
             <p>Taking the Laplace transform of both sides of <m>y'' + 2 y' + 5y = h(t)</m>, we obtain
                 <me>[s^2 Y(s) -sy(0) - y'(0)] + 2 [sY(s) - y(0)] + 5Y(s) = {\mathcal L}(h),</me>
@@ -205,44 +203,44 @@
             and
                 <me>y = {\mathcal L}^{-1} \left(  \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right).</me>
             Using partial fractions, we can rewrite the first term as
-                <me>\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.</me>
-            The inverse Laplace transform of <m>1/s</m> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,
+                <me>\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.</me></p>
+            
+            <p>The inverse Laplace transform of <m>1/s</m> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,
                 <md>
                     <mrow>\frac{s + 2}{s^2 + 2s + 5} &amp; = \frac{s + 2}{(s+ 1)^2 + 4}</mrow>
-                    <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4}  + \frac{1}{(s+ 1)^2 + 4}</mrow>
-                    <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4}  + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.</mrow>
+                    <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{(s+ 1)^2 + 4}</mrow>
+                    <mrow>&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.</mrow>
                 </md>
             Consequently,
-                <me>{\mathcal L}^{-1} \left(  \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right).</me>
+                <me>{\mathcal L}^{-1} \left( \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).</me>
             and
-                <me>{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left(  \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right).</me></p>
+                <me>{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left( \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).</me></p>
 
             <p>We can compute the inverse Laplace transform of
                 <me>\frac{5e^{-7s}}{s(s^2 + 2s + 5)}</me>
             using the Heaviside function <m>u_7(t)</m> and the inverse Laplace transform that we just calculated to obtain
-                <me>{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)}  \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me>
+                <me>{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me>
             Therefore, the solution to our original initial value problem is
                 <me>y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me></p>
+
         </example>
-        
+
+
     </subsection>
 
     <subsection xml:id="subsection-laplace02-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
+
+            <li>Using the Laplace transform including how the transform behaves, we can solve initial-value problems such as
+                <md>
+                    <mrow>a y''(t) + b y'(t) + c y(t) \amp = f(t)</mrow>
+                    <mrow>y(0) \amp = y_0</mrow>
+                    <mrow>y'(0) \amp = y'_0</mrow>
+                </md>
+            even when <m>f(t)</m> is discontinuous.</li>
         
-            <li>If <m>c \geq 0</m>, we define the <term>Heaviside function</term> to be
-                <me>u_c(t)
-                =
-                \begin{cases}
-                0 &amp; t \lt c \\
-                1 &amp; t \geq c.
-                \end{cases}</me>
-            The Laplace transform of <m>u_c</m> is 
-                <me>{\mathcal L}(u_c(t))(s) = \frac{e^{-cs}}{s}.</me></li>
-
-
             <li>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
                 <me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
             where <m>Y(s)</m> is the Laplace transform of <m>y</m>.</li>
@@ -258,6 +256,7 @@
         </ul></p>
         
     </subsection>
+
 
     <exercises xml:id="exercises-laplace02" filenamebase="laplace02">
     <title>Exercises</title>A
