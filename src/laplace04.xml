@@ -11,7 +11,7 @@
     <title>Convolution</title>
 
     <introduction>
-        <p>When solving an initial value problem using Laplace transforms, we employed the strategy of using Laplace transforms to convert the differential equation to an algebraic equation.  Once the the algebraic equation is solved, we can recover the solution to the initial value problem using the inverse Laplace transform. While our strategy is straight forward, finding an inverse Laplace tranform can be a hindrance. Often finding the inverse transform involves decomposing a complicated product into the sum for partial fractions. Fortunately, there is a product rule for inverse Laplace transforms. This product rule will allow us to quickly compute solutions of a harmonic oscillator with different forcing functions.</p>
+        <p>When solving an initial value problem using Laplace transforms, we employed the strategy of converting the differential equation to an algebraic equation. Once the the algebraic equation is solved, we can recover the solution to the initial value problem using the inverse Laplace transform. While our strategy is straight forward, finding an inverse Laplace tranform can be a hindrance. Often finding the inverse transform involves decomposing a complicated product into the sum for partial fractions. Fortunately, there is a product rule for inverse Laplace transforms. This product rule will allow us to quickly compute solutions of a harmonic oscillator with different forcing functions.</p>
     </introduction>
     
     <subsection xml:id="subsection-laplace04-convolution">
@@ -39,6 +39,7 @@
         <p>A key property of the Laplace transform is how convolution products behave.</p>
 
         <theorem xml:id="theorem-laplace04-convolution">
+            <title>Convolution Theorem</title><idx>Convolution Theorem</idx>
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions, and suppose that <m>{\mathcal L}(f)(s) = F(s)</m> and <m>{\mathcal L}(g)(s) = G(s)</m> for <m>s \geq a \gt 0</m>. Then
                     <me>F(s) G(s) = {\mathcal L}(f*g)(s)</me>
@@ -55,42 +56,48 @@
             then
                 <md>
                     <mrow>F(s) G(s) &amp; = \int_0^\infty e^{-s\xi} f(\xi) \, d\xi \int_0^\infty e^{-s\tau} g(\tau) \, d\tau</mrow>
-                    <mrow>&amp; = \int_0^\infty  g(\tau) \left(  \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau,</mrow>
+                    <mrow>&amp; = \int_0^\infty g(\tau) \left( \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau,</mrow>
                 </md>
-            where <m>\xi = t - \tau</m> is the change of variable.  Reversing the order of integration, we have
-                <me>\int_0^\infty  g(\tau) \left(  \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau = \int_0^\infty  e^{-st} \left(  \int_0^t  f(t - \tau) g(\tau) \, d\tau \right) \, dt.</me>
+            where <m>\xi = t - \tau</m> is the change of variable. Reversing the order of integration, we have
+                <me>\int_0^\infty g(\tau) \left( \int_\tau^\infty e^{-st} f(t - \tau) \, dt \right) \, d\tau = \int_0^\infty  e^{-st} \left( \int_0^t f(t - \tau) g(\tau) \, d\tau \right) \, dt.</me>
             However, this last expression is just the Laplace transform of <m>f*g</m>.</p>
         </proof>
     </subsection>
     
-    <subsection>
+    <subsection xml:id="subsection-laplace04-applying-convolution">
         <title>Applying the Convolution Theorem</title>
 
-        <p>Let us use the Convolution Theorem (<xref ref="theorem-laplace04-convolution" />) to calculate the inverse Laplace transform of
-            <me>H(s)= \frac{a}{s^2(s^2 + a^2)} = \frac{1}{s^2} \cdot \frac{a}{s^2 + a^2}.</me>
-        instead of using partial fractions. The inverse Laplace transform of <m>1/s^2</m>  is <m>t</m>, and the inverse Laplace transform of <m>a/(s^2 + a^2)</m>. is <m>\sin at</m>. Using the Convolution Theorem, the inverse Laplace transform of <m>H(s)</m> is
-            <me>h(t) = \int_0^t (t - \tau) \sin a \tau \, d \tau = \frac{at - \sin at}{a^2}.</me></p>
+        <example>
+            <p>Instead of using partial fractions, let us use the Convolution Theorem (<xref ref="theorem-laplace04-convolution" />) to calculate the inverse Laplace transform of
+                <me>H(s)= \frac{a}{s^2(s^2 + a^2)} = \frac{1}{s^2} \cdot \frac{a}{s^2 + a^2}.</me>
+            The inverse Laplace transform of <m>1/s^2</m> is <m>t</m>, and the inverse Laplace transform of <m>a/(s^2 + a^2)</m>. is <m>\sin at</m>. Using the Convolution Theorem, the inverse Laplace transform of <m>H(s)</m> is
+                <me>h(t) = \int_0^t (t - \tau) \sin a \tau \, d \tau = \frac{at - \sin at}{a^2}.</me></p>
+        </example>
 
-        <p>We can also use the Convolution Theorem to solve initial value problems. Consider the IVP
-            <md>
-                <mrow>y'' + 4y &amp; = g(t)</mrow>
-                <mrow>y(0) &amp; = 3</mrow>
-                <mrow>y'(0) &amp; = -1.</mrow>
-            </md>
-        Taking the Laplace transform of both sides of the differential equation and applying the initial conditions, we obtain
-            <me>s^2 Y(s)  - 3s + 1 + 4Y(s) = G(s),</me>
-        where <m>G(s)</m> is the Laplace transform of <m>g(t)</m>.  Solving for <m>Y(s)</m>, we have
-            <me>Y(s) = \frac{3s-1}{s^2 + 4} + \frac{G(s)}{s^2 + 4} = 3\frac{s}{s^2 + 4} - \frac{1}{2} \frac{2}{s^2 + 4} + \frac{1}{2} \frac{2}{s^2 + 4} G(s).</me>
-        The last term corresponds to the forcing term of our differential equation. Taking the inverse Laplace transform of both sides and applying the Convolution Theorem, we get
-            <me>y = 3 \cos 2t - \frac{2}{2} \sin 2t + \frac{1}{2} \int_0^t \sin 2(t - \tau) g(\tau) \, d \tau.</me></p>
+        <p>We can also use the Convolution Theorem to solve initial value problems.</p>
 
-        <p>It is possible to write a solution for the initial value problem
+        <example xml:id="example-laplace04-convolution">
+            <p>Consider the initial value problem
+                <md>
+                    <mrow>y'' + 4y &amp; = g(t)</mrow>
+                    <mrow>y(0) &amp; = 3</mrow>
+                    <mrow>y'(0) &amp; = -1.</mrow>
+                </md>
+            Taking the Laplace transform of both sides of the differential equation and applying the initial conditions, we obtain
+                <me>s^2 Y(s) - 3s + 1 + 4Y(s) = G(s),</me>
+            where <m>G(s)</m> is the Laplace transform of <m>g(t)</m>. Solving for <m>Y(s)</m>, we have
+                <me>Y(s) = \frac{3s-1}{s^2 + 4} + \frac{G(s)}{s^2 + 4} = 3\frac{s}{s^2 + 4} - \frac{1}{2} \frac{2}{s^2 + 4} + \frac{1}{2} \frac{2}{s^2 + 4} G(s).</me>
+            The last term corresponds to the forcing term of our differential equation. Taking the inverse Laplace transform of both sides and applying the Convolution Theorem, we get
+                <me>y = 3 \cos 2t - \frac{2}{2} \sin 2t + \frac{1}{2} \int_0^t \sin 2(t - \tau) g(\tau) \, d \tau.</me></p>
+        </example>
+
+        <p>Notice that we did not specify a particular forcing function in <xref ref="example-laplace04-convolution" />.  In fact, it is possible to write a solution for the initial value problem
             <md>
                 <mrow>ay'' + by' + cy &amp; = g(t)</mrow>
                 <mrow>y(0) &amp; = y_0</mrow>
                 <mrow>y'(0) &amp; = y_1</mrow>
             </md>
-        using the Convolution Theorem. Taking the Laplace transform of both sides of the differential equation and using the initial conditions, we have
+        using the Convolution Theorem without knowing what the actual forcing function <m>g(t)</m>. Taking the Laplace transform of both sides of the differential equation and using the initial conditions, we have
             <me>(as^2 + bs + c)Y(s) - (as + b)y_0 - ay_1 = G(s)</me>
         or
             <me>Y(s) = \Phi(s) + \Psi(s),</me>
@@ -112,17 +119,17 @@
         where <m>H(s) = 1/(as^2 + bs + c)</m>.  If <m>h(t)</m> is the inverse Laplace transform of <m>H(s)</m>, then
             <me>\psi(t)  = {\mathcal L}^{-1}(H(s)G(s)) = \int_0^t h(t - \tau) g(\tau) \, d\tau.</me></p>
 
-        <p>Let us consider the case where <m>G(s) = 1</m>. Consequently, <m>g(t) = \delta(t)</m> and <m>\psi(s) = H(s)</m>. This means that <m>h(t)</m> is a solution to the initial value problem
+        <p>If we consider the case where <m>G(s) = 1</m>, then <m>g(t) = \delta(t)</m> and <m>\psi(s) = H(s)</m>. This means that <m>h(t)</m> is a solution to the initial value problem
             <md>
                 <mrow>ay'' + by' + cy &amp; = \delta(t)</mrow>
                 <mrow>y(0) &amp; = y_0</mrow>
                 <mrow>y'(0) &amp; = y_1.</mrow>
             </md>
-        For this reason, <m>h(t)</m> is sometimes called the <term>impulse response</term> of the system.</p>
+        For this reason, <m>h(t)</m> is sometimes called the <term>impulse response</term><idx>impulse response</idx> of the system.</p>
 
     </subsection>
 
-    <subsection xml:id="subsection-laplace04-important-lessons">        
+    <subsection xml:id="subsection-laplace04-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -159,8 +166,109 @@
     </subsection>
 
     <exercises xml:id="exercises-laplace04" filenamebase="laplace04">
-    <title>Exercises</title>
+        <title>Exercises</title>
 
+         <exercisegroup xml:id="exercises-laplace04-convolution">
+            <title>Convolution of Two Functions</title>
+            <introduction><p>Calculate the convolution product of <m>f(t)</m> and <m>g(t)</m> in <xref ref="exercises-laplace04-convolution"/> using the definition of the convolution of two functions.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><m>f(t) = 2</m> and <m>g(t) = t</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>f(t) = t</m> and <m>g(t) = t</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>f(t) = t</m> and <m>g(t) = e^{3t}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>f(t) = t</m> and <m>g(t) = \sin t</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>f(t) = e^{2t}</m> and <m>g(t) = e^{3t}</m></p>
+                </statement>
+            </exercise>            <exercise>
+                <statement>
+                    <p><m>f(t) = e^{3t}</m> and <m>g(t) = e^{2t}</m></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
+
+        <exercisegroup xml:id="exercises-laplace04-inverse">
+            <title>Convolution and the Inverse Transform</title>
+            <introduction><p>Calculate the inverse Laplace transform of <m>F(s)</m> in <xref ref="exercises-laplace04-inverse"/> using the convolution product.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{(s - 1)(s - 3)}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{3}{s(s - 1)}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{2}{s^2(s^2 + 2)}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{s^2 + 4s - 12}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{(s - 1)(s - 3)}</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{(s - 1)(s - 3)}</m></p>
+                </statement>
+            </exercise>
+
+        </exercisegroup>
+
+        <exercisegroup xml:id="exercises-laplace04-solve-ivps">
+            <title>Solving Initial Value Problems</title>
+            <introduction><p>Solve the initial problems in <xref ref="exercises-laplace04-solve-ivps"/> using the method described in <xref ref="subsection-laplace04-applying-convolution"/>.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><m>2 y'' + y' + 2y = g(t)</m>, <m>y(0) = 0</m>, <m>y'(0) = 0</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>y'' - y' - 2y = g(t)</m>, <m>y(0) = 0</m>, <m>y'(0) = 0</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = g(t)</m>, <m>x(0) = 1</m>, <m>x'(0) = -2</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>y'' + 16y = g(t)</m>, <m>y(0) = 1</m>, <m>y'(0) = 0</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>y'' + 16y = g(t)</m>, <m>y(0) = 1</m>, <m>y'(0) = 0</m></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><m>y'' + 2y' + y = g(t)</m>, <m>y(0) = -1</m>, <m>y'(0) = 3</m></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
        <exercise>
             <statement>
                 <p>Prove that the distributive property holds for the convolution product. That is, show that <m>f*g = g*f</m>.</p>
@@ -183,8 +291,7 @@
             <statement>
                 <p>Prove that <m>0 *f = f*0 = 0</m>.</p>
             </statement>
-        </exercise>     
-
+        </exercise>
 
 </exercises>
 
