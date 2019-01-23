@@ -251,31 +251,34 @@
     <subsection xml:id="subsection-firstlook03-sage">
         <title>Plotting Direction Fields with Sage</title>
 
-        <p>The Sage interact below will help you plot direction fields for a given initial value problem. A Sage interact is a menu driven Sage applet. Simply evaluate the Sage cell. You can then change each field in the cell output to solve a particular initial value problem.</p>
+        <p>The Sage interact below will help you plot direction fields for a given initial value problem. A Sage interact is a menu driven Sage applet. All of the Sage code is <q>under the hood.</q> You can then change each field in the cell output to solve a particular initial value problem.</p>
 
-        <sage>
-            <input><![CDATA[
-                y, t = var('y,t')
-                @interact
-                def _(f = input_box(default = y^2/2 - t),
-                                    t_min = input_box(default = -1.0), 
-                                    t_max = input_box(default = 6), 
-                                    t_start = input_box(default = 1), 
-                                    y_start = input_box(default = -0.1), 
-                                    step_size = (0.1, (0.001, 1.0))):
-                    P = desolve_rk4(f,y,ics=[t_start, y_start],ivar=t,end_points=[t_min, t_max], step = step_size, thickness=3)
-                    p = line(P, thickness = 2, axes_labels = ['$t$','$y$'],)
-                    y_min = min([P[i][1]] for i in (0..len(P)-1))[0]
-                    y_max = max([P[i][1]] for i in (0..len(P)-1))[0]
-                    p += plot_slope_field(f, (t, t_min, t_max), (y, y_min, y_max), headaxislength=3, headlength=3)
-                    p += arrow(P[int(len(P)/2)], P[int(len(P)/2) + 1], width = 1, arrowsize = 8)
-                    p += point((t_start, y_start), size=60, color="red")
-                    p.show(ymin=y_min, ymax = y_max)
-                    pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(f)))]]>
-            </input>
-            <output>       
-            </output>
-        </sage>
+        <figure xml:id="figure-interactive-firstlook03-direction-fields">
+            <caption>A Sage applet for plotting direction fields</caption>
+
+            <interactive xml:id="interactive-firstlook03-direction-fields" platform="sage" width="100%" aspect="2:3">
+                <!-- Changes: gave 3 input boxes widths -->
+                <slate surface="sage">
+                    y, t = var('y,t')
+                    @interact
+                    def _(f = input_box(default = y^2/2 - t),
+                                        t_min = input_box(default = -1.0), 
+                                        t_max = input_box(default = 6), 
+                                        t_start = input_box(default = 1), 
+                                        y_start = input_box(default = -0.1), 
+                                        step_size = (0.1, (0.001, 1.0))):
+                        P = desolve_rk4(f,y,ics=[t_start, y_start],ivar=t,end_points=[t_min, t_max], step = step_size, thickness=3)
+                        p = line(P, thickness = 2, axes_labels = ['$t$','$y$'],)
+                        y_min = min([P[i][1]] for i in (0..len(P)-1))[0]
+                        y_max = max([P[i][1]] for i in (0..len(P)-1))[0]
+                        p += plot_slope_field(f, (t, t_min, t_max), (y, y_min, y_max), headaxislength=3, headlength=3)
+                        p += arrow(P[int(len(P)/2)], P[int(len(P)/2) + 1], width = 1, arrowsize = 8)
+                        p += point((t_start, y_start), size=60, color="red")
+                        p.show(ymin=y_min, ymax = y_max)
+                        pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(f)))
+                </slate>
+            </interactive>
+        </figure>
 
         <p>Of course, it is quite easy to give the interact an initial-value problem that yield unitelligible results.</p>
 
