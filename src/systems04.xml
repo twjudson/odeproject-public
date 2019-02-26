@@ -117,25 +117,27 @@
             </md>
         however, we can change the coefficients and initial value to be anything that we like.</p>
 
-        <sage>
-            <input>
-                t = var('t')
-                x = function('x')(t)
-                y = function('y')(t)
-                @interact
-                def _(f = 3*x - 4*y, g = 2*x + y,
-                      t_start = input_box(default = 0), x_start = input_box(default = 1), y_start = input_box(default = 1)):
-                    de1 = diff(x,t) == f
-                    de2 = diff(y,t) == g
-                    sol = desolve_system([de1, de2], [x,y], ics=[t_start, x_start, y_start])
-                    sol[0].show()
-                    sol[1].show()
-                    pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))
-                    pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g)))
-            </input>
-            <output>
-            </output>
-        </sage>
+        <figure xml:id="figure-interactive-systems03-linear-systems">
+            <caption>A Sage applet for solving linear systems</caption>
+                    <interactive xml:id="interactive-systems03-linear-systems" platform="sage" width="100%" aspect="2:5">
+                <slate surface="sage">
+                    t = var('t')
+                    x = function('x')(t)
+                    y = function('y')(t)
+                    @interact
+                    def _(f = 3*x - 4*y, g = 2*x + y,
+                          t_start = input_box(default = 0), x_start = input_box(default = 1), y_start = input_box(default = 1)):
+                        de1 = diff(x,t) == f
+                        de2 = diff(y,t) == g
+                        sol = desolve_system([de1, de2], [x,y], ics=[t_start, x_start, y_start])
+                        sol[0].show()
+                        sol[1].show()
+                        pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))
+                        pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g)))
+                </slate>
+            </interactive>
+        </figure>
+
 
     </subsection>
 
