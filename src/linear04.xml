@@ -594,10 +594,10 @@
             <exercise>
                 <statement>
                     <p><md>
-                        <mrow>x' &amp; = 4x + 2y</mrow>
-                        <mrow>y' &amp; = -2x - y</mrow>
-                        <mrow>x(0) &amp; = 1</mrow>
-                        <mrow>y(0) &amp; = -1</mrow>
+                        <mrow>x' &amp; = 2x - 5y</mrow>
+                        <mrow>y' &amp; = x - 2y</mrow>
+                        <mrow>x(0) &amp; = 10</mrow>
+                        <mrow>y(0) &amp; = -10</mrow>
                     </md></p>
                 </statement>
             </exercise>
@@ -605,6 +605,35 @@
 
         <exercise>
             <statement>
+                <p>Consider the linear system <m>d \mathbf x/dt = A \mathbf x</m>, where
+                    <me>A = 
+                        \begin{pmatrix}
+                        3 \amp 2 \\
+                        -3 \amp -1
+                        \end{pmatrix}.</me>
+                Suppose the initial conditions for the solution curve are <m>x(0) = 1</m> and <m>y(0) = 1</m>.  We can use the following Sage code to plot the phase portrait of this system, including a solution curve.</p>
+
+                <sage>
+                    <input>
+                        x, y, t = var('x y t') #declare the variables
+                        F = [3*x + 2*y, -3*x - y] #declare the system
+                        # normalize the vector fields so that all of the arrows are the same length
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        # plot the vector field
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x, -30, 30), (y, -30, 30), aspect_ratio = 1)
+                        # solve the system for the initial condition t = 0, x = 1, y = 1
+                        P1 = desolve_system_rk4(F, [x, y], ics=[0, 1, 1], ivar = t, end_points = 5, step = 0.01)
+                        # grab the x and y values
+                        S1 = [ [j, k] for i, j, k in P1]
+                        # plot the solution
+                        # Setting xmin, xmax, ymin, ymax will clip the window
+                        # Try plotting without doing this to see what happens
+                        p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -30, xmax = 30, ymin = -30, ymax = 30) 
+                        p
+                    </input>
+                    <output>
+                    </output>
+                </sage>
                 <p>For each of the initial value problems in <xref ref="exercises-linear04-solving-ivps"/> sketch the phase portrait and the solution curve. Do this first by hand and then check your answer using <em>Sage</em>.</p>
             </statement>
         </exercise>
