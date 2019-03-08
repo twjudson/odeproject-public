@@ -277,19 +277,129 @@
     </reading-questions>
 
     <exercises xml:id="exercises-linear05"  filenamebase="linear05">
-    <title>Exercises</title>
+        <title>Exercises</title>
 
+        <exercisegroup cols="2" xml:id="exercises-linear05-solving-linear-systems">
+            <title>Solving Linear Systems with Repeated Eigenvalues</title>
+            <introduction><p>Find the general solution of each of the linear systems in <xref ref="exercises-linear05-solving-linear-systems"/>.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 9x + 4y</mrow>
+                        <mrow>y' &amp; = -9x - 3y</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 5x + 4y</mrow>
+                        <mrow>y' &amp; = -9x - 7y</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = -x + y</mrow>
+                        <mrow>y' &amp; = -x - 3y</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 2x + y</mrow>
+                        <mrow>y' &amp; = -x</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
 
-    <exercise>
-        <statement>
-            <p>This is an exercise.</p>
-        </statement>
+        <exercisegroup cols="2" xml:id="exercises-linear05-solving-ivps">
+            <title>Solving Initial Value Problems</title>
+            <introduction><p>Solve each of the following linear systems for the given initial values in <xref ref="exercises-linear05-solving-ivps"/>.</p></introduction>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 9x + 4y</mrow>
+                        <mrow>y' &amp; = -9x - 3y</mrow>
+                        <mrow>x(0) &amp; = 2</mrow>
+                        <mrow>y(0) &amp; = -3</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 5x + 4y</mrow>
+                        <mrow>y' &amp; = -9x - 7y</mrow>
+                        <mrow>x(0) &amp; = 2</mrow>
+                        <mrow>y(0) &amp; = 1</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = -x + y</mrow>
+                        <mrow>y' &amp; = -x - 3y</mrow>
+                        <mrow>x(0) &amp; = 2</mrow>
+                        <mrow>y(0) &amp; = 2</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><md>
+                        <mrow>x' &amp; = 2x + y</mrow>
+                        <mrow>y' &amp; = -x</mrow>
+                        <mrow>x(0) &amp; = 0</mrow>
+                        <mrow>y(0) &amp; = -5</mrow>
+                    </md></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
 
-    </exercise>
+        <exercise>
+            <statement>
+                <p>Consider the linear system <m>d \mathbf x/dt = A \mathbf x</m>, where
+                    <me>A = 
+                        \begin{pmatrix}
+                        3 \amp 1 \\
+                        -4 \amp -1
+                        \end{pmatrix}.</me>
+                Suppose the initial conditions for the solution curve are <m>x(0) = -2</m> and <m>y(0) = 5</m>.  We can use the following Sage code to plot the phase portrait of this system, including a solution curve and the straight-line solution.</p>
 
+                <sage>
+                    <input>
+                        x, y, t = var('x y t') #declare the variables
+                        F = [3*x + y, -4*x - y] #declare the system
+                        # normalize the vector fields so that all of the arrows are the same length
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        # plot the vector field
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x, -20, 20), (y, -20, 20), aspect_ratio = 1)
+                        # solve the system for the initial condition t = 0, x = -2, y = 5
+                        P1 = desolve_system_rk4(F, [x, y], ics=[0, -2, 5], ivar = t, end_points = 5, step = 0.01)
+                        # grab the x and y values
+                        S1 = [ [j, k] for i, j, k in P1]
+                        # plot the solution
+                        # Setting xmin, xmax, ymin, ymax will clip the window
+                        # Try plotting without doing this to see what happens
+                        p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -20, xmax = 20, ymin = -20, ymax = 20)
+                        # plot the straightline solutions
+                        p += line([(-10, 20), (10, -20)], thickness = 2, color = "red") 
+                        p
+                    </input>
+                    <output>
+                    </output>
+                </sage>
 
+                 <p>Use Sage to graph the direction field for the system linear systems <m>d\mathbf x/dt = A \mathbf x</m> in <xref ref="exercises-linear05-solving-ivps"/>.  Plot the straight-line solutions and the solution curve for the given initial condition.</p>
+            </statement>
+        </exercise>
 
-</exercises>
+    </exercises>
 
     <subsection number="no" xml:id="subsection-linear05-sage-project">
         <title>Project</title>
