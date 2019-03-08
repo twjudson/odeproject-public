@@ -464,14 +464,117 @@
     </reading-questions>
 
     <exercises xml:id="exercises-linear03"  filenamebase="linear03">
-    <title>Exercises</title>
+        <title>Exercises</title>
 
 
-    <exercise>
-        <statement>
-            <p>Determine a computable condition that guarantees that, if a <m>2 \times 2</m> matrix <m>A</m> has complex eigenvalues, then the solutions of <m>{\mathbf x}' = A{\mathbf x}</m> travel around the origin in a counterclockwise direction.</p>  
-        </statement>
-    </exercise>
+        <exercisegroup cols="2" xml:id="exercises-linear03-solving-linear-systems">
+            <title>Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues</title>
+            <introduction><p>For each of the linear systems <m>d\mathbf x/dt = A \mathbf x</m> in <xref ref="exercises-linear03-solving-linear-systems"/>
+                <ol>
+                    <li>Find the eigenvalues of <m>A</m>.</li>
+                    <li>What is the dominant eigenvalue?</li>
+                    <li>Find the eigenvectors for each eigenvalue of <m>A</m>.</li>
+                    <li>What are the straight-line solutions of <m>d\mathbf x/dt = A \mathbf x</m>?</li>
+                    <li>Describe the nature of the equilibrium solution at <m>\mathbf 0</m>.</li>
+                    <li>Sketch the phase plane and several solution curves.</li>
+                </ol></p></introduction>
+            <exercise>
+                <statement>
+                    <p><me>A
+                        =
+                        \begin{pmatrix}
+                        -1 \amp 2 \\
+                        -6 \amp 6
+                        \end{pmatrix}
+                    </me></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><me>A
+                        =
+                        \begin{pmatrix}
+                        -12 \amp 30 \\
+                        -5 \amp 13
+                        \end{pmatrix}
+                    </me></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><me>A
+                        =
+                        \begin{pmatrix}
+                        -9 \amp -2 \\
+                        10 \amp 0
+                        \end{pmatrix}
+                    </me></p>
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <p><me>A
+                        =
+                        \begin{pmatrix}
+                        11 \amp 8 \\
+                        -12 \amp -9
+                        \end{pmatrix}
+                    </me></p>
+                </statement>
+            </exercise>
+        </exercisegroup>
+
+        <exercise>
+            <statement>
+                <p>Solve each linear systems <m>d\mathbf x/dt = A \mathbf x</m> in <xref ref="exercises-linear03-solving-linear-systems"/> for the initial condition <m>\mathbf x(0) = (2,2)</m>.</p>
+            </statement>
+        </exercise>
+
+        <exercise>
+            <statement>
+
+                <p>Consider the linear system <m>d \mathbf x/dt = A \mathbf x</m>, where
+                    <me>A = 
+                        \begin{pmatrix}
+                        3 \amp 2 \\
+                        3 \amp -2
+                        \end{pmatrix}.</me>
+                Suppose the initial conditions for the solution curve are <m>x(0) = 1</m> and <m>y(0) = 1</m>.  We can use the following Sage code to plot the phase portrait of this system, including the straightline solutions and a solution curve.</p>
+
+                <sage>
+                    <input>
+                        x, y, t = var('x y t') #declare the variables
+                        F = [3*x + 2*y, 3*x - 2*y] #declare the system
+                        # normalize the vector fields so that all of the arrows are the same length
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        # plot the vector field
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x, -4, 4), (y, -4, 4), aspect_ratio = 1)
+                        # solve the system for the initial condition t = 0, x = 1, y = 1
+                        P1 = desolve_system_rk4(F, [x, y], ics=[0, 1, 1], ivar = t, end_points = 5, step = 0.01)
+                        # grab the x and y values
+                        S1 = [ [j, k] for i, j, k in P1]
+                        # plot the solution
+                        # Setting xmin, xmax, ymin, ymax will clip the window
+                        # Try plotting without doing this to see what happens
+                        p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -4, xmax = 4, ymin = -4, ymax = 4) 
+                        # plot the straightline solutions
+                        p += line([(-4, -2), (4, 2)], thickness = 2, color = "red") 
+                        p += line([(-4/3, 4), (4/3, -4)], thickness = 2, color = "red")
+                        p
+                    </input>
+                    <output>
+                    </output>
+                </sage>
+                <p>Use Sage to graph the direction field for the system linear systems <m>d\mathbf x/dt = A \mathbf x</m> in <xref ref="exercises-linear03-solving-linear-systems"/>.  Plot a solution curve for the initial condition <m>\mathbf x(0) = (2,2)</m>.  Be sure to show the corresponding straight-line solutions on your graph.</p>
+
+                <sage>
+                    <input>
+                    </input>
+                    <output>
+                    </output>
+                </sage>
+            </statement>
+        </exercise>
 
 </exercises>
 
