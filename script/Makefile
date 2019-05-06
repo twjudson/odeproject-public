@@ -157,8 +157,8 @@ electronic:
 	cp -a $(SRC)/images $(PDFOUT)
 	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-latex.xsl $(XSL)/odeproject-electronic.xsl $(MBUSR)
 	cd $(PDFOUT); \
-	xsltproc -stringparam whitespace flexible --xinclude $(MBUSR)/odeproject-electronic.xsl $(SRC)/odeproject.xml; \
-	$(ENGINE) odeproject.tex; makeindex odeproject; $(ENGINE) odeproject.tex; \
+	xsltproc -o odeproject.tex --xinclude $(MBUSR)/odeproject-electronic.xsl $(SRC)/odeproject.xml; \
+	$(ENGINE) odeproject.tex; $(ENGINE) odeproject.tex; \
 	mv odeproject.pdf odeproject-electronic.pdf
 
 # View PDF from correct directory
@@ -179,8 +179,8 @@ print:
 	cp -a $(SRC)/images $(PDFOUT)
 	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-latex.xsl $(XSL)/odeproject-print.xsl $(MBUSR)
 	cd $(PDFOUT); \
-	xsltproc --xinclude $(MBUSR)/odeproject-print.xsl $(SRC)/odeproject.xml; \
-	$(ENGINE) odeproject.tex; makeindex odeproject; $(ENGINE) odeproject.tex; \
+	xsltproc -o odeproject.tex --xinclude $(MBUSR)/odeproject-print.xsl $(SRC)/odeproject.xml; \
+	$(ENGINE) odeproject.tex; $(ENGINE) odeproject.tex; \
 	mv odeproject.pdf odeproject-print.pdf
 
 # View PDF from correct directory
