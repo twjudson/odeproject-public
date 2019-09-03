@@ -153,12 +153,13 @@
                 <sageplot>
                     H,L,t = var('H L t')
                     F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
-                    P1 = desolve_system_rk4(F,[H,L],ics=[0,0.5,2.5],ivar=t,end_points=10,step=0.01)
-                    S1 =[ [j, k] for i,j,k in P1]
-                    p = line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
-                    p += arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
+                    P1=desolve_system_rk4(F,[H,L],ics=[0,0.5,2.5],ivar=t,end_points=10,step=0.01)
+                    S1=[ [j, k] for i,j,k in P1]
+                    LP1=line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
+                    P1_arrow = arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
                     n = sqrt(F[0]^2 + F[1]^2)
-                    p += plot_vector_field((F[0]/n, F[1]/n), (H,0,9), (L,0,3))
+                    v = plot_vector_field((F[0]/n, F[1]/n), (H,0,9), (L,0,3), aspect_ratio=2.5)
+                    p = LP1 + P1_arrow + v
                     p
                 </sageplot>
             </image>

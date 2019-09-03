@@ -176,27 +176,6 @@
             </md>
         The initial conditions are used to determine <m>{\mathbf f}_0</m>, which is the tangent vector to the graph of the solution <m>\mathbf x(t)</m> in the <m>xy</m>-plane (<xref ref="figure-systems03-duffings-equation-phase-plane" />). We can move in the direction of this tangent vector for time <m>h</m> in order to find the next point <m>{\mathbf x}_1</m>. We then calculate a new tangent vector <m>{\mathbf f}_1</m> and then move along this new vector for a time step <m>h</m> to find <m>{\mathbf x}_2</m>. We can repeat this technique to generate an approximate solution curve in the phase plane.</p>
 
-<!--TodoRedo this plot with asymptote.-->
-
-        <figure xml:id="figure-systems03-euler">
-            <image width="60%" xml:id="systems03-euler">
-                <description>a curve in three dimensions</description>
-                <sageplot>
-                    x,y,t=var('x y t')
-                    t_start = 0
-                    x_start = 1
-                    y_start = 0
-                    step_size = 1
-                    f = t + x - y
-                    g = t - x + y^2
-                    sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 2,algorithm="none")
-                    p = line(sol, color="red", thickness=2)
-                    p
-                </sageplot>
-            </image>
-            <caption>A solution curve for Duffing's equation</caption>
-        </figure>
-    
         <example>
             <title>Numerical Solutions for Duffing's Equation</title>
 
@@ -353,7 +332,26 @@
             </table>
 
 
-            <p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve (<xref ref="figure-systems03-euler" />).</p>
+            <p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve in three dimensions (<xref ref="figure-systems03-euler" />).</p>
+
+            <figure xml:id="figure-systems03-euler">
+                <image width="60%" xml:id="systems03-euler">
+                    <description>a curve in three dimensions</description>
+                    <sageplot>
+                        x,y,t=var('x y t')
+                        t_start = 0
+                        x_start = 1
+                        y_start = 0
+                        step_size = 1
+                        f = t + x - y
+                        g = t - x + y^2
+                        sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 2,algorithm="none")
+                        p = line(sol, color="red", thickness=2)
+                        p
+                    </sageplot>
+                </image>
+                <caption>A solution curve for Duffing's equation</caption>
+            </figure>
 
         </example>
 
@@ -498,8 +496,8 @@
 
             <li>Many systems of equations cannot be solved analytically. However, we can use numerical techniques such as <em>Euler's Method</em> to find approximate solutions for the system.  Given the system
                 <md>
-                    <mrow>\frac{dx}{dt} &amp; = f(x, y)</mrow>
-                    <mrow>\frac{dy}{dt} &amp; = g(x, y),</mrow>
+                    <mrow>\frac{dx}{dt} &amp; = f(t, x, y)</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = g(t, x, y),</mrow>
                 </md>
             with initial condition <m>(x_0, y_0)</m> and step size <m>h</m>, we can approximate a solution to the system by
                 <md>
