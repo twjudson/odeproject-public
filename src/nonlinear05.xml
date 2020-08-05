@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="nonlinear05" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Projects</title>
+
+    <introduction>
+        <p>Projects go here.</p>
+    </introduction>
+    
+    <subsection xml:id="nonlinear05-subsection-nervous-system">
+        <title>Project<mdash />Modeling the Nervous System</title>
+    
+            <p>Hodgkin and Huxley developed a model for the firing of nerve cells in the 1950s. The model was a system of four differential equations that described the electrochemical transmission of neuronal signals along cell membranes in giant squid. The system itself was very difficult to analyze due to its highly nonlinear nature, but it did earn the two scientists a Nobel Prize for medicine in 1963 (the year after Watson and Crick won their prize).</p>
+
+            <p>Fitzhugh and Nagumo managed to simplify the Hodgkin-Huxley model to two equations
+                <md>
+                    <mrow>x' \amp = y + x - x^3/ 3 + I</mrow>
+                    <mrow>y' \amp = -x + a - by,</mrow>
+                </md>
+            where <m>a</m> and <m>b</m> are constants satisfying a certain condition and <m>I</m> is a parameter. In these equations, <m>x</m> represents the excitability of the system and <m>y</m> represents a combination of other forces that return the system to rest. Similar models have been constructed to model the systolic and diastolic movements of the heart.</p>
+
+            <p>We will now consider the system
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = x + y - x^3</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -0.5 x,</mrow>
+                </md>
+            which has been used to study nerve cells and is similar to the Fitzhugh-Nagumo model. The <m>x</m>-nullcline for this system is <m>y = -x + x^3</m>. The <m>x</m>-component of the direction field above this nullcline is positive. Below the nullcline the <m>x</m>-component of the direction field is negative.</p>
+
+            <p>The <m>y</m>-nullcline of the system is the <m>y</m>-axis. To the right of the <m>y</m>-nullcline, we have <m>dy/dt \lt 0</m>, and <m>dy/dt \gt 0</m> to the left of the <m>y</m>-nullcline. Thus, the <m>x</m> and <m>y</m>-nullclines divide the plane into four regions and all solutions must circulate in a clockwise manner about the origin (<xref ref="nonlinear05-figure-modeling-nerve-cells" />).</p>
+            
+            <figure xml:id="nonlinear05-figure-modeling-nerve-cells">
+                <image width="60%" xml:id="nonlinear01-modeling-nerve-cells">
+                    <description>a direction field of slope arrows with two solution curves approaching a stable closed orbit</description>
+                    <sageplot>
+                        x, y, t = var('x y t')
+                        F = [x + y - x^3, -0.5*x]
+                        P = desolve_system_rk4(F,[x, y],ics=[0,-1.9,1.7],ivar=t,end_points=25,step=0.01)
+                        Q = [[j,k] for i,j,k in P]
+                        p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2, aspect_ratio=1)
+                        p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+                        P1 = desolve_system_rk4(F,[x, y],ics=[0,0.2,0.2],ivar=t,end_points=25,step=0.01)
+                        Q1 = [[j,k] for i,j,k in P1]
+                        p += line(Q1, axes_labels=['$x(t)$','$y(t)$'], thickness=2,color="red")
+                        p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        F_unit = [F[0]/n, F[1]/n]
+                        p += plot_vector_field(F_unit, (x, -2, 2), (y, -2,2))
+                        p
+                    </sageplot>
+                </image>
+                <caption>Modeling nerve cells</caption>
+            </figure>
+            
+            <p>The origin is the only equilibrium solution of the system; hence, we can examine the linearization 
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = x + y</mrow>
+                    <mrow>\frac{dy}{dt} \amp = -0.5 x,</mrow>
+                </md>
+            to determine the nature of the equilibrium solution. Since the eigenvalues of this linear system are <m>(1 \pm i)/2</m>, we can conclude that the origin is a spiral source. A solution that passes close to the origin tends to spiral outward; however, solutions that are far from the origin spiral inward. We shall later see that we must have a closed periodic solution to this system by the Poincaré-Bendixson Theorem.</p>
+    
+    </subsection>
+
+   <subsection xml:id="nonlinear05-subsection-tuned-mass-damper">
+        <title>Project<mdash />Tuned-Mass Dampers</title>
+        
+         <p>The 60-story, 790-foot mirror-glass John Hancock Tower, New England's tallest building, was completed in 1976 and was designed by Henry N. Cobb, who founded the firm Pei Cobb Freed &amp; Partners with famed architect I.M. Pei. (<xref ref="nonlinear05-figure-john-hancock-tower" />).<fn>The John Hancock Tower is now officially known by its street address, 200 Clarendon Street.</fn> The building suffered many problems during construction, the most notorious of which was how the original glass windows were attached. In early 1972 when construction was still underway, one of the 500-pound windows popped out of the building and committed suicide on the sidewalk below. In all, more than 100 of the building's windows suffered the same fate. Fortunately, no one was injured. Initially, the architects and engineers thought that the problem was caused by the building's tendancy to sway excessively in high winds. However, they later determined that the falling-window problem was caused by the air space between the double-paned windows and pressure differentials between the interior and exterior of the building. The problem was solved by replacing all of the windows  with single sheets of fully tempered glass. During the repairs, the windows were replaced with plywood, and the building was nicknamed the <q>Plywood Palace.</q></p>
+
+        <figure xml:id="nonlinear05-figure-john-hancock-tower">
+            <caption>The John Hancock Tower</caption>
+            <image width="80%" source="images/john-hancock-tower.jpg">
+                <description>a photo of the John Hancock Tower in Boston</description>
+            </image>
+        </figure>
+
+        <p>Another flaw  in the design of the building resulted in an extreme amount of swaying. In fact, office workers in the upper stories of the building complained of motion sickness. The building actually twisted as it was swaying back and forth. Engineers determined that the building's natural sway period was dangerously close to the period of its torsion. To remedy the problem, the engineers installed a pair of tuned mass dampeners on the 58th floor of the building. This is the floor of concrete that you see near the top of the structure (<xref ref="nonlinear05-figure-john-hancock-tower" />). In addition, 1,500 tons of steel braces were installed to keep the building from falling over in a high wind.</p>
+
+
+        <p>To construct a simple model of a tuned-mass damper, we will consider a mass-spring system connected to a fixed wall. The mass is allowed to slide freely with no damping. We can think of this mass as the top of the building moving back and forth.  To this first mass, we attach a second mass by using a spring and a dashpot. This second mass is called the <term>tuned mass-damper</term>. If we <q>tune</q> the  mass-damper by choosing the appropriate spring, we can remove energy from the system and the motion of the first mass (the building) will decrease.</p>
+
+        <p>We will first model our system without a dashpot. If we let <m>L_1</m> and <m>L_2</m> be the natural lengths of the  springs, the first spring will exert a force <m>-k_1(x_1 - L_1)</m>. The second spring pushes the two masses in opposite directions according to <m>\pm k_2(x_2 - x_1 - L_2)</m>. Thus, we can use Newton's second law to derive two equations
+            <mdn>
+                <mrow xml:id="nonlinear05-equation-tuned-mass-damper-1">m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                <mrow xml:id="nonlinear05-equation-tuned-mass-damper-2">m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+            </mdn>
+        If we let
+            <md>
+                <mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
+                <mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
+            </md>
+        be the momenta of the two masses, we can rewrite this system as a system of four first-order linear equations,
+            <md>
+                <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+            </md>
+        If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
+            <me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}(x_1 - L_1)^2 + \frac{k_2}{L}(x_2 - x_1 - L_2)^2.</me>
+        Indeed, it is easy to check that
+            <md>
+                <mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
+                <mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
+                <mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
+                <mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
+            </md>
+        We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
+            <md>
+                <mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
+                <mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
+            </md>
+        for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
+
+        <p>Now suppose that we add a damping term to our system,
+            <me>\pm b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right) = \pm b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</me>
+        Then equations<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-1" /> and <xref ref="nonlinear05-equation-tuned-mass-damper-2" /> become
+            <md>
+                <mrow>m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)  + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                <mrow>m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2) - b \left( \frac{p_2}{m_2} - \frac{p_1}{m_1} \right),</mrow>
+            </md>
+        and our new first-order system is
+            <md>
+                <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
+            </md>
+        Indeed,
+            <men xml:id="nonlinear05-equation-tuned-mass-damper-3">\frac{dH}{dt} = - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)^2 = - b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right)^2.</men></p>
+
+        <p>Equation<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-3" /> tells us that <m>dH/dt \leq 0</m>.  Moreover, <m>dH/dt \lt 0</m> whenever the distance between the two masses is changing. Thus, energy decreases whenever the second mass is moving relative to the first.  Thus, if the wind or an earthquake starts our building (<m>m_1</m>) swaying back and forth, then the tuned mass-damper (<m>m_2</m>) located on one of the top floors of the building will start to move relative to the building and energy will be removed from the system by the dampers.</p>
+
+        <p>Of course, <m>m_1</m> and <m>k_1</m> involve the building and are set by the architects and engineers. We, however, are free to choose <m>m_2</m>, <m>k_2</m> and <m>b</m>. We want to choose <m>b</m> fairly large so that there is a rapid loss of energy; i.e., the magnitude of <m>dH/dt</m> is large.  We should choose <m>m_2</m> large enough so that this mass oscillates with respect to <m>m_1</m>. If we choose <m>m_2</m> two small, then the strong damper will almost serve as a rigid connection between <m>m_1</m> and <m>m_2</m>. Therefore, we wish to choose <m>m_2</m> to be large so that we guaranteed that this mass will oscillate with respect to  <m>m_1</m>.  We should, however, remember that <m>m_2</m> is sitting on top of a very tall building. Finally, we should choose <m>k_2</m> to maximize the rate at which the second mass oscillates with respect to the first and to maximize the oscillations of <m>m_2</m>. If we choose <m>k_2</m> so that the second spring is in resonance with the first, the oscillations of the first mass force the second at its resonance frequency. Thus, we will have relatively large oscillations of the second mass and a large loss of energy.</p>
+
+        <p>Let us consider example.  Suppose that <m>m_1 = 1</m>, <m>k_1 = 1</m>,   We will also choose <m>m_2</m> to be 0.05 and <m>b = 0.1</m>.  If the initial conditions for our system are
+            <md>
+                <mrow>x_1(0) &amp; = 10</mrow>
+                <mrow>x_2(0) &amp; = 0</mrow>
+                <mrow>p_1(0) &amp; = 0</mrow>
+                <mrow>p_2(0) &amp; = 0,</mrow>
+            </md>
+        we will choose <m>k_2</m> to tune our system. To do this we will plot the time <m>t</m> that it takes for the amplitude of the oscillations of <m>m_1</m> to reach and stay below 2.5 for various values of <m>k_2</m>.<fn>See Figure 5.42 in Paul Blanchard, Robert L. Devaney, and Glen R. Hall. <em>Differential Equations</em>, Second edition. Brooks/Cole, Pacific Grove, CA, 2002, p.~499.</fn>  If we choose <m>k_2 \approx 0.05</m>, then we can  minimize the time to be <m>t \approx 120</m>.</p>
+        
+    </subsection>
+
+
+    <subsection xml:id="nonlinear05-subsection-lorenz-equation">
+        <title>Project<mdash />The Lorenz Equations</title>
+    
+        <subsubsection>
+            <title>The Lorenz Equations</title>
+
+            <p>In 1963, an MIT professor, Edward N. Lorenz, published a paper on his research in meteorology. Using differential equations, Lorenz had developed a simplified system to model certain weather-related phenomena.  When he analyzed the system, however, he found that the trajectories of the solutions were incredibly convoluted and effectively unpredictable for certain parameters. The <term>Lorenz equations</term><idx>Lorenz equations</idx> can be written as 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -\sigma x + \sigma y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = \rho x - y - xz</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\beta z + xy,</mrow>
+                </md>
+            where <m>\sigma</m>, <m>\rho</m>, and <m>\beta</m> are constants. The Existence and Uniqueness Theorem for systems of differential equations guarantees a unique solution for each set of initial conditions, 
+                <md>
+                    <mrow>x(0) &amp; = x_0</mrow>
+                    <mrow>y(0) &amp; = y_0</mrow>
+                    <mrow>z(0) &amp; = z_0.</mrow>
+                </md>
+            However, Lorenz discovered that the trajectories of the solutions were incredibly convoluted and effectively unpredictable for certain parameters. For certain values of <m>\sigma</m>, <m>\rho</m>, and <m>\beta</m>, the trajectories are  extremely sensitive to initial conditions. Since real data always has some inherent uncertainty, initial values are never precisely known, and we may have little success modeling real world phenomena. In addition, solutions can stay in a bounded region of the three dimensional version of the phase plane and wind through the region along an incredibly convoluted path. There is much more freedom to move around in three dimensions than there is in two.</p>
+
+            <p>Lorenz noticed that the system behaved strangely, when he let <m>\sigma =10</m>, <m>\rho = 28</m>, and <m>\beta = 8/3</m>.  Thus, our system 
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = -10 x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28 x - y - xz</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\frac{8}{3} z + xy,</mrow>
+                </md>
+            defines a vector field in <m>{\mathbb R}^3</m>,
+                <me>{\mathbf F}(x, y, z) 
+                =
+                \left(
+                -10 x + 10 y,
+                28 x - y - xz,
+                -\frac{8}{3} z + xy
+                \right),</me>
+            and the equilibrium solutions occur exactly when this vector field is zero. That is, <m>(x,y,z)</m> is an equilibrium solution if
+                <me>{\mathbf F}(x, y, z) 
+                =
+                \left(
+                -10 x + 10 y,
+                28 x - y - xz,
+                -\frac{8}{3} z + xy
+                \right)
+                =
+                (0, 0, 0).</me>
+            It is easy to check that <m>(0, 0, 0)</m>, <m>(6\sqrt{2}, 6\sqrt{2}, 27)</m>, and <m>(-6\sqrt{2}, -6\sqrt{2}, 27)</m> are the equilibrium solutions to the Lorenz system for the parameters that we have chosen. With the exception of these equilibrium solutions it is probably impossible to find solutions for the system, so we will have to use a numerical algorithm to approximate solutions (<xref ref="nonlinear05-figure-lorenz-1" />).</p>
+
+            <figure xml:id="nonlinear05-figure-lorenz-1">
+                <caption>The solution curves for Lorenz equations with nearly equal initial conditions.</caption>
+                <image width="60%" source="images/lorenz-1.png">
+                    <description>solution curves for the Lorenz equations plotted against time with nearly equal initial conditions</description>
+                </image>
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection>
+            <title>The Equilibrium Solutions</title>
+
+            <p>If we wish to understand the nature of the equilibrium solutions of the Lorenz system, it makes sense to linearize the system. The Jacobian matrix of the Lorenz system is
+                <me>J(x, y, z)
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                28 - z &amp; -1 &amp; -x \\
+                y &amp; x &amp; -8/3
+                \end{pmatrix}.</me>
+            At the origin, the Jacobian is
+                <me>J
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                28 &amp; -1 &amp; 0 \\
+                0 &amp; 0 &amp; -8/3
+                \end{pmatrix}.</me>
+            Thus, the linear system that approximates the Lorenz system at the origin is
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = - 10x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28x - y</mrow>
+                    <mrow>\frac{dz}{dt} &amp; = -\frac{8}{3} z.</mrow>
+                </md>
+            This system decouples into two systems,
+                <md>
+                    <mrow>\frac{dx}{dt} &amp; = - 10x + 10 y</mrow>
+                    <mrow>\frac{dy}{dt} &amp; = 28x - y,</mrow>
+                </md>
+            and 
+                <me>\frac{dz}{dt} = -\frac{8}{3} z.</me>
+            Consequently, the origin is a sink in the <m>z</m>-direction and a saddle in the <m>xy</m>-plane.</p>
+
+            <p>Now let us consider what happens at the other two equilibrium solutions. For the equilibrium point <m>(6\sqrt{2}, 6\sqrt{2}, 27)</m>, we have the Jacobian matrix
+                <me>J 
+                =
+                \begin{pmatrix}
+                -10 &amp; 10 &amp; 0 \\
+                1 &amp; -1 &amp; -6 \sqrt{2} \\
+                6 \sqrt{2} &amp; 6\sqrt{2} &amp; - 8/3
+                \end{pmatrix}.</me>
+            The eigenvalues of this matrix are
+                <md>
+                    <mrow>\lambda_1 &amp; \approx -13.8</mrow>
+                    <mrow>\lambda_2 &amp; \approx 0.094 + 10.2i</mrow>
+                    <mrow>\lambda_3 &amp; \approx 0.094 - 10.2i.</mrow>
+                </md>
+            Therefore, this equilibrium point is a spiral saddle that has a line of solutions that tend toward the equilibrium point as <m>t</m> increases and a plane of solutions that spiral towards the equilibrium point as <m>t</m> decreases. That is, solutions approach this equilibrium point along the direction of the eigenvalue of the negative eigenvector, then spiral slowly away along the plane corresponding to the complex eigenvalues. Similarly, the equilibrium solution <m>(-6\sqrt{2}, -6\sqrt{2}, 27)</m> is a spiral saddle.</p>
+
+            <p>Now that we have some idea of how the solutions of the Lorenz system behave near the equilibrium solutions, we can start to understand global behavior of the system. A trajectory approaches one of the two equilibrium solutions <m>(\pm 6\sqrt{2}, \pm 6\sqrt{2}, 27)</m> along the straight line corresponding to the negative eigenvalue.  When the trajectory gets close enough to the equilibrium solutions, it begins to spiral away. When the spiral is large enough, the trajectory come under the influence of the saddle at the origin and either returns to repeat it previous pattern or moves over to the other equilibrium solution (<xref ref="nonlinear05-figure-lorenz-2" />).</p>
+
+            <figure xml:id="nonlinear05-figure-lorenz-2">
+                <caption>Solutions in <m>\mathbb R^3</m>.</caption>
+                <image width="60%" source="images/lorenz-2.png">
+                    <description>a solution curve for the Lorenz equations plotted plotted in three dimensions</description>
+                </image>
+            </figure>
+
+            <exercise>
+                <statement>
+                    <p>Consider the Lorenz system
+                        <md>
+                            <mrow>x' &amp; = -a x + ay</mrow>
+                            <mrow>y' &amp; = rx -y -xz</mrow>
+                            <mrow>z' &amp; = -bz + xy.</mrow>
+                        </md>
+                    In this exercise, we shall show that the solutions of the system are bounded.
+                        <ol>
+
+                            <li>If
+                                <me>V(x, y, z) = rx^2 +ay^2 + a(z - 2r)^2,</me>
+                            Show that
+                                <me>\dot{V} = -2a [rx^2 + y^2 + b(z - r)^2 - br^2].</me></li>
+
+                            <li>It is true that <m>(z - r)^2 \geq (z - 2r)^2 - r^2</m>.  Assuming this, show that
+                                <me>rx^2 + y^2 + b(z - r)^2 \geq mV - br^2,</me>
+                            where <m>m</m> is the smallest of the three numbers 1, <m>1/a</m>, and <m>b/2a</m>.</li>
+
+                            <li>Use parts (1) and (2) to show that
+                                <me>\dot{V} \leq -2maV + 4abr^2.</me></li>
+
+                            <li>Use part (3) to show that <m>\dot{V} \leq -2abr^2 \lt 0</m> everywhere outside of the ellipsoid
+                                <me>R = \left\{  (x, y, z) | V(x, y, z) \leq 3br^2/m \}\right\}.</me></li>
+
+                            <li>Use part (4) to show that the ellipsoid is invariant, and that every solution curve ends up inside of <m>R</m>.</li>
+
+                        </ol></p>  
+                </statement>
+
+            </exercise>
+
+        </subsubsection>
+    
+    </subsection>
+
+</section>
+

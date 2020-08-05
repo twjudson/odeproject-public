@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of the book                                 -->
+<!--                                                               -->
+<!--    Ordinary Differential Equations Project                    -->
+<!--                                                               -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
+<!-- See the file COPYING for copying conditions.                  -->
+
+<section xml:id="secondorder05" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Projects for Second-Order Differential Equations</title>
+
+    <subsection number="no" xml:id="secondorder05-subsection-circuit-tuner-project">
+        <title>Project<mdash />Tuning a Circuit</title>
+
+        <introduction>
+        	<p>Differential equations prove exceptional at modeling electrical circuits.<fn>This project is from Brian Winkel (2016), <q>4-060-S-CircuitTuner,</q> <url href="https://www.simiode.org/resources/2848" />.</fn> In 
+	        <xref ref="secondorder01-subsection-rlc-circuit" />, we modeled a simple RLC circuit, which is fundamental to larger circuit building. We found that circuits with the three of the most fundamental electrical objects, resistors, capacitors, and inductors, can be modeled by constant coefficient, linear, second order differential equations. Consider the circuit in <xref ref="secondorder01-figure-rlc-circuit" />. We found that the circuit can be modeled by 
+	            <men xml:id="secondorder05-equation-rlc">L I'' + RI' + \frac{1}{C} I = E'(t),</men>
+	        where <m>I(t)</m> is the current flowing through the circuit, <m>E(t)</m> is the impressed voltage, <m>R</m> is the resistance <m>R</m>, and <m>C</m> is the capacitance.  Of course we will also need to know <m>I(0)</m> and <m>I'(0)</m> if we wich to formulate an initial value problem.  Notice that <xref ref="secondorder05-equation-rlc" /> is very similar to the spring-mass model developed in <xref ref="systems01-subsection-spring-mass" />,
+	            <me>mx'' + bx' + kx = f(t),</me>
+	        where <m>m</m> is the mass, <m>b</m> is the damping coefficient, and <m>k</m> is the spring constant (<xref ref="secondorder05-table-rlc-spring-mass" />).</p>
+
+	        <table xml:id="secondorder05-table-rlc-spring-mass">
+	            <tabular halign="center" top="medium">
+	                <row bottom="medium">
+	                    <cell>Spring-Mass Model</cell><cell>RLC Circuit</cell>
+	                </row>
+	                    <row>
+	                        <cell>mass <m>m</m></cell><cell>inductance <m>L</m></cell>
+	                    </row>
+	                    <row>
+	                        <cell>damping <m>b</m></cell><cell>resistance <m>R</m></cell>
+	                    </row>
+	                    <row>
+	                        <cell>spring constant <m>k</m></cell><cell>inverse of capacitance <m>1/C</m></cell>
+	                    </row>
+	                    <row bottom="medium">
+	                        <cell>forcing function <m>f(t)</m></cell><cell>derivative of induced voltage <m>E'(t)</m></cell>
+	                    </row>
+	            </tabular>
+	            <title>Comparison of terms between spring-mass and RLC circuit differential equations</title>
+	        </table>
+
+	    </introduction>
+
+	    <subsubsection>
+	    	<title>Simple RLC Circuit Model, Solution, and Interpretation</title>
+
+	        <p>We now examine a circuit in which a current is present and does not have a driving <m>E(t)</m>, expecting things to dampen out, in this case current to run out. Let us consider an RLC circuit as depicted in <xref ref="secondorder01-figure-rlc-circuit" /> in which we have an initial current, <m>I(0) = 3.2</m> amps with a resistance of <m>R = 7</m> ohms, an inductance of <m>L = 1</m> henry, and a capacitance of <m>C = 0.1</m> farads. Since we have some current in the circuit already <m>I(0) = 3.2</m> at the start we shall not need an inducing <m>E(t)</m>, so <m>E(t) = 0</m>. Let us see what happens to the current in the circuit by solving the appropriate RLC circuit differential equation
+	            <me>1 \cdot I'' + 7I' + \frac{1}{0.1} I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.</me>
+	        Of course, this initial value problem might be easier analyze in the form,
+	            <men xml:id="secondorder05-equation-example-rlc">I'' + 7I' + 10 I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.</men></p>
+
+	        <activity>
+	            <task>
+	                <statement>
+	                    <p>Solve the RLC circuit differential equation <xref ref="secondorder05-equation-example-rlc" /> for <m>I(t)</m>.  If you use Sage to solve this equation, remember that <c>I</c> is the reserved symbol for <m>i</m>, the square root of <m>-1</m>.</p>
+	                </statement>
+	            </task>   
+	            <task>
+	                <statement>
+	                    <p>Consider the values of <m>R</m> to be <m>0.007</m>, <m>0.07</m>, <m>0.7</m>, <m>7</m>, <m>70</m>, and then <m>700</m>, and solve <xref ref="secondorder05-equation-example-rlc" /> in each case, keeping all other values the same.  Plot the solutions for the current in the circuit over the time interval <m>[0, 25]</m> s with a vertical plot interval <m>[−3, 3]</m> in each case. Identify each plot with its associated <m>R</m> value and describe what is happening to the current, <m>I(t)</m>, in each corresponding circuit over time, <m>t</m>.</p>
+	                </statement>
+
+	            </task>   
+
+	            <sage>
+	                <input>
+	                t = var('t')  
+	                x = function('x')(t)  
+	                R = 7
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p = plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "blue", legend_label='$R = 7$', legend_color='blue')
+	                R = 70
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p += plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "green", legend_label='$R = 70$', legend_color='green')
+	                R = 700
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p += plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "cyan", legend_label='$R = 700$', legend_color='cyan')
+	                R = 0.7
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p += plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "red", legend_label='$R = 0.7$', legend_color='red')
+	                R = 0.07
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p += plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "magenta", legend_label='$R = 0.07$', legend_color='magenta')
+	                R = 0.007
+	                DE = diff(x,t,2)+ R*diff(x,t) + 10*x == 0
+	                sol = desolve(DE, [x,t], ics=[0, 3.2, 0])
+	                p += plot(sol, (t, 0, 25), ymin = -3, ymax = 3, color = "orange", legend_label='$R = 0.07$', legend_color='orange')
+	                p
+	                </input>
+	                <output>
+	                </output>
+	            </sage>
+
+	        </activity>
+
+
+	        <p>Let us consider the differential <xref ref="secondorder05-equation-forced-rlc" /> for an RLC circuit with driving voltage <m>E(t) = \sin( \omega t)</m> (current <m>I(t) = y(t)</m>),
+	            <men xml:id="secondorder05-equation-forced-rlc">L y'' + Ry' + \frac{1}{C} y = \omega \cos(\omega t).</men>
+	        We can use Sage to solve this equation.</p>
+
+	        <sage>
+	            <input>
+	            <![CDATA[t =var('t');
+	            y = function('y')(t); 
+	            L = var('L'); assume(L < 0)
+	            R = var('R'); assume(R > 5)
+	            C = var('C'); assume(C > 5)
+	            assume(C*R^2 + 4*R^2 - 4*L - 400 >0) 
+	            omega = var('omega'); assume(omega > 0)
+	            DE = L*diff(y,t,2) + R*diff(y,t) + y/C == omega*cos(omega*t)
+	            sol = desolve(DE, y, ivar = t, ics=[0, 0, 0])
+	            sol.show()]]>
+	            </input>
+	            <output>
+	            </output>
+	        </sage>
+
+	        <p>The solution is pretty long, but notice that is the transient solution that approaches zero as <m>t \to \infty</m> and then there is the steady state solution,
+	            <men xml:id="secondorder05-equation-steady-state">y_{\text{steady state}} = \frac{C^{2} R \omega^{2} \sin\left(\omega t\right) - {\left(C^{2} L \omega^{3} - C \omega\right)} \cos\left(\omega t\right)}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}.</men></p>
+
+	         <p>We would like to study <term>gain</term>, the ratio of the amplitude of the steady state output voltage, <m>V_{\text{out}}</m> to the amplitude of the input voltage, <m>V_{\text{in}}</m>, or <m>V_{\text{out}} / V_{\text{in}}</m>. We measure <m>V_{\text{out}}</m> as the amplitude of the steady state voltage across the resistance <m>R</m> in the circuit or
+	         	<me>V_{\text{out}} = R \cdot \text{Amplitude}(y_{\text{steady state}}(t)).</me>
+	         In our case <m>V_{\text{in}}</m> is just 1 for <m>E(t) = \sin( \omega t)</m>.</p>
+
+         </subsubsection>
+
+         <subsubsection>
+         	<title>Trigonometry Pause and Phase Angle</title>
+
+         	<p>The initial value problem
+         		<me>ay'' + by' + cy = 0, \quad y(0) = y_0, \quad y'(0) = 0</me>
+         	has the following solution when the discriminant <m>b^2 - 4ac \lt 0</m>,
+         		<mdn>
+         			<mrow xml:id="secondorder05-equation-trig-phase-angle">y(t) \amp = A e^{-bt/2a} \sin\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) + Be^{-bt/2a} \cos\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right)</mrow>
+         			<mrow>\amp = e^{-bt/2a} \left( A  \sin\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) + B \cos\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) \right).</mrow>
+         		</mdn>
+         	If we let <m>\omega = \sqrt{4ac - b^2}/2a</m>, then <xref ref="secondorder05-equation-trig-phase-angle" /> simplifies to
+         		<men xml:id="secondorder05-equation-trig-phase-angle-omega">y(t) = e^{-bt/2a} (A \sin(\omega t) + B \cos(\omega t)).</men></p>
+
+         	<p>We wish to combine the sine and cosine terms in <xref ref="secondorder05-equation-trig-phase-angle-omega" /> into one sine function with a phase angle. We can do this because of the trigonometric identity,
+         		<me>\sin(\alpha + \beta) = \sin \alpha \cos \beta + \sin \beta \cos \alpha.</me>
+         	Letting <m>\alpha = \omega t</m> and <m>\beta = \theta</m>, we have
+         		<md>
+         			<mrow>A \sin(\omega t) + B \cos(\omega t) \amp = \sqrt{A^2 + B^2} \left( \frac{A}{\sqrt{A^2 + B^2}} \sin(\omega t) + \frac{B}{\sqrt{A^2 + B^2}} \cos(\omega t)\right)</mrow>
+         			<mrow>\amp = \sqrt{A^2 + B^2}(\cos \theta \sin(\omega t) + \sin \theta\cos(\omega t))</mrow>
+         			<mrow>\amp = \sqrt{A^2 + B^2} \sin(\omega t + \theta)</mrow>
+         		</md>
+         	where <m>\theta = \arctan(B/A)</m> (<xref ref="secondorder05-figure-trig-triangle" />).  The angle <m>\theta</m> is called the <term>phase shift</term>.</p>
+
+	        <figure xml:id="secondorder05-figure-trig-triangle">
+
+	            <!-- Replaced figure with tikz figure - TWJ 6/11/2010 -->
+	            <image width="50%" xml:id="secondorder05-trig-triangle">
+	                <description>a triangle with legs A and B and hypotenuse square root of A squared plus B squared.  The angle between the leg A and the hypotenuse is theta</description>
+	                <latex-image>
+	                    <xi:include href="tikz/secondorder05-trig-triangle.tex" parse="text"/>
+	                </latex-image>
+	            </image>
+
+	            <caption>A triangle diagram that is used in obtaining a single phase shifted solution from the sum of sine and cosine terms in solution</caption>
+	        </figure>
+
+	        <p>The differential equation
+	        	<me>y'' + 6y' + 25y = 0, \quad y(0) = 1, \quad y'(0) = 0</me>
+	        has solution
+	        	<men xml:id="secondorder05-equation-pahse-shift-example">y(t) = \frac{1}{4} e^{-3t} (3 \sin(4t) + 4 \cos(4t)).</men>
+	        The phase shifted form of <xref ref="secondorder05-equation-pahse-shift-example" /> is
+	        	<md>
+	        		<mrow>y(t) \amp = \frac{5}{4} e^{-3t} \sin\left( 4t + \arctan\left( \frac{4}{3} \right) \right)</mrow>
+	        		<mrow>\amp = \frac{5}{4} e^{-3t} \sin\left( 4 \left( t + \frac{(\arctan(4/3)}{4} \right) \right)</mrow>
+	        		<mrow>\amp = \frac{5}{4} e^{-3t} \sin(4 ( t + 0.231824 ) ),</mrow>
+	        	</md>
+	        where <m>\omega =4</m> and <m>\theta = \arctan(4/3) = 0.231824</m> radians.</p>
+
+	        <figure xml:id="secondorder05-figure-phase-shift">
+
+	            <image width="100%" xml:id="secondorder05-phase-shift">
+	                <sageplot><![CDATA[
+	                    t = var('t')
+						p = plot(sin(4*t), (t, 0,2), legend_label='$\sin(4t)$', thickness=3, legend_color='blue', axes_labels=['$t$', '$y$'])
+						p += plot(3 *sin(4*t) + 4 *cos(4*t), (t, 0,2), color="red", thickness=3, legend_label='$3\sin(4t) + 4 \cos(4t)$', legend_color='red')
+						p += line([[3*pi/8,-6], [3*pi/8,6]], color="black")
+						p += line([[3*pi/8-0.231824,-6], [3*pi/8-0.231824,6]], color="black")
+						p += arrow((3*pi/8-0.231824,4), (3*pi/8,4), width=1, arrowsize=2, color="black")
+						p += arrow((3*pi/8,4), (3*pi/8-0.231824,4), width=1, arrowsize=2, color="black")
+						p += text("$0.231824$",(1.065,3.5), color="black")                    
+						p]]>
+	                </sageplot>
+	                <description>a plot of the undamped oscillating portion 3 sin(4t) + 4 cos(4t) and the simple frequency curve sin(omega t)</description>
+	            </image>
+
+	            <caption>A plot of the oscillating portion (not damped), <m>3 \sin(4t) + 4 \cos(4t)</m>, of the solution <xref ref="secondorder05-equation-trig-phase-angle-omega" /> with its simple frequency curve <m>\sin(\omega t)</m>. Notice the phase angle here of <m>0.2318</m> radians from bottom to bottom illustrating what we mean by out of phase by a phase angle of <m>0.2318</m> radians.</caption>
+
+	        </figure>
+
+	        <activity>
+	            <task xml:id="secondorder05-activity-phase-shift-1">
+	                <statement>
+	                    <p>Solve the initial value problem
+	                    	<me>y'' + 10y' + 29y = 0, \quad y(0) = 1, \quad y'(0) = 0</me></p>
+	                </statement>
+	            </task>   
+	            <task xml:id="secondorder05-activity-phase-shift-2">
+	                <statement>
+	                    <p>Convert the solution to phase angle format and compute the phase angle <m>\theta</m> in radians.</p>
+	                </statement>
+	            </task>  
+	           	<task>
+	                <statement>
+	                    <p>Plot both solutions in <xref ref="secondorder05-activity-phase-shift-1" /> and <xref ref="secondorder05-activity-phase-shift-2" /> on the same axis over the interval <m>[0,2]</m> to confirm your analysis. What should you see?</p>
+	                </statement>
+	            </task>  
+
+	      	</activity>
+
+        </subsubsection>
+
+         <subsubsection>
+         	<title>Back to the Circuit</title>
+
+         	<p>In our study of phase angle representation in the previous section we saw that the <m>\sin(\omega t)</m> and <m>\cos(\omega t)</m> terms of <xref ref="secondorder05-equation-steady-state" />  can be combined into one sine term (albeit with a phase angle) with one amplitude,
+         		<men xml:id="secondorder05-equation-amplitude-steady-state">\text{Amplitude}(y_{\text{steady state}}) = R \sqrt{\frac{C^{2} \omega^{2}}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}}.</men>
+         	Thus, our gain (recall, gain is the ratio of the amplitude of the steady state output voltage, <m>V_{\text{out}}</m>, to the amplitude of the input voltage, <m>V_{\text{in}}</m>) is
+         		<me>\text{gain} = R \sqrt{\frac{C^{2} \omega^{2}}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}}.</me>
+         	Here, <m>V_{\text{in}} = 1</m> for <m>E(t) = \sin(\omega t)</m> and has amplitude <m>1</m>, which is a function of <m>R</m>, <m>L</m>, <m>C</m>, and <m>\omega</m>. Gain is a measure of the response of the circuit to input voltage <m>E(t)</m>, which in this case is <m>E(t) = \sin(\omega t)</m>.</p>
+
+         	<p>Let us fix <m>R</m> at <m>1</m> ohm and <m>L</m> at <m>1</m> henry and see what gain is in this case as a function of <m>C</m> over a range of <m>\omega</m> values. Let us <q>tune</q> this circuit by changing <m>C</m>, the size of the capacitance in the circuit and see how gain changes as input voltage frequency, <m>\omega</m>, changes.</p>
+
+	        <figure xml:id="secondorder05-figure-gain">
+
+	            <image width="100%" xml:id="secondorder05-gain">
+	                <sageplot><![CDATA[
+						omega = var('omega')
+						R = 1
+						L = 1
+						C = 0.0005
+						gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
+						p = plot(gain(omega), (omega, 0,50), legend_label='$C = 0.0005$', legend_color='blue', axes_labels=['input frequency - $\omega$', 'gain'])
+						C = 0.005
+						gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
+						p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.005$', legend_color='green', color='green')
+						C = 0.05
+						gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
+						p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.05$', legend_color='magenta', color='magenta')
+						C = 0.5
+						gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
+						p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.5$', legend_color='red', color='red')                   
+						p]]>
+	                </sageplot>
+	                <description>plots of the gain with peaks at </description>
+	            </image>
+
+	            <caption>Plot of gain as a function of input frequency, <m>\omega</m>, for various values of capacitance, <m>C = 0.5</m>, <m>0.05</m>, <m>0.005</m>, <m>0.0005</m> farads in with <m>R = 1</m> ohm and <m>L = 1</m> henry.</caption>
+
+	        </figure>
+
+	        <p><xref ref="secondorder05-figure-gain" /> illustrates the power of differential equation modeling. For we can alter parameters in our equation and see the results in a physical (in this case electrical) system. Indeed, we see in this plot that for a capacitance of <m>C = 0.0005</m> farads if we have an input voltage with a frequency around <m>\omega = 45</m> (<m>44.7214</m> to be precise) then the gain is greatest. Optimization is a calculus problem and we merely have to take the derivative of gain with respect to ω and find where it is <m>0</m>. All other frequencies give smaller gain for this particular capacitance. In fact, we can say that as we decrease our capacitance the optimal frequency; i.e., frequency which gives highest gain, decreases and we might want to look into this for a more exact relationship. We shall do that in <xref ref="secondorder05-activity-maximum-gain" />.</p>
+
+	        <p>Put another way, we see that if our input voltage has a specific frequency, <m>\omega</m>, there is a unique capacitance, <m>C</m>, for this circuit that will maximize our gain. By changing <m>C</m> we can tune our circuit to maximize gain for a given input frequency, <m>\omega</m>. This is, in fact, how we tune a radio, for we change the capacitance of the radio's circuit so as to maximize the gain for the frequency (on our dial) that we wish to hear. So, the next time you try to find the station where Cousin Brucie is dedicating a Top Ten song from <q>Billie Bob</q> to <q>Sally May</q> know that a differential equation describes exactly what you are doing. How's that for cool?</p>
+
+	       	<activity xml:id="secondorder05-activity-maximum-gain">
+ 
+	            <task>
+	                <statement>
+	                    <p>Use your understanding of RLC circuits to show for an imposed <m>E(t) = \sin(\omega t)</m> on the RLC circuit given by
+	                    	<me>L y'' + Ry' + \frac{1}{C} y = \omega \cos(\omega t), \quad y(0) = 0, \quad y'(0) = 0</me>
+	                    the maximum gain is obtained when <m>\omega = 1/\sqrt{LC}</m> and thus we could tune our radio by changing the inductance <m>L</m> as well, if that were as convenient as changing the capacitance, which it is not. So let us stick to tuning by changing the capacitance <m>C</m>.</p>
+	                </statement>
+	            </task>  
+
+	      	</activity>
+
+	        <activity xml:id="secondorder05-activity-circuit-tune">
+	        	<title>Tune the Radio</title>
+
+	        	<introduction>
+	        		<p>The Amplitude Modulated (AM) radio carrier frequencies are in the frequency range 535<ndash />1605 kHz. One Hz means <m>1</m> cycle per second while kHz means <m>1,{}000</m> cycles per second. The unit Hz is called a hertz. Carrier frequencies of 540 to 1600 kHz are assigned at 10 kHz intervals. The (Frequency Modulated (FM) radio band is from 88 to 108 MHz.<fn>HyperPhysics. 2009. AM and FM Radio Frequencies. <url href="http://hyperphysics.phy-astr.gsu.edu/hbase/audio/radio.html" /> Accessed 18 September 2016.</fn> Recall 1 kHz means 1,000 cycles per second. So 660 kHz is oscillation at the rate of 660,000 cycles per second. We offer up a <q>radio</q>,
+	        			<men xml:id="secondorder05-equation-radio">L \frac{dI^2}{dt^2} + R \frac{dI}{dt} + \frac{1}{C} I = E'(t),</men>
+					where <m>E(t) = \sin(\omega t)</m>, and ask you to tune in several stations by changing the capacitance and computing the optimal gain for these stations.</p>
+
+					<p>We will have to tell the circuit what initial current is present; i.e., <m>I(0) = 0</m> usually until we turn the switch on and also we can presume there is no change in the current intially; i.e., <m>I'(t) = 0</m>. Let us build this radio with the following values: <m>E(t) = \sin(\omega t)</m>, <m>L = 0.033</m> henrys, <m>R = 100</m> ohms, and <m>C</m> in farads can vary as needed to tune to various input frequencies <m>\omega</m>. We note that if we wish to have, say 540 kHz, then <m>\omega = 540{,}000 \cdot 2\pi</m>, and in general to have x kHz we will need <m>\omega = x \cdot 1000 \cdot 2\pi</m>.</p>
+	        	</introduction>
+
+	            <task>
+	                <statement>
+	                    <p>Solve the differential equation <xref ref="secondorder05-equation-radio" /> for the radio circuit.</p>
+	                </statement>
+	            </task>   
+	            <task>
+	                <statement>
+	                    <p>Collect the coefficients <m>A</m> and <m>B</m> of the steady state <m>\sin(\omega t)</m> and <m>\cos(\omega t)</m> terms, respectively.  Show that all other terms will dissipate, i.e. go to zero quickly, leaving only <m>\sin(\omega t)</m> and <m>\cos(\omega t)</m> terms.</p>
+	                </statement>
+	            </task>  
+	           	<task xml:id="secondorder05-activity-circuit-tune-1">
+	                <statement>
+	                    <p>Using the information above compute the gain as a function of capacitance <m>C</m> and input voltage frequency <m>\omega</m>.</p>
+	                </statement>
+	            </task>  
+	           	<task>
+	                <statement>
+	                    <p>For a given input voltage frequency <m>\omega</m> determine the maximum gain for this circuit.</p>
+	                </statement>
+	            </task>	            
+	           	<task>
+	                <statement>
+	                    <p>For several AM frequencies, say 540 kHz (<m>\omega = 540000 \cdot 2 \cdot \pi</m>), 880 kHz  (<m>\omega = 880000 \cdot 2 \cdot \pi</m>), and 1520 kHz (<m>\omega = 1520000 \cdot 2 \cdot \pi</m>), plot gain as a function of the capacitance <m>C</m> to demonstrate that your maximum gain is what your formula in <xref ref="secondorder05-activity-circuit-tune-1" /> predicts and that your radio is tuned in.</p>
+	                </statement>
+	            </task>
+	        </activity>
+
+
+         </subsubsection>
+
+
+    </subsection>
+
+
+    <subsection number="no" xml:id="secondorder05-subsection-mass-rubberband-project">
+        <title>Project<mdash />Hanging Mass and Rubberband</title>
+
+        <subsubsection xml:id="secondorder05-subsection-history-tacoma-narrows">
+            <title>The History of the Tacoma Narrows Bridge</title>
+
+            <p>On July 1, 1940, the Tacoma Narrows Bridge was completed and opened to traffic (<xref ref="secondorder05-figure-tacoma-narrows-bridge" />). From the first day of operation, the bridge experienced vertical oscillations of several feet. The bridge received the nickname <q>Galloping Gertie</q> for its wild behavior. On the morning of November 7, the bridge began undulating up and down with motions as large as three feet. Later, the bridge began to experience torsional oscillations as large as 23 degrees. The bridge finally came crashing down at 11:10 a.m. For a long time, the collapse of the Tacoma Narrows Bridge was attributed to resonance. However, we shall soon see the the story is more complicated.</p>
+
+            <figure xml:id="figure-secondorder05-tacoma-narrows-bridge">
+                <caption>The Tacoma Narrows Bridge</caption>
+                <image width="80%" source="images/tacoma-narrows-bridge.png">
+                    <description>a photo of the original Tacoma Narrows bridge</description>
+                </image>
+            </figure>
+
+            <p>Construction on first Tacoma Narrows Bridge, A.K.A. <q>Galloping Gertie</q>, was completed on July 1, 1940, the bridge was opened to traffic (<xref ref="secondorder05-figure-tacoma-narrows-bridge" />). Even on the first day of operation, people driving bridge experienced vertical oscillations of several feet. On the morning of November 7, these vertical oscillations were as large as three feet. Later that morning, the bridge began to experience torsional oscillations as great as 23 degrees. The bridge failed castrophically at 11:10 a.m. with the center span falling into Puget Sound below.</p>
+            
+            <figure xml:id="secondorder05-figure-tacoma-narrows-bridge">
+                <image width="80%" source="images/Tacoma_Narrows_Bridge_2017.jpg">
+                    <description>a photo of the second and third Tacoma Narrows bridges</description>
+                </image>
+                <caption>The Tacoma Narrows Bridge (2017)</caption>
+            </figure>
+            
+            <p>There are many interesting stories connected with the first Tacoma Narrows bridge. One of the insurance policies had been written by a local travel agent who pocketed the premium and failed to report the $800,000 policy to his company. During sentencing at his trial, he pointed out that bridge officials had planned to cancel all policies in one more week after which his crime would have never been discovered. After the collapse of the Tacoma Narrows bridge, the governor of the State of Washington announced, <q>We are going to build the exact same bridge, exactly as before.</q> Theodore Von Kármán, director of the Guggenheim Aeronautical Laboratory at the California Institute of Technology and a member of the board of inquiry into the collapse,<fn>The Jet Propulsion Laboratory, managed by the California Institute of Technology for the National Aeronautics and Space Administration grew out of the Guggenheim Aeronautical Laboratory.</fn> sent a telegram to the governor stating, <q>If you build the exact same bridge exactly as before, it will fall into the exact same river exactly as before.</q></p>
+        </subsubsection>
+
+        <subsubsection xml:id="secondorder05-subsection-design-tacoma-narrows">
+            <title>The Design of the Narrows Bridge</title>
+
+            <p>The Tacoma Narrows bridge is a suspension bridge like the Golden Gate bridge. The road bed of the suspension bridge was hung from vertical cables attached to other cables strung between the two towers. If we think of the cables as long springs, it is tempting to model the oscillations of the road bed with an harmonic oscillator, and one's first guess as to the reason for the collapse of the bridge would be resonance.</p>
+
+            <p>However, the answer may not be so simple. If the collapse of the bridge was due to resonance, the forcing frequency of a forced harmonic oscillator must be close to its natural frequency, but the wind (the forcing) simply does not behave like this. One explanation might be the fact that cables are not true springs. They act more like rubber bands. Imagine a mass suspended by both a spring and a rubber band. The rubber band acts like a spring when it is stretched, but there is no restoring force if the oscillator is in a compressed position (<xref ref="secondorder05-figure-spring-rubber-band" />).<fn>For the arguments for and against resonance, consult the references at the end of this section.</fn></p>
+
+            <figure xml:id="secondorder05-figure-spring-rubber-band">
+                <image xml:id="secondorder05-spring-rubber-band">
+                    <description>a mass hanging from a beam by both a spring and a rubber band</description>
+                    <latex-image>
+                        <xi:include href="tikz/secondorder05-spring-rubber-band.tex" parse="text"/>
+                    </latex-image>   
+                </image>
+                <caption>A spring-rubber band system</caption>
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection xml:id="secondorder05-subsection-spring-rubberband">
+            <title>The Spring-Rubber Band Model</title>
+
+            <p>Suppose that <m>y(t)</m> is vertical displacement of the mass the spring-rubber band model (<xref ref="secondorder05-figure-spring-rubber-band" />), where the displacement is positive in the downward direction and negative in the upward direction. We will also assume that we have a damped system. If this is the case, we can model the motion of the mass with the differential equation
+                <men xml:id="secondorder05-equation-spring-rubber-band-1">my'' = - b y' - k_1 y - k_2 y^+ + F(t),</men>
+            where <m>y^+ = \max(y, 0)</m>.  Here,  <m>m</m> is the mass, <m>b</m> is the damping coefficient, <m>k_1</m> is the spring constant, and <m>F(t)</m> is the forcing term. The term <m>k_2 y^+</m> corresponds to the rubber band in our system and can be explained as follows:
+                <me>y^+(t) =
+                \begin{cases}
+                y(t), &amp; \text{the rubber band is stretched}, \\
+                0,    &amp; \text{the rubber band is slack or tight but not stretched}.
+                \end{cases}</me>
+            Thus, the rubber band acts as a spring with spring coefficient <m>k_2</m>, if the rubber band is stretched, but has no effect on the system if the rubber band is slack. Of course, the term <m>my''</m> is just an application of Newton's Second law of Motion.</p>
+
+            <p>We can rewrite equation<nbsp /><xref ref="secondorder05-equation-spring-rubber-band-1" /> in the more familiar form
+                <men xml:id="secondorder05-equation-spring-rubber-band-2">my'' + b y' + k_1 y +  k_2 y^+ = F(t),</men>
+            Our first observation is that this equation is a nonlinear due to the <m>y^+</m> term. This may effect how sensitive the system is to initial conditions. A linear harmonic oscillator is not sensitive to initial conditions. For example, suppose we consider the harmonic oscillator
+                <me>y'' + 2 y' + 2y = \sin t</me>
+            and examine the behavior of the solutions for different initial conditions. In <xref ref="secondorder05-figure-tacoma-solutions-1" />, we give the solutions for <m>y(0) = 0</m> with <m>y'(0) = -4</m>, <m>y'(0) = 1</m>, and <m>y'(0) = 3</m>. Even though the transient part of the solution can differ a great deal depending on the initial conditions, all of the solutions eventually approach the steady-state solution.</p>
+
+            <figure xml:id="secondorder05-figure-tacoma-solutions-1">
+                <caption>Solutions of <m>y'' + 2 y' + 2y = \sin t</m></caption>
+                <image width="80%" source="images/tacoma-solutions-1.png">
+                    <description>solutions to a forced harmonic oscillator with different initial conditions and all converging to the same oscillating curve for large times</description>
+                </image>
+            </figure>
+
+            <p>Let us return to our spring-rubber band model and let us assume that <m>m = 1</m>. We can rewrite equation<nbsp /><xref ref="secondorder05-equation-spring-rubber-band-2" /> as a system of first-order equations,
+                <md>
+                    <mrow>y' &amp; = v</mrow>
+                    <mrow>v' &amp; = - k_1 y  - k_2 y^+ - b v + F(t)</mrow>
+                </md>
+            or
+                <md>
+                    <mrow>x' &amp; = v</mrow>
+                    <mrow>v' &amp; = - h(y) -  b v + F(t),</mrow>
+                </md>
+            where
+                <me>h(y)
+                =
+                \begin{cases}
+                k_1 y &amp; \text{if } y \lt 0 \\
+                (k_1 + k_2) y &amp; \text{if } y \geq 0.
+                \end{cases}</me>
+            Let us assume that the forcing term is <m>F(t) = 10 + \lambda \sin \mu t</m>. If we keep <m>\lambda</m> small and assume that both <m>y(0)</m> and <m>y'(0)</m> are small, there will always be tension on the rubber band. Or in the case of the Tacoma Narrows Bridge, there will always be tension on the cables of the suspension bridge. However, a large initial velocity such as a gust of wind on the bridge, might cause the cables to go slack.</p>
+
+            <p>To see how this works in practice, we choose constants <m>\lambda = 0.1</m>, <m>\mu = 4</m>, <m>k_1 = 13</m>, <m>k_2 = 4</m>, and <m>b = 0.01</m>, the system becomes
+                <md>
+                    <mrow>y' &amp; = v</mrow>
+                    <mrow>v' &amp; = - h(y) -  0.01v + 10 + 4 \sin 0.1 t</mrow>
+                </md>
+            where
+                <me>h(y)
+                =
+                \begin{cases}
+                13 x &amp; \text{if } x \lt 0 \\
+                17 x &amp; \text{if } x \geq 0.
+                \end{cases}</me>
+            This is a nonautonomous (and nonlinear) system and can be very sensitive to initial conditions. If we find a numerical solution to this system with <m>y(0) = 0</m> and <m>v(0) = 4.764</m>, we obtain low amplitude solutions (<xref ref="secondorder05-figure-tacoma-solutions-2" />). However, we only have to change the initial velocity of the system slightly to <m>v(0) = 4.765</m> in order to obtain large amplitude solutions that do not die out over time.</p>
+
+            <figure xml:id="secondorder05-figure-tacoma-solutions-2">
+                <caption>Initial conditions <m>y(0) = 0</m> with <m>y'(0) = 4.764</m> and <m>y'(0) = 4.765</m></caption>
+                <image width="80%" source="images/tacoma-solutions-2a.png">
+                    <description>an oscillating position curve with the oscillations becoming smaller after an initial time span of large oscillations</description>
+                </image>
+                <image width="80%" source="images/tacoma-solutions-2b.png">
+                    <description>an oscillating position curve with the oscillations remaining large for all times</description>
+                </image>
+            </figure>
+
+        </subsubsection>
+
+        <subsubsection xml:id="secondorder05-subsection-bridge-model">
+            <title>The Bridge Model</title>
+
+            <p>We can now model the bridge by 
+                <me>m y'' + \alpha y' + \beta y + \gamma y^+ = -gm + F(t),</me>
+            where
+                <ul>
+
+                    <li><m>y</m> is the height of the road bed at the center of the bridge.</li>
+
+                    <li><m>m</m> is the mass of the bridge.</li>
+
+                    <li><m>\alpha y'</m> is the damping term. We assume that <m>\alpha</m> is small since suspension bridges are relatively flexible structures.</li>
+
+                    <li><m>\beta y</m> is the force provided by the material of the bridge pulling the bridge back to <m>y = 0</m>.</li>
+
+                    <li><m>\gamma y^+</m> is the force provided by the pull of the cables.</li>
+
+                    <li><m>-gm</m> is the force provided by gravity.</li>
+
+                    <li><m>F(t)</m> is the periodic force provided by the wind. Yes, wind does provide a periodic force. Just think of how a flag flutters in a wind.</li>
+
+                </ul></p>
+
+        </subsubsection>
+
+        <subsubsection xml:id="secondorder05-subsection-torsion-model">
+            <title>The Model for Torsion</title>
+
+            <p>We have still not accounted for the large torsional oscillations that occurred on November 7, 1940, the day that the Tacoma Narrows bridge collapsed. If we look down the bridge (<xref ref="secondorder05-figure-tacoma-narrows-bridge" />), we see the road bed suspended from two cables<mdash />one on each side of the road. Thus, we can view a cross-section of the bridge as a rod suspended by cables or springs on each end. The bar is free to move vertically and rotate about its center of mass.</p>
+
+            <p>If a spring with spring constant <m>k</m> is extended by a distance <m>y</m>, the potential energy is <m>ky^2/2</m>. Let <m>\theta</m> be the angle of the rod from the horizontal. If a rod of mass <m>m</m> and length <m>2l</m> rotates about its center of gravity with angular velocity <m>d\theta/dt</m>, then its kinetic energy is given by<fn>Consult your local physicist.</fn>
+                <me>\frac{1}{6} m l^2 \left( \frac{d \theta}{dt} \right)^2.</me>
+            The potential due to gravity is <m>-mgy</m>.</p>
+
+            <p>The extension of one spring is given by <m>(y - l \sin \theta)^+</m> and  <m>(y + l \sin \theta)^+</m> in the other, where <m>y^+ = \max(y,0)</m>. We are making the assumption that the cables remain vertical. Since the cables are relatively long compared to the length of the roadbed, this is a reasonable assumption.</p>
+
+            <p>The total potential energy is given by
+                <me>V = \left(\frac{k}{2}\right) \left( \left( (y - l \sin \theta)^+\right)^2 + (y + l \sin \theta)^+ \right)^2 - mgy,</me>
+            and the total kinetic energy is given by
+                <me>T = \frac{m}{2}   \left(  \frac{dy}{dt}\right)^2 + \frac{1}{6} m l^2 \left(  \frac{d \theta}{dt} \right)^2.</me>
+            Let <m>L = T - V</m> and put 
+                <me>\frac{d}{dt} \left(  \frac{\delta L}{\delta \theta'} \right) = \frac{\delta L}{\delta \theta}</me>
+            and
+                <me>\frac{d}{dt} \left(  \frac{\delta L}{\delta y'} \right) = \frac{\delta L}{\delta y}</me>
+            where <m>\delta \theta'</m> and <m>\delta y'</m> are small damping terms.  Thus, we obtain the equations
+                <md>
+                    <mrow>\frac{1}{3} m l^2 \theta'' &amp; = k l \cos \theta [(y - l \sin \theta)^+ - (y + l \sin \theta)^+]</mrow>
+                    <mrow>y'' &amp; = -k [(y - l \sin \theta)^+ + (y + l \sin \theta)^+] + mg</mrow>
+                </md>
+            Since the force exerted by the springs (cables) is not perpendicular to the rod but at an angle <m>\theta</m>, <m>\cos \theta</m> must appear in the first equation. Adding forcing and damping terms,  we have
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta'  + \frac{3k}{ml}\cos \theta [(y - l \sin \theta)^+ - (y + l \sin \theta)^+]  + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{k}{m}[(y - l \sin \theta)^+ + (y + l \sin \theta)^+] + g.</mrow>
+                </md></p>
+
+            <p>If we assume that the cables never lose tension, then
+                <md>
+                    <mrow>(y - l \sin \theta)^+ &amp; = y - l \sin \theta</mrow>
+                    <mrow>(y + l \sin \theta)^+ &amp; = y + l \sin \theta</mrow>
+                </md>
+            and we end up with the uncoupled equations
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta' - \frac{6k}{m}\cos \theta \sin \theta + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{2k}{m} y + g.</mrow>
+                </md>
+            The first equation models the torsional motion while the second models the vertical motion.</p>
+
+            <p>If the torsional oscillations are very small, then we can assume that
+                <me>\sin \theta \approx \theta \qquad \text{and} \qquad \cos \theta \approx 1,</me>
+            or
+                <md>
+                    <mrow>\theta'' &amp; = - \delta \theta'  - \frac{6k}{m}\theta + F(t)</mrow>
+                    <mrow>y'' &amp; = - \delta y' - \frac{2k}{m} y + g,</mrow>
+                </md>
+            each of which is which is linear. However, the torsional oscillations for the Narrow bridge were as large as 23 degrees. The linear model
+                <me>\theta'' = - 0.01 \theta' - (2.4) \theta + (1.2) \sin(0.06 t)</me>
+            and the nonlinear model
+                <me>\theta'' = - 0.01 \theta' - (2.4) \cos \theta \sin \theta + (1.2) \sin(0.06 t)</me>
+            behave very differently under the initial conditions <m>\theta(0) = 1.2</m> and <m>\theta'(0) = 0</m>. See <xref ref="secondorder05-figure-tacoma-linear-torsion" /> and <xref ref="secondorder05-figure-tacoma-nonlinear-torsion" /></p>
+
+            <figure xml:id="secondorder05-figure-tacoma-linear-torsion">
+                <caption>Solution of the linear model for torsion</caption>
+                <image width="60%" source="images/tacoma-linear-torsion.png">
+                    <description>oscillating position and velocity curves with the same oscillations for all values of time</description>
+                </image>
+
+            </figure>
+
+            <figure xml:id="secondorder05-figure-tacoma-nonlinear-torsion">
+                <caption>Solution of the nonlinear model for torsion</caption>
+                <image width="60%" source="images/tacoma-nonlinear-torsion.png">
+                    <description>oscillating position and velocity curves that grow large for large values of time.</description>
+                </image>
+            </figure>
+
+        </subsubsection>
+
+    </subsection>
+
+</section>
+
