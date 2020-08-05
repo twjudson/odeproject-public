@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace04" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -14,7 +14,7 @@
         <p>When solving an initial value problem using Laplace transforms, we employed the strategy of converting the differential equation to an algebraic equation. Once the the algebraic equation is solved, we can recover the solution to the initial value problem using the inverse Laplace transform. While our strategy is straight forward, finding an inverse Laplace tranform can be a hindrance. Often finding the inverse transform involves decomposing a complicated product into the sum for partial fractions. Fortunately, there is a product rule for inverse Laplace transforms. This product rule will allow us to quickly compute solutions of a harmonic oscillator with different forcing functions.</p>
     </introduction>
     
-    <subsection xml:id="subsection-laplace04-convolution">
+    <subsection xml:id="laplace04-subsection-convolution">
         <title>Convolution</title>
 
         <p>If <m>f</m> and <m>g</m> are two piecewise continuous exponentially bounded functions, then we define the <term>convolution product</term> of <m>f</m> and <m>g</m> to be
@@ -38,7 +38,7 @@
 
         <p>A key property of the Laplace transform is how convolution products behave.</p>
 
-        <theorem xml:id="theorem-laplace04-convolution">
+        <theorem xml:id="laplace04-theorem-convolution">
             <title>Convolution Theorem</title><idx>Convolution Theorem</idx>
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions, and suppose that <m>{\mathcal L}(f)(s) = F(s)</m> and <m>{\mathcal L}(g)(s) = G(s)</m> for <m>s \geq a \gt 0</m>. Then
@@ -64,11 +64,11 @@
         </proof>
     </subsection>
     
-    <subsection xml:id="subsection-laplace04-applying-convolution">
+    <subsection xml:id="laplace04-subsection-applying-convolution">
         <title>Applying the Convolution Theorem</title>
 
         <example>
-            <p>Instead of using partial fractions, let us use the Convolution Theorem (<xref ref="theorem-laplace04-convolution" />) to calculate the inverse Laplace transform of
+            <p>Instead of using partial fractions, let us use the Convolution Theorem (<xref ref="laplace04-theorem-convolution" />) to calculate the inverse Laplace transform of
                 <me>H(s)= \frac{a}{s^2(s^2 + a^2)} = \frac{1}{s^2} \cdot \frac{a}{s^2 + a^2}.</me>
             The inverse Laplace transform of <m>1/s^2</m> is <m>t</m>, and the inverse Laplace transform of <m>a/(s^2 + a^2)</m>. is <m>\sin at</m>. Using the Convolution Theorem, the inverse Laplace transform of <m>H(s)</m> is
                 <me>h(t) = \int_0^t (t - \tau) \sin a \tau \, d \tau = \frac{at - \sin at}{a^2}.</me></p>
@@ -76,7 +76,7 @@
 
         <p>We can also use the Convolution Theorem to solve initial value problems.</p>
 
-        <example xml:id="example-laplace04-convolution">
+        <example xml:id="laplace04-example-convolution">
             <p>Consider the initial value problem
                 <md>
                     <mrow>y'' + 4y &amp; = g(t)</mrow>
@@ -91,7 +91,7 @@
                 <me>y = 3 \cos 2t - \frac{2}{2} \sin 2t + \frac{1}{2} \int_0^t \sin 2(t - \tau) g(\tau) \, d \tau.</me></p>
         </example>
 
-        <p>Notice that we did not specify a particular forcing function in <xref ref="example-laplace04-convolution" />.  In fact, it is possible to write a solution for the initial value problem
+        <p>Notice that we did not specify a particular forcing function in <xref ref="laplace04-example-convolution" />.  In fact, it is possible to write a solution for the initial value problem
             <md>
                 <mrow>ay'' + by' + cy &amp; = g(t)</mrow>
                 <mrow>y(0) &amp; = y_0</mrow>
@@ -129,7 +129,7 @@
 
     </subsection>
 
-    <subsection xml:id="subsection-laplace04-important-lessons">
+    <subsection xml:id="laplace04-subsection-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -165,12 +165,12 @@
         
     </subsection>
 
-    <exercises xml:id="exercises-laplace04" filenamebase="laplace04">
+    <exercises xml:id="laplace04-exercises" filenamebase="laplace04">
         <title>Exercises</title>
 
-         <exercisegroup xml:id="exercises-laplace04-convolution">
+         <exercisegroup xml:id="laplace04-exercises-convolution">
             <title>Convolution of Two Functions</title>
-            <introduction><p>Calculate the convolution product of <m>f(t)</m> and <m>g(t)</m> in <xref ref="exercises-laplace04-convolution"/> using the definition of the convolution of two functions.</p></introduction>
+            <introduction><p>Calculate the convolution product of <m>f(t)</m> and <m>g(t)</m> in <xref ref="laplace04-exercises-convolution"/> using the definition of the convolution of two functions.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>f(t) = 2</m> and <m>g(t) = t</m></p>
@@ -199,9 +199,9 @@
             </exercise>
         </exercisegroup>
 
-        <exercisegroup xml:id="exercises-laplace04-inverse">
+        <exercisegroup xml:id="laplace04-exercises-inverse">
             <title>Convolution and the Inverse Transform</title>
-            <introduction><p>Calculate the inverse Laplace transform of <m>F(s)</m> in <xref ref="exercises-laplace04-inverse"/> using the convolution product.</p></introduction>
+            <introduction><p>Calculate the inverse Laplace transform of <m>F(s)</m> in <xref ref="laplace04-exercises-inverse"/> using the convolution product.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>F(s) = \dfrac{1}{(s - 1)(s - 3)}</m></p>
@@ -235,9 +235,9 @@
 
         </exercisegroup>
 
-        <exercisegroup xml:id="exercises-laplace04-solve-ivps">
+        <exercisegroup xml:id="laplace04-exercises-solve-ivps">
             <title>Solving Initial Value Problems</title>
-            <introduction><p>Solve the initial problems in <xref ref="exercises-laplace04-solve-ivps"/> using the method described in <xref ref="subsection-laplace04-applying-convolution"/>.</p></introduction>
+            <introduction><p>Solve the initial problems in <xref ref="laplace04-exercises-solve-ivps"/> using the method described in <xref ref="laplace04-subsection-applying-convolution"/>.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>2 y'' + y' + 2y = g(t)</m>, <m>y(0) = 0</m>, <m>y'(0) = 0</m></p>
@@ -293,7 +293,7 @@
             </statement>
         </exercise>
 
-</exercises>
+    </exercises>
 
  </section>
 

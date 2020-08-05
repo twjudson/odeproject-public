@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="systems03" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -16,15 +16,15 @@
 
     </introduction>
     
-    <subsection xml:id="subsection-sytems03-duffing">
+    <subsection xml:id="systems03-subsection-duffing">
         <title>Duffing's Equation</title>
 
-        <p>Large mobile cranes can reach up to 700 feet (<xref ref="figure-systems03-cranes" />). This is about the same height as a 50 story building. At such heights, cranes are susceptible to winds and the end of the boom can move back and forth several feet even in moderate winds. We can model the motion as a harmonic oscillator if the side-to-side motion is not too great. However, if the wind becomes too strong and the crane moves too much, gravity will become a factor and the crane may topple due to its weight.</p>
+        <p>Large mobile cranes can reach up to 700 feet (<xref ref="systems03-figure-cranes" />). This is about the same height as a 50 story building. At such heights, cranes are susceptible to winds and the end of the boom can move back and forth several feet even in moderate winds. We can model the motion as a harmonic oscillator if the side-to-side motion is not too great. However, if the wind becomes too strong and the crane moves too much, gravity will become a factor and the crane may topple due to its weight.</p>
 
-        <figure xml:id="figure-systems03-cranes">
+        <figure xml:id="systems03-figure-cranes">
             <caption>Cranes</caption>
-            <image width="60%" source="images/cranes-london.jpg" />
             <description>a photo of two construction cranes</description>
+            <image width="60%" source="images/cranes-london.jpg" />
         </figure>
     
         <p>Before we can construct a model that might best describe the swaying of a large crane, we should remind ourselves of how harmonic oscillators work (see <xref ref="firstlook01" />). A simple mass-spring system can be modeled by the equation
@@ -67,9 +67,9 @@
             </output>
         </sage>
 
-        <p>The constants <m>c_1</m> and <m>c_2</m> can be determined if we know the initial position and initial velocity of the end of the crane's boom. We show several solutions to our equation in <xref ref="figure-systems03-solutions-crane" />.</p>
+        <p>The constants <m>c_1</m> and <m>c_2</m> can be determined if we know the initial position and initial velocity of the end of the crane's boom. We show several solutions to our equation in <xref ref="systems03-figure-solutions-crane" />.</p>
 
-        <figure xml:id="figure-systems03-solutions-crane">
+        <figure xml:id="systems03-figure-solutions-crane">
             <image width="60%" xml:id="systems03-solutions-crane">
                 <description>position and velocity curves with the amplitude of the oscillations decreasing as time increases</description>
                 <sageplot>
@@ -89,28 +89,28 @@
                     P
                 </sageplot>
             </image>
-            <caption>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></caption>
+            <title>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></title>
         </figure>
 
         <p>Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <m>x(t)</m> is large, part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane and will cause the crane to bend even further. We can model this effect by setting the equation for our harmonic oscillator equal to a factor of <m>x^3</m>,
-            <men xml:id="equation-systems03-duffing">\frac{d^2 x}{dt^2}  + 0.1 \frac{dx}{dt} + 0.3 x = 0.02 x^3.</men>
+            <men xml:id="systems03-equation-duffing">\frac{d^2 x}{dt^2}  + 0.1 \frac{dx}{dt} + 0.3 x = 0.02 x^3.</men>
         When <m>x</m> is small, this forcing term will not contribute much to the motion of the building. However, when <m>x</m> is large, the term will contribute a great deal. The equation <m>x'' + 0.1 x' + 0.3 x = 0.02 x^3</m> is an example of <term>Duffing's equation</term><idx>Duffing's equation</idx>.</p>
 
-        <p>We can rewrite equation<nbsp /><xref ref="equation-systems03-duffing" /> as a system of first-order differential equations by letting <m>dx/dt = v</m>,
+        <p>We can rewrite equation<nbsp /><xref ref="systems03-equation-duffing" /> as a system of first-order differential equations by letting <m>dx/dt = v</m>,
             <mdn>
-                <mrow xml:id="equation-systems03-duffing-system-1">\frac{dx}{dt} \amp = v</mrow>
-                <mrow xml:id="equation-systems03-duffing-system-2">\frac{dv}{dt} \amp = - 0.1 v - 0.3 x + 0.02 x^3.</mrow>
+                <mrow xml:id="systems03-equation-duffing-system-1">\frac{dx}{dt} \amp = v</mrow>
+                <mrow xml:id="systems03-equation-duffing-system-2">\frac{dv}{dt} \amp = - 0.1 v - 0.3 x + 0.02 x^3.</mrow>
             </mdn>
         Thus, one of our main objectives should be finding and analyzing solutions to such a system.</p>
 
     </subsection>
 
-    <subsection xml:id="subsection-sytems03-eulers-method">
+    <subsection xml:id="systems03-subsection-eulers-method">
         <title>Euler's Method for Systems</title>
 
-        <p>The system of equations <xref ref="equation-systems03-duffing-system-1" /><ndash /><xref ref="equation-systems03-duffing-system-2" /> is nonlinear due the <m>x^3</m> term. There is little hope to finding an analytic solution to such a system. We can use software to plot the phase plane in order to learn something about the solutions (<xref ref="figure-systems03-duffings-equation-phase-plane" />). However, we still need to numerically generate solutions in order to plot the phase plane.</p>
+        <p>The system of equations <xref ref="systems03-equation-duffing-system-1" /><ndash /><xref ref="systems03-equation-duffing-system-2" /> is nonlinear due the <m>x^3</m> term. There is little hope to finding an analytic solution to such a system. We can use software to plot the phase plane in order to learn something about the solutions (<xref ref="systems03-figure-duffings-equation-phase-plane" />). However, we still need to numerically generate solutions in order to plot the phase plane.</p>
 
-        <figure xml:id="figure-systems03-duffings-equation-phase-plane">
+        <figure xml:id="systems03-figure-duffings-equation-phase-plane">
             <image width="60%" xml:id="systems03-duffings-equation-phase-plane">
                 <description>three curves on a field of slope arrows with two curves approaching an equilibrium solution at the origin and the remaining curve approaching infinity</description>
                 <sageplot>
@@ -151,7 +151,7 @@
                     p
                 </sageplot>
             </image>
-            <caption>The phase plane for Duffing's equation</caption>
+            <title>The phase plane for Duffing's equation</title>
         </figure>
 
         <p>Let us see how we might find a numerical solution for a system. Consider the system
@@ -174,7 +174,7 @@
                 <mrow>x_{k + 1} &amp; = x_k + h f(t_k, x_k, y_k)</mrow>
                 <mrow>y_{k + 1} &amp; = y_k + h g(t_k, x_k, y_k).</mrow>
             </md>
-        The initial conditions are used to determine <m>{\mathbf f}_0</m>, which is the tangent vector to the graph of the solution <m>\mathbf x(t)</m> in the <m>xy</m>-plane (<xref ref="figure-systems03-duffings-equation-phase-plane" />). We can move in the direction of this tangent vector for time <m>h</m> in order to find the next point <m>{\mathbf x}_1</m>. We then calculate a new tangent vector <m>{\mathbf f}_1</m> and then move along this new vector for a time step <m>h</m> to find <m>{\mathbf x}_2</m>. We can repeat this technique to generate an approximate solution curve in the phase plane.</p>
+        The initial conditions are used to determine <m>{\mathbf f}_0</m>, which is the tangent vector to the graph of the solution <m>\mathbf x(t)</m> in the <m>xy</m>-plane (<xref ref="systems03-figure-duffings-equation-phase-plane" />). We can move in the direction of this tangent vector for time <m>h</m> in order to find the next point <m>{\mathbf x}_1</m>. We then calculate a new tangent vector <m>{\mathbf f}_1</m> and then move along this new vector for a time step <m>h</m> to find <m>{\mathbf x}_2</m>. We can repeat this technique to generate an approximate solution curve in the phase plane.</p>
 
         <example>
             <title>Numerical Solutions for Duffing's Equation</title>
@@ -184,10 +184,10 @@
                     <mrow>\frac{dx}{dt} &amp; = v,</mrow>
                     <mrow>\frac{dv}{dt} &amp; = - 0.3 x + 0.02x^3 - 0.1 v,</mrow>
                 </md>
-            with initial conditions <m>(t_0, x_0, v_0) = (0, 0, 1.7652)</m>.  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (<xref ref="figure-systems03-duffings-equation-solutions-1" />).</p>
+            with initial conditions <m>(t_0, x_0, v_0) = (0, 0, 1.7652)</m>.  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" />).</p>
         
         
-            <figure xml:id="figure-systems03-duffings-equation-solutions-1">
+            <figure xml:id="systems03-figure-duffings-equation-solutions-1">
                 <image width="60%" xml:id="systems03-duffings-equation-solutions-1">
                     <description>a position and a velocity curve that both approach zero with smaller and smaller oscillations</description>
                     <sageplot>
@@ -201,12 +201,12 @@
                         p
                     </sageplot>
                 </image>
-                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></caption>
+                <title>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></title>
             </figure>
 
-            <p>The surprising thing about Duffing's equation is that it is so sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. If we change the initial velocity to <m>v(0) = 1.7653</m>, we obtain a very different graph of the solution (<xref ref="figure-systems03-duffings-equation-solutions-1" /> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
+            <p>The surprising thing about Duffing's equation is that it is so sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. If we change the initial velocity to <m>v(0) = 1.7653</m>, we obtain a very different graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" /> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
 
-            <figure xml:id="figure-systems03-duffings-equation-solutions-2">
+            <figure xml:id="systems03-figure-duffings-equation-solutions-2">
                 <image width="60%" xml:id="systems03-duffings-equation-solutions-2">
                     <description>a position and a velocity curve that both approach positive infinity</description>
                     <sageplot>
@@ -220,7 +220,7 @@
                         p
                     </sageplot>
                 </image>
-                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></caption>
+                <title>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></title>
             </figure>
 
         </example>
@@ -287,9 +287,9 @@
                     1.23 \\ -0.21
                     \end{pmatrix}.</mrow>
                 </md>
-            Using this procedure, we can generate a list of values that will approximate the solution to our system (<xref ref="table-systems03-euler-approximation" />).</p>
+            Using this procedure, we can generate a list of values that will approximate the solution to our system (<xref ref="systems03-table-euler-approximation" />).</p>
 
-            <table xml:id="table-systems03-euler-approximation">
+            <table xml:id="systems03-table-euler-approximation">
                 <tabular halign="center" top="medium">
                     <row bottom="medium">
                         <cell><m>k</m></cell><cell><m>t_k</m></cell><cell><m>x_k</m></cell><cell><m>hf(t_k, x_k, y_k)</m></cell><cell><m>y_k</m></cell><cell><m>hg(t_k, x_k, y_k)</m></cell>
@@ -328,13 +328,13 @@
                         <cell><m>10</m></cell><cell><m>1.0</m></cell><cell><m>3.9701</m></cell><cell><m>0.6594</m></cell><cell><m>-1.6237</m></cell><cell><m>-0.2334</m></cell>
                     </row>
                </tabular>
-                <caption>Euler's approximation for a system of equations</caption>
+                <title>Euler's approximation for a system of equations</title>
             </table>
 
 
-            <p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve in three dimensions (<xref ref="figure-systems03-euler" />).</p>
+            <p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve in three dimensions (<xref ref="systems03-figure-euler" />).</p>
 
-            <figure xml:id="figure-systems03-euler">
+            <figure xml:id="systems03-figure-euler">
                 <image width="60%" xml:id="systems03-euler">
                     <description>a curve in three dimensions</description>
                     <sageplot>
@@ -350,14 +350,47 @@
                         p
                     </sageplot>
                 </image>
-                <caption>A solution curve for Duffing's equation</caption>
+                <title>A solution curve for Duffing's equation</title>
             </figure>
 
         </example>
 
+        <activity>
+            <title>Solving a System Numerically</title>
+
+            <introduction>
+                <p>Consider the system
+	                <md>
+	                    <mrow>x' &amp; = 2x</mrow>
+	                    <mrow>y' &amp; = y</mrow>
+	                </md>
+	            with initial conditions <m>x(0) = 1</m> and <m>y(0) = 3</m>.<fn>You will find Sage very useful for this exercise</fn></p>
+            </introduction>
+            <task>
+                <statement>
+                    <p>Show that <m>{\mathbf x}(t) = (e^{2t}, 3e^t)</m> satisfies the initial value problem.</p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p>Use Euler's method with step size <m>\Delta t = 0.5</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p>Use Euler's method with step size <m>\Delta t = 0.1</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p>Discuss how and why the Euler approximations differ from the real solution.</p>
+                </statement>
+            </task>   
+        </activity>
+
     </subsection>
 
-    <subsection xml:id="subsection-sytems03-taylor-series">
+    <subsection xml:id="systems03-subsection-taylor-series">
         <title>Taylor Series Methods</title>
 
         <p>Just as in the case of a single first-order differential equation, we can think of Euler's approximation as the first two terms of the Taylor series expansion,
@@ -451,10 +484,10 @@
     
     </subsection>
 
-    <subsection xml:id="subsection-sytems03-existence-uniqueness">
+    <subsection xml:id="systems03-subsection-existence-uniqueness">
         <title>A Word about Existence and Uniqueness</title>
 
-        <theorem xml:id="theorem-systems03-existence-uniqueness-systems">
+        <theorem xml:id="systems03-theorem-existence-uniqueness-systems">
             <statement>
                 <p>Let
                     <me>\frac{d {\mathbf x}}{dt} = {\mathbf f}(t, {\mathbf x})</me>
@@ -477,7 +510,7 @@
     
     </subsection>
 
-    <subsection xml:id="subsection-sytems03-important-lessons">
+    <subsection xml:id="systems03-subsection-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -515,7 +548,7 @@
         </ul></p>
     
     </subsection>
-
+<!--
     <reading-questions xml:id="reading-questions-system03">
 
         <exercise xml:id="reading-questions-system03-1">
@@ -527,42 +560,89 @@
         </exercise>
 
     </reading-questions>
+-->
+    <exercises xml:id="systems03-exercises" filenamebase="systems03">
+        <title>Exercises</title>
+            
+        <exercise>
+            <statement>
+                <p>Consider the system
+                    <md>
+                        <mrow>x' &amp; = x + 3y</mrow>
+                        <mrow>y' &amp; = x - y</mrow>
+                    </md>
+                with initial conditions <m>x(0) = 0</m> and <m>y(0) = 1</m>.<fn>You will find Sage very useful for this exercise</fn>
+                    <ol>
 
-    <exercises xml:id="exercises-systems03"  filenamebase="systems03">
-    <title>Exercises</title>
-        
-    <exercise>
-        <statement>
-            <p>Consider the system
-                <md>
-                    <mrow>x' &amp; = 2x</mrow>
-                    <mrow>y' &amp; = y</mrow>
-                </md>
-            with initial conditions <m>x(0) = 1</m> and <m>y(0) = 3</m>.<fn>You will find Sage very useful for this exercise</fn>
-                <ol>
+                    <li>Show that
+                    	<me>{\mathbf x}(t) = \begin{pmatrix} \frac{3}{4} e^{2t} - \frac{3}{4} e^{-2t} \\ \frac{1}{4} e^{2t} + \frac{3}{4} e^{-2t} \end{pmatrix}</me>
+                    satisfies the initial value problem.</li>
 
-                <li>Show that <m>{\mathbf x}(t) = (e^{2t}, 3e^t)</m> satisfies the initial value problem.</li>
+                    <li>Use Euler's method with step size <m>\Delta t = 0.5</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
 
-                <li>Use Euler's method with step size <m>\Delta t = 0.5</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
+                    <li>Use Euler's method with step size <m>\Delta t = 0.1</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
 
-                <li>Use Euler's method with step size <m>\Delta t = 0.1</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
+                    <li>Discuss how and why the Euler approximations differ from the real solution.</li>
 
-                <li>Discuss how and why the Euler approximations differ from the real solution.</li>
-
-                </ol></p>
-        </statement>
+                    </ol></p>
+            </statement>
 
 
-    </exercise>
+        </exercise>
 
- </exercises>
+        <exercise>
+            <statement>
+                <p>Consider the system
+                    <md>
+                        <mrow>x' &amp; = y</mrow>
+                        <mrow>y' &amp; = -10x - 2y</mrow>
+                    </md>
+                with initial conditions <m>x(0) = 0</m> and <m>y(0) = 1</m>.<fn>You will find Sage very useful for this exercise</fn>
+                    <ol>
 
-        <subsection number="no"  xml:id="subsection-sytems03-sage-project">
-            <title>Project<mdash />Comparing Numerical Methods</title>
+                    <li>Show that
+                    	<me>{\mathbf x}(t) = \begin{pmatrix} \frac{1}{3} e^{-t} \sin 3t \\  e^{-t} \cos 3t - \frac{1}{3} e^{-t} \sin 3t \end{pmatrix}</me>
+                    satisfies the initial value problem.</li>
 
-<!-- Todo Write the project.-->
+                    <li>Use Euler's method with step size <m>\Delta t = 0.5</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
 
-        </subsection>
+                    <li>Use Euler's method with step size <m>\Delta t = 0.1</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
+
+                    <li>Discuss how and why the Euler approximations differ from the real solution.</li>
+
+                    </ol></p>
+            </statement>
+
+        </exercise>
+
+        <exercise>
+            <statement>
+                <p>Consider the system
+                    <md>
+                        <mrow>x' &amp; = -x - y</mrow>
+                        <mrow>y' &amp; = x - 3y</mrow>
+                    </md>
+                with initial conditions <m>x(0) = 5</m> and <m>y(0) = 1</m>.<fn>You will find Sage very useful for this exercise</fn>
+                    <ol>
+
+                    <li>Show that
+                    	<me>{\mathbf x}(t) = e^{-2t} \begin{pmatrix} 5 + 4t \\  1 + 4t \end{pmatrix}</me>
+                    satisfies the initial value problem.</li>
+
+                    <li>Use Euler's method with step size <m>\Delta t = 0.5</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
+
+                    <li>Use Euler's method with step size <m>\Delta t = 0.1</m> to approximate this solution, and check how close the approximation is to the real solution when <m>t = 2</m>, <m>t = 4</m>, and <m>t = 6</m>.</li>
+
+                    <li>Discuss how and why the Euler approximations differ from the real solution.</li>
+
+                    </ol></p>
+            </statement>
+
+
+        </exercise>    
+
+    </exercises>
+
 
 </section>
 

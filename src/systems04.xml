@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="systems04" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -16,7 +16,7 @@
 
     </introduction>
 
-    <subsection xml:id="subsection-sytems04-partially-coupled">
+    <subsection xml:id="systems04-subsection-partially-coupled">
         <title>Mixing Problems</title>
 
         <p>We will use linear systems of differential equations such as
@@ -24,7 +24,7 @@
                 <mrow>\frac{dx}{dt} &amp; = ax + by</mrow>
                 <mrow>\frac{dy}{dt} &amp; = cx + dy</mrow>
             </md>
-        to illustrate how we can use systems of differential equations to model how substances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (<xref ref="figure-systems04-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 500 liters per hour. Brine is also drained at a rate 500 liters of brine per hour from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
+        to illustrate how we can use systems of differential equations to model how substances flow back and forth between two or more compartments. Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows (<xref ref="systems04-figure-mixing-example"/>). Tank <m>A</m> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <m>B</m> contains 300 liters of pure water. Fresh water is pumped into Tank <m>A</m> at the rate of 500 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 500 liters per hour. Brine is also drained at a rate 500 liters of brine per hour from Tank <m>B</m>. All brine mixtures are well-stirred.  If we let <m>x = x(t)</m> be the amount of salt in Tank <m>A</m> at time <m>t</m> and <m>y = y(t)</m> be the amount of salt in Tank <m>B</m> at time <m>t</m>, then we know that
             <md>
                 <mrow>x(0) &amp; = 100</mrow>
                 <mrow>y(0) &amp; = 0</mrow>
@@ -35,7 +35,7 @@
                 <mrow>\frac{dy}{dt} &amp; = 500 \cdot \frac{x}{300} - 500 \cdot \frac{y}{300} = \frac{5}{3} x - \frac{5}{3} y.</mrow>
             </md></p>
 
-        <figure xml:id="figure-systems04-mixing-example">
+        <figure xml:id="systems04-figure-mixing-example">
             <image width="60%" xml:id="systems04-mixing-example">
                 <description>two three hundred liter tanks connected with a pipe flowing from the first to the second tank with the first tank having an input pipe and the second having a drain pipe</description>
                 <latex-image>
@@ -98,9 +98,71 @@
         Using our initial condition <m>y(0) = 0</m>, we can determine that <m>c_2 = 0</m>. Thus,
             <me>y = \frac{500}{3} t e^{-5t/3}</me></p>
 
+
+        <example xml:id="systems04-example-partially-coupled-system">
+        	<p>Consider the partially coupled system
+        		<md>
+                    <mrow>x' &amp; = 2x</mrow>
+                    <mrow>y' &amp; = x + 3y</mrow>
+                </md>
+            Notice that we already have the tools to solve <m>x' = 2x</m>.  In fact, the solution is <m>x(t) = c_1 e^{2t}</m>.  We can use this information to solve the second equation, <m>y' = x + 3y</m>.  That is, if we use the fact that <m>x(t) = c_1 e^{2t}</m>, the second equation becomes
+        		<me>y' = c_1 e^{2t} + 3y.</me>
+        	We can rewrite this equation as 
+        		<me>y' - 3y = c_1 e^{2t},</me>
+        	which is a first-order linear equation.  If we multiply both sides of the equation by <m>\mu(t) = e^{-3t}</m>, we have
+        		<me>\frac{d}{dt}\left( e^{-3t}y \right) = e^{-3t}y' - 3e^{-3t}y = c_1 e^{-t}.</me>
+            Integrating, we have 
+                <me>e^{-3t}y = - c_1 e^{-t} + c_2.</me>
+            Solving for <m>y</m>, yields <m>y = - c_1 e^{2t} + c_2e^{3t}</m>.  Thus the solution to our system is
+                <md>
+                    <mrow>x &amp; = c_1 e^{2t}</mrow>
+                    <mrow>y &amp; = - c_1 e^{2t} + c_2e^{3t}.</mrow>
+                </md></p>
+	    </example>
+
+        <activity>
+            <title>Solving Partially Coupled Systems</title>
+
+            <introduction>
+                <p>Solve each of the following systems of differential equations.</p>
+            </introduction>
+            <task>
+                <statement>
+                    <p><md>
+	                    <mrow>x' &amp; = -x</mrow>
+	                    <mrow>y' &amp; = x - 3y</mrow>
+	                </md></p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p><md>
+	                    <mrow>x' &amp; = -x - y</mrow>
+	                    <mrow>y' &amp; = - 3y</mrow>
+	                </md></p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p><md>
+	                    <mrow>x' &amp; = 2x</mrow>
+	                    <mrow>y' &amp; = 3x + 2y</mrow>
+	                </md></p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p><md>
+	                    <mrow>x' &amp; = 3x + 4y</mrow>
+	                    <mrow>y' &amp; = -2y</mrow>
+	                </md></p>
+                </statement>
+            </task>  
+        </activity>
+
     </subsection>
 
-    <subsection xml:id="subsection-sytems04-sage-linear-systems">
+    <subsection xml:id="systems04-subsection-sage-linear-systems">
         <title>Using <em>Sage</em> to Solve Linear Systems</title>
 
         <p>Solving linear systems such as
@@ -110,38 +172,38 @@
             </md>
         is much more difficult, since we cannot use the same strategies that we used to solve partially-coupled systems. We will devote all of <xref ref="linear" /> to finding an answer.  However, we can use <em>Sage</em> to solve linear systems for the moment. The following is a <em>Sage</em> interact that will solve the initial-value problem
             <md>
-                <mrow>x' &amp; = 3x - 4y</mrow>
-                <mrow>y' &amp; = 2x + y</mrow>
+                <mrow>x' &amp; = 3x - 2y</mrow>
+                <mrow>y' &amp; = x + y</mrow>
                 <mrow>x(0) \amp = 1</mrow>
                 <mrow>y(0) \amp = 1;</mrow>
             </md>
         however, we can change the coefficients and initial value to be anything that we like.</p>
 
-        <figure xml:id="figure-interactive-systems03-linear-systems">
+        <figure xml:id="systems04-figure-interactive-linear-systems">
             <caption>A Sage applet for solving linear systems</caption>
-                    <interactive xml:id="interactive-systems03-linear-systems" platform="sage" width="100%" aspect="2:5">
+            <interactive xml:id="interactive-systems04-linear-systems" platform="sage" width="100%" aspect="2:5">
                 <slate surface="sage">
-                    t = var('t')
-                    x = function('x')(t)
-                    y = function('y')(t)
-                    @interact
-                    def _(f = 3*x - 4*y, g = 2*x + y,
-                          t_start = input_box(default = 0), x_start = input_box(default = 1), y_start = input_box(default = 1)):
-                        de1 = diff(x,t) == f
-                        de2 = diff(y,t) == g
-                        sol = desolve_system([de1, de2], [x,y], ics=[t_start, x_start, y_start])
-                        sol[0].show()
-                        sol[1].show()
-                        pretty_print(html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f)))
-                        pretty_print(html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g)))
+					t = var('t')
+					x = function('x')(t)
+					y = function('y')(t)
+					@interact
+					def _(f = input_box(default = "3*x - 2*y"),
+					      g = input_box(default = "x + y"),
+					      t_start = input_box(default = 0), x_start = input_box(default = 1), y_start = input_box(default = 1)):
+					    de1 = diff(x,t) == f
+					    de2 = diff(y,t) == g
+					    sol = desolve_system([de1, de2], [x,y], ics=[t_start, x_start, y_start])
+					    sol[0].show()
+					    sol[1].show()
+					    html(r"$\displaystyle\frac{dx}{dt} = %s$"  %latex(f))
+					    html(r"$\displaystyle\frac{dy}{dt} = %s$"  %latex(g))
                 </slate>
             </interactive>
         </figure>
 
-
     </subsection>
 
-    <subsection xml:id="subsection-system04-harmonic-oscillator">
+    <subsection xml:id="systems04-subsection-harmonic-oscillator">
         <title>Harmonic Oscillators</title>
 
         <p>The equation
@@ -156,7 +218,7 @@
                 <mrow>x(t) &amp; = e^{-t} - e^{-2t},</mrow>
                 <mrow>v(t) &amp; = - e^{-t} + 2  e^{-2t}.</mrow>
             </md>
-        This is an example of an over-damped harmonic oscillator (<xref ref="figure-system04-over-damped-oscillator" />). In other words, a spring-mass system that is modeled by this system of equations has so much damping that the mass will not oscillate.</p>
+        This is an example of an over-damped harmonic oscillator (<xref ref="systems04-figure-over-damped-oscillator" />). In other words, a spring-mass system that is modeled by this system of equations has so much damping that the mass will not oscillate.</p>
 
         <sage>
             <input>
@@ -176,7 +238,7 @@
             </output>
         </sage>
 
-        <figure xml:id="figure-system04-over-damped-oscillator">
+        <figure xml:id="systems04-figure-over-damped-oscillator">
 
               <image width="60%" xml:id="system04-over-damped-oscillator">
                 <description>position and velocity curves that approach zero with no oscillations</description>
@@ -226,9 +288,9 @@
                 <mrow>x(t) &amp; = \frac{1}{3} e^{-t} \sin 3t,</mrow>
                 <mrow>v(t) &amp; = e^{-t} \cos 3t -  \frac{1}{3} e^{-t} \sin 3t.</mrow>
             </md>
-        Notice that the system oscillates due to the sine and cosine terms in the solution. This system is underdamped (<xref ref="figure-system04-under-damped-oscillator" />).</p>
+        Notice that the system oscillates due to the sine and cosine terms in the solution. This system is underdamped (<xref ref="systems04-figure-under-damped-oscillator" />).</p>
 
-        <figure xml:id="figure-system04-under-damped-oscillator">
+        <figure xml:id="systems04-figure-under-damped-oscillator">
 
               <image width="60%" xml:id="system04-under-damped-oscillator">
                 <description>position and velocity curves that approach zero with smaller and smaller oscillations</description>
@@ -246,7 +308,7 @@
 
     </subsection>
 
-    <subsection xml:id="subsection-sytems04-important-lessons">
+    <subsection xml:id="systems04-subsection-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -277,7 +339,7 @@
 
     </subsection>
 
-
+<!--
     <reading-questions xml:id="reading-questions-system04">
 
         <exercise xml:id="reading-questions-system04-1">
@@ -289,19 +351,73 @@
         </exercise>
 
     </reading-questions>
-
-    <exercises xml:id="exercises-systems04" filenamebase="systems04">
+-->
+    <exercises xml:id="systems04-exercises" filenamebase="systems04">
     <title>Exercises</title>
         
         <exercise>
             <statement>
-                <p>This is an exercise.</p>
+                <p>Solve each of the following partially coupled systems.
+                	<ol>
+
+                		<li><p><md>
+		                    <mrow>x' &amp; = 2x</mrow>
+		                    <mrow>y' &amp; = x + 2y</mrow>
+		                </md></p></li>
+
+                 		<li><p><md>
+		                    <mrow>x' &amp; = -x + 3y</mrow>
+		                    <mrow>y' &amp; = -2y</mrow>
+		                </md></p></li>
+
+                		<li><p><md>
+		                    <mrow>x' &amp; = -3x</mrow>
+		                    <mrow>y' &amp; = 2x + 3y</mrow>
+		                </md></p></li>
+
+                		<li><p><md>
+		                    <mrow>x' &amp; = 2x - 3y</mrow>
+		                    <mrow>y' &amp; = 4y</mrow>
+		                </md></p></li>
+
+               	</ol></p>
             </statement>
+	    </exercise>
 
+	    <exercise>
+	    	<statement>
+	    		<p>Suppose that we have two tanks (<m>A</m> and <m>B</m>) between which a mixture of brine flows. Tank <m>A</m> contains 200 liters of water in which 20 kilograms of salt has been dissolved and Tank <m>B</m> contains 200 liters of water in which 10 kilograms of salt has been dissolved. Fresh water is pumped into Tank <m>A</m> at the rate of 200 liters per hour, and brine is pumped into Tank <m>B</m> from Tank <m>A</m> at the rate of 200 liters per hour. Brine is also drained at a rate 200 liters of brine per hour from Tank <m>B</m>. All brine mixtures are well-stirred.  Find the amount of salt in each tank at time <m>t</m>.</p>
+	    	</statement>
+	    </exercise>
 
-    </exercise>
+	    <exercise>
+	    	<statement>
+	    		<p>For each of the following harmonic oscillators (1) rewrite the second-order initial-value problem as a system of two first-order linear equations, (2) use Sage to solve the system of linear equations, and (3) classify the harmonic oscillator as under damped, critically damped, or over damped.
+	    			<ol>
 
- </exercises>
+                		<li><p><md>
+		                    <mrow>y'' + 7y' + 6y &amp; = 0</mrow>
+		                    <mrow>y(0) &amp; = 1</mrow>
+		                    <mrow>y'(0) &amp; = 0</mrow>
+		                </md></p></li>
+
+                		<li><p><md>
+		                    <mrow>y'' + 4y' + 5y &amp; = 0</mrow>
+		                    <mrow>y(0) &amp; = 1</mrow>
+		                    <mrow>y'(0) &amp; = 0</mrow>
+		                </md></p></li>
+
+                		<li><p><md>
+		                    <mrow>y'' + 6y' + 9y &amp; = 0</mrow>
+		                    <mrow>y(0) &amp; = 1</mrow>
+		                    <mrow>y'(0) &amp; = 0</mrow>
+		                </md></p></li>
+
+	    			</ol></p>
+	    	</statement>
+	    </exercise>
+
+	 </exercises>
 
 
 </section>

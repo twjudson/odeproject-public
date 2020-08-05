@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace02" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -41,16 +41,16 @@
         <p>Fortunately, Laplace transforms forms behave very nicely with respect to derivatives. We can use Laplace transforms to transform an initial value problem into an algebraic equation. Once the algebraic equation is solved, we can use the inverse transform to obtain the solution to our original initial value problem.</p>
     </introduction>
   
-    <subsection xml:id="subsection-laplace02-derivatives">
+    <subsection xml:id="laplace02-subsection-derivatives">
         <title>Laplace Transforms of the Derivative</title>
 
         <p>Suppose that we have linear differential equation with constant coefficients
             <me>a y''(t) + b y'(t) + c y(t) = f(t)</me>
         and initial conditions <m>y(0) = y_0</m> and <m>y'(0) = y_0'</m>. We can take the Laplace transform of both sides to obtain
             <me>a {\mathcal L}(y''(t)) + b {\mathcal L}(y'(t)) + c {\mathcal L}(y(t)) = {\mathcal L}(f(t)).</me>
-        Notice that we have used the fact that the Laplace transform is a linear operator (<xref ref="theorem-laplace01-linearity"/>).  To proceed further, we need to know the Laplace transform of the derivative of a function.</p>
+        Notice that we have used the fact that the Laplace transform is a linear operator (<xref ref="laplace01-theorem-linearity"/>).  To proceed further, we need to know the Laplace transform of the derivative of a function.</p>
 
-        <theorem xml:id="theorem-laplace02-derivative">
+        <theorem xml:id="laplace02-theorem-derivative">
             <statement>
                 <p>Let <m>y = y(t)</m> be a piecewise continuous, exponentially bounded function and assume that <m>y'</m> is also exponentially bounded. Then for large values of <m>s</m>
                     <me>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),</me>
@@ -73,7 +73,7 @@
 
         <p>The Laplace transform also behave nicely with respect to higher order derivatives.</p>
 
-        <theorem xml:id="theorem-laplace02-derivative-higher">
+        <theorem xml:id="laplace02-theorem-derivative-higher">
             <statement>
                 <p>Let <m>y = y(t)</m> and <m>y'(t)</m> be piecewise continuous, exponentially bounded functions and assume that <m>y''</m> is  exponentially bounded. Then for large values of <m>s</m>
                     <me>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),</me>
@@ -92,7 +92,7 @@
                     <mrow>y(0) &amp; = 1</mrow>
                     <mrow>y'(0) &amp; = 1.</mrow>
                 </md>
-            Let us see how we can use Laplace transforms to find the solution. By <xref ref="theorem-laplace02-derivative"/> and <xref ref="theorem-laplace02-derivative-higher"/>
+            Let us see how we can use Laplace transforms to find the solution. By <xref ref="laplace02-theorem-derivative"/> and <xref ref="laplace02-theorem-derivative-higher"/>
                 <md>
                     <mrow>{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)</mrow>
                     <mrow>{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).</mrow>
@@ -116,10 +116,34 @@
             and our solution agrees with the one that we found at the beginning of this section.</p> 
         </example>
 
+        <activity>
+            <title>Solving Linear Differential Equations with Laplace Transforms</title>
+
+            <introduction>
+                <p>Use Laplace Transforms to solve each of the following initial-value problems.</p>
+            </introduction>
+            <task>
+                <statement>
+                    <p><m>x' - 5x = e^{5t}</m>, <m>x(0) = 0</m></p>
+                </statement>
+            </task>   
+            <task>
+                <statement>
+                    <p><m>x'' - x' - 6x  = 0</m>, <m>x(0) = 2</m>, <m>x'(0) = -1</m></p>
+                </statement>
+            </task>
+            <task>
+                <statement>
+                    <p><m>x'' + 4x  = \sin 3t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m></p>
+                </statement>
+            </task>   
+        </activity>
+
+
     </subsection>
 
 
-    <subsection xml:id="subsection-laplace02-discontinuous-functions">
+    <subsection xml:id="laplace02-subsection-discontinuous-functions">
         <title>Discontinuous Functions</title>
 
         <p>If <m>c \geq 0</m> and we define the function
@@ -146,7 +170,7 @@
                 <me>y(t) = {\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) + {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right).</me>
             The inverse Laplace transform of the first term is
                 <me>{\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) = e^{-t}.</me>
-            To compute the inverse Laplace transform of the second term, recall from <xref ref="example-laplace01-shift"/> that if <m>{\mathcal L}(f) = F(s)</m>, then
+            To compute the inverse Laplace transform of the second term, recall from <xref ref="laplace01-example-shift"/> that if <m>{\mathcal L}(f) = F(s)</m>, then
                 <me>{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s).</me>
             Using partial fractions to obtain
                 <me>\frac{1}{s(s+1)} = \frac{1}{s} - \frac{1}{s - 1}.</me>
@@ -160,7 +184,7 @@
     
     </subsection>
 
-    <subsection xml:id="subsection-laplace02-harmonic-oscillators">
+    <subsection xml:id="laplace02-subsection-harmonic-oscillators">
         <title>Forced Harmonic Oscillators</title>
 
         <example>
@@ -224,11 +248,34 @@
                 <me>y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).</me></p>
 
         </example>
+        
+        <activity>
+            <title>Solving Differential Equations with Laplace Transforms with Discontinuous Forcing Functions</title>
 
+            <introduction>
+                <p>Use Laplace Transforms to solve each of the following initial-value problems.</p>
+            </introduction>
+            <task>
+                <statement>
+                    <p><m>x' + x = u_3(t)</m>, <m>x(0) = 2</m></p>
+                </statement>
+            </task>   
+            <task>
+                <statement>
+                    <p><m>x'' + x  = h(t)</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m> where
+                        <me>h(t) 
+                        =
+                        \begin{cases}
+                        0 &amp; t \lt 1 \\
+                        2 &amp; t \geq 1.
+                        \end{cases}</me></p>
+                </statement>
+            </task>     
+        </activity>
 
     </subsection>
 
-    <subsection xml:id="subsection-laplace02-important-lessons">
+    <subsection xml:id="laplace02-subsection-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -256,7 +303,7 @@
         </ul></p>
         
     </subsection>
-
+<!--
     <reading-questions xml:id="reading-questions-laplace02">
 
         <exercise xml:id="reading-questions-laplace02-1">
@@ -268,14 +315,14 @@
         </exercise>
 
     </reading-questions>
+-->
 
-
-    <exercises xml:id="exercises-laplace02" filenamebase="laplace02">
+    <exercises xml:id="laplace02-exercises" filenamebase="laplace02">
     <title>Exercises</title>A
 
-         <exercisegroup xml:id="exercises-laplace02-solve-ivps">
+         <exercisegroup xml:id="laplace02-exercises-solve-ivps">
             <title>Solving Initial Value Problems</title>
-            <introduction><p>Solve the initial problems in <xref ref="exercises-laplace02-solve-ivps"/> using the Laplace transform.</p></introduction>
+            <introduction><p>Solve the initial problems in <xref ref="laplace02-exercises-solve-ivps"/> using the Laplace transform.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>y'' - 2y' - 3y = 3 e^{2t}</m>, <m>y(0) = 1</m>, <m>y'(0) = 0</m></p>
@@ -355,7 +402,7 @@
 
         <exercise>
             <statement>
-                <p>Prove <xref ref="theorem-laplace02-derivative-higher"/>.</p>
+                <p>Prove <xref ref="laplace02-theorem-derivative-higher"/>.</p>
             </statement>
         </exercise>
 

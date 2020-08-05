@@ -2,12 +2,12 @@
 
 <!-- This file is part of the book                 -->
 <!--                                               -->
-<!-- The Ordinary Differential Equations Project   -->
+<!--   The ODE Project                             -->
 <!--                                               -->
-<!-- Copyright (C) 1997-2014  Thomas W. Judson     -->
+<!-- Copyright (C) 1997-2020  Thomas W. Judson     -->
 <!-- See the file COPYING for copying conditions.  -->
 
-<!-- ODEPROJECT customizations for ALL LaTeX runs of any type -->
+<!-- ODE Project customizations for ALL LaTeX runs of any type -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
@@ -24,8 +24,8 @@
 <!--   Solutions: should not see them in   -->
 <!--              any public print version -->
 <xsl:param name="exercise.text.statement" select="'yes'" />
-<xsl:param name="exercise.text.hint" select="'yes'" />
-<xsl:param name="exercise.backmatter.statement" select="'yes'" />
+<xsl:param name="exercise.text.hint" select="'no'" />
+<xsl:param name="exercise.backmatter.statement" select="'no'" />
 <xsl:param name="exercise.backmatter.hint" select="'yes'" />
 
 <!-- Formatting adjustments and overrides     -->
@@ -35,81 +35,77 @@
 <!-- Bold and italic for terminology macro -->
 <!-- http://tex.stackexchange.com/questions/46690/standard-order-for-bolditalic -->
 <xsl:template name="odeproject-terminology">
-	<xsl:text>% Definitions to bold italics&#xa;</xsl:text>
-	<xsl:text>\renewcommand{\terminology}[1]%&#xa;</xsl:text>
-	<xsl:text>{{\fontshape{\itdefault}\fontseries{\bfdefault}\selectfont #1\/}}&#xa;</xsl:text>
+    <xsl:text>% Definitions to bold italics&#xa;</xsl:text>
+    <xsl:text>\renewcommand{\terminology}[1]%&#xa;</xsl:text>
+    <xsl:text>{{\fontshape{\itdefault}\fontseries{\bfdefault}\selectfont #1\/}}&#xa;</xsl:text>
 </xsl:template>
 
 <!-- Proof to small caps -->
-<!-- http://tex.stackexchange.com/questions/8089/changing-style-of-proof -->
-<xsl:template name="odeproject-proof-heading">
-	<xsl:text>% Proof environment with heading in small caps&#xa;</xsl:text>
-	<xsl:text>\expandafter\let\expandafter\oldproof\csname\string\proof\endcsname&#xa;</xsl:text>
-	<xsl:text>\let\oldendproof\endproof&#xa;</xsl:text>
-	<xsl:text>\renewenvironment{proof}[1][\proofname]{\oldproof[\scshape #1]}{\oldendproof}&#xa;</xsl:text>
+<!-- Inherited from old PWS-Kent style                          -->
+<!-- Otherwise identical to default tcb-style, so keep in sync? -->
+<xsl:template match="proof" mode="tcb-style">
+    <xsl:text>bwminimalstyle, fonttitle=\normalfont\scshape, attach title to upper, after title={\space}, after upper={\space\space\hspace*{\stretch{1}}\(\blacksquare\)},&#xa;</xsl:text>
 </xsl:template>
 
-<xsl:template name="odeproject-historical-environment">
-	<xsl:text>% Environment for Historical Notes&#xa;</xsl:text>
-	<xsl:text>\setlength{\fboxrule}{0.5pt}&#xa;</xsl:text>
-	<xsl:text>\newcommand{\drawbox}{\raisebox{3pt}{\framebox[0.3\textwidth]{\hspace*{1in}}}}</xsl:text>
-	<xsl:text>\newenvironment{historicalnote}%&#xa;</xsl:text>
-	<xsl:text>{\vskip 3ex \noindent \drawbox \hfill \hspace*{4pt}%&#xa;</xsl:text>
-	<xsl:text>{\fontshape{\itdefault}\fontseries{\bfdefault}\selectfont{Historical Note}}&#xa;</xsl:text>
-	<xsl:text>\hfill \drawbox \vskip 2ex}{}&#xa;</xsl:text>
+<!-- tcolorbox environment for odeproject "Historical Notes"    -->
+<!-- Similar to PWS-Kent style, with no closing rectangle -->
+<!-- Presumes that tcolorbox is full loaded anyway        -->
+<!-- Eventually this will be an "aside-like"              -->
+ <xsl:template name="odeproject-historical-environment">
+    <xsl:text>% Environment for Historical Notes (AATA-specific)&#xa;</xsl:text>
+    <xsl:text>\tcbset{ odeprojecthistoricalstyle/.style={size=minimal, boxrule=-0.3pt, frame empty, colback=white, colbacktitle=white, coltitle=black, fonttitle=\itshape\bfseries, before skip=3ex, bottomtitle=2ex, breakable, title={\raisebox{3pt}{\framebox[0.3\textwidth]{\relax}} \hfill {Historical Note} \hfill \raisebox{3pt}{\framebox[0.3\textwidth]{\relax}}}} }&#xa;</xsl:text>
+    <xsl:text>\newtcolorbox{historicalnote}{odeprojecthistoricalstyle}&#xa;</xsl:text>
 </xsl:template>
 
-<xsl:template name="odeproject-chapter-heading">
-	<xsl:text>% RAB, 2010/06/17, 2014/10/14&#xa;</xsl:text>
-	<xsl:text>% Slightly modified chapter heading adjustments&#xa;</xsl:text>
-	<xsl:text>% makeSchapterhead is for starred version of \chapter&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>\makeatletter&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>\font\bigbolditalic=cmsl10 scaled\magstep5&#xa;</xsl:text>
-	<xsl:text>\def\@makechapterhead#1{%\vspace*{50pt}&#xa;</xsl:text>
-	<xsl:text>{ \parindent 0pt \centering% was\raggedright&#xa;</xsl:text>
-	<xsl:text>\ifnum \c@secnumdepth >\m@ne\rule{0.4\textwidth}{.5pt}\hfill%&#xa;</xsl:text>
-	<xsl:text>\raisebox{-.1in}{\fbox{\fbox{\bigbolditalic\thechapter\/}}}%&#xa;</xsl:text>
-	<xsl:text>\hfill\rule{0.4\textwidth}{.5pt}\par%&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>\vskip 20pt \fi \Huge \bf #1\par%&#xa;</xsl:text>
-	<xsl:text>\nobreak \vskip 40pt \framebox[\hsize]{\hspace*{1in}}}%&#xa;</xsl:text>
-	<xsl:text>\vskip 36pt plus 12pt minus 6pt }%&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>\def\@makeschapterhead#1{%\vspace*{50pt}&#xa;</xsl:text>
-	<xsl:text>{ \parindent 0pt \centering% was \raggedright&#xa;</xsl:text>
-	<xsl:text>\hrule height .5pt\vspace{40pt}%&#xa;</xsl:text>
-	<xsl:text>\huge \bf #1\par%&#xa;</xsl:text>
-	<xsl:text>\nobreak \vskip 40pt \framebox[\hsize]{\hspace*{1in}}}%&#xa;</xsl:text>
-	<xsl:text>\vskip 36pt plus 12pt minus 6pt }%&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>% \clearpage below was \cleardoublepage&#xa;</xsl:text>
-	<xsl:text>\def\chapter{\clearpage \thispagestyle{plain} \global\@topnum\z@%&#xa;</xsl:text>
-	<xsl:text>\@afterindentfalse \secdef\@chapter\@schapter}&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
-	<xsl:text>\makeatother&#xa;</xsl:text>
-	<xsl:text>%&#xa;</xsl:text>
+<!-- RAB, 2010/06/17, 2014/10/14, 2018/10/20 -->
+<!-- Mimics chapter headings from PWS-Kent original     -->
+<!-- "bigbolditalic" is a scaled slanted 10pt font      -->
+<!-- Vertical distances chosen to match, experimentally -->
+<!-- \titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code] -->
+<xsl:template name="titlesec-chapter-style">
+    <xsl:text>\titleformat{\chapter}[block]%&#xa;</xsl:text>
+    <xsl:text>{\Huge\bfseries\font\bigbolditalic=cmsl10 scaled\magstep5}%&#xa;</xsl:text>
+    <xsl:text>{\rule{0.4\textwidth}{.5pt}\hfill%&#xa;</xsl:text>
+    <xsl:text>\raisebox{-.1in}{\fbox{\fbox{\bigbolditalic\thechapter\/}}}%&#xa;</xsl:text>
+    <xsl:text>\hfill\rule{0.4\textwidth}{.5pt}}%&#xa;</xsl:text>
+    <xsl:text>{0pt}{\vskip 20pt \centerline{#1}}%&#xa;</xsl:text>
+    <xsl:text>[{\vskip -10pt \framebox[\textwidth]{\relax}}]%&#xa;</xsl:text>
+    <!--  -->
+    <xsl:text>\titleformat{name=\chapter,numberless}[block]%&#xa;</xsl:text>
+    <xsl:text>{\Huge\bfseries}%&#xa;</xsl:text>
+    <xsl:text>{\rule{\textwidth}{.5pt}}%&#xa;</xsl:text>
+    <xsl:text>{0pt}{\vskip 20pt \centerline{#1}}%&#xa;</xsl:text>
+    <xsl:text>[{\vskip -10pt \framebox[\textwidth]{\relax}}]%&#xa;</xsl:text>
+    <!--  -->
+    <xsl:text>\titlespacing*{\chapter}{0pt}{0pt}{40pt}&#xa;</xsl:text>
+</xsl:template>
+
+<!-- Page headers, designed to mimic PWS-Kent original -->
+<!-- Slanted, uppercase, no periods (ie not LaTeX)     -->
+<!-- \sethead[even-left][even-center][even-right]      -->
+<!--         {odd-left}{odd-center}{odd-right}         -->
+<xsl:template match="book" mode="titleps-headings">
+    <xsl:text>{&#xa;</xsl:text>
+    <xsl:text>\sethead[\thepage][][\ifthechapter{\MakeUppercase{\textsl{\chaptertitlename\space\thechapter\space\space\chaptertitle}}}{}]&#xa;</xsl:text>
+    <xsl:text>{\ifthesection{\MakeUppercase{\textsl{\thesection\space\space\sectiontitle}}}{}}{}{\thepage}&#xa;</xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
 </xsl:template>
 
 <!-- Stuff them into the preamble at the end -->
 <xsl:param name="latex.preamble.late">
-	<xsl:call-template name="odeproject-terminology" />
-	<xsl:call-template name="odeproject-proof-heading" />
-	<xsl:call-template name="odeproject-historical-environment" />
-	<xsl:call-template name="odeproject-chapter-heading" />
+    <xsl:call-template name="odeproject-terminology" />
+    <xsl:call-template name="odeproject-historical-environment" />
 </xsl:param>
 
 <!-- We assume a common title so the template matches.       -->
 <!-- These MUST be subsections and they must be the last     -->
 <!-- subsection of a section, or else the numbering of other -->
 <!-- subsections will be different when LaTeX auto-numbers   -->
-<!-- NB: a call to "console-typeout" might be welcome here -->
-<xsl:template match="subsection[title='Historical Note']" mode="content-wrap">
-	<xsl:param name="content" />
-	<xsl:text>\begin{historicalnote}&#xa;</xsl:text>
-	<xsl:copy-of select="$content" />
-	<xsl:text>\end{historicalnote}&#xa;</xsl:text>
+<xsl:template match="subsection[title='Historical Note']">
+    <xsl:apply-templates select="." mode="console-typeout" />
+    <xsl:text>\begin{historicalnote}&#xa;</xsl:text>
+    <xsl:apply-templates />
+    <xsl:text>\end{historicalnote}&#xa;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

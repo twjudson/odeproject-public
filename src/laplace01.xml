@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
 <section xml:id="laplace01" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -43,14 +43,14 @@
 
     </introduction>
 
-    <subsection xml:id="subsection-laplace01-definitions">
+    <subsection xml:id="laplace01-subsection-definitions">
         <title>Definition of the Laplace Transform</title>
 
         <p>We shall define the <term>Laplace transform</term><idx><h>Laplace transform</h><h>definition</h></idx> of a function <m>f(t)</m> by
             <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,</me>
         provided this integral converges. The Laplace transform of a function has many nice properties, especially with respect to the derivative of <m>f</m>. However, before we investigate these properties, let us compute several Laplace transforms.</p>
 
-        <example xml:id="example-laplace01-basic-examples">
+        <example xml:id="laplace01-example-basic-examples">
             <p><ol>
 
                 <li><p>Let <m>f(t) = k</m>, where <m>k</m> is a constant. Then
@@ -80,11 +80,11 @@
             does not converge.</p>
         </example>
 
-        <p>The Laplace transform, however, does exist in many cases. In <xref ref="subsection-laplace01-existence-and-uniqueness"/>, we will show that the Laplace transform of a function exists provided the function does not grow too quickly and does not possess bad discontinuities.</p>
+        <p>The Laplace transform, however, does exist in many cases. In <xref ref="laplace01-subsection-existence-and-uniqueness"/>, we will show that the Laplace transform of a function exists provided the function does not grow too quickly and does not possess bad discontinuities.</p>
 
     </subsection>
 
-    <subsection xml:id="subsection-laplace01-properties">
+    <subsection xml:id="laplace01-subsection-properties">
         <title>Properties of the Laplace Transform</title>
 
         <p>One of the most important properties of the Laplace transform is linearity.  That is,
@@ -98,7 +98,7 @@
             </md>
         We state the linearity of the Laplace transform as a theorem.
 
-        <theorem xml:id="theorem-laplace01-linearity">
+        <theorem xml:id="laplace01-theorem-linearity">
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two functions whose Laplace transforms <m>{\mathcal L} ( f)(s)</m> and <m>{\mathcal L} ( g)(s)</m> exist for <m>s \gt a</m> and <m>s \gt b</m>, respectively. Then for any real constants <m>\alpha</m> and <m>\beta</m> and <m>s \gt \max\{a, b\}</m>
                     <me>{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s).</me></p>
@@ -108,7 +108,7 @@
         Transforms of functions having the linearity property are called <term>linear operators</term><idx>linear operator</idx>.</p>
 
         <example>
-            <p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="example-laplace01-basic-examples"/>,
+            <p>Recall that <m>\sinh at = (e^{at} - e^{-at})/2</m>. Provided <m>a \gt 0</m>, linearity makes it very easy to compute the Laplace transform of <m>\sinh at</m>. By <xref ref="laplace01-example-basic-examples"/>,
                <me>{\mathcal L} ( \sinh at) = \frac{1}{2} {\mathcal L} ( e^{at}) - \frac{1}{2} {\mathcal L} ( e^{-at}) = \frac{1}{2} \left( \frac{1}{s - k} - \frac{1}{s + k} \right).</me>
                Thus, for <m>s \gt k \gt 0</m>,
                <me>{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.</me></p>
@@ -143,12 +143,12 @@
                 0, &amp; t \lt a \\
                 1, &amp; t \geq a,
                 \end{cases}</me>
-            then we have a jump discontinuity at <m>t = a</m>  (<xref ref="figure-laplace01-step-function"/>). If <m>a \gt 0</m>, then
+            then we have a jump discontinuity at <m>t = a</m>  (<xref ref="laplace01-figure-step-function"/>). If <m>a \gt 0</m>, then
                 <me>{\mathcal L}(u_a(t)) = \int_0^\infty e^{-st} u_a(t) \, dt = \int_a^\infty e^{-st} \, dt = \lim_{b \to \infty} \left[ -\frac{e^{-st}}{s} \right]_a^b = \frac{e^{-sa}}{s},</me>
             where <m>s \gt 0</m> and <m>a \gt 0</m>. A function of the form <m>u_a(t) = u(t - a)</m> is called a <term>step function</term><idx>step function</idx> or <term>Heaviside function</term><idx>Heaviside function</idx>, named for the British engineer Oliver Heaviside.</p>
         </example>
 
-        <figure xml:id="figure-laplace01-step-function">
+        <figure xml:id="laplace01-figure-step-function">
 
             <image width="60%" xml:id="laplace01-step-function">
                 <description>a function that is equal to one for zero and postive values and equal to zero for negative values</description>
@@ -164,21 +164,21 @@
                 </sageplot>
             </image>
 
-            <caption>Unit step function for <m>a = 0</m></caption>
+            <title>Unit step function for <m>a = 0</m></title>
 
         </figure>
 
-        <example xml:id="example-laplace01-shift">
+        <example xml:id="laplace01-example-shift">
             <p>Given a function <m>f(t)</m>, consider the new function
                 <me>g(t) = u_a(t) f( t - a).</me>
-            To obtain the function <m>g</m> from <m>f</m>, we shift the graph of the <m>f</m> to the right by <m>a</m> units and let <m>g(t) = 0</m> for <m>0 \leq t \lt a</m> (see <xref ref="figure-laplace01-piecewise-function"/>). Let us compute the Laplace transform of <m>g</m>,
+            To obtain the function <m>g</m> from <m>f</m>, we shift the graph of the <m>f</m> to the right by <m>a</m> units and let <m>g(t) = 0</m> for <m>0 \leq t \lt a</m> (see <xref ref="laplace01-figure-piecewise-function"/>). Let us compute the Laplace transform of <m>g</m>,
                 <me>{\mathcal L}(g) = \int_0^\infty g(t) e^{-st} \, dt =\int_a^\infty f(t - a) e^{-st} \, dt.</me>
             If we make the substitution <m>w = t - a</m>, then
                 <me>{\mathcal L}(g) = \int_0^\infty f(w) e^{-s(w+a)} \, dt = e^{-sa} \int_0^\infty f(w) e^{-sw} \, dt = e^{-sa} {\mathcal L}(f).</me>
             In other words, if <m>{\mathcal L}(f) = F(s)</m>, then <m>{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s)</m>. </p>
         </example>
 
-        <figure xml:id="figure-laplace01-piecewise-function">
+        <figure xml:id="laplace01-figure-piecewise-function">
 
             <image width="40%" xml:id="laplace01-piecewise-function">
                 <description>the graph of two functions with the first function increasing until two and then decreasing and the second function shifted to the right by one and set to zero for values less than one</description>
@@ -196,13 +196,47 @@
                 </sageplot>
             </image>
 
-            <caption><m>u_a(t)f(t-a)</m>, where <m>a = 1</m></caption>
+            <title><m>u_a(t)f(t-a)</m>, where <m>a = 1</m></title>
 
         </figure>
 
+        <activity>
+            <title>Finding Laplace Transforms</title>
+
+            <introduction>
+                <p>Find the Laplace transform for each of the functions below.  Recall that <m>\cosh t = (e^t + e^{-t})/2</m> and <m>\sinh t = (e^t - e^{-t})/2</m></p>
+            </introduction>
+            <task>
+                <statement>
+                    <p><m>f(t) = t^6</m></p>
+                </statement>
+            </task>     
+            <task>
+                <statement>
+                    <p><m>f(t) = t^7 e^{-t}</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>f(t) = 3\sin^2 \left(\sqrt{2}t\right)</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>f(t) = e^{3t}\sin 2t</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>f(t) = 2 t^2 \cosh t</m></p>
+                </statement>
+            </task>     
+         </activity>
+
+
     </subsection>
 
-    <subsection xml:id="subsection-laplace01-existence-and-uniqueness">
+    <subsection xml:id="laplace01-subsection-existence-and-uniqueness">
         <title>Existence and Uniqueness of the Laplace Transform</title>
 
         <p>If we are to use Laplace transforms to study differential equations, we would like to know which functions actually have Laplace transforms. Furthermore, if two functions have the same Laplace transform, we can ask if the functions must be the same.  In other words, we wish to know if the Laplace transform of a function exists and is unique. We can answer both of these questions affirmatively if the function <m>f(t)</m> is piecewise continuous on <m>[0, \infty)</m> and does not grow too quickly as <m>t \to \infty</m>. We say a function <m>f(t)</m> is <term>exponentially bounded</term><idx><h>function</h><h>exponentially bounded</h></idx> on <m>[0, \infty)</m> if there exist constants <m>M \geq 0</m> and <m>a</m> such that 
@@ -210,7 +244,7 @@
         for all <m>t</m> in <m>[0, \infty)</m>. In other words, the graph of <m>f</m> must lie between the curves <m>y = Me^{at}</m> and <m>y = -Me^{at}</m>. The following two theorems tell us that Laplace transforms exist and are unique for piecewise continuous, exponentially bounded functions on the interval <m>[0, \infty)</m>. We leave the proofs of these theorem as exercises.</p>
 
 
-        <theorem xml:id="theorem-laplace01-existence">
+        <theorem xml:id="laplace01-theorem-existence">
             <statement>
                 <p>If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
                     <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
@@ -218,23 +252,23 @@
             </statement>
         </theorem> 
 
-        <theorem xml:id="theorem-laplace01-uniqueness">
+        <theorem xml:id="laplace01-theorem-uniqueness">
             <statement>
                 <p>Let <m>f</m> and <m>g</m> be two piecewise continuous exponentially bounded functions with Laplace transforms, <m>F(s)</m> and <m>G(s)</m>, respectively. Suppose that <m>F(s) = G(s)</m> for all <m>s \gt c</m>, where <m>c</m> is some positive number. Then <m>f(t) = g(t)</m> for all <m>t \geq 0</m>.</p>
             </statement>
         </theorem> 
 
-        <p>In light of <xref ref="theorem-laplace01-uniqueness"/>, it now makes sense to define the <term>inverse Laplace transform</term><idx><h>Laplace transform</h><h>inverse Laplace transform</h></idx> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>. Furthermore, the inverse Laplace transform is linear, 
+        <p>In light of <xref ref="laplace01-theorem-uniqueness"/>, it now makes sense to define the <term>inverse Laplace transform</term><idx><h>Laplace transform</h><h>inverse Laplace transform</h></idx> of a function <m>F(s)</m>, which we will denote by <m>{\mathcal L}^{-1}(F(s))(t)</m>, as the function <m>f(t)</m> whose unique Laplace transform is <m>F(s)</m>. Furthermore, the inverse Laplace transform is linear, 
             <me>{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).</me></p>
 
     </subsection>
 
-    <subsection xml:id="subsection-laplace01-finding-laplace-transforms">
+    <subsection xml:id="laplace01-subsection-finding-laplace-transforms">
         <title>Finding Laplace Transforms and Inverse Transforms</title>
 
         <p>To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
 
-        <table xml:id="table-laplace01-transforms">
+        <table xml:id="laplace01-table-transforms">
             <tabular halign="center" top="medium">
                 <row bottom="medium">
                     <cell><m>f(t) = {\mathcal L}^{-1}(F(s))</m></cell><cell><m>F(s) = {\mathcal L}(f(t))</m></cell>
@@ -294,13 +328,46 @@
                     <cell><m>f''(t)</m></cell><cell><m>s^2 F(s) - sf(0) - f'(0)</m></cell>
                 </row>
                 </tabular>
-            <caption>Table of Laplace Transforms</caption>
+            <title>Table of Laplace Transforms</title>
         </table>    
 
-        <p>We can also use Sage to find Laplace transforms and inverse transforms (see <xref ref="subsection-laplace01-sage-project"/>).</p>
+        <p>We can also use Sage to find Laplace transforms and inverse transforms (see <xref ref="laplace01-subsection-sage"/>).</p>
+
+        <activity>
+            <title>Finding Inverse Transforms</title>
+
+            <introduction>
+                <p>Find the inverse Laplace transform for each of the following functions.</p>
+            </introduction>
+            <task>
+                <statement>
+                    <p><m>F(s) = \dfrac{2}{s^2}</m></p>
+                </statement>
+            </task>     
+            <task>
+                <statement>
+                    <p><m>F(s) = \dfrac{1}{s^4}</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>F(s) = \dfrac{2}{(s - 3)^2 + 4}</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>F(s) = \dfrac{2s^2}{(s^2 + 1)(s - 1)}</m></p>
+                </statement>
+            </task>     
+             <task>
+                <statement>
+                    <p><m>F(s) = \dfrac{2s - 13}{s(s^2 - 4s + 13)}</m></p>
+                </statement>
+            </task>     
+         </activity>
 
     </subsection>
-    <subsection xml:id="subsection-laplace01-important-lessons">
+    <subsection xml:id="laplace01-subsection-important-lessons">
         <title>Important Lessons</title>
 
         <p><ul>
@@ -339,7 +406,7 @@
         </ul></p>
         
     </subsection>
-
+<!--
     <reading-questions xml:id="reading-questions-laplace01">
 
         <exercise xml:id="reading-questions-laplace01-1">
@@ -351,14 +418,14 @@
         </exercise>
 
     </reading-questions>
-
+-->
     <exercises xml:id="exercises-laplace01"  filenamebase="laplace01">
         <title>Exercises</title>
 
 
-        <exercisegroup cols="2" xml:id="exercises-laplace01-finding-transforms">
+        <exercisegroup cols="2" xml:id="laplace01-exercises-finding-transforms">
             <title>Finding Laplace transforms</title>
-            <introduction><p>Find the Laplace transform for each of the functions in <xref ref="exercises-laplace01-finding-transforms"/>.  Recall that <m>\cosh t = (e^t + e^{-t})/2</m> and <m>\sinh t = (e^t - e^{-t})/2</m>.</p></introduction>
+            <introduction><p>Find the Laplace transform for each of the functions in <xref ref="laplace01-exercises-finding-transforms"/>.  Recall that <m>\cosh t = (e^t + e^{-t})/2</m> and <m>\sinh t = (e^t - e^{-t})/2</m>.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>f(t) = \sin at</m></p>
@@ -401,9 +468,9 @@
             </exercise>              
         </exercisegroup>
 
-        <exercisegroup cols="2" xml:id="exercises-laplace01-finding-inverse-transforms">
+        <exercisegroup cols="2" xml:id="laplace01-exercises-finding-inverse-transforms">
             <title>Finding inverse Laplace transforms</title>
-            <introduction><p>Find the inverse Laplace transform for each of the functions in <xref ref="exercises-laplace01-finding-inverse-transforms"/>. You will find partial fraction decomposition very useful.</p></introduction>
+            <introduction><p>Find the inverse Laplace transform for each of the functions in <xref ref="laplace01-exercises-finding-inverse-transforms"/>. You will find partial fraction decomposition very useful.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>F(s) = \dfrac{1}{s(s + 1)}</m></p>
@@ -442,7 +509,7 @@
 
         <exercise>
             <statement>
-                <p>Prove <xref ref="theorem-laplace01-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
+                <p>Prove <xref ref="laplace01-theorem-existence"/>: If <m>f</m> is a piecewise continuous, exponentially bounded function defined <m>[0, \infty)</m>, then the Laplace transform of <m>f</m>,
                     <me>{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt</me>
                 exists.</p>
             </statement>
@@ -459,7 +526,7 @@
 
         <exercise>
             <statement>
-                <p>Prove <xref ref="theorem-laplace01-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
+                <p>Prove <xref ref="laplace01-theorem-uniqueness"/>: Suppose that <m>f</m> and <m>g</m> are piecewise continuous, exponentially bounded functions defined <m>[0, \infty)</m>, with Laplace transforms of <m>F(s)</m> and <m>G(s)</m>, respectively. If <m>F(s) = G(s)</m>, then <m>f(t) = g(t)</m>.</p>
             </statement>
         </exercise>
 
@@ -495,7 +562,7 @@
     </exercises>
 
 
-    <subsection number="no" xml:id="subsection-laplace01-sage-project">
+    <subsection xml:id="laplace01-subsection-sage">
         <title>Laplace Transforms with Sage</title>
     
          <p>Computer algebra systems have now replaced tables of Laplace transforms just as the calculator has replaced the slide rule. It is easy to calculate Laplace transforms with Sage. For example, suppose that we wish to compute the Laplace transform of <m>f(x) = t^3 e^t - \cos t</m>.  We can use the Sage command <c>laplace</c>.</p>
@@ -587,7 +654,7 @@
 
         <exercise>
             <statement>
-                <p>Use Sage to find the Laplace transforms for each of the functions in <xref ref="exercises-laplace01-finding-transforms"/>.</p>
+                <p>Use Sage to find the Laplace transforms for each of the functions in <xref ref="laplace01-exercises-finding-transforms"/>.</p>
 
                 <sage>
                     <input>
@@ -600,7 +667,7 @@
 
                 <exercise>
             <statement>
-                <p>Use Sage to find the inverse Laplace transform for each of the functions in <xref ref="exercises-laplace01-finding-inverse-transforms"/>.</p>
+                <p>Use Sage to find the inverse Laplace transform for each of the functions in <xref ref="laplace01-exercises-finding-inverse-transforms"/>.</p>
 
                 <sage>
                     <input>

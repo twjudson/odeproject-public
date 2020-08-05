@@ -31,6 +31,9 @@
 <!-- N.B.: the levels above cannot be numerically larger              -->
 <xsl:param name="numbering.maximum.level" select="'3'" />
 
+<!--<xsl:param name="numbering.projects.level " select="'0'" />-->
+
+
 <!-- Thius is a quick fix for a bigger problem with arbitrary "apply-templates" in back matter mode -->
 <xsl:template match="todo" mode="backmatter" />
 

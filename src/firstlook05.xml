@@ -4,7 +4,7 @@
 <!--                                                               -->
 <!--    Ordinary Differential Equations Project                    -->
 <!--                                                               -->
-<!-- Copyright (C) 2013-2019 Thomas W. Judson                      -->
+<!-- Copyright (C) 2013-2020 Thomas W. Judson                      -->
 <!-- See the file COPYING for copying conditions.                  -->
 
  <section xml:id="firstlook05" xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -12,11 +12,11 @@
 
      <introduction>
         <p>A <term>first-order differential equation</term> is an equation of the form
-            <men xml:id="equation-firstlook05-first-order-linear-ode">\frac{dx}{dt} + p(t) x = q(t).</men>
-       This equation will not be separable if <m>p(t)</m> is not a constant. We shall have to find a new approach to solving such an equation. We could, of course, use a numerical algorithm to solve<nbsp /><xref ref="equation-firstlook05-first-order-linear-ode" />; however, we can always find an algebraic solution to a first-order linear differential equation. Moreover, the fact that we can obtain such a solution analytically will prove very useful when we investigate more complicated equations and systems of equations.</p>
+            <men xml:id="firstlook05-equation-first-order-linear-ode">\frac{dx}{dt} + p(t) x = q(t).</men>
+       This equation will not be separable if <m>p(t)</m> is not a constant. We shall have to find a new approach to solving such an equation. We could, of course, use a numerical algorithm to solve<nbsp /><xref ref="firstlook05-equation-first-order-linear-ode" />; however, we can always find an algebraic solution to a first-order linear differential equation. Moreover, the fact that we can obtain such a solution analytically will prove very useful when we investigate more complicated equations and systems of equations.</p>
     </introduction>
     
-    <subsection xml:id="subsection-firstlook05-mine-tailings">
+    <subsection xml:id="firstlook05-subsection-mine-tailings">
         <title>Mine Tailings</title>
 
         <p>In any mining operation, tailings are what is left after everything of value has been extracted. For example, in a hard rock mining operation, ore is often pulverized and then processed using chemicals to extract certain minerals of value. Soft rock mining operations such as coal mining or extracting oil from tar sands might use solvents or water to extract any commodity of value. The material that is left over after the minerals, coal, or oil is extracted can often present huge environmental challenges. There are different ways of processing mine tailings, but one way is to store them in a pond, especially if water is used in the mining operation. This method allows any particles that are suspended in the water to settle to the bottom of the pond. The water can then be treated and recycled.</p>
@@ -30,16 +30,16 @@
         Since water flows into the pond from the stream at a rate of 1000 cubic meters per day, the rate at which the chemicals enter the pond is 5 kilograms per day. On the other hand, the rate at which the chemicals leave the pond will depend on the amount of chemicals in the pond at time <m>t</m>. The volume of the pond is decreasing due to sediment, and at time <m>t</m> it is <m>V(t) = 20000 - 50t</m>. Thus, the concentration of chemicals in the pond at time <m>t</m> is <m>x/(20000 - 50 t)</m>, and the rate at which the chemicals are flowing out of the pond to be recycled is
             <me>1000 \left(  \frac{x}{20000 - 50t} \right) = \frac{20x}{ 400 - t}.</me>
         Hence, the differential equation that models the amount of chemical in the tailings pond at time <m>t</m> is
-            <men xml:id="equation-firstlook05-mine-tailings-1">\frac{dx}{dt} = 5 - \frac{20x}{ 400 - t}.</men>
+            <men xml:id="firstlook05-equation-mine-tailings-1">\frac{dx}{dt} = 5 - \frac{20x}{ 400 - t}.</men>
         Of course, we will have to cease mining operations once the pond is full, since there will only be water in the pond if <m>V(t) = 20000 - 50t \geq 0</m>; that is, when <m>0 \leq t \lt 400</m>.</p>
 
-        <p>Notice that equation<nbsp /><xref ref="equation-firstlook05-mine-tailings-1" /> is not autonomous. In fact, it is not even separable. We will have to use a different approach to find a solution. First, we will rewrite the equation in the form
+        <p>Notice that equation<nbsp /><xref ref="firstlook05-equation-mine-tailings-1" /> is not autonomous. In fact, it is not even separable. We will have to use a different approach to find a solution. First, we will rewrite the equation in the form
             <me>\frac{dx}{dt}  + \frac{20}{ 400 - t} x = 5.</me>
         If we multiply both sides of this equation by <m>(400 - t)^{-20}</m>, we obtain
-            <men xml:id="equation-firstlook05-mine-tailings-2">(400 - t)^{-20}\frac{dx}{dt} + 20(400 - t)^{-21} x = 5(400 - t)^{-20}.</men>
+            <men xml:id="firstlook05-equation-mine-tailings-2">(400 - t)^{-20}\frac{dx}{dt} + 20(400 - t)^{-21} x = 5(400 - t)^{-20}.</men>
         We now make the crucial observation that the product rule applies to the lefthand side of our equation,
             <me>(400 - t)^{-20}\frac{dx}{dt} + 20(400 - t)^{-21} x = \frac{d}{dt} \left( (400 - t)^{-20}x \right).</me>
-        Thus, equation<nbsp /><xref ref="equation-firstlook05-mine-tailings-2" /> becomes
+        Thus, equation<nbsp /><xref ref="firstlook05-equation-mine-tailings-2" /> becomes
             <me>\frac{d}{dt} \left( (400 - t)^{-20}x \right) = 5(400 - t)^{-20}.</me>
         Integrating both sides of this equation, we have
             <me>(400 - t)^{-20}x = 5 \int (400 - t)^{-20} \, dt = \frac{5(400 - t)^{-19}}{19} + C,</me>
@@ -47,9 +47,9 @@
             <me>x(t) = \frac{5}{19} (400 - t) + C(400 - t)^{20}.</me>
         Since <m>x(0) = 0</m>, we can quickly determine that <m>C = - (5/19)400^{-19}</m> and that the solution to our initial value problem is
             <me>x(t) = \frac{5}{19} (400 - t) \left[ 1 - \left( \frac{400 - t}{400}  \right)^{19} \right].</me>
-        The graph of the solution to our differential equation (<xref ref="figure-firstlook05-tailings-pond" />) fits the situation. Initially, there are no chemicals in the pond, but <m>x(t)</m> quickly increases. However, the amount of chemicals decreases as the pond begins to fill with sediment. Eventually, there are no chemicals at <m>t = 400</m>.</p>
+        The graph of the solution to our differential equation (<xref ref="firstlook05-figure-tailings-pond" />) fits the situation. Initially, there are no chemicals in the pond, but <m>x(t)</m> quickly increases. However, the amount of chemicals decreases as the pond begins to fill with sediment. Eventually, there are no chemicals at <m>t = 400</m>.</p>
 
-        <figure xml:id="figure-firstlook05-tailings-pond">
+        <figure xml:id="firstlook05-figure-tailings-pond">
 
             <image width="60%" xml:id="firstlook05-tailings-pond">
                 <description>a curve that increases quickly from zero to eighty-five then decreases to zero where the time is four hundred</description>
@@ -65,7 +65,7 @@
         
     </subsection>
 
-    <subsection xml:id="subsection-firstlook05-first-order-linear-de">
+    <subsection xml:id="firstlook05-subsection-first-order-linear-de">
         <title>First-Order Linear Equations</title>
 
         <p>The differential equation
@@ -79,7 +79,7 @@
             </md>
         then we first multiply both sides of the equation by <m>e^{pt}</m> to obtain
             <me>e^{pt} \frac{dx}{dt} + e^{pt} px = q e^{pt}.</me>
-        The left-hand side of the equation is <term>exact</term><idx><h>differential equation</h><h>exact</h></idx> That is,
+        The left-hand side of the equation is <term>exact</term><idx><h>differential equation</h><h>exact</h></idx>. That is,
             <me>e^{pt} \frac{dx}{dt} + e^{pt} px = \frac{d}{dt} \left(  x(t) e^{pt} \right).</me>
         If we integrate both sides of
             <me>\frac{d}{dt} \left(  x(t) e^{pt} \right)= q e^{pt},</me>
@@ -93,10 +93,10 @@
         <example>
             <p>Suppose we wish to solve the initial value problem
                 <mdn>
-                    <mrow xml:id="equation-firstlook05-constant-coeff-1">\frac{dx}{dt} -2 x &amp; = 3,</mrow>
-                    <mrow xml:id="equation-firstlook05-constant-coeff-2">x(0) &amp; = 1.</mrow>
+                    <mrow xml:id="firstlook05-equation-constant-coeff-1">\frac{dx}{dt} -2 x &amp; = 3,</mrow>
+                    <mrow xml:id="firstlook05-equation-constant-coeff-2">x(0) &amp; = 1.</mrow>
                 </mdn>
-            Multiplying both sides of equation<nbsp /><xref ref="equation-firstlook05-constant-coeff-1" /> by <m>e^{-2t}</m>, we obtain
+            Multiplying both sides of equation<nbsp /><xref ref="firstlook05-equation-constant-coeff-1" /> by <m>e^{-2t}</m>, we obtain
                 <me>\frac{d}{dt}\left( e^{-2t}x \right) = e^{-2t}\frac{dx}{dt} -2 e^{-2t}x = 3e^{-2t}.</me>
             Integrating both sides of this last equation, gives us the following
                 <me>e^{-2t}x = 3 \int e^{-2t} \, dt + C = -\frac{3}{2} e^{-2t} + C.</me>
@@ -104,7 +104,7 @@
                 <me>x(t) = \frac{5}{2} e^{2t} - \frac{3}{2}.</me></p>
         </example>
 
-        <example xml:id="example-firstlook05-nonconstant-coeff">
+        <example xml:id="firstlook05-example-nonconstant-coeff">
             <p>Now let us solve a first-order linear differential equation where the coefficients are not constant. Suppose that
                 <me>y' + 2xy = e^{-x^2},</me>
             where <m>y(0) = 1</m>. We will multiply both sides of the equation by <m>e^{x^2}</m> and use the product rule to obtain
@@ -132,8 +132,8 @@
          </sage>
 
 
-        <p>Surprisingly, the strategy in <xref ref="example-firstlook05-nonconstant-coeff" /> will always work. Suppose that
-            <men xml:id="equation-firstlook05-first-order">x' + p(t) x = q(t).</men>
+        <p>Surprisingly, the strategy in <xref ref="firstlook05-example-nonconstant-coeff" /> will always work. Suppose that
+            <men xml:id="firstlook05-equation-first-order">x' + p(t) x = q(t).</men>
         If we choose <m>P(t)</m> such that <m>P'(t) = p(t)</m> and multiply both sides of the equation by <m>e^{P(t)}</m>, then
             <me>\left( e^{P(t)} x \right)' = e^{P(t)} ( x'(t) + p(t) x(t) )= e^{P(t)} q(t).</me>
         Integrating both sides,
@@ -142,7 +142,7 @@
             <me>x = \frac{1}{e^{P(t)} } \left( \int e^{P(t)} q(t) \, dt + C \right).</me>
         The Fundamental Theorem of Calculus tells us that <m>P(t) = \int p(t) \, dt</m>. We say that
             <me>\mu(t) = e^{\int p(t) \, dt} = \exp\left(  \int p(t) \, dt \right)</me>
-        is an <term>integrating factor</term><idx>integrating factor</idx> for the differential equation<nbsp /><xref ref="equation-firstlook05-first-order" />.</p>
+        is an <term>integrating factor</term><idx>integrating factor</idx> for the differential equation<nbsp /><xref ref="firstlook05-equation-first-order" />.</p>
 
         <example>
             <p>Consider the initial value problem
@@ -198,7 +198,7 @@
 
     </subsection>
     
-    <subsection xml:id="subsection-firstlook05-mixing-models">
+    <subsection xml:id="firstlook05-subsection-mixing-models">
         <title>Mixing Models</title>
         
         <p>Many applications involve the mixing of two or more substances together. We can model how petroleum products are mixed together in a refinery, how various ingredients are mixed together in a brewery, or how greenhouse gases move across various layers of the earth's atmosphere.</p>
@@ -214,11 +214,11 @@
             where <m>V(t)</m> is the volume at time <m>t</m>. The expression <m>x/V(t)</m> is the amount of salt in one gallon at time <m>t</m>. We have <m>V(t) = 50 + t</m>, since the tank starts with 50 gallons and five gallons are pumped into the tank per minute while four gallons leave the tank during the same time interval. Thus, our differential equation becomes
                 <me>\frac{dx}{dt} = 5 - \frac{4}{50 + t}x.</me>
             Our equation is linear since we can rewrite it as
-                <men xml:id="equation-firstlook05-mixing">\frac{dx}{dt} + \frac{4}{50 + t} x = 5.</men></p>
+                <men xml:id="firstlook05-equation-mixing">\frac{dx}{dt} + \frac{4}{50 + t} x = 5.</men></p>
 
             <p>An integrating factor for this differential equation is 
                 <me>\mu(t) = \exp\left(  \int \frac{4}{50 + t} \, dt \right) = e^{4 \ln(50 + t)} = (50 + t)^4.</me>
-            Therefore, if we multiply both sides of equation<nbsp /><xref ref="equation-firstlook05-mixing" /> by <m>\mu(t)</m>, we get
+            Therefore, if we multiply both sides of equation<nbsp /><xref ref="firstlook05-equation-mixing" /> by <m>\mu(t)</m>, we get
                 <me>(50 + t)^4\frac{dx}{dt} + 4(t + 50)^3 x = 5(50 + t)^4.</me>
             We can now apply the product rule to obtain
                 <me>\frac{d}{dt}[ (50 + t)^4 x] = 5(50 + t)^4.</me>
@@ -262,7 +262,7 @@
 
     </subsection>
     
-    <subsection xml:id="subsection-firstlook05-finance-models">
+    <subsection xml:id="firstlook05-subsection-finance-models">
         <title>Finance Models</title>
 
         <p>There are a number of problems in finance that can be modeled using differential equations. Let <m>P(t)</m> be the balance of an account at time <m>t</m> and suppose that the account pays interest at a rate of <m>r</m> percent per year compounded continuously. Suppose that we also allow withdrawals of <m>W</m> dollars per year. The net increase in the balance between times <m>t</m> and <m>t + \Delta t</m> can now be described as
@@ -300,7 +300,7 @@
             Thus, 
                 <me>e^{-0.04t} P = \frac{20000}{0.04}e^{-0.04t} + C = 500000e^{-0.04t} + C.</me>
             The solution to this initial-value problem is
-                <me>P(t) = \frac{20000}{0.04} + \left( 50000 - \frac{20000}{0,04} \right) e^{0.04t} = 500000 - 450000e^{0.04t}.</me></p>
+                <me>P(t) = \frac{20000}{0.04} + \left( 50000 - \frac{20000}{0.04} \right) e^{0.04t} = 500000 - 450000e^{0.04t}.</me></p>
 
             <p>Your parents have been quite generous but have told you that you must be responsible for the balance of the cost of your education.</p>
 
@@ -365,7 +365,7 @@
 
     </subsection>
 
-    <subsection xml:id="subsection-firstlook05-important-lessons">
+    <subsection xml:id="firstlook05-subsection-important-lessons">
         <title>Important Lessons</title>
         
         <p><ul>
@@ -388,7 +388,7 @@
         </ul></p>
                 
     </subsection>
-
+<!--
     <reading-questions xml:id="reading-questions-firstlook05">
 
         <exercise xml:id="reading-questions-firstlook05-1">
@@ -400,12 +400,12 @@
         </exercise>
 
     </reading-questions>
-
+-->
     <exercises xml:id="exercises-firstlook05"  filenamebase="firstlook05">
     <title>Exercises</title>
-     <exercisegroup cols="2" xml:id="exercises-firstlook05-find-solutions">
+     <exercisegroup cols="2" xml:id="firstlook05-exercises-find-solutions">
             <title>Finding General Solutions</title>
-            <introduction><p>Find the general solution for each equation in <xref ref="exercises-firstlook05-find-solutions"/>.</p></introduction>
+            <introduction><p>Find the general solution for each equation in <xref ref="firstlook05-exercises-find-solutions"/>.</p></introduction>
             <exercise>
                 <statement>
                     <p><m>\dfrac{dy}{dx} + 5y = 0</m></p>
@@ -458,9 +458,9 @@
             </exercise>
         </exercisegroup>
 
-        <exercisegroup cols="2" xml:id="exercises-firstlook05-solve-ivps">
+        <exercisegroup cols="2" xml:id="firstlook05-exercises-solve-ivps">
             <title>Solving Initial Value Problems</title>
-            <introduction><p>Solve the initial value problems in <xref ref="exercises-firstlook05-solve-ivps"/>.</p></introduction>
+            <introduction><p>Solve the initial value problems in <xref ref="firstlook05-exercises-solve-ivps"/>.</p></introduction>
              <exercise>
                 <statement>
                     <p><m>\dfrac{dy}{dx} + 5y = 0</m>, <m>y(0) = 2</m></p>
@@ -527,27 +527,27 @@
 
         <exercise>
             <statement>
-                <p>A 600-gallon tank initially contains 200 liters of water containing 10 kilograms of salt. Supposed that water containing 0.1 kilograms of salt flows into the top of the tank at a rate of 10 liters per minute. The water in the tank is kept well mixed, and 5 liters per minute are removed from the bottom of the tank.  How much salt is in the tank when the tank is full?</p>
+                <p>A 600-liter tank initially contains 200 liters of water containing 10 kilograms of salt. Supposed that water containing 0.1 kilograms of salt flows into the top of the tank at a rate of 10 liters per minute. The water in the tank is kept well mixed, and 5 liters per minute are removed from the bottom of the tank.  How much salt is in the tank when the tank is full?</p>
             </statement>
             <hint>
-                <p>If <m>x(t)</m> is the amount of salt in the tank at time <m>t</m>, we know that <m>x(0) = 10</m>. The volume of the tank is <m>V = 600 + 5t</m>.  We can model the amount of salt in the tank at time <m>t</m> with a differential equation,
+                <p>If <m>x(t)</m> is the amount of salt in the tank at time <m>t</m>, we know that <m>x(0) = 10</m>. The volume of the tank is <m>V = 200 + 5t</m>.  We can model the amount of salt in the tank at time <m>t</m> with a differential equation,
                     <md>
                         <mrow>\frac{dx}{dt} &amp; = \text{rate in} - \text{rate out}</mrow>
                         <mrow>&amp; = 10(0.1) - 5 \frac{x}{V}</mrow>
-                        <mrow>&amp; = 1 - 5\frac{x}{600 + 5t}</mrow>
-                        <mrow>&amp; = 1 - \frac{x}{120 + t}.</mrow>
+                        <mrow>&amp; = 1 - 5\frac{x}{200+ 5t}</mrow>
+                        <mrow>&amp; = 1 - \frac{x}{40 + t}.</mrow>
                     </md>
                 The resulting equation
-                    <me>\frac{dx}{dt} + \frac{1}{120 + t}x = 1</me>
+                    <me>\frac{dx}{dt} + \frac{1}{40 + t}x = 1</me>
                 is a first order linear differential equation.  An integrating factor for this equation is given by
-                    <me>\mu(t) = \exp\left(\int \frac{1}{120 + t} \, dt\right) = 120 + t.</me>
+                    <me>\mu(t) = \exp\left(\int \frac{1}{40 + t} \, dt\right) = 40 + t.</me>
                 Multiplying both sides of the differential equation by <m>\mu(t)</m>, we have
-                    <me>\frac{d}{dt} [(120 + t)x] = (120 + t) \frac{dx}{dt} + x = (120 + t)\left( \frac{dx}{dt} + \frac{1}{120 + t}x \right) = 120 + t.</me>
+                    <me>\frac{d}{dt} [(40 + t)x] = (40 + t) \frac{dx}{dt} + x = (40 + t)\left( \frac{dx}{dt} + \frac{1}{40 + t}x \right) = 40 + t.</me>
                 Integrating both sides of this equation, we obtain
-                    <me>(120 + t)x = 120t + \frac{t^2}{2} + C.</me>
-                Using the intial condition <m>x(0) = 10</m>, we can determine that <m>C = 1200</m> or
-                    <me>x(t) = \frac{t^2 + 240t + 2400}{2t + 240}.</me>
-                The tank is full at time <m>t = 400/5 = 80</m>, and the tank contains <m>x(80) = 70</m> kilograms of salt when the tank is full.</p>
+                    <me>(40 + t)x = 40t + \frac{t^2}{2} + C.</me>
+                Using the intial condition <m>x(0) = 10</m>, we can determine that <m>C = 400</m> or
+                    <me>x(t) = \frac{t^2 + 80t + 800}{2t + 80}.</me>
+                The tank is full at time <m>t = 400/5 = 80</m>, and the tank contains <m>x(80) = 170/3 \approx 56.67</m> kilograms of salt when the tank is full.</p>
             </hint>
 
         </exercise>
@@ -589,7 +589,7 @@
         <exercise>
             <statement>
                 <p><em>Variation of Parameters</em>. Consider the following method of solving the general linear equation of the first order,
-                    <men xml:id="exercise-firstlook05-equation-variation-of-parameters-1">y' + p(t)y = g(t).</men>
+                    <men xml:id="firstlook05-exercise-equation-variation-of-parameters-1">y' + p(t)y = g(t).</men>
                     <ol>
 
                         <li>If <m>g(t)</m> is identically zero, show that the solution is
@@ -597,11 +597,11 @@
                         where <m>A</m> is a constant.</li>
 
                         <li>If <m>g(t)</m> is not identically zero, assume that the solution is of the form
-                            <men xml:id="exercise-firstlook05-equation-variation-of-parameters-2">y = A(t) \exp\left[ - \int p(t) \, dt \right],</men> 
-                        where <m>A</m> is now a function of <m>t</m>.  By substituting for <m>y</m> in the given differential equation <xref ref="exercise-firstlook05-equation-variation-of-parameters-1" />, show that <m>A(t)</m> must satisfy the condition
-                            <men xml:id="exercise-firstlook05-equation-variation-of-parameters-3">A'(t) = g(t) \exp\left[ \int p(t) \, dt \right].</men> </li>
+                            <men xml:id="firstlook05-exercise-equation-variation-of-parameters-2">y = A(t) \exp\left[ - \int p(t) \, dt \right],</men> 
+                        where <m>A</m> is now a function of <m>t</m>.  By substituting for <m>y</m> in the given differential equation <xref ref="firstlook05-exercise-equation-variation-of-parameters-1" />, show that <m>A(t)</m> must satisfy the condition
+                            <men xml:id="firstlook05-exercise-equation-variation-of-parameters-3">A'(t) = g(t) \exp\left[ \int p(t) \, dt \right].</men> </li>
 
-                        <li>Find <m>A(t)</m> from Equation <xref ref="exercise-firstlook05-equation-variation-of-parameters-3" />.  Then substitute for <m>A(t)</m> in equation <xref ref="exercise-firstlook05-equation-variation-of-parameters-2" /> and determine <m>y</m>.  Verify that the solution obtain in this manner agrees with the solution given in the proof of Theorem <xref ref="theorem-firstlook05-first-order-linear-existence" />.  That is, show that this solution is equivalent to the solution
+                        <li>Find <m>A(t)</m> from Equation <xref ref="firstlook05-exercise-equation-variation-of-parameters-3" />.  Then substitute for <m>A(t)</m> in equation <xref ref="firstlook05-exercise-equation-variation-of-parameters-2" /> and determine <m>y</m>.  Verify that the solution obtain in this manner agrees with the solution given in the proof of Theorem <xref ref="theorem-firstlook05-first-order-linear-existence" />.  That is, show that this solution is equivalent to the solution
                             <me>y = \frac{1}{\mu(t)} \left( \int \mu(t) g(t) \, dt + C \right),</me>
                         where
                             <me>\mu(t) = \exp\left(  \int p(t) \, dt \right).</me></li>
@@ -633,8 +633,8 @@
         <exercise>  <!--TWJ 3/17/2014-->
             <statement>
                 <p>The first-order nonlinear differential equation
-                    <men xml:id="exercise-firstlook05-equation-ricatti">y' = p(t) + q(t) y + r(t) y^2</men>
-                is known as the <em>Ricatti equation</em> and has some useful applications in control theory. If one solution <m>y_1(t)</m> of the Ricatti equation is known, then a more general solution containing an arbitrary constant can be found by substituting <m>y = y_1(t) + 1/v(t)</m> into equation <xref ref="exercise-firstlook05-equation-ricatti" /> to find a first-order linear equation in <m>v</m> and <m>t</m>, which we can solve to find a general solution to the Ricatti equation.  
+                    <men xml:id="firstlook05-exercise-equation-ricatti">y' = p(t) + q(t) y + r(t) y^2</men>
+                is known as the <em>Ricatti equation</em> and has some useful applications in control theory. If one solution <m>y_1(t)</m> of the Ricatti equation is known, then a more general solution containing an arbitrary constant can be found by substituting <m>y = y_1(t) + 1/v(t)</m> into equation <xref ref="firstlook05-exercise-equation-ricatti" /> to find a first-order linear equation in <m>v</m> and <m>t</m>, which we can solve to find a general solution to the Ricatti equation.  
                     <ol>
 
                         <li>Show that this first-order linear equation is <m>v' + [q(t) + 2 r(t) y_1(t)]v = - r(t)</m>.</li>
@@ -685,15 +685,15 @@
         <exercise>  <!--TWJ 2/28/2014-->
             <statement>
                 <p>Suppose that we have a population that not only grows logistically but also requires a minimum threshold population to survive.  For example, the case of the North Pacific right whale, a species now very much on the endangered list.  If the population drops too low, whales might not be able to find suitable mates and the species will eventually go extinct.  In other words, the population will die out if it drops below a certain threshold.  We can model this with the following equation,
-                    <men xml:id="exercise-firstlook05-equation-right-whale">\frac{dP}{dt} = k\left(1 - \frac{P}{N} \right) (P - aN),</men>
+                    <men xml:id="firstlook05-exercise-equation-right-whale">\frac{dP}{dt} = k\left(1 - \frac{P}{N} \right) (P - aN),</men>
                 where <m>P</m> is the population of the whales at time <m>t</m> and <m>N</m> is the carrying capacity.  The constants <m>k</m> and <m>a</m> are positive with <m>a \lt 1</m>.
                     <ol>
                     
                         <li>Find the equilibrium solutions of the this equation.</li>
                         
-                        <li>Since equation <xref ref="exercise-firstlook05-equation-right-whale" /> is autonomous, we can find a solution using separation of variables.  Find this solution.</li>
+                        <li>Since equation <xref ref="firstlook05-exercise-equation-right-whale" /> is autonomous, we can find a solution using separation of variables.  Find this solution.</li>
                         
-                        <li>Equation <xref ref="exercise-firstlook05-equation-right-whale" /> is also a Ricatti equation  <xref ref="exercise-firstlook05-equation-ricatti" />.  Since we know an equilibrium solution from part (1), we can use the method of the previous problem to find a general solution to <xref ref="exercise-firstlook05-equation-right-whale" />.  Find the general solution using the fact that we have a Ricatti equation and show that your solution agrees with the solution that you found in part (2)</li>
+                        <li>Equation <xref ref="firstlook05-exercise-equation-right-whale" /> is also a Ricatti equation  <xref ref="firstlook05-exercise-equation-ricatti" />.  Since we know an equilibrium solution from part (1), we can use the method of the previous problem to find a general solution to <xref ref="firstlook05-exercise-equation-right-whale" />.  Find the general solution using the fact that we have a Ricatti equation and show that your solution agrees with the solution that you found in part (2)</li>
                         
                         
                     </ol></p>
@@ -704,12 +704,6 @@
     
     </exercises>
 
-    <subsection number="no" xml:id="subsection-firstlook05-sage-project">
-        <title>Project<mdash />Modeling</title>
-
-<!-- Todo Sage modeling project needed.-->
-
-    </subsection>
 
  </section>
 
