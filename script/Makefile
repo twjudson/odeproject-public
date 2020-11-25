@@ -187,27 +187,19 @@ print:
 viewprint:
 	$(PDFVIEWER) $(PDFOUT)/odeproject-print.pdf &
 
-# Author's Draft
-#   Like electronic PDF version, but for:
-#   No index created, since showidx is used
-#   Various markup for author's use, todo's etc
-draft:
-	# delete old  xsltproc  output
-	# dash prevents error if not found
-	-rm $(PDFOUT)/odeproject.tex
-	install -d $(PDFOUT) $(MBUSR)
-	cp -a $(SRC)/images $(PDFOUT)
-	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-latex.xsl $(XSL)/odeproject-electronic.xsl $(MBUSR)
-	cd $(PDFOUT); \
-	xsltproc --xinclude --stringparam author-tools 'yes' \
-	--stringparam latex.draft 'yes' $(MBUSR)/odeproject-electronic.xsl $(SRC)/odeproject.xml; \
-	$(ENGINE) odeproject.tex; makeindex odeproject; $(ENGINE) odeproject.tex; \
-	mv odeproject.pdf odeproject-draft.pdf
-
-viewdraft:
-	$(PDFVIEWER) $(PDFOUT)/odeproject-draft.pdf &
-
-
+# Runestone HTML
+#   Modeled on raw HTML
+#   Will produce a zip file
+#   SOME TOTALLY HARDCODED PATHS
+runestone:
+	install -d $(HTMLOUT) $(MBUSR) $(HTMLOUT)/_static
+	cp -a $(SRC)/images $(HTMLOUT)
+	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-html.xsl $(MBUSR)
+	cp /home/rob/mathbook/python-virtual/env/lib/python3.6/site-packages/runestone/dist/runestone.js $(HTMLOUT)/_static
+	cp /home/rob/mathbook/python-virtual/env/lib/python3.6/site-packages/runestone/common/js/jquery.idle-timer.js $(HTMLOUT)/_static
+	cd $(HTMLOUT); \
+	xsltproc --xinclude -stringparam publisher ../publisher/runestone.xml $(MBUSR)/odeproject-html.xsl $(SRC)/odeproject.xml; \
+	zip -r $(SCRATCH)/$(ZIPRS) .
 ######
 # Sage
 ######
@@ -224,64 +216,9 @@ doctest:
 	-rm $(DOCTEST)/*.py; \
 	install -d $(DOCTEST)
 	cd $(DOCTEST); \
-	xsltproc --xinclude --stringparam chunk-level 2 $(MBXSL)/mathbook-sage-doctest.xsl $(SRC)/odeporject.xml; \
+	xsltproc --xinclude --stringparam chunk-level 2 $(MBXSL)/mathbook-sage-doctest.xsl $(SRC)/odeproject.xml; \
 	$(SAGE) -tp 0 .
 
-# Doctest Sage Solutions
-#   All Sage code in solutions
-#   Remove *.py from previous runs
-#   chunk level 2 gives sections (commentaries, exercises/solutions)
-doctest-exercises:
-	install -d $(PDFOUT)
-	cp -a $(SRC)/* $(PDFOUT)
-	install -d $(PDFOUT)/exercises
-	cp -a $(EXR)/*.xml $(PDFOUT)/exercises
-	mv $(PDFOUT)/exercises/*-sage-exercises.xml $(PDFOUT)/sage
-	mv $(PDFOUT)/exercises/odeproject-solution-manual.xml $(PDFOUT)
-	-rm $(DOCTEST)/*.py; \
-	install -d $(DOCTEST)
-	cd $(DOCTEST); \
-	xsltproc --xinclude  --stringparam chunk-level 2 $(MBXSL)/mathbook-sage-doctest.xsl $(PDFOUT)/odeproject-solution-manual.xml; \
-	$(SAGE) -tp 0 .
-
-# SageMathCloud worksheets
-#   can upload, extract tarball
-#   that has "odeproject-smc" as root directory
-#     $ tar -xvf odeproject-smc.tgz
-smc:
-	install -d $(SMCOUT) $(MBUSR)
-	cp -a $(SRC)/images $(SMCOUT)
-	cp -a $(MB)/css/mathbook-content.css $(MB)/css/mathbook-add-on.css $(SMCOUT)
-	cp $(XSL)/odeproject-common.xsl $(XSL)/odeproject-smc.xsl $(MBUSR)
-	cd $(SMCOUT); \
-	xsltproc --xinclude $(MBUSR)/odeproject-smc.xsl $(SRC)/odeproject.xml
-	# wrap up into a tarball in SCRATCH
-	# NB: subdir must match with SMCOUT
-	tar -c -z -f $(SCRATCH)/odeproject-smc.tgz -C $(SCRATCH) odeproject-smc
-
-###########
-# Utilities
-###########
-
-
-	## THESE NEED WORK ##
-
-# Check document source against the DTD
-#   Leaves "dtderrors.txt" in SCRATCH
-#   can then grep on, eg
-#     "element XXX:"
-#     "does not follow"
-#     "Element XXXX content does not follow"
-#     "No declaration for"
-#   Automatically invokes the "less" pager, could configure as $(PAGER)
-check:
-	install -d $(SCRATCH)
-	-rm $(SCRATCH)/dtderrors.*
-	-xmllint --xinclude --noout --dtdvalid $(MBDTD)/mathbook.dtd $(SRC)/odeproject.xml 2> $(SCRATCH)/dtderrors.txt
-	less $(SCRATCH)/dtderrors.txt
-
-viewcheck:
-	less $(SCRATCH)/dtderrors.txt
 
 ##############
 # Experimental
@@ -297,31 +234,3 @@ jupyter:
 	cd $(JUPYTEROUT); \
 	xsltproc --xinclude $(MBUSR)/odeproject-jupyter.xsl $(SRC)/odeproject.xml
 
-
-# Sage Notebooks
-#   Need to  make diagrams first (not a true makefile)
-#   First, all content
-#   Copy all the pieces into place relatice to $SCRATCH
-#   Drop result in $SAGENBOUT
-sagenb:
-	install -d $(HTMLOUT)
-	cp -a $(SRC)/*.xml $(SRC)/images $(SRC)/exercises $(SRC)/sage $(SCRATCH)
-	cp -a $(HTMLOUT)/images $(SCRATCH)
-	$(MBSCRIPT)/mbx -v -c all -f sagenb -o $(SAGENBOUT)/odeproject.zip $(SCRATCH)/odeproject.xml
-
-# EPUB 3.0 assembly
-#	TODO: fix retrieval of CSS (via wget?)
-epub:
-	rm -rf $(EPUBOUT)
-	install -d $(EPUBOUT) $(EPUBOUT)/EPUB/css $(EPUBOUT)/EPUB/xhtml
-	cd $(EPUBOUT); \
-	xsltproc --xinclude  $(MBXSL)/mathbook-epub.xsl $(SRC)/odeproject.xml
-	rm -rf $(EPUBOUT)/knowl
-	cp ~/mathbook/local/epub-trial/mathbook-content.css $(EPUBOUT)/EPUB/css/
-	cp -a $(SRC)/images $(EPUBOUT)/EPUB/xhtml
-	cp -a $(EPUBOUT)/EPUB/xhtml/images/cover_odeproject_2014.png $(EPUBOUT)/EPUB/xhtml/images/cover.png
-	#
-	cp -a /media/rob/disk/mathjax-out/*.html $(EPUBOUT)/EPUB/xhtml
-	#
-	cd $(EPUBOUT); \
-	zip -0Xq  odeproject-mathml.epub mimetype; zip -Xr9Dq odeproject-mathml.epub *
