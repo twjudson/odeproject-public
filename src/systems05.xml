@@ -10,47 +10,48 @@
 <section xml:id="systems05" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>Projects for Systems of Differential Equations</title>
     
-    <subsection xml:id="systems05-subsection-project-1">
-        <title>Project<mdash />Mathematical Epidemiology 101</title>
+    <project xml:id="systems05-project-epidemiology">
+        <title>Mathematical Epidemiology 101</title>
 
-		<p>Systems of differential equations are very useful in epidemiology. Differential equations can be used to model various epidemics, including the bubonic plague, influenza, AIDS, the 2015 ebola outbreak in west Africa, and most currently the coronavirus pandemic. To understand how we might model an epidemic, we will consider a very simple situation. We will assume that we have a closed population of size <m>N</m>, where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
+        <introduction>
+			<p>Systems of differential equations are very useful in epidemiology. Differential equations can be used to model various epidemics, including the bubonic plague, influenza, AIDS, the 2015 ebola outbreak in west Africa, and currently the 2020<ndash />2021 coronavirus pandemic. To understand how we might model an epidemic, we will consider a very simple situation. We will assume that we have a closed population of size <m>N</m>, where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
 
-		<p>We will assume that each individual in the population falls into one of the following categories: 
-			<md>
-				<mrow>S(t) \amp = \text{Susceptible individuals}</mrow>
-				<mrow>I(t) \amp = \text{Infected individuals}</mrow>
-				<mrow>R(t) \amp = \text{Removed individuals}</mrow>
-			</md>
-		Susceptible individuals are those who do not yet have the disease and can catch the disease from infected individuals. Individuals enter the removed population by either recovering from the disease or dying. If an infected individual recovers, then the individual is immune to the disease. Schematically, we can represent the effect of the disease by the diagram
-			<me>S \longrightarrow I \longrightarrow R.</me>
-		Since the population is closed, we know that
-			<me>S(t) + I(t) + R(t) = N.</me>
-		This model is called an <term>SIR model</term>.</p>
+			<p>We will assume that each individual in the population falls into one of the following categories: 
+				<md>
+					<mrow>S(t) \amp = \text{Susceptible individuals}</mrow>
+					<mrow>I(t) \amp = \text{Infected individuals}</mrow>
+					<mrow>R(t) \amp = \text{Removed individuals}</mrow>
+				</md>
+			Susceptible individuals are those who do not yet have the disease and can catch the disease from infected individuals. Individuals enter the removed population by either recovering from the disease or dying. If an infected individual recovers, then the individual is immune to the disease. Schematically, we can represent the effect of the disease by the diagram
+				<me>S \longrightarrow I \longrightarrow R.</me>
+			Since the population is closed, we know that
+				<me>S(t) + I(t) + R(t) = N.</me>
+			This model is called an <term>SIR model</term>.</p>
 
-		<p>We can model how the disease acts with the following system of equations,
-			<md>
-				<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
-				<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I</mrow>
-				<mrow>\frac{dR}{dt} \amp = \beta I.</mrow>
-			</md>
-		We say that <m>\alpha</m> is the rate of infection and <m>\beta</m> is the rate at which the infected are removed. That is, an infected individual either dies or recovers after <m>1/ \beta</m> days. Since
-			<me>\frac{d}{dt}\left[ S(t) + I(t) + R(t)\right] = \frac{d}{dt} N = 0,</me>
-		we need only solve the system
-			<md>
-				<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
-				<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I.</mrow>
-			</md>
-		This is a nonlinear system, but it can be solved numerically.</p>
+			<p>We can model how the disease acts with the following system of equations,
+				<md>
+					<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
+					<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I</mrow>
+					<mrow>\frac{dR}{dt} \amp = \beta I.</mrow>
+				</md>
+			We say that <m>\alpha</m> is the rate of infection and <m>\beta</m> is the rate at which the infected are removed. That is, an infected individual either dies or recovers after <m>1/ \beta</m> days. Since
+				<me>\frac{d}{dt}\left[ S(t) + I(t) + R(t)\right] = \frac{d}{dt} N = 0,</me>
+			we need only solve the system
+				<md>
+					<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
+					<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I.</mrow>
+				</md>
+			This is a nonlinear system, but it can be solved numerically.</p>
+		</introduction>
 
-		<exercises>
 
-			<exercise>
-				<statement>
-					<p>Describe what the parameters <m>\alpha</m> and <m>\beta</m> mean in terms of the epidemic.</p>
-				</statement>
-			</exercise>
+		<task>
+			<statement>
+				<p>Describe what the parameters <m>\alpha</m> and <m>\beta</m> mean in terms of the epidemic.</p>
+			</statement>
+		</task>
 
-			<exercise>
+			<task>
 				<statement>
 					<p>Suppose that <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, use Sage to create a graph like the one in <xref ref="systems01-figure-SIR-epidemic" />.</p>
 				</statement>
@@ -61,15 +62,28 @@
 		            <output>
 		            </output>
 		        </sage>
-			</exercise>
+			</task>
 
-			<exercise>
+			<task>
 				<statement>
-					<p>In the 2020 coronavirus pandemic, which of the two parameters do we have some control over? Describe what changes can be made (at the public health level) and how they will change the parameter (will the parameter increase or decrease?).</p>
-				</statement>
-			</exercise>
+					<p>The data in <xref ref="systems05-table-flu-data" /> comes from an outbreak of influenza in an English boarding school</p>
 
-			<exercise>
+				<table xml:id="systems05-table-flu-data">
+		            <title>Total Number of Bedridden Boys on Day <m>t</m></title>
+		            <tabular halign="center" top="medium">
+		                <row bottom="medium">
+		                    <cell>Time (days)</cell><cell>0</cell><cell>1</cell><cell>2</cell><cell>3</cell><cell>4</cell><cell>5</cell><cell>6</cell><cell>7</cell><cell>8</cell><cell>9</cell><cell>10</cell><cell>11</cell><cell>12</cell><cell>13</cell>
+		                </row>
+		                <row bottom="medium">
+		                    <cell>Number of cases</cell><cell>1</cell><cell>3</cell><cell>25</cell><cell>72</cell><cell>222</cell><cell>282</cell><cell>256</cell><cell>233</cell><cell>189</cell><cell>123</cell><cell>70</cell><cell>25</cell><cell>11</cell><cell>4</cell>
+		                </row>
+		            </tabular>      
+        		</table>
+
+				</statement>
+			</task>
+
+			<task>
 				<statement>
 					<p>Modify this parameter and create at least three additional graphs similar to the one in (2). Clearly state each of the three different parameter values you used. You should not need to make drastic changes to the parameter to get different results.</p>
 				</statement>
@@ -79,9 +93,9 @@
 		            <output>
 		            </output>
 		        </sage>				
-			</exercise>
+			</task>
 
-			<exercise>
+			<task>
 				<statement>
 					<p>For each of your three modified parameter values and the original value answer the following questions.
 						<ol>
@@ -92,15 +106,15 @@
 
 						</ol></p>
 				</statement>
-			</exercise>
+			</task>
 
-			<exercise>
+			<task>
 				<statement>
 					<p>Summarize how the changes in your parameter affected your results to the previous question.</p>
 				</statement>
-			</exercise>
+			</task>
 
-			<exercise>
+			<task>
 				<statement>
 					<p>In the SIR model, we have three populations: susceptible, infected, and removed. In the <term>SEIR model</term>, we have an additional population <m>E</m>, which are individuals exposed the the disease. Explain the equations
 						<md>
@@ -111,11 +125,11 @@
 						</md>
 					for the SEIR model.</p>
 				</statement>
-			</exercise>
+			</task>
 
-		</exercises>
+		</project>
 
-    </subsection>
+
 
 </section>
 
