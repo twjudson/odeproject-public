@@ -41,7 +41,25 @@
 					<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
 					<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I.</mrow>
 				</md>
-			This is a nonlinear system, but it can be solved numerically.</p>
+			This is a nonlinear system, but it can be solved numerically. Suppose that <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, we can use Sage to create a graph of the solutions.</p>
+
+			<sage>
+	            <input>
+				S, Infected, t = var('S, Infected, t')
+				alpha = 0.005
+				beta = 0.08
+				F = [-alpha*S*Infected, alpha*S*Infected - beta*Infected]
+				P = desolve_system_rk4(F,[S, Infected],ics=[0,100,1],ivar=t,end_points=80,step=0.1)
+				Q = [ [i, j] for i,j,k in P]
+				R = [ [i, k] for i,j,k in P]
+				LQ = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
+				LR = line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
+				p = LQ + LR
+				p
+	            </input>
+	            <output>
+	            </output>
+	        </sage>
 		</introduction>
 
 
@@ -51,19 +69,56 @@
 			</statement>
 		</task>
 
-			<task>
-				<statement>
-					<p>Suppose that <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, use Sage to create a graph like the one in <xref ref="systems01-figure-SIR-epidemic" />.</p>
-				</statement>
+		<task>
+			<statement>
+				<p>Modify the parameters <m>\alpha</m> and <m>\beta</m> to create at least three additional graphs similar to the one in the Sage cell. Clearly state each of the three different parameter values you used. You should not need to make drastic changes to the parameter to get different results.</p>
+			</statement>
+			<sage>
+	            <input>
+	            </input>
+	            <output>
+	            </output>
+	        </sage>				
+		</task>
 
-				<sage>
-		            <input>
-		            </input>
-		            <output>
-		            </output>
-		        </sage>
-			</task>
+		<task>
+			<statement>
+				<p>Describe what the parameters <m>\alpha</m> and <m>\beta</m> mean in terms of the epidemic.</p>
+			</statement>
+		</task>
 
+		<task>
+			<statement>
+				<p>For each of your three modified parameter values and the original value answer the following questions.
+					<ol>
+
+						<li><p>What is maximum value of the infected population (in terms of <m>N</m>?</p></li>
+
+						<li><p>At what time does the maximum infected population occur?</p></li>
+
+					</ol></p>
+			</statement>
+		</task>
+
+		<task>
+			<statement>
+				<p>Summarize how the changes in your parameter affected your results to the previous question.</p>
+			</statement>
+		</task>
+
+		<task>
+			<statement>
+				<p>In the SIR model, we have three populations: susceptible, infected, and removed. In the <term>SEIR model</term>, we have an additional population <m>E</m>, which are individuals exposed the the disease. Explain the equations
+					<md>
+						<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
+						<mrow>\frac{dE}{dt} \amp = \alpha SI - \beta E</mrow>
+						<mrow>\frac{dI}{dt} \amp = \beta E - \gamma I</mrow>
+						<mrow>\frac{dR}{dt} \amp = \gamma I.</mrow>
+					</md>
+				for the SEIR model.</p>
+			</statement>
+		</task>
+<!--
 			<task>
 				<statement>
 					<p>The data in <xref ref="systems05-table-flu-data" /> comes from an outbreak of influenza in an English boarding school</p>
@@ -82,52 +137,28 @@
 
 				</statement>
 			</task>
+-->
+		<conclusion>
 
-			<task>
-				<statement>
-					<p>Modify this parameter and create at least three additional graphs similar to the one in (2). Clearly state each of the three different parameter values you used. You should not need to make drastic changes to the parameter to get different results.</p>
-				</statement>
-				<sage>
-		            <input>
-		            </input>
-		            <output>
-		            </output>
-		        </sage>				
-			</task>
+	        <p>There are many questions associated with epidemic models. Here are a few.
+	            <ul>
 
-			<task>
-				<statement>
-					<p>For each of your three modified parameter values and the original value answer the following questions.
-						<ol>
+	                <li>Will there be an epidemic?</li>
 
-							<li><p>What is maximum value of the infected population (in terms of <m>N</m>?</p></li>
+	                <li>If there is an epidemic, how many individuals will be infected?</li>
 
-							<li><p>At what time does the maximum infected population occur?</p></li>
+	                <li>Is there a period of time for which individuals are exposed to the disease but exhibit no symptoms and cannot infect others?</li>
 
-						</ol></p>
-				</statement>
-			</task>
+	                <li>If the disease is endemic, what is the prevalence of the infection?</li>
 
-			<task>
-				<statement>
-					<p>Summarize how the changes in your parameter affected your results to the previous question.</p>
-				</statement>
-			</task>
+	                <li>Can the disease be eradicated or controlled?</li>
 
-			<task>
-				<statement>
-					<p>In the SIR model, we have three populations: susceptible, infected, and removed. In the <term>SEIR model</term>, we have an additional population <m>E</m>, which are individuals exposed the the disease. Explain the equations
-						<md>
-							<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
-							<mrow>\frac{dE}{dt} \amp = \alpha SI - \beta E</mrow>
-							<mrow>\frac{dI}{dt} \amp = \beta E - \gamma I</mrow>
-							<mrow>\frac{dR}{dt} \amp = \gamma I.</mrow>
-						</md>
-					for the SEIR model.</p>
-				</statement>
-			</task>
+	                <li>What is the effect of the population age structure?</li>
 
-		</project>
+	            </ul></p>
+		</conclusion>
+
+	</project>
 
 
 
