@@ -11,151 +11,240 @@
     <title>Projects for Systems of Differential Equations</title>
     
     <project xml:id="systems05-project-epidemiology">
-        <title>Mathematical Epidemiology 101</title>
+        <title>Project<mdash />Modeling a Pandemic</title>
 
         <introduction>
-			<p>Systems of differential equations are very useful in epidemiology. Differential equations can be used to model various epidemics, including the bubonic plague, influenza, AIDS, the 2015 ebola outbreak in west Africa, and currently the 2020<ndash />2021 coronavirus pandemic. To understand how we might model an epidemic, we will consider a very simple situation. We will assume that we have a closed population of size <m>N</m>, where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
+
+        	<p>On December 31, 2019, the city of Wuhan in China reported an outbreak of a novel coronavirus (COVID-19). It is the seventh member of the coronavirus family, together with MERS-CoV and SARS-CoV, that can spread to humans.<fn>Johns Hopkins Coronavirus Resource Center, 2021. <url href="https://coronavirus.jhu.edu" />. Accessed 10 January 2021.</fn> The virus is spreading rapidly. As of January 10, 2021, over 89 million people worldwide have been infected, including over 1.9 million deaths. The World Health Organization (WHO) has declared the outbreak as a pandemic.<fn>This project is adapted from Jue Wang (2020), <q>6-016-S-PandemicModeling,</q> <url href="https://www.simiode.org/resources/7518." /></fn></p>
+
+        	<p>The word <q>pandemic</q> comes from the Greek word <q>pandemos,</q> meaning <q>pertaining to all people.</q>  Pandemics are usually caused by an infectious agent that is capable of rapidly spreading. An epidemic is specific to one city, region, or country, but a pandemic spreads beyond national borders, possibly worldwide. The 1918 Spanish flu was the worst pandemic in modern human history. It infected 500 million people around the world and resulted in the deaths of over 50 million people.<fn>Centers for Disease Control and Prevention. 2019. 1918 influenza pandemic (H1N1 virus). <url href="https://www.cdc.gov/flu/pandemic-resources/1918-pandemic-h1n1.html" />. Accessed 10 January 2021.</fn> Increased travel and mobility have increased the likelihood of new diseases spreading. <xref ref="systems-table-pandemics" /> lists the major epidemics and pandemics that have occurred over time. The recent ones are SARS, swine flu, Ebola, MERS, and COVID-19.</p>
+
+			<table xml:id="systems-table-pandemics">
+			<title>Major epidemics and pandemics in human history<fn>World Economic Forum. 2021. A visual history of pandemics. <url href="https://www.weforum.org/agenda/2020/03/a-visual-history-of-pandemics" />. Accessed 10 January 2021.</fn></title>
+			<tabular halign="left" top="medium">
+					<row bottom="medium">
+			        <cell>Name</cell><cell>Time Period</cell><cell>Type/Pre-Human Host</cell><cell>Death Toll</cell>
+			    </row>
+			    <row>
+			        <cell>Antonine Plague</cell><cell>165<ndash />180</cell><cell>Believed to be smallpox or measles</cell><cell>5 million</cell>
+			    </row>
+			    <row>
+			        <cell>Plague of Justinian</cell><cell>541<ndash />542</cell><cell>Yersinia pestis bacteria/rats, fleas</cell><cell>30<ndash />50 million</cell>
+			    </row>
+			    <row>
+			        <cell>Japanese Smallpox Epidemic</cell><cell>735<ndash />737</cell><cell>Variola major virus</cell><cell>1 million</cell>
+			    </row>
+			    <row>
+			        <cell>Black Death</cell><cell>1347<ndash />1351</cell><cell>Yersinia pestis bacteria/rats, fleas</cell><cell>200 million</cell>
+			    </row>
+			    <row>
+			        <cell>New World Smallpox Outbreak</cell><cell>1520 onwards</cell><cell>Variola major virus</cell><cell>56 million</cell>
+			    </row>
+			    <row>
+			        <cell>Great Plague of London</cell><cell>1665</cell><cell>Yersinia pestis bacteria/rats, fleas</cell><cell>100,000</cell>
+			    </row>
+			    <row>
+			        <cell>Italian Plague</cell><cell>1629<ndash />1631</cell><cell>Yersinia pestis bacteria/rats, fleas</cell><cell>1 million</cell>
+			    </row>
+			    <row>
+			        <cell>Cholera Pandemics 1<ndash />6</cell><cell>1817<ndash />1923</cell><cell>V. cholerae bacteria</cell><cell>1+ million</cell>
+			    </row>
+			    <row>
+			        <cell>Third Plague</cell><cell>1885</cell><cell>Yersinia pestis bacteria/rats, fleas</cell><cell>12 million (China and India)</cell>
+			    </row>
+			    <row>
+			        <cell>Yellow Fever</cell><cell>Late 1800s</cell><cell>Virus/Mosquitos</cell><cell>100,000<ndash />150,000 (U.S.)</cell>
+			    </row>
+			    <row>
+			        <cell>Russian Flu</cell><cell>1889<ndash />1890</cell><cell>Believed to be H2N2 (avian origin)</cell><cell>1 million</cell>
+			    </row>
+			    <row>
+			        <cell>Spanish Flu</cell><cell>1918<ndash />1919</cell><cell>H1N1 virus/Pigs</cell><cell>40<ndash />50 million</cell>
+			    </row>
+			    <row>
+			        <cell>Asian Flu</cell><cell>1957<ndash />1958</cell><cell>H2N2 virus</cell><cell>1.1 million</cell>
+			    </row>
+			    <row>
+			        <cell>Hong Kong Flu</cell><cell>1968<ndash />1970</cell><cell>H3N2 virus</cell><cell>1 million</cell>
+			    </row>
+			    <row>
+			        <cell>HIV/AIDS</cell><cell>1981<ndash />present</cell><cell>Virus/Chimpanzees</cell><cell>25<ndash />35 million</cell>
+			    </row>
+			    <row>
+			        <cell>SARS</cell><cell>2002<ndash />2003</cell><cell>Coronavirus/Bats, civets</cell><cell>770</cell>
+			    </row>			    <row>
+			        <cell>Swine Flu</cell><cell>2009<ndash />2010</cell><cell>H1N1 virus/Pigs</cell><cell>200,000</cell>
+			    </row>
+			    <row>
+			        <cell>Ebola</cell><cell>2014<ndash />2016</cell><cell>Ebola virus/Wild Animals</cell><cell>11,000</cell>
+			    </row>
+			    <row>
+			        <cell>MERS</cell><cell>2015<ndash />present</cell><cell>Coronavirus/Bats, camels</cell><cell>850</cell>
+			    </row>
+			 	<row bottom="medium">
+			        <cell>COVID-19</cell><cell>2019<ndash />present</cell><cell>Coronavirus/Unknown (possibly bats)</cell><cell>1.9 million (as of Jan 10, 2021)</cell>
+			    </row>
+			</tabular>      
+			</table>
+
+			<p>Infectious disease modeling is an essential part of the effort to minimize the spread. A well-designed model not only can help predict the likely course of an epidemic, but also can reveal the most promising and realistic strategies for containing it.</p>
+
+			<p>Following the SIR model in <xref ref="systems01-subsection-epidemics" />, we will assume that we have a closed population of size <m>N</m>, where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
 
 			<p>We will assume that each individual in the population falls into one of the following categories: 
 				<md>
-					<mrow>S(t) \amp = \text{Susceptible individuals}</mrow>
-					<mrow>I(t) \amp = \text{Infected individuals}</mrow>
-					<mrow>R(t) \amp = \text{Removed individuals}</mrow>
+					<mrow>s(t) \amp = \text{Susceptible individuals}</mrow>
+					<mrow>i(t) \amp = \text{Infected individuals}</mrow>
+					<mrow>r(t) \amp = \text{Removed individuals}</mrow>
 				</md>
 			Susceptible individuals are those who do not yet have the disease and can catch the disease from infected individuals. Individuals enter the removed population by either recovering from the disease or dying. If an infected individual recovers, then the individual is immune to the disease. Schematically, we can represent the effect of the disease by the diagram
-				<me>S \longrightarrow I \longrightarrow R.</me>
+				<me>s \longrightarrow i \longrightarrow r.</me>
 			Since the population is closed, we know that
-				<me>S(t) + I(t) + R(t) = N.</me>
-			This model is called an <term>SIR model</term>.</p>
+				<me>s(t) + i(t) + r(t) = N.</me></p>
 
-			<p>We can model how the disease acts with the following system of equations,
+			<p>It may seem more natural to work with population counts, but some of our calculations will be simpler if we use the fractions instead. Therefore, we normalize the dependent variables by the total population to represent the fraction of the total population in each group. The two sets of dependent variables are proportional to each other, so either set will give us the same information about the progress of the epidemic
+				<md>
+					<mrow>S(t) \amp = s(t)/N = \text{the fraction of susceptible individuals}</mrow>
+					<mrow>I(t) \amp = i(t)/N = \text{the fraction of infected individuals}</mrow>
+					<mrow>R(t) \amp = r(t)/N = \text{the fraction of removed individuals}</mrow>
+					<mrow>1 \amp = S(t) + R(t) + R(t)</mrow>
+				</md>.
+			The SIR model is  described by the nonlinear system of below, where <m>\alpha</m> is the <term>transmission rate</term> and <m>\beta</m> is the <term>recovery rate</term>.
 				<md>
 					<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
 					<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I</mrow>
 					<mrow>\frac{dR}{dt} \amp = \beta I.</mrow>
-				</md>
-			We say that <m>\alpha</m> is the rate of infection and <m>\beta</m> is the rate at which the infected are removed. That is, an infected individual either dies or recovers after <m>1/ \beta</m> days. Since
-				<me>\frac{d}{dt}\left[ S(t) + I(t) + R(t)\right] = \frac{d}{dt} N = 0,</me>
-			we need only solve the system
-				<md>
-					<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
-					<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I.</mrow>
-				</md>
-			This is a nonlinear system, but it can be solved numerically. Suppose that <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, we can use Sage to create a graph of the solutions.</p>
+				</md></p>
 
-			<sage>
-	            <input>
-				S, Infected, t = var('S, Infected, t')
-				alpha = 0.005
-				beta = 0.08
-				F = [-alpha*S*Infected, alpha*S*Infected - beta*Infected]
-				P = desolve_system_rk4(F,[S, Infected],ics=[0,100,1],ivar=t,end_points=80,step=0.1)
-				Q = [ [i, j] for i,j,k in P]
-				R = [ [i, k] for i,j,k in P]
-				LQ = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
-				LR = line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
-				p = LQ + LR
-				p
-	            </input>
-	            <output>
-	            </output>
-	        </sage>
-		</introduction>
+			<p>To understand this model, let us analyze the differential equations and parameters. The transmission rate <m>\alpha</m> is the product of two factors: the rate of contact and probability of transmission. <m>\alpha</m> describes the fraction of those contacts that may result in infection, or it can be interpreted as the expected number of people an infected person infects per day. The function <m>\lambda(I) = \alpha I</m> is the rate at which susceptible individuals become infectious, called the <term>force of infection</term>. The rate of change of the susceptible population is negative the force of infection times the number of susceptible, leading to <m>dS/dt =  - \alpha SI</m>.</p>
 
+			<p>The recovery rate <m>\beta</m> is the rate at which infected individuals get over the disease, that is the proportion of infected recovering per day, thus the rate of change of the recovered population is <m>\beta I</m>, leading to <m>dR/dt = \beta I</m>. Importantly, the parameter <m>\beta</m> is measured in <m>1/\text{time}</m> and <m>1/\beta</m> can be interpreted as the average time to recover, or the number of days an infected person has and can spread the disease.</p>
 
-		<task>
-			<statement>
-				<p>Describe what the parameters <m>\alpha</m> and <m>\beta</m> mean in terms of the epidemic.</p>
-			</statement>
-		</task>
+			<p>The equation <m>dI/dt = \alpha SI - \beta I</m> now makes sense.  The rate at which the fraction of infected individuals changes is the rate at which the fraction of susceptible minus the rate at which the fraction of individuals recover or
+				<me>\frac{dI}{dt} = \alpha SI - \beta I.</me></p>
 
-		<task>
-			<statement>
-				<p>Modify the parameters <m>\alpha</m> and <m>\beta</m> to create at least three additional graphs similar to the one in the Sage cell. Clearly state each of the three different parameter values you used. You should not need to make drastic changes to the parameter to get different results.</p>
-			</statement>
-			<sage>
-	            <input>
-	            </input>
-	            <output>
-	            </output>
-	        </sage>				
-		</task>
+			</introduction>
 
-		<task>
-			<statement>
-				<p>Describe what the parameters <m>\alpha</m> and <m>\beta</m> mean in terms of the epidemic.</p>
-			</statement>
-		</task>
-
-		<task>
-			<statement>
-				<p>For each of your three modified parameter values and the original value answer the following questions.
-					<ol>
-
-						<li><p>What is maximum value of the infected population (in terms of <m>N</m>?</p></li>
-
-						<li><p>At what time does the maximum infected population occur?</p></li>
-
-					</ol></p>
-			</statement>
-		</task>
-
-		<task>
-			<statement>
-				<p>Summarize how the changes in your parameter affected your results to the previous question.</p>
-			</statement>
-		</task>
-
-		<task>
-			<statement>
-				<p>In the SIR model, we have three populations: susceptible, infected, and removed. In the <term>SEIR model</term>, we have an additional population <m>E</m>, which are individuals exposed the the disease. Explain the equations
-					<md>
-						<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
-						<mrow>\frac{dE}{dt} \amp = \alpha SI - \beta E</mrow>
-						<mrow>\frac{dI}{dt} \amp = \beta E - \gamma I</mrow>
-						<mrow>\frac{dR}{dt} \amp = \gamma I.</mrow>
-					</md>
-				for the SEIR model.</p>
-			</statement>
-		</task>
-<!--
 			<task>
 				<statement>
-					<p>The data in <xref ref="systems05-table-flu-data" /> comes from an outbreak of influenza in an English boarding school</p>
 
-				<table xml:id="systems05-table-flu-data">
-		            <title>Total Number of Bedridden Boys on Day <m>t</m></title>
-		            <tabular halign="center" top="medium">
-		                <row bottom="medium">
-		                    <cell>Time (days)</cell><cell>0</cell><cell>1</cell><cell>2</cell><cell>3</cell><cell>4</cell><cell>5</cell><cell>6</cell><cell>7</cell><cell>8</cell><cell>9</cell><cell>10</cell><cell>11</cell><cell>12</cell><cell>13</cell>
-		                </row>
-		                <row bottom="medium">
-		                    <cell>Number of cases</cell><cell>1</cell><cell>3</cell><cell>25</cell><cell>72</cell><cell>222</cell><cell>282</cell><cell>256</cell><cell>233</cell><cell>189</cell><cell>123</cell><cell>70</cell><cell>25</cell><cell>11</cell><cell>4</cell>
-		                </row>
-		            </tabular>      
-        		</table>
+					<p>Using Sage, we can plot the solutions, and visualize the interaction of the three groups. Consider the initial population fractions <m>S(0) = 0.99</m>, <m>I(0) = 0.01</m>, <m>R(0) = 0</m>, <m>\alpha = 1</m>, <m>\beta = 0.2</m>, and a time period of 30 days. Adjust the parameters values to examine different behaviors and view the changes in action. What do you observe by increasing or decreasing <m>\alpha</m>?</p>
 
-				</statement>
+					<sage>
+			            <input>
+						Susceptible, Infected, Recovered, t = var('Susceptible, Infected, Recovered, t')
+						alpha = 1.0
+						beta = 0.2
+						F = [-alpha*Susceptible*Infected, alpha*Susceptible*Infected - beta*Infected, beta*Infected]
+						P = desolve_system_rk4(F,[Susceptible, Infected, Recovered],ics=[0,0.99,0.01,0],ivar=t,end_points=30,step=0.1)
+						Q = [ [i, j] for i,j,k,l in P]
+						R = [ [i, k] for i,j,k,l in P]
+						S = [ [i, l] for i,j,k,l in P]
+						LQ = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
+						LR = line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
+						LS = line(S, color='green', legend_label='$R(t)$', legend_color='green', thickness=2)
+						p = LQ + LR + LS
+						p
+			            </input>
+			            <output>
+			            </output>
+			        </sage>
+			    </statement>
+		    </task>
+
+		    <task>
+		    	<title>Basic Reproduction Number <m>R_0</m></title>
+
+		    	<introduction>
+
+					<p>The basic reproduction number <m>R_0</m>, is introduced to measure the transmission potential of a disease. It is the expected number of secondary infections produced by a single infective. For example, if the <m>R_0</m> for measles in a population is 16, then we would expect each new case of measles to produce 16 new secondary cases over the period of time during which the infected individual can actually spread the disease. The reproduction number is affected by several factors: the rate of contacts in the host population, the probability of infection being transmitted during contact, and the duration of infectiousness. In the SIR model described above,
+						<me>R_0 = \frac{\alpha}{\beta}.</me>
+					Simply put, <m>R_0</m> is a metric of how contagious a disease is. It can capture three basic scenarios (<xref ref="systems05-figure-R0" />). If <m>R_0 \lt 1</m>, on average, an infected person infects less than one person. The disease is expected to stop spreading. If <m>R_0 = 1</m>, an infected person infects an average of one person. The disease spread is stable, or endemic. If <m>R_0 \gt 1</m>, on average, an infected person infects more than one person. The disease is expected to increasingly spread in the absence of intervention.  Measles is one of the most contagious with a range of 12<ndash />18 for the reproduciton number.<fn>World Economic Forum. 2021. A visual history of pandemics. <url href="https://www.weforum.org/agenda/2020/03/a-visual-history-of-pandemics" /> Accessed 10 January 2021.</fn> Estimates of <m>R_0</m> for COVID-19 vary in the range of 2<ndash />2.5.<fn>The Johns Hopkins University. 2021. Coronavirus: COVID-19 Terms You Should Know. <url href="https://www.hopkinsmedicine.org/health/conditions-and-diseases/coronavirus/COVID-19-terms" /> Accessed 10 January 2021.</fn></p>
+
+					<figure xml:id="systems05-figure-R0">
+			            <caption>Basic reproduction number <m>R_0</m></caption>
+			            <!--<description>Basic reproduction number R0</description>-->
+			            <image width="60%" source="images/systems05-R0.jpg" />
+			        </figure>
+
+			    </introduction>
+
+
+					<task xml:id="systems05-task-I-increasing">
+						<statement>
+							<p>Examine the system
+								<md>
+									<mrow>\frac{dS}{dt} \amp = - \alpha SI</mrow>
+									<mrow>\frac{dI}{dt} \amp = \alpha SI - \beta I.</mrow>
+								</md>
+								According to the differential equation for <m>dI/dt</m>, under what conditions will <m>I(t)</m> be increasing? decreasing? What does this mean about the spread of the disease? Using this result, explain whether quarantine will be effective against the disease.</p>
+						</statement>
+					</task>
+
+
+					<task>
+						<statement>
+							<p>Show that
+								<me>\frac{dI}{dS} = -1 + \frac{1}{R_0S}.</me>
+							Two features of this new equation are particularly worth noting.
+								<ul>
+									
+									<li><p>The only parameter that appears is <m>R_0</m>, the reproduction number.</p></li>
+
+									<li><p>The equation is independent of time. That is, what we learn about the relationship between <m>S</m> and <m>I</m> must be true for the entire duration of the pandemic.</p></li>
+
+								</ul>
+								Compute <m>d^2I/dS^2</m>. Determine when the number of infected will begin to decrease. Compare this to your result from <xref ref="systems05-task-I-increasing" />.</p>
+						</statement>
+						<hint>
+							<p>Use the chain rule.</p>
+						</hint>
+					</task>
+
+					<task>
+						<statement>
+							<p>Show that <m>I</m> must have the form
+								<me>I = -S + \frac{1}{R_0} \ln S + C,</me>
+								where <m>C</m> is a constant.</p>
+						</statement>
+					</task>
+
+					<task>
+						<statement>
+							<p>For a disease such as COVID-19, <m>I(0) \approx 0</m> and <m>S(0) \approx 1</m>. A long time after the onset of the epidemic, we have <m>\lim_{t \to \infty} I(t) = I_\infty</m> approximately <m>0</m> again, and <m>S_\infty = \lim_{t \to \infty} S(t)</m> has settled to its steady state value, observable as the fraction of the population that did not get the disease. Explain why
+								<me>R_0 = \frac{\ln S_\infty}{S_\infty - 1}.</me></p>
+						</statement>
+					</task>
+
+					<task>
+						<statement>
+							<p>Describe the meaning and significance of <q>herd immunity.</q> How can vaccination lead to herd immunity?</p>
+						</statement>
+					</task>
+
 			</task>
--->
+
+			<task>
+        	<title>Your Final Report</title>
+
+	        	<statement>
+	        		<p>You have been commission to write a report on the COVID-19 pandemic to the state health department.  In particular, you task is to explain what the meaning of <m>R_0</m> and its relationship to <q>herd immunity</q>.  Your final report should contain a one-page executive summary.  The executive summary should summarize your work in such a way that the reader can rapidly become acquainted with the material. It should contain a brief description of the problem, important background information, a discussion of pertinent assumptions, a short description of your methodology, concise analysis, and your main conclusions. Assume the reader is familiar with the basics of calculus and differential equations, so there is no need to walk through every step of your solution process or include equations. However, you should still describe the processes and mathematical techniques you used to reach your conclusions and explain why you used them.  Refer the reader to the appendices as needed.</p>
+
+	        		<p>Appendices should be neatly formatted and present information in a logical manner. <em>DO NOT</em> simply print out Sage code. Consolidate your results and provide a short explanation of what it is the reader is seeing while also highlighting key pieces of information in the appendix.
+	        			<ul>
+	        				<li><p>Appendix A<mdash />Answers and analysis</p></li>
+
+	        				<li><p>Additional Appendices<mdash />Include additional appendices as necessary.</p></li>
+
+	        			</ul></p>
+
+	        	</statement>
+
+	        </task>
+
 		<conclusion>
 
-	        <p>There are many questions associated with epidemic models. Here are a few.
-	            <ul>
-
-	                <li>Will there be an epidemic?</li>
-
-	                <li>If there is an epidemic, how many individuals will be infected?</li>
-
-	                <li>Is there a period of time for which individuals are exposed to the disease but exhibit no symptoms and cannot infect others?</li>
-
-	                <li>If the disease is endemic, what is the prevalence of the infection?</li>
-
-	                <li>Can the disease be eradicated or controlled?</li>
-
-	                <li>What is the effect of the population age structure?</li>
-
-	            </ul></p>
+	        <p>Other models include SEIR, SEIS, SEAIR, MSIR, MSEIR, and MSEIRS. For many infections, there is an incubation period during which individuals have been infected but are not yet infectious themselves. During this period the individual is in class E (for exposed), leading to the SEIR model. The SEIS model is like the SEIR except that no immunity is acquired at the end. In the E class, a significant number of persons may never develop symptoms, but they are capable of transmitting the disease, introducing an additional compartment A, and thus SEAIR. For many infections, such as measles, babies are not born into the susceptible compartment but are immune to the disease for the first few months of life due to protection from maternal antibodies. The M class contains infants with maternally derived immunity (or passive immunity). The MSEIRS model is similar to the MSEIR, but the immunity in the R class would be temporary, so that individuals would regain their susceptibility when the temporary immunity ended.</p>
 		</conclusion>
 
 	</project>
