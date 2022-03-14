@@ -4,7 +4,7 @@
 <!--                                               -->
 <!--   The ODE Project                             -->
 <!--                                               -->
-<!-- Copyright (C) 1997-2020  Thomas W. Judson     -->
+<!-- Copyright (C) 1997-2022  Thomas W. Judson     -->
 <!-- See the file COPYING for copying conditions.  -->
 
 <!-- ODE Project customizations for ALL LaTeX runs of any type -->
@@ -12,7 +12,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <!-- Assumes current file is in mathbook/user, so it must be copied there -->
-<xsl:import href="../xsl/mathbook-latex.xsl" />
+<xsl:import href="../xsl/pretext-latex.xsl" />
 <!-- Assumes next file can be found in mathbook/user, so it must be copied there -->
 <xsl:import href="odeproject-common.xsl" />
 
