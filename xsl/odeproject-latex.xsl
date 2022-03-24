@@ -14,7 +14,7 @@
 <!-- Assumes current file is in mathbook/user, so it must be copied there -->
 <xsl:import href="../xsl/pretext-latex.xsl" />
 <!-- Assumes next file can be found in mathbook/user, so it must be copied there -->
-<xsl:import href="odeproject-common.xsl" />
+<!--<xsl:import href="odeproject-common.xsl" /> -->
 
 <!-- List Chapters and Sections in printed Table of Contents -->
 <xsl:param name="toc.level" select="'2'" />
