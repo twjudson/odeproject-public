@@ -22,9 +22,9 @@
 
             <li><p>To understand that a differential equation is <term>separable</term> if it can be written in the form
                 <me>\frac{dy}{dx} =M(x) N(y),</me>
-            and that rewriting the equation in the form
+            and by rewriting the equation in the form
                 <me>g(y) \, dy = f(x) \, dx</me>
-            athat the equation can be solved by integrating both sides.</p></li>
+            the equation can be solved by integrating both sides.</p></li>
         </ul>
     </objectives>
     <introduction>
@@ -40,9 +40,7 @@
     <subsection xml:id="firstlook02-subsection-separable-de">
         <title>Separable Differential Equations</title>
 
-        <p> For some first-order differential equations such as
-            <me>\frac{dx}{dt} = k x</me>
-        the solution is given by an explicit formula. In this particular case, the solution is <m>x(t) = Ce^{kt}</m>. In general, we cannot generally find such a formula for an arbitrary first-order differential equation. We can, however, solve a differential equation <m>y' = f(x, y)</m> if we can write the equation in the form
+        <p>In general, we cannot generally find such a formula for an arbitrary first-order differential equation. We can, however, solve a differential equation <m>y' = f(x, y)</m> if we can write the equation in the form
             <me>f(x) + g(y) \frac{dy}{dx} = 0.</me>
         Such equations are called <term>separable</term><idx><h>differential equation</h><h>separable</h></idx>. We can solve separable equations by integrating the first term with respect to <m>x</m> and the second term with respect to <m>y</m>.</p>
 
@@ -79,7 +77,7 @@
 
         </example>
 
-        <p>If we ask <em>Sage</em> to solve a differential equation that is impossible to solve analytically, the computation will return an error. <em>Sage</em> will not solve the initial value problem
+        <p>If we ask <em>Sage</em> to solve a differential equation that it cannot solve analytically, the computation will return an error. <em>Sage</em> will not solve the initial value problem
             <md>
                 <mrow>\frac{dy}{dx} &amp; =  \sin(xy)</mrow>
                 <mrow>y(0) &amp; =  1.</mrow>
@@ -284,26 +282,28 @@
     
         <p>There is a large class of problems in modeling known as <term>mixing problems</term><idx>mixing problems</idx>. These problems refer to situations where two or more substances are mixed together in a container or containers.  For example, we might wish to model how chemicals are mixed together in a refinery, how pollutants are mixed together in a pond or a lake, how ingredients are mixed together when brewing beer, or even how various greenhouse gases mix together across different layers of the atmosphere.</p>
 
-        <p>Suppose that we have a large tank containing 1000 gallons of pure water and that water containing 0.5 pounds of salt per gallon flows into the tank at a rate of 10 gallons per minute.  If the tank is also draining at a rate of 10 gallons per minute, the water level in the tank will remain constant.  We will assume that the water in the tank is constantly stirred so that the mixture of salt and water is uniform in the tank.</p>
+        <example>
+            <p>Suppose that we have a large tank containing 1000 gallons of pure water and that water containing 0.5 pounds of salt per gallon flows into the tank at a rate of 10 gallons per minute.  If the tank is also draining at a rate of 10 gallons per minute, the water level in the tank will remain constant.  We will assume that the water in the tank is constantly stirred so that the mixture of salt and water is uniform in the tank.</p>
 
-        <p>We can model the amount of salt in the tank using differential equations. If <m>x(t)</m> is the amount of salt in the tank at time <m>t</m>, then the rate at which the salt is changing in the tank is the difference between the rate at which salt is flowing into the tank and the rate at which it is leaving the tank, or
-            <men xml:id="firstlook02-equation-mixing-problem">\frac{dx}{dt} = \text{rate in} - \text{rate out}.</men>
-        Of course, the salt flows into the tank at the rate of <m>10 \cdot 0.5 = 5</m> pounds of salt per minute. However, the rate at which the salt leaves the tank depends on <m>x(t)</m>, the amount salt in the tank at time <m>t</m>.  At time <m>t</m>, there is <m>x(t)/1000</m> pounds of salt in one gallon. Therefore, salt flows out of the tank at a rate of <m>10x(t)/1000 = x(t)/100</m> pounds per minute. Equation<nbsp /><xref ref="firstlook02-equation-mixing-problem" /> now becomes
-            <md>
-                <mrow>\frac{dx}{dt} \amp = 5 - \frac{x}{100}</mrow>
-                <mrow>x(0) \amp = 0.</mrow>
-            </md>
-        This equation is separable,
-            <me>\frac{dx}{500 - x} = \frac{dt}{100}.</me>
-        Integrating both sides of the equation, we have
-            <me>-\ln|500 - x| = \frac{t}{100} + k</me>
-        or
-            <me>\ln|500 - x| = - \frac{t}{100} - k.</me>
-        Consequently,
-            <me>500 - x = C e^{-0.01t},</me>
-        where <m>C = e^{-k}</m>.  From our initial condition, we can quickly determine that <m>C = 500</m> and 
-            <me>x(t) = 500 - 500 e^{-0.01t}</me>
-        models the amount of salt in the tank at time <m>t</m>. Notice that <m>x(t)\to 500</m> as <m>t \to \infty</m>, as expected.</p>
+            <p>We can model the amount of salt in the tank using differential equations. If <m>x(t)</m> is the amount of salt in the tank at time <m>t</m>, then the rate at which the salt is changing in the tank is the difference between the rate at which salt is flowing into the tank and the rate at which it is leaving the tank, or
+                <men xml:id="firstlook02-equation-mixing-problem">\frac{dx}{dt} = \text{rate in} - \text{rate out}.</men>
+            Of course, the salt flows into the tank at the rate of <m>10 \cdot 0.5 = 5</m> pounds of salt per minute. However, the rate at which the salt leaves the tank depends on <m>x(t)</m>, the amount salt in the tank at time <m>t</m>.  At time <m>t</m>, there is <m>x(t)/1000</m> pounds of salt in one gallon. Therefore, salt flows out of the tank at a rate of <m>10x(t)/1000 = x(t)/100</m> pounds per minute. Equation<nbsp /><xref ref="firstlook02-equation-mixing-problem" /> now becomes
+                <md>
+                    <mrow>\frac{dx}{dt} \amp = 5 - \frac{x}{100}</mrow>
+                    <mrow>x(0) \amp = 0.</mrow>
+                </md>
+            This equation is separable,
+                <me>\frac{dx}{500 - x} = \frac{dt}{100}.</me>
+            Integrating both sides of the equation, we have
+                <me>-\ln|500 - x| = \frac{t}{100} + k</me>
+            or
+                <me>\ln|500 - x| = - \frac{t}{100} - k.</me>
+            Consequently,
+                <me>500 - x = C e^{-0.01t},</me>
+            where <m>C = e^{-k}</m>.  From our initial condition, we can quickly determine that <m>C = 500</m> and 
+                <me>x(t) = 500 - 500 e^{-0.01t}</me>
+            models the amount of salt in the tank at time <m>t</m>. Notice that <m>x(t)\to 500</m> as <m>t \to \infty</m>, as expected.</p>
+        </example>
 
         <activity>
             <title>A Brewery Problem</title>
@@ -338,7 +338,7 @@
     <subsection xml:id="firstlook02-subsection-retirement">
         <title>A Retirement Model</title>
 
-        <p>Differential equations have many applications in economics and finance. For example, Dr.<nbsp />J., a college professor, wisely started saving for his retirement as soon as he entered the workforce, and he now has $500,000 in a retirement account earning an interest of 5% compounded continuously. The initial value problem,
+        <p>Differential equations have many applications in economics and finance. For example, Dr.<nbsp />J., a college professor, wisely started saving for his retirement as soon as he entered the workforce, and he now has $500,000 in a retirement account earning an interest of 5% compounded continuously.<idx>retirement model</idx> The initial value problem,
             <md>
                 <mrow>\frac{dP}{dt} \amp = 0.05 P</mrow>
                 <mrow>P(0) \amp = 500</mrow>
@@ -688,6 +688,19 @@
         <exercise>
             <statement>
                 <p>Mr.<nbsp/>Ratchett, an elderly American, was found murdered in his train compartment on the Orient Express at 7 AM. When his body was discovered, the famous detective Hercule Poirot noted that Ratchett had a body temperature of 28 degrees. The body had cooled to a temperature of 27 degrees one hour later. If the normal temperature of a human being is 37 degrees and the air temperature in the train is 22 degrees, estimate the time of Ratchett's death using Newton's Law of Cooling.</p>
+            </statement>
+        </exercise>
+
+        <exercise>
+            <statement>
+                <p>You are starting a new position, and your employer has a generous retirement plan.  If you put $500 a month into a 401(k) plan, your employer will match your contributions.  
+                    <ol>
+                        <li><p>Assume that you are 25 years old and plan to retire at age 65, how large can you expect your 401(k) pension to be when you retire?  Assume that your 401(k) plan will collect interest at a rate of 5%.</p></li>
+
+                        <li><p>If you begin withdrawing $60,000 every year at age 65, how long will your retirement fund last?</p></li>
+                    </ol>
+
+                    </p>
             </statement>
         </exercise>
 
