@@ -28,12 +28,24 @@
             <statement>
                 <p>Let <m>x' = f(t, x)</m> have the initial condition <m>x(t_0) = x_0</m>. If <m>f</m> and <m>\partial f/ \partial x</m> are continuous functions on the rectangle 
                     <me>R = \left\{ (t, x) : 0 \leq |t - t_0| \leq a, 0 \leq |x - x_0| \leq b \right\},</me>
-                there exists a unique solution <m>u = u(t)</m> for  <m>x' = f(t, x)</m> and <m>x(t_0) = x_0</m> on some interval <m>|t - t_0| \lt h</m> contained in the interval <m>|t - t_0| \lt a</m>.</p>
+                there exists a unique solution <m>u = u(t)</m> for  <m>x' = f(t, x)</m> and <m>x(t_0) = x_0</m> on some interval <m>|t - t_0| \lt h</m> contained in the interval <m>|t - t_0| \lt a</m>.<idx>Existence and Uniqueness Theorem</idx></p>
             </statement>
         </theorem> 
         
         <p>Let us examine some consequences of the existence and uniqueness of solutions.</p>
-        
+
+        <example>
+            <p>Consider the initial value problem
+                <md>
+                    <mrow>x'(t) &amp; = \frac{\sin(tx)}{x^2 + t^2},</mrow>
+                    <mrow>x(0) &amp; = 1.</mrow>
+                </md>
+            In this case <m>f(t,x) = \sin(tx)/(x^2 + t^2)</m> is continuous at <m>(0,1)</m> as is
+                <me>\frac{\partial f}{\partial x} = 
+                    \frac{t \cos(t x)}{t^{2} + x^{2}} - \frac{2 x \sin(t x)}{{\left(t^{2} + x^{2}\right)}^{2}}.</me>
+            Therefore, a solution to the initial value problem must exist.  However, finding such a solution in terms of elementary functions may be quite difficult if not impossible.</p>
+        </example>
+
         <example>
             <p>Consider the initial value problem <m>y' = y^{1/3}</m> with <m>y(0) = 0</m> and <m>t \geq 0</m>. Separating the variables,
                 <me>y^{-1/3} y' = dt.</me>
@@ -162,7 +174,7 @@
             <me>u_1(t) = x_0 + \int_{t_0}^t f(s, u_0(s)) \, ds.</me> 
         Subsequent terms in the sequence can be defined recursively,
             <me>u_{n+1} = x_0 + \int_{t_0}^t f(s, u_n(s)) \, ds.</me>
-        Our goal is to show that <m>u_n(t) \rightarrow u(t)</m> as <m>n \rightarrow \infty</m>. Furthermore, we need to show that <m>u</m> is the continuous, unique solution to our initial value problem. We will leave the proof of Picard's Theorem to a series of exercises, but let us see how this works by developing an example.</p>
+        Our goal is to show that <m>u_n(t) \rightarrow u(t)</m> as <m>n \rightarrow \infty</m>. Furthermore, we need to show that <m>u</m> is the continuous, unique solution to our initial value problem. We will leave the proof of Picard's Theorem to a series of exercises (<xref ref="firstlook06-exercises-exist"/>), but let us see how this works by developing an example.</p>
 
 
         <example>
@@ -329,20 +341,6 @@
      
         <exercise>
             <statement>
-                <p>Let <m>\phi_n(x) = x^n</m> for <m>0 \leq x \leq 1</m> and show that
-                    <me>\lim_{n \rightarrow \infty} \phi_n(x) 
-                    =
-                    \begin{cases}
-                    0,      &amp; 0 \leq x \lt 1 \\
-                    1,      &amp; x = 1.
-                    \end{cases}</me>
-                This is an example of a sequence of continuous functions that does not converge to a continuous function, which helps explain the need for <term>uniform continuity</term> in the proof of the Existence and Uniqueness Theorem.</p>
-            </statement>
-
-        </exercise>
-
-        <exercise>
-            <statement>
                 <p>Consider the initial value problem
                     <md>
                         <mrow>y' &amp; = 2ty + t</mrow>
@@ -422,7 +420,7 @@
                         <me>u_0(t) + \sum_{n=1}^\infty [u_n(t) - u_{n-1}(t)].</me>
                     If we can show that this series converges absolutely, then our sequence will converge to a function <m>u(t)</m>. Show that
                         <me>\sum_{n=1}^\infty |u_n(t) - u_{n-1}(t)| \leq \frac{M}{K} \sum_{n=1}^\infty \frac{(K |t - t_0|)^n}{n!} \leq \frac{M}{K} \left( e^{K|h|} - 1 \right),</me>
-                    where <m>h</m> is the maximum distance between <m>(t_0, x_0)</m> and the boundary of the rectangle <m>R</m>.  Since <m>|u_n(t) - u_{n -1}(t)| \to 0</m>, we know that <m>u_n(t)</m> converges to a continuous function <m>u(t)</m> that solves our equation.<fn>We must a theorem from advanced calculus here to ensure uniform continuity.  Any sequence of functions that converges uniformly, must converge to a continuous function.</fn></p>
+                    where <m>h</m> is the maximum distance between <m>(t_0, x_0)</m> and the boundary of the rectangle <m>R</m>.  Since <m>|u_n(t) - u_{n -1}(t)| \to 0</m>, we know that <m>u_n(t)</m> converges to a continuous function <m>u(t)</m> that solves our equation.<fn>We must a theorem from advanced calculus here to ensure uniform continuity (see <xref ref="firstlook06-uniform-continuity"/>).  Any sequence of functions that converges uniformly, must converge to a continuous function.</fn></p>
                 </statement>
             </exercise>
             <exercise>
@@ -454,6 +452,19 @@
                 </statement>
             </exercise>
         </exercisegroup>
+
+        <exercise xml:id="firstlook06-uniform-continuity">
+            <statement>
+                <p>Let <m>\phi_n(x) = x^n</m> for <m>0 \leq x \leq 1</m> and show that
+                    <me>\lim_{n \rightarrow \infty} \phi_n(x) 
+                    =
+                    \begin{cases}
+                    0,      &amp; 0 \leq x \lt 1 \\
+                    1,      &amp; x = 1.
+                    \end{cases}</me>
+                This is an example of a sequence of continuous functions that does not converge to a continuous function, which helps explain the need for <term>uniform continuity</term><idx>uniform continuity</idx> in the proof of the Existence and Uniqueness Theorem.</p>
+            </statement>
+        </exercise>
     </exercises> 
 
 
