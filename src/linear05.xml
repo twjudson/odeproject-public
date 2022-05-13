@@ -92,7 +92,7 @@
                 <mrow>x' &amp; = \lambda x + y</mrow>
                 <mrow>y' &amp; = \lambda y.</mrow>
             </md>
-        This is a partially coupled system. If <m>y \neq 0</m>, the solution of the second equation is
+        This is a partially coupled system (<xref ref="systems04-subsection-partially-coupled" />). If <m>y \neq 0</m>, the solution of the second equation is
             <me>y(t) = \beta e^{\lambda t}.</me>
         Therefore, the first equation becomes
             <me>x' = \lambda x + \beta e^{\lambda t},</me>
@@ -122,7 +122,7 @@
                 -1 &amp; 1 \\
                 0 &amp; -1
                 \end{pmatrix}</me>
-            has a single eigenvalue, <m>\lambda = -1</m>. An eigenvector for <m>\lambda</m> is <m>\mathbf v = (1, 0)</m>. Thus, the general solution to our system is
+            has a single eigenvalue, <m>\lambda = -1</m>. An eigenvector for <m>\lambda</m> is <m>\mathbf v = (1, 0)</m>. The general solution to our system is
                 <md>
                     <mrow>x(t) \amp = c_1 e^{-t} + c_2 t e^{-t}</mrow>
                     <mrow>y(t) \amp = c_2 e^{-t}.</mrow>
@@ -229,11 +229,13 @@
         </example>
 
         <example xml:id="linear05-example-repeated-eigenvalues">
-            <p>Now let us consider the example  <m>\mathbf x' = A \mathbf x</m>, where
+            <p>Now let us consider the example <m>\mathbf x' = A \mathbf x</m>, where
                 <me>A = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}.</me>
             Since the characteristic polynomial of <m>A</m> is <m>\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2</m>, we have only a single eigenvalue <m>\lambda = 3</m> with eigenvector <m>\mathbf v_1 = (1, -2)</m>. This gives us one solution to our system, <m>\mathbf x_1(t) = e^{3t}\mathbf v_1</m>; however, we still need a second solution.</p>
 
-            <p>Since all other eigenvectors of <m>A</m> are a multiple of <m>\mathbf v</m>, we cannot find a second linearly independent eigenvector and we need to obtain the second solution in a different manner. We must find a vector <m>{\mathbf v}_2</m> such that <m>(A - \lambda I){\mathbf v}_2 = {\mathbf v}_1</m>. To do this we can start with any nonzero vector <m>{\mathbf w}</m> that is not a multiple of <m>{\mathbf v}_1</m>, say <m>{\mathbf w} = (1, 0)</m>. We then compute
+            <p>Since all other eigenvectors of <m>A</m> are a multiple of <m>\mathbf v</m>, we cannot find a second linearly independent eigenvector, and we need to obtain the second solution in a different manner.  Furthermore, since this system is not partially coupled, we will need a more general strategy.</p>
+
+            <p>First, we must find a vector <m>{\mathbf v}_2</m> such that <m>(A - \lambda I){\mathbf v}_2 = {\mathbf v}_1</m>. To do this we can start with any nonzero vector <m>{\mathbf w}</m> that is not a multiple of <m>{\mathbf v}_1</m>, say <m>{\mathbf w} = (1, 0)</m>. We then compute
                 <me>(A - \lambda I) {\mathbf w}
                 =
                 (A - 3I) {\mathbf w}
@@ -271,7 +273,7 @@
                 \end{pmatrix}.</me></p>
         </example>
 
-            <p>If the eigenvalue is positive, we will have a nodal source. If it is negative, we will have a nodal sink. Notice that we have only given a recipe for finding a solution to <m>\mathbf x' = A \mathbf x</m>, where <m>A</m> has a repeated eigenvalue and any two eigenvectors are linearly dependent. We will justify our procedure in the next section (<xref ref="linear06" />).</p>
+            <p>If the eigenvalue is positive, we will have a nodal source. If it is negative, we will have a nodal sink. Notice that we have only given a recipe for finding a solution to <m>\mathbf x' = A \mathbf x</m>, where <m>A</m> has a repeated eigenvalue and any two eigenvectors are linearly dependent. We will justify our procedure in the next section (<xref ref="linear06-subsection-repeated-eigenvalues" />).</p>
 
         <activity>
             <title>Systems with Repeated Eigenvalues<mdash />Finding a Second Solution</title>
@@ -341,10 +343,12 @@
                 \end{pmatrix}.</me>
             If <m>\lambda \lt 0</m>, then the solutions tend towards the origin as <m>t  \to \infty</m>. For <m>\lambda \gt 0</m>, the solutions tend away from the origin.</p></li>
 
+            <li><p>Suppose that a system <m>d\mathbf x/dt = A \mathbf x</m> has a single eigenvalue with an <m>\mathbf v_1</m> and that all other eigenvectors are multiples of <m>\mathbf v_1</m>. Then one solution is <m>\mathbf x_1 = e^{\lambda t} {\mathbf v}_1</m>. To find a second linearly independent solution of <m>d\mathbf x/dt = A \mathbf x</m>, choose a vector <m>\mathbf w</m> that is not a multiple of <m>\mathbf v_1</m> and compute <m>(A - \lambda I) {\mathbf w}</m>.  This should give you a vector of the form <m>\alpha \mathbf v_1</m>.  Let <m>\mathbf v_2 = (1/\alpha) \mathbf w</m>.  The second solution is <m>{\mathbf x}_2 = e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1)</m>.  The general solution of <m>d\mathbf x/dt = A \mathbf x</m> will be
+                <me>\mathbf x(t) = c_1 e^{\lambda t} {\mathbf v}_1+ c_2 e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1) </me>.</p></li>
+
         </ul></p>
 
     </subsection>
-
 
     <reading-questions xml:id="reading-questions-linear05">
 
