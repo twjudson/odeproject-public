@@ -253,35 +253,35 @@
                     <mrow>y(t) \amp = - \sin 2t + 2 \cos 2t.</mrow>
                 </md>
             The phase portrait is a circle of radius 2 about the origin (<xref ref="linear04-figure-center-phase-portrait" />).</p>
-        </example>
-       
-        <figure xml:id="linear04-figure-center-phase-portrait">
 
-            <image width="60%" xml:id="linear04-center-phase-portrait">
-                <description>a direction field of slope arrows and a solution curve that is a circle</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = y
-                    g = -x
-                    start_x = 1
-                    start_y = 2
-                    n = sqrt(f^2 + g^2)
-                    v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    result = v
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=11,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    result = result + LP
-                    points = [ (start_x, start_y) ]
-                    starting_point = point(points[0], pointsize=50)
-                    result = result + starting_point
-                    S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    result = result + S_arrow
-                    result
-                </sageplot>
-            </image>
-            <caption>Phase portrait for a center</caption>
-        </figure>
+            <figure xml:id="linear04-figure-center-phase-portrait">
+
+                    <image width="60%" xml:id="linear04-center-phase-portrait">
+                        <description>a direction field of slope arrows and a solution curve that is a circle</description>
+                        <sageplot>
+                            x, y ,t = var('x y t')
+                            f = y
+                            g = -x
+                            start_x = 1
+                            start_y = 2
+                            n = sqrt(f^2 + g^2)
+                            v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                            result = v
+                            P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=11,step=0.1)
+                            S=[ [j, k] for i,j,k in P]
+                            LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                            result = result + LP
+                            points = [ (start_x, start_y) ]
+                            starting_point = point(points[0], pointsize=50)
+                            result = result + starting_point
+                            S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                            result = result + S_arrow
+                            result
+                        </sageplot>
+                    </image>
+                    <caption>Phase portrait for a center</caption>
+                </figure>            
+            </example>
 
     </subsection>
 
@@ -343,54 +343,56 @@
                     <mrow>x(0) \amp = 2</mrow>
                     <mrow>y(0) \amp = 2.</mrow>
                 </md>
-                The matrix 
-                    <me>\begin{pmatrix}
-                    -1/10 \amp 1 \\
-                    -1 \amp -1/10
-                    \end{pmatrix}</me>
-                has eigenvalues <m>\lambda = -1/10 \pm i</m>. The eigenvalue <m>\lambda = -1/10 + i</m> has an eigenvector <m>\mathbf v = (1, i)</m>. The complex solution of our system is
-                    <md>
-                        <mrow>\mathbf x(t) \amp = e^{(-1/10 + i)t} \begin{pmatrix} 1 \\ i\end{pmatrix}</mrow>
-                        <mrow>\amp = e^{-t/10} e^{it} \begin{pmatrix} 1 \\ i \end{pmatrix}</mrow>
-                        <mrow>\amp = e^{-t/10} (\cos t + i \sin t) \begin{pmatrix} 1 \\ i\end{pmatrix}</mrow>
-                        <mrow>\amp = e^{-t/10} \begin{pmatrix} \cos t + i \sin t \\ - \sin t + i \cos t \end{pmatrix}</mrow>
-                         <mrow>\amp = e^{-t/10} \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + i e^{-t/10}  \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}</mrow>
-                    </md>
-                The real and imaginary parts of this solution are
-                    <me>{\mathbf x}_{\text{Re}}(t) = e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} \quad \text{and} \quad {\mathbf x}_{\text{Im}}(t) = e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix},</me>
-                respectively. Thus, we have the general solution
-                    <me>\mathbf x(t) = c_1 e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + c_2 e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}.</me>
-                Applying our initial conditions, we can determine that <m>c_1 = 2</m> and <m>c_2 = 2</m>; hence, the solution to our initial value problem is 
-                    <me>\mathbf x(t)  =  2 e^{-t/10}  \begin{pmatrix} \cos t + \sin t \\ \cos t - \sin t \end{pmatrix}.</me>
-                The phase portrait of this solution indicates that we do indeed have a spiral sink (<xref ref="linear04-figure-sink-phase-portrait" />).</p>
+            The matrix 
+                <me>\begin{pmatrix}
+                -1/10 \amp 1 \\
+                -1 \amp -1/10
+                \end{pmatrix}</me>
+            has eigenvalues <m>\lambda = -1/10 \pm i</m>. The eigenvalue <m>\lambda = -1/10 + i</m> has an eigenvector <m>\mathbf v = (1, i)</m>. The complex solution of our system is
+                <md>
+                    <mrow>\mathbf x(t) \amp = e^{(-1/10 + i)t} \begin{pmatrix} 1 \\ i\end{pmatrix}</mrow>
+                    <mrow>\amp = e^{-t/10} e^{it} \begin{pmatrix} 1 \\ i \end{pmatrix}</mrow>
+                    <mrow>\amp = e^{-t/10} (\cos t + i \sin t) \begin{pmatrix} 1 \\ i\end{pmatrix}</mrow>
+                    <mrow>\amp = e^{-t/10} \begin{pmatrix} \cos t + i \sin t \\ - \sin t + i \cos t \end{pmatrix}</mrow>
+                     <mrow>\amp = e^{-t/10} \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + i e^{-t/10}  \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}</mrow>
+                </md>
+            The real and imaginary parts of this solution are
+                <me>{\mathbf x}_{\text{Re}}(t) = e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} \quad \text{and} \quad {\mathbf x}_{\text{Im}}(t) = e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix},</me>
+            respectively. Thus, we have the general solution
+                <me>\mathbf x(t) = c_1 e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + c_2 e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}.</me>
+            Applying our initial conditions, we can determine that <m>c_1 = 2</m> and <m>c_2 = 2</m>; hence, the solution to our initial value problem is 
+                <me>\mathbf x(t)  =  2 e^{-t/10}  \begin{pmatrix} \cos t + \sin t \\ \cos t - \sin t \end{pmatrix}.</me>
+            The phase portrait of this solution indicates that we do indeed have a spiral sink (<xref ref="linear04-figure-sink-phase-portrait" />).</p>
+
+            <figure xml:id="linear04-figure-sink-phase-portrait">
+                <image width="60%" xml:id="linear04-sink-phase-portrait">
+                    <description>a direction field of slope arrows and a solution curve that spirals towards the origin</description>
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        f = -x/10 + y
+                        g = -x - y/10
+                        start_x = 2
+                        start_y = 2
+                        n = sqrt(f^2 + g^2)
+                        v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                        result = v
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=21,step=0.01)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        result = result + LP
+                        points = [ (start_x, start_y) ]
+                        starting_point = point(points[0], pointsize=50)
+                        result = result + starting_point
+                        S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                        result = result + S_arrow
+                        result
+                    </sageplot>
+                </image>
+                <caption>Phase portrait for a spiral sink</caption>
+            </figure>               
         </example>
 
-        <figure xml:id="linear04-figure-sink-phase-portrait">
-            <image width="60%" xml:id="linear04-sink-phase-portrait">
-                <description>a direction field of slope arrows and a solution curve that spirals towards the origin</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = -x/10 + y
-                    g = -x - y/10
-                    start_x = 2
-                    start_y = 2
-                    n = sqrt(f^2 + g^2)
-                    v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    result = v
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=21,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    result = result + LP
-                    points = [ (start_x, start_y) ]
-                    starting_point = point(points[0], pointsize=50)
-                    result = result + starting_point
-                    S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    result = result + S_arrow
-                    result
-                </sageplot>
-            </image>
-            <caption>Phase portrait for a spiral sink</caption>
-        </figure>
+    
 
         <example>
             <p>The initial value problem
@@ -410,34 +412,35 @@
                 Following the procedure that we used in the previous example, the solution to our initial value problem is 
                     <me>\mathbf x(t) = \frac{1}{2} e^{t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix},</me>
                 and he phase portrait is a spiral source (<xref ref="linear04-figure-source-phase-portrait" />).</p>
-        </example>
 
-        <figure xml:id="linear04-figure-source-phase-portrait">
-            <image width="60%" xml:id="linear04-source-phase-portrait">
-                <description>a direction field of slope arrows with a solution curve that spirals out from the origin</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = x/10 + y
-                    g = -x + y/10
-                    start_x = 0
-                    start_y = 0.5
-                    n = sqrt(f^2 + g^2)
-                    v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    result = v
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=18,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    result = result + LP
-                    points = [ (start_x, start_y) ]
-                    starting_point = point(points[0], pointsize=50)
-                    result = result + starting_point
-                    S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    result = result + S_arrow
-                    result
-                </sageplot>
-            </image>
-            <caption>Phase portrait for a spiral source</caption>
-        </figure>
+                <figure xml:id="linear04-figure-source-phase-portrait">
+                    <image width="60%" xml:id="linear04-source-phase-portrait">
+                        <description>a direction field of slope arrows with a solution curve that spirals out from the origin</description>
+                        <sageplot>
+                            x, y ,t = var('x y t')
+                            f = x/10 + y
+                            g = -x + y/10
+                            start_x = 0
+                            start_y = 0.5
+                            n = sqrt(f^2 + g^2)
+                            v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                            result = v
+                            P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=18,step=0.01)
+                            S=[ [j, k] for i,j,k in P]
+                            LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                            result = result + LP
+                            points = [ (start_x, start_y) ]
+                            starting_point = point(points[0], pointsize=50)
+                            result = result + starting_point
+                            S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                            result = result + S_arrow
+                            result
+                        </sageplot>
+                    </image>
+                    <caption>Phase portrait for a spiral source</caption>
+                </figure> 
+
+        </example>
 
         <activity>
             <title>Systems with Complex Eigenvalues</title>

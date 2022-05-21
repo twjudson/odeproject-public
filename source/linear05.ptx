@@ -133,36 +133,38 @@
                     <mrow>y(t) \amp = 3e^{-t}.</mrow>
                 </md>
             Notice that we have only one straight-line solution (<xref ref="linear05-figure-repeated-phase-portrait" />).</p>
+
+            <figure xml:id="linear05-figure-repeated-phase-portrait">
+                    <image width="60%" xml:id="linear05-repeated-phase-portrait">
+                        <description>a direction field of slope arrows with one straight-line solution on the horizontal axis and a solution curve that approaches the origin</description>
+                        <sageplot>
+                            x, y ,t = var('x y t')
+                            f = -x + y
+                            g = -y
+                            start_x = 1
+                            start_y = 3
+                            xmin = -4
+                            xmax = 4
+                            ymin = -4
+                            ymax = 4
+                            n = sqrt(f^2 + g^2)
+                            p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                            P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=5,step=0.1)
+                            S=[ [j, k] for i,j,k in P]
+                            p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                            points = [ (start_x, start_y) ]
+                            p += point(points[0], pointsize=50)
+                            p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                            p += arrow((0,0), (1,0), color="red", arrowsize=3, width = 4)
+                            p += line([(-4,0), (4,0)], thickness=2)
+                            p
+                        </sageplot>
+                    </image>
+                <caption>Phase portrait for repeated eigenvalues</caption>
+            </figure>
         </example>
 
-        <figure xml:id="linear05-figure-repeated-phase-portrait">
-            <image width="60%" xml:id="linear05-repeated-phase-portrait">
-                <description>a direction field of slope arrows with one straight-line solution on the horizontal axis and a solution curve that approaches the origin</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = -x + y
-                    g = -y
-                    start_x = 1
-                    start_y = 3
-                    xmin = -4
-                    xmax = 4
-                    ymin = -4
-                    ymax = 4
-                    n = sqrt(f^2 + g^2)
-                    p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=5,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    points = [ (start_x, start_y) ]
-                    p += point(points[0], pointsize=50)
-                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    p += arrow((0,0), (1,0), color="red", arrowsize=3, width = 4)
-                    p += line([(-4,0), (4,0)], thickness=2)
-                    p
-                </sageplot>
-            </image>
-            <caption>Phase portrait for repeated eigenvalues</caption>
-        </figure>
+    
 
         <activity>
             <title>Systems with Repeated Eigenvalues</title>

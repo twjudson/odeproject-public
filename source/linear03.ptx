@@ -74,25 +74,28 @@
                 1 &amp; -1
                 \end{pmatrix}.</me>
             The eigenvalues of <m>A</m> are  <m>\lambda = -2</m> or <m>\lambda = 2</m> with eigenvectors <m>\mathbf u = (1, -1)</m> and <m>\mathbf v = (3,1)</m>, respectively. Therefore, the straight-line solutions must be lines containing <m>\mathbf u</m> and <m>\mathbf v</m> (<xref ref="linear03-figure-saddle-phase-portrait-0" />).</p>
+
+            <figure xml:id="linear03-figure-saddle-phase-portrait-0">
+                <image width="60%" xml:id="linear03-saddle-phase-portrait-0">
+                    <description>a direction field of slope arrows with two straight-line solutions plotted in the same direction as the eigenvectors</description>
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        F = [x + 3*y, x - y]
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        p += line([(-3,-1), (3,1)], thickness = 2)
+                        p += line([(-3,3), (3,-3)], thickness = 2)
+                        p += arrow((0,0), (1,-1), color="red", arrowsize=3, width = 4)
+                        p += arrow((0,0), (3,1), color="red", arrowsize=3, width = 4)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Straight-line solutions</caption>
+            </figure>
+
         </example>
 
-        <figure xml:id="linear03-figure-saddle-phase-portrait-0">
-            <image width="60%" xml:id="linear03-saddle-phase-portrait-0">
-                <description>a direction field of slope arrows with two straight-line solutions plotted in the same direction as the eigenvectors</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    F = [x + 3*y, x - y]
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    p += line([(-3,-1), (3,1)], thickness = 2)
-                    p += line([(-3,3), (3,-3)], thickness = 2)
-                    p += arrow((0,0), (1,-1), color="red", arrowsize=3, width = 4)
-                    p += arrow((0,0), (3,1), color="red", arrowsize=3, width = 4)
-                    p
-                </sageplot>
-            </image>
-            <caption>straight-line solutions</caption>
-        </figure>
+
 
         <p>Let us consider the special case of the  system <m>{\mathbf x}' = A {\mathbf x}</m>, where <m>\lambda_1 \lt 0 \lt \lambda_2</m> and
             <me>A
@@ -180,35 +183,37 @@
                 1 \\ - 1
                 \end{pmatrix}.</me>
             If <m>c_1 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_1(t)</m> as <m>t \to \infty</m>. If <m>c_2 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_2(t)</m> as <m>t \to -\infty</m>. Thus, we have the phase portrait in <xref ref="linear03-figure-saddle-phase-portrait-2" />.</p>
+
+           <figure xml:id="linear03-figure-saddle-phase-portrait-2">
+                <image width="60%" xml:id="linear03-saddle-phase-portrait-2">
+                    <description>a direction field of slope arrows and curves approaching the straight-line solutions for large values</description>
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        F = [x + 3*y, x - y]
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                        P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
+                        P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
+                        P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
+                        P4=desolve_system_rk4(F,[x,y],ics=[0,2.9,-3],ivar=t,end_points=1.86,step=0.1)
+                        S1=[ [j, k] for i,j,k in P1]
+                        S2=[ [j, k] for i,j,k in P2]
+                        S3=[ [j, k] for i,j,k in P3]
+                        S4=[ [j, k] for i,j,k in P4]
+                        LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        LP2=line(S2, thickness=2)
+                        LP3=line(S3, thickness=2)
+                        LP4=line(S4, thickness=2)
+                        L1 = line([(-3,-1), (3,1)], thickness = 2, color="red")
+                        L2 = line([(-3,3), (3,-3)], thickness = 2, color="red")
+                        LP1 + LP2 + LP3 + LP4 + v + L1 + L2
+                    </sageplot>
+                </image>
+                <caption>Saddle phase portrait</caption>
+            </figure>            
         </example>
 
-        <figure xml:id="linear03-figure-saddle-phase-portrait-2">
-            <image width="60%" xml:id="linear03-saddle-phase-portrait-2">
-                <description>a direction field of slope arrows and curves approaching the straight-line solutions for large values</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    F = [x + 3*y, x - y]
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
-                    P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
-                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
-                    P4=desolve_system_rk4(F,[x,y],ics=[0,2.9,-3],ivar=t,end_points=1.86,step=0.1)
-                    S1=[ [j, k] for i,j,k in P1]
-                    S2=[ [j, k] for i,j,k in P2]
-                    S3=[ [j, k] for i,j,k in P3]
-                    S4=[ [j, k] for i,j,k in P4]
-                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    LP2=line(S2, thickness=2)
-                    LP3=line(S3, thickness=2)
-                    LP4=line(S4, thickness=2)
-                    L1 = line([(-3,-1), (3,1)], thickness = 2, color="red")
-                    L2 = line([(-3,3), (3,-3)], thickness = 2, color="red")
-                    LP1 + LP2 + LP3 + LP4 + v + L1 + L2
-                </sageplot>
-            </image>
-            <caption>Saddle phase portrait</caption>
-        </figure>
+ 
             
         <p>For the general case, where <m>A</m> has eigenvalues <m>\lambda_1 \lt 0 \lt \lambda_2</m>, we always have a stable line of solutions and an unstable line of solutions. All other solutions approach the unstable line as <m>t \to \infty</m> and the stable line as <m>t \to - \infty</m>.</p>
 
@@ -335,46 +340,48 @@
                 x(t) \\ y(t)
                 \end{pmatrix}.</me>
             The eigenvalues of this system are <m>\lambda_1 = -6</m> and <m>\lambda_2 = -3</m> with eigenvectors <m>\mathbf v_1 = (2,1 )</m> and <m>\mathbf v_2 = (1, -1)</m>, respectively.  Since the dominant eigenvalue is <m>\lambda_1 = -6</m>, solutions tend towards the straight-line solution containing the vector <m>\mathbf v_1 = (2,1 )</m> more quickly (<xref ref="linear03-figure-nodal-sink-phase-portrait" />).</p>
+
+            <figure xml:id="linear03-figure-nodal-sink-phase-portrait">
+                <image width="60%" xml:id="linear03-nodal-sink-phase-portrait">
+                    <description>a direction field of slope arrows with straight-line solutions and solution curves approaching the origin</description>
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        f = -5*x - 2*y
+                        g = -x - 4*y
+                        n = sqrt(f^2 + g^2)
+                        xmin = -4
+                        xmax = 4
+                        ymin = -4
+                        ymax = 4
+                        v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                        result = v
+                        L1 = line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
+                        L2 = line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
+                        result = result + L1 + L2
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        result
+                    </sageplot>
+                </image>
+                <caption>Sink phase portrait</caption>
+            </figure>            
         </example>
 
-        <figure xml:id="linear03-figure-nodal-sink-phase-portrait">
-            <image width="60%" xml:id="linear03-nodal-sink-phase-portrait">
-                <description>a direction field of slope arrows with straight-line solutions and solution curves approaching the origin</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = -5*x - 2*y
-                    g = -x - 4*y
-                    n = sqrt(f^2 + g^2)
-                    xmin = -4
-                    xmax = 4
-                    ymin = -4
-                    ymax = 4
-                    v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                    result = v
-                    L1 = line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
-                    L2 = line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
-                    result = result + L1 + L2
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    result
-                </sageplot>
-            </image>
-            <caption>Sink phase portrait</caption>
-        </figure>
+
 
         <activity>
             <title>Planar Systems with Two Negative Eigenvalues</title>
@@ -457,46 +464,48 @@
                 x(t) \\ y(t)
                 \end{pmatrix}.</me>
             The eigenvalues of this system are <m>\lambda_1 = 5</m> and <m>\lambda_2 = 1</m> with eigenvectors <m>\mathbf v_1 = (3, -1)</m> and <m>\mathbf v_2 = (1, 1)</m>, respectively. Since the dominant eigenvalue is <m>\lambda_1 = 5</m>, solutions are closer to  the straight-line solution containing the vector <m>\mathbf v_2 = (3, -1)</m> more as <m>t \to \infty</m> (<xref ref="linear03-figure-nodal-source-phase-portrait-1" />).</p>
+
+            <figure xml:id="linear03-figure-nodal-source-phase-portrait-1">
+                <image width="60%" xml:id="linear03-nodal-source-phase-portrait-1">
+                    <description>a direction field of slope arrows with straight-line solutions and solution curves approaching infinity</description>
+                    <sageplot>
+                        x, y ,t = var('x y t')
+                        f = 4*x - 3*y
+                        g = -x + 2*y
+                        n = sqrt(f^2 + g^2)
+                        xmin = -4
+                        xmax = 4
+                        ymin = -4
+                        ymax = 4
+                        v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                        result = v
+                        L1 = line([(-4,-4), (4,4)], thickness = 2, color="red")
+                        L2 = line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
+                        result = result + L1 + L2
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
+                        S=[ [j, k] for i,j,k in P]
+                        LP=line(S, thickness=2)
+                        result = result + LP
+                        result
+                    </sageplot>
+                </image>
+                <caption>Source phase portrait</caption>
+            </figure>           
         </example>
 
-        <figure xml:id="linear03-figure-nodal-source-phase-portrait-1">
-            <image width="60%" xml:id="linear03-nodal-source-phase-portrait-1">
-                <description>a direction field of slope arrows with straight-line solutions and solution curves approaching infinity</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = 4*x - 3*y
-                    g = -x + 2*y
-                    n = sqrt(f^2 + g^2)
-                    xmin = -4
-                    xmax = 4
-                    ymin = -4
-                    ymax = 4
-                    v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                    result = v
-                    L1 = line([(-4,-4), (4,4)], thickness = 2, color="red")
-                    L2 = line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
-                    result = result + L1 + L2
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2)
-                    result = result + LP
-                    result
-                </sageplot>
-            </image>
-            <caption>Source phase portrait</caption>
-        </figure>
+
         
     </subsection>
 

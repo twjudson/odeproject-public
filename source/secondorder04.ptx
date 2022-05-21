@@ -104,22 +104,22 @@
             Applying the initial conditions, both <m>c_1 = 0</m> and <m>c_2 = 0</m>. Consequently, the solution to the initial value problem is 
                 <me>x(t) = \frac{1}{6} t \sin 12t.</me>
             The graph of this solution is given in <xref ref="secondorder04-figure-resonance-3" />. Notice that our solution grows with time. This growth is due to the fact that the frequency of the forcing term is equal to the natural frequency of the oscillator. Since the force pulls and pushes at a frequency equal to the natural frequency of the oscillator, the amplitude increases with time. This type of behavior is called <term>resonance</term>.</p>
+
+            <figure xml:id="secondorder04-figure-resonance-3">
+
+                <image width="60%" xml:id="secondorder04-resonance-3">
+                    <description>an oscillating position curve with amplitudes increasing as time increases</description>
+                    <sageplot>
+                        t = var('t')
+                        x = function('x')(t)
+                        f = desolve(diff(x,t,2)+ 144*x == 4*cos(12*t),x,[0,0,0])
+                        p = plot(f, (t, 0, 4*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi)
+                        p
+                    </sageplot>
+                </image>
+                <caption>The solution to <m>x'' + 4 x = 4 \sin 2t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m>.</caption>
+            </figure>
         </example>
-
-        <figure xml:id="secondorder04-figure-resonance-3">
-
-            <image width="60%" xml:id="secondorder04-resonance-3">
-                <description>an oscillating position curve with amplitudes increasing as time increases</description>
-                <sageplot>
-                    t = var('t')
-                    x = function('x')(t)
-                    f = desolve(diff(x,t,2)+ 144*x == 4*cos(12*t),x,[0,0,0])
-                    p = plot(f, (t, 0, 4*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi)
-                    p
-                </sageplot>
-            </image>
-            <caption>The solution to <m>x'' + 4 x = 4 \sin 2t</m>, <m>x(0) = 0</m>, <m>x'(0) = 0</m>.</caption>
-        </figure>
 
         <activity>
             <title>Resonance</title>
@@ -226,30 +226,30 @@
             <p>In our example, <m>\delta = -1/2</m> and <m>\overline{\omega} = 25/2</m>. The factor  <m>\sin \delta t = \sin( - t/2)</m> in <xref ref="secondorder04-equation-resonance-3" /> oscillates very slowly in comparison to <m>\sin(\overline{\omega}) = \sin(25t/2)</m>. Thus, we can view the solution <xref ref="secondorder04-equation-resonance-3" /> as a fast oscillation with a frequency <m>\overline{\omega}</m> and amplitude
                 <men xml:id="secondorder04-equation-resonance-4">\left| \frac{A \sin \delta t}{2 \overline{\omega} \delta} \right| = \left| \frac{8}{25} \sin\left( \frac{t}{2}\right)\right|,</men>
             which oscillates much more slowly. If we superimpose the graph of <xref ref="secondorder04-equation-resonance-4" /> onto the graph in <xref ref="secondorder04-figure-resonance-1" />, we obtain an <term>envelope</term><idx>envelope</idx> of the faster oscillation.</p>
+       
+            <figure xml:id="secondorder04-figure-resonance-2">
+                <image width="60%" xml:id="secondorder04-resonance-5">
+                    <description>an oscillating solution curve with the amplitudes also oscillating and an envelope curve that bounds the oscillating amplitudes</description>
+                    <sageplot>
+                        t = var('t')
+                        A = 4
+                        omega = 13
+                        omega0 = 12
+                        y = function('y')(t)
+                        g = desolve(diff(y,t,2)+omega0^2*y == A*cos(omega*t),y,[0,0,0])
+                        p = plot(g, (t, 0, 10*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x(t)$')
+                        delta = (omega0 - omega)/2
+                        omegabar = (omega0 + omega)/2
+                        p += plot((A/(2*omegabar*delta))*sin(delta*t), (t, 0, 10*pi), color='red',thickness=3, legend_label='$|(A/2 \overline{\omega} \delta) \sin \delta t|$')
+                        p += plot(-A*sin(delta*t)/(2*omegabar*delta), (t, 0, 10*pi), color='red',thickness=3)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Envelope for the initial value problem<nbsp /><xref ref="secondorder04-equation-resonance-7" /></caption>
+            </figure>
 
         </example>
-        
-        <figure xml:id="secondorder04-figure-resonance-2">
-            <image width="60%" xml:id="secondorder04-resonance-5">
-                <description>an oscillating solution curve with the amplitudes also oscillating and an envelope curve that bounds the oscillating amplitudes</description>
-                <sageplot>
-                    t = var('t')
-                    A = 4
-                    omega = 13
-                    omega0 = 12
-                    y = function('y')(t)
-                    g = desolve(diff(y,t,2)+omega0^2*y == A*cos(omega*t),y,[0,0,0])
-                    p = plot(g, (t, 0, 10*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x(t)$')
-                    delta = (omega0 - omega)/2
-                    omegabar = (omega0 + omega)/2
-                    p += plot((A/(2*omegabar*delta))*sin(delta*t), (t, 0, 10*pi), color='red',thickness=3, legend_label='$|(A/2 \overline{\omega} \delta) \sin \delta t|$')
-                    p += plot(-A*sin(delta*t)/(2*omegabar*delta), (t, 0, 10*pi), color='red',thickness=3)
-                    p
-                </sageplot>
-            </image>
-            <caption>Envelope for the initial value problem<nbsp /><xref ref="secondorder04-equation-resonance-7" /></caption>
-        </figure>
-
+ 
         <activity>
             <title>Beats</title>
 
@@ -386,22 +386,24 @@
                 <me>x_h(t) = e^{-ct} \sin \beta t = e^{-t} \sin t.</me>
             Since <m>c = 1</m>, <m>\omega = 4</m>, and <m>A = 3</m>, the gain is <m>G(4) \approx 0.0620</m>, the amplitude of the steady state solution is <m>G(4) \cdot 4 \approx 0.2481</m>. The phase is <m>\phi = \phi(4) \approx 2.6224.</m> The solution and the steady-state solution are given in <xref ref="secondorder04-figure-forced-spring-steady-state" />. As we can see, transient solutions can be quite large when compared to steady-state solutions.</p>
 
+            <figure xml:id="secondorder04-figure-forced-spring-steady-state">
+                <image width="60%" xml:id="secondorder04-secondorder04-forced-spring-steady-state">
+                    <description>an oscillating steady-state solution and a solution curve to a forced damped harmonic oscillator that converges to the steady-state solution</description>
+                    <sageplot>
+                        t = var('t')
+                        xh = exp(-t)*sin(t)
+                        xp = - 21/130*cos(4*t) + 6/65*sin(4*t)
+                        p = plot(xh + xp, (t, 0, 3*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x_h + x_p$')
+                        p += plot(xp, (t, 0, 3*pi),ticks=pi,tick_formatter=pi, color="red", legend_label='$x_p$')
+                        p
+                    </sageplot>
+                </image>
+                <caption>A forced damped harmonic oscillator and the steady-state solution.</caption>
+            </figure>
+        
         </example>
 
-        <figure xml:id="secondorder04-figure-forced-spring-steady-state">
-            <image width="60%" xml:id="secondorder04-secondorder04-forced-spring-steady-state">
-                <description>an oscillating steady-state solution and a solution curve to a forced damped harmonic oscillator that converges to the steady-state solution</description>
-                <sageplot>
-                    t = var('t')
-                    xh = exp(-t)*sin(t)
-                    xp = - 21/130*cos(4*t) + 6/65*sin(4*t)
-                    p = plot(xh + xp, (t, 0, 3*pi), axes_labels=['$t$',"$x(t)$"],ticks=pi,tick_formatter=pi, legend_label='$x_h + x_p$')
-                    p += plot(xp, (t, 0, 3*pi),ticks=pi,tick_formatter=pi, color="red", legend_label='$x_p$')
-                    p
-                </sageplot>
-            </image>
-            <caption>A forced damped harmonic oscillator and the steady-state solution.</caption>
-        </figure>
+
 
          <p>Large transient currents can be destructive in electrical circuits. For example, a light bulb usually burns out when a large transient flows through an already weakened bulb. This, usually occurs at the time the light bulb is turned out or turned off. Large transient currents are particularly harmful to the hard drive in a computer. For this reason, computers should be left on except in the case that they are not being used for a period of several days.</p>
 
