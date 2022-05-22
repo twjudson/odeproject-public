@@ -388,29 +388,32 @@ By TheDailyNathan (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/
             and <m>\phi(x) = x^2 + C</m>. Letting <m>C = 0</m>, our Hamiltonian function is
                 <me>H(x, y) = x^2 - x^2 \sin x \sin y  = x^2(1 - \sin x \sin y).</me>
             Solution curves for this system are given in <xref ref="nonlinear02-figure-finding-hamiltonians" />.</p>
+
+            <figure xml:id="nonlinear02-figure-finding-hamiltonians">
+
+                <image width="60%" xml:id="nonlinear02-finding-hamiltonians">
+                    <description>solution curves as level sets on a direction field of slope arrows</description>
+                    <sageplot>
+                        x, y, t = var('x y t')
+                        xmin = -6
+                        xmax = 6
+                        ymin = -6
+                        ymax = 6
+                        H(x,y) = x^2*(1 - sin(x)*sin(y))
+                        f = diff(H,y)
+                        g = -diff(H,x)
+                        n = sqrt(f^2 + g^2)
+                        p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), axes_labels=['$x(t)$','$y(t)$'],aspect_ratio=1)
+                        p += contour_plot(H, (x,xmin,xmax), (y,ymin,ymax), fill=False, cmap='hsv', contours=[-1,-0.5, -0.1, 0,0.1, 0.5, 1,3, 6, 9])
+                        p
+                    </sageplot>
+                </image>
+                <caption>Solution curves for <xref ref="nonlinear02-example-finding-hamiltonians" /></caption>
+            </figure>
+                    
         </example>
 
-        <figure xml:id="nonlinear02-figure-finding-hamiltonians">
 
-            <image width="60%" xml:id="nonlinear02-finding-hamiltonians">
-                <description>solution curves as level sets on a direction field of slope arrows</description>
-                <sageplot>
-                    x, y, t = var('x y t')
-                    xmin = -6
-                    xmax = 6
-                    ymin = -6
-                    ymax = 6
-                    H(x,y) = x^2*(1 - sin(x)*sin(y))
-                    f = diff(H,y)
-                    g = -diff(H,x)
-                    n = sqrt(f^2 + g^2)
-                    p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), axes_labels=['$x(t)$','$y(t)$'],aspect_ratio=1)
-                    p += contour_plot(H, (x,xmin,xmax), (y,ymin,ymax), fill=False, cmap='hsv', contours=[-1,-0.5, -0.1, 0,0.1, 0.5, 1,3, 6, 9])
-                    p
-                </sageplot>
-            </image>
-            <caption>Solution curves for <xref ref="nonlinear02-example-finding-hamiltonians" /></caption>
-        </figure>
 
         <activity>
             <title>Hamiltonian Systems</title>

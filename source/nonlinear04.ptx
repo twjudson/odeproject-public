@@ -306,34 +306,36 @@
                 -1 - 2 x_0 y_0 \amp 1 - x_0^2
                 \end{pmatrix},</me>
                 which agrees with <m>A</m> for <m>(x_0, y_0) = (0,0)</m>.</p>
+
+            <figure xml:id="nonlinear04-figure-van-der-pol">    
+                <image width="60%" xml:id="nonlinear04-van-der-pol">
+                    <description>a direction field of slope arrows with a closed orbit about the origin</description>
+                    <sageplot>
+                        x, y, t = var('x y t')
+                        F = [y, -x + x*(1 - x^2)*y]
+                        xmin = -4
+                        xmax = 4
+                        ymin = -4
+                        ymax = 4
+                        start_x = 1.5
+                        start_y = 2
+                        start_t = 0
+                        P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=20,step=0.01)
+                        S = [[j, k] for i,j,k in P]
+                        p = line(S, axes_labels=['$x(t)$','$y(t)$'])
+                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                        points = [ (start_x, start_y) ]
+                        p += point(points[0], pointsize=50)
+                        n = sqrt(F[0]^2 + F[1]^2)
+                        p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
+                        p
+                    </sageplot>
+                </image>
+                <caption>Van der Pol's equation</caption>
+            </figure>
         </example>
 
-        <figure xml:id="nonlinear04-figure-van-der-pol">    
-            <image width="60%" xml:id="nonlinear04-van-der-pol">
-                <description>a direction field of slope arrows with a closed orbit about the origin</description>
-                <sageplot>
-                    x, y, t = var('x y t')
-                    F = [y, -x + x*(1 - x^2)*y]
-                    xmin = -4
-                    xmax = 4
-                    ymin = -4
-                    ymax = 4
-                    start_x = 1.5
-                    start_y = 2
-                    start_t = 0
-                    P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=20,step=0.01)
-                    S = [[j, k] for i,j,k in P]
-                    p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    points = [ (start_x, start_y) ]
-                    p += point(points[0], pointsize=50)
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-                    p
-                </sageplot>
-            </image>
-            <caption>Van der Pol's equation</caption>
-        </figure>
+
 
         <p>Let us examine how a bifurcation might occur in a predator-prey model.  In our model, we will assume that a predator's appetite is satiated when food is abundant. If this is the case, an increase in the prey population has little effect on the interaction terms in our model.  We might model this satiable predator-prey scenario by the equations
             <md>
