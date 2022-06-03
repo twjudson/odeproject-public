@@ -235,88 +235,223 @@
         to determine the nature of the equilibrium solution. Since the eigenvalues of this linear system are <m>(1 \pm i)/2</m>, we can conclude that the origin is a spiral source. A solution that passes close to the origin tends to spiral outward; however, solutions that are far from the origin spiral inward. We shall later see that we must have a closed periodic solution to this system by the Poincaré-Bendixson Theorem.</p>
 
     </project>
-
+-->
     <project xml:id="nonlinear05-project-tuned-mass-damper">
         <title>Project<mdash />Tuned-Mass Dampers</title>
-        
-         <p>The 60-story, 790-foot mirror-glass John Hancock Tower, New England's tallest building, was completed in 1976 and was designed by Henry N. Cobb, who founded the firm Pei Cobb Freed &amp; Partners with famed architect I.M. Pei. (<xref ref="nonlinear05-figure-john-hancock-tower" />).<fn>The John Hancock Tower is now officially known by its street address, 200 Clarendon Street.</fn> The building suffered many problems during construction, the most notorious of which was how the original glass windows were attached. In early 1972 when construction was still underway, one of the 500-pound windows popped out of the building and committed suicide on the sidewalk below. In all, more than 100 of the building's windows suffered the same fate. Fortunately, no one was injured. Initially, the architects and engineers thought that the problem was caused by the building's tendancy to sway excessively in high winds. However, they later determined that the falling-window problem was caused by the air space between the double-paned windows and pressure differentials between the interior and exterior of the building. The problem was solved by replacing all of the windows  with single sheets of fully tempered glass. During the repairs, the windows were replaced with plywood, and the building was nicknamed the <q>Plywood Palace.</q></p>
 
-        <figure xml:id="nonlinear05-figure-john-hancock-tower">
-            <caption>The John Hancock Tower</caption>
-            <image width="80%" source="images/john-hancock-tower.jpg">
-                <description>a photo of the John Hancock Tower in Boston</description>
-            </image>
-        </figure>
+            <introduction>
+            
+             <p>The 60-story, 790-foot mirror-glass John Hancock Tower, New England's tallest building, was completed in 1976 and was designed by Henry N. Cobb, who founded the firm Pei Cobb Freed &amp; Partners with famed architect I.M. Pei. (<xref ref="nonlinear05-figure-john-hancock-tower" />).<fn>The John Hancock Tower is now officially known by its street address, 200 Clarendon Street.</fn> The building suffered many problems during construction, the most notorious of which was how the original glass windows were attached. In early 1972 when construction was still underway, one of the 500-pound windows popped out of the building and committed suicide on the sidewalk below. In all, more than 100 of the building's windows suffered the same fate. Fortunately, no one was injured. Initially, the architects and engineers thought that the problem was caused by the building's tendancy to sway excessively in high winds. However, they later determined that the falling-window problem was caused by the air space between the double-paned windows and pressure differentials between the interior and exterior of the building. The problem was solved by replacing all of the windows  with single sheets of fully tempered glass. During the repairs, the windows were replaced with plywood, and the building was nicknamed the <q>Plywood Palace.</q></p>
 
-        <p>Another flaw  in the design of the building resulted in an extreme amount of swaying. In fact, office workers in the upper stories of the building complained of motion sickness. The building actually twisted as it was swaying back and forth. Engineers determined that the building's natural sway period was dangerously close to the period of its torsion. To remedy the problem, the engineers installed a pair of tuned mass dampeners on the 58th floor of the building. This is the floor of concrete that you see near the top of the structure (<xref ref="nonlinear05-figure-john-hancock-tower" />). In addition, 1,500 tons of steel braces were installed to keep the building from falling over in a high wind.</p>
+            <figure xml:id="nonlinear05-figure-john-hancock-tower">
+                <caption>The John Hancock Tower</caption>
+                <image width="80%" source="images/john-hancock-tower.jpg">
+                    <description>a photo of the John Hancock Tower in Boston</description>
+                </image>
+            </figure>
+
+            <p>Another flaw  in the design of the building resulted in an extreme amount of swaying. In fact, office workers in the upper stories of the building complained of motion sickness. The building actually twisted as it was swaying back and forth. Engineers determined that the building's natural sway period was dangerously close to the period of its torsion. To remedy the problem, the engineers installed a pair of tuned mass dampeners on the 58th floor of the building. This is the floor of concrete that you see near the top of the structure (<xref ref="nonlinear05-figure-john-hancock-tower" />). In addition, 1,500 tons of steel braces were installed to keep the building from falling over in a high wind.</p>
+        </introduction>
 
 
-        <p>To construct a simple model of a tuned-mass damper, we will consider a mass-spring system connected to a fixed wall. The mass is allowed to slide freely with no damping. We can think of this mass as the top of the building moving back and forth.  To this first mass, we attach a second mass by using a spring and a dashpot. This second mass is called the <term>tuned mass-damper</term>. If we <q>tune</q> the  mass-damper by choosing the appropriate spring, we can remove energy from the system and the motion of the first mass (the building) will decrease.</p>
+        <task>
+            <p>To construct a simple model of a tuned-mass damper, we will consider a mass, <m>m_1</m>, connected to a fixed wall with a spring and a dashpot. To this first mass, we attach a second mass, <m>m_2</m>, by using a spring and a dashpot (see <xref ref="nonlinear05-figure-nonlinear05-tmd" />). Here the oscillator to be damped has mass <m>m_1</m> with spring or restoring constant <m>k_1</m> and resistance or damping constant <m>c_1</m>. This could be a large structure, where <m>k_1</m> would be its stiffness while <m>c_1</m> would reflect internal frictional resistance to motion proportional to the velocity of the structure. The damping oscillator would be a large mass which sits atop the structure and is permitted to slide or roll as the structure sways in response to wind or seismic forces. This damper has mass <m>m_2</m> with spring or restoring constant <m>k_2</m> and resistance or damping constant <m>c_2</m>.</p>
 
-        <p>We will first model our system without a dashpot. If we let <m>L_1</m> and <m>L_2</m> be the natural lengths of the  springs, the first spring will exert a force <m>-k_1(x_1 - L_1)</m>. The second spring pushes the two masses in opposite directions according to <m>\pm k_2(x_2 - x_1 - L_2)</m>. Thus, we can use Newton's second law to derive two equations
-            <mdn>
-                <mrow xml:id="nonlinear05-equation-tuned-mass-damper-1">m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
-                <mrow xml:id="nonlinear05-equation-tuned-mass-damper-2">m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
-            </mdn>
-        If we let
-            <md>
-                <mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
-                <mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
-            </md>
-        be the momenta of the two masses, we can rewrite this system as a system of four first-order linear equations,
-            <md>
-                <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
-                <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
-                <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
-                <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
-            </md>
-        If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
-            <me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}(x_1 - L_1)^2 + \frac{k_2}{L}(x_2 - x_1 - L_2)^2.</me>
-        Indeed, it is easy to check that
-            <md>
-                <mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
-                <mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
-                <mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
-                <mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
-            </md>
-        We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
-            <md>
-                <mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
-                <mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
-            </md>
-        for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
+            <figure xml:id="nonlinear05-figure-nonlinear05-tmd">
+                <image  width="80%" xml:id="nonlinear05-tmd">
+                    <description>two masses sliding back and forth on a frictionless table between two walls with the masses and the walls connected by three springs</description>
+                    <latex-image>
+                        <xi:include href="tikz/nonlinear05-tmd.tex" parse="text"/>
+                    </latex-image>
+                </image>
+                <caption>Diagram of a tuned mass damper</caption>
 
-        <p>Now suppose that we add a damping term to our system,
-            <me>\pm b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right) = \pm b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</me>
-        Then equations<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-1" /> and <xref ref="nonlinear05-equation-tuned-mass-damper-2" /> become
-            <md>
-                <mrow>m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)  + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
-                <mrow>m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2) - b \left( \frac{p_2}{m_2} - \frac{p_1}{m_1} \right),</mrow>
-            </md>
-        and our new first-order system is
-            <md>
-                <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
-                <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
-                <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
-                <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
-            </md>
-        Indeed,
-            <men xml:id="nonlinear05-equation-tuned-mass-damper-3">\frac{dH}{dt} = - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)^2 = - b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right)^2.</men></p>
+            </figure>
 
-        <p>Equation<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-3" /> tells us that <m>dH/dt \leq 0</m>.  Moreover, <m>dH/dt \lt 0</m> whenever the distance between the two masses is changing. Thus, energy decreases whenever the second mass is moving relative to the first.  Thus, if the wind or an earthquake starts our building (<m>m_1</m>) swaying back and forth, then the tuned mass-damper (<m>m_2</m>) located on one of the top floors of the building will start to move relative to the building and energy will be removed from the system by the dampers.</p>
+            <p>Using Newton’s Second Law, which says that the mass times the acceleration of that mass is equal to the sum of all external forces acting on the mass show that the governing equations for the motions of the structure and the damper are given by <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><mdash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" />,
+                <mdn>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-1">m_1 x_1''(t)  &amp; = -k_1 x_1(t) - c_1 x_1'(t) - k_2(x_1(t) - x_2(t)) - c_2(x_1'(t) - x_2(t)) + p_0 \cos(\omega t)</mrow>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-2">m_2 x_2''(t)  &amp; = -k_2(x_2(t) - x_1(t)) - c_2(x_2'(t) - x_1'(t)).</mrow>
+                </mdn></p>
 
-        <p>Of course, <m>m_1</m> and <m>k_1</m> involve the building and are set by the architects and engineers. We, however, are free to choose <m>m_2</m>, <m>k_2</m> and <m>b</m>. We want to choose <m>b</m> fairly large so that there is a rapid loss of energy; i.e., the magnitude of <m>dH/dt</m> is large.  We should choose <m>m_2</m> large enough so that this mass oscillates with respect to <m>m_1</m>. If we choose <m>m_2</m> two small, then the strong damper will almost serve as a rigid connection between <m>m_1</m> and <m>m_2</m>. Therefore, we wish to choose <m>m_2</m> to be large so that we guaranteed that this mass will oscillate with respect to  <m>m_1</m>.  We should, however, remember that <m>m_2</m> is sitting on top of a very tall building. Finally, we should choose <m>k_2</m> to maximize the rate at which the second mass oscillates with respect to the first and to maximize the oscillations of <m>m_2</m>. If we choose <m>k_2</m> so that the second spring is in resonance with the first, the oscillations of the first mass force the second at its resonance frequency. Thus, we will have relatively large oscillations of the second mass and a large loss of energy.</p>
+            <p>In our study here we will first presume an <q>ideal</q> structure with no resistance or damping coefficient; i.e., <m>c_1 = 0</m>, and the same for the damper; i.e., <m>c_2 = 0</m>. As we can see there is a driving force applied to the structure of <m>f(t) = p_0 \cos(\omega t)</m>. Our interest will be in seeing if we can tune the added mass damper to reduce or eliminate the possibility of resonance when the initial structure is driven by a force with a frequency equal to that of the natural frequency of the initial mass system.</p>
+        </task>
 
-        <p>Let us consider example.  Suppose that <m>m_1 = 1</m>, <m>k_1 = 1</m>,   We will also choose <m>m_2</m> to be 0.05 and <m>b = 0.1</m>.  If the initial conditions for our system are
-            <md>
-                <mrow>x_1(0) &amp; = 10</mrow>
-                <mrow>x_2(0) &amp; = 0</mrow>
-                <mrow>p_1(0) &amp; = 0</mrow>
-                <mrow>p_2(0) &amp; = 0,</mrow>
-            </md>
-        we will choose <m>k_2</m> to tune our system. To do this we will plot the time <m>t</m> that it takes for the amplitude of the oscillations of <m>m_1</m> to reach and stay below 2.5 for various values of <m>k_2</m>.<fn>See Figure 5.42 in Paul Blanchard, Robert L. Devaney, and Glen R. Hall. <em>Differential Equations</em>, Second edition. Brooks/Cole, Pacific Grove, CA, 2002, p.~499.</fn>  If we choose <m>k_2 \approx 0.05</m>, then we can  minimize the time to be <m>t \approx 120</m>.</p>
-    </project>
+        <task xml:id="nonlinear05-project-tuned-mass-task-2">
+            <task>
+                <p>Determine the form of <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" /> when <m>c_1 = 0</m> and <m>c_2 = 0</m>.</p>
+            </task>
+
+            <task>
+                <p>In the resulting system use <m>m_1 =10</m> and <m>k_1 =90</m> with <m>y(0)=0</m> and <m>y′(0)=0</m>, while <m>f(t)= 10\cos(3t)</m> and set <m>m_2 = 1</m> with <m>k_2 = 0</m>; i.e., withdraw the second mass system. Explain the physical significance and impact results of the numbers <m>10</m>, <m>90</m>, and <m>3</m> in the above sentence in terms of the motion of the initial oscillator.</p>
+            </task>
+
+            <task>
+                <p>Solve the resulting single differential equation for the motion of mass <m>m_1</m> over a time interval of <m>20</m> units and plot the displacement of that mass, <m>x_1(t)</m>, over that time interval. Explain what you see.</p>
+            </task>
+
+            <task xml:id="nonlinear05-project-tuned-mass-task-2-4">
+                <p>In <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" /> use the values of <m>m_1 =10</m> and <m>k_1 = 90</m> with <m>y(0)=0</m> and <m>y′(0)=0</m> and <m>f(t)=10\cos(3t)</m> and set <m>m2 =1</m> with varying values of <m>k_2</m>. Keep <m>c_1 =0</m> and <m>c_2 =0</m>. What do you observe in the maximum amplitude of the initial mass <m>m_1</m> as one changes <m>k_2</m>? Defend your observation with data or plot.</p>
+            </task>
+
+            <task>
+                <p>From <xref ref="nonlinear05-project-tuned-mass-task-2-4" /> what is the <q>best</q> value of <m>k_2</m>? Be sure you define the word <q>best.</q></p>
+            </task>
+
+            <task>
+                <p>For the best value of <m>k_2</m> determine the maximum amplitude displacement for mass <m>m_1</m>, <m>x_1(t)</m> over a range of frequencies.</p>
+            </task>
+
+        </task>
+
+        <task xml:id="nonlinear05-project-tuned-mass-task-3">
+
+            <p>We consider another, comparable configuration as <xref ref="nonlinear05-project-tuned-mass-task-2" /> for practice. Notice that mass <m>m_2</m> is only 1% of mass <m>m_1</m>, which is quite realistic in structural design when using tunded mass dampers.</p>
+
+            <task>
+                <p>Determine the form of <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" /> when <m>c_1 = 0</m> and <m>c_2 = 0</m>.</p>
+            </task>
+
+            <task>
+                <p>In the resulting system use <m>m_1 =10</m> and <m>k_1 =90</m> with <m>y(0) = 0</m> and <m>y′(0)=0</m> while <m>f(t)= 10 \cos(3t)</m> and set <m>m_2 = 0.1</m> with <m>k_2 = 0</m>; i.e., withdraw the second mass system. Explain the physical significance and impact results of the numbers <m>10</m>, <m>90</m>, and <m>3</m> in the above sentence in terms of the motion of the initial oscillator.</p>
+            </task>
+
+            <task>
+                <p>Solve the resulting single differential equation for the motion of mass m1 over a time interval of <m>20</m> units and plot the displacement of that mass, <m>x_1(t)</m>, over that time interval. Explain what you see.</p>
+            </task>
+
+            <task xml:id="nonlinear05-project-tuned-mass-task-3-4">
+                <p>In <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" /> use the values of <m>m_1 =10</m> and <m>k_1 =90</m> with <m>y(0)=0</m> and <m>y′(0)=0</m> and <m>f(t)=5\cos(3t)</m> and set <m>m_2 = 0.1</m> with varying values of <m>k_2</m>. Keep <m>c_1 = 0</m> and <m>c_2 = 0</m>. What do you observe in the maximum amplitude of the initial mass as one changes <m>k_2</m>? Defend your observation with data or plot.</p>
+            </task>
+
+            <task>
+                <p>From <xref ref="nonlinear05-project-tuned-mass-task-2-4" /> what is the <q>best</q> value of <m>k_2</m>? Be sure you define the word <q>best.</q></p>
+            </task>
+
+            <task>
+                <p>For the best value of <m>k_2</m> determine the maximum amplitude displacement for mass <m>m_1</m>, <m>x_1(t)</m> over a range of frequencies.</p>
+            </task>
+
+        </task>
+
+        <task>
+            <p>From the introductory material for this scenario offered above and the analysis in <xref ref="nonlinear05-project-tuned-mass-task-2" /> and <xref ref="nonlinear05-project-tuned-mass-task-3" /> offer a description of how to build a tuned mass damper to stop the resonance phenomena in the case of <xref ref="nonlinear05-project-eqn-tuned-mass-3" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-4" /> which is the case of <xref ref="nonlinear05-project-eqn-tuned-mass-1" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-2" /> where there is no damping, i.e. <m>c_1 = 0</m> and <m>c_2 = 0</m>,
+                <mdn>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-3">m_1 x_1''(t)  &amp; = -k_1 x_1(t)  - k_2(x_1(t) - x_2(t)) + p_0 \cos(\omega t)</mrow>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-4">m_2 x_2''(t)  &amp; = -k_2(x_2(t) - x_1(t)).</mrow>
+                </mdn></p>
+        </task>
+
+        <task>
+
+            <p>If we let
+                <md>
+                    <mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
+                    <mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
+                </md>
+            we can rewrite <xref ref="nonlinear05-project-eqn-tuned-mass-3" /><ndash /><xref ref="nonlinear05-project-eqn-tuned-mass-4" /> as a system of four first-order linear equations, 
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -k_1 x_1(t)  - k_2(x_1(t) - x_2(t)) + p_0 \cos(\omega t)</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = -  -k_2(x_2(t) - x_1(t)).</mrow>
+                </md>
+            If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
+                <me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}x_1^2 + \frac{k_2}{2}(x_2 - x_1)^2.</me>
+            Indeed, it is easy to check that
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
+                </md>
+            We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
+                <md>
+                    <mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
+                    <mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
+                </md>
+            for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
+
+            <p>We will first model our system without a dashpot. If we let <m>L_1</m> and <m>L_2</m> be the natural lengths of the  springs, the first spring will exert a force <m>-k_1(x_1 - L_1)</m>. The second spring pushes the two masses in opposite directions according to <m>\pm k_2(x_2 - x_1 - L_2)</m>. Thus, we can use Newton's second law to derive two equations
+                <mdn>
+                    <mrow xml:id="nonlinear05-equation-tuned-mass-damper-1">m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                    <mrow xml:id="nonlinear05-equation-tuned-mass-damper-2">m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+                </mdn>
+            If we let
+                <md>
+                    <mrow>p_1 &amp; = m_1 \frac{dx_1}{dt}</mrow>
+                    <mrow>p_2 &amp; = m_2 \frac{dx_2}{dt}</mrow>
+                </md>
+            be the momenta of the two masses, we can rewrite this system as a system of four first-order linear equations,
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2).</mrow>
+                </md>
+            If we consider the kinetic and potential energy of both masses and springs, we can derive the Hamiltonian function
+                <me>H(x_1, x_2, p_1, p_2) = \frac{p_1^2}{2 m_1} + \frac{p_2^2}{2 m_2} + \frac{k_1}{2}(x_1 - L_1)^2 + \frac{k_2}{L}(x_2 - x_1 - L_2)^2.</me>
+            Indeed, it is easy to check that
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{\partial H}{\partial p_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{\partial H}{\partial p_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -\frac{\partial H}{\partial x_1}</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - \frac{\partial H}{\partial x_2}.</mrow>
+                </md>
+            We can show that a solution to the system, <m>(x_1(t), x_2(t), p_1(t), p_2(t))</m>, is constant on <m>H</m>.<fn>In general, a Hamiltonian system is a system of <m>2n</m> equations of the form
+                <md>
+                    <mrow>\frac{dx_i}{dt} &amp; = \frac{\partial H}{\partial y_i}</mrow>
+                    <mrow>\frac{dy_i}{dt} &amp; = - \frac{\partial H}{\partial x_i}</mrow>
+                </md>
+            for <m>i = 1, 2, \ldots, n</m>, where <m>H(x_1, \ldots, x_n, y_1, \ldots y_n</m> is a real-valued differentiable function on <m>{\mathbb R}^{2n}</m> such that <m>H</m> is nonconstant on every open ball in  <m>{\mathbb R}^{2n}</m>. We can show that <m>H</m> is constant on solution curves of the system.</fn></p>
+
+            <p>Now suppose that we add a damping term to our system,
+                <me>\pm b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right) = \pm b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</me>
+            Then equations<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-1" /> and <xref ref="nonlinear05-equation-tuned-mass-damper-2" /> become
+                <md>
+                    <mrow>m_1 \frac{d^2 x_1}{dt^2} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2)  + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                    <mrow>m_2 \frac{d^2 x_2}{dt^2} &amp; = - k_2(x_2 - x_1 - L_2) - b \left( \frac{p_2}{m_2} - \frac{p_1}{m_1} \right),</mrow>
+                </md>
+            and our new first-order system is
+                <md>
+                    <mrow>\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow>\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow>\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                    <mrow>\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
+                </md>
+            Indeed,
+                <men xml:id="nonlinear05-equation-tuned-mass-damper-3">\frac{dH}{dt} = - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)^2 = - b \left( \frac{dx_2}{dt} - \frac{dx_1}{dt} \right)^2.</men></p>
+
+            <p>Equation<nbsp /><xref ref="nonlinear05-equation-tuned-mass-damper-3" /> tells us that <m>dH/dt \leq 0</m>.  Moreover, <m>dH/dt \lt 0</m> whenever the distance between the two masses is changing. Thus, energy decreases whenever the second mass is moving relative to the first.  Thus, if the wind or an earthquake starts our building (<m>m_1</m>) swaying back and forth, then the tuned mass-damper (<m>m_2</m>) located on one of the top floors of the building will start to move relative to the building and energy will be removed from the system by the dampers.</p>
+
+            <p>Of course, <m>m_1</m> and <m>k_1</m> involve the building and are set by the architects and engineers. We, however, are free to choose <m>m_2</m>, <m>k_2</m> and <m>b</m>. We want to choose <m>b</m> fairly large so that there is a rapid loss of energy; i.e., the magnitude of <m>dH/dt</m> is large.  We should choose <m>m_2</m> large enough so that this mass oscillates with respect to <m>m_1</m>. If we choose <m>m_2</m> two small, then the strong damper will almost serve as a rigid connection between <m>m_1</m> and <m>m_2</m>. Therefore, we wish to choose <m>m_2</m> to be large so that we guaranteed that this mass will oscillate with respect to  <m>m_1</m>.  We should, however, remember that <m>m_2</m> is sitting on top of a very tall building. Finally, we should choose <m>k_2</m> to maximize the rate at which the second mass oscillates with respect to the first and to maximize the oscillations of <m>m_2</m>. If we choose <m>k_2</m> so that the second spring is in resonance with the first, the oscillations of the first mass force the second at its resonance frequency. Thus, we will have relatively large oscillations of the second mass and a large loss of energy.</p>
+
+            <p>Let us consider example.  Suppose that <m>m_1 = 1</m>, <m>k_1 = 1</m>,   We will also choose <m>m_2</m> to be 0.05 and <m>b = 0.1</m>.  If the initial conditions for our system are
+                <md>
+                    <mrow>x_1(0) &amp; = 10</mrow>
+                    <mrow>x_2(0) &amp; = 0</mrow>
+                    <mrow>p_1(0) &amp; = 0</mrow>
+                    <mrow>p_2(0) &amp; = 0,</mrow>
+                </md>
+            we will choose <m>k_2</m> to tune our system. To do this we will plot the time <m>t</m> that it takes for the amplitude of the oscillations of <m>m_1</m> to reach and stay below 2.5 for various values of <m>k_2</m>.<fn>See Figure 5.42 in Paul Blanchard, Robert L. Devaney, and Glen R. Hall. <em>Differential Equations</em>, Second edition. Brooks/Cole, Pacific Grove, CA, 2002, p. 499.</fn>  If we choose <m>k_2 \approx 0.05</m>, then we can  minimize the time to be <m>t \approx 120</m>.</p>
+        </task>
+<!--
+        <task>
+            <p>Using Newton’s Second Law, which says that the mass times the acceleration of that mass is equal to the sum of all external forces acting on the mass, and Figure 4 as a Free Body Diagram source, show that the governing equations for the motions of the structure and the damper are given by (6). Hint: For consistency all downward forces, positions, velocities, and accelerations are positive.
+                <mdn>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-1">\frac{dx_1}{dt}  &amp; = \frac{p_1}{m_1}</mrow>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-2">\frac{dx_2}{dt}  &amp; = \frac{p_2}{m_2}</mrow>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-3">\frac{d p_1}{dt} &amp; = -k_1(x_1 - L_1) + k_2(x_2 - x_1 - L_2) + b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right)</mrow>
+                    <mrow xml:id="nonlinear05-project-eqn-tuned-mass-4">\frac{d p_2}{dt} &amp; = - k_2(x_2 - x_1 - L_2) - b \left(  \frac{p_2}{m_2} - \frac{p_1}{m_1} \right).</mrow>
+                </mdn></p>
+
+            <p>In our study here we will first presume an <q>ideal</q> structure with no resistance or damping coefficient; i.e., <m>c_1 = 0</m>, and the same for the damper; i.e., <m>c_2 = 0</m>. As we can see there is a driving force applied to the structure of <m>f(t) = p_0 \cos(\omega t)</m>. Our interest will be in seeing if we can tune the added mass damper to reduce or eliminate the possibility of resonance when the initial structure is driven by a force with a frequency equal to that of the natural frequency of the initial mass system.</p>
+
+        </task>
 -->
+
+    </project>
+
 
 </section>
 
