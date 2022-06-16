@@ -68,14 +68,14 @@
             <image width="60%" xml:id="firstlook07-over-harvesting">
                 <description>a direction field of slope arrows with three curves decreasing to zero</description>
                 <sageplot>
-                    k=1
+                    k = 1
                     N = 200
                     H = 100
                     P, t=var('P, t')
-                    p=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,150],ivar=t,output='slope_field',end_points=[0, 2.5],thickness=2, color='blue',axes_labels=['$t$','$P(t)$'], fontsize=12)
-                    q=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 1.55],thickness=2, color='red')
-                    r=desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,50],ivar=t,output='plot',end_points=[0, 0.65],thickness=2, color='green')
-                    p + q + r
+                    p = desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,150],ivar=t,output='slope_field',end_points=[0, 2.5],thickness=2, color='blue',axes_labels=['$t$','$P(t)$'], fontsize=12)
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 1.55],thickness=2, color='red')
+                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,50],ivar=t,output='plot',end_points=[0, 0.65],thickness=2, color='green')
+                    p
                 </sageplot>
             </image>
             <caption>Harvesting with <m>H = 100</m></caption>
@@ -182,15 +182,14 @@
             <image width="60%" xml:id="firstlook07-one-parameter-bifurcation-0">
                 <description>a direction field of slope arrows with three curves with the curve starting above two approaching infinity and the two curves starting below two approaching zero</description>
                 <sageplot>
-					lam=0
-					x, t = var('x, t')
-					v = plot_slope_field(x^2 - 4*x + lam, (t,-4,4), (x,-2,6), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=14, aspect_ratio=1)
-					p=desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,3],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='blue')
-					q=desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,4.1],ivar=t,output='plot',end_points=[-4,-3.33],thickness=2, color='red')
-					r=desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,-1.9],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='green')
-					lam0 = text("$\lambda = 0$",(2,2), fontsize=14)
-					lam0_plot = p + q + r + v + lam0
-					lam0_plot
+                    lam = 0
+                    x, t = var('x, t')
+                    p = plot_slope_field(x^2 - 4*x + lam, (t,-4,4), (x,-2,6), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=14, aspect_ratio=1)
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,3],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='blue')
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,4.1],ivar=t,output='plot',end_points=[-4,-3.33],thickness=2, color='red')
+                    p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,-1.9],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='green')
+                    p += text("$\\lambda = 0$",(2,2), fontsize=14)
+                    p
                 </sageplot>
             </image>
 
@@ -206,13 +205,13 @@
             <image width="60%" xml:id="firstlook07-one-parameter-bifurcation-4">
                 <description>a direction field of slope arrows with two curves with the curve starting above two approaching infinity and the two curves starting below two approaching two</description>
                 <sageplot>
-                    lam=4
+                    lam = 4
                     x, t = var('x, t')
                     p = plot_slope_field(x^2 - 4*x + lam, (t,-4,4), (x,-2,6), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
                     p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,2.12],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='blue')
                     p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,2],ivar=t,output='plot',end_points=[-4,4],thickness=2, color='red')
                     p += desolve_rk4(x^2 - 4*x + lam,x,ics=[-4,-1.9],ivar=t,output='plot',end_points=[-4, 4],thickness=2, color='green')
-                    p += text("$\lambda = 4$",(2,1), fontsize=12)
+                    p += text("$\\lambda = 4$",(2,1), fontsize=12)
                     p
                 </sageplot>
             </image>
@@ -232,11 +231,11 @@
                 <sageplot>
                     lam = 8
                     x, t=var('x, t')
-                    p = plot_slope_field(x^2 - 2*x + mu, (t,-4,4), (x,-4,4), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
-                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[-4,1],ivar=t,output='plot',end_points=[-4,-2.75],thickness=2, color='blue')
-                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[-2,-4],ivar=t,output='plot',end_points=[-2, 0.64],thickness=2, color='red')
-                    p += desolve_rk4(x^2 - 2*x + mu,x,ics=[2,-4],ivar=t,output='plot',end_points=[2,4],thickness=2, color='green')
-                    p += text("$\mu = 2$",(2,2), fontsize=12)
+                    p = plot_slope_field(x^2 - 2*x + lam, (t,-4,4), (x,-4,6), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'], fontsize=12, aspect_ratio=1)
+                    p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,4],ivar=t,output='plot',end_points=[-4,-2.75],thickness=2, color='blue')
+                    p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,2],ivar=t,output='plot',end_points=[-2, 0.64],thickness=2, color='red')
+                    p += desolve_rk4(x^2 - 2*x + lam,x,ics=[-4,-2],ivar=t,output='plot',end_points=[2,4],thickness=2, color='green')
+                    p += text("$\\lambda = 8$",(2,2), fontsize=12, xmin = -4, xmax = 4, ymin = -2, ymax = 6 )
                     p
                 </sageplot>
             </image>
@@ -256,7 +255,7 @@
                 <description>a parabola with the vertex to the right and opening to the left and the parabola intersected by vertical lines with each line indicating where the solution increases and decreases</description>
                 <sageplot>
                     t = var('t')
-                    p = parametric_plot( (-t*(t-4), t), (t, -1/4, 17/4), thickness = 2, axes_labels=['$\lambda$','$x$'], fontsize=12)
+                    p = parametric_plot( (-t*(t-4), t), (t, -1/4, 17/4), thickness = 2, axes_labels=['$\\lambda$','$x$'], fontsize=12)
                     p += line([(1,-1),(1,5)], color="red") + circle((1,2-sqrt(3)), 0.07, fill = true, color="red") + circle((1,2+sqrt(3)), 0.07, fill = true, color="red") + arrow2d((1, -1), (1, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((1, 1), (1, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((1, 3), (1, 2), arrowsize = 3, color='red', width = 1)
                     p += line([(2,-1),(2,5)], color="red") + circle((2,2-sqrt(2)), 0.07, fill = true, color="red") + circle((2,2+sqrt(2)), 0.07, fill = true, color="red") + arrow2d((2, -1), (2, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((2, 1), (2, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((2, 3), (2, 2), arrowsize = 3, color='red', width = 1)
                     p += line([(3,-1),(3,5)], color="red") + circle((3,1), 0.07, fill = true, color="red") + circle((3,3), 0.07, fill = true, color="red") + arrow2d((3, -1), (3, -0.5), arrowsize = 3, color='red', width = 1) + arrow2d((3, 1), (3, 4.5), arrowsize = 3, color='red', width = 1) + arrow2d((3, 3), (3, 2), arrowsize = 3, color='red', width = 1)
@@ -330,7 +329,7 @@
                     <description>a curve that decreases to the right until it intersects the vertical axis at two and then decreases to the left until it reaches a half on the vertical axis and finally decreases back to the right through the origin</description>
                     <sageplot>
                         t = var('t')
-                        p = parametric_plot( (-t*(t-2)^2, t), (t, -1/2, 3), thickness = 2, axes_labels=['$\lambda$','$y$'], fontsize=12)
+                        p = parametric_plot( (-t*(t-2)^2, t), (t, -1/2, 3), thickness = 2, axes_labels=['$\\lambda$','$y$'], fontsize=12)
                         p
                     </sageplot>
                 </image>

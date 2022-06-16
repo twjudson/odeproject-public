@@ -98,8 +98,8 @@
                     LP1 = [line(S1[n], color='blue') for n in range(5)]
                     LP2 = [line(S2[n], color='red') for n in range(5)]
                     for n in range(1,5):
-                        P += LP1[n] + LP2[n]
-                    P
+                        p += LP1[n] + LP2[n]
+                    p
                 </sageplot>
             </image>
             <title>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></title>
@@ -346,7 +346,7 @@
 
 
             <p>Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve in three dimensions (<xref ref="systems03-figure-euler" />).</p>
-
+<!--
             <figure xml:id="systems03-figure-euler">
                 <image width="60%" xml:id="systems03-euler">
                     <description>a curve in three dimensions</description>
@@ -358,16 +358,37 @@
                         step_size = 1
                         f = t + x - y
                         g = t - x + y^2
-                        sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 2,algorithm="none")
-                        p = line(sol, color="red", thickness=2)
+                        sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 1,algorithm="none")
+                        p = line(sol, color="red", thickness=4)
                         p
                     </sageplot>
                 </image>
                 <title>A solution curve for Duffing's equation</title>
             </figure>
+-->
+
+            <figure xml:id="systems03-figure-euler">
+                <title>A solution curve for Duffing's equation</title>
+
+                <interactive xml:id="systems03-interactive-euler" platform="sage" width="100%" aspect="2:3">
+                    <slate surface="sage">
+                            x,y,t=var('x y t')
+                            t_start = 0
+                            x_start = 1
+                            y_start = 0
+                            step_size = 1
+                            f = t + x - y
+                            g = t - x + y^2
+                            sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 1,algorithm="none")
+                            p = line(sol, color="red", thickness=4)
+                            p
+                    </slate>
+                </interactive>
+            </figure>
 
         </example>
 
+         
         <activity>
             <title>Solving a System Numerically</title>
 

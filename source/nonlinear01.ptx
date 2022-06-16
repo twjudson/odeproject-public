@@ -278,7 +278,7 @@
                         P = desolve_system_rk4(F,[x, y],ics=[0,0.5,4],ivar=t,end_points=5,step=0.01)
                         Q = [ [j,k] for i,j,k in P]
                         p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=3, aspect_ratio=1)
-                        p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+                        p += arrow(Q[int(len(Q)/3)], Q[int(len(Q)/3) + 1])
                         P1=desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
                         Q1=[ [j,k] for i,j,k in P1]
                         p += line(Q1, axes_labels=['$x(t)$','$y(t)$'], thickness=3,color="red")
@@ -305,7 +305,7 @@
                         P1 = desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
                         Q1 = [[j,k] for i,j,k in P1]
                         p += line(Q1, thickness=3,color="red")
-                        p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
+                        p += arrow(Q1[int(len(Q1)/3)], Q1[int(len(Q1)/3) + 1],color="red")
                         n = sqrt(F[0]^2 + F[1]^2)
                         F_unit = [F[0]/n, F[1]/n]
                         p += plot_vector_field(F_unit, (x, -5, 5), (y, -5,5), axes_labels=['$x(t)$','$y(t)$'])
@@ -547,14 +547,14 @@
                 <sageplot>
                     x, y, t = var('x y t')
                     F = [y - (x^2 + y^2)*x, -x - (x^2 + y^2)*y]
-                    P=desolve_system_rk4(F,[x, y],ics=[0,0.05,0.1],ivar=t,end_points=50,step=0.01)
-                    Q=[ [j,k] for i,j,k in P]
-                    LQ=line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
-                    LQ_arrow = arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
+                    P = desolve_system_rk4(F,[x, y],ics=[0,0.05,0.1],ivar=t,end_points=50,step=0.01)
+                    Q = [ [j,k] for i,j,k in P]
+                    p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=18, thickness=2)
+                    p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
                     n = sqrt(F[0]^2 + F[1]^2)
                     F_unit = [F[0]/n, F[1]/n]
-                    v = plot_vector_field(F_unit, (x, -0.2, 0.2), (y, -0.2,0.2), axes_labels=['$x(t)$','$y(t)$'])
-                    LQ + LQ_arrow + v
+                    p += plot_vector_field(F_unit, (x, -0.2, 0.2), (y, -0.2,0.2), axes_labels=['$x(t)$','$y(t)$'])
+                    p
                 </sageplot>
             </image>
             <caption>When linearization fails</caption>

@@ -126,7 +126,7 @@
                     x, y ,t = var('x y t')
                     F = [-x, y]
                     n = sqrt(F[0]^2 + F[1]^2)
-                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                     P1=desolve_system_rk4(F,[x,y],ics=[0,-3,0.1],ivar=t,end_points=3.4,step=0.1)
                     P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-0.1],ivar=t,end_points=3.4,step=0.1)
                     P3=desolve_system_rk4(F,[x,y],ics=[0,3,0.1],ivar=t,end_points=3.4,step=0.1)
@@ -135,11 +135,11 @@
                     S2=[ [j, k] for i,j,k in P2]
                     S3=[ [j, k] for i,j,k in P3]
                     S4=[ [j, k] for i,j,k in P4]
-                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    LP2=line(S2, thickness=2)
-                    LP3=line(S3, thickness=2)
-                    LP4=line(S4, thickness=2)
-                    LP1 + LP2 + LP3 + LP4 + v
+                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    p += line(S2, thickness=2)
+                    p += line(S3, thickness=2)
+                    p += line(S4, thickness=2)
+                    p
                 </sageplot>
             </image>
             <caption>Saddle phase portrait</caption>
@@ -191,7 +191,7 @@
                         x, y ,t = var('x y t')
                         F = [x + 3*y, x - y]
                         n = sqrt(F[0]^2 + F[1]^2)
-                        v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                        p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                         P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
                         P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
                         P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
@@ -200,13 +200,13 @@
                         S2=[ [j, k] for i,j,k in P2]
                         S3=[ [j, k] for i,j,k in P3]
                         S4=[ [j, k] for i,j,k in P4]
-                        LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        LP2=line(S2, thickness=2)
-                        LP3=line(S3, thickness=2)
-                        LP4=line(S4, thickness=2)
-                        L1 = line([(-3,-1), (3,1)], thickness = 2, color="red")
-                        L2 = line([(-3,3), (3,-3)], thickness = 2, color="red")
-                        LP1 + LP2 + LP3 + LP4 + v + L1 + L2
+                        p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                        p += line(S2, thickness=2)
+                        p += line(S3, thickness=2)
+                        p += line(S4, thickness=2)
+                        p += line([(-3,-1), (3,1)], thickness = 2, color="red")
+                        p += line([(-3,3), (3,-3)], thickness = 2, color="red")
+                        p
                     </sageplot>
                 </image>
                 <caption>Saddle phase portrait</caption>
@@ -291,7 +291,7 @@
                     x, y ,t = var('x y t')
                     F = [-2*x, -y]
                     n = sqrt(F[0]^2 + F[1]^2)
-                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                     P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.7],ivar=t,end_points=5,step=0.1)
                     P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-2.7],ivar=t,end_points=5,step=0.1)
                     P3=desolve_system_rk4(F,[x,y],ics=[0,3,2.7],ivar=t,end_points=5,step=0.1)
@@ -300,11 +300,11 @@
                     S2=[ [j, k] for i,j,k in P2]
                     S3=[ [j, k] for i,j,k in P3]
                     S4=[ [j, k] for i,j,k in P4]
-                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    LP2=line(S2, thickness=2)
-                    LP3=line(S3, thickness=2)
-                    LP4=line(S4, thickness=2)
-                    LP1 + LP2 + LP3 + LP4 + v
+                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    p += line(S2, thickness=2)
+                    p += line(S3, thickness=2)
+                    p += line(S4, thickness=2)
+                    p
                 </sageplot>
             </image>
             <caption>Sink phase portrait</caption>
@@ -353,28 +353,22 @@
                         xmax = 4
                         ymin = -4
                         ymax = 4
-                        v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                        result = v
-                        L1 = line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
-                        L2 = line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
-                        result = result + L1 + L2
+                        p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                        p += line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
+                        p += line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        result = result + LP
+                        p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
+                        p += line(S, thickness=2)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
+                        p += line(S, thickness=2)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
-                        result
+                        p += line(S, thickness=2)
+                        p
                     </sageplot>
                 </image>
                 <caption>Sink phase portrait</caption>
@@ -431,7 +425,7 @@
                     x, y ,t = var('x y t')
                     F = [2*x, y]
                     n = sqrt(F[0]^2 + F[1]^2)
-                    v = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
+                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                     P1=desolve_system_rk4(F,[x,y],ics=[0,0.01,0.1],ivar=t,end_points=2.9,step=0.1)
                     P2=desolve_system_rk4(F,[x,y],ics=[0,-0.01,0.1],ivar=t,end_points=2.9,step=0.1)
                     P3=desolve_system_rk4(F,[x,y],ics=[0,0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
@@ -440,11 +434,11 @@
                     S2=[ [j, k] for i,j,k in P2]
                     S3=[ [j, k] for i,j,k in P3]
                     S4=[ [j, k] for i,j,k in P4]
-                    LP1=line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    LP2=line(S2, thickness=2)
-                    LP3=line(S3, thickness=2)
-                    LP4=line(S4, thickness=2)
-                    LP1 + LP2 + LP3 + LP4 + v
+                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+                    p += line(S2, thickness=2)
+                    p += line(S3, thickness=2)
+                    p += line(S4, thickness=2)
+                    p
                 </sageplot>
             </image>
             <caption>Source phase portrait</caption>
@@ -477,28 +471,22 @@
                         xmax = 4
                         ymin = -4
                         ymax = 4
-                        v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                        result = v
-                        L1 = line([(-4,-4), (4,4)], thickness = 2, color="red")
-                        L2 = line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
-                        result = result + L1 + L2
+                        p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
+                        p += line([(-4,-4), (4,4)], thickness = 2, color="red")
+                        p += line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        result = result + LP
+                        p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
+                        p += line(S, thickness=2)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
+                        p += line(S, thickness=2)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2)
-                        result = result + LP
-                        result
+                        p += line(S, thickness=2)
+                        p
                     </sageplot>
                 </image>
                 <caption>Source phase portrait</caption>

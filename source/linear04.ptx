@@ -46,14 +46,12 @@
                     xmax = 4
                     ymin = -4
                     ymax = 4
-                    v = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                    result = v
+                    p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
                     P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=2,step=0.1)
                     S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
-                    S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    result = result + LP + S_arrow
-                    result
+                    p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
+                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                    p
                 </sageplot>
             </image>
             <caption>A system with no straight-line solutions</caption>
@@ -263,18 +261,14 @@
                             start_x = 1
                             start_y = 2
                             n = sqrt(f^2 + g^2)
-                            v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                            result = v
+                            p = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                             P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=11,step=0.1)
                             S=[ [j, k] for i,j,k in P]
-                            LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                            result = result + LP
+                            p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
                             points = [ (start_x, start_y) ]
-                            starting_point = point(points[0], pointsize=50)
-                            result = result + starting_point
-                            S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                            result = result + S_arrow
-                            result
+                            p += point(points[0], pointsize=50)
+                            p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                            p
                         </sageplot>
                     </image>
                     <caption>Phase portrait for a center</caption>
@@ -372,18 +366,14 @@
                         start_x = 2
                         start_y = 2
                         n = sqrt(f^2 + g^2)
-                        v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                        result = v
+                        p = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                         P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=21,step=0.01)
                         S=[ [j, k] for i,j,k in P]
-                        LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        result = result + LP
+                        p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
                         points = [ (start_x, start_y) ]
-                        starting_point = point(points[0], pointsize=50)
-                        result = result + starting_point
-                        S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        result = result + S_arrow
-                        result
+                        p += point(points[0], pointsize=50)
+                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                        p
                     </sageplot>
                 </image>
                 <caption>Phase portrait for a spiral sink</caption>
@@ -421,18 +411,14 @@
                             start_x = 0
                             start_y = 0.5
                             n = sqrt(f^2 + g^2)
-                            v = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                            result = v
+                            p = plot_vector_field((f/n, g/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
                             P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=18,step=0.01)
                             S=[ [j, k] for i,j,k in P]
-                            LP=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                            result = result + LP
+                            p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
                             points = [ (start_x, start_y) ]
-                            starting_point = point(points[0], pointsize=50)
-                            result = result + starting_point
-                            S_arrow = arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                            result = result + S_arrow
-                            result
+                            p += point(points[0], pointsize=50)
+                            p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
+                            p
                         </sageplot>
                     </image>
                     <caption>Phase portrait for a spiral source</caption>
