@@ -102,7 +102,7 @@
                     p
                 </sageplot>
             </image>
-            <title>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></title>
+            <caption>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></caption>
         </figure>
 
         <p>Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <m>x(t)</m> is large, part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane and will cause the crane to bend even further. We can model this effect by setting the equation for our harmonic oscillator equal to a factor of <m>x^3</m>,
@@ -164,7 +164,7 @@
                     p
                 </sageplot>
             </image>
-            <title>The phase plane for Duffing's equation</title>
+            <caption>The phase plane for Duffing's equation</caption>
         </figure>
 
         <p>Let us see how we might find a numerical solution for a system. Consider the system
@@ -214,7 +214,7 @@
                         p
                     </sageplot>
                 </image>
-                <title>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></title>
+                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></caption>
             </figure>
 
             <p>The surprising thing about Duffing's equation is that it is extremely sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. If we change the initial velocity to <m>v(0) = 1.7653</m>, we obtain a very different graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" /> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
@@ -233,7 +233,7 @@
                         p
                     </sageplot>
                 </image>
-                <title>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></title>
+                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></caption>
             </figure>
 
         </example>
@@ -363,27 +363,38 @@
                         p
                     </sageplot>
                 </image>
-                <title>A solution curve for Duffing's equation</title>
+                <caption>A solution curve for Duffing's equation</caption>
             </figure>
 -->
 
             <figure xml:id="systems03-figure-euler">
-                <title>A solution curve for Duffing's equation</title>
+                    <caption>A solution curve for Duffing's equation</caption>
 
-                <interactive xml:id="systems03-interactive-euler" platform="sage" width="100%" aspect="2:3">
-                    <slate surface="sage">
-                            x,y,t=var('x y t')
-                            t_start = 0
-                            x_start = 1
-                            y_start = 0
-                            step_size = 1
-                            f = t + x - y
-                            g = t - x + y^2
-                            sol = eulers_method_2x2(f,g, t_start, x_start, y_start, 0.1, 1,algorithm="none")
-                            p = line(sol, color="red", thickness=4)
-                            p
-                    </slate>
-                </interactive>
+                    <image xml:id="figure-euler" width="50%">
+                        <asymptote>
+                            import graph3;
+
+                            size(0,200);
+                            size3(200,IgnoreAspect);
+
+                            currentprojection=orthographic(4,6,3);
+
+                            real x(real t) {return cos(2pi*t);}
+                            real y(real t) {return sin(2pi*t);}
+                            real z(real t) {return t;}
+
+                            path3 p=graph(x,y,z,0,2.7,operator ..);
+
+                            draw((0, 1, 0)..(0.1, 1.1, -0.1)..(0.2, 1.23, -0.21)..(0.3, 1.39,-0.33)..(0.4, 1.60, -0.47)..(0.5,1.84, -0.62)..(0.6, 2.14, -0.79)..(0.7, 2.49, -0.98)..(0.8, 2.91, -1.18)..(0.9, 3.4, -1.4)..(1.0, 3.97, -1.62));
+
+
+                            scale(true);
+
+                            xaxis3(XZ()*"$x$",Bounds,red,InTicks(Label,2,2));
+                            yaxis3(YZ()*"$y$",Bounds,red,InTicks(beginlabel=false,Label,2,2));
+                            zaxis3(XZ()*"$z$",Bounds,red,InTicks);
+                        </asymptote>
+                    </image>
             </figure>
 
         </example>

@@ -247,26 +247,8 @@
                 <figure xml:id="linear08-figure-saddle-r3">
                     <image  width="80%" xml:id="linear08-saddle-r3">
                         <description>a stable line and an unstable plane in three dimensions with a transformation to another unstable plane and stable line</description>
-                        <latex-image><![CDATA[
-                            \begin{tikzpicture}[scale=0.5]
-                            \filldraw[fill=blue!20,draw=blue!50!black, thick] (0,0) -- (8,0) -- (12,4) -- (4,4) -- cycle;
-                            \draw[very thick] (6,0) -- (6,-2);
-                            \draw[very thick,dashed] (6,2) -- (6,0);
-                            \draw[->,very thick,red] (6,7)  -- (6,2);
-                            \draw[->,very thick,red] (5.7,7) .. controls (5.5,5) and (5.5,2.5) .. (3,2);
-                            \draw[->,very thick,red] (6.3,7) .. controls (6.5,5) and (6.5,2.5) .. (9.5,2);
-                            \node[above] at (6,7) {$z$-axis};
-                            \draw[->,thick] (11,2) .. controls (12.5,2.5) and (14,2.5) .. (15.5,2);
-                            \node at (13,1.7) {$T$};
-                            \filldraw[fill=blue!20,draw=blue!50!black, thick] (15,0) -- (22,3) -- (24,6) -- (17,3) -- cycle;
-                            \draw[very thick,red,->] (22,8)  -- (19.5,3);
-                            \draw[->,very thick,red] (21.7,8) .. controls (20,5) and (19,2.5) .. (17,2);
-                            \draw[->,very thick,red] (22.3,8) .. controls (21,5) and (20,2.5) .. (22.5,4.3);
-                            \draw[very thick,dashed] (19.5,3)  -- (18.75,1.5);
-                            \draw[very thick] (18.75,1.5)  -- (17,-2);
-                            \filldraw[red] (21,6) circle (0.2);
-                            \node at (18.8,6) {$(1, -1, 2)$};
-                            \end{tikzpicture}]]>
+                        <latex-image>
+                            <xi:include href="tikz/linear08-saddle-r3.tex" parse="text"/>
                         </latex-image>
                     </image>
                     <caption>A saddle in <m>{\mathbb R}^3</m></caption>
@@ -305,6 +287,35 @@
                 \end{pmatrix}.</me>
             If <m>z_0 = 0</m>, then our initial condition is in the <m>xy</m>-plane and all of the solutions lie on circles centered at the origin. On the other hand, if <m>x_0 = 0</m> and <m>y_0 = 0</m>,  we have a stable line of solutions lying along the <m>z</m>-axis. In fact, each solution that does not lie on the stable line lies on a cylinder in <m>{\mathbb R}^3</m> given by <m>x^2 + y^2 = r^2</m> for some constant <m>r \gt 0</m>. These solutions spiral towards the circular solution of radius <m>r</m> in the <m>xy</m>-plane if <m>z_0 \neq 0</m> (<xref ref="linear08-figure-spiral-center-r3" />).</p>
 
+            <figure xml:id="linear08-figure-spiral-center-r3">
+                    <caption>A spiral center in <m>{\mathbb R}^3</m></caption>
+
+                    <image xml:id="linear08-spiral-center-r3" width="50%">
+                        <asymptote>
+                            import graph3;
+
+                            size(0,200);
+                            size3(200,IgnoreAspect);
+
+                            currentprojection=orthographic(4,6,3);
+
+                            real x(real t) {return cos(t)+sin(t);}
+                            real y(real t) {return -sin(t)+cos(t);}
+                            real z(real t) {return exp(-0.1*t);}
+
+                            path3 p=graph(x,y,z,0,15,operator ..);
+
+                            draw(p,Arrow3);
+
+                            scale(true);
+
+                            xaxis3(XZ()*"$x$",Bounds,red,InTicks(Label,2,2));
+                            yaxis3(YZ()*"$y$",Bounds,red,InTicks(beginlabel=false,Label,2,2));
+                            zaxis3(XZ()*"$z$",Bounds,red,InTicks);
+                        </asymptote>
+                    </image>
+            </figure>
+
                 <!--
             <figure xml:id="linear08-figure-spiral-center-r3">
                 <image width="100%" xml:id="linear08-spiral-center-r3">
@@ -325,13 +336,15 @@
                 </image>
                 <caption>A spiral center in <m>{\mathbb R}^3</m></caption>
             </figure>
-    -->
+
             <figure xml:id="linear08-figure-spiral-center-r3">
                 <image width="80%" source="linear08-spiral-center-r3.jpg">
                     <description>a spiral helix in three dimensions</description>
                 </image>
                 <caption>A spiral center in <m>{\mathbb R}^3</m></caption>
             </figure>
+
+        -->
         </example>
 
         <example xml:id="linear08-example-spiral-saddle-r3">
@@ -402,15 +415,45 @@
                 </image>
                 <caption>A spiral saddle in <m>{\mathbb R}^3</m></caption>
             </figure>
-    -->
+
             <figure xml:id="linear08-figure-spiral-saddle-r3">
                 <image width="80%" source="linear08-spiral-saddle-r3.jpg">
                     <description>two curves spiraling into the origin on a plane but approaching infinity on the vertical axis</description>
                 </image>
                 <caption>A spiral saddle in <m>{\mathbb R}^3</m></caption>
             </figure>
-        </example>
 
+-->
+            <figure xml:id="linear08-figure-spiral-saddle-r3">
+                    <caption>A spiral saddle in <m>{\mathbb R}^3</m></caption>
+
+                    <image xml:id="linear08-spiral-saddle-r3" width="50%">
+                        <asymptote>
+                            import graph3;
+
+                            size(0,200);
+                            size3(200,IgnoreAspect);
+
+                            currentprojection=orthographic(4,6,3);
+
+                            real x(real t) {return exp(-t)*(cos(5*t)+sin(5*t));}
+                            real y(real t) {return exp(-t)*(-sin(5*t)+cos(5*t));}
+                            real z(real t) {return exp(0.1*t);}
+
+                            path3 p=graph(x,y,z,0,10,operator ..);
+
+                            draw(p,Arrow3);
+
+                            scale(true);
+
+                            xaxis3(XZ()*"$x$",Bounds,red,InTicks(Label,2,2));
+                            yaxis3(YZ()*"$y$",Bounds,red,InTicks(beginlabel=false,Label,2,2));
+                            zaxis3(XZ()*"$z$",Bounds,red,InTicks);
+                        </asymptote>
+                    </image>
+            </figure>
+
+        </example>
 
         <p>For an example of a stable equilibrium solution at the origin, consider the system
             <me>{\mathbf x}' 
@@ -457,9 +500,84 @@
         </figure>
 -->
         <figure xml:id="linear08-figure-sink-r3">
+             <image xml:id="linear08-sink-r3" width="50%">
+                <asymptote>
+                    import graph3;
+
+                    size(0,200);
+                    size3(200,IgnoreAspect);
+
+                    currentprojection=orthographic(4,6,3);
+
+                    real x(real t) {return exp(-t);}
+                    real y(real t) {return exp(-2*t);}
+                    real z(real t) {return exp(-3*t);}
+
+                    path3 p=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return -exp(-t);}
+                    real y(real t) {return -exp(-2*t);}
+                    real z(real t) {return -exp(-3*t);}
+
+                    path3 q=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return exp(-t);}
+                    real y(real t) {return -exp(-2*t);}
+                    real z(real t) {return -exp(-3*t);}
+
+                    path3 r=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return -exp(-t);}
+                    real y(real t) {return exp(-2*t);}
+                    real z(real t) {return -exp(-3*t);}
+
+                    path3 s=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return -exp(-t);}
+                    real y(real t) {return -exp(-2*t);}
+                    real z(real t) {return exp(-3*t);}
+
+                    path3 u=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return -exp(-t);}
+                    real y(real t) {return exp(-2*t);}
+                    real z(real t) {return exp(-3*t);}
+
+                    path3 v=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return exp(-t);}
+                    real y(real t) {return -exp(-2*t);}
+                    real z(real t) {return exp(-3*t);}
+
+                    path3 w=graph(x,y,z,0,10,operator ..);
+
+                    real x(real t) {return exp(-t);}
+                    real y(real t) {return exp(-2*t);}
+                    real z(real t) {return -exp(-3*t);}
+
+                    path3 n=graph(x,y,z,0,10,operator ..);
+
+                    draw(p,Arrow3);
+                    draw(q,Arrow3);
+                    draw(r,Arrow3);
+                    draw(s,Arrow3);
+                    draw(u,Arrow3);
+                    draw(v,Arrow3);
+                    draw(w,Arrow3);
+                    draw(n,Arrow3);
+
+                    scale(true);
+
+                    xaxis3(XZ()*"$x$",Bounds,red,InTicks(Label,2,2));
+                    yaxis3(YZ()*"$y$",Bounds,red,InTicks(beginlabel=false,Label,2,2));
+                    zaxis3(XZ()*"$z$",Bounds,red,InTicks);
+                </asymptote>
+            </image>
+            <!--
             <image width="80%" source="linear08-sink-r3.jpg">
                 <description>a sink in three dimensions</description>
             </image>
+        -->
             <caption>A sink in <m>{\mathbb R}^3</m></caption>
         </figure>
 
