@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:27+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Modeling with Differential Equations</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="active">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="firstlook01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span>
+</h2>
+<article class="objectives goal-like" id="objectives-1"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-1">
+<p id="p-7">To understand that a <dfn class="terminology">differential equation</dfn> is an equation relating a function to one or more of its derivatives and that an <dfn class="terminology">initial value problem</dfn> is a differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(t,x),
+\end{equation*}
+</div>
+<p class="continuation">where the <dfn class="terminology">initial condition</dfn>, <span class="process-math">\(x(t_0) = x_0\text{,}\)</span> is specified.</p>
+</li>
+<li id="li-2">
+<p id="p-8">To understand and be able to apply the three principle steps in modeling any phenomenon with differential equations.</p>
+<ul class="circle">
+<li id="li-3"><p id="p-9">Discovering the differential equation or equations that best describe a specified physical situation.</p></li>
+<li id="li-4"><p id="p-10">Finding—either exactly or approximately—the appropriate solution of the equation or equations.</p></li>
+<li id="li-5"><p id="p-11">Interpreting the solution in terms of the phenomenon.</p></li>
+</ul>
+</li>
+<li id="li-6"><p id="p-12">To understand and be able to apply the differential equations that model <dfn class="terminology">exponential growth</dfn> and <dfn class="terminology">logistic growth</dfn>.</p></li>
+<li id="li-7"><p id="p-13">To understand that some phenomenon are best modeled by higher order differential equations or systems of differential equations.</p></li>
+</ul></article><section class="introduction" id="introduction-1"><p id="p-14">Calculus tells us that the derivative of a function measures how the function changes. An equation relating a function to one or more of its derivatives is called a <dfn class="terminology">differential equation</dfn>. The subject of differential equations is one of the most interesting and useful areas of mathematics. We can describe many interesting natural phenomena that involve change using differential equations. In addition, the theory of the subject has broad and important implications.</p></section><section class="subsection" id="firstlook01-subsection-exponential-growth"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span>
+</h3>
+<p id="p-15">We begin our study of ordinary differential equations by modeling some real world phenomena. For a particular situation that we might wish to investigate, our first task is to write an equation (or equations) that best describes the phenomenon. Suppose that we wish to study how a population <span class="process-math">\(P(t)\)</span> grows with time <span class="process-math">\(t\text{.}\)</span>  We might make the assumption that a constant fraction of population is having offspring at any particular time. If we also assume that the population has a constant death rate, the change in the population <span class="process-math">\(\Delta P\)</span> during a small time interval <span class="process-math">\(\Delta t\)</span> will be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\Delta P \approx k_{\text{birth}} P(t) \Delta t - k_{\text{death}} P(t) \Delta t,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(k_{\text{birth}}\)</span> is the fraction of the population having offspring during the interval and <span class="process-math">\(k_{\text{death}}\)</span> is the fraction of the population that dies during the interval. Equivalently, we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\Delta P}{ \Delta t} \approx k P(t),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(k =  k_{\text{birth}} - k_{\text{death}}\text{.}\)</span> Since the derivative of <span class="process-math">\(P\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = \lim_{\Delta t \to 0} \frac{\Delta P}{ \Delta t},
+\end{equation*}
+</div>
+<p class="continuation">the rate of change of the population is proportional to the size of the population, or</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="firstlook01-equation-exponential">
+\begin{equation}
+\frac{dP}{dt} = kP.\tag{1.1.1}
+\end{equation}
+</div>
+<p id="p-16">The equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-equation-exponential.html">
+\begin{equation*}
+\frac{dP}{dt} = kP
+\end{equation*}
+</div>
+<p class="continuation">is one of the simplest differential equations that we will consider. The equation tells us that the population grows in proportion to its current size. It is not too difficult to see that <span class="process-math">\(P(t) = Ce^{kt}\)</span> is a solution to this equation, where <span class="process-math">\(C\)</span> is an arbitrary constant. Indeed, if we differentiate <span class="process-math">\(P(t)\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-equation-exponential.html">
+\begin{equation*}
+\frac{d}{dt} P(t) = kCe^{kt} = kP(t).
+\end{equation*}
+</div>
+<p class="continuation">In addition, if we know the value of <span class="process-math">\(P(t)\text{,}\)</span> say when <span class="process-math">\(t = 0\text{,}\)</span> we can also determine the value of <span class="process-math">\(C\text{.}\)</span> For example, if the population at the time <span class="process-math">\(t = 0\)</span> is <span class="process-math">\(P(0) = P_0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-equation-exponential.html">
+\begin{equation*}
+P_0 = P(0) = Ce^{k \cdot 0} = C
+\end{equation*}
+</div>
+<p class="continuation">or <span class="process-math">\(P(t) = P_0 e^{kt}\text{.}\)</span> The differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-equation-exponential.html" id="md-1">
+\begin{align*}
+P'(t) &amp; = k P(t),\\
+P(0) &amp; = P_0
+\end{align*}
+</div>
+<p class="continuation">is an example of an <dfn class="terminology">initial value problem</dfn> or <dfn class="terminology">IVP</dfn>, and we say that <span class="process-math">\(P(0) = P_0\)</span> is an <dfn class="terminology">initial condition</dfn>. Since the solution to equation <a href="" class="xref" data-knowl="./knowl/firstlook01-equation-exponential.html" title="Equation 1.1.1">(1.1.1)</a> is <span class="process-math">\(P(t) = Ce^{kt}\text{,}\)</span> we say that the population grows <dfn class="terminology">exponentially</dfn>.</p>
+<p id="p-17">As an example, suppose that <span class="process-math">\(P(t)\)</span> is a population of a colony of bacteria at time <span class="process-math">\(t\text{,}\)</span> whose initial population is 1000 at <span class="process-math">\(t = 0\text{,}\)</span> where time is measured in hours.  Then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+1000 = P(0) = C e^0 = C,
+\end{equation*}
+</div>
+<p class="continuation">and our solution becomes <span class="process-math">\(P(t) = 1000e^{kt}\text{.}\)</span> If the population grows at three percent per hour, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+1030 = P(1) = 1000 e^k,
+\end{equation*}
+</div>
+<p class="continuation">after one hour.  Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+k = \ln 1.03 \approx 0.0296
+\end{equation*}
+</div>
+<p class="continuation">and the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(t) = 1000e^{0.0296 t}.
+\end{equation*}
+</div>
+<p class="continuation">Of course, it is important to realize that this is only a model. If <span class="process-math">\(t\)</span> is small, our model might be reasonably accurate. However, if we let <span class="process-math">\(t\)</span> be very large, our colony of bacteria could very well exceed the mass of the earth. The growth rate of a population need not be positive. For example, both Germany and Japan have experienced negative growth in recent years.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-7" id="fn-7"><sup> 1 </sup></a> The equation <span class="process-math">\(dP/dt = kP\)</span> can also be used to model phenomena such as radioactive decay and compound interest—topics which we will explore later.</p>
+<p id="p-18">To summarize, we say that the function <span class="process-math">\(x(t) = Ce^{kt}\)</span> is a <dfn class="terminology">general solution</dfn> of the equation <span class="process-math">\(x' = kx\text{,}\)</span> and <span class="process-math">\(x(t) = x_0 e^{kt}\)</span> is a <dfn class="terminology">particular solution</dfn> to the differential equation. The general solution to our equation <span class="process-math">\(x(t) = Ce^{kt}\)</span> graphs as an infinite family of curves, which we will call <dfn class="terminology">integral curves</dfn> or <dfn class="terminology">solution curves</dfn> (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-integral-curves.html" title="Figure 1.1.1">Figure 1.1.1</a>).</p>
+<p id="p-19">In general, given a differential equation <span class="process-math">\(dx/dt =f(t, x)\text{,}\)</span> a solution to the differential equation is a function <span class="process-math">\(x(t)\)</span> such that <span class="process-math">\(x'(t) = f(t, x(t))\text{.}\)</span>  Furthermore, if <span class="process-math">\(x(t)\)</span> satisfies a given initial condition <span class="process-math">\(x(0) = x_0\text{,}\)</span> then <span class="process-math">\(x(t)\)</span> is a solution to the in initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-2">
+\begin{align*}
+x'(t) &amp; = f(t, x),\\
+x(0) &amp; = x_0.
+\end{align*}
+</div>
+<figure class="figure figure-like" id="firstlook01-figure-integral-curves"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook01-integral-curves.svg" role="img" class="contained" alt="a family of curves that approach zero going left and postive or negative infinity going right"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.1<span class="period">.</span></span><span class="space"> </span>Integral curves</figcaption></figure><article class="activity project-like" id="activity-1"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Verifying Solutions.</span>
+</h4>
+<div class="introduction" id="introduction-2"><p id="p-20">Use direct substitution to verify that <span class="process-math">\(x(t)\)</span> is a solution of the given differential equation.</p></div>
+<article class="task exercise-like" id="task-1"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-21"><span class="process-math">\(y(t) = 4e^{-5t}\text{;}\)</span> <span class="process-math">\(y' = -5y\)</span></p></article><article class="task exercise-like" id="task-2"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-22"><span class="process-math">\(x(t) = 3e^{2t}\text{;}\)</span> <span class="process-math">\(x' = 2x\)</span></p></article><article class="task exercise-like" id="task-3"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-23"><span class="process-math">\(x(t) = 3e^{7t}\text{;}\)</span> <span class="process-math">\(x' - 7x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 3\)</span></p></article><article class="task exercise-like" id="task-4"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-24"><span class="process-math">\(x(t) = Ce^{2t} - 5/2\text{;}\)</span> <span class="process-math">\(x' = 2x + 5\)</span></p></article><article class="task exercise-like" id="task-5"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-25"><span class="process-math">\(x(t) = \dfrac{7}{3} e^{3t^2/2} - \dfrac{1}{3}\text{;}\)</span> <span class="process-math">\(x' = 3tx + t\text{,}\)</span> <span class="process-math">\(x(0) = 2\)</span></p></article></article></section><section class="subsection" id="firstlook01-subsection-logistic-growth"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span>
+</h3>
+<p id="p-26">Not all populations grow exponentially; otherwise, a bacteria culture in a petri dish would grow unbounded and soon be much larger than the size of the laboratory. To see what happens if there are limiting factors to population growth, let us consider the population of fish in a children's trout pond. The number of trout will be limited by the available resources such as food supply as well as by spawning habitat. A small population of fish might grow exponentially if the pond is large and food is abundant, but the growth rate will decline as the population increases and the availability of resources declines.  We can use the <dfn class="terminology">logistic equation</dfn> to model population growth in a resource limited environment.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-8" id="fn-8"><sup> 2 </sup></a></p>
+<p id="p-27">To see how the logistic model works, let us try to adjust our model of exponential growth to account for the limited resources of the pond. We will make the following assumptions.</p>
+<ul class="disc">
+<li id="li-8">
+<p id="p-28">If the population of trout is small and the pond is large with abundant resources, the rate of growth will be approximately exponential,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} \approx kP.
+\end{equation*}
+</div>
+</li>
+<li id="li-9">
+<p id="p-29">If <span class="process-math">\(N\)</span> is the maximum population of trout that the pond can support, then any population larger than <span class="process-math">\(N\)</span> will decrease.  In other words,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} \lt 0
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(P \gt N\text{.}\)</span>  We say that <span class="process-math">\(N\)</span> is the <dfn class="terminology">carrying capacity</dfn> for the population.</p>
+</li>
+</ul>
+<p class="continuation">Our assumptions suggest that we might try an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = k f(P) P,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(f(P)\)</span> is a function of <span class="process-math">\(P\)</span> that is close to 1 if the population is small but negative if the population is greater than <span class="process-math">\(N\text{.}\)</span> The simplest function satisfying these conditions is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(P) = \left( 1 - \frac{P}{N} \right).
+\end{equation*}
+</div>
+<p class="continuation">Thus, the <dfn class="terminology">logistic population model</dfn> is given by the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = k \left( 1 - \frac{P}{N} \right) P.
+\end{equation*}
+</div>
+<article class="example example-like" id="firstlook01-example-logistic-growth"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-firstlook01-example-logistic-growth"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.1.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook01-example-logistic-growth"><article class="example example-like"><p id="p-30">Suppose we have a pond that will support 1000 fish, and the initial population is 100 fish. In order to determine the number of fish in the lake at any time <span class="process-math">\(t\text{,}\)</span> we must find a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-logistic-growth.html ./knowl/firstlook02.html" id="md-3">
+\begin{align*}
+\frac{dP}{dt} &amp; = k \left( 1 - \frac{P}{1000} \right) P\\
+P(0) &amp; = 100.
+\end{align*}
+</div>
+<p class="continuation">It is easy to verify that <span class="process-math">\(P(t) = 1000/(9e^{-kt} + 1)\)</span> is the solution to our initial value problem. Certainly <span class="process-math">\(P(0) = 100\text{,}\)</span> and if we differentiate <span class="process-math">\(P\text{,}\)</span> we will obtain the righthand side of the differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-logistic-growth.html ./knowl/firstlook02.html" id="md-4">
+\begin{align*}
+\frac{dP}{dt} &amp; = \frac{d}{dt} \left(\frac{1000}{9e^{-kt} + 1}\right)\\
+&amp; = 1000 k \frac{9e^{-kt}}{(9e^{-kt} + 1)^2}\\
+&amp; = k \frac{9e^{-kt}}{(9e^{-kt} + 1)} \cdot \frac{1000}{9e^{-kt} + 1}\\
+&amp; = k \frac{(9e^{-kt} + 1) - 1}{(9e^{-kt} + 1)} \cdot \frac{1000}{9e^{-kt} + 1}\\
+&amp; = k \left( 1 - \frac{1000}{1000(9e^{-kt} + 1)}\right) \frac{1000}{9e^{-kt} + 1}\\
+&amp; = k \left( 1 - \frac{P}{1000} \right) P.
+\end{align*}
+</div>
+<p class="continuation">In addition, if we know that the population is 200 fish after one year, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-logistic-growth.html ./knowl/firstlook02.html">
+\begin{equation*}
+200 = P(1) = \frac{1000}{9e^{-k} + 1},
+\end{equation*}
+</div>
+<p class="continuation">and we can determine that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-logistic-growth.html ./knowl/firstlook02.html">
+\begin{equation*}
+k = \ln\left(  \frac{9}{4}\right) \approx 0.8109.
+\end{equation*}
+</div>
+<p class="continuation">Consequently, the solution to our intial-value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-logistic-growth.html ./knowl/firstlook02.html">
+\begin{equation*}
+P(t) = \frac{1000}{9e^{-0.8109 t} + 1}.
+\end{equation*}
+</div>
+<p class="continuation">The graph of our solution certainly fits the situation that we are modeling (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-logistic-growth.html" title="Figure 1.1.3">Figure 1.1.3</a>).  We will learn how to solve initial value problems such as the one described here in <a href="firstlook02.html" class="internal" title="Section 1.2: Separable Differential Equations">Section 1.2</a>. For the time being, we will be satisfied with being able to verify the fact that we have a solution.</p>
+<figure class="figure figure-like" id="firstlook01-figure-logistic-growth"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook01-logistic-growth.svg" role="img" class="contained" alt="a curve that first increases steeply and then begins to level off just below one thousand"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.3<span class="period">.</span></span><span class="space"> </span>Logistic growth</figcaption></figure></article></div>
+<article class="activity project-like" id="activity-2"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.1.2</span><span class="period">.</span><span class="space"> </span><span class="title">Modeling a Population with a Threshhold.</span>
+</h4>
+<div class="introduction" id="introduction-3"><p id="p-31">We can modify the logistic growth model to understand how a population with a minimum threshold grows. The black rhinoceros, once the most numerous of all rhinoceros species, is now critically endangered. The black rhino, native to eastern and southern Africa, was estimated to have a population of about <span class="process-math">\(100{,}000\)</span> around 1900. Because of hunting, habitat changes, competing species, and most of all illegal poaching, the number of black rhinos today is estimated to be below <span class="process-math">\(3000\text{.}\)</span> If the wild population becomes too low, the animals may not be able to find suitable mates and the black rhino will become extinct. There must be a minimum population for the species to survive.  Suppose that this minimum or threshold population for the black rhino is <span class="process-math">\(1000\)</span> animals and that remaining habitant in Africa will support no more that <span class="process-math">\(20{,}000\)</span> rhinos. How might we model the current population, <span class="process-math">\(P(t)\)</span> of black rhinos?</p></div>
+<article class="task exercise-like" id="task-6"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-32">For what values of <span class="process-math">\(P\)</span> is the rhino population increasing? What can be said about the value of <span class="process-math">\(dP/dt\)</span> for these values of <span class="process-math">\(P\text{?}\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-1" id="hint-1"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-1"><div class="hint solution-like"><p id="p-33">(a) The population is increasing if <span class="process-math">\(dP/dt \gt 0\)</span> and <span class="process-math">\(1000 \lt P \lt 20000\text{.}\)</span></p></div></div>
+</div></article><article class="task exercise-like" id="task-7"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-34">For what values of <span class="process-math">\(P\)</span> is the rhino population decreasing? What can be said about the value of <span class="process-math">\(dP/dt\)</span> for these values of <span class="process-math">\(P\text{?}\)</span></p></article><article class="task exercise-like" id="task-8"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-35">For what values of <span class="process-math">\(P\)</span> is the rhino population in equilibrium? What can be said about the value of <span class="process-math">\(dP/dt\)</span> for these values of <span class="process-math">\(P\text{?}\)</span></p></article><article class="task exercise-like" id="task-9"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-36">Find a differential equation that models the population of rhinos at time <span class="process-math">\(t\text{.}\)</span></p></article></article></section><section class="subsection" id="firstlook01-subsection-spring-mass"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span>
+</h3>
+<p id="p-37">Sometimes it is necessary to consider the second derivative when modeling a phenomenon. Suppose that we have a mass lying on a flat, frictionless surface and that this mass is attached to one end of a spring with the other end of the spring attached to a wall. We will denote displacement of the spring by <span class="process-math">\(x\text{.}\)</span> If <span class="process-math">\(x \gt 0\text{,}\)</span> then the spring is stretched. If <span class="process-math">\(x \lt 0\text{,}\)</span> the spring is compressed. If <span class="process-math">\(x = 0\text{,}\)</span> then the spring is in a state of equilibrium (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-spring-mass.html" title="Figure 1.1.4">Figure 1.1.4</a>). If we pull or push on the mass and release it, then the mass will oscillate back and forth across the table.</p>
+<figure class="figure figure-like" id="firstlook01-figure-spring-mass"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/latex-image/firstlook01-spring-mass.svg" role="img" class="contained" alt="a mass on a table that is attached to a wall with a spring and slides back and forth"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.4<span class="period">.</span></span><span class="space"> </span>A spring-mass system</figcaption></figure><p id="p-38">We can construct a differential equation that models our oscillating mass. First, we must consider the restorative force on the spring. We will make the assumption that this force depends on the displacement of the spring, <span class="process-math">\(F(x)\text{.}\)</span> Using Taylor's Theorem from calculus, we can expand <span class="process-math">\(F\)</span> to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-5">
+\begin{align*}
+F(x) &amp; =  F(0) + F'(0) x + \frac{1}{2} F''(0) x^2 + \cdots\\
+&amp; = -k x + \frac{1}{2} F''(0) x^2 + \cdots,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(F'(0) = -k\)</span> and <span class="process-math">\(F(0) = 0\text{.}\)</span>  If the displacement is not too large, then <span class="process-math">\(x^n\)</span> will be small for <span class="process-math">\(n \geq 2\text{,}\)</span> and we can ignore higher ordered terms. Thus, we can consider the restorative force on the spring to be proportional to displacement of the spring from its equilibrium length,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F = -kx.
+\end{equation*}
+</div>
+<p class="continuation">This equation is known as <dfn class="terminology">Hooke's Law</dfn>. We can test this law experimentally, and it is reasonably accurate if the displacement of the spring is not too large.</p>
+<p id="p-39">By Newton's second law of motion, the force on the mass <span class="process-math">\(m\)</span> must be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F = ma = m \frac{d^2 x}{dt^2} = m x'',
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(a\)</span> is the acceleration. Setting the two forces equal, we have a <dfn class="terminology">second-order differential equation</dfn>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' = -kx,
+\end{equation*}
+</div>
+<p class="continuation">which describes our oscillating mass. The spring-mass system is an example of a <dfn class="terminology">harmonic oscillator</dfn>. Harmonic oscillators are useful for modeling simple harmonic motion in mechanics.</p>
+<article class="example example-like" id="firstlook01-example-harmonic-oscillator"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-firstlook01-example-harmonic-oscillator"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.1.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook01-example-harmonic-oscillator"><article class="example example-like"><p id="p-40">Suppose that we have a spring-mass system where <span class="process-math">\(m =1\)</span> and <span class="process-math">\(k = 1\text{.}\)</span> If the initial velocity of the spring is one unit per second and the initial position is at the equilibrium point, then we have the following initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-position-mass.html" id="md-6">
+\begin{align*}
+x'' + x &amp; =  0\\
+x(0) &amp; =  0\\
+x'(0) &amp; =  1.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\(x''(t) = - x(t)\)</span> for both the sine and cosine functions, we might guess that a general solution of our differential equation has the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-position-mass.html">
+\begin{equation*}
+x(t) = A \cos t + B \sin t.
+\end{equation*}
+</div>
+<p class="continuation">Noting that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-position-mass.html">
+\begin{equation*}
+x'(t) = -A \sin t + B \cos t,
+\end{equation*}
+</div>
+<p class="continuation">and using our initial conditions, we can determine that <span class="process-math">\(A = 0\)</span> and <span class="process-math">\(B = 1\)</span> or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-position-mass.html">
+\begin{equation*}
+x(t) = \sin t.
+\end{equation*}
+</div>
+<p class="continuation">The graph of the position of the mass as a function of time is given in <a href="" class="xref" data-knowl="./knowl/firstlook01-figure-position-mass.html" title="Figure 1.1.6">Figure 1.1.6</a>.</p>
+<figure class="figure figure-like" id="firstlook01-figure-position-mass"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/firstlook01-position-mass.svg" role="img" class="contained" alt="a curve that begins at the origin and oscillates between plus and minus one"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.6<span class="period">.</span></span><span class="space"> </span>A undamped spring-mass system</figcaption></figure></article></div>
+<p id="p-41">Now let us add a damping force to our system. For example, we might add a dashpot, a mechanical device that resists motion, to our system. Think of a dashpot as that small cylinder that keeps your screen door from slamming shut. The simplest assumption would be to take the damping force of the dashpot to be proportional to the velocity of the mass, <span class="process-math">\(x'(t)\text{.}\)</span> In other words, the harder you try to slam the screen door, the more resistance you will feel. Thus, we have an additional force,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F = -b x'
+\end{equation*}
+</div>
+<p class="continuation">acting on our mass, where <span class="process-math">\(b \gt 0\text{.}\)</span> Our new equation for the spring-mass system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' = -bx' - kx.
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' + bx' + kx = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(m\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(k\)</span> are all positive constants. The equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' + bx' + kx = 0
+\end{equation*}
+</div>
+<p class="continuation">models a <dfn class="terminology">simple damped harmonic oscillator</dfn>.</p>
+<article class="example example-like" id="firstlook01-example-damped-harmonic-oscillator"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-firstlook01-example-damped-harmonic-oscillator"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.1.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook01-example-damped-harmonic-oscillator"><article class="example example-like"><p id="p-42">Suppose that we have a spring-mass system governed by the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html">
+\begin{equation*}
+x'' + 3x' + 2x = 0.
+\end{equation*}
+</div>
+<p class="continuation">Here we let <span class="process-math">\(m = 1\text{,}\)</span> <span class="process-math">\(b = 3\text{,}\)</span> and <span class="process-math">\(k = 2\text{,}\)</span> We will learn how to solve equations of the form <span class="process-math">\(mx'' + bx' + kx = 0\)</span> in <a href="secondorder.html" class="internal" title="Chapter 4: Second-Order Linear Equations">Chapter 4</a>, but let us assume that the solution is of the form <span class="process-math">\(x(t) = e^{rt}\)</span> for now. In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html" id="md-7">
+\begin{align*}
+x'' + 3x' + 2x &amp; = r^2 e^{rt} + 3 r e^{rt} + 2 e^{rt}\\
+&amp; = e^{rt}(r^2 + 3r +2)\\
+&amp; = e^{rt}(r+2)(r+1)\\
+&amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\(e^{rt}\)</span> is never zero, it must be the case that <span class="process-math">\(r = -2\)</span> or <span class="process-math">\(r = -1\text{,}\)</span> if <span class="process-math">\(x(t) = e^{rt}\)</span> is to be a solution to our equation. Thus, we might guess that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html">
+\begin{equation*}
+x(t) = A e^{-t} + B e^{-2t}
+\end{equation*}
+</div>
+<p class="continuation">is a general solution to our equation. If the initial velocity of our mass is one unit per second and the initial position is zero, then we have the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html" id="md-8">
+\begin{align*}
+x'' + 3x' + 2 x &amp; = 0\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">Using the fact that <span class="process-math">\(x'(t) = -A e^{-t} -2 B e^{-2t}\text{,}\)</span> our initial conditions give us the following system of linear equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html" id="md-9">
+\begin{align*}
+A + B &amp; = 0\\
+-A -2B &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(A = 1\)</span> and <span class="process-math">\(B = -1\text{,}\)</span> and our spring-mass system is modeled by the function</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html ./knowl/firstlook01-figure-over-damped.html">
+\begin{equation*}
+x(t) =  e^{-t} - e^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">Notice that the additional damping negates any oscillation in the system. In this case, we say that the harmonic oscillator is <dfn class="terminology">over-damped</dfn> (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-over-damped.html" title="Figure 1.1.8">Figure 1.1.8</a>).</p>
+<figure class="figure figure-like" id="firstlook01-figure-over-damped"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/firstlook01-over-damped.svg" role="img" class="contained" alt="a curve that starts at the origin and rises steeply and then slowly decreases towards zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.8<span class="period">.</span></span><span class="space"> </span>An over-damped spring-mass system</figcaption></figure><p id="p-43">Of course, if we have a very strong spring and only add a small amount of damping to our spring-mass system, the mass would continue to oscillate, but the oscillations would become progressively smaller. In other words, our harmonic oscillator would be <dfn class="terminology">under-damped</dfn>.  For example, our spring-mass system might be described by the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-under-damped.html" id="md-10">
+\begin{align*}
+x'' + 2x' + 50 x &amp; = 0\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">It is easy to verify that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-under-damped.html">
+\begin{equation*}
+x(t) = \frac{1}{7} e^{-t} \sin 7t
+\end{equation*}
+</div>
+<p class="continuation">is a solution to the initial value problem (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-under-damped.html" title="Figure 1.1.9">Figure 1.1.9</a>).</p>
+<figure class="figure figure-like" id="firstlook01-figure-under-damped"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/firstlook01-under-damped.svg" role="img" class="contained" alt="a curve that starts at the origin and oscillates with the amplitude slowly decreasing"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.9<span class="period">.</span></span><span class="space"> </span>An under-damped spring-mass system</figcaption></figure></article></div>
+<p id="p-44">We will revisit harmonic oscillators and second-order differential equations more fully in <a href="secondorder.html" class="internal" title="Chapter 4: Second-Order Linear Equations">Chapter 4</a>.</p></section><section class="subsection" id="firstlook01-subsection-predator-prey"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span>
+</h3>
+<p id="p-45">Some situations require more than one differential equation to model a particular phenomenon. We might use a system of differential equations to model two interacting species, say where one species preys on the other.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 3 </sup></a> For example, we can model how the population of Canadian lynx (<em class="emphasis">lynx canadenis</em>) interacts with a the population of snowshoe hare (<em class="emphasis">lepus americanis</em>) (see <a class="external" href="https://www.youtube.com/watch?v=ZWucOrSOdCs" target="_blank"><code class="code-inline tex2jax_ignore">https://www.youtube.com/watch?v=ZWucOrSOdCs</code></a>).</p>
+<p id="p-46">We have good historical data for the populations of the lynx and snowshoe hare from the Hudson Bay Company, the oldest company in North America. This large Canadian retail company, which owns and operates a large number of retail stores in North America and Europe, including Saks Fifth Avenue, was originally founded in 1670 as a fur trading company. The Hudson Bay Company kept accurate records on the number of lynx pelts that were bought from trappers from 1821 to 1940. The company noticed that the number of pelts varied from year to year and that the number of lynx pelts reached a peak about every ten years <a href="" class="xref" data-knowl="./knowl/elton-1942.html" title="Bibliographic Entry 11: Journal of Animal Ecology">[11]</a>. The ten year cycle for lynx can be best understood using a system of differential equations.</p>
+<p id="p-47">The primary prey for the Canadian lynx is the snowshoe hare. We will denote the population of hares by <span class="process-math">\(H(t)\)</span> and the population of lynx by <span class="process-math">\(L(t)\text{,}\)</span> where <span class="process-math">\(t\)</span> is the time measured in years. We will make the following assumptions for our predator-prey model.</p>
+<ul class="disc">
+<li id="li-10">
+<p id="p-48">If no lynx are present, we will assume that the hares reproduce at a rate proportional to their population and are not affected by overcrowding. That is, the hare population will grow exponentially,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dH}{dt} = aH.
+\end{equation*}
+</div>
+</li>
+<li id="li-11">
+<p id="p-49">Since the lynx prey on the hares, we can argue that the rate at which the hares are consumed by the lynx is proportional to the rate at which the hares and lynx interact.  Thus, the equation that predicts the rate of change of the hare population becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dH}{dt} = aH - bHL.
+\end{equation*}
+</div>
+<p class="continuation">We are thinking of <span class="process-math">\(HL\)</span> as the number of possible interactions between the lynx and the hare populations.</p>
+</li>
+<li id="li-12">
+<p id="p-50">If there is no food, the lynx population will decline at a rate proportional to itself,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dL}{dt} = -cL.
+\end{equation*}
+</div>
+</li>
+<li id="li-13">
+<p id="p-51">The lynx receive benefit from the hare population. The rate at which lynx are born is proportional to the number of hares that are eaten, and this is proportional to the rate at which the hares and lynx interact. Consequently, the growth rate of the lynx population can be described by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dL}{dt} = -cL + dHL.
+\end{equation*}
+</div>
+</li>
+</ul>
+<p class="continuation">We now have a <dfn class="terminology">system</dfn> of differential equations that describe how the two populations interact,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-lynx-snowshoe-hare.html ./knowl/firstlook04.html ./knowl/systems03.html ./knowl/bauer-2001.html" id="md-11">
+\begin{align*}
+\frac{dH}{dt}  &amp; =  aH - bHL,\\
+\frac{dL}{dt}  &amp; =  -cL + dHL.
+\end{align*}
+</div>
+<p class="continuation">We will learn how to analyze and find solutions of systems of differential equations in subsequent chapters; however, we will give a graphical solution in <a href="" class="xref" data-knowl="./knowl/firstlook01-figure-lynx-snowshoe-hare.html" title="Figure 1.1.10">Figure 1.1.10</a> to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-figure-lynx-snowshoe-hare.html ./knowl/firstlook04.html ./knowl/systems03.html ./knowl/bauer-2001.html" id="md-12">
+\begin{align*}
+\frac{dH}{dt} &amp; = 0.4H - 0.01HL,\\
+\frac{dL}{dt} &amp; = -0.3L + 0.005HL.
+\end{align*}
+</div>
+<p class="continuation">Our graphical solution is obtained using a numerical algorithm (see <a href="firstlook04.html" class="internal" title="Section 1.4: Analyzing Equations Numerically">Section 1.4</a> and <a href="systems03.html" class="internal" title="Section 2.3: Numerical Techniques for Systems">Section 2.3</a>). Notice that the predator population, <span class="process-math">\(L\text{,}\)</span> begins to grow and reaches a peak after the prey population, <span class="process-math">\(H\)</span> reaches its peak. As the prey population declines, the predator population also declines. Once the predator population is smaller, the prey population has a chance to recover, and the cycle begins again.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 4 </sup></a></p>
+<figure class="figure figure-like" id="firstlook01-figure-lynx-snowshoe-hare"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook01-lynx-snowshoe-hare.svg" role="img" class="contained" alt="two curves  with the curve for the hares oscillating between forty-four and eighty and the curves for the lynx oscillating betwee fifty-four and thirty with the maximum amplitudes lagging behind the maximum amplitudes of the curve for the hares"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.10<span class="period">.</span></span><span class="space"> </span>The predator-prey relationship between the lynx and the snowshoe hare</figcaption></figure></section><section class="subsection" id="firstlook01-subsection-modeling-hiv"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span>
+</h3>
+<p id="p-52">The interaction of the HIV-1 virus with the body's immune system can be modeled by a system of differential equations similar to a predator-prey system. After an individual is infected with the HIV-1 virus, the amount of the virus in the bloodstream rises dramatically and the person will often suffer from flu-like symptoms. However, these symptoms will disappear after a period of weeks or months as the body begins to manufacture antibodies against the virus. Tests have been developed to determine the presence of HIV-1 antibodies. If an individual has such antibodies, then they are said to be HIV-1 positive. Once infected with the HIV-1 virus, it can be years before an HIV-positive patient exhibits the full symptoms of AIDS. The body's immune system fights the HIV-1 virus with white blood cells. The CD4-positive T-helper cell, a specific type of white blood cell, is especially important since it helps other cells fight the virus. However, the HIV-1 virus use the CD4-positive T-helper cells to create more virions, destroying the CD4-positive T-helper cells in the process.</p>
+<p id="p-53">We can develop a system of differential equations to better understand the dynamics of the HIV-1 virus <a href="" class="xref" data-knowl="./knowl/perelson-2002.html" title="Bibliographic Entry 20: An Introduction to Mathematical Modeling in Physiology, Cell Biology, and Immunology">[20]</a>. Let <span class="process-math">\(V = V(t)\)</span> be the population of the HIV-1 virus at time <span class="process-math">\(t\text{.}\)</span> We will assume that the virus concentration is governed by the following differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/perelson-2002.html">
+\begin{equation*}
+\frac{dV}{dt} = P - cV.
+\end{equation*}
+</div>
+<p class="continuation">The first term, <span class="process-math">\(P\)</span> is some function of <span class="process-math">\(t\)</span> that determines the rate at which new viral particles are created. The term <span class="process-math">\(-cV\)</span> is the death rate for the virions. If someone discovers a drug that blocks the creation of new HIV-1 virions, then <span class="process-math">\(P\)</span> would be zero and the virions would clear the body at the following rate,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/perelson-2002.html">
+\begin{equation*}
+\frac{dV}{dt} = - cV,
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(V(t) = V_0 e^{-ct}\text{,}\)</span> where <span class="process-math">\(V_0\)</span> is the initial viral population.</p>
+<p id="p-54">Now let us consider a model for the concentration  <span class="process-math">\(T = T(t)\)</span> of (uninfected) CD4-positive T-helper cells,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dT}{dt} = s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T.
+\end{equation*}
+</div>
+<p class="continuation">The constant <span class="process-math">\(s\)</span> represents the rate at which T-cells are created from sources in the body, such as the thymus. New CD4-positive T-helper cells can also be created from the proliferation of existing CD4-positive T-helper cells, and the second term in the equation represents the logistic growth of the T-cells, where <span class="process-math">\(p\)</span> is the maximum proliferation rate and <span class="process-math">\(T_{\text{max}}\)</span> is the T-cell population density where proliferation ceases. Finally, <span class="process-math">\(d_T\)</span> is the death rate of the T cells.</p>
+<p id="p-55">Like the influenza virus, the HIV-1 virus is an RNA virus. An RNA virus cannot reproduce on its own and must use the DNA from a host cell. To do this, the virus attaches itself to a CD4-positive T-helper cell and injects its RNA into the cell. This way the virus can use the T-cell's DNA to replicate itself using a process called reverse transcription, where a DNA copy of the virus's RNA is made. New virus particles are created, and the T-cell eventually bursts releasing the virions into the body. If we let <span class="process-math">\(T^*\)</span> be the concentration of infected T-cells, we can model this process with the following system of equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-13">
+\begin{align*}
+\frac{dT^*}{dt} &amp; =  kTV - \delta T^*\\
+\frac{dV}{dt} &amp; =  N \delta T^* - cV,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(\delta\)</span> is the rate of loss of the virus producing T-cells and <span class="process-math">\(N\)</span> is the number of virions produced per infected T-cell during its lifetime. The term <span class="process-math">\(kTV\)</span> tells us the rate at which the HIV-1 virus infects T-cells. This is the same idea as modeling how predators interact with prey in a predator-prey model. Thus, our complete model becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-14">
+\begin{align*}
+\frac{dT}{dt} &amp; =  s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T - kTV\\
+\frac{dT^*}{dt} &amp; =  kTV - \delta T^*\\
+\frac{dV}{dt} &amp; =  N \delta T^* - cV.
+\end{align*}
+</div>
+<p id="p-56">One class of drugs that HIV infected patients receive are reverse transcriptase (RT) inhibitors. RT inhibitors block the action of reverse transcription and prevent the virus from duplicating. If one could find the perfect RT inhibitor, then <span class="process-math">\(k =0\)</span> and our system becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-15">
+\begin{align*}
+\frac{dT}{dt} &amp; = s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T\\
+\frac{dT^*}{dt} &amp; = - \delta T^*\\
+\frac{dV}{dt} &amp; = N \delta T^* - cV.
+\end{align*}
+</div>
+<p class="continuation">Unfortunately, no one has discovered a perfect RT inhibitor, so we will need to modify the system to account for the effectiveness of the RT inhibitor. We can accomplish this by adding an effectiveness factor, <span class="process-math">\(1 - \eta\text{,}\)</span> to the <span class="process-math">\(kVT\)</span> term. Our system now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-16">
+\begin{align*}
+\frac{dT}{dt} &amp; =  s + pT\left(1 - \frac{T}{T_{\text{max}}}  \right) - d_T T - k(1 - \eta)TV\\
+\frac{dT^*}{dt} &amp; =  k(1 - \eta)TV - \delta T^*\\
+\frac{dV}{dt} &amp; =  N \delta T^* - cV.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(\eta = 1\text{,}\)</span> then the RT inhibitor is completely effective. On the other hand, if <span class="process-math">\(\eta = 0\text{,}\)</span> then the RT inhibitor is completely ineffective. We now have a model for how the HIV-1 virus interacts with the immune system. Researchers can use data to estimate the parameters and see exactly what types of solutions are possible.</p></section><section class="subsection" id="firstlook01-subsection-questions-for-thought"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span>
+</h3>
+<p id="p-57">In this section we have provided a general notion of what a differential equation is as well as several modeling situations where differential equations are useful; however, we have left many questions unanswered.</p>
+<ul class="disc">
+<li id="li-14"><p id="p-58">Can we find a more rigorous definition of a differential equation?</p></li>
+<li id="li-15"><p id="p-59">What is the proper way to define a system of differential equations?</p></li>
+<li id="li-16"><p id="p-60">Does a differential equation or a system of differential equations always have a solution?</p></li>
+<li id="li-17"><p id="p-61">Are solutions to differential equations unique?</p></li>
+<li id="li-18"><p id="p-62">If a unique solution to a differential equation exists, can we find it? If it is not possible to find a precise solution algebraically, can we estimate the solution numerically? If neither is possible, can we still say anything useful about the solution?</p></li>
+</ul>
+<p class="continuation">Of course, other questions will come to mind as we continue our study of differential equations.</p></section><section class="subsection" id="firstlook01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-63" class="disc">
+<li id="li-19"><p id="p-64">A <dfn class="terminology">differential equation</dfn> is an equation relating a function to one or more of its derivatives.</p></li>
+<li id="li-20">
+<p id="p-65">An <dfn class="terminology">initial value problem</dfn> is a differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(t,x),
+\end{equation*}
+</div>
+<p class="continuation">where the <dfn class="terminology">initial condition</dfn>, <span class="process-math">\(x(t_0) = x_0\text{,}\)</span> is specified.</p>
+</li>
+<li id="li-21">
+<p id="p-66">The three principle steps in modeling any phenomenon with differential equations are:</p>
+<ul class="circle">
+<li id="li-22"><p id="p-67">Discovering the differential equation or equations that best describe a specified physical situation.</p></li>
+<li id="li-23"><p id="p-68">Finding—either exactly or approximately—the appropriate solution of the equation or equations.</p></li>
+<li id="li-24"><p id="p-69">Interpreting the solution in terms of the phenomenon.</p></li>
+</ul>
+</li>
+<li id="li-25"><p id="p-70">A population that is not affected by overcrowding can be modeled by the differential equation <span class="process-math">\(P' = kP\)</span> and is said to grow <dfn class="terminology">exponentially</dfn>.</p></li>
+<li id="li-26">
+<p id="p-71">A population that must compete for limited resources can be modeled by the <dfn class="terminology">logistic equation</dfn>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = k \left( 1 - \frac{P}{N} \right) P, 
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(N\)</span> is the carrying capacity of the population.</p>
+</li>
+<li id="li-27"><p id="p-72">Some phenomenon, such as the relationship between a population of predators and a population of prey, are best modeled by systems of differential equations.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span>
+</h3>
+<section class="introduction" id="introduction-4"><p id="p-73">Textbooks are designed to be read. If you are student enrolled in a course, you should read each section before class. To help your understanding, answer the section's reading questions as preparation for class. If you communicate your answers to your instructor, it will aid your instructor when preparing for your class.</p></section><article class="exercise exercise-like" id="reading-questions-firstlook01-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-74">Explain what a differential equation is using your own words.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook01-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-75">What does it mean to be a solution to a differential equation?</p></article></section><section class="exercises" id="firstlook01-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.1.9</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="firstlook01-exercise-baked-potato"><h4 class="heading">
+<span class="codenumber">1<span class="period">.</span></span><span class="space"> </span><span class="title">Baking a Potato (Part 1).</span>
+</h4>
+<p id="p-76">Suppose that you bake a potato in your microwave.  When you remove the potato from the microwave oven, you record the temperature every two minutes (see <a href="" class="xref" data-knowl="./knowl/firstlook01-table-baked-potato.html" title="Table 1.1.11: Temperatures for a Baked Potato">Table 1.1.11</a>).  If room temperature is 73 degrees, write a differential equation that models the temperature of the potato, <span class="process-math">\(T(t)\text{,}\)</span> at time <span class="process-math">\(t\text{.}\)</span></p>
+<figure class="table table-like" id="firstlook01-table-baked-potato"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.1.11<span class="period">.</span></span><span class="space"> </span>Temperatures for a Baked Potato</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines">
+<span class="process-math">\(t\)</span> (minutes)</td>
+<td class="c m b2 r0 l0 t2 lines">
+<span class="process-math">\(T(t)\)</span> (temperature in degrees Fahrenheit)</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0</td>
+<td class="c m b0 r0 l0 t0 lines">197.2</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="c m b0 r0 l0 t0 lines">191.6</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">4</td>
+<td class="c m b0 r0 l0 t0 lines">187.1</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">6</td>
+<td class="c m b0 r0 l0 t0 lines">182.8</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">8</td>
+<td class="c m b2 r0 l0 t0 lines">178.7</td>
+</tr>
+</table></div></figure></article><div class="exercisegroup" id="firstlook01-exercises-verify-solutions">
+<h4 class="heading"><span class="title">Verifying Solutions.</span></h4>
+<div class="introduction" id="introduction-5"><p id="p-77">Use direct substitution to verify that <span class="process-math">\(y(t)\)</span> is a solution of the given differential equation in <a href="" class="xref" data-knowl="./knowl/firstlook01-exercises-verify-solutions.html" title="Exercise Group 1.1.9.2–9: Verifying Solutions">Exercise Group 1.1.9.2–9</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-1"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-78"><span class="process-math">\(y(t) = e^{4t}\text{;}\)</span> <span class="process-math">\(y' = 4y\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-2"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-79"><span class="process-math">\(y(t) = 3e^{-2t}\text{;}\)</span> <span class="process-math">\(y' = -2y\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-3"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-80"><span class="process-math">\(y(t) = 3e^{5t}\text{;}\)</span> <span class="process-math">\(y' - 5y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-4"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-81"><span class="process-math">\(y(t) = e^{3t} - 2\text{;}\)</span> <span class="process-math">\(y' = 3y + 6\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-5"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-82"><span class="process-math">\(y(t) = -7e^{t^2} - \dfrac{1}{2}\text{;}\)</span> <span class="process-math">\(y' = 2ty + t\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-6"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-83"><span class="process-math">\(y(t) = (t^8 - t^4)^{1/4}\text{;}\)</span> <span class="process-math">\(y' = \dfrac{2y^4 + t^4}{ty^3}\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-7"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-84"><span class="process-math">\(y(t) = t\text{;}\)</span> <span class="process-math">\(y'' - ty' + y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-verify-solution-8"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-85"><span class="process-math">\(y(t) = e^t + e^{2t}\text{;}\)</span> <span class="process-math">\(y'' - 4y' + 4y = e^t\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook01-exercises-find-solutions">
+<h4 class="heading"><span class="title">Finding Solutions.</span></h4>
+<div class="introduction" id="introduction-6"><p id="p-86">Many differential equations have solutions of the form <span class="process-math">\(y(t) = e^{at}\text{,}\)</span> where <span class="process-math">\(a\)</span> is some constant.  For example, <span class="process-math">\(y(t) = e^{3t}\)</span> is a solution to the equation <span class="process-math">\(y' = 3y\text{.}\)</span> Find all values of <span class="process-math">\(a\)</span> such that <span class="process-math">\(y(t) = e^{at}\)</span> is a solution to the given equation in <a href="" class="xref" data-knowl="./knowl/firstlook01-exercises-find-solutions.html" title="Exercise Group 1.1.9.10–15: Finding Solutions">Exercise Group 1.1.9.10–15</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook01-exercise-find-solution-1"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-87"><span class="process-math">\(y' = -2y\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-find-solution-2"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-88"><span class="process-math">\(y' + 7 y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-find-solution-3"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-89"><span class="process-math">\(y'' - 3y' + 2y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-find-solution-4"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-90"><span class="process-math">\(y'' + 4y' - 12y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-find-solution-5"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-91"><span class="process-math">\(y''' - y'' - 4y' + 4y = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-find-solution-6"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-92"><span class="process-math">\(y^{(5)} - 5y''' + 4y' = 0\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook01-exercises-ivps">
+<h4 class="heading"><span class="title">Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-7"><p id="p-93">Use direct substitution to verify that <span class="process-math">\(y(t)\)</span> is a solution of the given differential equation in <a href="" class="xref" data-knowl="./knowl/firstlook01-exercises-ivps.html" title="Exercise Group 1.1.9.16–21: Initial Value Problems">Exercise Group 1.1.9.16–21</a>. Then use the initial conditions to determine the constants <span class="process-math">\(C\)</span> or <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\text{.}\)</span></p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="firstlook01-exercise-ivp-1"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-94"><span class="process-math">\(y' = 4y\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(t) = Ce^{4t}\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-ivp-2"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-95"><span class="process-math">\(y' + 7 y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(t) = C e^{-7t}\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-ivp-3"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-96"><span class="process-math">\(y'' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 \cos 2t + c_2 \sin 2t\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-ivp-4"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-97"><span class="process-math">\(y'' - 5y' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^t + c_2 e^{4t}\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-ivp-5"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-98"><span class="process-math">\(y'' + 4y' + 13y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^{-2t} \cos 3t + c_2 e^{-2t} \sin 3t\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-ivp-6"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<p id="p-99"><span class="process-math">\(y'' - 4y' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^{2t} + c_2 te^{2t}\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook01-exercises-bv">
+<h4 class="heading"><span class="title">Boundary Value Problems.</span></h4>
+<div class="introduction" id="introduction-8"><p id="p-100">Use direct substitution to verify that <span class="process-math">\(y(t)\)</span> is a solution of the given differential equation in <a href="" class="xref" data-knowl="./knowl/firstlook01-exercises-bv.html" title="Exercise Group 1.1.9.22–25: Boundary Value Problems">Exercise Group 1.1.9.22–25</a>.  Then use the boundary conditions to determine the constants <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> (if possible).</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="firstlook01-exercise-bv-1"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5>
+<p id="p-101"><span class="process-math">\(y'' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(\pi) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 \cos 2t + c_2 \sin 2t\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-bv-2"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5>
+<p id="p-102"><span class="process-math">\(y'' - 5y' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(1) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^t + c_2 e^{4t}\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-bv-3"><h5 class="heading"><span class="codenumber">24<span class="period">.</span></span></h5>
+<p id="p-103"><span class="process-math">\(y'' + 4y' + 13y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(\pi) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^{-2t} \cos 3t + c_2 e^{-2t} \sin 3t\)</span></p></article><article class="exercise exercise-like" id="firstlook01-exercise-bv-4"><h5 class="heading"><span class="codenumber">25<span class="period">.</span></span></h5>
+<p id="p-104"><span class="process-math">\(y'' - 4y' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(1) = 0\text{,}\)</span> <span class="process-math">\(y(t) = c_1 e^{2t} + c_2 te^{2t}\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="firstlook01-exercise-yprime-yx2-y"><h4 class="heading"><span class="codenumber">26<span class="period">.</span></span></h4>
+<p id="p-105">Consider the differential equation <span class="process-math">\(y' = y(2 - y)\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-28"><p id="p-derived-li-28">Verify that <span class="process-math">\(y(t) = 2/(1 + Ce^{-2t})\)</span> is a solution to this equation.</p></li>
+<li id="li-29"><p id="p-derived-li-29">Sketch solution curves for  <span class="process-math">\(C = 1, 2, \ldots, 5\text{.}\)</span></p></li>
+<li id="li-30"><p id="p-derived-li-30">Verify that <span class="process-math">\(y = 0\)</span> is a solution to the differential equation in part (a).  Can you find a value for <span class="process-math">\(C\)</span> such that<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) = \frac{2}{1 + Ce^{-2t}} = 0?
+\end{equation*}
+</div></p></li>
+</ol></article><article class="exercise exercise-like" id="firstlook01-exercise-y-double-prime-plus-9y"><h4 class="heading"><span class="codenumber">27<span class="period">.</span></span></h4>
+<p id="p-106">Consider the differential equation <span class="process-math">\(y'' + 9y = 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-31"><p id="p-107">Verify that <span class="process-math">\(y(t) = c_1 \cos 3t + c_2 \sin 3t\)</span> is a solution to this equation.</p></li>
+<li id="li-32"><p id="p-derived-li-32">Sketch solution curves for  <span class="process-math">\(c_1 = 1\)</span> and <span class="process-math">\(c_2 = 1, 2, \ldots, 5\text{.}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="firstlook01-exercise-rabbit-population"><h4 class="heading"><span class="codenumber">28<span class="period">.</span></span></h4>
+<p id="p-108">The growth of a population of rabbits with unlimited resources and space can be modeled by the exponential growth equation, <span class="process-math">\(dP/dt = kP\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-33"><p id="p-109">Write a differential equation to model a population of rabbits with unlimited resources, where hunting is allowed at a constant rate <span class="process-math">\(\alpha\text{.}\)</span></p></li>
+<li id="li-34"><p id="p-110">Write a differential equation to model a population of rabbits with unlimited resources, where hunting is allowed at a rate proportional to the population of rabbits.</p></li>
+<li id="li-35"><p id="p-111">Write a differential equation to model a population of rabbits with limited resources, where hunting is allowed at a constant rate <span class="process-math">\(\alpha\text{.}\)</span></p></li>
+<li id="li-36"><p id="p-112">Write a differential equation to model a population of rabbits with limited resources, where hunting is allowed at a rate proportional to the population of rabbits.</p></li>
+</ol></article><article class="exercise exercise-like" id="firstlook01-exercise-first-order-linear"><h4 class="heading"><span class="codenumber">29<span class="period">.</span></span></h4>
+<p id="p-113">Given the equation <span class="process-math">\(x' + a x = q(t)\text{,}\)</span> where <span class="process-math">\(a\)</span> is a constant and <span class="process-math">\(q(t)\)</span> is a continuous function defined on an interval <span class="process-math">\(I\text{,}\)</span> show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = Ce^{-at} + e^{-at} \int_{t_0}^t e^{as}q(s) \, ds
+\end{equation*}
+</div>
+<p class="continuation">is a solution of this equation, where <span class="process-math">\(c\)</span> is any constant and <span class="process-math">\(t_0 \in I\text{.}\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-2" id="hint-2"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-2"><div class="hint solution-like">
+<p id="p-114">Rewriting the differential equation as <span class="process-math">\(x' + a x - q(t) = 0\)</span> and using the fact that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'(t) = -a Ce^{-at} - a e^{-at} \int_{t_0}^t e^{as}q(s) \, ds + b(t),
+\end{equation*}
+</div>
+<p class="continuation">we see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-17">
+\begin{align*}
+x'(t) + a x(t) - q(t) &amp; = -a Ce^{-at} - a e^{-at} \int_{t_0}^t e^{as}q(s) \, ds + q(t)\\
+&amp; + \; aCe^{-at} + ae^{-at} \int_{t_0}^t e^{as}q(s) \, ds - q(t)\\
+&amp; = 0.
+\end{align*}
+</div>
+</div></div>
+</div></article><article class="exercise exercise-like" id="firstlook01-exercise-radio-carbon-dating"><h4 class="heading">
+<span class="codenumber">30<span class="period">.</span></span><span class="space"> </span><span class="title">Radiocarbon Dating.</span>
+</h4>
+<p id="p-115">Carbon 14 is a radioactive isotope of carbon, the most common isotope of carbon being carbon 12. Carbon 14 is created when cosmic ray bombardment changes nitrogen 14 to carbon 14 in the upper atmosphere. The resulting carbon 14 combines with atmospheric oxygen to form radioactive carbon dioxide, which is incorporated into plants by photosynthesis. Animals acquire carbon 14 by eating plants. When an animal or plant dies, it ceases to take on carbon 14, and the amount of isotope in the organism begins to decay into the more common carbon 12. Carbon 14 has a very long half-life, about 5730 years. That is, given a sample of carbon 14, it will take 5730 years for half of the sample to decay to carbon 12. The long half-life is what makes carbon 14 dating very useful in dating objects from antiquity.</p>
+<ol class="lower-alpha">
+<li id="li-37"><p id="p-derived-li-37">Consider a sample of material that contains <span class="process-math">\(A(t)\)</span> atoms of carbon 14 at time <span class="process-math">\(t\text{.}\)</span> During each unit of time a constant fraction of the radioactive atoms will spontaneously decay into another element or a different isotope of the same element. Thus, the sample behaves like a population with a constant death rate and a zero birth rate.  Make use of the model of exponential growth to construct a differential equation that models radioactive decay for carbon 14.</p></li>
+<li id="li-38"><p id="p-derived-li-38">Solve the equation that you proposed in (a) to find an explicit formula for <span class="process-math">\(A(t)\text{.}\)</span></p></li>
+<li id="li-39"><p id="p-derived-li-39">The Chauvet-Pont-d'Arc Cave in the Ardèche department of southern France contains some of the best preserved cave paintings in the world. Carbon samples from torch marks and from the paintings themselves, as well as from animal bones and charcoal found on the cave floor, have been used to estimate the age of the cave paintings. If a particular sample taken from the Cauvet Cave contains 2% of the expected carbon 14, what is the approximate age of the sample?</p></li>
+</ol></article><article class="exercise exercise-like" id="firstlook01-exercise-predator-prey"><h4 class="heading"><span class="codenumber">31<span class="period">.</span></span></h4>
+<p id="p-116">Consider the following predator-prey systems of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-18">
+\begin{align*}
+\frac{dx}{dt} \amp =  -\frac{x}{2} + \frac{xy}{2 + y},\\
+\frac{dy}{dt} \amp=  y(1 - y) - \frac{xy}{2 + y}.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-40"><p id="p-117">Which equation models the prey population and which equation models the predator population?</p></li>
+<li id="li-41"><p id="p-118">How does the prey population grow if there are no predators present?</p></li>
+<li id="li-42"><p id="p-119">What happens if there are a lot of prey present?</p></li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-3" id="hint-3"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-3"><div class="hint solution-like"><p id="p-120">Think about the limit of the interaction term as the number of prey becomes very large.</p></div></div>
+</div></article></section><section class="subsection" id="firstlook01-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span>
+</h3>
+<p id="p-121">Technology can prove very useful when studying differential equations. Software packages such Maple, Mathematica, and Matlab each have their advantages and disadvantages. We will use <em class="emphasis">Sage</em>, a readily available open source computer algebra system, as our choice of software. <em class="emphasis">Sage</em> can be run on an individual computer or over the Internet on a server. You can even access <em class="emphasis">Sage</em> from your smart phone. For our purposes, <em class="emphasis">Sage</em> cells are embedded into the textbook, so there is nothing to install on your computer. Simply, evaluate the cell. You can even change the preloaded commands in the cell if you wish. For example, let us evaluate the derivative of <span class="process-math">\(f(x) = x^2 \cos x\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-2"><script type="text/x-sage">x = var('x') #declare x as a variable
+y = x^2*cos(x)  #set y equal to x^2*cos(x)
+solution = diff(y, x) #differentiate y with respect to x
+solution.show() #display the solutions in a nice format
+</script></pre>
+<p id="p-122">Note that anything following a pound sign <code class="code-inline tex2jax_ignore">#</code> is a comment.</p>
+<p id="p-123">We can use <em class="emphasis">Sage</em> to plot functions. For example, we can plot the function <span class="process-math">\(f(x) = x^2 \cos x\)</span> as well as its derivative on the same graph.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-3"><script type="text/x-sage">x = var('x')
+y = x^2*cos(x)
+yprime = diff(y, x)
+p = plot(y, (x, -2, 2), color ='blue', legend_label='$f$', legend_color='blue')
+p += plot(yprime, (x, -2, 2), color='red', legend_label='$df/dx$', legend_color='red')
+p
+</script></pre>
+<p id="p-124">We can use <em class="emphasis">Sage</em> to solve differential equations. Suppose that we wish to solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-19">
+\begin{align*}
+\frac{dP}{dt} &amp; = kP\\
+P(0) &amp; = 1000.
+\end{align*}
+</div>
+<p class="continuation">We can use the following commands.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-4"><script type="text/x-sage">k,t = var('k, t') #declare variables k and t
+P = function('P')(t) #declare P to be a function of t
+de = diff(P, t) == k*P  #differential equation
+#solve specifying initial conditions
+#and independent variable solution
+solution = desolve(de, P, ivar=t, ics=[0, 1000]) 
+solution.show()
+</script></pre>
+<p id="p-125">We will provide abundant examples of how to use <em class="emphasis">Sage</em> to solve and analyze differential equations throughout the book, and we encourage the reader to experiment by altering the <em class="emphasis">Sage</em> commands inside the individual <em class="emphasis">Sage</em> cells. If you make a mistake, you can simply reload the webpage and start again.</p>
+<p id="p-126">The reader will find plenty of resources to learn how to use <em class="emphasis">Sage</em>. A good place to start is <a class="external" href="http://www.sagemath.org/help.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/help.html</code></a>, <a href="" class="xref" data-knowl="./knowl/bard-2015.html" title="Bibliographic Entry 1: Sage for Undergraduates">[1]</a>, or the UTMOST Sage Cell Repository (<a class="external" href="http://utmost-sage-cell.org" target="_blank"><code class="code-inline tex2jax_ignore">utmost-sage-cell.org</code></a>), which contains several hundred Sage cells that can be excuted right from the repository website. Although we will be using <em class="emphasis">Sage</em> as the technology of choice, much of this book can be read independently of <em class="emphasis">Sage</em>. Finally, we would like to emphasize once again that the reader who chooses not to use some sort of technology will be at a disadvantage.</p>
+<section class="exercises" id="firstlook01-sage-exercises"><h4 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber"></span> <span class="title"><em class="emphasis">Sage</em> Exercises</span>
+</h4>
+<article class="exercise exercise-like" id="firstlook01-sage-exercise-evaluate"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-127">In the <em class="emphasis">Sage</em> cell below enter <code class="code-inline tex2jax_ignore">2 + 2</code> and then evaluate the cell. Your answer should be <code class="code-inline tex2jax_ignore">4</code> of course.  Next try entering <code class="code-inline tex2jax_ignore">2^1000</code>. You should see a very large number.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-5"><script type="text/x-sage">
+</script></pre></article></section></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-7"><div class="fn">See <a class="external" href="https://data.worldbank.org" target="_blank"><code class="code-inline tex2jax_ignore">data.worldbank.org</code></a>.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-8"><div class="fn">The logistic model was first used by the Belgian mathematician and physician Pierre François Verhulst in 1836 to predict the populations of Belgium and France.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-9"><div class="fn">The predator-prey model was discovered independently by Lotka (1925) and Volterra (1926).</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-10"><div class="fn">An excellent account of the actual lynx and snowshoe hare data and model can be found in <a href="" class="xref" data-knowl="./knowl/bauer-2001.html" title="Bibliographic Entry 5: Mathematical Models in Population Biology and Epidemiology">[5]</a>.</div></div>
+</div></main>
+</div>
+</body>
+</html>

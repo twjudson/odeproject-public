@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:30+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Complex Eigenvalues</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear03.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear05.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear03.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear05.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="active">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="linear04"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span>
+</h2>
+<article class="objectives goal-like" id="objectives-15"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-330">
+<p id="p-1103">To understand and be able to apply Euler's formula,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{i \beta t} = \cos \beta t + i \sin \beta t.
+\end{equation*}
+</div>
+</li>
+<li id="li-331"><p id="p-1104">To understand that if a <span class="process-math">\(2 \times 2\)</span> matrix <span class="process-math">\(A\)</span> has two complex eigenvalues, <span class="process-math">\(\lambda = \alpha \pm i \beta\text{,}\)</span> then the general solution will involve sines and cosines.  Furthermore, the origin will be a spiral sink, a spiral source or a center.</p></li>
+</ul></article><section class="introduction" id="introduction-68"><p id="p-1105">Consider the following system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-equation-complex-eigenvalues.html ./knowl/linear04-figure-no-straight-line-solutions.html" id="linear04-equation-complex-eigenvalues">
+\begin{equation}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+-3 \amp 1\\
+-2 \amp -1
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}\tag{3.4.1}
+\end{equation}
+</div>
+<p class="continuation">The characteristic polynomial of the system <a href="" class="xref" data-knowl="./knowl/linear04-equation-complex-eigenvalues.html" title="Equation 3.4.1">(3.4.1)</a> is <span class="process-math">\(\lambda^2 + 4\lambda + 5\text{.}\)</span> The roots of this polynomial are <span class="process-math">\(\lambda_1 = -2 + i\)</span> and <span class="process-math">\(\lambda_2 = -2 -i\)</span> with eigenvectors <span class="process-math">\(\mathbf v_1 = (1, 1 + i)\)</span> and <span class="process-math">\(\mathbf v_2 = (1, 1- i)\text{,}\)</span> respectively. It is clear from the phase portrait of the system that there are no straight-line solutions (<a href="" class="xref" data-knowl="./knowl/linear04-figure-no-straight-line-solutions.html" title="Figure 3.4.1">Figure 3.4.1</a>).  However, we would like to have real solutions for a linear system with real coefficients.</p>
+<figure class="figure figure-like" id="linear04-figure-no-straight-line-solutions"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear04-no-straight-line-solutions.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve approaching the origin and no straight-line solutions"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.1<span class="period">.</span></span><span class="space"> </span>A system with no straight-line solutions</figcaption></figure></section><section class="subsection" id="linear04-subsection-complex-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span>
+</h3>
+<p id="p-1106">Suppose that we have the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 &amp; \beta \\
+-\beta &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\beta \neq 0\text{.}\)</span> The characteristic polynomial of this system is <span class="process-math">\(\det(A - \lambda I) = \lambda^2 + \beta^2\text{,}\)</span> and so we have imaginary eigenvalues <span class="process-math">\(\pm i \beta\text{.}\)</span>  To find the eigenvector corresponding to <span class="process-math">\(\lambda = i\beta\text{,}\)</span> we must solve the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+- i \beta &amp; \beta \\
+- \beta &amp; - i \beta
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ 0
+\end{pmatrix};
+\end{equation*}
+</div>
+<p class="continuation">however, this reduces to solving the equation <span class="process-math">\(i \beta x = \beta y\text{.}\)</span> Thus, we can find a complex eigenvector <span class="process-math">\((1, i)\text{.}\)</span>  Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = e^{i \beta t} \begin{pmatrix} 1 \\ i\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is a complex solution to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span> The problem is that we have a real system of differential equations and would like real solutions. We can remedy the situation if we use <dfn class="terminology">Euler's formula</dfn>, <a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-35" id="fn-35"><sup> 1 </sup></a></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{i \beta t} = \cos \beta t + i \sin \beta t.
+\end{equation*}
+</div>
+<p id="p-1107">Let us rewrite our solution as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-248">
+\begin{align*}
+{\mathbf x}(t)
+&amp; =
+e^{i \beta t} 
+\begin{pmatrix}
+1 \\ i
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+\cos \beta t + i \sin \beta t\\
+i(\cos \beta t + i \sin \beta t)
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+\cos \beta t + i \sin \beta t\\
+- \sin \beta t + i \cos \beta t
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+\cos \beta t \\
+- \sin \beta t 
+\end{pmatrix} +
+i \begin{pmatrix}
+\sin \beta t\\
+\cos \beta t
+\end{pmatrix}
+\end{align*}
+</div>
+<p class="continuation">and consider the real and imaginary parts of the solution:</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_{\text{Re}}
+=
+\begin{pmatrix}
+\cos \beta t \\
+- \sin \beta t 
+\end{pmatrix}
+\qquad \text{and} \qquad
+{\mathbf x}_{\text{Im}}
+=
+\begin{pmatrix}
+\sin \beta t\\
+\cos \beta t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-249">
+\begin{align*}
+{\mathbf x}'_{\text{Re}}(t) +i {\mathbf x}'_{\text{Im}}(t) &amp; = {\mathbf x}'(t)\\
+&amp; = A {\mathbf x}(t)\\
+&amp; = A( {\mathbf x}_{\text{Re}}(t) +i {\mathbf x}_{\text{Im}}(t))\\
+&amp; = A {\mathbf x}_{\text{Re}}(t) +i A {\mathbf x}_{\text{Im}}(t).
+\end{align*}
+</div>
+<p class="continuation">we know that <span class="process-math">\({\mathbf x}'_{\text{Re}}(t) = A{ \mathbf x}_{\text{Re}}(t)\)</span> and <span class="process-math">\({\mathbf x}'_{\text{Im}}(t) = A {\mathbf x}_{\text{Im}}(t)\)</span> by setting the real and imaginary parts equal.  Thus, both <span class="process-math">\({\mathbf x}_{\text{Re}}(t)\)</span> and <span class="process-math">\({\mathbf x}_{\text{Im}}(t)\)</span> are solutions to our system.  Moreover, since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_{\text{Re}}(0)
+=
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
+\mbox{ and }
+{\mathbf x}_{\text{Im}}(0)
+=
+\begin{pmatrix}
+0 \\ 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we know that the appropriate linear combination of <span class="process-math">\({\mathbf x}_{\text{Re}}(t)\)</span> and <span class="process-math">\({\mathbf x}_{\text{Im}}(t)\)</span> will provide a solution to any initial value problem.</p>
+<p id="p-1108">We claim that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="linear04-equation-real-imaginary-solution">
+\begin{equation}
+{\mathbf x}(t) = c_1 {\mathbf x}_{\text{Re}}(t) + c_2 {\mathbf x}_{\text{Im}}(t)\tag{3.4.2}
+\end{equation}
+</div>
+<p class="continuation">is a general solution to our system. That is, we must be able to write every solution of our system as a linear combination of <span class="process-math">\({\mathbf x}_{\text{Re}}(t)\)</span> and <span class="process-math">\({\mathbf x}_{\text{Im}}(t)\text{.}\)</span>  If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf y}(t) = \begin{pmatrix} u(t) \\ v(t) \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is another solution to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf y}'(t) 
+=
+\begin{pmatrix}
+u'(t) \\ v'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 &amp; \beta \\
+- \beta &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+u(t) \\ v(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+\beta v(t) \\ - \beta u(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">In other words, <span class="process-math">\(u'(t) = \beta v(t)\)</span> and <span class="process-math">\(v'(t) = - \beta u(t)\text{.}\)</span> Now, define <span class="process-math">\(f\)</span> by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(t) = (u(t) + i v(t)) e^{i\beta t}.
+\end{equation*}
+</div>
+<p class="continuation">The derivative of <span class="process-math">\(f\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-250">
+\begin{align*}
+f'(t) &amp; = (u'(t) + i v'(t)) e^{i\beta t}+ i \beta (u(t) + i v(t)) e^{i\beta t}\\
+&amp; =(\beta v(t) -i \beta u(t)) e^{i\beta t}+ (i \beta u(t) + i^2 \beta v(t)) e^{i\beta t}\\
+&amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Therefore, <span class="process-math">\(f(t)\)</span> is a complex constant and <span class="process-math">\(f(t) = (u(t) + i v(t)) e^{i\beta t} = a + bi\text{.}\)</span> We can now write <span class="process-math">\(u(t) + iv(t) = (a + ib) e^{- i \beta t}\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-251">
+\begin{align*}
+u(t) + iv(t) &amp; = (a + ib) e^{- i \beta t}\\
+&amp; = (a + ib) (\cos \beta t - i \sin \beta t)\\
+&amp; = (a \cos \beta t + b \sin \beta t) + i (b \cos \beta t - a \sin \beta t).
+\end{align*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-252">
+\begin{align*}
+u(t) &amp; = a \cos \beta t + b \sin \beta t\\
+v(t) &amp; = b \cos \beta t - a \sin \beta t.
+\end{align*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-253">
+\begin{align*}
+\begin{pmatrix}
+u(t) \\ v(t)
+\end{pmatrix}
+&amp; =
+\begin{pmatrix}
+a \cos \beta t + b \sin \beta t \\
+b \cos \beta t - a \sin \beta t
+\end{pmatrix}\\
+&amp; = a \begin{pmatrix} \cos \beta t \\ - \sin \beta t \end{pmatrix} + b \begin{pmatrix} \sin \beta t \\ \cos \beta t \end{pmatrix}\\
+&amp; = a {\mathbf x}_{\text{Re}}(t) + b{\mathbf x}_{\text{Im}}(t).
+\end{align*}
+</div>
+<p id="p-1109">Notice that the solutions</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1
+\begin{pmatrix}
+\cos \beta t \\
+- \sin \beta t 
+\end{pmatrix}
++
+c_2
+\begin{pmatrix}
+\sin \beta t\\
+\cos \beta t
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">are periodic with period <span class="process-math">\(2 \pi / \beta\text{.}\)</span> This type of system is called a <dfn class="terminology">center</dfn>.</p>
+<article class="example example-like" id="example-40"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-40"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.4.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-40"><article class="example example-like"><p id="p-1110">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-center-phase-portrait.html" id="md-254">
+\begin{align*}
+\frac{dx}{dt} \amp = 2y\\
+\frac{dy}{dt} \amp = -2x\\
+x(0) \amp = 1\\
+y(0) \amp = 2.
+\end{align*}
+</div>
+<p class="continuation">The eigenvalues of this system are <span class="process-math">\(\lambda = \pm 2i\text{.}\)</span> Therefore, the general solution to the system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-center-phase-portrait.html" id="md-255">
+\begin{align*}
+x(t) \amp = c_1 \cos 2t + c_2 \sin 2t\\
+y(t) \amp = - c_1 \sin 2t + c_2 \cos 2t.
+\end{align*}
+</div>
+<p class="continuation">Using the initial conditions to solve for <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\text{,}\)</span> the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-center-phase-portrait.html" id="md-256">
+\begin{align*}
+x(t) \amp = \cos 2t + 2 \sin 2t\\
+y(t) \amp = - \sin 2t + 2 \cos 2t.
+\end{align*}
+</div>
+<p class="continuation">The phase portrait is a circle of radius 2 about the origin (<a href="" class="xref" data-knowl="./knowl/linear04-figure-center-phase-portrait.html" title="Figure 3.4.3">Figure 3.4.3</a>).</p>
+<figure class="figure figure-like" id="linear04-figure-center-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear04-center-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows and a solution curve that is a circle"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.3<span class="period">.</span></span><span class="space"> </span>Phase portrait for a center</figcaption></figure></article></div></section><section class="subsection" id="linear04-subsection-spiral-sinks-sources"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span>
+</h3>
+<p id="p-1111">Now let us consider the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> are nonzero real numbers. The characteristic equation of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda^2 - 2 \alpha \lambda + (\alpha^2 + \beta^2) = 0,
+\end{equation*}
+</div>
+<p class="continuation">so the eigenvalues are <span class="process-math">\(\lambda = \alpha \pm i \beta\text{.}\)</span> We can use the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(\alpha - (\alpha + i \beta))x + \beta y = 0
+\end{equation*}
+</div>
+<p class="continuation">to show that <span class="process-math">\((1, i)\)</span> is an eigenvector for <span class="process-math">\(\alpha + i \beta\text{.}\)</span> Therefore, we have a complex solution of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-257">
+\begin{align*}
+{\mathbf x}(t)
+&amp; =
+e^{(\alpha + i \beta)t}
+\begin{pmatrix}
+1 \\ i
+\end{pmatrix}\\
+&amp; =
+e^{\alpha t} 
+\begin{pmatrix}
+\cos \beta t \\ - \sin \beta t
+\end{pmatrix}
++
+i e^{\alpha t}
+\begin{pmatrix}
+\sin \beta t \\ \cos \beta t
+\end{pmatrix}\\
+&amp; = {\mathbf x}_{\text{Re}}(t) + i {\mathbf x}_{\text{Im}}(t).
+\end{align*}
+</div>
+<p class="continuation">As before, both</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_{\text{Re}}(t) 
+= e^{\alpha t}  \begin{pmatrix} \cos \beta t \\ - \sin \beta t \end{pmatrix}
+\quad \text{and} \quad 
+{\mathbf x}_{\text{Im}}(t) 
+= e^{\alpha t}  \begin{pmatrix} \sin \beta t \\ \cos \beta t \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">are real solutions to <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span> Furthermore, these solutions are linearly independent. Indeed, <span class="process-math">\({\mathbf x}_{\text{Re}}\)</span> cannot be a multiple of <span class="process-math">\({\mathbf x}_{\text{Im}}\)</span> for all values of <span class="process-math">\(t\text{.}\)</span> Thus, we have the general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1
+e^{\alpha t} 
+\begin{pmatrix}
+\cos \beta t \\ - \sin \beta t
+\end{pmatrix}
++
+c_2 e^{\alpha t}
+\begin{pmatrix}
+\sin \beta t \\ \cos \beta t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The <span class="process-math">\(e^{\alpha t}\)</span> factor tells us that the solutions either spiral into the origin if <span class="process-math">\(\alpha \lt 0\)</span> or spiral out to infinity if <span class="process-math">\(\alpha \gt 0\text{.}\)</span> In this case we say that the equilibrium points are <dfn class="terminology">spiral sinks</dfn> and <dfn class="terminology">spiral sources</dfn>, respectively.</p>
+<article class="example example-like" id="example-41"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-41"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.4.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-41"><article class="example example-like"><p id="p-1112">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html" id="md-258">
+\begin{align*}
+\frac{dx}{dt} \amp = -x/10 + y\\
+\frac{dy}{dt} \amp = -x - y/10\\
+x(0) \amp = 2\\
+y(0) \amp = 2.
+\end{align*}
+</div>
+<p class="continuation">The matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html">
+\begin{equation*}
+\begin{pmatrix}
+-1/10 \amp 1 \\
+-1 \amp -1/10
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has eigenvalues <span class="process-math">\(\lambda = -1/10 \pm i\text{.}\)</span> The eigenvalue <span class="process-math">\(\lambda = -1/10 + i\)</span> has an eigenvector <span class="process-math">\(\mathbf v = (1, i)\text{.}\)</span> The complex solution of our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html" id="md-259">
+\begin{align*}
+\mathbf x(t) \amp = e^{(-1/10 + i)t} \begin{pmatrix} 1 \\ i\end{pmatrix}\\
+\amp = e^{-t/10} e^{it} \begin{pmatrix} 1 \\ i \end{pmatrix}\\
+\amp = e^{-t/10} (\cos t + i \sin t) \begin{pmatrix} 1 \\ i\end{pmatrix}\\
+\amp = e^{-t/10} \begin{pmatrix} \cos t + i \sin t \\ - \sin t + i \cos t \end{pmatrix}\\
+\amp = e^{-t/10} \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + i e^{-t/10}  \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}
+\end{align*}
+</div>
+<p class="continuation">The real and imaginary parts of this solution are</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html">
+\begin{equation*}
+{\mathbf x}_{\text{Re}}(t) = e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} \quad \text{and} \quad {\mathbf x}_{\text{Im}}(t) = e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">respectively. Thus, we have the general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html">
+\begin{equation*}
+\mathbf x(t) = c_1 e^{-t/10}  \begin{pmatrix} \cos t \\ - \sin t \end{pmatrix} + c_2 e^{-t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Applying our initial conditions, we can determine that <span class="process-math">\(c_1 = 2\)</span> and <span class="process-math">\(c_2 = 2\text{;}\)</span> hence, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-sink-phase-portrait.html">
+\begin{equation*}
+\mathbf x(t)  =  2 e^{-t/10}  \begin{pmatrix} \cos t + \sin t \\ \cos t - \sin t \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The phase portrait of this solution indicates that we do indeed have a spiral sink (<a href="" class="xref" data-knowl="./knowl/linear04-figure-sink-phase-portrait.html" title="Figure 3.4.5">Figure 3.4.5</a>).</p>
+<figure class="figure figure-like" id="linear04-figure-sink-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear04-sink-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows and a solution curve that spirals towards the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.5<span class="period">.</span></span><span class="space"> </span>Phase portrait for a spiral sink</figcaption></figure></article></div>
+<article class="example example-like" id="example-42"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-42"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.4.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-42"><article class="example example-like"><p id="p-1113">The initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-source-phase-portrait.html" id="md-260">
+\begin{align*}
+\frac{dx}{dt} \amp = x/10 + y\\
+\frac{dy}{dt} \amp = -x + y/10\\
+x(0) \amp = 0\\
+y(0) \amp = 1/2.
+\end{align*}
+</div>
+<p class="continuation">The matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-source-phase-portrait.html">
+\begin{equation*}
+\begin{pmatrix}
+1/10 \amp 1 \\
+-1 \amp 1/10
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has an eigenvector <span class="process-math">\((1, -i)\)</span> with eigenvalue <span class="process-math">\(\lambda = 1/10 - i\text{.}\)</span> Thus, the complex solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-source-phase-portrait.html">
+\begin{equation*}
+\mathbf x(t) = e^{(1/10 - i)t} \begin{pmatrix} 1 \\ -i \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Following the procedure that we used in the previous example, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear04-figure-source-phase-portrait.html">
+\begin{equation*}
+\mathbf x(t) = \frac{1}{2} e^{t/10} \begin{pmatrix} \sin t \\ \cos t \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">and he phase portrait is a spiral source (<a href="" class="xref" data-knowl="./knowl/linear04-figure-source-phase-portrait.html" title="Figure 3.4.7">Figure 3.4.7</a>).</p>
+<figure class="figure figure-like" id="linear04-figure-source-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear04-source-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve that spirals out from the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.7<span class="period">.</span></span><span class="space"> </span>Phase portrait for a spiral source</figcaption></figure></article></div>
+<article class="activity project-like" id="activity-26"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Systems with Complex Eigenvalues.</span>
+</h4>
+<div class="introduction" id="introduction-69">
+<p id="p-1114">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 7 \amp 4 \\ -4 \amp 7 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-141"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1115">Find the eigenvalues, <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\overline{\lambda}\)</span> of <span class="process-math">\(A\text{.}\)</span></p></article><article class="task exercise-like" id="task-142"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1116">Find eigenvectors, <span class="process-math">\(\mathbf v\)</span> and <span class="process-math">\(\overline{\mathbf v}\)</span> for the eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\overline{\lambda}\text{,}\)</span> respectively.</p></article><article class="task exercise-like" id="task-143"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1117">Find the complex solution to the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-144"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1118">Find the real solution to the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-145"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1119">Is the origin a spiral source or a spiral sink?  Sketch a solution curve in the <span class="process-math">\(xy\)</span>-plane.</p></article></article></section><section class="subsection" id="linear04-subsection-quick-start"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span>
+</h3>
+<p id="p-1120">Suppose that we have the linear system <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix} a \amp b \\ c \amp d \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+p(\lambda) = \lambda^2 - (a + d)\lambda + (ad - bc).
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\((a + d)^2 - 4(ad - bc) \lt 0\text{,}\)</span> then the eigenvalues of <span class="process-math">\(A\)</span> are complex, and we cannot apply the strategy that we used to determine the general solution in the case of distinct real roots.</p>
+<article class="example example-like" id="example-43"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-43"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.4.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-43"><article class="example example-like"><p id="p-1121">The system <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} -1 \amp -2 \\ 4 \amp 3 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is <span class="process-math">\(\lambda^2 - 2 \lambda + 5\)</span> and so the eigenvalues are complex conjugates, <span class="process-math">\(\lambda = 1 + 2i\)</span> and <span class="process-math">\(\overline{\lambda} = 1 - 2i\text{.}\)</span> It is easy to show that an eigenvector for <span class="process-math">\(\lambda = 1 + 2 i\)</span> is <span class="process-math">\(\mathbf v = (1, -1 - i)\text{.}\)</span> Recalling that <span class="process-math">\(e^{i\theta} = \cos \theta + i \sin \theta\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-261">
+\begin{align*}
+\mathbf x(t) &amp; = e^{(1+2i)t} \mathbf v\\
+&amp; = e^{(1+2i)t} \begin{pmatrix} 1 \\ -1 - i \end{pmatrix}\\
+&amp; = e^{t} e^{2it} \begin{pmatrix} 1 \\ -1 - i \end{pmatrix}\\
+&amp; = e^{t} (\cos 2t + i \sin 2t) \begin{pmatrix} 1 \\ -1 - i\end{pmatrix}\\
+&amp; = e^{t} \begin{pmatrix} \cos 2t + i \sin 2t \\ (-1 - i)(\cos 2t + i \sin 2t) \end{pmatrix}\\
+&amp; = e^{t} \begin{pmatrix} \cos 2t + i \sin 2t \\ (- \cos 2t + \sin 2t) + i(- \cos 2t - \sin 2t) \end{pmatrix}\\
+&amp; = e^{t}
+\begin{pmatrix} \cos 2t  \\ - \cos 2t + \sin 2t \end{pmatrix}
++
+i e^{t}
+\begin{pmatrix}  \sin 2t \\ - \cos 2t - \sin 2t \end{pmatrix}
+\end{align*}
+</div>
+<p class="continuation">is a complex solution to our system. Taking the real and imaginary parts of this solution, we obtain the general solution to our system</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1 e^{t}
+\begin{pmatrix} \cos 2t \\ - \cos 2t + \sin 2t  \end{pmatrix} 
++
+c_2 e^{t}
+\begin{pmatrix}  \sin 2t \\ - \cos 2t - \sin 2t \end{pmatrix}.
+\end{equation*}
+</div></article></div>
+<p id="p-1122">The nature of the equilibrium solution is determined by the factor <span class="process-math">\(e^{\alpha t}\)</span> in the solution. If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> the equilibrium point is a <dfn class="terminology">spiral sink</dfn>. If <span class="process-math">\(\alpha \gt 0\text{,}\)</span> the equilibrium point is a <dfn class="terminology">spiral  source</dfn>. If <span class="process-math">\(\alpha = 0\text{,}\)</span> the equilibrium point is a <dfn class="terminology">center</dfn>.</p>
+<p id="p-1123">Although we have outlined a procedure to find the general solution of <span class="process-math">\(\mathbf x' = A \mathbf x\)</span> if <span class="process-math">\(A\)</span> has complex eigenvalues, we have not shown that this method will work in all cases. We will do so in <a href="linear06.html" class="internal" title="Section 3.6: Changing Coordinates">Section 3.6</a>.</p>
+<article class="activity project-like" id="activity-27"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.4.2</span><span class="period">.</span><span class="space"> </span><span class="title">Planar Systems with Complex Eigenvalues.</span>
+</h4>
+<div class="introduction" id="introduction-70">
+<p id="p-1124">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 7 \amp -4 \\ 10 \amp -5 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-146"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1125">Find the eigenvalues, <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\overline{\lambda}\)</span> of <span class="process-math">\(A\text{.}\)</span></p></article><article class="task exercise-like" id="task-147"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1126">Find eigenvectors, <span class="process-math">\(\mathbf v\)</span> and <span class="process-math">\(\overline{\mathbf v}\)</span> for the eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\overline{\lambda}\text{,}\)</span> respectively.</p></article><article class="task exercise-like" id="task-148"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1127">Find the complex solution to the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-149"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1128">Find the real solution to the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-150"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1129">Is the origin a spiral source or a spiral sink?  Sketch a solution curve in the <span class="process-math">\(xy\)</span>-plane.</p></article></article></section><section class="subsection" id="linear04-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1130" class="disc"><li id="li-332">
+<p id="p-1131">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+\alpha &amp;  \beta \\
+-\beta &amp; \alpha
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then <span class="process-math">\(A\)</span> has two complex eigenvalues, <span class="process-math">\(\lambda = \alpha \pm i \beta\text{.}\)</span> The general solution to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1
+e^{\alpha t} 
+\begin{pmatrix}
+\cos \beta t \\ - \sin \beta t
+\end{pmatrix}
++
+c_2 e^{\alpha t}
+\begin{pmatrix}
+\sin \beta t \\ \cos \beta t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> the equilibrium point is a spiral sink. If <span class="process-math">\(\alpha \gt 0\text{,}\)</span> the equilibrium point is a spiral source.</p>
+</li></ul></section><section class="reading-questions" id="reading-questions-linear04"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear04-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1132">When are two complex numbers equal?</p></article><article class="exercise exercise-like" id="reading-questions-linear04-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1133">What is Euler's formula?</p></article><article class="exercise exercise-like" id="reading-questions-linear04-3"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-1134">For a <span class="process-math">\(2 \times 2\)</span> linear system with complex eigenvalues, what are the three different possibilities for the phase plane of the system?</p></article></section><section class="exercises" id="linear04-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.4.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="linear04-exercises-solving-linear-systems">
+<h4 class="heading"><span class="title">Solving Linear Systems with Complex Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-71"><p id="p-1135">Find the general solution of each of the linear systems in <a href="" class="xref" data-knowl="./knowl/linear04-exercises-solving-linear-systems.html" title="Exercise Group 3.4.6.1–4: Solving Linear Systems with Complex Eigenvalues">Exercise Group 3.4.6.1–4</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-237"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-262">
+\begin{align*}
+x' &amp; = 2x + 2y\\
+y' &amp; = -4x + 6y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-238"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-263">
+\begin{align*}
+x' &amp; = 2x - 6y\\
+y' &amp; = 2x + y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-239"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-264">
+\begin{align*}
+x' &amp; = -x - 4y\\
+y' &amp; = 3x - 2y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-240"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-265">
+\begin{align*}
+x' &amp; = 2x - 5y\\
+y' &amp; = x - 2y
+\end{align*}
+</div></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear04-exercises-solving-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-72"><p id="p-1140">Solve each of the following linear systems for the given initial values in <a href="" class="xref" data-knowl="./knowl/linear04-exercises-solving-ivps.html" title="Exercise Group 3.4.6.5–8: Solving Initial Value Problems">Exercise Group 3.4.6.5–8</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-241"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-266">
+\begin{align*}
+x' &amp; = 2x + 2y\\
+y' &amp; = -4x + 6y\\
+x(0) &amp; = 2\\
+y(0) &amp; = -3
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-242"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-267">
+\begin{align*}
+x' &amp; = 2x - 6y\\
+y' &amp; = 2x + y\\
+x(0) &amp; = 2\\
+y(0) &amp; = 1
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-243"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-268">
+\begin{align*}
+x' &amp; = -x - 4y\\
+y' &amp; = 3x - 2y\\
+x(0) &amp; = 20\\
+y(0) &amp; = 20
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-244"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-269">
+\begin{align*}
+x' &amp; = 2x - 5y\\
+y' &amp; = x - 2y\\
+x(0) &amp; = 5\\
+y(0) &amp; = -5
+\end{align*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-245"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-1145">Consider the linear system <span class="process-math">\(d \mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+3 \amp 2 \\
+-3 \amp -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Suppose the initial conditions for the solution curve are <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span>  We can use the following Sage code to plot the phase portrait of this system, including a solution curve.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-57"><script type="text/x-sage">x, y, t = var('x y t') #declare the variables
+F = [3*x + 2*y, -3*x - y] #declare the system
+# normalize the vector fields so that all of the arrows are the same length
+n = sqrt(F[0]^2 + F[1]^2)
+# plot the vector field
+p = plot_vector_field((F[0]/n, F[1]/n), (x, -30, 30), (y, -30, 30), aspect_ratio = 1)
+# solve the system for the initial condition t = 0, x = 1, y = 1
+P1 = desolve_system_rk4(F, [x, y], ics=[0, 1, 1], ivar = t, end_points = 5, step = 0.01)
+# grab the x and y values
+S1 = [ [j, k] for i, j, k in P1]
+# plot the solution
+# Setting xmin, xmax, ymin, ymax will clip the window
+# Try plotting without doing this to see what happens
+p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -30, xmax = 30, ymin = -30, ymax = 30) 
+p
+</script></pre>
+<p id="p-1146">Use Sage to graph the direction field for the system linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/linear04-exercises-solving-ivps.html" title="Exercise Group 3.4.6.5–8: Solving Initial Value Problems">Exercise Group 3.4.6.5–8</a>.  Plot the solution curve for the given initial condition.</p></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-35"><div class="fn">If you are unfamiliar with Euler's formula, try expanding both sides as a power series to check that we do indeed have a correct identity.</div></div>
+</div></main>
+</div>
+</body>
+</html>

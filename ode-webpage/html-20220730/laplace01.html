@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:34+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project The Laplace Transform</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="laplace.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="laplace.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="laplace02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="laplace.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="laplace.html" title="Up">Up</a><a class="next-button button toolbar-item" href="laplace02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="active">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="laplace01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span>
+</h2>
+<article class="objectives goal-like" id="objectives-29"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-573">
+<p id="p-1922">To understand and be able to compute the <dfn class="terminology">Laplace transform</dfn> of a function <span class="process-math">\(f(t)\text{,}\)</span> which can be accomplished by computing</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,
+\end{equation*}
+</div>
+<p class="continuation">provided the integral converges.</p>
+</li>
+<li id="li-574"><p id="p-1923">To understand that if we know the Laplace transform <span class="process-math">\(F(s)\)</span> of a function, we can recover the original function using the inverse Laplace transform, <span class="process-math">\({\mathcal L}^{-1}(F(s))(t)\text{.}\)</span></p></li>
+<li id="li-575"><p id="p-1924">To understand that both the Laplace transform and inverse Laplace transform are linear operators.</p></li>
+</ul></article><section class="introduction" id="introduction-133"><p id="p-1925">Consider the electrical circuit governed by the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+L I'' + RI' + \frac{1}{C} I = E'(t).
+\end{equation*}
+</div>
+<p class="continuation">The voltage function, <span class="process-math">\(E'(t)\text{,}\)</span> might have discontinuities. For example, the voltage in the circuit can be periodically turned on and off. The previous methods that we have used to solve second order linear differential equations may not apply here. However, the <dfn class="terminology">Laplace transform</dfn>, an integral transform, gives a method of solving such equations.</p>
+<p id="p-1926">As a second example, let us consider a population of fish that is governed by exponential growth,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-557">
+\begin{align*}
+\frac{dP}{dt} &amp; = kP\\
+P(0) &amp; = P_0,
+\end{align*}
+</div>
+<p class="continuation">and suppose that we wish to determine the effects of seasonal fishing. In other words, harvesting will not be continuous. For example, we might only allow fishing at a constant rate <span class="process-math">\(r\)</span> during the first half of the year,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+H(t)
+=
+\begin{cases}
+r &amp; 0 \leq t \leq 1/2, \\
+0 &amp; 1/2 \lt t \lt 1, \\
+r &amp; 1 \leq t \leq 3/2, \\
+0 &amp; 3/2 \lt t \lt 2, \\
+&amp; \vdots
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">Our initial value problem now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-558">
+\begin{align*}
+\frac{dP}{dt} &amp; = kP - H\\
+P(0) &amp; = P_0,
+\end{align*}
+</div>
+<p class="continuation">It should be clear that we need some additional tools to analyze differential equations possessing discontinuous terms.</p>
+<p id="p-1927">Given an initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-559">
+\begin{align*}
+ay'' + by' + cy &amp; = g(t)\\
+y(0) &amp; = y_0\\
+y'(0) &amp; = y_0',
+\end{align*}
+</div>
+<p class="continuation">the idea is to use the Laplace transform to change the differential equation into an equation that can be solved algebraically and then transform the algebraic solution back into a solution of the differential equation. Surprisingly, this method will even work when <span class="process-math">\(g\)</span> is a discontinuous function, provided the discontinuities are not too bad.</p></section><section class="subsection" id="laplace01-subsection-definitions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span>
+</h3>
+<p id="p-1928">We shall define the <dfn class="terminology">Laplace transform</dfn> of a function <span class="process-math">\(f(t)\)</span> by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,
+\end{equation*}
+</div>
+<p class="continuation">provided this integral converges. The Laplace transform of a function has many nice properties, especially with respect to the derivative of <span class="process-math">\(f\text{.}\)</span> However, before we investigate these properties, let us compute several Laplace transforms.</p>
+<article class="example example-like" id="laplace01-example-basic-examples"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-laplace01-example-basic-examples"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.1.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-laplace01-example-basic-examples"><article class="example example-like"><ol id="p-1929" class="decimal">
+<li id="li-576">
+<p id="p-1930">Let <span class="process-math">\(f(t) = k\text{,}\)</span> where <span class="process-math">\(k\)</span> is a constant. Then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s) = \int_0^\infty e^{-st}k \; dt = \frac{k}{s},
+\end{equation*}
+</div>
+<p class="continuation">for  <span class="process-math">\(s \gt 0\text{.}\)</span></p>
+</li>
+<li id="li-577">
+<p id="p-1931">For <span class="process-math">\(f(t) = t\text{,}\)</span> the Laplace transform is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s) = \int_0^\infty e^{-st} t \, dt = \frac{1}{s^2},
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(s \gt 0\text{.}\)</span></p>
+</li>
+<li id="li-578">
+<p id="p-1932">If <span class="process-math">\(f(t) = e^{at}\)</span> with <span class="process-math">\(t &gt; 0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s) = \int_0^\infty  e^{-st} e^{at} \, dt = \int_0^\infty  e^{-(s -a)t} \, dt = \left[ - \frac{e^{-(s -a)t}}{s - a} \right]_0^\infty.
+\end{equation*}
+</div>
+<p class="continuation">Noting that <span class="process-math">\(e^{-(s -a)t} \to 0\)</span> as <span class="process-math">\(t \to \infty\)</span> for <span class="process-math">\(s \gt a\text{,}\)</span> we find that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(e^{at}) = \frac{1}{s - a}
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(s \gt a\text{.}\)</span></p>
+</li>
+</ol></article></div>
+<article class="example example-like" id="example-95"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-95"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.1.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-95"><article class="example example-like"><p id="p-1933">The Laplace transform of a function does not always exist, even for functions that are infinitely differentiable. For example, let <span class="process-math">\(f(t) = e^{t^2}\text{.}\)</span> Then for any real number <span class="process-math">\(s\text{,}\)</span> we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{t^2} e^{-st} = e^{t(t-s)} \gt 1\text{,}
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(t \gt s\)</span> with <span class="process-math">\(t \geq 0\text{;}\)</span> hence,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\int_0^b e^{t^2} e^{-st}  \, dt = \int_0^b e^{t(t-s)} \, dt \geq b.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the integral</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\int_0^\infty e^{t^2} e^{-st} \, dt 
+\end{equation*}
+</div>
+<p class="continuation">does not converge.</p></article></div>
+<p id="p-1934">The Laplace transform, however, does exist in many cases. In <a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal" title="Subsection 6.1.3: Existence and Uniqueness of the Laplace Transform">Subsection 6.1.3</a>, we will show that the Laplace transform of a function exists provided the function does not grow too quickly and does not possess bad discontinuities.</p></section><section class="subsection" id="laplace01-subsection-properties"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span>
+</h3>
+<p id="p-1935">One of the most important properties of the Laplace transform is linearity.  That is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha, \beta \in {\mathbb R}\)</span> provided the Laplace transforms of <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> exist. The proof of this statement follows directly from the definition of the Laplace transform and the properties of integration,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-560">
+\begin{align*}
+{\mathcal L} ( \alpha f + \beta g )(s) \amp = \int_0^\infty e^{-st} [\alpha f(t) + \beta g(t)] \, dt\\
+\amp = \lim_{b \to \infty} \int_0^b e^{-st} [\alpha f(t) + \beta g(t)] \, dt\\
+\amp = \alpha \lim_{b \to \infty} \int_0^b e^{-st} f(t) \, dt + \beta \lim_{b \to \infty} \int_0^b e^{-st}\beta g(t) \, dt\\
+\amp = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s)
+\end{align*}
+</div>
+<p class="continuation">We state the linearity of the Laplace transform as a theorem. <article class="theorem theorem-like" id="laplace01-theorem-linearity"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.1.3</span><span class="period">.</span>
+</h4>
+<p id="p-1936">Let <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> be two functions whose Laplace transforms <span class="process-math">\({\mathcal L} ( f)(s)\)</span> and <span class="process-math">\({\mathcal L} ( g)(s)\)</span> exist for <span class="process-math">\(s \gt a\)</span> and <span class="process-math">\(s \gt b\text{,}\)</span> respectively. Then for any real constants <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> and <span class="process-math">\(s \gt \max\{a, b\}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s).
+\end{equation*}
+</div></article> Transforms of functions having the linearity property are called <dfn class="terminology">linear operators</dfn>.</p>
+<article class="example example-like" id="example-96"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-96"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.1.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-96"><article class="example example-like"><p id="p-1937">Recall that <span class="process-math">\(\sinh at = (e^{at} - e^{-at})/2\text{.}\)</span> Provided <span class="process-math">\(a \gt 0\text{,}\)</span> linearity makes it very easy to compute the Laplace transform of <span class="process-math">\(\sinh at\text{.}\)</span> By <a href="" class="xref" data-knowl="./knowl/laplace01-example-basic-examples.html" title="Example 6.1.1">Example 6.1.1</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-basic-examples.html">
+\begin{equation*}
+{\mathcal L} ( \sinh at) = \frac{1}{2} {\mathcal L} ( e^{at}) - \frac{1}{2} {\mathcal L} ( e^{-at}) = \frac{1}{2} \left( \frac{1}{s - k} - \frac{1}{s + k} \right).
+\end{equation*}
+</div>
+<p class="continuation">Thus, for <span class="process-math">\(s \gt k \gt 0\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-basic-examples.html">
+\begin{equation*}
+{\mathcal L} ( \sinh at) = \frac{k}{s^2 - k^2}.
+\end{equation*}
+</div></article></div>
+<p id="p-1938">The Laplace transform of discontinuous functions also exist, provided the disconinuities are not too bad. We say that a function <span class="process-math">\(f\)</span> is <dfn class="terminology">piecewise continuous</dfn> on an interval <span class="process-math">\([a, b]\)</span> if <span class="process-math">\(f\)</span> satisfies the following conditions.</p>
+<ol class="decimal">
+<li id="li-579"><p id="p-1939">There are a finite number of discontinuities of <span class="process-math">\(f\)</span> on <span class="process-math">\([a, b]\text{.}\)</span></p></li>
+<li id="li-580">
+<p id="p-1940">If <span class="process-math">\(c \in [a, b]\)</span> is a discontinuity, then the one-sided limits</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lim_{t \to c^-} f(t) \qquad \mbox{and} \qquad  \lim_{t \to c^+} f(t)
+\end{equation*}
+</div>
+<p class="continuation">both exist.  We also assume that <span class="process-math">\(\lim_{t \to a^+} f(t)\)</span> and <span class="process-math">\(\lim_{t \to b^-} f(t)\)</span> exist.</p>
+</li>
+</ol>
+<p class="continuation">We say that a function is <dfn class="terminology">function</dfn> on an interval <span class="process-math">\([0, \infty)\text{,}\)</span> if it is piecewise continuous on the interval <span class="process-math">\([0, b]\)</span> for all <span class="process-math">\(b \gt 0\text{.}\)</span> The types of discontinuities that we are describing are sometimes called <dfn class="terminology">jump discontinuities</dfn>. If a function is piecewise continuous, then the continuities are not too bad.</p>
+<article class="example example-like" id="example-97"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-97"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.1.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-97"><article class="example example-like"><p id="p-1941">One of the simplest piecewise continuous functions is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u(t)
+=
+\begin{cases}
+0, &amp; t \lt 0 \\
+1, &amp; t \geq 0.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">The function <span class="process-math">\(u(t)\)</span> has a jump discontinuity at <span class="process-math">\(t = 0\text{.}\)</span> It follows very quickly that <span class="process-math">\({\mathcal L}(u(t)) = 1/s\)</span> for <span class="process-math">\(s \gt 0\text{.}\)</span></p>
+<p id="p-1942">If we define the unit step function at <span class="process-math">\(a\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-figure-step-function.html">
+\begin{equation*}
+u_a(t) = u(t - a) 
+=
+\begin{cases}
+0, &amp; t \lt a \\
+1, &amp; t \geq a,
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">then we have a jump discontinuity at <span class="process-math">\(t = a\)</span>  (<a href="" class="xref" data-knowl="./knowl/laplace01-figure-step-function.html" title="Figure 6.1.6: Unit step function for a = 0">Figure 6.1.6</a>). If <span class="process-math">\(a \gt 0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-figure-step-function.html">
+\begin{equation*}
+{\mathcal L}(u_a(t)) = \int_0^\infty e^{-st} u_a(t) \, dt = \int_a^\infty e^{-st} \, dt = \lim_{b \to \infty} \left[ -\frac{e^{-st}}{s} \right]_a^b = \frac{e^{-sa}}{s},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(s \gt 0\)</span> and <span class="process-math">\(a \gt 0\text{.}\)</span> A function of the form <span class="process-math">\(u_a(t) = u(t - a)\)</span> is called a <dfn class="terminology">step function</dfn> or <dfn class="terminology">Heaviside function</dfn>, named for the British engineer Oliver Heaviside.</p>
+<figure class="figure figure-like" id="laplace01-figure-step-function"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/laplace01-step-function.svg" role="img" class="contained" alt="a function that is equal to one for zero and postive values and equal to zero for negative values"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.1.6<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="example example-like" id="laplace01-example-shift"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-laplace01-example-shift"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.1.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-laplace01-example-shift"><article class="example example-like"><p id="p-1943">Given a function <span class="process-math">\(f(t)\text{,}\)</span> consider the new function</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-figure-piecewise-function.html">
+\begin{equation*}
+g(t) = u_a(t) f( t - a).
+\end{equation*}
+</div>
+<p class="continuation">To obtain the function <span class="process-math">\(g\)</span> from <span class="process-math">\(f\text{,}\)</span> we shift the graph of the <span class="process-math">\(f\)</span> to the right by <span class="process-math">\(a\)</span> units and let <span class="process-math">\(g(t) = 0\)</span> for <span class="process-math">\(0 \leq t \lt a\)</span> (see <a href="" class="xref" data-knowl="./knowl/laplace01-figure-piecewise-function.html" title="Figure 6.1.8: u_a(t)f(t-a) where a = 1">Figure 6.1.8</a>). Let us compute the Laplace transform of <span class="process-math">\(g\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-figure-piecewise-function.html">
+\begin{equation*}
+{\mathcal L}(g) = \int_0^\infty g(t) e^{-st} \, dt =\int_a^\infty f(t - a) e^{-st} \, dt.
+\end{equation*}
+</div>
+<p class="continuation">If we make the substitution <span class="process-math">\(w = t - a\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-figure-piecewise-function.html">
+\begin{equation*}
+{\mathcal L}(g) = \int_0^\infty f(w) e^{-s(w+a)} \, dt = e^{-sa} \int_0^\infty f(w) e^{-sw} \, dt = e^{-sa} {\mathcal L}(f).
+\end{equation*}
+</div>
+<p class="continuation">In other words, if <span class="process-math">\({\mathcal L}(f) = F(s)\text{,}\)</span> then <span class="process-math">\({\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s)\text{.}\)</span></p>
+<figure class="figure figure-like" id="laplace01-figure-piecewise-function"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="generated/sageplot/laplace01-piecewise-function.svg" role="img" class="contained" alt="the graph of two functions with the first function increasing until two and then decreasing and the second function shifted to the right by one and set to zero for values less than one"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.1.8<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-41"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Laplace Transforms.</span>
+</h4>
+<div class="introduction" id="introduction-134"><p id="p-1944">Find the Laplace transform for each of the functions below.  Recall that <span class="process-math">\(\cosh t = (e^t + e^{-t})/2\)</span> and <span class="process-math">\(\sinh t = (e^t - e^{-t})/2\)</span></p></div>
+<article class="task exercise-like" id="task-250"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1945"><span class="process-math">\(f(t) = t^6\)</span></p></article><article class="task exercise-like" id="task-251"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1946"><span class="process-math">\(f(t) = t^7 e^{-t}\)</span></p></article><article class="task exercise-like" id="task-252"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1947"><span class="process-math">\(f(t) = 3\sin^2 \left(\sqrt{2}t\right)\)</span></p></article><article class="task exercise-like" id="task-253"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1948"><span class="process-math">\(f(t) = e^{3t}\sin 2t\)</span></p></article><article class="task exercise-like" id="task-254"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1949"><span class="process-math">\(f(t) = 2 t^2 \cosh t\)</span></p></article></article></section><section class="subsection" id="laplace01-subsection-existence-and-uniqueness"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span>
+</h3>
+<p id="p-1950">If we are to use Laplace transforms to study differential equations, we would like to know which functions actually have Laplace transforms. Furthermore, if two functions have the same Laplace transform, we can ask if the functions must be the same.  In other words, we wish to know if the Laplace transform of a function exists and is unique. We can answer both of these questions affirmatively if the function <span class="process-math">\(f(t)\)</span> is piecewise continuous on <span class="process-math">\([0, \infty)\)</span> and does not grow too quickly as <span class="process-math">\(t \to \infty\text{.}\)</span> We say a function <span class="process-math">\(f(t)\)</span> is <dfn class="terminology">exponentially bounded</dfn> on <span class="process-math">\([0, \infty)\)</span> if there exist constants <span class="process-math">\(M \geq 0\)</span> and <span class="process-math">\(a\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t)| \leq Me^{at},
+\end{equation*}
+</div>
+<p class="continuation">for all <span class="process-math">\(t\)</span> in <span class="process-math">\([0, \infty)\text{.}\)</span> In other words, the graph of <span class="process-math">\(f\)</span> must lie between the curves <span class="process-math">\(y = Me^{at}\)</span> and <span class="process-math">\(y = -Me^{at}\text{.}\)</span> The following two theorems tell us that Laplace transforms exist and are unique for piecewise continuous, exponentially bounded functions on the interval <span class="process-math">\([0, \infty)\text{.}\)</span> We leave the proofs of these theorem as exercises.</p>
+<article class="theorem theorem-like" id="laplace01-theorem-existence"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.1.9</span><span class="period">.</span>
+</h4>
+<p id="p-1951">If <span class="process-math">\(f\)</span> is a piecewise continuous, exponentially bounded function defined <span class="process-math">\([0, \infty)\text{,}\)</span> then the Laplace transform of <span class="process-math">\(f\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt
+\end{equation*}
+</div>
+<p class="continuation">exists.</p></article><article class="theorem theorem-like" id="laplace01-theorem-uniqueness"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.1.10</span><span class="period">.</span>
+</h4>
+<p id="p-1952">Let <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> be two piecewise continuous exponentially bounded functions with Laplace transforms, <span class="process-math">\(F(s)\)</span> and <span class="process-math">\(G(s)\text{,}\)</span> respectively. Suppose that <span class="process-math">\(F(s) = G(s)\)</span> for all <span class="process-math">\(s \gt c\text{,}\)</span> where <span class="process-math">\(c\)</span> is some positive number. Then <span class="process-math">\(f(t) = g(t)\)</span> for all <span class="process-math">\(t \geq 0\text{.}\)</span></p></article><p id="p-1953">In light of <a href="" class="xref" data-knowl="./knowl/laplace01-theorem-uniqueness.html" title="Theorem 6.1.10">Theorem 6.1.10</a>, it now makes sense to define the <dfn class="terminology">inverse Laplace transform</dfn> of a function <span class="process-math">\(F(s)\text{,}\)</span> which we will denote by <span class="process-math">\({\mathcal L}^{-1}(F(s))(t)\text{,}\)</span> as the function <span class="process-math">\(f(t)\)</span> whose unique Laplace transform is <span class="process-math">\(F(s)\text{.}\)</span> Furthermore, the inverse Laplace transform is linear,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-uniqueness.html">
+\begin{equation*}
+{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).
+\end{equation*}
+</div></section><section class="subsection" id="laplace01-subsection-finding-laplace-transforms"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span>
+</h3>
+<p id="p-1954">To use the method of Laplace transforms effectively, we need either tables or computer software such as Sage so that we can easily find Laplace transforms and inverse Laplace transforms.</p>
+<figure class="table table-like" id="laplace01-table-transforms"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">6.1.11<span class="period">.</span></span><span class="space"> </span>Table of Laplace Transforms</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(f(t) = {\mathcal L}^{-1}(F(s))\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(F(s) = {\mathcal L}(f(t))\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(1/s\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{at}\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(1/(s - a)\text{,}\)</span> <span class="process-math">\(s \gt a\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(t^n\text{,}\)</span> <span class="process-math">\(n \in {\mathbb N}\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(n!/s^{n+1}\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(t^a\text{,}\)</span> <span class="process-math">\(a &gt; -1\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(\Gamma(a + 1)/s^{a + 1}\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\sin at\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(a/(s^2 + a^2)\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\cos at\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(s/(s^2 + a^2)\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\sinh at\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(a/(s^2 - a^2)\text{,}\)</span> <span class="process-math">\(s \gt |a|\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\cosh at\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(s/(s^2 - a^2)\text{,}\)</span> <span class="process-math">\(s \gt |a|\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{at} \sin bt\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(b/[(s-a)^2 + b^2]\text{,}\)</span> <span class="process-math">\(s \gt a\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{at} \cos bt\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\((s-a)/[(s-a)^2 + b^2]\text{,}\)</span> <span class="process-math">\(s \gt a\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(t^n e^{at}\text{,}\)</span> <span class="process-math">\(n \in {\mathbb N}\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(n!/(s - a)^{n + 1}\text{,}\)</span> <span class="process-math">\(s \gt a\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(u_c(t)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\(e^{-cs}/ s\text{,}\)</span> <span class="process-math">\(s \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(u_c(t) f(t - c)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{-cs} F(s)\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{ct} f(t)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(F(s - c)\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(f(ct)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines">
+<span class="process-math">\((1/c) F(s/c)\text{,}\)</span> <span class="process-math">\(c \gt 0\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\delta(t - c) = \delta_c(t)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(e^{-cs}\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(f'(t)\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(s F(s) - f(0)\)</span></td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(f''(t)\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(s^2 F(s) - sf(0) - f'(0)\)</span></td>
+</tr>
+</table></div></figure><p id="p-1955">We can also use Sage to find Laplace transforms and inverse transforms (see <a href="laplace01.html#laplace01-subsection-sage" class="internal" title="Subsection 6.1.8: Laplace Transforms with Sage">Subsection 6.1.8</a>).</p>
+<article class="activity project-like" id="activity-42"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.1.2</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Inverse Transforms.</span>
+</h4>
+<div class="introduction" id="introduction-135"><p id="p-1956">Find the inverse Laplace transform for each of the following functions.</p></div>
+<article class="task exercise-like" id="task-255"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1957"><span class="process-math">\(F(s) = \dfrac{2}{s^2}\)</span></p></article><article class="task exercise-like" id="task-256"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1958"><span class="process-math">\(F(s) = \dfrac{1}{s^4}\)</span></p></article><article class="task exercise-like" id="task-257"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1959"><span class="process-math">\(F(s) = \dfrac{2}{(s - 3)^2 + 4}\)</span></p></article><article class="task exercise-like" id="task-258"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1960"><span class="process-math">\(F(s) = \dfrac{2s^2}{(s^2 + 1)(s - 1)}\)</span></p></article><article class="task exercise-like" id="task-259"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1961"><span class="process-math">\(F(s) = \dfrac{2s - 13}{s(s^2 - 4s + 13)}\)</span></p></article></article></section><section class="subsection" id="laplace01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1962" class="disc">
+<li id="li-581"><p id="p-1963">Many initial value problems have discontinuous forcing terms.</p></li>
+<li id="li-582">
+<p id="p-1964">The <dfn class="terminology">Laplace transform</dfn> of a function <span class="process-math">\(f(t)\)</span> by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt,
+\end{equation*}
+</div>
+<p class="continuation">provided the integral converges.</p>
+</li>
+<li id="li-583">
+<p id="p-1965">If <span class="process-math">\(f\)</span> is a piecewise continuous, exponentially bounded function defined <span class="process-math">\([0, \infty)\text{,}\)</span> then the Laplace transform of <span class="process-math">\(f\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt
+\end{equation*}
+</div>
+<p class="continuation">exists.</p>
+</li>
+<li id="li-584">
+<p id="p-1966">The Laplace transform is a linear operator; i.e.,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L} ( \alpha f + \beta g )(s) = \alpha {\mathcal L}(f)(s) + \beta {\mathcal L} ( g)(s),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha, \beta \in {\mathbb R}\)</span> provided the Laplace transforms of <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> exist.</p>
+</li>
+<li id="li-585"><p id="p-1967">If we know the Laplace transform <span class="process-math">\(F(s)\)</span> of a function, we can recover the original function using the inverse Laplace transform of a function <span class="process-math">\({\mathcal L}^{-1}(F(s))(t)\text{.}\)</span></p></li>
+<li id="li-586">
+<p id="p-1968">The inverse Laplace transform is linear,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} ( \alpha F + \beta G ) = \alpha {\mathcal L}^{-1}(F) + \beta {\mathcal L}^{-1} ( G).
+\end{equation*}
+</div>
+</li>
+<li id="li-587"><p id="p-1969">If <span class="process-math">\({\mathcal L}(f) = F(s)\text{,}\)</span> then <span class="process-math">\({\mathcal L}(u_c(t) f( t- c)) = e^{-sc} F(s)\text{.}\)</span></p></li>
+<li id="li-588">
+<p id="p-1970">If <span class="process-math">\(c \geq 0\text{,}\)</span> we define the <dfn class="terminology">Heaviside function</dfn> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u_c(t)
+=
+\begin{cases}
+0 &amp; t \lt c \\
+1 &amp; t \geq c.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">The Laplace transform of <span class="process-math">\(u_c\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(u_c(t))(s) = \frac{e^{-cs}}{s}.
+\end{equation*}
+</div>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-laplace01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-laplace01-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1971">Does the Laplace transform of a function always exist?  If so, why? If not, given an example?</p></article><article class="exercise exercise-like" id="reading-questions-laplace01-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1972">What is the Heaviside function?  Explain.</p></article></section><section class="exercises" id="exercises-laplace01"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">6.1.7</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="laplace01-exercises-finding-transforms">
+<h4 class="heading"><span class="title">Finding Laplace transforms.</span></h4>
+<div class="introduction" id="introduction-136"><p id="p-1973">Find the Laplace transform for each of the functions in <a href="" class="xref" data-knowl="./knowl/laplace01-exercises-finding-transforms.html" title="Exercise Group 6.1.7.1–8: Finding Laplace transforms">Exercise Group 6.1.7.1–8</a>.  Recall that <span class="process-math">\(\cosh t = (e^t + e^{-t})/2\)</span> and <span class="process-math">\(\sinh t = (e^t - e^{-t})/2\text{.}\)</span></p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-457"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-1974"><span class="process-math">\(f(t) = \sin at\)</span></p></article><article class="exercise exercise-like" id="exercise-458"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-1975"><span class="process-math">\(f(t) = \cos at\)</span></p></article><article class="exercise exercise-like" id="exercise-459"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-1976"><span class="process-math">\(f(t) = e^{at} \sin bt\)</span></p></article><article class="exercise exercise-like" id="exercise-460"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-1977"><span class="process-math">\(f(t) = \cosh at\)</span></p></article><article class="exercise exercise-like" id="exercise-461"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-1978"><span class="process-math">\(f(t) = 2 \cos at - 3\sinh at\)</span></p></article><article class="exercise exercise-like" id="exercise-462"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-1979"><span class="process-math">\(f(t) = t e^{at}\)</span></p></article><article class="exercise exercise-like" id="exercise-463"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-1980"><span class="process-math">\(f(t) = t \sin at\)</span></p></article><article class="exercise exercise-like" id="exercise-464"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-1981"><span class="process-math">\(f(t) = t^2 \cos at\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="laplace01-exercises-finding-inverse-transforms">
+<h4 class="heading"><span class="title">Finding inverse Laplace transforms.</span></h4>
+<div class="introduction" id="introduction-137"><p id="p-1982">Find the inverse Laplace transform for each of the functions in <a href="" class="xref" data-knowl="./knowl/laplace01-exercises-finding-inverse-transforms.html" title="Exercise Group 6.1.7.9–16: Finding inverse Laplace transforms">Exercise Group 6.1.7.9–16</a>. You will find partial fraction decomposition very useful.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-465"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-1983"><span class="process-math">\(F(s) = \dfrac{1}{s(s + 1)}\)</span></p></article><article class="exercise exercise-like" id="exercise-466"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-1984"><span class="process-math">\(F(s) = s^{-3/2}\)</span></p></article><article class="exercise exercise-like" id="exercise-467"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-1985"><span class="process-math">\(F(s) = \dfrac{1}{s + 7}\)</span></p></article><article class="exercise exercise-like" id="exercise-468"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-1986"><span class="process-math">\(F(s) = \dfrac{2}{s^2 + 9}\)</span></p></article><article class="exercise exercise-like" id="exercise-469"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-1987"><span class="process-math">\(F(s) = \dfrac{5s - 4}{2s^2 + s - 1}\)</span></p></article><article class="exercise exercise-like" id="exercise-470"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-1988"><span class="process-math">\(F(s) = \dfrac{2s^2 - s + 4}{s^3 + 4s}\)</span></p></article><article class="exercise exercise-like" id="exercise-471"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-1989"><span class="process-math">\(F(s) = \dfrac{1}{(s + 2)^3}\)</span></p></article><article class="exercise exercise-like" id="exercise-472"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-1990"><span class="process-math">\(F(s) = \dfrac{1}{(s + 1)^2(s^2 - 9)}\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-473"><h4 class="heading"><span class="codenumber">17<span class="period">.</span></span></h4>
+<p id="p-1991">Prove <a href="" class="xref" data-knowl="./knowl/laplace01-theorem-existence.html" title="Theorem 6.1.9">Theorem 6.1.9</a>: If <span class="process-math">\(f\)</span> is a piecewise continuous, exponentially bounded function defined <span class="process-math">\([0, \infty)\text{,}\)</span> then the Laplace transform of <span class="process-math">\(f\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-existence.html">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt
+\end{equation*}
+</div>
+<p class="continuation">exists.</p></article><article class="exercise exercise-like" id="exercise-474"><h4 class="heading"><span class="codenumber">18<span class="period">.</span></span></h4>
+<p id="p-1992">Let <span class="process-math">\(f\)</span> be a function whose Laplace transform <span class="process-math">\({\mathcal L}(f)(s)= F(s)\)</span> exists for <span class="process-math">\(s \gt a\text{.}\)</span> Prove that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(e^{ct} f(t))(s)= F(s - c)
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(s \gt a + c\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-475"><h4 class="heading"><span class="codenumber">19<span class="period">.</span></span></h4>
+<p id="p-1993">Prove <a href="" class="xref" data-knowl="./knowl/laplace01-theorem-uniqueness.html" title="Theorem 6.1.10">Theorem 6.1.10</a>: Suppose that <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> are piecewise continuous, exponentially bounded functions defined <span class="process-math">\([0, \infty)\text{,}\)</span> with Laplace transforms of <span class="process-math">\(F(s)\)</span> and <span class="process-math">\(G(s)\text{,}\)</span> respectively. If <span class="process-math">\(F(s) = G(s)\text{,}\)</span> then <span class="process-math">\(f(t) = g(t)\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-476"><h4 class="heading"><span class="codenumber">20<span class="period">.</span></span></h4>
+<p id="p-1994">If <span class="process-math">\(f\)</span> is a piecewise continuous, exponentially bounded function defined <span class="process-math">\([0, \infty)\text{,}\)</span> prove that the Laplace transform of <span class="process-math">\(f\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s)= F(s) = \int_0^\infty e^{-st} f(t) \, dt
+\end{equation*}
+</div>
+<p class="continuation">exists.</p></article><article class="exercise exercise-like" id="exercise-477"><h4 class="heading"><span class="codenumber">21<span class="period">.</span></span></h4>
+<p id="p-1995">Define the <dfn class="terminology">gamma function</dfn> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\Gamma(x)  = \int_0^\infty e^{-t} t^{x-1} \; dt
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(x \gt 0\text{.}\)</span> The gamma function is very useful for expressing the Laplace transform of the function <span class="process-math">\(t^\alpha\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-589"><p id="p-1996">Show that <span class="process-math">\(\Gamma(1) = 1\text{.}\)</span></p></li>
+<li id="li-590"><p id="p-1997">Prove that <span class="process-math">\(\Gamma(x + 1) = x\Gamma(x)\)</span> and deduce that <span class="process-math">\(\Gamma(n+1) = n!\)</span> for <span class="process-math">\(n \in {\mathbb N}\text{.}\)</span></p></li>
+<li id="li-591">
+<p id="p-1998">Show that the Laplace transform of <span class="process-math">\(f(t) = t^\alpha\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(f)(s) = \frac{\Gamma(\alpha + 1)}{s^{\alpha + 1}}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(n\)</span> is a positive integer, then <span class="process-math">\({\mathcal L}(t^n)(s) = n!/s^{n + 1}\text{.}\)</span></p>
+</li>
+</ol></article></section><section class="subsection" id="laplace01-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span>
+</h3>
+<p id="p-1999">Computer algebra systems have now replaced tables of Laplace transforms just as the calculator has replaced the slide rule. It is easy to calculate Laplace transforms with Sage. For example, suppose that we wish to compute the Laplace transform of <span class="process-math">\(f(x) = t^3 e^t - \cos t\text{.}\)</span>  We can use the Sage command <code class="code-inline tex2jax_ignore">laplace</code>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-75"><script type="text/x-sage">s = var("s")
+t = var("t")
+f = t^3*exp(t) - cos(t)
+f.laplace(t,s)
+</script></pre>
+<p id="p-2000">To recover the original function, we can use the Sage command <code class="code-inline tex2jax_ignore">inverse_laplace</code>. Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(s) = -\frac{s}{s^2 + 1} + \frac{6}{(s - 1)^4}.
+\end{equation*}
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-76"><script type="text/x-sage">s = var("s")
+t = var("t")
+F = -s/(s^2 + 1) + 6/(s - 1)^4
+F.inverse_laplace(s,t)
+</script></pre>
+<p id="p-2001">We can even use Sage to find the Laplace transform of piecewise-defined functions. Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(t) =
+\begin{cases}
+1, \amp 0 \leq t \leq 3 \\
+0, \amp t \gt 3.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">The Sage command to define a piecewise-defined function is <code class="code-inline tex2jax_ignore">piecewise</code>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-77"><script type="text/x-sage">t = var("t")
+f1(t) = 1
+f2(t) = 0
+f = piecewise([[[0, 3], f1], [(3, infinity), f2]])
+f.plot((t, 0, 6), thickness=3, color="red", axes_labels=['$t$','$f(t)$'])
+</script></pre>
+<p id="p-2002">Sage can be used to find the Laplace transform of a piecewise-defined function.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-78"><script type="text/x-sage">s = var("s")
+t = var("t")
+f1(t) = 1
+f2(t) = 0
+f = piecewise([[[0, 3], f1], [(3, infinity), f2]])
+f.laplace(t,s)
+</script></pre></section><section class="exercises" id="exercises-33"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">6.1.9</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-478"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-2003">Use Sage to find the Laplace transform of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(t) =
+\begin{cases}
+-t, \amp 0 \leq t \leq 1 \\
+2, \amp t \gt 1.
+\end{cases}
+\end{equation*}
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-79"><script type="text/x-sage">
+</script></pre></article><article class="exercise exercise-like" id="exercise-479"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-2004">Use Sage to find the Laplace transforms for each of the functions in <a href="" class="xref" data-knowl="./knowl/laplace01-exercises-finding-transforms.html" title="Exercise Group 6.1.7.1–8: Finding Laplace transforms">Exercise Group 6.1.7.1–8</a>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-80"><script type="text/x-sage">
+</script></pre></article><article class="exercise exercise-like" id="exercise-480"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-2005">Use Sage to find the inverse Laplace transform for each of the functions in <a href="" class="xref" data-knowl="./knowl/laplace01-exercises-finding-inverse-transforms.html" title="Exercise Group 6.1.7.9–16: Finding inverse Laplace transforms">Exercise Group 6.1.7.9–16</a>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-81"><script type="text/x-sage">
+</script></pre></article></section></section></div></main>
+</div>
+</body>
+</html>

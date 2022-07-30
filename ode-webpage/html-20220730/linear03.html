@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:30+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Phase Plane Analysis of Linear Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear02.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear04.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear02.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear04.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="active">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="linear03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-14"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc"><li id="li-318">
+<p id="p-1056">To understand that given a system of linear differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">with distinct real eigenvalues, we can classify the origin as sink, saddle, or source depending on the signs of the eigenvalues.</p>
+</li></ul></article><section class="introduction" id="introduction-64"><p id="p-1057">In <a href="linear02.html" class="internal" title="Section 3.2: Planar Systems">Section 3.2</a>, we learned how to solve the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02.html">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">provided the system has distinct real eigenvalues. If <span class="process-math">\(A\)</span> has distinct real eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\)</span> with eigenvectors <span class="process-math">\(\mathbf u\)</span> and <span class="process-math">\(\mathbf v\text{,}\)</span> respectively, then the general solution of the system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02.html">
+\begin{equation*}
+\mathbf x(t) = c_1 e^{\lambda t} \mathbf u + c_2 e^{\mu t} \mathbf v.
+\end{equation*}
+</div>
+<p class="continuation">Furthermore, we can use the general solution of such a system to find the straight-line solutions to the system. If <span class="process-math">\(c_2 = 0\text{,}\)</span> then all solutions will lie along the line in the <span class="process-math">\(xy\)</span>-plane that contains the vector <span class="process-math">\(\mathbf u\text{.}\)</span> Similarly, if <span class="process-math">\(c_1 = 0\text{,}\)</span> then all solutions will lie along the line in the <span class="process-math">\(xy\)</span>-plane that contains the vector <span class="process-math">\(\mathbf v\text{.}\)</span></p></section><section class="subsection" id="linear03-subsection-eigenvalues-different-signs"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span>
+</h3>
+<article class="example example-like" id="linear03-example-saddle-phase-portrait-0"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-linear03-example-saddle-phase-portrait-0"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.3.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear03-example-saddle-phase-portrait-0"><article class="example example-like"><p id="p-1058">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-saddle-phase-portrait-0.html" id="md-243">
+\begin{align*}
+x' \amp = x + 3y\\
+y' \amp = x - y
+\end{align*}
+</div>
+<p class="continuation">can be written in matrix form <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-saddle-phase-portrait-0.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+1 &amp; 3 \\
+1 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalues of <span class="process-math">\(A\)</span> are  <span class="process-math">\(\lambda = -2\)</span> or <span class="process-math">\(\lambda = 2\)</span> with eigenvectors <span class="process-math">\(\mathbf u = (1, -1)\)</span> and <span class="process-math">\(\mathbf v = (3,1)\text{,}\)</span> respectively. Therefore, the straight-line solutions must be lines containing <span class="process-math">\(\mathbf u\)</span> and <span class="process-math">\(\mathbf v\)</span> (<a href="" class="xref" data-knowl="./knowl/linear03-figure-saddle-phase-portrait-0.html" title="Figure 3.3.2">Figure 3.3.2</a>).</p>
+<figure class="figure figure-like" id="linear03-figure-saddle-phase-portrait-0"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-saddle-phase-portrait-0.svg" role="img" class="contained" alt="a direction field of slope arrows with two straight-line solutions plotted in the same direction as the eigenvectors"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.2<span class="period">.</span></span><span class="space"> </span>Straight-line solutions</figcaption></figure></article></div>
+<p id="p-1059">Let us consider the special case of the  system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+\lambda_1 &amp; 0 \\
+0 &amp; \lambda_2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since this is a decoupled system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-244">
+\begin{align*}
+\frac{dx}{dt} &amp; = \lambda_1 x\\
+\frac{dy}{dt} &amp; = \lambda_2 y,
+\end{align*}
+</div>
+<p class="continuation">we already know how to find the solutions. However, in keeping with the spirit of our investigation, we will find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  The characteristic equation of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(\lambda - \lambda_1)(\lambda - \lambda_2) = 0,
+\end{equation*}
+</div>
+<p class="continuation">and our eigenvalues are <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{.}\)</span> It is easy to see that we can associate eigenvectors <span class="process-math">\((1,0)\)</span> and <span class="process-math">\((0, 1)\)</span> to <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> respectively. Thus, our general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<figure class="figure figure-like" id="linear03-figure-saddle-phase-portrait-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-saddle-phase-portrait-1.svg" role="img" class="contained" alt="a direction field of slope arrows and curves in each quadrant that approach the axes for large values"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.3<span class="period">.</span></span><span class="space"> </span>Saddle phase portrait</figcaption></figure><p id="p-1060">Since <span class="process-math">\(\lambda_1 \lt 0\text{,}\)</span> the straight-line solutions of the form <span class="process-math">\(c_1 e^{\lambda_1 t} (1, 0)\)</span> lie on the <span class="process-math">\(x\)</span>-axis. These solutions approach zero as <span class="process-math">\(t \to \infty\text{.}\)</span>  On the other hand, the solutions <span class="process-math">\(c_2 e^{\lambda_2 t} (0, 1)\)</span> lie on the <span class="process-math">\(y\)</span>-axis and approach infinity as <span class="process-math">\(t \to \infty\text{.}\)</span>  The <span class="process-math">\(x\)</span>-axis is a stable line of solutions, while the <span class="process-math">\(y\)</span>-axis is an unstable line of solutions. All other solutions</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-saddle-phase-portrait-1.html">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">(with <span class="process-math">\(c_1, c_2 \neq 0\)</span>) tend to infinity in the direction of the unstable line, since <span class="process-math">\({\mathbf x}(t)\)</span> approaches <span class="process-math">\((0, c_2 e^{\lambda_2 t} )\)</span> as <span class="process-math">\(t \to \infty\text{.}\)</span> The phase portrait for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-saddle-phase-portrait-1.html" id="md-245">
+\begin{align*}
+x' &amp; = -x\\
+y' &amp; = y
+\end{align*}
+</div>
+<p class="continuation">is given in <a href="" class="xref" data-knowl="./knowl/linear03-figure-saddle-phase-portrait-1.html" title="Figure 3.3.3">Figure 3.3.3</a>. The equilibrium point of such systems is called a <dfn class="terminology">saddle</dfn>.</p>
+<p id="p-1061">In general, a straight-line solution is  called a <dfn class="terminology">stable line of solutions</dfn> if all solutions approach <span class="process-math">\((0,0)\text{.}\)</span>  A straight-line solution is called an <dfn class="terminology">unstable line</dfn> if all of the non-zero solutions approach infinity.</p>
+<article class="example example-like" id="example-37"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-37"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.3.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-37"><article class="example example-like"><p id="p-1062">For the system in <a href="" class="xref" data-knowl="./knowl/linear03-example-saddle-phase-portrait-0.html" title="Example 3.3.1">Example 3.3.1</a>, the unstable line of solutions is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-example-saddle-phase-portrait-0.html ./knowl/linear03-figure-saddle-phase-portrait-2.html">
+\begin{equation*}
+{\mathbf x}_1(t) = c_1 e^{2t} 
+\begin{pmatrix}
+3 \\ 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Each solution tends away from the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> The stable line of solutions is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-example-saddle-phase-portrait-0.html ./knowl/linear03-figure-saddle-phase-portrait-2.html">
+\begin{equation*}
+{\mathbf x}_2(t) = c_2 e^{-2t}
+\begin{pmatrix}
+1 \\ - 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">and each solution on this line approaches the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> By the Principle of Superposition, the general solution to the system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-example-saddle-phase-portrait-0.html ./knowl/linear03-figure-saddle-phase-portrait-2.html">
+\begin{equation*}
+{\mathbf x}(t) = c_1 e^{2t} 
+\begin{pmatrix}
+3 \\ 1
+\end{pmatrix}
++
+c_2 e^{-2t}
+\begin{pmatrix}
+1 \\ - 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(c_1 \neq 0\text{,}\)</span> we have <span class="process-math">\({\mathbf x}(t) \to {\mathbf x}_1(t)\)</span> as <span class="process-math">\(t \to \infty\text{.}\)</span> If <span class="process-math">\(c_2 \neq 0\text{,}\)</span> we have <span class="process-math">\({\mathbf x}(t) \to {\mathbf x}_2(t)\)</span> as <span class="process-math">\(t \to -\infty\text{.}\)</span> Thus, we have the phase portrait in <a href="" class="xref" data-knowl="./knowl/linear03-figure-saddle-phase-portrait-2.html" title="Figure 3.3.5">Figure 3.3.5</a>.</p>
+<figure class="figure figure-like" id="linear03-figure-saddle-phase-portrait-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-saddle-phase-portrait-2.svg" role="img" class="contained" alt="a direction field of slope arrows and curves approaching the straight-line solutions for large values"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.5<span class="period">.</span></span><span class="space"> </span>Saddle phase portrait</figcaption></figure></article></div>
+<p id="p-1063">For the general case, where <span class="process-math">\(A\)</span> has eigenvalues <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\text{,}\)</span> we always have a stable line of solutions and an unstable line of solutions. All other solutions approach the unstable line as <span class="process-math">\(t \to \infty\)</span> and the stable line as <span class="process-math">\(t \to - \infty\text{.}\)</span></p>
+<article class="activity project-like" id="activity-24"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.3.1</span><span class="period">.</span><span class="space"> </span><span class="title">Planar Systems with Eigenvalues of Different Signs.</span>
+</h4>
+<div class="introduction" id="introduction-65">
+<p id="p-1064">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 8 \amp -3 \\ 18 \amp -7 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-132"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1065">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  You should find distinct real eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{.}\)</span></p></article><article class="task exercise-like" id="task-133"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1066">Find eigenvectors <span class="process-math">\(\mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> for the eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{,}\)</span> respectively.</p></article><article class="task exercise-like" id="task-134"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1067">Find the straight-line solutions of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  Plot the solutions in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="task-135"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1068">Sketch several solution curves for the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  What do you notice about the solution curves, especially with respect to the straight-line solutions?</p></article></article></section><section class="subsection" id="linear03-subsection-eigenvalues-negative"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span>
+</h3>
+<p id="p-1069">Suppose <span class="process-math">\(\lambda_1 \lt \lambda_2 \lt  0\)</span> and consider the diagonal system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-sink-phase-portrait-2.html">
+\begin{equation*}
+\begin{pmatrix}
+x'(t) \\ y'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda_1 &amp; 0 \\
+0 &amp; \lambda_2
+\end{pmatrix}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The general solution of this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-sink-phase-portrait-2.html">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+c_2 e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">but unlike the case of the saddle, all solutions tend towards the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> To see how the solutions approach the origin, we will compute  <span class="process-math">\(dy/dx\)</span> for <span class="process-math">\(c_2 \neq 0\text{.}\)</span>  If</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-sink-phase-portrait-2.html" id="md-246">
+\begin{align*}
+x(t) &amp; = c_1 e^{\lambda_1 t}\\
+y(t) &amp; = c_2 e^{\lambda_2 t},
+\end{align*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-sink-phase-portrait-2.html">
+\begin{equation*}
+\frac{dy}{dx}
+=
+\frac{y'(t)}{x'(t)}
+=
+\frac{\lambda_2 c_2 e^{\lambda_2 t}}{\lambda_1c_1 e^{\lambda_1 t}}
+=
+\frac{\lambda_2 c_2}{\lambda_1c_1 } e^{(\lambda_2 - \lambda_1) t}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(\lambda_2 - \lambda_1 \gt 0\text{,}\)</span> the derivative, <span class="process-math">\(dy/dx\text{,}\)</span> must approach <span class="process-math">\(\pm \infty\text{,}\)</span> provided <span class="process-math">\(c_2 \neq 0\text{.}\)</span> Therefore, the solutions tend towards the origin tangentially to the <span class="process-math">\(y\)</span>-axis (<a href="" class="xref" data-knowl="./knowl/linear03-figure-sink-phase-portrait-2.html" title="Figure 3.3.6">Figure 3.3.6</a>). We say that the equilibrium point for this system is a <dfn class="terminology">sink</dfn>.</p>
+<figure class="figure figure-like" id="linear03-figure-sink-phase-portrait-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-sink-phase-portrait-2.svg" role="img" class="contained" alt="a direction field of slope arrows with solution curves approaching the origin with the horizontal approach faster than the vertical approach"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.6<span class="period">.</span></span><span class="space"> </span>Sink phase portrait</figcaption></figure><p id="p-1070">Since  <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\text{,}\)</span> we say that <span class="process-math">\(\lambda_1\)</span> is the <dfn class="terminology">dominant eigenvalue</dfn>. The <span class="process-math">\(x\)</span>-coordinates of the solutions approach the origin much faster than the <span class="process-math">\(y\)</span>-coordinates.</p>
+<p id="p-1071">To see what happens in the general case, suppose that <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\text{,}\)</span> the eigenvectors associated with <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> are <span class="process-math">\((u_1, u_2)\)</span> and <span class="process-math">\((v_1, v_2)\text{,}\)</span> respectively. The general solution of our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+c_1 e^{\lambda_1 t} \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
++
+c_2 e^{\lambda_2 t} \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The slope of a solution curve at <span class="process-math">\((x, y)\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-247">
+\begin{align*}
+\frac{dy}{dx} &amp; = \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1}\\
+&amp; = \left(  \frac{\lambda_1 c_1 e^{\lambda_1 t} u_2 + \lambda_2 c_2 e^{\lambda_2 t} v_2} {\lambda_1 c_1 e^{\lambda_1 t} u_1 + \lambda_2 c_2 e^{\lambda_2 t} v_1} \right) \frac{e^{-\lambda_2 t}}{e^{-\lambda_2 t}}\\
+&amp; = \frac{\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_2 + \lambda_2 c_2 v_2} {\lambda_1 c_1 e^{(\lambda_1 - \lambda_2) t} u_1 + \lambda_2 c_2  v_1}.
+\end{align*}
+</div>
+<p class="continuation">This last expression tends toward the slope <span class="process-math">\(v_2/v_1\)</span> of the eigenvector of <span class="process-math">\(\lambda_2\)</span> (unless <span class="process-math">\(c_2 = 0\)</span>). If <span class="process-math">\(c_2 = 0\text{,}\)</span> then we have the straight-line solution corresponding to the eigenvalue <span class="process-math">\(\lambda_1\text{.}\)</span> Hence, all the solutions for this case (except those on the straight-line belonging to the dominant eigenvalue) tend toward the origin tangentially to the straight-line solution corresponding to the weaker eigenvalue, <span class="process-math">\(\lambda_2\text{.}\)</span></p>
+<article class="example example-like" id="example-38"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-38"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.3.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-38"><article class="example example-like"><p id="p-1072">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-nodal-sink-phase-portrait.html">
+\begin{equation*}
+\begin{pmatrix}
+x'(t) \\ y'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+-5 \amp -2 \\
+-1 \amp -4
+\end{pmatrix}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalues of this system are <span class="process-math">\(\lambda_1 = -6\)</span> and <span class="process-math">\(\lambda_2 = -3\)</span> with eigenvectors <span class="process-math">\(\mathbf v_1 = (2,1 )\)</span> and <span class="process-math">\(\mathbf v_2 = (1, -1)\text{,}\)</span> respectively.  Since the dominant eigenvalue is <span class="process-math">\(\lambda_1 = -6\text{,}\)</span> solutions tend towards the straight-line solution containing the vector <span class="process-math">\(\mathbf v_1 = (2,1 )\)</span> more quickly (<a href="" class="xref" data-knowl="./knowl/linear03-figure-nodal-sink-phase-portrait.html" title="Figure 3.3.8">Figure 3.3.8</a>).</p>
+<figure class="figure figure-like" id="linear03-figure-nodal-sink-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-nodal-sink-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with straight-line solutions and solution curves approaching the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.8<span class="period">.</span></span><span class="space"> </span>Sink phase portrait</figcaption></figure></article></div>
+<article class="activity project-like" id="activity-25"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Planar Systems with Two Negative Eigenvalues.</span>
+</h4>
+<div class="introduction" id="introduction-66">
+<p id="p-1073">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 6 \amp 14 \\ -4 \amp -9 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-136"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1074">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  You should find distinct real eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{.}\)</span></p></article><article class="task exercise-like" id="task-137"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1075">Find eigenvectors <span class="process-math">\(\mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> for the eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{,}\)</span> respectively.</p></article><article class="task exercise-like" id="task-138"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1076">Find the straight-line solutions of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  Plot the solutions in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="task-139"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1077">Sketch several solution curves for the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  What do you notice about the solution curves, especially with respect to the straight-line solutions?</p></article><article class="task exercise-like" id="task-140"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1078">Which of the two eigenvalues is the dominant eigenvalue?  Why?</p></article></article></section><section class="subsection" id="linear03-subsection-eigenvalues-positive"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span>
+</h3>
+<p id="p-1079">If <span class="process-math">\(\lambda_1 \gt \lambda_2 \gt 0\text{,}\)</span> we can regard our direction field as the negative of the direction field of the previous case. The general solution and the direction field are the same, but the arrows are reversed (<a href="" class="xref" data-knowl="./knowl/linear03-figure-nodal-source-phase-portrait.html" title="Figure 3.3.9">Figure 3.3.9</a>). In this case, we say that the equilibrium point is a <dfn class="terminology">source</dfn>.</p>
+<figure class="figure figure-like" id="linear03-figure-nodal-source-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-nodal-source-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with solution curves approaching infinity with the horizontal approach faster than the vertical approach"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.9<span class="period">.</span></span><span class="space"> </span>Source phase portrait</figcaption></figure><article class="example example-like" id="example-39"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-39"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.3.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-39"><article class="example example-like"><p id="p-1080">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03-figure-nodal-source-phase-portrait-1.html">
+\begin{equation*}
+\begin{pmatrix}
+x'(t) \\ y'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+4 \amp -3 \\
+-1 \amp 2
+\end{pmatrix}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalues of this system are <span class="process-math">\(\lambda_1 = 5\)</span> and <span class="process-math">\(\lambda_2 = 1\)</span> with eigenvectors <span class="process-math">\(\mathbf v_1 = (3, -1)\)</span> and <span class="process-math">\(\mathbf v_2 = (1, 1)\text{,}\)</span> respectively. Since the dominant eigenvalue is <span class="process-math">\(\lambda_1 = 5\text{,}\)</span> solutions are closer to  the straight-line solution containing the vector <span class="process-math">\(\mathbf v_2 = (3, -1)\)</span> more as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/linear03-figure-nodal-source-phase-portrait-1.html" title="Figure 3.3.11">Figure 3.3.11</a>).</p>
+<figure class="figure figure-like" id="linear03-figure-nodal-source-phase-portrait-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear03-nodal-source-phase-portrait-1.svg" role="img" class="contained" alt="a direction field of slope arrows with straight-line solutions and solution curves approaching infinity"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.3.11<span class="period">.</span></span><span class="space"> </span>Source phase portrait</figcaption></figure></article></div></section><section class="subsection" id="linear03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1081" class="disc">
+<li id="li-319">
+<p id="p-1082">Given a system of linear differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we can use the eigenvalues of <span class="process-math">\(A\)</span> to find and classify the solutions of the system.</p>
+</li>
+<li id="li-320">
+<p id="p-1083">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix}
+\lambda_1 &amp; 0 \\
+0 &amp; \lambda_2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then <span class="process-math">\(A\)</span> has two distinct real eigenvalues. The general solution to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \alpha e^{\lambda_1 t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta e^{\lambda_2 t} \begin{pmatrix} 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<ul class="circle">
+<li id="li-321"><p id="p-1084">For the case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\text{,}\)</span> the equilibrium point of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is a saddle.</p></li>
+<li id="li-322"><p id="p-1085">For the case <span class="process-math">\(\lambda_1 \lt \lambda_2 \lt 0\text{,}\)</span> the equilibrium point of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is a sink.</p></li>
+<li id="li-323"><p id="p-1086">For the case <span class="process-math">\(0 \lt \lambda_1 \lt \lambda_2\text{,}\)</span> the equilibrium point of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is a source.</p></li>
+</ul>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-linear03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1087">What is a stable line of solutions?</p></article><article class="exercise exercise-like" id="reading-questions-linear03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1088">For a <span class="process-math">\(2 \times 2\)</span> linear system with distinct real eigenvalues, what are the three different possibilities for the phase plane of the system?</p></article></section><section class="exercises" id="linear03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.3.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="linear03-exercises-solving-linear-systems">
+<h4 class="heading"><span class="title">Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-67">
+<p id="p-1089">For each of the linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/linear03-exercises-solving-linear-systems.html" title="Exercise Group 3.3.6.1–4: Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues">Exercise Group 3.3.6.1–4</a></p>
+<ol class="lower-alpha">
+<li id="li-324"><p id="p-1090">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span></p></li>
+<li id="li-325"><p id="p-1091">What is the dominant eigenvalue?</p></li>
+<li id="li-326"><p id="p-1092">Find the eigenvectors for each eigenvalue of <span class="process-math">\(A\text{.}\)</span></p></li>
+<li id="li-327"><p id="p-1093">What are the straight-line solutions of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{?}\)</span></p></li>
+<li id="li-328"><p id="p-1094">Describe the nature of the equilibrium solution at <span class="process-math">\(\mathbf 0\text{.}\)</span></p></li>
+<li id="li-329"><p id="p-1095">Sketch the phase plane and several solution curves.</p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-228"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-1096">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+-1 \amp 2 \\
+-6 \amp 6
+\end{pmatrix}
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-229"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-1097">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+-12 \amp 30 \\
+-5 \amp 13
+\end{pmatrix}
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-230"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-1098">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+-9 \amp -2 \\
+10 \amp 0
+\end{pmatrix}
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-231"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-1099">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+11 \amp 8 \\
+-12 \amp -9
+\end{pmatrix}
+\end{equation*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-232"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-1100">Solve each linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/linear03-exercises-solving-linear-systems.html" title="Exercise Group 3.3.6.1–4: Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues">Exercise Group 3.3.6.1–4</a> for the initial condition <span class="process-math">\(\mathbf x(0) = (2,2)\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-233"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<p id="p-1101">Consider the linear system <span class="process-math">\(d \mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+3 \amp 2 \\
+3 \amp -2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Suppose the initial conditions for the solution curve are <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span>  We can use the following Sage code to plot the phase portrait of this system, including the straight-line solutions and a solution curve.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-55"><script type="text/x-sage">x, y, t = var('x y t') #declare the variables
+F = [3*x + 2*y, 3*x - 2*y] #declare the system
+# normalize the vector fields so that all of the arrows are the same length
+n = sqrt(F[0]^2 + F[1]^2)
+# plot the vector field
+p = plot_vector_field((F[0]/n, F[1]/n), (x, -4, 4), (y, -4, 4), aspect_ratio = 1)
+# solve the system for the initial condition t = 0, x = 1, y = 1
+P1 = desolve_system_rk4(F, [x, y], ics=[0, 1, 1], ivar = t, end_points = 5, step = 0.01)
+# grab the x and y values
+S1 = [ [j, k] for i, j, k in P1]
+# plot the solution
+# Setting xmin, xmax, ymin, ymax will clip the window
+# Try plotting without doing this to see what happens
+p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -4, xmax = 4, ymin = -4, ymax = 4) 
+# plot the straight-line solutions
+p += line([(-4, -2), (4, 2)], thickness = 2, color = "red") 
+p += line([(-4/3, 4), (4/3, -4)], thickness = 2, color = "red")
+p
+</script></pre>
+<p id="p-1102">Use Sage to graph the direction field for the system linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/linear03-exercises-solving-linear-systems.html" title="Exercise Group 3.3.6.1–4: Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues">Exercise Group 3.3.6.1–4</a>.  Plot a solution curve for the initial condition <span class="process-math">\(\mathbf x(0) = (2,2)\text{.}\)</span>  Be sure to show the corresponding straight-line solutions on your graph.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-56"><script type="text/x-sage">
+</script></pre></article></section></section></div></main>
+</div>
+</body>
+</html>

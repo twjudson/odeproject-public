@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:28+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project First-Order Linear Equations</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook04.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook06.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook04.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook06.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="active">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="firstlook05"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span>
+</h2>
+<article class="objectives goal-like" id="objectives-5"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-98">
+<p id="p-380">To understand that any <dfn class="terminology">first-order linear differential equation</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' + p(x) y = g(x)
+\end{equation*}
+</div>
+<p class="continuation">can be solved by multiplying each side of the equation by an <dfn class="terminology">integrating factor</dfn>.</p>
+</li>
+<li id="li-99"><p id="p-381">To understand the existence and uniqueness of solutions to first-order initial value problems.</p></li>
+</ul></article><section class="introduction" id="introduction-25"><p id="p-382">A <dfn class="terminology">first-order differential equation</dfn> is an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-first-order-linear-ode.html" id="firstlook05-equation-first-order-linear-ode">
+\begin{equation}
+\frac{dx}{dt} + p(t) x = q(t).\tag{1.5.1}
+\end{equation}
+</div>
+<p class="continuation">This equation will not be separable if <span class="process-math">\(p(t)\)</span> is not a constant. We shall have to find a new approach to solving such an equation. We could, of course, use a numerical algorithm to solve <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-first-order-linear-ode.html" title="Equation 1.5.1">(1.5.1)</a>; however, we can always find an algebraic solution to a first-order linear differential equation. Moreover, the fact that we can obtain such a solution analytically will prove very useful when we investigate more complicated equations and systems of equations.</p></section><section class="subsection" id="firstlook05-subsection-mine-tailings"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span>
+</h3>
+<p id="p-383">In any mining operation, tailings are what is left after everything of value has been extracted. For example, in a hard rock mining operation, ore is often pulverized and then processed using chemicals to extract certain minerals of value. Soft rock mining operations such as coal mining or extracting oil from tar sands might use solvents or water to extract any commodity of value. The material that is left over after the minerals, coal, or oil is extracted can often present huge environmental challenges. There are different ways of processing mine tailings, but one way is to store them in a pond, especially if water is used in the mining operation. This method allows any particles that are suspended in the water to settle to the bottom of the pond. The water can then be treated and recycled.</p>
+<p id="p-384">Suppose that we have a gold mining operation and we are storing our tailings in a pond that has an initial volume of 20,000 cubic meters.  When we begin our operation, the tailings pond is filled with clean water. The pond has a stream flowing into it, and water is also pumped out of the pond.  Chemicals are used in processing gold ore. These chemicals such as sodium cyanide can be highly poisonous and dangerous to the environment, and the water must be treated before it is released into the watershed. Suppose that 1000 cubic meters per day flow into the pond from stream and 1000 cubic meters are pumped from the pond each day to be processed and recycled. Thus, the water level of the pond remains constant.</p>
+<p id="p-385">At time <span class="process-math">\(t = 0\text{,}\)</span> the water from stream becomes contaminated with chemicals from the mining operation, say at a rate of 5 kilograms of chemicals per 1000 cubic meters. We will assume that water in our tailings pond is well mixed so that the concentration of chemicals through out the pond is fairly uniform. In addition, any particulate matter pumped into the pond from the stream settles to the bottom of the pond at a rate of 50 cubic meters per day. Thus, the volume of our tailings pond is reduced by 50 cubic meters each day, and our tailings pond will become full after 400 days of operation. We shall assume that the particulate matter and the chemicals are included in the 1000 cubic meters that flow into the pond from the stream each day.</p>
+<p id="p-386">We wish to find a differential equation that will model the amount of chemicals in the tailings pond at any particular time. Let <span class="process-math">\(x(t)\)</span> be the amount of chemicals in the pond at time <span class="process-math">\(t\text{.}\)</span> Then <span class="process-math">\(dx/dt\)</span> is the difference between the rate at which the chemicals are entering the pond and the rate at which the chemicals leave the pond.</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = \text{rate in} - \text{rate out}.
+\end{equation*}
+</div>
+<p class="continuation">Since water flows into the pond from the stream at a rate of 1000 cubic meters per day, the rate at which the chemicals enter the pond is 5 kilograms per day. On the other hand, the rate at which the chemicals leave the pond will depend on the amount of chemicals in the pond at time <span class="process-math">\(t\text{.}\)</span> The volume of the pond is decreasing due to sediment, and at time <span class="process-math">\(t\)</span> it is <span class="process-math">\(V(t) = 20000 - 50t\text{.}\)</span> Thus, the concentration of chemicals in the pond at time <span class="process-math">\(t\)</span> is <span class="process-math">\(x/(20000 - 50 t)\text{,}\)</span> and the rate at which the chemicals are flowing out of the pond to be recycled is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+1000 \left(  \frac{x}{20000 - 50t} \right) = \frac{20x}{ 400 - t}.
+\end{equation*}
+</div>
+<p class="continuation">Hence, the differential equation that models the amount of chemical in the tailings pond at time <span class="process-math">\(t\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="firstlook05-equation-mine-tailings-1">
+\begin{equation}
+\frac{dx}{dt} = 5 - \frac{20x}{ 400 - t}.\tag{1.5.2}
+\end{equation}
+</div>
+<p class="continuation">Of course, we will have to cease mining operations once the pond is full, since there will only be water in the pond if <span class="process-math">\(V(t) = 20000 - 50t \geq 0\text{;}\)</span> that is, when <span class="process-math">\(0 \leq t \lt 400\text{.}\)</span></p>
+<p id="p-387">Notice that equation <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-mine-tailings-1.html" title="Equation 1.5.2">(1.5.2)</a> is not autonomous. In fact, it is not even separable. We will have to use a different approach to find a solution. First, we will rewrite the equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+\frac{dx}{dt}  + \frac{20}{ 400 - t} x = 5.
+\end{equation*}
+</div>
+<p class="continuation">If we multiply both sides of this equation by <span class="process-math">\((400 - t)^{-20}\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html" id="firstlook05-equation-mine-tailings-2">
+\begin{equation}
+(400 - t)^{-20}\frac{dx}{dt} + 20(400 - t)^{-21} x = 5(400 - t)^{-20}.\tag{1.5.3}
+\end{equation}
+</div>
+<p class="continuation">We now make the crucial observation that the product rule applies to the lefthand side of our equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+(400 - t)^{-20}\frac{dx}{dt} + 20(400 - t)^{-21} x = \frac{d}{dt} \left( (400 - t)^{-20}x \right).
+\end{equation*}
+</div>
+<p class="continuation">Thus, equation <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-mine-tailings-2.html" title="Equation 1.5.3">(1.5.3)</a> becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+\frac{d}{dt} \left( (400 - t)^{-20}x \right) = 5(400 - t)^{-20}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+(400 - t)^{-20}x = 5 \int (400 - t)^{-20} \, dt = \frac{5(400 - t)^{-19}}{19} + C,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(C\)</span> is an arbitrary constant.  Solving for <span class="process-math">\(x\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+x(t) = \frac{5}{19} (400 - t) + C(400 - t)^{20}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(x(0) = 0\text{,}\)</span> we can quickly determine that <span class="process-math">\(C = - (5/19)400^{-19}\)</span> and that the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mine-tailings-1.html ./knowl/firstlook05-equation-mine-tailings-2.html ./knowl/firstlook05-figure-tailings-pond.html">
+\begin{equation*}
+x(t) = \frac{5}{19} (400 - t) \left[ 1 - \left( \frac{400 - t}{400}  \right)^{19} \right].
+\end{equation*}
+</div>
+<p class="continuation">The graph of the solution to our differential equation (<a href="" class="xref" data-knowl="./knowl/firstlook05-figure-tailings-pond.html" title="Figure 1.5.1">Figure 1.5.1</a>) fits the situation. Initially, there are no chemicals in the pond, but <span class="process-math">\(x(t)\)</span> quickly increases. However, the amount of chemicals decreases as the pond begins to fill with sediment. Eventually, there are no chemicals at <span class="process-math">\(t = 400\text{.}\)</span></p>
+<figure class="figure figure-like" id="firstlook05-figure-tailings-pond"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook05-tailings-pond.svg" role="img" class="contained" alt="a curve that increases quickly from zero to eighty-five then decreases to zero where the time is four hundred"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.5.1<span class="period">.</span></span><span class="space"> </span>Chemical waste in a tailings pond</figcaption></figure></section><section class="subsection" id="firstlook05-subsection-first-order-linear-de"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span>
+</h3>
+<p id="p-388">The differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} + \frac{20}{ 400 - t} x = 5
+\end{equation*}
+</div>
+<p class="continuation">is an example of a first-order linear differential equation. More specifically, a <dfn class="terminology">first-order linear differential equation</dfn> is an equation that can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} + p(t) x = q(t).
+\end{equation*}
+</div>
+<p class="continuation">Let us first show how to solve first-order linear equations when the coefficient functions are constant. If</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-55">
+\begin{align*}
+\frac{dx}{dt} + px &amp; = q,\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>
+<p class="continuation">then we first multiply both sides of the equation by <span class="process-math">\(e^{pt}\)</span> to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{pt} \frac{dx}{dt} + e^{pt} px = q e^{pt}.
+\end{equation*}
+</div>
+<p class="continuation">The left-hand side of the equation is <dfn class="terminology">exact</dfn>. That is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{pt} \frac{dx}{dt} + e^{pt} px = \frac{d}{dt} \left(  x(t) e^{pt} \right).
+\end{equation*}
+</div>
+<p class="continuation">If we integrate both sides of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} \left(  x(t) e^{pt} \right)= q e^{pt},
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) e^{pt} = \frac{q}{p} e^{pt} + C.
+\end{equation*}
+</div>
+<p class="continuation">If we apply the initial condition, we can determine <span class="process-math">\(C\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+C = \left( x_0 - \frac{q}{p} \right) e^{pt_0}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the solution that we seek is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = \frac{q}{p} + \left( x_0 - \frac{q}{p} \right) e^{p(t_0 - t)}.
+\end{equation*}
+</div>
+<article class="example example-like" id="example-13"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-13"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-13"><article class="example example-like"><p id="p-389">Suppose we wish to solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-constant-coeff-1.html" id="mdn-2">
+\begin{align}
+\frac{dx}{dt} -2 x &amp; = 3,\tag{1.5.4}\\
+x(0) &amp; = 1.\tag{1.5.5}
+\end{align}
+</div>
+<p class="continuation">Multiplying both sides of equation <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-constant-coeff-1.html" title="Equation 1.5.4">(1.5.4)</a> by <span class="process-math">\(e^{-2t}\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-constant-coeff-1.html">
+\begin{equation*}
+\frac{d}{dt}\left( e^{-2t}x \right) = e^{-2t}\frac{dx}{dt} -2 e^{-2t}x = 3e^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this last equation, gives us the following</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-constant-coeff-1.html">
+\begin{equation*}
+e^{-2t}x = 3 \int e^{-2t} \, dt + C = -\frac{3}{2} e^{-2t} + C.
+\end{equation*}
+</div>
+<p class="continuation">Applying the initial condition <span class="process-math">\(x(0) = 1\text{,}\)</span> we can conclude that <span class="process-math">\(C = 5/2\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-constant-coeff-1.html">
+\begin{equation*}
+x(t) = \frac{5}{2} e^{2t} - \frac{3}{2}.
+\end{equation*}
+</div></article></div>
+<article class="example example-like" id="firstlook05-example-nonconstant-coeff"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-firstlook05-example-nonconstant-coeff"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook05-example-nonconstant-coeff"><article class="example example-like"><p id="p-390">Now let us solve a first-order linear differential equation where the coefficients are not constant. Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' + 2xy = e^{-x^2},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(y(0) = 1\text{.}\)</span> We will multiply both sides of the equation by <span class="process-math">\(e^{x^2}\)</span> and use the product rule to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dx} \left(  e^{x^2} y \right) = e^{x^2} y' + 2xe^{x^2}y =  e^{x^2} e^{-x^2} = 1.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides, we get</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{x^2} y  = \int  dx +  C.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = (x + C) e^{-x^2}.
+\end{equation*}
+</div>
+<p class="continuation">Using the initial condition to solve for <span class="process-math">\(C\text{,}\)</span> we find that <span class="process-math">\(C = 1\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = (x + 1)e^{-x^2}.  
+\end{equation*}
+</div>
+<p class="continuation">We can use Sage to check our solution.</p></article></div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-29"><script type="text/x-sage">x = var('x')
+y = function('y')(x)
+de = diff(y, x) + 2*x*y == exp(-x^2)
+solution = desolve(de, y, ics = [0, 1])
+solution.show()
+</script></pre>
+<p id="p-391">Surprisingly, the strategy in <a href="" class="xref" data-knowl="./knowl/firstlook05-example-nonconstant-coeff.html" title="Example 1.5.3">Example 1.5.3</a> will always work. Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-example-nonconstant-coeff.html ./knowl/firstlook05-equation-first-order.html" id="firstlook05-equation-first-order">
+\begin{equation}
+x' + p(t) x = q(t).\tag{1.5.6}
+\end{equation}
+</div>
+<p class="continuation">If we choose <span class="process-math">\(P(t)\)</span> such that <span class="process-math">\(P'(t) = p(t)\)</span> and multiply both sides of the equation by <span class="process-math">\(e^{P(t)}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-example-nonconstant-coeff.html ./knowl/firstlook05-equation-first-order.html">
+\begin{equation*}
+\left( e^{P(t)} x \right)' = e^{P(t)} ( x'(t) + p(t) x(t) )= e^{P(t)} q(t).
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-example-nonconstant-coeff.html ./knowl/firstlook05-equation-first-order.html">
+\begin{equation*}
+e^{P(t)} x = \int e^{P(t)} q(t) \, dt + C
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-example-nonconstant-coeff.html ./knowl/firstlook05-equation-first-order.html">
+\begin{equation*}
+x = \frac{1}{e^{P(t)} } \left( \int e^{P(t)} q(t) \, dt + C \right).
+\end{equation*}
+</div>
+<p class="continuation">The Fundamental Theorem of Calculus tells us that <span class="process-math">\(P(t) = \int p(t) \, dt\text{.}\)</span> We say that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-example-nonconstant-coeff.html ./knowl/firstlook05-equation-first-order.html">
+\begin{equation*}
+\mu(t) = e^{\int p(t) \, dt} = \exp\left(  \int p(t) \, dt \right)
+\end{equation*}
+</div>
+<p class="continuation">is an <dfn class="terminology">integrating factor</dfn> for the differential equation <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-first-order.html" title="Equation 1.5.6">(1.5.6)</a>.</p>
+<article class="example example-like" id="example-15"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-15"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-15"><article class="example example-like"><p id="p-392">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-56">
+\begin{gather*}
+\frac{dy}{dx} - \frac{2}{x} y = 2x^2\\
+y(-2) = 4.
+\end{gather*}
+</div>
+<p class="continuation">Our integrating factor is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mu(x) = \exp\left( - \int \frac{2}{x} \, dx\right) = e^{-2 \ln x} = e^{\ln x^{-2}} = x^{-2}.
+\end{equation*}
+</div>
+<p class="continuation">Multiplying both of our differential equation by <span class="process-math">\(\mu(x) = x^{-2}\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x^{-2} \left(\frac{dy}{dx} - \frac{2}{x} y \right)  = 2
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dx}\left(  x^{-2} y \right) = x^{-2} \frac{dy}{dx} - 2 x^{-3} y  = 2.
+\end{equation*}
+</div>
+<p class="continuation">We can now integrate this equation to get</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x^{-2} y = 2x + C.
+\end{equation*}
+</div>
+<p class="continuation">The initial condition <span class="process-math">\(y(-2) = 4\)</span> allows us to find <span class="process-math">\(C = 5\text{.}\)</span> Therefore, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = 2x^3 + 5x^2.
+\end{equation*}
+</div></article></div>
+<article class="activity project-like" id="activity-9"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Solutions to First-Order Linear Differential Equations.</span>
+</h4>
+<div class="introduction" id="introduction-26"><p id="p-393">Solve each of the following initial value problems.</p></div>
+<article class="task exercise-like" id="task-35"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-394"><span class="process-math">\(y' = 3y + t\text{;}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="task exercise-like" id="task-36"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-395"><span class="process-math">\(x' = tx + 2t\text{;}\)</span> <span class="process-math">\(x(1) = 2\)</span></p></article><article class="task exercise-like" id="task-37"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-396"><span class="process-math">\(y' = 2x - 3y + e^{-x}\text{;}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="task exercise-like" id="task-38"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-397"><span class="process-math">\(\dfrac{du}{dt} = \dfrac{t - 1}{t} u + t^2\text{;}\)</span> <span class="process-math">\(u(1) = 0\)</span></p></article><article class="task exercise-like" id="task-39"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-398"><span class="process-math">\(y' = \sin x - y\text{;}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article></article></section><section class="subsection" id="firstlook05-subsection-mixing-models"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span>
+</h3>
+<p id="p-399">Many applications involve the mixing of two or more substances together. As we mentioned previously, we can model how petroleum products are mixed together in a refinery, how various ingredients are mixed together in a brewery, or how greenhouse gases move across various layers of the earth's atmosphere.</p>
+<article class="example example-like" id="example-16"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-16"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-16"><article class="example example-like"><p id="p-400">Suppose that a 100-gallon tank initially contains 50 gallons of salt water containing five pounds of salt. A brine mixture containing one pound of salt per gallon flows into the top of the tank at a rate of 5 gallons per minute. A well mixed solution leaves the tank at rate of 4 gallons per minute. We wish to know how much salt is in the tank, when the tank is full.</p>
+<p id="p-401">To construct our model, we will let <span class="process-math">\(t\)</span> be the time (measured in minutes) and set up a differential equation that will measure how fast the amount of salt at time <span class="process-math">\(t\text{,}\)</span> <span class="process-math">\(x(t)\text{,}\)</span> is changing. We have the initial condition <span class="process-math">\(x(0) = 5\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-57">
+\begin{align*}
+\frac{dx}{dt} &amp; = \text{rate of salt flowing in} - \text{rate of salt flowing out}\\
+&amp; = \underbrace{5}_{\text{in flow}} - \underbrace{4 \frac{x}{V(t)}}_{\text{out flow}},
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(V(t)\)</span> is the volume at time <span class="process-math">\(t\text{.}\)</span> The expression <span class="process-math">\(x/V(t)\)</span> is the amount of salt in one gallon at time <span class="process-math">\(t\text{.}\)</span> We have <span class="process-math">\(V(t) = 50 + t\text{,}\)</span> since the tank starts with 50 gallons and five gallons are pumped into the tank per minute while four gallons leave the tank during the same time interval. Thus, our differential equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = 5 - \frac{4}{50 + t}x.
+\end{equation*}
+</div>
+<p class="continuation">Our equation is linear since we can rewrite it as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="firstlook05-equation-mixing">
+\begin{equation}
+\frac{dx}{dt} + \frac{4}{50 + t} x = 5.\tag{1.5.7}
+\end{equation}
+</div>
+<p id="p-402">An integrating factor for this differential equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mixing.html">
+\begin{equation*}
+\mu(t) = \exp\left(  \int \frac{4}{50 + t} \, dt \right) = e^{4 \ln(50 + t)} = (50 + t)^4.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, if we multiply both sides of equation <a href="" class="xref" data-knowl="./knowl/firstlook05-equation-mixing.html" title="Equation 1.5.7">(1.5.7)</a> by <span class="process-math">\(\mu(t)\text{,}\)</span> we get</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mixing.html">
+\begin{equation*}
+(50 + t)^4\frac{dx}{dt} + 4(t + 50)^3 x = 5(50 + t)^4.
+\end{equation*}
+</div>
+<p class="continuation">We can now apply the product rule to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mixing.html">
+\begin{equation*}
+\frac{d}{dt}[ (50 + t)^4 x] = 5(50 + t)^4.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides and simplifying gives us</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mixing.html">
+\begin{equation*}
+x = t + 50 + \frac{C}{(t + 50)^4}.
+\end{equation*}
+</div>
+<p class="continuation">Our initial condition, <span class="process-math">\(x(0) = 5\)</span> tells us that <span class="process-math">\(C = -281{,}250{,}000\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-equation-mixing.html">
+\begin{equation*}
+x(t) = t + 50 - \frac{281250000}{(t + 50)^4}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, when the tank is full, <span class="process-math">\(t = 50\)</span> and the amount of salt in the tank is <span class="process-math">\(x(50) = 97.188\)</span> pounds. We can use <em class="emphasis">Sage</em> to easily check the solution of our initial value problem.</p></article></div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-30"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+de = diff(x, t) + 4*x/(50 + t) == 5
+solution(t) = desolve(de, x, ics=[0, 5])
+solution(50).n(digits = 5)
+</script></pre>
+<article class="activity project-like" id="activity-10"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">A Mixing Problem.</span>
+</h4>
+<div class="introduction" id="introduction-27"><p id="p-403">Suppose that a tank contains 1000 gallons of a solution consisting of 200 pounds of salt dissolved in water. Pure water is pumped into the tank at a rate of 6 gallons per minute. At the same time, the tank is drained at the same rate.  Assume that the brine mixture is kept well stirred.</p></div>
+<article class="task exercise-like" id="task-40"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-404">Set up an initial value problem to model the amount of salt in the tank at time <span class="process-math">\(t\text{.}\)</span></p></article><article class="task exercise-like" id="task-41"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-405">How long will it take until there is only 20 pounds of salt left in the tank?.</p></article></article></section><section class="subsection" id="firstlook05-subsection-finance-models"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.4</span> <span class="title">Finance Models</span>
+</h3>
+<p id="p-406">There are a number of problems in finance that can be modeled using differential equations. Let <span class="process-math">\(P(t)\)</span> be the balance of an account at time <span class="process-math">\(t\)</span> and suppose that the account pays interest at a rate of <span class="process-math">\(r\)</span> percent per year compounded continuously. Suppose that we also allow withdrawals of <span class="process-math">\(W\)</span> dollars per year. The net increase in the balance between times <span class="process-math">\(t\)</span> and <span class="process-math">\(t + \Delta t\)</span> can now be described as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(t + \Delta t) - P(t) \approx r P \Delta t - W \Delta t
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P'(t) = \lim_{\Delta t \rightarrow 0} \frac{P(t + \Delta t) - P(t) }{\Delta t} = rP - W.
+\end{equation*}
+</div>
+<p id="p-407">We can solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P' = rP - W
+\end{equation*}
+</div>
+<p class="continuation">by multiplying both sides of the equation by the integrating factor</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mu(t) = \exp\left(- \int r \, dt\right) = e^{-rt}.
+\end{equation*}
+</div>
+<p class="continuation">to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} [e^{-rt} P] = -We^{-rt}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{-rt} P = \frac{W}{r} e^{-rt} + C
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = \frac{W}{r} + Ce^{rt}.
+\end{equation*}
+</div>
+<p class="continuation">If we know the initial balance in the account, say <span class="process-math">\(P(0) = P_0\text{,}\)</span> we can determine <span class="process-math">\(C\text{.}\)</span> That is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P_0 = \frac{W}{r} + C
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+C = P_0 - \frac{W}{r}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = \frac{W}{r} + \left( P_0 - \frac{W}{r} \right) e^{rt}.
+\end{equation*}
+</div>
+<article class="example example-like" id="example-17"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-17"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-17"><article class="example example-like"><p id="p-408">Suppose that your parents have established a money market account with a balance of $50,000 that they will use to help you pay for your college education.  The account receives an average annual interest of 4%. You estimate that your tuition, room and board, and other college expenses to be $20,000 per year.</p>
+<p id="p-409">We model this financial situation with the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-58">
+\begin{align*}
+\frac{dP}{dt} \amp = 0.04P - 20000\\
+P(0) \amp = 50000.
+\end{align*}
+</div>
+<p class="continuation">Rewriting the differential equation as <span class="process-math">\(dP/dt - 0.04P = -20000\text{,}\)</span> our integrating factor becomes <span class="process-math">\(\mu(t) = e^{-0.04t}\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{-0.04t} \frac{dP}{dt} -0.04 e^{-0.04t} P= \frac{d}{dt} [e^{-0.04t} P] = -20000e^{-0.04t}.
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{-0.04t} P = \frac{20000}{0.04}e^{-0.04t} + C = 500000e^{-0.04t} + C.
+\end{equation*}
+</div>
+<p class="continuation">The solution to this initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(t) = \frac{20000}{0.04} + \left( 50000 - \frac{20000}{0.04} \right) e^{0.04t} = 500000 - 450000e^{0.04t}.
+\end{equation*}
+</div>
+<p id="p-410">Your parents have been quite generous but have told you that you must be responsible for the balance of the cost of your education.</p></article></div>
+<article class="activity project-like" id="activity-11"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Paying for College.</span>
+</h4>
+<div class="introduction" id="introduction-28"><p id="p-411">Suppose that new parents want to start a college fund for their child.  They are willing to invest $2000 per year at a rate of 4%.</p></div>
+<article class="task exercise-like" id="task-42"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-412">Find an initial value problem that models the parents' investment.</p></article><article class="task exercise-like" id="task-43"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-413">How much will be in the college fund when their child turns 18?</p></article><article class="task exercise-like" id="task-44"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-414">What would they need to invest per year to have $80,000 in the college fund when their child turns 18?</p></article></article></section><section class="subsection" id="subsection-33"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span>
+</h3>
+<p id="p-415">Several questions about the existence and uniqueness of solutions to first-order linear differential equations now arise.</p>
+<ul class="disc">
+<li id="li-100"><p id="p-416">Does an initial value problem always have a solution?</p></li>
+<li id="li-101"><p id="p-417">Is the solution unique?</p></li>
+<li id="li-102"><p id="p-418">Is the solution globally defined or does it only hold for a small interval?</p></li>
+</ul>
+<p class="continuation">We can use the following theorem to answer these questions.</p>
+<article class="theorem theorem-like" id="theorem-firstlook05-first-order-linear-existence"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">1.5.7</span><span class="period">.</span>
+</h4>
+<p id="p-419">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' + p(t) y = g(t)
+\end{equation*}
+</div>
+<p class="continuation">is a differential equation such that <span class="process-math">\(y(t_0) = y_0\text{,}\)</span> and <span class="process-math">\(p(t)\)</span> and <span class="process-math">\(g(t)\)</span> are continuous on the open interval <span class="process-math">\(I = (\alpha, \beta)\text{,}\)</span> then there exists a unique function <span class="process-math">\(y = \phi(t)\)</span> satisfying the differential equation and the initial condition on <span class="process-math">\(I\text{.}\)</span></p></article><article class="hiddenproof" id="proof-1"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-1"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-1"><article class="hiddenproof"><p id="p-420">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mu(t) = \exp\left(  \int p(t) \, dt \right),
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt}(\mu(t) y) = \mu(t) \left( \frac{dy}{dt} + p(t) y \right) = \mu(t)g(t).
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this equation and solving for <span class="process-math">\(y\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \frac{1}{\mu(t)} \left( \int \mu(t) g(t) \, dt + C \right).
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(y(t_0) = y_0\text{,}\)</span> the constant <span class="process-math">\(C\)</span> is uniquely determined.  Notice that we have used continuity to guarantee that the integrals exist.</p></article></div></section><section class="subsection" id="firstlook05-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-421" class="disc">
+<li id="li-103">
+<p id="p-422">Any first-order linear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' + p(x) y = g(x)
+\end{equation*}
+</div>
+<p class="continuation">can be solved by multiplying each side of the equation by an integrating factor</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mu(s) = e^{\int p(x) \, dx}.
+\end{equation*}
+</div>
+<p class="continuation">In this case, we get</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\left( e^{P(x)} y \right)' = e^{P(x)} ( y'(x) + p(x) y(x) ) = e^{P(x)} g(x).
+\end{equation*}
+</div>
+<p class="continuation">Integrating  both sides,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{P(x)} y  = \int e^{P(x)} g(x) \, dx
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \frac{1}{e^{P(x)} } \int e^{P(x)} g(x) \, dx.
+\end{equation*}
+</div>
+</li>
+<li id="li-104">
+<p id="p-423">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' + p(t) y = g(t)
+\end{equation*}
+</div>
+<p class="continuation">is a differential equation such that <span class="process-math">\(y(t_0) = y_0\text{,}\)</span> and <span class="process-math">\(p(t)\)</span> and <span class="process-math">\(g(t)\)</span> are continuous on the open interval <span class="process-math">\(I = (\alpha, \beta)\text{,}\)</span> then there exists a unique function <span class="process-math">\(y = \phi(t)\)</span> satisfying the differential equation and the initial condition on <span class="process-math">\(I\text{.}\)</span></p>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook05"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook05-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-424">Explain in your own words what a first-order linear differential equation is.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook05-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-425">What important rule from differential calculus do we use when solving a first-order differential equation?</p></article></section><section class="exercises" id="exercises-firstlook05"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.5.8</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="firstlook05-exercises-find-solutions">
+<h4 class="heading"><span class="title">Finding General Solutions.</span></h4>
+<div class="introduction" id="introduction-29"><p id="p-426">Find the general solution for each equation in <a href="" class="xref" data-knowl="./knowl/firstlook05-exercises-find-solutions.html" title="Exercise Group 1.5.8.1–10: Finding General Solutions">Exercise Group 1.5.8.1–10</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-101"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-427"><span class="process-math">\(\dfrac{dy}{dx} + 5y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-102"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-428"><span class="process-math">\(x' - 7x = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-103"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-429"><span class="process-math">\(y' + 2xy = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-104"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-430"><span class="process-math">\(\dfrac{dx}{dt} -t^2 x  = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-105"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-431"><span class="process-math">\(y' + \dfrac{2}{x}y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-106"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-432"><span class="process-math">\(\dfrac{dy}{dx} - 5y = e^x\)</span></p></article><article class="exercise exercise-like" id="exercise-107"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-433"><span class="process-math">\(y' - 5y = 10x\)</span></p></article><article class="exercise exercise-like" id="exercise-108"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-434"><span class="process-math">\(\dfrac{dx}{dt} - 5x = \sin 2t\)</span></p></article><article class="exercise exercise-like" id="exercise-109"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-435"><span class="process-math">\(y' - \dfrac{3}{x^2} y = \dfrac{1}{x^2}\)</span></p></article><article class="exercise exercise-like" id="exercise-110"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-436"><span class="process-math">\(\dfrac{dy}{dx} + \dfrac{2}{x} y = \dfrac{\sin x}{x^2}\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook05-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-30"><p id="p-437">Solve the initial value problems in <a href="" class="xref" data-knowl="./knowl/firstlook05-exercises-solve-ivps.html" title="Exercise Group 1.5.8.11–20: Solving Initial Value Problems">Exercise Group 1.5.8.11–20</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-111"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-438"><span class="process-math">\(\dfrac{dy}{dx} + 5y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 2\)</span></p></article><article class="exercise exercise-like" id="exercise-112"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-439"><span class="process-math">\(x' - 7x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-113"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-440"><span class="process-math">\(y' + 2xy = 0\text{,}\)</span> <span class="process-math">\(y(0) = 3\)</span></p></article><article class="exercise exercise-like" id="exercise-114"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-441"><span class="process-math">\(\dfrac{dx}{dt} -t^2 x  = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\)</span></p></article><article class="exercise exercise-like" id="exercise-115"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-442"><span class="process-math">\(y' + \dfrac{2}{x}y = 0\text{,}\)</span> <span class="process-math">\(y(1) = -3\)</span></p></article><article class="exercise exercise-like" id="exercise-116"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-443"><span class="process-math">\(y' = - \dfrac{2y}{x + 1} + 2x\text{,}\)</span> <span class="process-math">\(y(0) = 2\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-6" id="hint-6"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-6"><div class="hint solution-like"><p id="p-444"><span class="process-math">\(y = \dfrac{3 x^{4} + 8 x^{3} + 6 x^{2} + 12}{6 (x + 1)^2}\)</span></p></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-117"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-445"><span class="process-math">\(y' = - \dfrac{2y}{1 + x} + e^x\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-7" id="hint-7"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-7"><div class="hint solution-like"><p id="p-446"><span class="process-math">\(y = (e^x + 1)/(x+1)^2\)</span></p></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-118"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-447"><span class="process-math">\(\dfrac{dx}{dt} - 5x = \sin 2t\text{,}\)</span> <span class="process-math">\(x(0) = \pi\)</span></p></article><article class="exercise exercise-like" id="exercise-119"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-448"><span class="process-math">\(y' = y \tan x + \dfrac{e^x}{\cos x}\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-8" id="hint-8"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-8"><div class="hint solution-like"><p id="p-449"><span class="process-math">\(y = e^x \sec x\)</span></p></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-120"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-450"><span class="process-math">\(y' = - \dfrac{y}{x + 2} + \dfrac{\cos x}{x + 2}\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-9" id="hint-9"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-9"><div class="hint solution-like"><p id="p-451"><span class="process-math">\(y = \sin x / (x + 2)\)</span></p></div></div>
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-121"><h4 class="heading"><span class="codenumber">21<span class="period">.</span></span></h4>
+<p id="p-452">A 600-liter tank initially contains 200 liters of water containing 10 kilograms of salt. Supposed that water containing 0.1 kilograms of salt flows into the top of the tank at a rate of 10 liters per minute. The water in the tank is kept well mixed, and 5 liters per minute are removed from the bottom of the tank.  How much salt is in the tank when the tank is full?</p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-10" id="hint-10"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-10"><div class="hint solution-like">
+<p id="p-453">If <span class="process-math">\(x(t)\)</span> is the amount of salt in the tank at time <span class="process-math">\(t\text{,}\)</span> we know that <span class="process-math">\(x(0) = 10\text{.}\)</span> The volume of the tank is <span class="process-math">\(V = 200 + 5t\text{.}\)</span>  We can model the amount of salt in the tank at time <span class="process-math">\(t\)</span> with a differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-59">
+\begin{align*}
+\frac{dx}{dt} &amp; = \text{rate in} - \text{rate out}\\
+&amp; = 10(0.1) - 5 \frac{x}{V}\\
+&amp; = 1 - 5\frac{x}{200+ 5t}\\
+&amp; = 1 - \frac{x}{40 + t}.
+\end{align*}
+</div>
+<p class="continuation">The resulting equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} + \frac{1}{40 + t}x = 1
+\end{equation*}
+</div>
+<p class="continuation">is a first order linear differential equation.  An integrating factor for this equation is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mu(t) = \exp\left(\int \frac{1}{40 + t} \, dt\right) = 40 + t.
+\end{equation*}
+</div>
+<p class="continuation">Multiplying both sides of the differential equation by <span class="process-math">\(\mu(t)\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} [(40 + t)x] = (40 + t) \frac{dx}{dt} + x = (40 + t)\left( \frac{dx}{dt} + \frac{1}{40 + t}x \right) = 40 + t.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this equation, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(40 + t)x = 40t + \frac{t^2}{2} + C.
+\end{equation*}
+</div>
+<p class="continuation">Using the intial condition <span class="process-math">\(x(0) = 10\text{,}\)</span> we can determine that <span class="process-math">\(C = 400\)</span> or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = \frac{t^2 + 80t + 800}{2t + 80}.
+\end{equation*}
+</div>
+<p class="continuation">The tank is full at time <span class="process-math">\(t = 400/5 = 80\text{,}\)</span> and the tank contains <span class="process-math">\(x(80) = 170/3 \approx 56.67\)</span> kilograms of salt when the tank is full.</p>
+</div></div>
+</div></article><article class="exercise exercise-like" id="exercise-122"><h4 class="heading"><span class="codenumber">22<span class="period">.</span></span></h4>
+<p id="p-454">A manager in a communications company contributes $2400 per year into her retirement fund by making many small deposits throughout the year.  The fund grows at a rate of 3.5% per year compounded continuously.  After 35 years, she retires and begins and begins withdrawing from the retirement fund at a rate of $3500 per month.  If she does not make any deposits after she retires, how long will her retirement fund last?  [<em class="emphasis">Hint</em>: Divide the problem into two smaller problems—one that deals with the situation before retirement and one that deals with the problem after retirement.]</p></article><article class="exercise exercise-like" id="exercise-123"><h4 class="heading"><span class="codenumber">23<span class="period">.</span></span></h4>
+<p id="p-455">Lake Baikal, located in southern Siberia, is only the seventh largest lake in the world in terms of surface area; however, it is the world's deepest lake. The lake has a depth of 1,642 meters, and the bottom lies 1,186.5 meters below sea level. Lake Baikal has a volume of 23,600 cubic kilometers and contains 20% of the world's unfrozen fresh water. In contrast, Lake Superior, the largest of the Great Lakes, has a volume of only 12,100 cubic kilometers.  Although 544 rivers flow into Lake Baikal, there is only a single outlet, the Angara River. The outflow of the lake is pretty constant at 60.4 cubic kilometers per year.</p>
+<p id="p-456">Pollution is an increasing concern in Lake Baikal. One of the major polluters has been Baykalsk Pulp and Paper Mill. The mill was constructed in 1966 on the shoreline of Lake Baikal and regularly discharged waste into the lake. The plant was closed in November 2008 due to unprofitability, but production resumed in January 2010. The mill underwent a final bankruptcy in September 2013, but the longterm fate of the mill is still undecided.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-13" id="fn-13"><sup> 1 </sup></a></p>
+<p id="p-457">Suppose that we wish to understand how the pollution level changes in Lake Baikal over a period of years. Hypothetically, let us assume that the Baykalsk Pulp and Paper Mill has been responsible for most of the pollution in Lake Baikal for the last several decades. Suppose that at <span class="process-math">\(t = 0\)</span> years the mill ceases operation and there are no longer any pollutants discharged into the lake from the mill although there are still other sources of pollution. Let us assume that the lake is currently 6 times more polluted than these other sources of contaminants. We wish to know how long it will take for the pollution level to reduce to half of its current level of lake.  Lake Baikal's waters are well-mixed and well-oxygenated in spite of its great depth, so we can model this situation as a simple mixing problem.</p>
+<ol class="lower-alpha">
+<li id="li-105">
+<p id="p-458">The volume of water in Lake Baikal is <span class="process-math">\(V = 23,600 \text{ km}^3\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+r_{\text{in}} = r_{\text{out}} = r = 60 \text{ km}^3/\text{year}
+\end{equation*}
+</div>
+<p class="continuation">be the rates of inflow from the numerous rivers that feed the lake and outflow to the Angara River. Assume that <span class="process-math">\(C = C_{\text{in}}\)</span> is the pollutant concentration flowing into Lake Baikal and <span class="process-math">\(C_{\text{out}}\)</span> is the concentration of the outflow into the Angara River (measured in metric tons per cubic km). If <span class="process-math">\(x(t)\)</span> is the amount of solute at time <span class="process-math">\(t\)</span> in Lake Baikal, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_0 = x(0) = 6CV
+\end{equation*}
+</div>
+<p class="continuation">is the initial amount of solute in the lake.  Estimate <span class="process-math">\(\Delta x\)</span> during the time interval <span class="process-math">\([t, t + \Delta t]\text{,}\)</span> where <span class="process-math">\(\Delta t &gt; 0\)</span> is small.</p>
+</li>
+<li id="li-106"><p id="p-459">From your estimate of <span class="process-math">\(\Delta x\)</span> in part (1), write an initial value problem that describes the amount of pollutants in the lake at time <span class="process-math">\(t\text{.}\)</span></p></li>
+<li id="li-107"><p id="p-460">The equation that you found in part (2) is a first-order linear equation. Solve this equation.</p></li>
+<li id="li-108"><p id="p-461">Using part (3), predict how many years it will take to reduce the pollution in Lake Baikal to half of its current level.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-124"><h4 class="heading"><span class="codenumber">24<span class="period">.</span></span></h4>
+<p id="p-462"><em class="emphasis">Variation of Parameters</em>. Consider the following method of solving the general linear equation of the first order,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-variation-of-parameters-1.html ./knowl/firstlook05-exercise-equation-variation-of-parameters-3.html ./knowl/firstlook05-exercise-equation-variation-of-parameters-2.html ./knowl/theorem-firstlook05-first-order-linear-existence.html" id="firstlook05-exercise-equation-variation-of-parameters-1">
+\begin{equation}
+y' + p(t)y = g(t).\tag{1.5.8}
+\end{equation}
+</div>
+<ol class="lower-alpha">
+<li id="li-109">
+<p id="p-463">If <span class="process-math">\(g(t)\)</span> is identically zero, show that the solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = A \exp\left[ - \int p(t) \, dt \right],
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(A\)</span> is a constant.</p>
+</li>
+<li id="li-110">
+<p id="p-464">If <span class="process-math">\(g(t)\)</span> is not identically zero, assume that the solution is of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-variation-of-parameters-1.html" id="firstlook05-exercise-equation-variation-of-parameters-2">
+\begin{equation}
+y = A(t) \exp\left[ - \int p(t) \, dt \right],\tag{1.5.9}
+\end{equation}
+</div>
+<p class="continuation">where <span class="process-math">\(A\)</span> is now a function of <span class="process-math">\(t\text{.}\)</span>  By substituting for <span class="process-math">\(y\)</span> in the given differential equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-variation-of-parameters-1.html" title="Equation 1.5.8">(1.5.8)</a>, show that <span class="process-math">\(A(t)\)</span> must satisfy the condition</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-variation-of-parameters-1.html" id="firstlook05-exercise-equation-variation-of-parameters-3">
+\begin{equation}
+A'(t) = g(t) \exp\left[ \int p(t) \, dt \right].\tag{1.5.10}
+\end{equation}
+</div>
+</li>
+<li id="li-111">
+<p id="p-465">Find <span class="process-math">\(A(t)\)</span> from Equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-variation-of-parameters-3.html" title="Equation 1.5.10">(1.5.10)</a>.  Then substitute for <span class="process-math">\(A(t)\)</span> in equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-variation-of-parameters-2.html" title="Equation 1.5.9">(1.5.9)</a> and determine <span class="process-math">\(y\text{.}\)</span>  Verify that the solution obtain in this manner agrees with the solution given in the proof of Theorem <a href="" class="xref" data-knowl="./knowl/theorem-firstlook05-first-order-linear-existence.html" title="Theorem 1.5.7">Theorem 1.5.7</a>.  That is, show that this solution is equivalent to the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-variation-of-parameters-3.html ./knowl/firstlook05-exercise-equation-variation-of-parameters-2.html ./knowl/theorem-firstlook05-first-order-linear-existence.html">
+\begin{equation*}
+y = \frac{1}{\mu(t)} \left( \int \mu(t) g(t) \, dt + C \right),
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-variation-of-parameters-3.html ./knowl/firstlook05-exercise-equation-variation-of-parameters-2.html ./knowl/theorem-firstlook05-first-order-linear-existence.html">
+\begin{equation*}
+\mu(t) = \exp\left(  \int p(t) \, dt \right).
+\end{equation*}
+</div>
+</li>
+</ol>
+<p class="continuation">This technique is know as <em class="emphasis">variation of parameters</em>, which we will revisit when we study second order linear differential equations.</p></article><article class="exercise exercise-like" id="exercise-125"><h4 class="heading"><span class="codenumber">25<span class="period">.</span></span></h4>
+<p id="p-466"><em class="emphasis">Bernoulli's equation</em> is an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = a(t) y + f(t) y^n,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(n \neq 0\)</span> or 1. Bernoulli's equation is nonlinear and cannot be solved by the techniques that we have used to solve first order linear equations.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-14" id="fn-14"><sup> 2 </sup></a></p>
+<ol class="lower-alpha">
+<li id="li-112">
+<p id="p-467">Using the substitution <span class="process-math">\(z = y^{1- n}\text{,}\)</span> show that we can transform Bernoulli's equation into the linear equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+z' = (1 -n )a(t) z + (1-n) f(t).
+\end{equation*}
+</div>
+</li>
+<li id="li-113"><p id="p-468">Solve the equation <span class="process-math">\(xy' + y = x^4y^3\text{.}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-126"><h4 class="heading"><span class="codenumber">26<span class="period">.</span></span></h4>
+<p id="p-469">The first-order nonlinear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-ricatti.html" id="firstlook05-exercise-equation-ricatti">
+\begin{equation}
+y' = p(t) + q(t) y + r(t) y^2\tag{1.5.11}
+\end{equation}
+</div>
+<p class="continuation">is known as the <dfn class="terminology">Ricatti equation</dfn> and has some useful applications in control theory. If one solution <span class="process-math">\(y_1(t)\)</span> of the Ricatti equation is known, then a more general solution containing an arbitrary constant can be found by substituting <span class="process-math">\(y = y_1(t) + 1/v(t)\)</span> into equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-ricatti.html" title="Equation 1.5.11">(1.5.11)</a> to find a first-order linear equation in <span class="process-math">\(v\)</span> and <span class="process-math">\(t\text{,}\)</span> which we can solve to find a general solution to the Ricatti equation.</p>
+<ol class="lower-alpha">
+<li id="li-114"><p id="p-470">Show that this first-order linear equation is <span class="process-math">\(v' + [q(t) + 2 r(t) y_1(t)]v = - r(t)\text{.}\)</span></p></li>
+<li id="li-115">
+<p id="p-471">Find the solution to the Ricatti equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = - \frac{1}{t^2} - \frac{1}{t} y + y^2
+\end{equation*}
+</div>
+<p class="continuation">given the particular solution <span class="process-math">\(y_1 = 1/t\text{.}\)</span></p>
+</li>
+<li id="li-116">
+<p id="p-472">Find the solution to the Ricatti equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = \cos t - y \tan t + y^2 \sec t
+\end{equation*}
+</div>
+<p class="continuation">given the particular solution <span class="process-math">\(y_1 = \sin t\text{.}\)</span></p>
+</li>
+<li id="li-117">
+<p id="p-473">Find the solution to the Ricatti equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = 2 - 3y + y^2
+\end{equation*}
+</div>
+<p class="continuation">given the particular solution <span class="process-math">\(y_1 \equiv 2\text{.}\)</span></p>
+</li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-11" id="hint-11"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-11"><div class="hint solution-like"><ol id="p-474" class="lower-alpha">
+<li id="li-118">
+<p id="p-475">If <span class="process-math">\(y = y_1 + 1/v\text{,}\)</span> then <span class="process-math">\(y' = y_1' - v'/v^2\text{.}\)</span>  Substituting into our original equation, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = y_1' - \frac{v'}{v^2} = p + q y_1 + r y_1^2 - \frac{v'}{v^2}.
+\end{equation*}
+</div>
+<p class="continuation">On the other hand,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-60">
+\begin{align*}
+y' &amp; = p + q \left(y_1 + \frac{1}{v}  \right) + r  \left(y_1 + \frac{1}{v}  \right)^2\\
+&amp; = p + q y_1 + \frac{q}{v}  + r  y_1^2 + \frac{2r y_1}{v}   + \frac{r}{v^2}\\
+&amp; = y_1' +  \frac{q}{v}  + \frac{2r y_1}{v} + \frac{r}{v^2}.
+\end{align*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+- \frac{v'}{v^2} =  \frac{q}{v}  + \frac{2r y_1}{v}   + \frac{r}{v^2},
+\end{equation*}
+</div>
+<p class="continuation">which is just the first-order linear equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+v' + [q(t) + 2 r(t) y_1(t)]v = - r(t).
+\end{equation*}
+</div>
+</li>
+<li id="li-119"><div class="displaymath process-math" data-contains-math-knowls="" id="p-476">
+\begin{equation*}
+y = t + \frac{1}{C - t}
+\end{equation*}
+</div></li>
+<li id="li-120"><div class="displaymath process-math" data-contains-math-knowls="" id="p-477">
+\begin{equation*}
+y(t) = \frac{1}{C \cos t - \sin t} + \sin t
+\end{equation*}
+</div></li>
+<li id="li-121"><div class="displaymath process-math" data-contains-math-knowls="" id="p-478">
+\begin{equation*}
+y(t) = 2 + \frac{1}{C e^t - 1}
+\end{equation*}
+</div></li>
+</ol></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-127"><h4 class="heading"><span class="codenumber">27<span class="period">.</span></span></h4>
+<p id="p-479">Suppose that we have a population that not only grows logistically but also requires a minimum threshold population to survive.  For example, the case of the North Pacific right whale, a species now very much on the endangered list.  If the population drops too low, whales might not be able to find suitable mates and the species will eventually go extinct.  In other words, the population will die out if it drops below a certain threshold.  We can model this with the following equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05-exercise-equation-right-whale.html ./knowl/firstlook05-exercise-equation-right-whale.html ./knowl/firstlook05-exercise-equation-ricatti.html ./knowl/firstlook05-exercise-equation-right-whale.html" id="firstlook05-exercise-equation-right-whale">
+\begin{equation}
+\frac{dP}{dt} = k\left(1 - \frac{P}{N} \right) (P - aN),\tag{1.5.12}
+\end{equation}
+</div>
+<p class="continuation">where <span class="process-math">\(P\)</span> is the population of the whales at time <span class="process-math">\(t\)</span> and <span class="process-math">\(N\)</span> is the carrying capacity.  The constants <span class="process-math">\(k\)</span> and <span class="process-math">\(a\)</span> are positive with <span class="process-math">\(a \lt 1\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-122"><p id="p-480">Find the equilibrium solutions of the this equation.</p></li>
+<li id="li-123"><p id="p-481">Since equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-right-whale.html" title="Equation 1.5.12">(1.5.12)</a> is autonomous, we can find a solution using separation of variables.  Find this solution.</p></li>
+<li id="li-124"><p id="p-482">Equation <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-right-whale.html" title="Equation 1.5.12">(1.5.12)</a> is also a Ricatti equation  <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-ricatti.html" title="Equation 1.5.11">(1.5.11)</a>.  Since we know an equilibrium solution from part (1), we can use the method of the previous problem to find a general solution to <a href="" class="xref" data-knowl="./knowl/firstlook05-exercise-equation-right-whale.html" title="Equation 1.5.12">(1.5.12)</a>.  Find the general solution using the fact that we have a Ricatti equation and show that your solution agrees with the solution that you found in part (2).</p></li>
+</ol></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-13"><div class="fn">Levy, Clifford J. (November 8, 2010). “Last Gasp for Factory Bequeathed by Soviets.” The New York Times. Retrieved March 14, 2014 from <a class="external" href="http://www.nytimes.com/2010/11/09/world/europe/09baikal.html" target="_blank"><code class="code-inline tex2jax_ignore">www.nytimes.com/2010/11/09/world/europe/09baikal.html</code></a>.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-14"><div class="fn">Polking p. 63</div></div>
+</div></main>
+</div>
+</body>
+</html>

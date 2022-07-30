@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:28+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Analyzing Equations Numerically</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook03.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook05.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook03.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook05.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="active">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="firstlook04"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span>
+</h2>
+<article class="objectives goal-like" id="objectives-4"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-69"><p id="p-301">To understand that numerical algorithms such as <dfn class="terminology">Euler's method</dfn> allow the approximation of solutions to the initial value problems and that there are more efficient algorithms than Euler's method such as those algorithms that use the <dfn class="terminology">Runge-Kutta methods</dfn>.</p></li>
+<li id="li-70"><p id="p-302">To understand that <dfn class="terminology">Taylor's Theorem</dfn> is a very useful tool for studying differential equations.</p></li>
+<li id="li-71"><p id="p-303">To understand that error analysis of the rate of convergence is very important for any numerical algorithm.</p></li>
+</ul></article><section class="introduction" id="introduction-22"><p id="p-304">Just as numerical algorithms are useful when finding the roots of polynomials, numerical methods will prove very useful in our study of ordinary differential equations. Consider the polynomial <span class="process-math">\(f(x) = x^2 - 2\text{.}\)</span>  We do not need a numerical algorithm to see that the roots of this polynomial are <span class="process-math">\(x = \sqrt{2}\)</span> and <span class="process-math">\(x = - \sqrt{2}\text{.}\)</span> However, a numerical method such as the Newton-Raphson Algorithm is very useful for approximating <span class="process-math">\(\sqrt{2}\)</span> as a decimal.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-12" id="fn-12"><sup> 1 </sup></a> Similarly, it may be easier to generate a numerical solution for differential equations if our goal is simply to plot a solution. In addition, there will be differential equations for which it is impossible to find a solution in terms of elementary functions such as polynomials, trigonometric functions, and exponential functions.</p></section><section class="subsection" id="firstlook04-subsection-eulers-method"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span>
+</h3>
+<p id="p-305">Suppose that we wish to solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-1">
+\begin{align}
+y' &amp;= f(t, y) = y + t, \tag{1.4.1}\\
+y(0) &amp;= 1. \tag{1.4.2}
+\end{align}
+</div>
+<p class="continuation">The equation <span class="process-math">\(y' = y + t\)</span> is not separable, which currently is the only analytic technique at our disposal. However, we can try to find a numerical approximation for the solution. A numerical approximation is simply a table (possibly very large) of <span class="process-math">\(t\)</span> and <span class="process-math">\(y\)</span> values.</p>
+<p id="p-306">We will attempt to find a numerical solution for <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-1.html" title="Equation 1.4.1">(1.4.1)</a>–<a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-2.html" title="Equation 1.4.2">(1.4.2)</a> on the interval <span class="process-math">\([0, 1]\text{.}\)</span> Even with the use of a computer, we cannot approximate the solution at every single point on an interval. For the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html" id="md-33">
+\begin{align*}
+y' &amp;= f(t, y)\\
+y(t_0) &amp;= y_0, 
+\end{align*}
+</div>
+<p class="continuation">we might be able to find approximations at <span class="process-math">\(a = t_0, t_1, t_2, \ldots, t_N = b\)</span> in <span class="process-math">\([a, b]\)</span> at best. If we choose <span class="process-math">\(t_1, t_2, \ldots, t_N\)</span> to be equally spaced on <span class="process-math">\([a, b]\text{,}\)</span> we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html">
+\begin{equation*}
+t_k = t_0 + kh,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(h = 1/N\)</span> and <span class="process-math">\(k = 1, 2, \ldots, N\text{.}\)</span>  We say that <span class="process-math">\(h\)</span> is the <dfn class="terminology">step size</dfn> for our approximation.</p>
+<p id="p-307">Given an approximation <span class="process-math">\(Y_k\)</span> for the solution <span class="process-math">\(y_k = y(t_k)\text{,}\)</span> the question is how to find an approximate solution <span class="process-math">\(Y_{k+1}\)</span> at <span class="process-math">\(t_{k+1}\text{.}\)</span> To generate the second approximation, we will construct a tangent line to the solution at <span class="process-math">\(y(t_0) = y_0\text{.}\)</span>  If we use the slope of the solution curve at <span class="process-math">\(t_0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'(t_0) = f(t_0, y_0).
+\end{equation*}
+</div>
+<p class="continuation">Making use of the fact that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{y(t_0 + h) - y(t_0)}{h} \approx  y'(t_0, y(t_0)) = y'(t_0, y_0)
+\end{equation*}
+</div>
+<p class="continuation">or equivalently</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t_0 + h) = y(t_1) \approx y(t_0) + h y'(t_0, y_0),
+\end{equation*}
+</div>
+<p class="continuation">the estimate for our solution at <span class="process-math">\(t_1 = t_0 + h\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+Y_1 = Y_0 + h f(t_0, Y_0).
+\end{equation*}
+</div>
+<p class="continuation">Similarly, the approximation at <span class="process-math">\(t_2 = t_0 + 2h\)</span> will be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+Y_2 = Y_1 + h f(t_1, Y_1).
+\end{equation*}
+</div>
+<p class="continuation">Our general algorithm is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+Y_{k+1} = Y_k + h f(t_k, Y_k).
+\end{equation*}
+</div>
+<p class="continuation">The idea is to compute tangent lines at each step and use this information to get our next approximation.</p>
+<p id="p-308">The algorithm that we have described is known as <dfn class="terminology">Euler's method</dfn>. Let us estimate a solution to <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-1.html" title="Equation 1.4.1">(1.4.1)</a>–<a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-2.html" title="Equation 1.4.2">(1.4.2)</a> on the interval <span class="process-math">\([0, 1]\)</span> with step size <span class="process-math">\(h = 0.1\text{.}\)</span> Since <span class="process-math">\(y(0) = 1\text{,}\)</span> we can make our first approximation exact,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html">
+\begin{equation*}
+Y_0 = y(0) = 1.
+\end{equation*}
+</div>
+<p class="continuation">To generate the second approximation, we will construct a tangent line to the solution at <span class="process-math">\(y(0) = 1\text{.}\)</span> If we use the slope of the solution curve at <span class="process-math">\(t_0 = 0\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html">
+\begin{equation*}
+y'(0) = f(y(0), 0) = y(0) + 0 = 1 + 0 = 1,
+\end{equation*}
+</div>
+<p class="continuation">and make use of the fact that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html">
+\begin{equation*}
+\frac{y(h) - y(0)}{h} \approx y'(0, y(0)) \qquad \text{or} \qquad y(h) \approx y(0) + hy'(0, y(0)),
+\end{equation*}
+</div>
+<p class="continuation">the estimate for our solution at <span class="process-math">\(t = 0.1\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html" id="md-34">
+\begin{align*}
+Y_1 &amp; = Y_0 + h f(t_0, Y_0)\\
+&amp; = Y_0 + h[Y_0 + t_0]\\
+&amp; = 1 + (0.1) [1 + 0]\\
+&amp; = 1.1000.
+\end{align*}
+</div>
+<p class="continuation">Similarly,  the approximation at <span class="process-math">\(t = 0.2\)</span> will be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html" id="md-35">
+\begin{align*}
+Y_2 &amp; = Y_1 + h f(t_1, Y_1)\\
+&amp; = Y_1 + h[Y_1 + t_1]\\
+&amp; = 1.1000 + (0.1) [1.1000 + 0.1]\\
+&amp; = 1.2200.
+\end{align*}
+</div>
+<p class="continuation">Our general algorithm is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-euler-1.html ./knowl/firstlook04-equation-euler-2.html">
+\begin{equation*}
+Y_{k+1} = Y_k + h f(t_k, Y_k) = Y_k + h[Y_k + t_k] = (1.1) Y_k + (0.01)k.
+\end{equation*}
+</div>
+<p id="p-309">The initial value problem <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-1.html" title="Equation 1.4.1">(1.4.1)</a>–<a href="" class="xref" data-knowl="./knowl/firstlook04-equation-euler-2.html" title="Equation 1.4.2">(1.4.2)</a> is, in fact, solvable analytically with solution <span class="process-math">\(y(t) = 2e^t - t - 1\text{.}\)</span> We can compare our approximation to the exact solution in <a href="" class="xref" data-knowl="./knowl/firstlook04-table-euler-approximation.html" title="Table 1.4.1: Euler's approximation for y' = y + t">Table 1.4.1</a>. We can also see graphs of the approximate and exact solutions in <a href="" class="xref" data-knowl="./knowl/firstlook04-figure-euler-approximation.html" title="Figure 1.4.2: Euler's approximation for y' = y + t">Figure 1.4.2</a>. Notice that the error grows as we get further away from our initial value. In fact, the graph of the approximation for <span class="process-math">\(h = 0.001\)</span> is obscured by the graph of the exact solution. In addition, a smaller step size gives us a more accurate approximation (<a href="" class="xref" data-knowl="./knowl/firstlook04-table-euler-approximation-step-size.html" title="Table 1.4.3: Step sizes for Euler's approximation">Table 1.4.3</a>).</p>
+<figure class="table table-like" id="firstlook04-table-euler-approximation"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.4.1<span class="period">.</span></span><span class="space"> </span>Euler's approximation for <span class="process-math">\(y' = y + t\)</span></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(t_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(Y_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(y_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(|y_k - Y_k|\)</span></td>
+<td class="c m b2 r0 l0 t2 lines">Percent Error</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0</td>
+<td class="c m b0 r0 l0 t0 lines">0.0</td>
+<td class="c m b0 r0 l0 t0 lines">1.0000</td>
+<td class="c m b0 r0 l0 t0 lines">1.0000</td>
+<td class="c m b0 r0 l0 t0 lines">0.0000</td>
+<td class="c m b0 r0 l0 t0 lines">0.00%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="c m b0 r0 l0 t0 lines">0.1</td>
+<td class="c m b0 r0 l0 t0 lines">1.1000</td>
+<td class="c m b0 r0 l0 t0 lines">1.1103</td>
+<td class="c m b0 r0 l0 t0 lines">0.0103</td>
+<td class="c m b0 r0 l0 t0 lines">0.93%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="c m b0 r0 l0 t0 lines">0.2</td>
+<td class="c m b0 r0 l0 t0 lines">1.2200</td>
+<td class="c m b0 r0 l0 t0 lines">1.2428</td>
+<td class="c m b0 r0 l0 t0 lines">0.0228</td>
+<td class="c m b0 r0 l0 t0 lines">1.84%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">3</td>
+<td class="c m b0 r0 l0 t0 lines">0.3</td>
+<td class="c m b0 r0 l0 t0 lines">1.3620</td>
+<td class="c m b0 r0 l0 t0 lines">1.3997</td>
+<td class="c m b0 r0 l0 t0 lines">0.0377</td>
+<td class="c m b0 r0 l0 t0 lines">2.69%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">4</td>
+<td class="c m b0 r0 l0 t0 lines">0.4</td>
+<td class="c m b0 r0 l0 t0 lines">1.5282</td>
+<td class="c m b0 r0 l0 t0 lines">1.5836</td>
+<td class="c m b0 r0 l0 t0 lines">0.0554</td>
+<td class="c m b0 r0 l0 t0 lines">3.50%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">5</td>
+<td class="c m b0 r0 l0 t0 lines">0.5</td>
+<td class="c m b0 r0 l0 t0 lines">1.7210</td>
+<td class="c m b0 r0 l0 t0 lines">1.7974</td>
+<td class="c m b0 r0 l0 t0 lines">0.0764</td>
+<td class="c m b0 r0 l0 t0 lines">4.25%</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">6</td>
+<td class="c m b0 r0 l0 t0 lines">0.6</td>
+<td class="c m b0 r0 l0 t0 lines">1.9431</td>
+<td class="c m b0 r0 l0 t0 lines">2.0442</td>
+<td class="c m b0 r0 l0 t0 lines">0.1011</td>
+<td class="c m b0 r0 l0 t0 lines">4.95%</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">10</td>
+<td class="c m b2 r0 l0 t0 lines">1.0</td>
+<td class="c m b2 r0 l0 t0 lines">3.1875</td>
+<td class="c m b2 r0 l0 t0 lines">3.4366</td>
+<td class="c m b2 r0 l0 t0 lines">0.2491</td>
+<td class="c m b2 r0 l0 t0 lines">7.25%</td>
+</tr>
+</table></div></figure><figure class="figure figure-like" id="firstlook04-figure-euler-approximation"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook04-euler-approximation.svg" role="img" class="contained" alt="three curves that increase at nearly the same rate with the exact race increasing the most quickly and the smaller step sizes increasing faster than the larger step sizes"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.4.2<span class="period">.</span></span><span class="space"> </span></figcaption></figure><figure class="table table-like" id="firstlook04-table-euler-approximation-step-size"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.4.3<span class="period">.</span></span><span class="space"> </span>Step sizes for Euler's approximation</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(t_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(h = 0.1\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(h = 0.02\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(h = 0.001\)</span></td>
+<td class="c m b2 r0 l0 t2 lines">Exact Solution</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.1</td>
+<td class="c m b0 r0 l0 t0 lines">1.1000</td>
+<td class="c m b0 r0 l0 t0 lines">1.1082</td>
+<td class="c m b0 r0 l0 t0 lines">1.1102</td>
+<td class="c m b0 r0 l0 t0 lines">1.1103</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.2</td>
+<td class="c m b0 r0 l0 t0 lines">1.2200</td>
+<td class="c m b0 r0 l0 t0 lines">1.2380</td>
+<td class="c m b0 r0 l0 t0 lines">1.2426</td>
+<td class="c m b0 r0 l0 t0 lines">1.2428</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.3</td>
+<td class="c m b0 r0 l0 t0 lines">1.3620</td>
+<td class="c m b0 r0 l0 t0 lines">1.3917</td>
+<td class="c m b0 r0 l0 t0 lines">1.3993</td>
+<td class="c m b0 r0 l0 t0 lines">1.3997</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.4</td>
+<td class="c m b0 r0 l0 t0 lines">1.5282</td>
+<td class="c m b0 r0 l0 t0 lines">1.5719</td>
+<td class="c m b0 r0 l0 t0 lines">1.5831</td>
+<td class="c m b0 r0 l0 t0 lines">1.5836</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.5</td>
+<td class="c m b0 r0 l0 t0 lines">1.7210</td>
+<td class="c m b0 r0 l0 t0 lines">1.7812</td>
+<td class="c m b0 r0 l0 t0 lines">1.7966</td>
+<td class="c m b0 r0 l0 t0 lines">1.7974</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.6</td>
+<td class="c m b0 r0 l0 t0 lines">1.9431</td>
+<td class="c m b0 r0 l0 t0 lines">2.0227</td>
+<td class="c m b0 r0 l0 t0 lines">2.0431</td>
+<td class="c m b0 r0 l0 t0 lines">2.0442</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.7</td>
+<td class="c m b0 r0 l0 t0 lines">2.1974</td>
+<td class="c m b0 r0 l0 t0 lines">2.2998</td>
+<td class="c m b0 r0 l0 t0 lines">2.3261</td>
+<td class="c m b0 r0 l0 t0 lines">2.3275</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.8</td>
+<td class="c m b0 r0 l0 t0 lines">2.4872</td>
+<td class="c m b0 r0 l0 t0 lines">2.6161</td>
+<td class="c m b0 r0 l0 t0 lines">2.6493</td>
+<td class="c m b0 r0 l0 t0 lines">2.6511</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0.9</td>
+<td class="c m b0 r0 l0 t0 lines">2.8159</td>
+<td class="c m b0 r0 l0 t0 lines">2.9757</td>
+<td class="c m b0 r0 l0 t0 lines">3.0170</td>
+<td class="c m b0 r0 l0 t0 lines">3.1092</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">1.0</td>
+<td class="c m b2 r0 l0 t0 lines">3.1875</td>
+<td class="c m b2 r0 l0 t0 lines">3.3832</td>
+<td class="c m b2 r0 l0 t0 lines">3.4238</td>
+<td class="c m b2 r0 l0 t0 lines">3.4366</td>
+</tr>
+</table></div></figure><article class="activity project-like" id="activity-8"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Euler's Method and Error.</span>
+</h4>
+<div class="introduction" id="introduction-23">
+<p id="p-310">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-36">
+\begin{align*}
+y' \amp  = x + xy\\
+y(0) \amp = 1.
+\end{align*}
+</div>
+</div>
+<article class="task exercise-like" id="task-31"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-311">Use separation of variables to solve the initial value problem.</p></article><article class="task exercise-like" id="firstlook04-task-exact"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-312">Compute <span class="process-math">\(y(x)\)</span> for <span class="process-math">\(x = 0, 0.2, 0.4, \ldots, 1\text{.}\)</span></p></article><article class="task exercise-like" id="firstlook04-task-euler"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-313">Use Euler's method to approximate solutions to the initial value problem for <span class="process-math">\(x = 0, 0.2, 0.4, \ldots, 1\text{.}\)</span></p></article><article class="task exercise-like" id="task-34"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-314">Compare the exact values of the solution (<a href="" class="xref" data-knowl="./knowl/firstlook04-task-exact.html" title="Task 1.4.1.b">Task 1.4.1.b</a>) to the approximate values of the solution (<a href="" class="xref" data-knowl="./knowl/firstlook04-task-euler.html" title="Task 1.4.1.c">Task 1.4.1.c</a>) and comment on what happens as <span class="process-math">\(x\)</span> varies from <span class="process-math">\(0\)</span> to <span class="process-math">\(1\text{.}\)</span></p></article></article></section><section class="subsection" id="firstlook04-subsection-error-bound"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span>
+</h3>
+<p id="p-315">To fully understand Euler's method, we will need to recall Taylor's theorem from calculus.</p>
+<article class="theorem theorem-like" id="firstlook04-theorem-taylor"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">1.4.4</span><span class="period">.</span>
+</h4>
+<p id="p-316">If <span class="process-math">\(x \gt x_0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!} (x - x_0)^2 + \cdots + \frac{f^{(n)}(\xi)}{n!}(x - x_0)^n,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\xi \in (x_0, x)\text{.}\)</span></p></article><p id="p-317">Given the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-37">
+\begin{align*}
+y' &amp; = f(t, y),\\
+y_0 &amp; = y (t_0),
+\end{align*}
+</div>
+<p class="continuation">choose <span class="process-math">\(t_1, t_2, \ldots, t_N\)</span> to be equally spaced on <span class="process-math">\([t_0, a]\text{,}\)</span> we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+t_k = t_0 + kh,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(h = (a - t_0)/N\)</span> and <span class="process-math">\(k = 1, 2, \ldots, N\text{.}\)</span> Taylor's Theorem tells us that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t_{k + 1}) = y(t_k + h) = y(t_k) + y'(t_k) h + \frac{y''(t_k)}{2!} h^2 + \cdots.
+\end{equation*}
+</div>
+<p class="continuation">If we know the values of <span class="process-math">\(y\)</span> and its derivatives at <span class="process-math">\(t_k\text{,}\)</span> then we can determine the value of <span class="process-math">\(y\)</span> at <span class="process-math">\(t_{k + 1}\text{.}\)</span></p>
+<p id="p-318">The simplest approximation can be obtained by taking the first two terms of the Taylor series. That is, we will use a linear approximation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y_{k + 1} = y(t_{k+1}) \approx y(t_k) + y'(t_k) h = y(t_k) + f(t_k, y_k) h.
+\end{equation*}
+</div>
+<p class="continuation">This gives us Euler's method,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-38">
+\begin{align*}
+Y_0 &amp; = y(t_0)\\
+Y_1 &amp; = Y_0 + h f(t_0, Y_0)\\
+Y_2 &amp; = Y_1 + h f(t_1, Y_1)\\
+&amp; \vdots\\
+Y_{k+1} &amp; = Y_k + h f(t_k, Y_k).
+\end{align*}
+</div>
+<p class="continuation">The terms that we are omitting, all contain powers of <span class="process-math">\(h\)</span> of at least degree two. If <span class="process-math">\(h\)</span> is small, then <span class="process-math">\(h^n\)</span> for <span class="process-math">\(n = 2, 3, \ldots\)</span> will be very small and these terms will not matter much.</p>
+<p id="p-319">We can actually estimate the error incurred by Euler's method if we make use of Taylor's Theorem.</p>
+<article class="theorem theorem-like" id="firstlook04-theorem-euler-error-bound"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">1.4.5</span><span class="period">.</span>
+</h4>
+<p id="p-320">Let <span class="process-math">\(y\)</span> be the unique solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-39">
+\begin{align*}
+y' &amp; =  f(t, y),\\
+y(a) &amp; =  \alpha,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(t \in [a, b]\text{.}\)</span> Suppose that <span class="process-math">\(f\)</span> is continuous and  there exists a constant <span class="process-math">\(L \gt 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|,
+\end{equation*}
+</div>
+<p class="continuation">whenever <span class="process-math">\((t, y_1)\)</span> and <span class="process-math">\((t, y_2)\)</span> are in <span class="process-math">\(D = [a, b] \times {\mathbb R}\text{.}\)</span> Also assume that there exists an <span class="process-math">\(M\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y''(t)| \leq M
+\end{equation*}
+</div>
+<p class="continuation">for all <span class="process-math">\(t \in [a, b]\text{.}\)</span> If <span class="process-math">\(Y_0, \ldots, Y_N\)</span> are the approximations generated by Euler's method for some positive integer <span class="process-math">\(N\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y(t_i) - Y_i| \leq \frac{hM}{2L} [ e^{L(t_i - a)} - 1].
+\end{equation*}
+</div></article><p id="p-321">The condition that  there exists a constant <span class="process-math">\(L \gt 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|,
+\end{equation*}
+</div>
+<p class="continuation">whenever <span class="process-math">\((t, y_1)\)</span> and <span class="process-math">\((t, y_2)\)</span> are in <span class="process-math">\(D = [a, b] \times {\mathbb R}\)</span> is called a <dfn class="terminology">Lipschitz condition</dfn>. Many of the functions that we will consider satisfy such a condition. If the condition is satisfied, we can usually say a great deal about the function.</p>
+<figure class="table table-like" id="firstlook04-table-euler-approximation-error-bound"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.4.6<span class="period">.</span></span><span class="space"> </span>Error bound and actual error</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(t_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(Y_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(y_k = y(t_k)\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(|y_k - Y_k|\)</span></td>
+<td class="c m b2 r0 l0 t2 lines">Estimated Error</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">0</td>
+<td class="c m b0 r0 l0 t0 lines">0.0</td>
+<td class="c m b0 r0 l0 t0 lines">1.0000</td>
+<td class="c m b0 r0 l0 t0 lines">1.0000</td>
+<td class="c m b0 r0 l0 t0 lines">0.0000</td>
+<td class="c m b0 r0 l0 t0 lines">0.0000</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">1</td>
+<td class="c m b0 r0 l0 t0 lines">0.1</td>
+<td class="c m b0 r0 l0 t0 lines">1.1000</td>
+<td class="c m b0 r0 l0 t0 lines">1.1103</td>
+<td class="c m b0 r0 l0 t0 lines">0.0103</td>
+<td class="c m b0 r0 l0 t0 lines">0.0286</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">2</td>
+<td class="c m b0 r0 l0 t0 lines">0.2</td>
+<td class="c m b0 r0 l0 t0 lines">1.2200</td>
+<td class="c m b0 r0 l0 t0 lines">1.2428</td>
+<td class="c m b0 r0 l0 t0 lines">0.0228</td>
+<td class="c m b0 r0 l0 t0 lines">0.0602</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">3</td>
+<td class="c m b0 r0 l0 t0 lines">0.3</td>
+<td class="c m b0 r0 l0 t0 lines">1.3620</td>
+<td class="c m b0 r0 l0 t0 lines">1.3997</td>
+<td class="c m b0 r0 l0 t0 lines">0.0377</td>
+<td class="c m b0 r0 l0 t0 lines">0.0951</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">4</td>
+<td class="c m b0 r0 l0 t0 lines">0.4</td>
+<td class="c m b0 r0 l0 t0 lines">1.5282</td>
+<td class="c m b0 r0 l0 t0 lines">1.5836</td>
+<td class="c m b0 r0 l0 t0 lines">0.0554</td>
+<td class="c m b0 r0 l0 t0 lines">0.1337</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">5</td>
+<td class="c m b0 r0 l0 t0 lines">0.5</td>
+<td class="c m b0 r0 l0 t0 lines">1.7210</td>
+<td class="c m b0 r0 l0 t0 lines">1.7974</td>
+<td class="c m b0 r0 l0 t0 lines">0.0764</td>
+<td class="c m b0 r0 l0 t0 lines">0.1763</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">6</td>
+<td class="c m b0 r0 l0 t0 lines">0.6</td>
+<td class="c m b0 r0 l0 t0 lines">1.9431</td>
+<td class="c m b0 r0 l0 t0 lines">2.0442</td>
+<td class="c m b0 r0 l0 t0 lines">0.1011</td>
+<td class="c m b0 r0 l0 t0 lines">0.2235</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">7</td>
+<td class="c m b0 r0 l0 t0 lines">0.7</td>
+<td class="c m b0 r0 l0 t0 lines">2.1974</td>
+<td class="c m b0 r0 l0 t0 lines">2.3275</td>
+<td class="c m b0 r0 l0 t0 lines">0.1301</td>
+<td class="c m b0 r0 l0 t0 lines">0.2756</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">8</td>
+<td class="c m b0 r0 l0 t0 lines">0.8</td>
+<td class="c m b0 r0 l0 t0 lines">2.4872</td>
+<td class="c m b0 r0 l0 t0 lines">2.6511</td>
+<td class="c m b0 r0 l0 t0 lines">0.1639</td>
+<td class="c m b0 r0 l0 t0 lines">0.3331</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">9</td>
+<td class="c m b0 r0 l0 t0 lines">0.9</td>
+<td class="c m b0 r0 l0 t0 lines">2.8159</td>
+<td class="c m b0 r0 l0 t0 lines">3.1092</td>
+<td class="c m b0 r0 l0 t0 lines">0.2033</td>
+<td class="c m b0 r0 l0 t0 lines">0.3968</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">10</td>
+<td class="c m b2 r0 l0 t0 lines">1.0</td>
+<td class="c m b2 r0 l0 t0 lines">3.1875</td>
+<td class="c m b2 r0 l0 t0 lines">3.4366</td>
+<td class="c m b2 r0 l0 t0 lines">0.2491</td>
+<td class="c m b2 r0 l0 t0 lines">0.4671</td>
+</tr>
+</table></div></figure><p id="p-322">We can now compare the estimated error from our theorem to the actual error of our example. We first need to determine <span class="process-math">\(M\)</span> and <span class="process-math">\(L\text{.}\)</span> Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-table-euler-approximation-error-bound.html">
+\begin{equation*}
+|f(t, y_1) - f(t, y_2)| = |(y_1 + t) - (y_2 + t)| = |y_1 - y_2|,
+\end{equation*}
+</div>
+<p class="continuation">we can take <span class="process-math">\(L\)</span> to be one.  Since <span class="process-math">\(y'' = 2e^t\text{,}\)</span> we can bound <span class="process-math">\(y''\)</span> on the interval <span class="process-math">\([0, 1]\)</span> by <span class="process-math">\(M = 2e\text{.}\)</span> Thus, we can bound the error by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-table-euler-approximation-error-bound.html">
+\begin{equation*}
+|y(t_i) - Y_i| \leq \frac{hM}{2L} [ e^{L(t_i - a)} - 1] = 0.1e( e^{t_i } - 1)
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(h =0.1\text{.}\)</span> Our results are in <a href="" class="xref" data-knowl="./knowl/firstlook04-table-euler-approximation-error-bound.html" title="Table 1.4.6: Error bound and actual error">Table 1.4.6</a>.</p></section><section class="subsection" id="firstlook04-subsection-improving-euler"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span>
+</h3>
+<p id="p-323">If we wish to improve upon Euler's method, we could add more terms of Taylor series. For example, we can obtain a more accurate approximation by using a quadratic Taylor polynomial,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t_1) \approx y_0 + f(t_0, y_0) h + \frac{y''(t_0)}{2} h^2.
+\end{equation*}
+</div>
+<p class="continuation">However, we need to know <span class="process-math">\(y''(t_0)\)</span> in order to use this approximation. Using the chain rule from multivariable calculus, we can differentiate both sides of <span class="process-math">\(y' = f(t, y)\)</span> to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' = \frac{\partial f}{\partial t} \frac{dt}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} = f_t + f f_y.
+\end{equation*}
+</div>
+<p class="continuation">Thus, our approximation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t_1) \approx y_0 + f(t_0, y_0) h + \frac{1}{2} \left( f_t(t_0, y_0) + f(t_0, y_0) f_y (t_0, y_0) \right) h^2.
+\end{equation*}
+</div>
+<p id="p-324">The problem is that some preliminary analytic work must be done. That is, before we can write a program to compute our solution, we must find <span class="process-math">\(\partial f/\partial t\)</span> and <span class="process-math">\(\partial f / \partial y\text{,}\)</span> although this is less of a problem with the availability of computer algebra systems such as <em class="emphasis">Sage</em>.</p>
+<p id="p-325">Around 1900, two German mathematicians, Carle Runge and Martin Kutta, independently invented several numerical algorithms to solve differential equations. These methods, known as <dfn class="terminology">Runge-Kutta methods</dfn>, estimate the higher-order terms of the Taylor series to find an approximation that does not depend on computing derivatives of <span class="process-math">\(f(t, y)\text{.}\)</span></p>
+<p id="p-326">If we consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html" id="md-40">
+\begin{align*}
+y' &amp; = f(t, y),\\
+y(t_0) &amp; = y_0,
+\end{align*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html">
+\begin{equation*}
+y(t_1) = y(t_0) + \int_{t_0}^{t_1} f(s, y(s)) \, ds
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html" id="firstlook04-equation-runge-kutta-1">
+\begin{equation}
+y_1 - y_0 = y(t_1) - y(t_0) = \int_{t_0}^{t_1} f(s, y(s)) \, ds\tag{1.4.3}
+\end{equation}
+</div>
+<p class="continuation">by the Fundamental Theorem of Calculus. In Euler's method, we approximate the right-hand side of <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-1.html" title="Equation 1.4.3">(1.4.3)</a> by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html">
+\begin{equation*}
+y_1 - y_0 = f(t_0, y_0) h.
+\end{equation*}
+</div>
+<p class="continuation">In terms of the definite integral, this is simply a left-hand sum. In the <dfn class="terminology">improved Euler's method</dfn> or the <dfn class="terminology">second-order Runge-Kutta method</dfn> we will estimate the right-hand side of <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-1.html" title="Equation 1.4.3">(1.4.3)</a> using the trapezoid rule from calculus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html" id="md-41">
+\begin{align*}
+y(t_1) - y(t_0) &amp; = \int_{t_0}^{t_1} f(s, y(s)) \, ds\\
+&amp; \approx \left( f(t_0, y_0) + f(t_1, y_1) \right) \frac{h}{2}.
+\end{align*}
+</div>
+<p class="continuation">Thus, our algorithm becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html" id="firstlook04-equation-runge-kutta-2">
+\begin{equation}
+y_1 = y_0 + \left( f(t_0, y_0) + f(t_1, y_1) \right) \frac{h}{2}.\tag{1.4.4}
+\end{equation}
+</div>
+<p class="continuation">However, we have a problem since <span class="process-math">\(y_1\)</span> appears in the right-hand side of our approximation. To get around this difficulty, we will replace <span class="process-math">\(y_1\)</span> in the right-hand side of <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-2.html" title="Equation 1.4.4">(1.4.4)</a> with the Euler approximation for <span class="process-math">\(y_1\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-1.html ./knowl/firstlook04-equation-runge-kutta-2.html">
+\begin{equation*}
+y_1 = y_0 + \left( f(t_0, y_0) + f(t_1, y_0 + f(t_0, y_0) h) \right) \frac{h}{2}.
+\end{equation*}
+</div>
+<p id="p-327">To understand that the second-order Runge-Kutta method is actually an improvement over the traditional Euler's method, we will need to use the Taylor approximation for a function of two variables. Let us assume that <span class="process-math">\(f(x,y)\)</span> is defined on some rectangle and that all of the derivatives of <span class="process-math">\(f\)</span> are continuously differentiable. Then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-42">
+\begin{align*}
+f(x + h, y + k) &amp; = f(x, y) + h \frac{\partial}{\partial x} f(x, y) + k \frac{\partial}{\partial y}f(x, y)\\
+&amp; + \frac{1}{2!} \left( h^2 \frac{\partial^2}{\partial^2 x} f(x, y) + hk \frac{\partial^2}{\partial x \partial y}f(x, y) + k^2 \frac{\partial^2}{\partial^2 y}f(x, y) \right)\\
+&amp; + \frac{1}{3!} \left( h^3 \frac{\partial^3}{\partial^3 x} f(x, y)  + 3h^2k \frac{\partial^3}{\partial^2 x \partial y}f(x, y) \right.\\
+&amp; + \left. hk^2 \frac{\partial^3}{\partial x\partial^2 y}f(x, y) + k^3 \frac{\partial^3}{\partial^3 y} f(x, y) \right) + \cdots.
+\end{align*}
+</div>
+<p class="continuation">As in the case of the single variable Taylor series, we can write a Taylor polynomial if the Taylor series is truncated,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-43">
+\begin{align*}
+f(x + h, y + k) &amp; =  \sum_{n = 0}^{N} \frac{1}{n!} \left(  h \frac{\partial}{\partial x} + k \frac{\partial}{\partial y} \right)^n f(x, y)\\
+&amp; + \frac{1}{(N+1)!} \left(  h \frac{\partial}{\partial x} + k \frac{\partial}{\partial y} \right)^{N+1} f(\overline{x}, \overline{y} ),
+\end{align*}
+</div>
+<p class="continuation">where the second term is the remainder term and <span class="process-math">\((\overline{x}, \overline{y} )\)</span> lies on the line segment joining <span class="process-math">\((x, y)\)</span> and <span class="process-math">\((x + h, y + k)\text{.}\)</span></p>
+<p id="p-328">In the Improved Euler's Method, we adopt a formula</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html">
+\begin{equation*}
+y(t + h) = y(t) + w_1 F_1 + w_2 F_2,
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html" id="md-44">
+\begin{align*}
+F_1 &amp; = h f(t, y)\\
+F_2 &amp; = h f(t + \alpha h, y + \beta F_1).
+\end{align*}
+</div>
+<p class="continuation">That is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html" id="firstlook04-equation-runge-kutta-3">
+\begin{equation}
+y(t + h) = y(t) + w_1 h f(t, y) + w_2 h f(t + \alpha h, y + \beta h f(t, y)).\tag{1.4.5}
+\end{equation}
+</div>
+<p class="continuation">The idea is to choose the constants <span class="process-math">\(w_1\text{,}\)</span> <span class="process-math">\(w_2\text{,}\)</span> <span class="process-math">\(\alpha\text{,}\)</span> and <span class="process-math">\(\beta\)</span> as accurately as possible in order to duplicate as many terms as possible in the Taylor series</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html" id="firstlook04-equation-runge-kutta-4">
+\begin{equation}
+y(t + h) = y(t) + h y'(t) + \frac{h^2}{2!} y''(t) + \frac{h^3}{3!} y''(t) + \cdots.\tag{1.4.6}
+\end{equation}
+</div>
+<p class="continuation">We can make equations <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-3.html" title="Equation 1.4.5">(1.4.5)</a> and <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-4.html" title="Equation 1.4.6">(1.4.6)</a> agree if we choose <span class="process-math">\(w_1 = 1\)</span> and <span class="process-math">\(w_2 = 0\text{.}\)</span> Since <span class="process-math">\(y' = f\text{,}\)</span> we obtain Euler's method.</p>
+<p id="p-329">If we are more careful about choosing our parameters, we can obtain agreement up through the <span class="process-math">\(h^2\)</span> term. If we use the two variable Taylor series to expand <span class="process-math">\(f(t + \alpha h, y + \beta h f)\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html ./knowl/firstlook04-equation-runge-kutta-5.html ./knowl/firstlook04-equation-runge-kutta-6.html">
+\begin{equation*}
+f(t + \alpha h, y + \beta h f) = f + \alpha h f_t + \beta h f f_y + {\mathcal O}(h^2),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\({\mathcal O}(h^2)\)</span> means that of the subsequent terms have a factor of <span class="process-math">\(h^n\)</span> with <span class="process-math">\(n \geq 2\text{.}\)</span> Using this expression, we obtain a new form for <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-3.html" title="Equation 1.4.5">(1.4.5)</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html ./knowl/firstlook04-equation-runge-kutta-5.html ./knowl/firstlook04-equation-runge-kutta-6.html" id="firstlook04-equation-runge-kutta-5">
+\begin{equation}
+y(t + h) = y(t) + (w_1 + w_2) hf + \alpha w_2 h^2 f_t + \beta w_2 h^2 f f_y + {\mathcal O}(h^3).\tag{1.4.7}
+\end{equation}
+</div>
+<p class="continuation">Since <span class="process-math">\(y'' = f_t + f_y f\)</span> by the chain rule, we can rewrite <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-4.html" title="Equation 1.4.6">(1.4.6)</a> as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html ./knowl/firstlook04-equation-runge-kutta-5.html ./knowl/firstlook04-equation-runge-kutta-6.html" id="firstlook04-equation-runge-kutta-6">
+\begin{equation}
+y(t + h) = y(t) + h f + \frac{h^2}{2!}( f_t +  f f_y) + {\mathcal O}(h^3).\tag{1.4.8}
+\end{equation}
+</div>
+<p class="continuation">We can make equations <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-5.html" title="Equation 1.4.7">(1.4.7)</a> and <a href="" class="xref" data-knowl="./knowl/firstlook04-equation-runge-kutta-6.html" title="Equation 1.4.8">(1.4.8)</a> agree up through the quadratic terms if we require that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html ./knowl/firstlook04-equation-runge-kutta-5.html ./knowl/firstlook04-equation-runge-kutta-6.html" id="md-45">
+\begin{align*}
+w_1 + w_2 &amp; = 1,\\
+\alpha w_2 &amp; = \frac{1}{2},\\
+\beta w_2 &amp; = \frac{1}{2}.
+\end{align*}
+</div>
+<p class="continuation">If we choose <span class="process-math">\(\alpha = \beta = 1\)</span> and <span class="process-math">\(w_1 = w_2 = 1/2\text{,}\)</span> these equations are satisfied, and we obtain the improved Euler's method</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-equation-runge-kutta-3.html ./knowl/firstlook04-equation-runge-kutta-4.html ./knowl/firstlook04-equation-runge-kutta-5.html ./knowl/firstlook04-equation-runge-kutta-6.html">
+\begin{equation*}
+y(t + h) = y(t) + \frac{h}{2} f(t, h) + \frac{h}{2} f(t + h, y  + h f(t, y)).
+\end{equation*}
+</div>
+<p id="p-330">The improved Euler's method or the second-order Runge-Kutta method is a more sophisticated algorithm that is less prone to error due to the step size <span class="process-math">\(h\text{.}\)</span> Euler's method is based on truncating the Taylor series after the linear term. Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t + h) = y(t) + h y'(t) + {\mathcal O}(h^2),
+\end{equation*}
+</div>
+<p class="continuation">we know that the error depends on <span class="process-math">\(h\text{.}\)</span> On the other hand, the error for the improved Euler's method depends on <span class="process-math">\(h^2\text{,}\)</span> since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t + h) = y(t) + h y'(t) + \frac{h^2}{2!} y''(t) + {\mathcal O}(h^3).
+\end{equation*}
+</div>
+<p id="p-331">If we use Simpson's rule to estimate the integral in</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t_1) - y(t_0) = \int_{t_0}^{t_1} f(s, y(s)) \, ds,
+\end{equation*}
+</div>
+<p class="continuation">we can improve our accuracy up to <span class="process-math">\(h^4\text{.}\)</span>  The idea is exactly the same, but the algebra becomes much more tedious. This method is known as the Runge-Kutta method of order 4 and is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t + h) = y(t) + \frac{1}{6} (F_1 + 2 F_2 + 2 F_3 + F_4),
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-46">
+\begin{align*}
+F_1 &amp; = h f(t, y)\\
+F_2 &amp; = hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)\\
+F_3 &amp; = hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)\\
+F_4 &amp; = hf(t + h, y + F_3).
+\end{align*}
+</div></section><section class="subsection" id="firstlook04-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-332" class="disc">
+<li id="li-72">
+<p id="p-333">We can use Euler's method to find an approximate solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-47">
+\begin{align*}
+y' &amp; = f(t, y),\\
+y(a) &amp; = \alpha
+\end{align*}
+</div>
+<p class="continuation">on an interval <span class="process-math">\([a, b]\text{.}\)</span>  If we wish to find approximations at <span class="process-math">\(N\)</span> equally spaced points <span class="process-math">\(t_1, \ldots, t_N\text{,}\)</span> where <span class="process-math">\(h = (b-a)/N\)</span> and <span class="process-math">\(t_i = a + i h\text{,}\)</span> our approximations should be</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-48">
+\begin{align*}
+Y_0 &amp; = \alpha,\\
+Y_1 &amp; = Y_0 + h f(\alpha, Y_0),\\
+Y_2 &amp; = Y_1 + h f(t_1, Y_1,)\\
+&amp; \vdots\\
+Y_{k+1} &amp; = Y_k + h f(t_k, Y_k),\\
+Y_N &amp; = Y_{N-1} + h f(t_{N-1}, Y_{N-1}).
+\end{align*}
+</div>
+<p class="continuation">In practice, no one uses Euler's method. The Runge-Kutta methods are better algorithms.</p>
+</li>
+<li id="li-73">
+<p id="p-334">Taylor's Theorem is a very useful tool for studying differential equations. If <span class="process-math">\(x \gt x_0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2!} (x - x_0)^2 + \cdots + \frac{f^{(n)}(\xi)}{n!}(x - x_0)^n,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\xi \in (x_0, x)\text{.}\)</span></p>
+</li>
+<li id="li-74">
+<p id="p-335">Error analysis rate of convergence is very important for any numerical algorithm. Our approximation is more accurate for smaller values of <span class="process-math">\(h\text{.}\)</span> Under reasonable conditions we can also bound the error by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y(t_i) - Y_i| \leq \frac{hM}{2L} [ e^{L(t_i - a)} - 1],
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(y\)</span> is the unique solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-49">
+\begin{align*}
+y' &amp; = f(t, y),\\
+y(a) &amp; = \alpha.
+\end{align*}
+</div>
+</li>
+<li id="li-75">
+<p id="p-336">The condition that there exists a constant <span class="process-math">\(L \gt 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|,
+\end{equation*}
+</div>
+<p class="continuation">whenever <span class="process-math">\((t, y_1)\)</span> and <span class="process-math">\((t, y_2)\)</span> are in <span class="process-math">\(D = [a, b] \times {\mathbb R}\)</span> is called a <dfn class="terminology">Lipschitz condition</dfn>.</p>
+</li>
+<li id="li-76"><p id="p-337">Using Taylor series, we can develop better numerical algorithms to compute solutions of differential equations. The Runge-Kutta methods are an important class of these algorithms.</p></li>
+<li id="li-77">
+<p id="p-338">The improved Euler's method is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t + h) = y(t) + \frac{h}{2} f(t, h) + \frac{h}{2} f(t + h, y + h f(t, y))
+\end{equation*}
+</div>
+<p class="continuation">with the error bound depending on <span class="process-math">\(h^2\text{.}\)</span></p>
+</li>
+<li id="li-78">
+<p id="p-339">The Runge-Kutta method of order 4 is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t + h) = y(t) + \frac{1}{6} (F_1 + 2 F_2 + 2 F_3 + F_4),
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-50">
+\begin{align*}
+F_1 &amp; = h f(t, y)\\
+F_2 &amp; = hf\left( t + \frac{1}{2} h, y + \frac{1}{2} F_1 \right)\\
+F_3 &amp; = hf\left(  t + \frac{1}{2} h, y + \frac{1}{2} F_2 \right)\\
+F_4 &amp; = hf(t + h, y + F_3)
+\end{align*}
+</div>
+<p class="continuation">with the error bound depending on <span class="process-math">\(h^4\text{.}\)</span></p>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook04"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook04-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-340">We can use Taylor polynomials to approximate a function <span class="process-math">\(f(x)\)</span> near a point <span class="process-math">\(x_0\text{.}\)</span> Explain why this approximation can only be expected to be accurate near <span class="process-math">\(x_0\text{.}\)</span></p></article><article class="exercise exercise-like" id="reading-questions-firstlook04-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-341">Should we always use Euler's method when approximating a solution to an initial value problem?  Why or why not?</p></article></section><section class="exercises" id="exercises-firstlook04"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.4.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="firstlook04-exercises-euler">
+<h4 class="heading"><span class="title">Finding Solutions.</span></h4>
+<div class="introduction" id="introduction-24">
+<p id="p-342">For each of the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-exercises-euler.html" id="md-51">
+\begin{align*}
+y' &amp; = f(t, y),\\
+y(t_0) &amp; = y_0
+\end{align*}
+</div>
+<p class="continuation">in <a href="" class="xref" data-knowl="./knowl/firstlook04-exercises-euler.html" title="Exercise Group 1.4.6.1–6: Finding Solutions">Exercise Group 1.4.6.1–6</a>,</p>
+<ol class="lower-alpha">
+<li id="li-79"><p id="p-343">Write the Euler's method iteration <span class="process-math">\(Y_{k+1} = Y_k + h f(t_k, Y_k)\)</span> for the given problem, identifying the values <span class="process-math">\(t_0\)</span> and <span class="process-math">\(y_0\text{.}\)</span></p></li>
+<li id="li-80"><p id="p-344">Using a step size of <span class="process-math">\(h = 0.1\text{,}\)</span> compute the approximations for <span class="process-math">\(Y_1\text{,}\)</span> <span class="process-math">\(Y_2\text{,}\)</span> and <span class="process-math">\(Y_3\text{.}\)</span></p></li>
+<li id="li-81"><p id="p-345">Solve the problem analytically if possible. If it is not possible for you to find the analytic solution, use <em class="emphasis">Sage</em>.</p></li>
+<li id="li-82"><p id="p-346">Use the results of (c) and (d), to construct a table of errors for <span class="process-math">\(Y_i - y_i\)</span> for <span class="process-math">\(i = 1, 2, 3\text{.}\)</span></p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-91"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-347"><span class="process-math">\(y' = -2y\text{,}\)</span> <span class="process-math">\(y(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-92"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-348"><span class="process-math">\(y' = ty\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-93"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-349"><span class="process-math">\(y' = y^3\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-94"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-350"><span class="process-math">\(y' = y\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-95"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-351"><span class="process-math">\(y' = y + t\text{,}\)</span> <span class="process-math">\(y'(0) = 2\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-4" id="hint-4"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-4"><div class="hint solution-like"><p id="p-352">This equation is a first-order linear equation (<a href="firstlook05.html" class="internal" title="Section 1.5: First-Order Linear Equations">Section 1.5</a>), but it is possible to find the analytic solution using <em class="emphasis">Sage</em> (<a href="firstlook02.html#firstlook02-subsection-sage" class="internal" title="Subsection 1.2.10: Sage—Quick Start Guide to Solving Ordinary Differential Equations">Subsection 1.2.10</a>).</p></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-96"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-353"><span class="process-math">\(y' = 1/y\text{,}\)</span> <span class="process-math">\(y'(0) = 2\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-97"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-354">Consider the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook04-theorem-euler-error-bound.html">
+\begin{equation*}
+\frac{dy}{dt} = 3y - 1
+\end{equation*}
+</div>
+<p class="continuation">with initial value <span class="process-math">\(y(0) = 2\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-83"><p id="p-355">Find the exact solution of the initial value problem.</p></li>
+<li id="li-84"><p id="p-356">Use Euler's method with step size <span class="process-math">\(h = 0.5\)</span> to approximate the solution to the initial value problem on the interval <span class="process-math">\([0,2]\)</span>  Your solution should include a table of approximate values of the dependent variable as well as the exact values of the dependent variable.  Make sure that your approximations are accurate to <em class="emphasis">four</em> decimal places.</p></li>
+<li id="li-85"><p id="p-357">Sketch the graph of the approximate and exact solutions.</p></li>
+<li id="li-86"><p id="p-358">Use the error bound theorem (<a href="" class="xref" data-knowl="./knowl/firstlook04-theorem-euler-error-bound.html" title="Theorem 1.4.5">Theorem 1.4.5</a>) to estimate the error at each approximation.  Your solution should include a table of approximate values of the dependent variable the exact values of the dependent variable, the error estimates, and the actual error.  Make sure that your approximations are accurate to <em class="emphasis">four</em> decimal places.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-98"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<p id="p-359">In this series of exercises, we will prove the error bound theorem for Euler's method (<a href="" class="xref" data-knowl="./knowl/firstlook04-theorem-euler-error-bound.html" title="Theorem 1.4.5">Theorem 1.4.5</a>).</p>
+<ol class="lower-alpha">
+<li id="li-87">
+<p id="p-360">Use Taylor's Theorem to show that for all <span class="process-math">\(x \geq -1\)</span> and any positive <span class="process-math">\(m\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+0 \leq (1 + x)^m \leq e^{mx}.
+\end{equation*}
+</div>
+</li>
+<li id="li-88">
+<p id="p-361">Use part (1) and geometric series to prove the following statement: If <span class="process-math">\(s\)</span> and <span class="process-math">\(t\)</span> are positive real numbers, and <span class="process-math">\(\{ a_i \}_{i = 0}^k\)</span> is a sequence satisfying</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-52">
+\begin{align*}
+a_0 &amp; \geq -\frac{t}{s}\\
+a_{i+1} &amp; \leq (1 + s) a_i + t, \text{ for }i = 0, 1, 2, \ldots, k,
+\end{align*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a_{i + 1} \leq e^{(i + 1)s} \left(  \frac{t}{s} + a_0 \right) - \frac{t}{s}.
+\end{equation*}
+</div>
+</li>
+<li id="li-89">
+<p id="p-362">When <span class="process-math">\(i = 0\text{,}\)</span> <span class="process-math">\(y(t_0) = Y_0 = \alpha\)</span> and the theorem is true.  Use Euler's method and Taylor's Theorem to show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y_{i + 1} - Y_{i + 1} | \leq |y_i - Y_i| + h |f(t_i, y_i) - f(t_i, Y_i)| + \frac{h^2}{2} |y''(\xi_i)|
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\xi_i \in (t_i, t_{i+1})\)</span> and <span class="process-math">\(y_k = y(t_k)\text{.}\)</span></p>
+</li>
+<li id="li-90">
+<p id="p-363">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y_{i + 1} - Y_{i + 1} | \leq  |y_i - Y_i| (1 + hL) + \frac{Mh^2}{2}. 
+\end{equation*}
+</div>
+</li>
+<li id="li-91">
+<p id="p-364">Let <span class="process-math">\(a_j = |y_j - Y_j|\)</span> for <span class="process-math">\(j = 0, 1, \ldots, N\text{,}\)</span> <span class="process-math">\(s = hL\text{,}\)</span> and <span class="process-math">\(t = M h^2/2\)</span> and apply part (2) to show</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y_{i + 1} - Y_{i + 1} | \leq e^{(1 + i)hL} \left( |y_0 - Y_0| + \frac{M h^2 }{2hL} \right) - \frac{M h^2}{2hL}. 
+\end{equation*}
+</div>
+<p class="continuation">and derive that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|y_{i + 1} - Y_{i + 1} | \leq \frac{M h }{2L} \left( e^{(t_{i+ 1} - a)L} - 1\right)
+\end{equation*}
+</div>
+<p class="continuation">for each <span class="process-math">\(i = 0, 1, \ldots, N-1\text{.}\)</span></p>
+</li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-5" id="hint-5"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-5"><div class="hint solution-like">
+<p id="p-365">Hints for part (2):</p>
+<ul class="disc">
+<li id="li-92">
+<p id="p-366">For fixed <span class="process-math">\(i\)</span> show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-53">
+\begin{align*}
+a_{i + 1} &amp; \leq (1 + s)a_i + t\\
+&amp; \leq (1 + s)[(1 + s)a_{i - 1}+ t] + t\\
+&amp; \leq (1 + s)\{ (1 + s)[(1 + s) a_{i - 2} + t]+ t\} + t\\
+&amp; \vdots\\
+&amp; \leq (1 + s)^{i+1}a_0 + [1 + (1 + s) + (1+s)^2 + \cdots + (1 + s)^i]t.
+\end{align*}
+</div>
+</li>
+<li id="li-93">
+<p id="p-367">Now use a geometric sum to show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a_{i + 1} \leq (1 + s)^{i + 1} a_0 + \frac{t}{s}[(1 + s)^{i + 1} - 1] = (1 + s)^{i + 1} \left( \frac{t}{s} + a_0 \right) - \frac{t}{s}.
+\end{equation*}
+</div>
+</li>
+<li id="li-94">
+<p id="p-368">Apply part (1) to derive</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a_{i + 1} \leq e^{(i + 1)s} \left( \frac{t}{s} + a_0 \right) - \frac{t}{s}.
+\end{equation*}
+</div>
+</li>
+</ul>
+</div></div>
+</div></article></section><section class="subsection" id="firstlook04-subsection-sage-project"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span>
+</h3>
+<p id="p-369">Not all differential equations can be solved using algebra and calculus even if we are very clever. If we encounter an equation that we cannot solve or use <em class="emphasis">Sage</em> to solve, we must resort to numerical algorithms like Euler's method or one of the Runge-Kutta methods, which are best implemented using a computer. Fortunately, <em class="emphasis">Sage</em> has some very good numerical solvers. <em class="emphasis">Sage</em> will need to know the following to solve a differential equation:</p>
+<ul class="disc">
+<li id="li-95"><p id="p-370">An abstract function,</p></li>
+<li id="li-96"><p id="p-371">A differential equation, <em class="emphasis">including an initial condition</em>,</p></li>
+<li id="li-97"><p id="p-372">A <em class="emphasis">Sage</em> command to solve the equation.</p></li>
+</ul>
+<p id="p-373">Suppose we wish to solve the initial value problem <span class="process-math">\(dy/dx = x + y\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{.}\)</span> We can use <em class="emphasis">Sage</em> to find an algebraic solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-23"><script type="text/x-sage">y = function('y')(x)
+de = diff(y,x) == x + y
+solution = desolve(de, y, ics = [0,1])
+solution.show()
+plot(solution, x, 0, 5)
+</script></pre>
+<p id="p-374">We can also use Euler's method to find a solution for our initial value problem.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-24"><script type="text/x-sage">x,y = PolynomialRing(RR, 2, "xy").gens() #declare x, y as generators of a polynomial ring
+eulers_method(x + y, 0,1, 0.5, 5)
+</script></pre>
+<p id="p-375">The syntax of <code class="code-inline tex2jax_ignore">eulers_method</code> for the inital value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-54">
+\begin{align*}
+y \amp = f(x,y)\\
+f(x_0) \amp = y_0
+\end{align*}
+</div>
+<p class="continuation">with step size <span class="process-math">\(h\)</span> on the interval <span class="process-math">\([x_0, x_1]\)</span> is <code class="code-inline tex2jax_ignore">eulers_method(f, x0, y0, h, x1)</code> Notice that we obtained a table of values. However, we can use the <code class="code-inline tex2jax_ignore">line</code> command from <em class="emphasis">Sage</em> to plot the values <span class="process-math">\((x, y)\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-25"><script type="text/x-sage">x,y = PolynomialRing(RR, 2, "xy").gens()
+pts = eulers_method(x + y, 0, 1, 1/2, 4.5, algorithm="none")
+p = list_plot(pts, color="red")
+p += line(pts)
+p
+</script></pre>
+<p id="p-376">As we pointed out, <code class="code-inline tex2jax_ignore">eulers_method</code> is not very sophisticated. We have to use a very small step size to get good accuracy, and the method can generate errors if we are not careful. Fortunately, <em class="emphasis">Sage</em> has much better algorithms for solving initial value problems.  One such algorithm is <code class="code-inline tex2jax_ignore">desolve_rk4</code>, which implements the fourth order Runge-Kutta method.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-26"><script type="text/x-sage">x,y = var('x y')
+desolve_rk4(x + y, y, ics=[0, 1], end_points = 5, step = 0.5)
+</script></pre>
+<p id="p-377">Again, we just get a list of points.  However, <code class="code-inline tex2jax_ignore">desolve_rk4</code> has some nice built-in graphing utilities.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-27"><script type="text/x-sage">x,y = var('x y')
+p = desolve_rk4(x + y, y, ics = [0,1], ivar = x, output = 'slope_field', end_points = [0, 5], thickness = 2, color = 'red')
+p
+</script></pre>
+<p id="p-378">Write the <em class="emphasis">Sage</em> commands to compare the graphs obtained using <code class="code-inline tex2jax_ignore">eulers_method</code> and <code class="code-inline tex2jax_ignore">desolve</code> with the exact solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-28"><script type="text/x-sage">
+</script></pre>
+<p id="p-379">Not only is <code class="code-inline tex2jax_ignore">desolve_rk4</code> more accurate, it is much easier to use. For more information, see <a class="external" href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html</code></a>.</p></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-12"><div class="fn">See any calculus text for a description of the Newton-Raphson Algorithm.</div></div>
+</div></main>
+</div>
+</body>
+</html>

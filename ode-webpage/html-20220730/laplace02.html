@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:34+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Solving Initial Value Problems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="laplace01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="laplace.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="laplace03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="laplace01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="laplace.html" title="Up">Up</a><a class="next-button button toolbar-item" href="laplace03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="active">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="laplace02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-30"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-592"><p id="p-2006">To understand how the Laplace transform acts on derivatives.</p></li>
+<li id="li-593">
+<p id="p-2007">To understand how the Laplace transform can be used to solve initial value problems such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-561">
+\begin{align*}
+a y''(t) + b y'(t) + c y(t) \amp = f(t)\\
+y(0) \amp = y_0\\
+y'(0) \amp = y'_0
+\end{align*}
+</div>
+<p class="continuation">even when <span class="process-math">\(f(t)\)</span> is discontinuous.</p>
+</li>
+</ul></article><section class="introduction" id="introduction-138"><p id="p-2008">There is no need for Laplace transforms when solving many initial value problems. If we consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html" id="md-562">
+\begin{align*}
+y''  + 7y' + 10y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 1,
+\end{align*}
+</div>
+<p class="continuation">the methods described in <a href="secondorder.html" class="internal" title="Chapter 4: Second-Order Linear Equations">Chapter 4</a> work quite well. The characteristic polynomial of <span class="process-math">\(y'' + 7y' + 10y = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+r^2 + 7r + 10 = (r + 2)(r + 5),
+\end{equation*}
+</div>
+<p class="continuation">and the general solution of the differential equation must be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+y(t) = c_1 e^{-2t} + c_2 e^{-5t}.
+\end{equation*}
+</div>
+<p class="continuation">Applying the initial conditions, we find that the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+y(t) = 2 e^{-2t} - e^{-5t}.
+\end{equation*}
+</div>
+<p class="continuation">However, suppose that we have a harmonic oscillator with a discontinuous forcing term,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html" id="md-563">
+\begin{gather*}
+y'' + 2 y' + 5y = h(t)\\
+y(0) = y'(0) = 0,
+\end{gather*}
+</div>
+<p class="continuation">where <span class="process-math">\(h(t)\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+7 &amp; t \lt 5 \\
+0 &amp; t \geq 5.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">None of the previous techniques that we described are sufficient to solve such an initial value problem. Yet, we can easily imagine such equations arising in physics or engineering.</p>
+<p id="p-2009">Fortunately, Laplace transforms forms behave very nicely with respect to derivatives. We can use Laplace transforms to transform an initial value problem into an algebraic equation. Once the algebraic equation is solved, we can use the inverse transform to obtain the solution to our original initial value problem.</p></section><section class="subsection" id="laplace02-subsection-derivatives"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span>
+</h3>
+<p id="p-2010">Suppose that we have linear differential equation with constant coefficients</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-linearity.html">
+\begin{equation*}
+a y''(t) + b y'(t) + c y(t) = f(t)
+\end{equation*}
+</div>
+<p class="continuation">and initial conditions <span class="process-math">\(y(0) = y_0\)</span> and <span class="process-math">\(y'(0) = y_0'\text{.}\)</span> We can take the Laplace transform of both sides to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-linearity.html">
+\begin{equation*}
+a {\mathcal L}(y''(t)) + b {\mathcal L}(y'(t)) + c {\mathcal L}(y(t)) = {\mathcal L}(f(t)).
+\end{equation*}
+</div>
+<p class="continuation">Notice that we have used the fact that the Laplace transform is a linear operator (<a href="" class="xref" data-knowl="./knowl/laplace01-theorem-linearity.html" title="Theorem 6.1.3">Theorem 6.1.3</a>).  To proceed further, we need to know the Laplace transform of the derivative of a function.</p>
+<article class="theorem theorem-like" id="laplace02-theorem-derivative"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.2.1</span><span class="period">.</span>
+</h4>
+<p id="p-2011">Let <span class="process-math">\(y = y(t)\)</span> be a piecewise continuous, exponentially bounded function and assume that <span class="process-math">\(y'\)</span> is also exponentially bounded. Then for large values of <span class="process-math">\(s\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span></p></article><article class="hiddenproof" id="proof-17"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-17"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-17"><article class="hiddenproof"><p id="p-2012">We can evaluate the Laplace transform of <span class="process-math">\(y'\)</span> by using integration by parts,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-564">
+\begin{align*}
+{\mathcal L}(y')(s) &amp; = \int_0^\infty y'(t) e^{-st} \, dt\\
+&amp; = \lim_{b \to \infty}\left[  e^{-st} y(t) \Big|_0^b + s \int_0^b y(t) e^{-st} \, dt \right]\\
+&amp; =  \lim_{b \to \infty}\left[  e^{-sb} y(b) -y(0) + s {\mathcal L}(y)(s) \right].
+\end{align*}
+</div>
+<p class="continuation">We claim that <span class="process-math">\(\lim_{b \to \infty} e^{-sb} y(b) = 0\text{.}\)</span>  Since, <span class="process-math">\(y\)</span> is exponentially bounded, there exist constants <span class="process-math">\(M \geq 0\)</span> and <span class="process-math">\(a\)</span> such that <span class="process-math">\(|y(t)| \leq Me^{at}\text{,}\)</span> for all <span class="process-math">\(t\)</span> in <span class="process-math">\([0, \infty)\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|e^{-sb} y(b)| \leq Me^{-(s -a)b}.
+\end{equation*}
+</div>
+<p class="continuation">The right-hand side of this inequality as <span class="process-math">\(b \to \infty\)</span> for <span class="process-math">\(s \gt a\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0).
+\end{equation*}
+</div></article></div>
+<p id="p-2013">The Laplace transform also behave nicely with respect to higher order derivatives.</p>
+<article class="theorem theorem-like" id="laplace02-theorem-derivative-higher"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.2.2</span><span class="period">.</span>
+</h4>
+<p id="p-2014">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is  exponentially bounded. Then for large values of <span class="process-math">\(s\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span>  In general, if <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-565">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div></article><p id="p-2015">We can use <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative.html" title="Theorem 6.2.1">Theorem 6.2.1</a> and <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a> to solve initial value problems.</p>
+<article class="example example-like" id="example-99"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-99"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-99"><article class="example example-like"><p id="p-2016">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-566">
+\begin{align*}
+y''  + 7y' + 10y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">By <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative.html" title="Theorem 6.2.1">Theorem 6.2.1</a> and <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-567">
+\begin{gather*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)\\
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).
+\end{gather*}
+</div>
+<p class="continuation">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span> If we take the Laplace transform of <span class="process-math">\(y'' + 7y' + 10y\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-568">
+\begin{align*}
+{\mathcal L}(y'' + 7y' + 10y) &amp; = {\mathcal L}(y'') + 7{\mathcal L}(y') + 10{\mathcal L}(y)\\
+&amp; = [s^2 Y(s) - sy(0) - y'(0)] + 7[s Y(s) - y(0)] + 10Y(s)\\
+&amp; = [s^2 Y(s) - s - 1] + 7[s Y(s) - 1] + 10Y(s).
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\({\mathcal L}(0)\text{,}\)</span> we have the algebraic equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html">
+\begin{equation*}
+[s^2 Y(s) - s - 1] + 7[s Y(s) - 1] + 10Y(s) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Solving for <span class="process-math">\(Y(s)\text{,}\)</span> we get</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html">
+\begin{equation*}
+Y(s) = \frac{s + 8}{s^2 + 7s + 10} = \frac{s + 8}{(s + 5)(s + 2)} = \frac{2}{s + 2} - \frac{1}{s + 5},
+\end{equation*}
+</div>
+<p class="continuation">where we have used partial fractions to get the last expression.</p>
+<p id="p-2017">Since the Laplace transform of <span class="process-math">\(e^{at}\)</span> is <span class="process-math">\(1/(s - a)\text{,}\)</span> we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at}.
+\end{equation*}
+</div>
+<p class="continuation">We can now solve our initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) = 2 e^{-2t} - e^{-5t},
+\end{equation*}
+</div>
+<p class="continuation">and our solution agrees with the one that we found at the beginning of this section.</p></article></div>
+<article class="activity project-like" id="activity-43"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Linear Differential Equations with Laplace Transforms.</span>
+</h4>
+<div class="introduction" id="introduction-139"><p id="p-2018">Use Laplace Transforms to solve each of the following initial value problems.</p></div>
+<article class="task exercise-like" id="task-260"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-2019"><span class="process-math">\(x' - 5x = e^{5t}\text{,}\)</span> <span class="process-math">\(x(0) = 0\)</span></p></article><article class="task exercise-like" id="task-261"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-2020"><span class="process-math">\(x'' - x' - 6x  = 0\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x'(0) = -1\)</span></p></article><article class="task exercise-like" id="task-262"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-2021"><span class="process-math">\(x'' + 4x  = \sin 3t\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x'(0) = 0\)</span></p></article></article></section><section class="subsection" id="laplace02-subsection-discontinuous-functions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span>
+</h3>
+<p id="p-2022">If <span class="process-math">\(c \geq 0\)</span> and we define the function</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u_c(t)
+=
+\begin{cases}
+0 &amp; t \lt c \\
+1 &amp; t \geq c,
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">recall that the Laplace transform of <span class="process-math">\(u_c\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(u_c(t))(s) = \int_0^\infty u_c(t) e^{-st} \, dt = \frac{e^{-cs}}{s}.
+\end{equation*}
+</div>
+<p class="continuation">We can use this inforamtion to solve initial value problems with discontinuous functions.</p>
+<article class="example example-like" id="example-100"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-100"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-100"><article class="example example-like"><p id="p-2023">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html" id="md-569">
+\begin{align*}
+y' + y&amp; = u_3(t)\\
+y(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">If we take the Laplace transform of both sides of  <span class="process-math">\(y' + y = u_3(t)\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+sY(s) - y(0) + Y(s) = \frac{e^{-3s}}{s}.
+\end{equation*}
+</div>
+<p class="continuation">Using the fact that <span class="process-math">\(y(0) = 1\)</span> and solving for <span class="process-math">\(Y(s)\text{,}\)</span> we get</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+Y(s) = \frac{1}{s + 1} + \frac{e^{-3s}}{s(s+1)}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+y(t) = {\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) + {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right).
+\end{equation*}
+</div>
+<p class="continuation">The inverse Laplace transform of the first term is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) = e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">To compute the inverse Laplace transform of the second term, recall from <a href="" class="xref" data-knowl="./knowl/laplace01-example-shift.html" title="Example 6.1.7">Example 6.1.7</a> that if <span class="process-math">\({\mathcal L}(f) = F(s)\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s).
+\end{equation*}
+</div>
+<p class="continuation">Using partial fractions to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+\frac{1}{s(s+1)} = \frac{1}{s} - \frac{1}{s - 1}.
+\end{equation*}
+</div>
+<p class="continuation">Hence,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right) = {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s} \right) - {\mathcal L}^{-1} \left(\frac{e^{-3s}}{s+1} \right) = u_3(t) - {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s+1} \right).
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(g(t) = u_3(t) e^{-(t - 3)}\text{,}\)</span> then the Laplace transform of <span class="process-math">\(g(t)\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}(g) = e^{-3s} {\mathcal L}(e^{-t}) = \frac{e^{-3s}}{s + 1}.
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+y(t) = e^{-t} + u_3(t)\left( 1 -  e^{-(t - 3)} \right).
+\end{equation*}
+</div></article></div></section><section class="subsection" id="laplace02-subsection-harmonic-oscillators"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span>
+</h3>
+<article class="example example-like" id="example-101"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-101"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-101"><article class="example example-like"><p id="p-2024">Consider the forced harmonic oscillator</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-570">
+\begin{gather*}
+y'' + 4y = 3 \cos t\\
+y(0) = y'(0) = 0.
+\end{gather*}
+</div>
+<p class="continuation">Taking the Laplace transform of both sides of the equation <span class="process-math">\(y'' + 4y = 3 \cos t\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y'') + 4 {\mathcal L}(y) = 3{\mathcal L}(\cos t)
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+s^2 Y(s) - sy(0) - y'(0) + 4Y(s) = \frac{3s}{s^2 + 1},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\({\mathcal L}(y)(s) = Y(s)\text{.}\)</span> Substituting the initial conditions and solving for <span class="process-math">\(Y\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+Y(s) = \frac{3s}{(s^2 + 4)(s^2 + 1)} = \frac{-s}{s^2 + 4} + \frac{s}{s^2 + 1},
+\end{equation*}
+</div>
+<p class="continuation">where the last expression was obtained using partial fractions.  Taking the inverse Laplace transform, we have our solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) = {\mathcal L}^{-1} \left( \frac{-s}{s^2 + 4} \right) + {\mathcal L}^{-1} \left(  \frac{s}{s^2 + 1} \right) = -\cos 2t + \cos t.
+\end{equation*}
+</div></article></div>
+<article class="example example-like" id="example-102"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-102"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-102"><article class="example example-like"><p id="p-2025">Now let us consider a harmonic oscillator with discontinuous forcing,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-571">
+\begin{gather*}
+y'' + 2 y' + 5y = h(t)\\
+y(0) = y'(0) = 0,
+\end{gather*}
+</div>
+<p class="continuation">where <span class="process-math">\(h(t)\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+5 &amp; t \lt 7 \\
+0 &amp; t \geq 7.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">That is, <span class="process-math">\(h(t) = 5 (1 - u_7(t))\text{.}\)</span> We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <span class="process-math">\(t \lt 7\)</span> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <span class="process-math">\(t = 7\text{,}\)</span> the table is suddenly returned to the level position.</p>
+<p id="p-2026">Taking the Laplace transform of both sides of <span class="process-math">\(y'' + 2 y' + 5y = h(t)\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+[s^2 Y(s) -sy(0) - y'(0)] + 2 [sY(s) - y(0)] + 5Y(s) = {\mathcal L}(h),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\({\mathcal L}(y)(s) = Y(s)\text{.}\)</span>  Substituting the initial conditions and evaluating the Laplace transform on the right, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(s^2 + 2s + 5)Y(s) = 5 \left( \frac{1}{s} - \frac{e^{-7s}}{s} \right).
+\end{equation*}
+</div>
+<p class="continuation">Solving for <span class="process-math">\(Y(s)\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+Y(s) = \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = {\mathcal L}^{-1} \left(  \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right).
+\end{equation*}
+</div>
+<p class="continuation">Using partial fractions, we can rewrite the first term as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.
+\end{equation*}
+</div>
+<p id="p-2027">The inverse Laplace transform of <span class="process-math">\(1/s\)</span> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-572">
+\begin{align*}
+\frac{s + 2}{s^2 + 2s + 5} &amp; = \frac{s + 2}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.
+\end{align*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left( \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+<p id="p-2028">We can compute the inverse Laplace transform of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<p class="continuation">using the Heaviside function <span class="process-math">\(u_7(t)\)</span> and the inverse Laplace transform that we just calculated to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div>
+<p class="continuation">Therefore, the solution to our original initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div></article></div>
+<article class="activity project-like" id="activity-44"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Differential Equations with Laplace Transforms with Discontinuous Forcing Functions.</span>
+</h4>
+<div class="introduction" id="introduction-140"><p id="p-2029">Use Laplace Transforms to solve each of the following initial value problems.</p></div>
+<article class="task exercise-like" id="task-263"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-2030"><span class="process-math">\(x' + x = u_3(t)\text{,}\)</span> <span class="process-math">\(x(0) = 2\)</span></p></article><article class="task exercise-like" id="task-264"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-2031"><span class="process-math">\(x'' + x  = h(t)\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x'(0) = 0\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+0 &amp; t \lt 1 \\
+2 &amp; t \geq 1.
+\end{cases}
+\end{equation*}
+</div></article></article></section><section class="subsection" id="laplace02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-2032" class="disc">
+<li id="li-594">
+<p id="p-2033">Using the Laplace transform including how the transform behaves, we can solve initial value problems such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-573">
+\begin{align*}
+a y''(t) + b y'(t) + c y(t) \amp = f(t)\\
+y(0) \amp = y_0\\
+y'(0) \amp = y'_0
+\end{align*}
+</div>
+<p class="continuation">even when <span class="process-math">\(f(t)\)</span> is discontinuous.</p>
+</li>
+<li id="li-595">
+<p id="p-2034">Let <span class="process-math">\(y = y(t)\)</span> be a piecewise continuous, exponentially bounded function and assume that <span class="process-math">\(y'\)</span> is also exponentially bounded. Then for large values of <span class="process-math">\(s\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span></p>
+</li>
+<li id="li-596">
+<p id="p-2035">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is exponentially bounded. Then for large values of <span class="process-math">\(s\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span> In general, if <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-574">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-laplace02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-laplace02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-2036">Describe in your own words how the Laplace transform can be used to solve an initial value problem.</p></article><article class="exercise exercise-like" id="reading-questions-laplace02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-2037">Explain what an exponentially bounded function is.  Give an example.</p></article></section><section class="exercises" id="laplace02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">6.2.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="laplace02-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-141"><p id="p-2038">Solve the initial problems in <a href="" class="xref" data-knowl="./knowl/laplace02-exercises-solve-ivps.html" title="Exercise Group 6.2.6.1–8: Solving Initial Value Problems">Exercise Group 6.2.6.1–8</a> using the Laplace transform.</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-483"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-2039"><span class="process-math">\(y'' - 2y' - 3y = 3 e^{2t}\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-484"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-2040"><span class="process-math">\(y'' - y' - 2y = 4x^2\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-485"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-2041"><span class="process-math">\(\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = 64e^{-t}\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = -2\)</span></p></article><article class="exercise exercise-like" id="exercise-486"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-2042"><span class="process-math">\(y'' + 16y = 2 \sin 2t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-487"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-2043"><span class="process-math">\(y'' + 16y = 2 \sin 4t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-488"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-2044"><span class="process-math">\(y'' + 2y' + y = 2e^{-t}\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 3\)</span></p></article><article class="exercise exercise-like" id="exercise-489"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-2045"><span class="process-math">\(y'' + 6y' + 8y = \cos 3t\text{,}\)</span> <span class="process-math">\(y(0) = -2\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-490"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-2046"><span class="process-math">\(u'' + \omega_0^2 y = \cos \omega t\text{,}\)</span> <span class="process-math">\(\omega^2 \neq \omega_0^2\text{,}\)</span> <span class="process-math">\(u(0) = 1\text{,}\)</span> <span class="process-math">\(u'(0) = -1\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-491"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-2047">Find the solution of the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-575">
+\begin{gather*}
+2 y'' + y' + 2y = g(t)\\
+y(0) = y'(0) = 0
+\end{gather*}
+</div>
+<p class="continuation">where <span class="process-math">\(g(t)\)</span> is defined by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+g(t) = u_5(t) - u_{20}(t) 
+=
+\begin{cases}
+1, &amp; 5 \leq t \lt 20, \\
+0, &amp; 0 \leq t \lt 5 \text{ and } t \geq 20.
+\end{cases}
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-492"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<p id="p-2048">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is  exponentially bounded.</p>
+<ol class="lower-alpha">
+<li id="li-597">
+<p id="p-2049">Prove that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0)
+\end{equation*}
+</div>
+<p class="continuation">for large values of <span class="process-math">\(s\text{,}\)</span> where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span></p>
+</li>
+<li id="li-598">
+<p id="p-2050">If <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, prove that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-576">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div>
+</li>
+</ol></article><article class="exercise exercise-like" id="exercise-493"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
+<p id="p-2051">Prove <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a>.</p></article><article class="exercise exercise-like" id="exercise-494"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
+<p id="p-2052">Let <span class="process-math">\(f(t)\)</span> be a peicewise continuous function for <span class="process-math">\(t \geq 0\text{.}\)</span> In addition, suppose that <span class="process-math">\(f(t)\)</span>satisfies the condition <span class="process-math">\(|f(t)| \leq M e^{ct}\)</span> with <span class="process-math">\(t \geq 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-599">
+<p id="p-2053">Prove that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L} \left(  \int_0^t f(\tau) \, d\tau \right) = \frac{1}{s} {\mathcal L}(f(t) = \frac{F(s)}{s}.
+\end{equation*}
+</div>
+</li>
+<li id="li-600">
+<p id="p-2054">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathcal L}^{-1} \left(  \frac{F(s)}{s} \right) = \int_0^t f(\tau) \, d\tau
+\end{equation*}
+</div>
+<p class="continuation">follows from (a).</p>
+</li>
+</ol></article></section></section></div></main>
+</div>
+</body>
+</html>

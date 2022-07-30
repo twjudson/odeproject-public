@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:42+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="task exercise-like"><h4 class="heading">
+<span class="type">Task</span><span class="space"> </span><span class="codenumber">4.5.1.a</span><span class="period">.</span><span class="space"> </span><span class="title">Simple RLC Circuit Model, Solution, and Interpretation.</span>
+</h4>
+<div class="introduction">
+<p>We now examine a circuit in which a current is present and does not have a driving <span class="process-math">\(E(t)\text{,}\)</span> expecting things to dampen out, in this case current to run out. Let us consider an RLC circuit as depicted in <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-rlc-circuit.html" title="Figure 4.1.1">Figure 4.1.1</a> in which we have an initial current, <span class="process-math">\(I(0) = 3.2\)</span> amps with a resistance of <span class="process-math">\(R = 7\)</span> ohms, an inductance of <span class="process-math">\(L = 1\)</span> henry, and a capacitance of <span class="process-math">\(C = 0.1\)</span> farads. Since we have some current in the circuit already <span class="process-math">\(I(0) = 3.2\)</span> at the start we shall not need an inducing <span class="process-math">\(E(t)\text{,}\)</span> so <span class="process-math">\(E(t) = 0\text{.}\)</span> Let us see what happens to the current in the circuit by solving the appropriate RLC circuit differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-rlc-circuit.html">
+\begin{equation*}
+1 \cdot I'' + 7I' + \frac{1}{0.1} I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Of course, this initial value problem might be easier analyze in the form,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-rlc-circuit.html">
+\begin{equation}
+I'' + 7I' + 10 I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.\tag{4.5.2}
+\end{equation}
+</div>
+</div>
+<article class="task exercise-like"><h5 class="heading"><span class="codenumber">(i)</span></h5>
+<p>Solve the RLC circuit differential equation <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-example-rlc.html" title="Equation 4.5.2">(4.5.2)</a> for <span class="process-math">\(I(t)\text{.}\)</span>  If you use Sage to solve this equation, remember that <code class="code-inline tex2jax_ignore">I</code> is the reserved symbol for <span class="process-math">\(i\text{,}\)</span> the square root of <span class="process-math">\(-1\text{.}\)</span></p></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(ii)</span></h5>
+<p>Consider the values of <span class="process-math">\(R\)</span> to be <span class="process-math">\(0.007\text{,}\)</span> <span class="process-math">\(0.07\text{,}\)</span> <span class="process-math">\(0.7\text{,}\)</span> <span class="process-math">\(7\text{,}\)</span> <span class="process-math">\(70\text{,}\)</span> and then <span class="process-math">\(700\text{,}\)</span> and solve <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-example-rlc.html" title="Equation 4.5.2">(4.5.2)</a> in each case, keeping all other values the same.  Plot the solutions for the current in the circuit over the time interval <span class="process-math">\([0, 25]\)</span> s with a vertical plot interval <span class="process-math">\([-3, 3]\)</span> in each case. Identify each plot with its associated <span class="process-math">\(R\)</span> value and describe what is happening to the current, <span class="process-math">\(I(t)\text{,}\)</span> in each corresponding circuit over time, <span class="process-math">\(t\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-72"><script type="text/x-sage">
+</script></pre></article><div class="conclusion">
+<p>Let us consider the differential <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-forced-rlc.html" title="Equation 4.5.3">(4.5.3)</a> for an RLC circuit with driving voltage <span class="process-math">\(E(t) = \sin( \omega t)\)</span> (current <span class="process-math">\(I(t) = y(t)\)</span>),</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-forced-rlc.html">
+\begin{equation}
+L y'' + Ry' + \frac{1}{C} y = \omega \cos(\omega t).\tag{4.5.3}
+\end{equation}
+</div>
+<p class="continuation">We can use Sage to solve this equation.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-73"><script type="text/x-sage">t =var('t');
+y = function('y')(t); 
+L = var('L'); assume(L < 0)
+R = var('R'); assume(R > 5)
+C = var('C'); assume(C > 5)
+assume(C*R^2 + 4*R^2 - 4*L - 400 >0) 
+omega = var('omega'); assume(omega > 0)
+DE = L*diff(y,t,2) + R*diff(y,t) + y/C == omega*cos(omega*t)
+sol = desolve(DE, y, ivar = t, ics=[0, 0, 0])
+sol.show()
+</script></pre>
+<p>The solution is pretty long, but notice that is the transient solution that approaches zero as <span class="process-math">\(t \to \infty\)</span> and then there is the steady state solution,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation}
+y_{\text{steady state}} = \frac{C^{2} R \omega^{2} \sin\left(\omega t\right) - {\left(C^{2} L \omega^{3} - C \omega\right)} \cos\left(\omega t\right)}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}.\tag{4.5.4}
+\end{equation}
+</div>
+<p>We would like to study <dfn class="terminology">gain</dfn>, the ratio of the amplitude of the steady state output voltage, <span class="process-math">\(V_{\text{out}}\)</span> to the amplitude of the input voltage, <span class="process-math">\(V_{\text{in}}\text{,}\)</span> or <span class="process-math">\(V_{\text{out}} / V_{\text{in}}\text{.}\)</span> We measure <span class="process-math">\(V_{\text{out}}\)</span> as the amplitude of the steady state voltage across the resistance <span class="process-math">\(R\)</span> in the circuit or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+V_{\text{out}} = R \cdot \text{Amplitude}(y_{\text{steady state}}(t)).
+\end{equation*}
+</div>
+<p class="continuation">In our case <span class="process-math">\(V_{\text{in}}\)</span> is just 1 for <span class="process-math">\(E(t) = \sin( \omega t)\text{.}\)</span></p>
+</div></article><span class="incontext"><a href="secondorder05.html#task-203" class="internal">in-context</a></span>
+</body>
+</html>

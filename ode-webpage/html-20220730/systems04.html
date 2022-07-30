@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Solving Systems Analytically</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="systems03.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="systems05.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="systems03.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a class="next-button button toolbar-item" href="systems05.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="active">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="systems04"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span>
+</h2>
+<article class="objectives goal-like" id="objectives-11"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-261">
+<p id="p-837">To understand that a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-160">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x)\\
+\frac{dy}{dt} &amp; = g(y)
+\end{align*}
+</div>
+<p class="continuation">is <dfn class="terminology">decoupled</dfn> and can be solved by solving each equation independently.</p>
+</li>
+<li id="li-262">
+<p id="p-838">To understand that a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-161">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x),\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">is <dfn class="terminology">partially coupled system</dfn> and can be solved by first solving the first equation and then substituting the solution into the second equation, which can then be solved.</p>
+</li>
+<li id="li-263">
+<p id="p-839">To be able to use <em class="emphasis">Sage</em> to solve systems of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-162">
+\begin{align*}
+x' &amp; = ax + by\\
+y' &amp; = cx + dy.
+\end{align*}
+</div>
+</li>
+</ul></article><section class="introduction" id="introduction-50"><p id="p-840">Mixing problems model how substances flow back and forth between two or more compartments. These problems often arise in applications—for example, we might want to model how greenhouse gases flow back and forth between different layers of the earth's atomosphere<a href="" class="xref" data-knowl="./knowl/malcolm-1994.html" title="Bibliographic Entry 17: Nature">[17]</a>, how chemicals move between tanks in a refinery or a brewery, or how pollutants move between a series of lakes or ponds. Systems of differential equations can prove very useful when it comes to modeling such situations.</p></section><section class="subsection" id="systems04-subsection-partially-coupled"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span>
+</h3>
+<p id="p-841">We will use linear systems of differential equations such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-mixing-example.html" id="md-163">
+\begin{align*}
+\frac{dx}{dt} &amp; = ax + by\\
+\frac{dy}{dt} &amp; = cx + dy
+\end{align*}
+</div>
+<p class="continuation">to illustrate how we can use systems of differential equations to model how substances flow back and forth between two or more compartments. Suppose that we have two tanks (<span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span>) between which a mixture of brine flows (<a href="" class="xref" data-knowl="./knowl/systems04-figure-mixing-example.html" title="Figure 2.4.1">Figure 2.4.1</a>). Tank <span class="process-math">\(A\)</span> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <span class="process-math">\(B\)</span> contains 300 liters of pure water. Fresh water is pumped into Tank <span class="process-math">\(A\)</span> at the rate of 500 liters per hour, and brine is pumped into Tank <span class="process-math">\(B\)</span> from Tank <span class="process-math">\(A\)</span> at the rate of 500 liters per hour. Brine is also drained at a rate 500 liters of brine per hour from Tank <span class="process-math">\(B\text{.}\)</span> All brine mixtures are well-stirred.  If we let <span class="process-math">\(x = x(t)\)</span> be the amount of salt in Tank <span class="process-math">\(A\)</span> at time <span class="process-math">\(t\)</span> and <span class="process-math">\(y = y(t)\)</span> be the amount of salt in Tank <span class="process-math">\(B\)</span> at time <span class="process-math">\(t\text{,}\)</span> then we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-mixing-example.html" id="md-164">
+\begin{align*}
+x(0) &amp; = 100\\
+y(0) &amp; = 0
+\end{align*}
+</div>
+<p class="continuation">We know that the salt concentrations in the two tanks are <span class="process-math">\(x/300\)</span> kilograms per liter and <span class="process-math">\(y/300\)</span> kilograms per liter. Thus, we can describe the rate of change in each tank with a differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-mixing-example.html" id="md-165">
+\begin{align*}
+\frac{dx}{dt} &amp; = - 500 \cdot \frac{x}{300} = - \frac{5}{3} x,\\
+\frac{dy}{dt} &amp; = 500 \cdot \frac{x}{300} - 500 \cdot \frac{y}{300} = \frac{5}{3} x - \frac{5}{3} y.
+\end{align*}
+</div>
+<figure class="figure figure-like" id="systems04-figure-mixing-example"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/latex-image/systems04-mixing-example.svg" role="img" class="contained" alt="two three hundred liter tanks connected with a pipe flowing from the first to the second tank with the first tank having an input pipe and the second having a drain pipe"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.1<span class="period">.</span></span><span class="space"> </span>Mixing example with two tanks</figcaption></figure><p id="p-842">We can now ask how we might solve the system of equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-166">
+\begin{align*}
+\frac{dx}{dt} &amp; = - \frac{5}{3} x,\\
+\frac{dy}{dt} &amp; = \frac{5}{3} x - \frac{5}{3} y.
+\end{align*}
+</div>
+<p class="continuation">The task of solving the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-167">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x,y),\\
+\frac{dy}{dt} &amp; = g(x,y),
+\end{align*}
+</div>
+<p class="continuation">may be quite difficult or even impossible. However, we can find solutions in certain cases. For example, if we have a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-168">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x),\\
+\frac{dy}{dt} &amp; = g(y),
+\end{align*}
+</div>
+<p class="continuation">then each equation is an autonomous first-order equation. To solve our system, we only need to solve two first-order equations. Such a system is said to be <dfn class="terminology">decoupled</dfn>. Generalizing slightly, we say that a <dfn class="terminology">partially coupled system</dfn> is a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-169">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x),\\
+\frac{dy}{dt} &amp; = g(x, y).
+\end{align*}
+</div>
+<p class="continuation">Since the first equation is an autonomous first-order equation in <span class="process-math">\(x\text{,}\)</span> we can solve this equation separately, and substitute our solution into the second equation.</p>
+<p id="p-843">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-170">
+\begin{align*}
+\frac{dx}{dt} &amp; = x \\
+\frac{dy}{dt} &amp; = x + y.
+\end{align*}
+</div>
+<p class="continuation">We can easily solve the first equation, <span class="process-math">\(dx/dt = x\text{,}\)</span> to obtain <span class="process-math">\(x = a e^t\text{.}\)</span> Using this information in the second equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt}  - y = a e^t
+\end{equation*}
+</div>
+<p class="continuation">which is a first-order linear equation. This equation has an integrating factor <span class="process-math">\(\mu(t) = e^{-t}\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} (e^{-t} y) = \mu(t) \left(\frac{dy}{dt}  - y \right)= a e^t \mu(t) = a.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, the solution to our second equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) = at e^t + be^t.
+\end{equation*}
+</div>
+<p id="p-844">Revisiting the mixing problem that we posed at the beginning of this section, we have the following initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-171">
+\begin{align*}
+\frac{dx}{dt} &amp; = - \frac{5}{3} x,\\
+\frac{dy}{dt} &amp; = \frac{5}{3} x - \frac{5}{3} y.\\
+x(0) &amp; = 100,\\
+y(0) &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Solving <span class="process-math">\(dx/dt = - (5/3) x\)</span> is easy.  We can quickly determine that <span class="process-math">\(x(t) = c_1 e^{-5t/3}\text{.}\)</span> Applying the initial condition <span class="process-math">\(x(0) = 100\text{,}\)</span> we can determine that <span class="process-math">\(c_1 = 100\)</span> and <span class="process-math">\(x(t) = 100 e^{-5t/3}\text{.}\)</span> Our second equation now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt}  = \frac{5}{3} x - \frac{5}{3} y = \frac{500}{3} e^{-5t/3} - \frac{5}{3} y.
+\end{equation*}
+</div>
+<p class="continuation">This last equation is a first-order linear equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt} + \frac{5}{3} y = \frac{500}{3} e^{-5t/3}.
+\end{equation*}
+</div>
+<p class="continuation">Multiplying both sides of this last equation by the integrating factor <span class="process-math">\(\mu(t) = e^{5t/3}\)</span> yields</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} (e^{5t/3}y) = e^{5t/3}\frac{dy}{dt} + e^{5t/3}\frac{5}{3} y = \frac{500}{3}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this last equation gives us</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{5t/3}y = \frac{500}{3} t + c_2.
+\end{equation*}
+</div>
+<p class="continuation">Using our initial condition <span class="process-math">\(y(0) = 0\text{,}\)</span> we can determine that <span class="process-math">\(c_2 = 0\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \frac{500}{3} t e^{-5t/3}
+\end{equation*}
+</div>
+<article class="example example-like" id="systems04-example-partially-coupled-system"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-systems04-example-partially-coupled-system"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.4.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-systems04-example-partially-coupled-system"><article class="example example-like"><p id="p-845">Consider the partially coupled system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-172">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = x + 3y
+\end{align*}
+</div>
+<p class="continuation">Notice that we already have the tools to solve <span class="process-math">\(x' = 2x\text{.}\)</span>  In fact, the solution is <span class="process-math">\(x(t) = c_1 e^{2t}\text{.}\)</span>  We can use this information to solve the second equation, <span class="process-math">\(y' = x + 3y\text{.}\)</span>  That is, if we use the fact that <span class="process-math">\(x(t) = c_1 e^{2t}\text{,}\)</span> the second equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = c_1 e^{2t} + 3y.
+\end{equation*}
+</div>
+<p class="continuation">We can rewrite this equation as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' - 3y = c_1 e^{2t},
+\end{equation*}
+</div>
+<p class="continuation">which is a first-order linear equation.  If we multiply both sides of the equation by <span class="process-math">\(\mu(t) = e^{-3t}\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt}\left( e^{-3t}y \right) = e^{-3t}y' - 3e^{-3t}y = c_1 e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{-3t}y = - c_1 e^{-t} + c_2.
+\end{equation*}
+</div>
+<p class="continuation">Solving for <span class="process-math">\(y\text{,}\)</span> yields <span class="process-math">\(y = - c_1 e^{2t} + c_2e^{3t}\text{.}\)</span>  Thus the solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-173">
+\begin{align*}
+x &amp; = c_1 e^{2t}\\
+y &amp; = - c_1 e^{2t} + c_2e^{3t}.
+\end{align*}
+</div></article></div>
+<article class="activity project-like" id="activity-20"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Partially Coupled Systems.</span>
+</h4>
+<div class="introduction" id="introduction-51"><p id="p-846">Solve each of the following systems of differential equations.</p></div>
+<article class="task exercise-like" id="task-105"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-174">
+\begin{align*}
+x' &amp; = -x\\
+y' &amp; = x - 3y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-106"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-175">
+\begin{align*}
+x' &amp; = -x - y\\
+y' &amp; = - 3y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-107"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-176">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = 3x + 2y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-108"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-177">
+\begin{align*}
+x' &amp; = 3x + 4y\\
+y' &amp; = -2y
+\end{align*}
+</div></article></article></section><section class="subsection" id="systems04-subsection-sage-linear-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span>
+</h3>
+<p id="p-851">Solving linear systems such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html" id="md-178">
+\begin{align*}
+x' &amp; = ax + by\\
+y' &amp; = cx + dy
+\end{align*}
+</div>
+<p class="continuation">is much more difficult, since we cannot use the same strategies that we used to solve partially-coupled systems. We will devote all of <a href="linear.html" class="internal" title="Chapter 3: Linear Systems">Chapter 3</a> to finding an answer.  However, we can use <em class="emphasis">Sage</em> to solve linear systems for the moment. The following is a <em class="emphasis">Sage</em> interact that will solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html" id="md-179">
+\begin{align*}
+x' &amp; = 3x - 2y\\
+y' &amp; = x + y\\
+x(0) \amp = 1\\
+y(0) \amp = 1;
+\end{align*}
+</div>
+<p class="continuation">however, we can change the coefficients and initial values to be anything that we like.</p>
+<figure class="figure figure-like" id="systems04-figure-interactive-linear-systems"><iframe id="interactive-systems04-linear-systems" width="600" height="1500" src="interactive-systems04-linear-systems-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.3<span class="period">.</span></span><span class="space"> </span>A Sage applet for solving linear systems</figcaption></figure></section><section class="subsection" id="systems04-subsection-harmonic-oscillator"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span>
+</h3>
+<p id="p-852">The equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-over-damped-oscillator.html">
+\begin{equation*}
+\frac{d^2 x}{dt^2} + 3 \frac{dx}{dt} + 2 x = 0
+\end{equation*}
+</div>
+<p class="continuation">is a specific case of a damped harmonic oscillator, where <span class="process-math">\(m = 1\text{,}\)</span> the spring constant is 2, and the damping constant is 3. We can rewrite this equation as a first-order linear system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-over-damped-oscillator.html" id="md-180">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - 2x - 3v.
+\end{align*}
+</div>
+<p class="continuation">Suppose that <span class="process-math">\(x(0) = 0\)</span> is the initial position of the mass and <span class="process-math">\(v(0) = 1\)</span> is the initial velocity. We can use Sage to verify that the solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-over-damped-oscillator.html" id="md-181">
+\begin{align*}
+x(t) &amp; = e^{-t} - e^{-2t},\\
+v(t) &amp; = - e^{-t} + 2  e^{-2t}.
+\end{align*}
+</div>
+<p class="continuation">This is an example of an over-damped harmonic oscillator (<a href="" class="xref" data-knowl="./knowl/systems04-figure-over-damped-oscillator.html" title="Figure 2.4.4">Figure 2.4.4</a>). In other words, a spring-mass system that is modeled by this system of equations has so much damping that the mass will not oscillate.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-47"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+v = function('v')(t)
+t_start = 0
+x_start = 0
+v_start =  1
+de1 = diff(x,t) == v
+de2 = diff(v,t) == -2*x - 3*v
+sol = desolve_system([de1, de2], [x,v], ics=[t_start, x_start, v_start])
+sol[0].show()
+sol[1].show()
+</script></pre>
+<figure class="figure figure-like" id="systems04-figure-over-damped-oscillator"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/system04-over-damped-oscillator.svg" role="img" class="contained" alt="position and velocity curves that approach zero with no oscillations"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.4<span class="period">.</span></span><span class="space"> </span>An over-damped harmonic oscillator</figcaption></figure><p id="p-853">Now let us relax the damping and increase the spring constant on our harmonic oscillator,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 x}{dt^2} + 2 \frac{dx}{dt} + 10 x = 0.
+\end{equation*}
+</div>
+<p class="continuation">The corresponding linear system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-182">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - 10x - 2v\\
+x(0) \amp = 0\\
+v(0) \amp = 1.
+\end{align*}
+</div>
+<p class="continuation">Notice that our initial conditions have not changed. We again use <em class="emphasis">Sage</em> to solve our system.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-48"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+v = function('v')(t)
+t_start = 0
+x_start = 0
+v_start =  1
+de1 = diff(x,t) == v
+de2 = diff(v,t) == -10*x - 2*v
+sol = desolve_system([de1, de2], [x,v], ics=[t_start, x_start, v_start])
+sol[0].show()
+sol[1].show()
+</script></pre>
+<p id="p-854">The solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-figure-under-damped-oscillator.html" id="md-183">
+\begin{align*}
+x(t) &amp; = \frac{1}{3} e^{-t} \sin 3t,\\
+v(t) &amp; = e^{-t} \cos 3t -  \frac{1}{3} e^{-t} \sin 3t.
+\end{align*}
+</div>
+<p class="continuation">Notice that the system oscillates due to the sine and cosine terms in the solution. This system is underdamped (<a href="" class="xref" data-knowl="./knowl/systems04-figure-under-damped-oscillator.html" title="Figure 2.4.5">Figure 2.4.5</a>).</p>
+<figure class="figure figure-like" id="systems04-figure-under-damped-oscillator"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/system04-under-damped-oscillator.svg" role="img" class="contained" alt="position and velocity curves that approach zero with smaller and smaller oscillations"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.5<span class="period">.</span></span><span class="space"> </span>An under-damped harmonic oscillator</figcaption></figure></section><section class="subsection" id="systems04-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-855" class="disc">
+<li id="li-264">
+<p id="p-856">A system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-184">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x)\\
+\frac{dy}{dt} &amp; = g(y)
+\end{align*}
+</div>
+<p class="continuation">is said to be <em class="emphasis">decoupled</em>. Such a system can be solved by solving each equation independently.</p>
+</li>
+<li id="li-265">
+<p id="p-857">A system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-185">
+\begin{align*}
+\frac{dx}{dt} &amp; =f(x),\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">is a <em class="emphasis">partially coupled system</em>.  Since the first equation is an autonomous first-order equation in <span class="process-math">\(x\text{,}\)</span> we can solve this equation separately, and substitute our solution into the second equation.</p>
+</li>
+<li id="li-266">
+<p id="p-858">We can use <em class="emphasis">Sage</em> to solve systems of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-186">
+\begin{align*}
+x' &amp; = ax + by\\
+y' &amp; = cx + dy.
+\end{align*}
+</div>
+</li>
+<li id="li-267"><p id="p-859"><em class="emphasis">Sage</em> is useful for investigating the behavior of harmonic oscillators.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-system04"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-system04-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-860">Explain what a partially coupled system is?</p></article><article class="exercise exercise-like" id="reading-questions-system04-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-861">Why would you expect that it is impossible to find explicit solutions for most systems of differential equations?</p></article></section><section class="exercises" id="systems04-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">2.4.6</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-168"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-862">Solve each of the following partially coupled systems.</p>
+<ol class="lower-alpha">
+<li id="li-268"><div class="displaymath process-math" data-contains-math-knowls="" id="md-187">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = x + 2y
+\end{align*}
+</div></li>
+<li id="li-269"><div class="displaymath process-math" data-contains-math-knowls="" id="md-188">
+\begin{align*}
+x' &amp; = -x + 3y\\
+y' &amp; = -2y
+\end{align*}
+</div></li>
+<li id="li-270"><div class="displaymath process-math" data-contains-math-knowls="" id="md-189">
+\begin{align*}
+x' &amp; = -3x\\
+y' &amp; = 2x + 3y
+\end{align*}
+</div></li>
+<li id="li-271"><div class="displaymath process-math" data-contains-math-knowls="" id="md-190">
+\begin{align*}
+x' &amp; = 2x - 3y\\
+y' &amp; = 4y
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-169"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-867">Suppose that we have two tanks (<span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span>) between which a mixture of brine flows. Tank <span class="process-math">\(A\)</span> contains 200 liters of water in which 20 kilograms of salt has been dissolved and Tank <span class="process-math">\(B\)</span> contains 200 liters of water in which 10 kilograms of salt has been dissolved. Fresh water is pumped into Tank <span class="process-math">\(A\)</span> at the rate of 200 liters per hour, and brine is pumped into Tank <span class="process-math">\(B\)</span> from Tank <span class="process-math">\(A\)</span> at the rate of 200 liters per hour. Brine is also drained at a rate 200 liters of brine per hour from Tank <span class="process-math">\(B\text{.}\)</span> All brine mixtures are well-stirred.  Find the amount of salt in each tank at time <span class="process-math">\(t\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-170"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-868">For each of the following harmonic oscillators (1) rewrite the second-order initial value problem as a system of two first-order linear equations, (2) use Sage to solve the system of linear equations, and (3) classify the harmonic oscillator as underdamped, critically damped, or overdamped.</p>
+<ol class="lower-alpha">
+<li id="li-272"><div class="displaymath process-math" data-contains-math-knowls="" id="md-191">
+\begin{align*}
+y'' + 7y' + 6y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></li>
+<li id="li-273"><div class="displaymath process-math" data-contains-math-knowls="" id="md-192">
+\begin{align*}
+y'' + 4y' + 5y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></li>
+<li id="li-274"><div class="displaymath process-math" data-contains-math-knowls="" id="md-193">
+\begin{align*}
+y'' + 6y' + 9y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></li>
+</ol></article></section></section></div></main>
+</div>
+</body>
+</html>

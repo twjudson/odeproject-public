@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:33+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Linearization</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="nonlinear.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="nonlinear02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="nonlinear.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="nonlinear02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="active">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="nonlinear01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.1</span> <span class="title">Linearization</span>
+</h2>
+<article class="objectives goal-like" id="objectives-25"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-489">
+<p id="p-1752">To understand that a nonlinear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-421">
+\begin{align*}
+x'(t) \amp = f(x,y)\\
+y'(t) \amp = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">can be approximated near each equilibrium point <span class="process-math">\((x_0, y_0)\)</span> by a linear system by using a Taylor series approximation for <span class="process-math">\(f\)</span> and <span class="process-math">\(g\text{.}\)</span></p>
+</li>
+<li id="li-490">
+<p id="p-1753">To understand that the <dfn class="terminology">Jacobian matrix</dfn>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+g_x(x_0, y_0) \amp g_y(x_0, y_0)
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">of a nonlinear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-422">
+\begin{align*}
+x'(t) \amp = f(x,y)\\
+y'(t) \amp = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">is useful for classifying equilibrium solutions of the system as stable or unstable.</p>
+</li>
+<li id="li-491"><p id="p-derived-li-491">To understand that linearization can fail for some systems.</p></li>
+</ul></article><section class="introduction" id="introduction-120"><p id="p-1754">In <a href="linear.html" class="internal" title="Chapter 3: Linear Systems">Chapter 3</a>, we explored how to solve linear systems. However, if we are asked to solve a nonlinear system such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html" id="md-423">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - 3y + xy^2\\
+\frac{dy}{dt} &amp; = 2x - 4y - x^2y,
+\end{align*}
+</div>
+<p class="continuation">we are faced with a much more difficult task. In general, it may not be possible to find solutions for a nonlinear system in terms of elementary functions. However, for a given modeling problem, we can ask many questions that may be answered without finding an explicit solution for the associated system of differential equations. For example, what are the equilibrium points? Are the equilibrium points stable? Do closed solution curves exist in the phase plane?</p></section><section class="subsection" id="nonlinear01-subsection-equilibrium-solutions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span>
+</h3>
+<p id="p-1755">An <dfn class="terminology">equilibrium solution</dfn> for a first-order system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-424">
+\begin{align*}
+x'(t) &amp; = f(x, y)\\
+y'(t) &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">is a point <span class="process-math">\((x_0, y_0)\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x_0, y_0) = g(x_0, y_0) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Notice that neither <span class="process-math">\(x\)</span> nor <span class="process-math">\(y\)</span> is changing at this point. If we have the initial conditions, <span class="process-math">\(x(0) = x_0\)</span> and <span class="process-math">\(y(0) = y_0\text{,}\)</span> then the solution to the system is <span class="process-math">\(x(t) = x_0\)</span> and <span class="process-math">\(y(t) = y_0\text{.}\)</span> Of course the interesting question is what happens if our initial conditions are close to an equilibrium solution. Do solutions tend toward the equilibrium solution, away from the equilibrium solution, or is there a combination of the two?</p>
+<p id="p-1756">One of the most useful methods of determining the nature of an equilibrium solution for a given nonlinear system is to approximate the nonlinear system with a linear system. More specifically, an equilibrium solution occurs for the linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html" id="md-425">
+\begin{align*}
+\frac{dx}{dt} \amp = f(x,y)\\
+\frac{dy}{dt} \amp = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">when an <span class="process-math">\(x\)</span>-nullcline intersects a <span class="process-math">\(y\)</span>-nullcline. That is, when a curve defined by <span class="process-math">\(dx/dt = f(x,y) = 0\)</span> intersects a curve defined <span class="process-math">\(dy/dt = g(x,y) = 0\text{,}\)</span> we have an equilibrium solution. Since the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines are simply curves in the <span class="process-math">\(xy\)</span>-plane, we can approximate them locally by intersecting straight lines.  Translating the pair of intersection lines to the origin, we obtain a linear system, and we can apply everything that we learned about such systems in <a href="linear.html" class="internal" title="Chapter 3: Linear Systems">Chapter 3</a>.</p>
+<article class="example example-like" id="example-83"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-83"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.1.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-83"><article class="example example-like"><p id="p-1757">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-example-1.html" id="md-426">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - 3y + xy^2\\
+\frac{dy}{dt} &amp; = 2x - 4y - x^2y.
+\end{align*}
+</div>
+<p class="continuation">From</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-example-1.html" id="md-427">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - 3y + xy^2 = 0\\
+\frac{dy}{dt} &amp; = 2x - 4y - x^2y = 0,
+\end{align*}
+</div>
+<p class="continuation">we can quickly conclude that the only equilibrium solution to the system is <span class="process-math">\((0, 0)\text{.}\)</span> The phase portrait for this system is given in <a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-example-1.html" title="Figure 5.1.2">Figure 5.1.2</a>. If we have the initial conditions <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 1\text{,}\)</span> we can see that the solution tends toward the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> However, it is unclear from the phase portrait if the solution curves of all initial value problems with initial conditions near the origin tend towards the equilibrium solution as <span class="process-math">\(t \to \infty\text{.}\)</span></p>
+<figure class="figure figure-like" id="nonlinear01-figure-example-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-example-1.svg" role="img" class="contained" alt="a direction field of slope arrows with one solution curve approaching the origin and a second solution curve moving away from the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.2<span class="period">.</span></span><span class="space"> </span>Phase Portrait for <span class="process-math">\(x' = x - 3y + xy^2\)</span> and <span class="process-math">\(2x - 4y - x^2y\)</span></figcaption></figure><p id="p-1758">Since the nonlinear terms of the system do not contribute much towards <span class="process-math">\(dx/dt\)</span> and <span class="process-math">\(dy/dt\)</span> for values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> near zero, we can determine the nature of the equilibrium solution by examining the system consisting of only linear terms on the right-hand side of the equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-428">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - 3y\\
+\frac{dy}{dt} &amp; = 2x - 4y.
+\end{align*}
+</div>
+<p class="continuation">The matrix for this linear system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+1 &amp; -3 \\
+2 &amp; -4
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">has eigenvalues <span class="process-math">\(\lambda = -1\)</span> and <span class="process-math">\(\mu = -2\)</span> with eigenvectors <span class="process-math">\(\mathbf u = (3,2)\)</span> and <span class="process-math">\(\mathbf v = (1,1)\text{,}\)</span> respectively. The general solution for this linear system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-429">
+\begin{align*}
+x(t) &amp; = 3 c_1 e^{-t} + c_2 e^{-2t}\\
+y(t) &amp; = 2c_1 e^{-t} + c_2 e^{-2t}.
+\end{align*}
+</div>
+<p class="continuation">This indeed suggests that solutions near the origin tend towards the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> In this case, we say that the equilibrium solution is <dfn class="terminology">stable</dfn>. Of course, if we are given an initial condition such as <span class="process-math">\(x(0) = -0.5\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-84"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-84"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.1.3</span><span class="period">.</span><span class="space"> </span><span class="title">A Competing Species Model.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-84"><article class="example example-like"><p id="p-1759">Suppose that <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are the population of two distinct species that compete for the same resources. For example, two species of fish may compete for the same food in a lake or sheep and cattle competing for the same grazing land.  Recall from <a href="systems02.html" class="internal" title="Section 2.2: The Geometry of Systems">Section 2.2</a> that we can model two competing species using the following system of first-order differential equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02.html" id="md-430">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x \left(1 - \frac{x}{M} \right) - \beta xy\\
+\frac{dy}{dt} &amp; = \gamma y \left(1 - \frac{y}{N} \right) - \delta xy.
+\end{align*}
+</div>
+<p class="continuation">The first term in each equation is the logistic growth of each species. The second term in each equation tells how each species is affected by interacting with the competing species.</p>
+<p id="p-1760">More specifically, let us consider the following system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-competing-species.html" id="mdn-13">
+\begin{align}
+\frac{dx}{dt} &amp; = 2x\left(1-\frac{x}{2}\right) - xy\tag{5.1.1}\\
+\frac{dy}{dt} &amp; = 3y\left(1- \frac{y}{3}\right) - 2xy.\tag{5.1.2}
+\end{align}
+</div>
+<p class="continuation">It is easy to see that  the four equilibrium solutions: <span class="process-math">\((0,0)\text{,}\)</span> <span class="process-math">\((0,3)\text{,}\)</span> <span class="process-math">\((2,0)\text{,}\)</span> and <span class="process-math">\((1, 1)\text{.}\)</span>  We can view the direction field, the phase plane, and some solution curves for this system in <a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-competing-species.html" title="Figure 5.1.4">Figure 5.1.4</a>.</p>
+<figure class="figure figure-like" id="nonlinear01-figure-competing-species"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-competing-species.svg" role="img" class="contained" alt="a direction field of slope arrows and nullclines with two solution curves aproaching an equilibrium solution on the horizontal axis and a third solution curve approaching an equilibrium solution on the vertical axis"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.4<span class="period">.</span></span><span class="space"> </span>A Competing Species Model</figcaption></figure><p id="p-1761">Let us analyze what happens at the equilibrium solution <span class="process-math">\((1, 1)\text{.}\)</span> If we decide on an appropriate change of variables, we can translate the entire system so that this equilibrium solution is at the origin. If we let</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html" id="md-431">
+\begin{align*}
+u &amp; = x - 1\\
+v &amp; = y - 1,
+\end{align*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html" id="md-432">
+\begin{gather*}
+\frac{du}{dt} = \frac{d}{dt}(x - 1) = \frac{dx}{dt},\\
+\frac{dv}{dt} = \frac{d}{dt}(y - 1) = \frac{dy}{dt}.
+\end{gather*}
+</div>
+<p class="continuation">Equations <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-1.html" title="Equation 5.1.1">(5.1.1)</a> and <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-2.html" title="Equation 5.1.2">(5.1.2)</a> now become</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html" id="mdn-14">
+\begin{align}
+\frac{du}{dt} &amp; = -u - v - u^2 -uv,\tag{5.1.3}\\
+\frac{dv}{dt} &amp; = -2u - v - 2uv - v^2.\tag{5.1.4}
+\end{align}
+</div>
+<p class="continuation">As before we consider only the linear part of equations <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-4.html" title="Equation 5.1.4">(5.1.4)</a> and <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-4.html" title="Equation 5.1.4">(5.1.4)</a> are</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html" id="mdn-15">
+\begin{align}
+\frac{du}{dt} &amp; = -u - v,\tag{5.1.5}\\
+\frac{dv}{dt} &amp; = -2u - v.\tag{5.1.6}
+\end{align}
+</div>
+<p class="continuation">The idea is that the linear part is a good <dfn class="terminology">local</dfn> approximation to the original equations much like a tangent line is a good local approximation to a smooth function in calculus. We can determine the local nature of the equilibrium solution by examining the eigenvalues of the matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+-1 &amp; -1 \\
+-2 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda = -1 + \sqrt{2} = 0.4142\)</span> and <span class="process-math">\(\mu = -1 - \sqrt{2} \approx -2.4142\)</span> with eigenvectors <span class="process-math">\(\mathbf u = (1,\sqrt{2}\,) \approx (1, 1.4142)\)</span> and <span class="process-math">\(\mathbf v = (1,-\sqrt{2}\,)  \approx (1, -1.4142)\text{,}\)</span> respectively.  The solution to the linear system is now</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html">
+\begin{equation*}
+\mathbf x(t) = c_1  e^{\lambda t} \begin{pmatrix} 1 \\ \sqrt{2} \end{pmatrix} + c_2 e^{\mu t} \begin{pmatrix} 1 \\ -\sqrt{2} \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-1.html ./knowl/nonlinear01-equation-competing-species-2.html ./knowl/nonlinear01-equation-competing-species-4.html ./knowl/nonlinear01-equation-competing-species-4.html" id="mdn-16">
+\begin{align}
+x(t) \amp = c_1 e^{\lambda t} + c_2 e^{\mu t}\tag{5.1.7}\\
+y(t) \amp = c_1 \sqrt{2} e^{\lambda t} - c_2 \sqrt{2} e^{\mu t}.\tag{5.1.8}
+\end{align}
+</div>
+<p id="p-1762">If we have initial conditions <span class="process-math">\(x(0) = 3\)</span> and <span class="process-math">\(y(0) = 4\text{,}\)</span> one can quickly determine that <span class="process-math">\(c_1 = 3/2 + \sqrt{2} \approx 2.9142\)</span> and <span class="process-math">\(c_2 = 3/2 - \sqrt{2} \approx 0.0859\text{,}\)</span> and equations <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-7.html" title="Equation 5.1.7">(5.1.7)</a> and <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-competing-species-8.html" title="Equation 5.1.8">(5.1.8)</a> become</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-competing-species-7.html ./knowl/nonlinear01-equation-competing-species-8.html" id="mdn-17">
+\begin{align}
+x(t) \amp = 2.9142 e^{0.4142 t} + 0.0859 e^{-2.4142 t}\tag{5.1.9}\\
+y(t) \amp = 4.1213 e^{0.4142 t} - 0.1213 e^{-2.4142 t}.\tag{5.1.10}
+\end{align}
+</div>
+<p class="continuation">As <span class="process-math">\(t \to \infty\)</span> notice that both <span class="process-math">\(x(t)\)</span> and <span class="process-math">\(y(t)\)</span> become very large and tend away from the origin.</p>
+<p id="p-1763">We can conclude that the equilibrium solution <span class="process-math">\((1,1)\)</span> is <dfn class="terminology">unstable</dfn>. That is, tend away from the equilibrium solution as <span class="process-math">\(t \to \infty\)</span> if one population begins with a slight advantage over the other. If neither popluation has an initial advantage over the other, then the solution curve will approach the equilibrium solution as <span class="process-math">\(t \to \infty\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-85"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-85"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.1.5</span><span class="period">.</span><span class="space"> </span><span class="title">A Nonpolynomial Example.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-85"><article class="example example-like"><p id="p-1764">If systems such as the following can be approximated by linear systems,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-nonpoly-phase-portrait.html ./knowl/nonlinear01-figure-linearization-phase-portrait.html" id="md-433">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = -y - \sin x.
+\end{align*}
+</div>
+<p class="continuation">Certainly, this sytems has an equilibrium solution at <span class="process-math">\((0,0)\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-nonpoly-phase-portrait.html" title="Figure 5.1.6">Figure 5.1.6</a>).  We can expand <span class="process-math">\(\sin x\)</span> into a power series,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-nonpoly-phase-portrait.html ./knowl/nonlinear01-figure-linearization-phase-portrait.html">
+\begin{equation*}
+\frac{dy}{dt} =  -y - \sin x = - y - \left(  x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots \right).
+\end{equation*}
+</div>
+<p class="continuation">Thus, this system can be approximated by the linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-nonpoly-phase-portrait.html ./knowl/nonlinear01-figure-linearization-phase-portrait.html" id="md-434">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = -y -  x.
+\end{align*}
+</div>
+<p class="continuation">See <a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-linearization-phase-portrait.html" title="Figure 5.1.7">Figure 5.1.7</a>.</p>
+<figure class="figure figure-like" id="nonlinear01-figure-nonpoly-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-nonpoly-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with one solution curve approaching the origin and a second solution curve moving away from the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.6<span class="period">.</span></span><span class="space"> </span>Phase portrait of <span class="process-math">\(x' = y\)</span> and <span class="process-math">\(y' = -y - \sin x\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear01-figure-linearization-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-linearization-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with two solution curves spiraling into the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.7<span class="period">.</span></span><span class="space"> </span>Phase portrait of <span class="process-math">\(x' = y\)</span> and <span class="process-math">\(y' = -y - x\)</span></figcaption></figure></article></div>
+<article class="example example-like" id="nonlinear01-example-poly"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-nonlinear01-example-poly"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.1.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-nonlinear01-example-poly"><article class="example example-like"><p id="p-1765">For example, consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-example-poly-plot.html" id="mdn-18">
+\begin{align}
+\frac{dx}{dt} \amp = x^2 - 4x - y + 4\tag{5.1.11}\\
+\frac{dy}{dt} \amp = x^3 - y.\tag{5.1.12}
+\end{align}
+</div>
+<p class="continuation">The <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines of this system are the curves <span class="process-math">\(y = x^2 - 4x + 4\)</span> and <span class="process-math">\(y = x^3\text{,}\)</span> respectively. Since the two nullclines intersect only at <span class="process-math">\((1, 1)\text{,}\)</span> we have a single equilibrium solution. From the phase plane, it appears that <span class="process-math">\((1, 1)\)</span> is a stable equilibrium solution. That is, all solution curves starting sufficiently close to <span class="process-math">\((1, 1)\)</span> will approach the equilibrium solution as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-example-poly-plot.html" title="Figure 5.1.9">Figure 5.1.9</a>).</p>
+<figure class="figure figure-like" id="nonlinear01-figure-example-poly-plot"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-example-poly-plot.svg" role="img" class="contained" alt="a direction field of slope arrows and nullclines with a solution curve approaching an equilibrium solution"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.9<span class="period">.</span></span><span class="space"> </span>Phase portrait for the system <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-example-poly-1.html" title="Equation 5.1.11">(5.1.11)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-example-poly-2.html" title="Equation 5.1.12">(5.1.12)</a></figcaption></figure><p id="p-1766">Making the substitution <span class="process-math">\(u = x - 1\)</span> and <span class="process-math">\(v = y - 1\text{,}\)</span> simply translates the entire system to the origin, and we obtain the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-example-poly-plot.html" id="mdn-19">
+\begin{align}
+\frac{du}{dt} \amp = u(u - 2) - v\tag{5.1.13}\\
+\frac{dv}{dt} \amp u(u^2 + 3u + 3) - v.\tag{5.1.14}
+\end{align}
+</div>
+<p class="continuation">Our new system has <span class="process-math">\(u\)</span> and <span class="process-math">\(v\)</span>-nullclines <span class="process-math">\(v = u(u - 2)\)</span> and <span class="process-math">\(v = u(u^2 + 3u + 3)\text{,}\)</span> respectively. Notice that we have simply moved the phase portrait of the original system so that our equilibrium solution is now at the origin.  Furthermore, we can approximate the <span class="process-math">\(u\)</span> and <span class="process-math">\(v\)</span>-nullclines by their tangent lines <span class="process-math">\(v = -2u\)</span> and <span class="process-math">\(v = 3u\text{,}\)</span> respectively. From <a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-example-poly-plot.html" title="Figure 5.1.9">Figure 5.1.9</a>, it appears that we are approximating our original system with a linear system.</p>
+<figure class="figure figure-like" id="nonlinear01-figure-example-poly-phase"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-example-poly-phase.svg" role="img" class="contained" alt="a direction field of slope arrows and nullclines with a solution curve approaching the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.10<span class="period">.</span></span><span class="space"> </span>Phase portrait for the system <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-example-poly-3.html" title="Equation 5.1.13">(5.1.13)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-example-poly-4.html" title="Equation 5.1.14">(5.1.14)</a></figcaption></figure></article></div>
+<p id="p-1767">To determine the general case, we must approximate a nonlinear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-20">
+\begin{align}
+x'(t) \amp = f(x,y)\tag{5.1.15}\\
+y'(t) \amp = g(x, y)\tag{5.1.16}
+\end{align}
+</div>
+<p class="continuation">near each equilibrium point <span class="process-math">\((x_0, y_0)\)</span> with a linear system. The idea is to move the equilibrium solution to the origin with a change of coordinates and then approximate the nonlinear system with a linear system. In order to move the equilibrium solution to the origin, we will introduce new variables</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-435">
+\begin{align*}
+u \amp = x - x_0\\
+v \amp = y - y_0.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\((x,y)\)</span> is close to the equilibrium solution <span class="process-math">\((x_0, y_0)\text{,}\)</span> then <span class="process-math">\((u, v)\)</span> will be close to the origin. Under this change of coordinates,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{du}{dt} = \frac{d}{dt} (x - x_0) = \frac{dx}{dt} = f(x, y) = f(x_0 + u, y_0 + v).
+\end{equation*}
+</div>
+<p class="continuation">Similarly, <span class="process-math">\(dv/dt = dy/dt = g(x_0 + u, y_0 + v)\text{.}\)</span></p>
+<p id="p-1768">In order to approximate the nonlinear system with a linear system, we will use a Taylor series in two variables. That is, we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-nonlinear-system-1.html ./knowl/nonlinear01-equation-nonlinear-system-2.html" id="md-436">
+\begin{align*}
+f(x_0 + u, y_0 + v) \amp = f(x_0, y_0) +  f_x(x_0, y_0)u + f_y(x_0, y_0)v\\
+\amp + \frac{1}{2} f_{xx}(x_0, y_0) u^2 + f_{xy}(x_0, y_0) uv + \frac{1}{2} f_{yy}(x_0, y_0) v^2 + \cdots.
+\end{align*}
+</div>
+<p class="continuation">If we only use the linear terms of the Taylor series, we obtain a fairly accurate approximation of <span class="process-math">\(f\)</span> provided we are near the equilibrium solution. Of course, <span class="process-math">\(f\)</span> and its linear approximation may be quite different for values far away from the equilibrium solution. The linearization of the system of equations <a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-nonlinear-system-1.html" title="Equation 5.1.15">(5.1.15)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear01-equation-nonlinear-system-2.html" title="Equation 5.1.16">(5.1.16)</a> now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-nonlinear-system-1.html ./knowl/nonlinear01-equation-nonlinear-system-2.html" id="md-437">
+\begin{gather*}
+\frac{du}{dt} =  f(x_0, y_0) +  f_x(x_0, y_0)u + f_y(x_0, y_0)v\\
+\frac{dv}{dt} =  g(x_0, y_0) +  g_x(x_0, y_0)u + g_y(x_0, y_0)v.
+\end{gather*}
+</div>
+<p class="continuation">Since <span class="process-math">\((x_0, y_0)\)</span> is an equilibrium solution, the constant terms vanish in each equation and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-equation-nonlinear-system-1.html ./knowl/nonlinear01-equation-nonlinear-system-2.html" id="md-438">
+\begin{align*}
+\frac{du}{dt} \amp = f_x(x_0, y_0)u + f_y(x_0, y_0)v\\
+\frac{dv}{dt} \amp = g_x(x_0, y_0)u + g_y(x_0, y_0)v.
+\end{align*}
+</div>
+<p id="p-1769">If we write our linearization in matrix form, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}  du/dt \\ dv/dt \end{pmatrix}
+=
+\begin{pmatrix}
+f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+g_x(x_0, y_0) \amp g_y(x_0, y_0)
+\end{pmatrix}
+\begin{pmatrix}  u \\ v \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+f_x(x_0, y_0)\amp f_y(x_0, y_0) \\
+g_x(x_0, y_0) \amp g_y(x_0, y_0)
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is the <dfn class="terminology">Jacobian matrix</dfn> of the system. We can now classify equilibrium solutions of nonlinear systems by examining the eigenvalues of the Jacobian matrix of the system or by using the trace-determinant plane. For example, if <span class="process-math">\(D =\det(J) \gt 0\)</span> and <span class="process-math">\(T =\trace(J) \lt 0\text{,}\)</span> we have a sink. We can determine the sink to be spiral or nodal by examining whether <span class="process-math">\((T, D)\)</span> lies above or below the parabola <span class="process-math">\(T^2 = 4D\)</span> in the trace-determinant plane.</p>
+<p id="p-1770">It is important to note that linearization only tells us the local story. A solution curve might behave quite differently if it is far away from the equilibrium solution.</p>
+<article class="example example-like" id="example-87"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-87"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.1.11</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-87"><article class="example example-like"><p id="p-1771">In <a href="" class="xref" data-knowl="./knowl/nonlinear01-example-poly.html" title="Example 5.1.8">Example 5.1.8</a>, we considered the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-example-poly.html" id="md-439">
+\begin{align*}
+\frac{dx}{dt} \amp = x^2 - 4x - y + 4\\
+\frac{dy}{dt} \amp = x^3 - y.
+\end{align*}
+</div>
+<p class="continuation">The Jacobian matrix of this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-example-poly.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+g_x(x_0, y_0) \amp g_y(x_0, y_0)
+\end{pmatrix}
+=
+\begin{pmatrix}
+2x_0 - 4 \amp -1 \\
+3x_0^2 \amp -1
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">For the equilibrium solution <span class="process-math">\((1, 1)\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-example-poly.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+-2 \amp -1 \\
+3 \amp -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(J\)</span> has eigenvalues <span class="process-math">\(\lambda = (-3 \pm i \sqrt{11})/2\text{,}\)</span> the equilibrium solution will act as a spiral sink for initial values close to <span class="process-math">\((1,1)\text{.}\)</span></p></article></div>
+<article class="activity project-like" id="activity-39"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Classifying Equilibrium Solutions for Nonlinear Systems.</span>
+</h4>
+<div class="introduction" id="introduction-121"><p id="p-1772">Find all of the nullclines and equilbrium solutions for each of the following systems.  Classify each equilibrium solution as stable or unstable.  Plot the nullclines and a direction field for each system.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-42" id="fn-42"><sup> 1 </sup></a></p></div>
+<article class="task exercise-like" id="task-218"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-440">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(2 + x) + 2xy\\
+\frac{dy}{dt} &amp; = y(2 + y) + 2xy
+\end{align*}
+</div></article><article class="task exercise-like" id="task-219"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-441">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(2 + x) -2xy\\
+\frac{dy}{dt} &amp; = y(2 + y) - 2xy
+\end{align*}
+</div></article><article class="task exercise-like" id="task-220"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-442">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(2 + x) + 2xy\\
+\frac{dy}{dt} &amp; = y(2 + y) - 2xy
+\end{align*}
+</div></article><article class="task exercise-like" id="task-221"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-443">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(2 + x) + 2xy\\
+\frac{dy}{dt} &amp; = y^2(2 + y) - 2xy
+\end{align*}
+</div></article></article></section><section class="subsection" id="nonlinear01-subsection-linearization-fails"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span>
+</h3>
+<p id="p-1777">There are at least two cases when linearization does not give us the information that we seek. First, it might well be the case that the linear terms vanish in the nonlinear system. For example, the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-444">
+\begin{align*}
+\frac{dx}{dt} \amp = xy\\
+\frac{dy}{dt} \amp = -x^2 + xy
+\end{align*}
+</div>
+<p class="continuation">has an equilibrium solution at the origin, but this linearization of this system vanishes.</p>
+<p id="p-1778">A more subtle example is the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-linearization-fails.html" id="md-445">
+\begin{align*}
+\frac{dx}{dt} \amp = y - (x^2 + y^2)x\\
+\frac{dy}{dt} \amp = -x - (x^2 + y^2)y.
+\end{align*}
+</div>
+<p class="continuation">The origin is an equilibrium solution, and the linearization of this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-linearization-fails.html" id="md-446">
+\begin{align*}
+\frac{dx}{dt} \amp = y\\
+\frac{dy}{dt} \amp = -x.
+\end{align*}
+</div>
+<p class="continuation">The eigenvalue of the matrix corresponding to the linear system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear01-figure-linearization-fails.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+0 \amp 1 \\
+-1 \amp 0
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">are <span class="process-math">\(\lambda = \pm i\text{.}\)</span> Thus, the solution curves of the linear system are simply circles about the origin. However, the nonlinear system acts quite differently. In the nonlinear system, solutions spiral out slowly from the origin (<a href="" class="xref" data-knowl="./knowl/nonlinear01-figure-linearization-fails.html" title="Figure 5.1.12">Figure 5.1.12</a>). This system has no periodic solutions.</p>
+<figure class="figure figure-like" id="nonlinear01-figure-linearization-fails"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear01-linearization-fails.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve spiraling out from the origin towards a circular trajectory"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.1.12<span class="period">.</span></span><span class="space"> </span>When linearization fails</figcaption></figure></section><section class="subsection" id="nonlinear01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1779" class="disc">
+<li id="li-492"><p id="p-derived-li-492">We can approximate a nonlinear system<div class="displaymath process-math" data-contains-math-knowls="" id="md-447">
+\begin{align*}
+x'(t) \amp = f(x,y)\\
+y'(t) \amp = g(x, y)
+\end{align*}
+</div>near each equilibrium point <span class="process-math">\((x_0, y_0)\)</span> with a linear system by using a Taylor series approximation for <span class="process-math">\(f\)</span> and <span class="process-math">\(g\text{.}\)</span> The matrix of our linear approximation,<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+f_x(x_0, y_0) \amp f_y(x_0, y_0) \\
+g_x(x_0, y_0) \amp g_y(x_0, y_0)
+\end{pmatrix},
+\end{equation*}
+</div>is the <dfn class="terminology">Jacobian matrix</dfn> of the system. We can classify nonlinear systems by examining the Jacobian matrix of the system and using the trace-determinant plane.</p></li>
+<li id="li-493"><p id="p-derived-li-493">Linearization only tells us how solutions behave near the equilibrium point. A solution curve might behave quite differently if it is far away from the equilibrium solution.</p></li>
+<li id="li-494"><p id="p-derived-li-494">In some cases, linearization can fail.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-nonlinear01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-nonlinear01-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1780">What does it mean to linearize a nonlinear system?</p></article><article class="exercise exercise-like" id="reading-questions-nonlinear01-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1781">How might the linearization of a nonlinear system fail?</p></article></section><section class="exercises" id="nonlinear01-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">5.1.5</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="nonlinear01-exercises-linearization">
+<h4 class="heading"><span class="title">Linearization.</span></h4>
+<div class="introduction" id="introduction-122">
+<p id="p-1782">For each of the systems in <a href="" class="xref" data-knowl="./knowl/nonlinear01-exercises-linearization.html" title="Exercise Group 5.1.5.1–6: Linearization">Exercise Group 5.1.5.1–6</a>,</p>
+<ol class="lower-alpha">
+<li id="li-495"><p id="p-derived-li-495">Plot and label the nullclines for equation in the system.</p></li>
+<li id="li-496"><p id="p-derived-li-496">Find all of the equilibrium solutions for the system.</p></li>
+<li id="li-497"><p id="p-derived-li-497">Use the Jacobian to classify each equilibrium solution (spiral source, nodal sink, etc.).</p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-426"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-448">
+\begin{align*}
+\frac{dx}{dt} &amp; = -6x - 2x^2 -3xy\\
+\frac{dy}{dt} &amp; = y - xy - y^2
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-427"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-449">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(2 - x - y)\\
+\frac{dy}{dt} &amp; = 2y(2 - x - 2y)
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-428"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-450">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(5 - x - y)\\
+\frac{dy}{dt} &amp; = y(20 - x - 2y)
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-429"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-451">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(-x^2 - y^2 + 25)\\
+\frac{dy}{dt} &amp; = y(x + 2y -10)
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-430"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-452">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(y^2 - x)\\
+\frac{dy}{dt} &amp; = y(y - 1)
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-431"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-453">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = - \cos x + y
+\end{align*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-432"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-1789">Consider the following three systems</p>
+<ol class="lower-alpha">
+<li id="li-498"><p id="p-derived-li-498"><div class="displaymath process-math" data-contains-math-knowls="" id="md-454">
+\begin{align*}
+x' &amp; = 3 \sin x + y\\
+y' &amp; = 4x + \cos y - 1
+\end{align*}
+</div></p></li>
+<li id="li-499"><p id="p-derived-li-499"><div class="displaymath process-math" data-contains-math-knowls="" id="md-455">
+\begin{align*}
+x' &amp; = -3 \sin x + y\\
+y' &amp; = 4x + \cos y - 1
+\end{align*}
+</div></p></li>
+<li id="li-500"><p id="p-derived-li-500"><div class="displaymath process-math" data-contains-math-knowls="" id="md-456">
+\begin{align*}
+x' &amp; = -3 \sin x + y\\
+y' &amp; = 4x + 3\cos y - 3
+\end{align*}
+</div></p></li>
+</ol>
+<p class="continuation">All three systems have an equilibrium solution at <span class="process-math">\((0, 0)\text{.}\)</span> Which two systems have phase portraits with the same “local picture” near <span class="process-math">\((0, 0)\text{?}\)</span>  Justify your answer.</p></article><article class="exercise exercise-like" id="exercise-433"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<p id="p-1790">Let us consider an epidemic model for a city. We make the following additional assumptions about our model.</p>
+<ul class="disc">
+<li id="li-501"><p id="p-derived-li-501">The city has a constant birth rate rate of <span class="process-math">\(\alpha\)</span> persons per day. All new born babies are susceptible to the disease.</p></li>
+<li id="li-502"><p id="p-derived-li-502">Infected people either recover or die after a certain number of days. If an individual recovers, he or she is immune.</p></li>
+</ul>
+<p class="continuation">If we let <span class="process-math">\(S(t)\)</span> be the number of susceptible individuals at time <span class="process-math">\(t\)</span> and <span class="process-math">\(I(t)\)</span> be the number of infected individuals at time <span class="process-math">\(t\text{,}\)</span> our assumptions give rise to the following system of differential equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-457">
+\begin{align*}
+\frac{dS}{dt} &amp; = - \alpha SI + \beta\\
+\frac{dI}{dt} &amp; = - \gamma I + \alpha SI.
+\end{align*}
+</div>
+<p class="continuation">The constant <span class="process-math">\(\alpha\)</span> is determined by the probability of an interaction between a susceptible individual and an infected individual, and <span class="process-math">\(\gamma\)</span> is the rate at which infected individuals are removed from the population. If</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-458">
+\begin{align*}
+\frac{dS}{dt} &amp; = - \alpha SI + \beta = 0\\
+\frac{dI}{dt} &amp; = - \gamma I + \alpha SI = 0,
+\end{align*}
+</div>
+<p class="continuation">then both the susceptible and infected populations do not change. This will occur at</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-459">
+\begin{align*}
+S_0 &amp; = \frac{\gamma}{\alpha}\\
+I_0 &amp; = \frac{\beta}{\gamma}.
+\end{align*}
+</div>
+<p class="continuation">We are interested in the behavior of solutions near <span class="process-math">\((S_0, I_0)\text{.}\)</span> If solutions approach this equilbrium point, then the disease will become endemic to the population.</p></article><article class="exercise exercise-like" id="exercise-434"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-1791">Consider the predator-prey system modeled by the following equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-460">
+\begin{align*}
+\frac{dx}{dt} &amp; = ax - \alpha xy = x(a - \alpha y)\\
+\frac{dy}{dt} &amp; = -by + \beta x y = y(-b + \beta x).
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-503"><p id="p-1792">Find the equilibrium solutions of this system.</p></li>
+<li id="li-504"><p id="p-1793">What are the eigenvalues of the Jacobian for each equilibrium solution?</p></li>
+<li id="li-505"><p id="p-1794">What, if anything, can be said about the nature of the equilibrium solutions of the system?</p></li>
+</ol></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-42"><div class="fn">You will probably find Sage very useful.</div></div>
+</div></main>
+</div>
+</body>
+</html>

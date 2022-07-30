@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:30+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Repeated Eigenvalues</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear04.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear06.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear04.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear06.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="active">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="linear05"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span>
+</h2>
+<article class="objectives goal-like" id="objectives-16"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc"><li id="li-333"><p id="p-1147">To understand and be able to solve systems <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where <span class="process-math">\(A\)</span> is a <span class="process-math">\(2 \times 2\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda\text{.}\)</span></p></li></ul></article><section class="introduction" id="introduction-73"><p id="p-1148">Consider the following system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear05-equation-repeated-eigenvalues.html ./knowl/linear05-figure-one-straight-line-solution.html" id="linear05-equation-repeated-eigenvalues">
+\begin{equation}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 \amp 1 \\
+-1 \amp 4
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}.\tag{3.5.1}
+\end{equation}
+</div>
+<p class="continuation">The characteristic polynomial of the system <a href="" class="xref" data-knowl="./knowl/linear05-equation-repeated-eigenvalues.html" title="Equation 3.5.1">(3.5.1)</a> is <span class="process-math">\(\lambda^2 - 6\lambda + 9\)</span> and <span class="process-math">\(\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2\text{.}\)</span> This polynomial has a single root <span class="process-math">\(\lambda = 3\)</span> with eigenvector <span class="process-math">\(\mathbf v = (1, 1)\text{.}\)</span> There is a single straight-line solution for this system (<a href="" class="xref" data-knowl="./knowl/linear05-figure-one-straight-line-solution.html" title="Figure 3.5.1">Figure 3.5.1</a>). The strategy that we used to find the general solution to a system with distinct real eigenvalues will clearly have to be modified if we are to find a general solution to a system with a single eigenvalue.</p>
+<figure class="figure figure-like" id="linear05-figure-one-straight-line-solution"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear05-one-straight-line-solution.svg" role="img" class="contained" alt="a direction field of slope arrows with one straight-line solution and a solution curve that approaches infinity"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.1<span class="period">.</span></span><span class="space"> </span>A system with one straight-line solution</figcaption></figure></section><section class="subsection" id="linear05-subsection-repeated-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span>
+</h3>
+<p id="p-1149">The remaining case that we must consider is when the characteristic equation of a matrix <span class="process-math">\(A\)</span> has repeated roots. The simplest such case is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \lambda
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalues of <span class="process-math">\(A\)</span> are both <span class="process-math">\(\lambda\text{.}\)</span> Since <span class="process-math">\(A{\mathbf v} = \lambda {\mathbf v}\text{,}\)</span> any nonzero vector in <span class="process-math">\({\mathbb R}^2\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{.}\)</span> Thus, solutions to this system are of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \alpha e^{\lambda t} {\mathbf v}.
+\end{equation*}
+</div>
+<p class="continuation">Each solution to our system lies on a straight line through the origin and either tends to the origin if <span class="process-math">\(\lambda \lt 0\)</span> or away from zero if <span class="process-math">\(\lambda \gt 0\text{.}\)</span></p>
+<p id="p-1150">A more interesting case occurs if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} \lambda &amp; 1 \\ 0 &amp; \lambda \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Again, both eigenvalues are <span class="process-math">\(\lambda\text{;}\)</span> however, there is only one linearly independent eigenvector, which we can take to be <span class="process-math">\((1, 0)\text{.}\)</span> Therefore, we have a single straight-line solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_1(t) = \alpha e^{\lambda t}\begin{pmatrix} 1 \\ 0 \end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-1151">To find other solutions, we will rewrite the system as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-subsection-partially-coupled.html" id="md-270">
+\begin{align*}
+x' &amp; = \lambda x + y\\
+y' &amp; = \lambda y.
+\end{align*}
+</div>
+<p class="continuation">This is a partially coupled system (<a href="systems04.html#systems04-subsection-partially-coupled" class="internal" title="Subsection 2.4.1: Partially Coupled Systems">Subsection 2.4.1</a>). If <span class="process-math">\(y \neq 0\text{,}\)</span> the solution of the second equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-subsection-partially-coupled.html">
+\begin{equation*}
+y(t) = \beta e^{\lambda t}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, the first equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-subsection-partially-coupled.html">
+\begin{equation*}
+x' = \lambda x + \beta e^{\lambda t},
+\end{equation*}
+</div>
+<p class="continuation">which is a  first-order linear differential equation with solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-subsection-partially-coupled.html">
+\begin{equation*}
+x(t) = \alpha e^{\lambda t} + \beta t e^{\lambda t}.
+\end{equation*}
+</div>
+<p class="continuation">Consequently, a solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems04-subsection-partially-coupled.html">
+\begin{equation*}
+\alpha e^{\lambda t} 
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
++
+\beta e^{\lambda t} 
+\begin{pmatrix}
+t \\ 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<article class="example example-like" id="example-44"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-44"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-44"><article class="example example-like"><p id="p-1152">Consider the linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear05-figure-repeated-phase-portrait.html" id="md-271">
+\begin{align*}
+x' \amp = -x + y\\
+y' \amp = -y\\
+x(0) \amp = 1\\
+y(0) \amp = 3.
+\end{align*}
+</div>
+<p class="continuation">The matrix that corresponds to this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear05-figure-repeated-phase-portrait.html">
+\begin{equation*}
+A = \begin{pmatrix}
+-1 &amp; 1 \\
+0 &amp; -1
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has a single eigenvalue, <span class="process-math">\(\lambda = -1\text{.}\)</span> An eigenvector for <span class="process-math">\(\lambda\)</span> is <span class="process-math">\(\mathbf v = (1, 0)\text{.}\)</span> The general solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear05-figure-repeated-phase-portrait.html" id="md-272">
+\begin{align*}
+x(t) \amp = c_1 e^{-t} + c_2 t e^{-t}\\
+y(t) \amp = c_2 e^{-t}.
+\end{align*}
+</div>
+<p class="continuation">Applying the initial conditions <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 3\text{,}\)</span> the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear05-figure-repeated-phase-portrait.html" id="md-273">
+\begin{align*}
+x(t) \amp = e^{-t} + 3te^{-t}\\
+y(t) \amp = 3e^{-t}.
+\end{align*}
+</div>
+<p class="continuation">Notice that we have only one straight-line solution (<a href="" class="xref" data-knowl="./knowl/linear05-figure-repeated-phase-portrait.html" title="Figure 3.5.3">Figure 3.5.3</a>).</p>
+<figure class="figure figure-like" id="linear05-figure-repeated-phase-portrait"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear05-repeated-phase-portrait.svg" role="img" class="contained" alt="a direction field of slope arrows with one straight-line solution on the horizontal axis and a solution curve that approaches the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.3<span class="period">.</span></span><span class="space"> </span>Phase portrait for repeated eigenvalues</figcaption></figure></article></div>
+<article class="activity project-like" id="activity-28"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Systems with Repeated Eigenvalues.</span>
+</h4>
+<div class="introduction" id="introduction-74">
+<p id="p-1153">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 1 \amp -2 \\ 0 \amp 1 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-151"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1154">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span> There should be a single real eigenvalue <span class="process-math">\(\lambda\text{.}\)</span></p></article><article class="task exercise-like" id="task-152"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1155">Find the eigenvectors <span class="process-math">\(\mathbf v\)</span> for the eigenvalues <span class="process-math">\(\lambda\text{.}\)</span></p></article><article class="task exercise-like" id="task-153"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1156">Find the straight-line solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  Plot the solution in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="task-154"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1157">Find the general solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-155"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1158">Sketch several solution curves for the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  What do you notice about the solution curves, especially with respect to the straight-line solution?</p></article></article></section><section class="subsection" id="linear05-subsection-quick-start"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span>
+</h3>
+<p id="p-1159">If the characteristic equation has only a single repeated root, there is a single eigenvalue. If this is the situation, then we actually have two separate cases to examine, depending on whether or not we can find two linearly independent eigenvectors.</p>
+<article class="example example-like" id="example-45"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-45"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-45"><article class="example example-like"><p id="p-1160">Suppose we have the system <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The single eigenvalue is <span class="process-math">\(\lambda = 2\text{,}\)</span> but there are two linearly independent eigenvectors, <span class="process-math">\(\mathbf v_1 = (1,0)\)</span> and <span class="process-math">\(\mathbf v_2 = (0,1)\text{.}\)</span>  In this case our solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x(t)
+=
+c_1 e^{2t}
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix} 
++
+c_2 e^{2t}
+\begin{pmatrix}
+0 \\ 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">This is not too surprising since the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-274">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = 2y
+\end{align*}
+</div>
+<p class="continuation">is uncoupled and each equation can be solved separately.</p></article></div>
+<article class="example example-like" id="linear05-example-repeated-eigenvalues"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-linear05-example-repeated-eigenvalues"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear05-example-repeated-eigenvalues"><article class="example example-like"><p id="p-1161">Now let us consider the example <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since the characteristic polynomial of <span class="process-math">\(A\)</span> is <span class="process-math">\(\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2\text{,}\)</span> we have only a single eigenvalue <span class="process-math">\(\lambda = 3\)</span> with eigenvector <span class="process-math">\(\mathbf v_1 = (1, -2)\text{.}\)</span> This gives us one solution to our system, <span class="process-math">\(\mathbf x_1(t) = e^{3t}\mathbf v_1\text{;}\)</span> however, we still need a second solution.</p>
+<p id="p-1162">Since all other eigenvectors of <span class="process-math">\(A\)</span> are a multiple of <span class="process-math">\(\mathbf v\text{,}\)</span> we cannot find a second linearly independent eigenvector, and we need to obtain the second solution in a different manner.  Furthermore, since this system is not partially coupled, we will need a more general strategy.</p>
+<p id="p-1163">First, we must find a vector <span class="process-math">\({\mathbf v}_2\)</span> such that <span class="process-math">\((A - \lambda I){\mathbf v}_2 = {\mathbf v}_1\text{.}\)</span> To do this we can start with any nonzero vector <span class="process-math">\({\mathbf w}\)</span> that is not a multiple of <span class="process-math">\({\mathbf v}_1\text{,}\)</span> say <span class="process-math">\({\mathbf w} = (1, 0)\text{.}\)</span> We then compute</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(A - \lambda I) {\mathbf w}
+=
+(A - 3I) {\mathbf w}
+=
+\begin{pmatrix}
+2 &amp; 1 \\
+-4 &amp; -2
+\end{pmatrix}
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 \\ -4
+\end{pmatrix}
+=
+2 {\mathbf v}_1.
+\end{equation*}
+</div>
+<p class="continuation">Thus, we can take <span class="process-math">\({\mathbf v}_2 = (1/2)\mathbf w = (1/2, 0)\text{,}\)</span> and our second solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_2 = e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1) = e^{3t} \begin{pmatrix} 1/2 + t \\ -2t \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">Thus, our general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}
+= 
+c_1 {\mathbf x}_1 + c_2 {\mathbf x}_2
+=
+c_1
+e^{3t}
+\begin{pmatrix}
+1 \\ -2
+\end{pmatrix}
++
+c_2
+e^{3t} 
+\begin{pmatrix}
+1/2 + t \\ -2t
+\end{pmatrix}.
+\end{equation*}
+</div></article></div>
+<p id="p-1164">If the eigenvalue is positive, we will have a nodal source. If it is negative, we will have a nodal sink. Notice that we have only given a recipe for finding a solution to <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where <span class="process-math">\(A\)</span> has a repeated eigenvalue and any two eigenvectors are linearly dependent. We will justify our procedure in the next section (<a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal" title="Subsection 3.6.6: Repeated Eigenvalues">Subsection 3.6.6</a>).</p>
+<article class="activity project-like" id="activity-29"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">Systems with Repeated Eigenvalues—Finding a Second Solution.</span>
+</h4>
+<div class="introduction" id="introduction-75">
+<p id="p-1165">Consider the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A  = \begin{pmatrix} 4 \amp 3 \\ -3 \amp -2 \end{pmatrix}
+\end{equation*}
+</div>
+</div>
+<article class="task exercise-like" id="task-156"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1166">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span> There should be a single real eigenvalue <span class="process-math">\(\lambda\text{.}\)</span></p></article><article class="task exercise-like" id="task-157"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1167">Find the eigenvectors <span class="process-math">\(\mathbf v_1\)</span> for the eigenvalues <span class="process-math">\(\lambda\text{.}\)</span></p></article><article class="task exercise-like" id="task-158"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1168">Find the straight-line solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  Plot the solution in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="task-159"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1169">Find one solution, <span class="process-math">\(\mathbf x_1\text{,}\)</span> of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-160"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1170">To find a second solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> choose a vector <span class="process-math">\(\mathbf w\)</span> that is not a multiple of <span class="process-math">\(\mathbf v_1\)</span> and compute <span class="process-math">\((A - \lambda I) {\mathbf w}\text{.}\)</span>  This should give you a vector of the form <span class="process-math">\(\alpha \mathbf v_1\text{.}\)</span>  Let <span class="process-math">\(\mathbf v_2 = (1/\alpha) \mathbf w\text{.}\)</span>  The second solution is <span class="process-math">\({\mathbf x}_2 = e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1)\text{.}\)</span>  What is the general solution?</p></article><article class="task exercise-like" id="task-161"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<p id="p-1171">Sketch several solution curves for the system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  What do you notice about the solution curves, especially with respect to the straight-line solution?</p></article></article></section><section class="subsection" id="linear05-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1172" class="disc">
+<li id="li-334">
+<p id="p-1173">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then <span class="process-math">\(A\)</span> has one repeated real eigenvalue. The general solution to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) 
+=
+\alpha e^{\lambda t} 
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
++
+\beta e^{\lambda t} 
+\begin{pmatrix}
+t \\ 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(\lambda \lt 0\text{,}\)</span> then the solutions tend towards the origin as <span class="process-math">\(t  \to \infty\text{.}\)</span> For <span class="process-math">\(\lambda \gt 0\text{,}\)</span> the solutions tend away from the origin.</p>
+</li>
+<li id="li-335">
+<p id="p-1174">Suppose that a system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> has a single eigenvalue with an <span class="process-math">\(\mathbf v_1\)</span> and that all other eigenvectors are multiples of <span class="process-math">\(\mathbf v_1\text{.}\)</span> Then one solution is <span class="process-math">\(\mathbf x_1 = e^{\lambda t} {\mathbf v}_1\text{.}\)</span> To find a second linearly independent solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> choose a vector <span class="process-math">\(\mathbf w\)</span> that is not a multiple of <span class="process-math">\(\mathbf v_1\)</span> and compute <span class="process-math">\((A - \lambda I) {\mathbf w}\text{.}\)</span>  This should give you a vector of the form <span class="process-math">\(\alpha \mathbf v_1\text{.}\)</span>  Let <span class="process-math">\(\mathbf v_2 = (1/\alpha) \mathbf w\text{.}\)</span>  The second solution is <span class="process-math">\({\mathbf x}_2 = e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1)\text{.}\)</span>  The general solution of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> will be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x(t) = c_1 e^{\lambda t} {\mathbf v}_1+ c_2 e^{\lambda t} ({\mathbf v}_2 + t {\mathbf v}_1) \text{.}
+\end{equation*}
+</div>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-linear05"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear05-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1175">Given a <span class="process-math">\(2 \times 2\)</span> system with repeated eigenvalues, how many straight-line solutions are there?</p></article><article class="exercise exercise-like" id="reading-questions-linear05-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1176">Given a <span class="process-math">\(2 \times 2\)</span> system with repeated eigenvalues, explain why it is necessary to find a second linearly independent solution.</p></article></section><section class="exercises" id="exercises-linear05"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.5.5</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="exercises-linear05-solving-linear-systems">
+<h4 class="heading"><span class="title">Solving Linear Systems with Repeated Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-76"><p id="p-1177">Find the general solution of each of the linear systems in <a href="" class="xref" data-knowl="./knowl/exercises-linear05-solving-linear-systems.html" title="Exercise Group 3.5.5.1–4: Solving Linear Systems with Repeated Eigenvalues">Exercise Group 3.5.5.1–4</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-248"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-275">
+\begin{align*}
+x' &amp; = 9x + 4y\\
+y' &amp; = -9x - 3y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-249"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-276">
+\begin{align*}
+x' &amp; = 5x + 4y\\
+y' &amp; = -9x - 7y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-250"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-277">
+\begin{align*}
+x' &amp; = -x + y\\
+y' &amp; = -x - 3y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-251"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-278">
+\begin{align*}
+x' &amp; = 2x + y\\
+y' &amp; = -x
+\end{align*}
+</div></article>
+</div>
+</div>
+<div class="exercisegroup" id="exercises-linear05-solving-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-77"><p id="p-1182">Solve each of the following linear systems for the given initial values in <a href="" class="xref" data-knowl="./knowl/exercises-linear05-solving-ivps.html" title="Exercise Group 3.5.5.5–8: Solving Initial Value Problems">Exercise Group 3.5.5.5–8</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-252"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-279">
+\begin{align*}
+x' &amp; = 9x + 4y\\
+y' &amp; = -9x - 3y\\
+x(0) &amp; = 2\\
+y(0) &amp; = -3
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-253"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-280">
+\begin{align*}
+x' &amp; = 5x + 4y\\
+y' &amp; = -9x - 7y\\
+x(0) &amp; = 2\\
+y(0) &amp; = 1
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-254"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-281">
+\begin{align*}
+x' &amp; = -x + y\\
+y' &amp; = -x - 3y\\
+x(0) &amp; = 2\\
+y(0) &amp; = 2
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-255"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-282">
+\begin{align*}
+x' &amp; = 2x + y\\
+y' &amp; = -x\\
+x(0) &amp; = 0\\
+y(0) &amp; = -5
+\end{align*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-256"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-1187">Consider the linear system <span class="process-math">\(d \mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+3 \amp 1 \\
+-4 \amp -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Suppose the initial conditions for the solution curve are <span class="process-math">\(x(0) = -2\)</span> and <span class="process-math">\(y(0) = 5\text{.}\)</span>  We can use the following Sage code to plot the phase portrait of this system, including a solution curve and the straight-line solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-58"><script type="text/x-sage">x, y, t = var('x y t') #declare the variables
+F = [3*x + y, -4*x - y] #declare the system
+# normalize the vector fields so that all of the arrows are the same length
+n = sqrt(F[0]^2 + F[1]^2)
+# plot the vector field
+p = plot_vector_field((F[0]/n, F[1]/n), (x, -20, 20), (y, -20, 20), aspect_ratio = 1)
+# solve the system for the initial condition t = 0, x = -2, y = 5
+P1 = desolve_system_rk4(F, [x, y], ics=[0, -2, 5], ivar = t, end_points = 5, step = 0.01)
+# grab the x and y values
+S1 = [ [j, k] for i, j, k in P1]
+# plot the solution
+# Setting xmin, xmax, ymin, ymax will clip the window
+# Try plotting without doing this to see what happens
+p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -20, xmax = 20, ymin = -20, ymax = 20)
+# plot the straight-line solutions
+p += line([(-10, 20), (10, -20)], thickness = 2, color = "red") 
+p
+</script></pre>
+<p id="p-1188">Use Sage to graph the direction field for the system linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/exercises-linear05-solving-ivps.html" title="Exercise Group 3.5.5.5–8: Solving Initial Value Problems">Exercise Group 3.5.5.5–8</a>.  Plot the straight-line solutions and the solution curve for the given initial condition.</p></article></section></section></div></main>
+</div>
+</body>
+</html>

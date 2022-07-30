@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Modeling with Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="systems.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="systems02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="systems.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a class="next-button button toolbar-item" href="systems02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="active">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="systems01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-8"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-161">
+<p id="p-628">To understand and be able to create models using system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-75">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y).
+\end{align*}
+</div>
+</li>
+<li id="li-162">
+<p id="p-629">To understand that solutions to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-76">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y),\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">as parametric plots in the <span class="process-math">\(xy\)</span>-plane.</p>
+</li>
+<li id="li-163">
+<p id="p-630">To understand that a <dfn class="terminology">second-order linear equation</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a(t) x'' + b(t) x' + c(t) x = g(t)
+\end{equation*}
+</div>
+<p class="continuation">can be written as a system of first-order equations by letting <span class="process-math">\(v(t) = x'(t)\text{.}\)</span></p>
+</li>
+<li id="li-164">
+<p id="p-631">To understand that <dfn class="terminology">equilibrium solutions</dfn> for a system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-77">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">are those values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> such that both <span class="process-math">\(f(x, y) = 0\)</span> and <span class="process-math">\(g(x, y) = 0\text{.}\)</span></p>
+</li>
+</ul></article><section class="introduction" id="introduction-42"><p id="p-632">Many situations are best modeled with a system of differential equations rather than a single equation. We have already derived a model that describes how a population of snowshoe hares interacts with one of their primary predators, the lynx (<a href="firstlook01.html" class="internal" title="Section 1.1: Modeling with Differential Equations">Section 1.1</a>). We denoted the population of hares by <span class="process-math">\(H(t)\)</span> and the population of lynx by <span class="process-math">\(L(t)\text{,}\)</span> where <span class="process-math">\(t\)</span> is the time measured in years and derived the system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html" id="md-78">
+\begin{align*}
+\frac{dH}{dt} &amp; = aH - bHL,\\
+\frac{dL}{dt} &amp; = -cL + dHL.
+\end{align*}
+</div>
+<p id="p-633">Just as in first-order differential equations, we can examine the equilibrium solutions of a system. More specifically, we define an <dfn class="terminology">equilibrium solution</dfn> for a system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-79">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">to be those values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> such that <span class="process-math">\(f(x, y) = 0\)</span> and <span class="process-math">\(g(x, y) = 0\text{.}\)</span> That is, an equilibrium solution is a solution where neither <span class="process-math">\(x(t)\)</span> or <span class="process-math">\(y(t)\)</span> is changing.</p></section><section class="subsection" id="systems01-subsection-predator-prey"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span>
+</h3>
+<p id="p-634">Suppose that we have a predator-prey system consisting of a population of foxes (<span class="process-math">\(F\)</span>) and of rabbits (<span class="process-math">\(R\)</span>).<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-22" id="fn-22"><sup> 1 </sup></a></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-80">
+\begin{align*}
+\frac{dR}{dt} &amp; = 2R - RF,\\
+\frac{dF}{dt} &amp; = -5F + RF,
+\end{align*}
+</div>
+<p class="continuation">we have an equilibrium solution at <span class="process-math">\(R = 5\)</span> and <span class="process-math">\(F = 2\text{.}\)</span> That is, the system is in balance and there is just enough prey to support a constant population of predators at the point <span class="process-math">\((R, F) = (5, 2)\text{.}\)</span></p>
+<p id="p-635">If the number of rabbits or foxes changes, then the system is no longer in balance. For example, if <span class="process-math">\(R = 1\)</span> and <span class="process-math">\(F = 1\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems01-figure-simple-predator-prey-system.html" id="md-81">
+\begin{align*}
+\frac{dR}{dt} &amp; = 1,\\
+\frac{dF}{dt} &amp; = -4,
+\end{align*}
+</div>
+<p class="continuation">and the rabbit population will be increasing while the fox population will decrease. If we assume that we have initial conditions</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems01-figure-simple-predator-prey-system.html" id="md-82">
+\begin{gather*}
+R_0 = R(0) = 1,\\
+F_0 = F(0) = 1,
+\end{gather*}
+</div>
+<p class="continuation">we can apply a numerical algorithm to generate a solution for our system.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-23" id="fn-23"><sup> 2 </sup></a> The graphs of the solutions for <span class="process-math">\(R(t)\)</span> and <span class="process-math">\(F(t)\)</span> are given in <a href="" class="xref" data-knowl="./knowl/systems01-figure-simple-predator-prey-system.html" title="Figure 2.1.1">Figure 2.1.1</a>. Notice that the solutions are periodic with the same period. Observe that a peak in the rabbit population is followed by a peak in the fox population.</p>
+<figure class="figure figure-like" id="systems01-figure-simple-predator-prey-system"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-simple-predator-prey-system.svg" role="img" class="contained" alt="two oscillating curves with the curve for the foxes reaching a lower peak after the higher peak for the rabbit population"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.1<span class="period">.</span></span><span class="space"> </span>A simple predator-prey system</figcaption></figure><p id="p-636">We can graph the solution to our system in a different manner—we can construct a parametric plot of our solution in the <span class="process-math">\(RF\)</span>-plane. Thus, a point on the graph is given by <span class="process-math">\((R(t), F(t))\)</span> at time <span class="process-math">\(t\text{.}\)</span> We can view the solution curve of our system in the <span class="process-math">\(RF\)</span>-plane in <a href="" class="xref" data-knowl="./knowl/systems01-figure-solution-curve-predator-prey.html" title="Figure 2.1.2">Figure 2.1.2</a>. The <span class="process-math">\(RF\)</span>-plane is called the <dfn class="terminology">phase plane</dfn> for our system of differential equations and is analogous to the phase line that we used during our investigation of slope fields for autonomous differential equations. We can plot many solutions to our predator-prey system and even plot direction fields in the phase plane (<a href="" class="xref" data-knowl="./knowl/systems01-figure-phase-plane-predator-prey.html" title="Figure 2.1.3">Figure 2.1.3</a>).</p>
+<figure class="figure figure-like" id="systems01-figure-solution-curve-predator-prey"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-solution-curve-predator-prey.svg" role="img" class="contained" alt="a closed loop where the horizontal axis is the rabbit population and the vertical axis is the fox population"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.2<span class="period">.</span></span><span class="space"> </span>A solution curve in the <span class="process-math">\(RF\)</span>-plane</figcaption></figure><figure class="figure figure-like" id="systems01-figure-phase-plane-predator-prey"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-phase-plane-predator-prey.svg" role="img" class="contained" alt="a closed loop on a direction field of slope arrows with the rabbit population plotted against the fox population"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.3<span class="period">.</span></span><span class="space"> </span>The phase plane for a predator-prey system</figcaption></figure><p id="p-637">We will now modify our system by assuming that the rabbit population will grow logistically if there are no predators present. The system can now be written as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-83">
+\begin{align*}
+\frac{dR}{dt} &amp; = aR(1 - R/N) - bRF,\\
+\frac{dF}{dt} &amp; = -cF + dRF,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(N\)</span> is the carrying capacity. As a specific example, consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-84">
+\begin{align*}
+\frac{dR}{dt} &amp; = 2R\left(1 - \frac{R}{10}\right) - RF,\\
+\frac{dF}{dt} &amp; = -5F + RF.
+\end{align*}
+</div>
+<p id="p-638">It is easy to see that we have two equilibrium solutions—one at <span class="process-math">\((R, F) = (0, 0)\)</span> and one at <span class="process-math">\((R, F) = (5, 1)\text{.}\)</span> Our solutions now behave very differently from the assumption that the population of the prey grows exponentially. If we have initial values <span class="process-math">\(R_0 = 1\)</span> and <span class="process-math">\(F_0 = 1\text{,}\)</span> then our solution is no longer periodic (<a href="" class="xref" data-knowl="./knowl/systems01-figure-modified-predator-prey.html" title="Figure 2.1.4">Figure 2.1.4</a>). In fact, the solutions tend towards the equilibrium solution. The phase plane for our modified predator-prey system is given in <a href="" class="xref" data-knowl="./knowl/systems01-figure-modified-predator-prey-phase-plane.html" title="Figure 2.1.5">Figure 2.1.5</a>. The equilibrium solution <span class="process-math">\((5, 1)\)</span> is an example of a <dfn class="terminology">stable equilibrium solution</dfn>.</p>
+<figure class="figure figure-like" id="systems01-figure-modified-predator-prey"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-modified-predator-prey.svg" role="img" class="contained" alt="two oscillating curves that approach a constant value with the higher valued curve representing the rabbit population"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.4<span class="period">.</span></span><span class="space"> </span>Solutions for a modified predator-prey system</figcaption></figure><figure class="figure figure-like" id="systems01-figure-modified-predator-prey-phase-plane"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-modified-predator-prey-phase-plane.svg" role="img" class="contained" alt="three curves on a direction field of slope arrows with the curves spiraling in towards an equilibrium solution"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.5<span class="period">.</span></span><span class="space"> </span>Phase plane for a modified predator-prey system</figcaption></figure><article class="activity project-like" id="activity-15"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Modifying Predator-Prey Systems.</span>
+</h4>
+<div class="introduction" id="introduction-43">
+<p id="p-639">Consider the following predator-prey system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-85">
+\begin{align*}
+x' &amp; = ax(1 - x/N) - bxy\\
+y' &amp; = -cy + dxy,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(x(t)\)</span> is the population of the prey and <span class="process-math">\(y(t)\)</span> is the population of the predator at time <span class="process-math">\(t\text{.}\)</span></p>
+</div>
+<article class="task exercise-like" id="task-81"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-640">How would you modify this system to include the effect of hunting of the prey at a rate of <span class="process-math">\(\alpha\)</span> units of prey per unit of time?</p></article><article class="task exercise-like" id="task-82"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-641">How would you modify this system to include the effect of hunting of the predators at a rate proportional to the number of predators?</p></article><article class="task exercise-like" id="task-83"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-642">Suppose the predators discover a second, unlimited source of food, but they still prefer to eat the primary prey when they can catch them.  How would you modify the system to include this assumption?</p></article><article class="task exercise-like" id="task-84"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-643">Suppose the predators discover a second source of food that is limited in supply. How would you modify the system to include this assumption?</p></article><article class="task exercise-like" id="task-85"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-644">Suppose that the predators migrate to a different area if there are more than three times as many prey as predators in that area (<span class="process-math">\(x &gt; 3y\)</span>) and they move back if there are fewer than three times as many prey as predators. How would you modify the system to take this into account?</p></article><article class="task exercise-like" id="task-86"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<p id="p-645">Suppose that prey move out of an area at a rate proportional to the number of predators in the area.  How would you modify the system to take this into account?</p></article></article></section><section class="subsection" id="systems01-subsection-spring-mass"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span>
+</h3>
+<p id="p-646">Recall the spring-mass model from <a href="firstlook01.html" class="internal" title="Section 1.1: Modeling with Differential Equations">Section 1.1</a>. We have a mass lying on a flat surface that is attached to one end of a spring with the other end of the spring attached to a wall. The spring displacement is denoted by <span class="process-math">\(x\text{.}\)</span> If <span class="process-math">\(x \gt 0\text{,}\)</span> then the spring is stretched. If <span class="process-math">\(x \lt 0\text{,}\)</span> the spring is compressed. If <span class="process-math">\(x = 0\text{,}\)</span> then the spring is in a state of equilibrium (<a href="" class="xref" data-knowl="./knowl/firstlook01-figure-spring-mass.html" title="Figure 1.1.4">Figure 1.1.4</a>). If the surface is frictionless and we pull on the mass, then the mass will oscillate.</p>
+<p id="p-647">If we use a dashpot to add damping, the second-order differential equation for the spring-mass system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' = -bx' - kx.
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' + bx' + kx = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(m\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(k\)</span> are all positive constants.</p>
+<p id="p-648">A second-order differential equation can be restated in terms of a system of first order differential equations. Given the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' + bx' + kx = F(t),
+\end{equation*}
+</div>
+<p class="continuation">with initial position <span class="process-math">\(x(0) = x_0\)</span> and initial velocity <span class="process-math">\(x'(0) = x_0'\text{,}\)</span> we can rewrite this equation as a system of first-order differential equations by letting <span class="process-math">\(v(t) = x'(t)\text{.}\)</span> In this case, the equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mv' + bv + kx = F(t).
+\end{equation*}
+</div>
+<p class="continuation">We now have a system of first-order differential equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-86">
+\begin{align*}
+x' &amp; = v,\\
+v' &amp; = \frac{1}{m} F(t) -\frac{b}{m} v -\frac{k}{m} x,
+\end{align*}
+</div>
+<p class="continuation">with initial conditions</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-87">
+\begin{align*}
+x(0) &amp; = x_0\\
+v(0) &amp; = v_0.
+\end{align*}
+</div>
+<article class="activity project-like" id="activity-16"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.1.2</span><span class="period">.</span><span class="space"> </span><span class="title">A Harmonic Oscillator.</span>
+</h4>
+<div class="introduction" id="introduction-44">
+<p id="p-649">Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 y}{dt^2} + \frac{k}{m} y = 0
+\end{equation*}
+</div>
+<p class="continuation">for the motion of a simple harmonic oscillator.</p>
+</div>
+<article class="task exercise-like" id="task-87"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-650">Rewrite the second-order differential equation, <span class="process-math">\(d^2 y/dt^2 + (k/m) y = 0\text{,}\)</span> as a system of two first-order differentail equations, where <span class="process-math">\(v = y'\text{.}\)</span></p></article><article class="task exercise-like" id="task-88"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-651">Consider the function <span class="process-math">\(y(t) = \cos \beta t\text{.}\)</span> Under what conditions on <span class="process-math">\(\beta\)</span> is <span class="process-math">\(y(t)\)</span> a solution to the differential equation?</p></article><article class="task exercise-like" id="task-89"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-652">What initial condition (<span class="process-math">\(t = 0\)</span>) in the <span class="process-math">\(yv\)</span>-plane corresponds to this solution?</p></article><article class="task exercise-like" id="task-90"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-653">In terms of <span class="process-math">\(k\)</span> and <span class="process-math">\(m\text{,}\)</span> what is the period of this solution?</p></article><article class="task exercise-like" id="task-91"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-654">Sketch the solution curve in the <span class="process-math">\(yv\)</span>-plane that corresponds to this solution.</p></article></article></section><section class="subsection" id="systems01-subsection-epidemics"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span>
+</h3>
+<p id="p-655">Systems of differential equations are very useful in epidemiology. Differential equations can be used to model various epidemics, including the  bubonic plague, influenza, AIDS, the 2015 ebola outbreak in west Africa, and the COVID-19 pandemic. To understand how we might model an epidemic, we will consider a very simple situation. We will assume that we have a closed population of size <span class="process-math">\(N\text{,}\)</span> where immigration, emigration, and birth do not play an important role. We will also ignore any deaths that are not related to our disease.</p>
+<p id="p-656">We will assume that each individual in the population falls into one of the following categories:</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-88">
+\begin{align*}
+s(t) &amp; = \text{Susceptible individuals}\\
+i(t) &amp; = \text{Infected individuals}\\
+r(t) &amp; = \text{Removed individuals}
+\end{align*}
+</div>
+<p class="continuation">Susceptible individuals are those who do not yet have the disease and can catch the disease from infected individuals. Individuals enter the removed population by either recovering from the disease or dying. If an infected individual recovers, then the individual is immune to the disease. Schematically, we can represent the effect of the disease by the diagram</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+s \longrightarrow i \longrightarrow r.
+\end{equation*}
+</div>
+<p class="continuation">Since the population is closed, we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+s(t) + i(t) + r(t) = N.
+\end{equation*}
+</div>
+<p class="continuation">This model is called an <dfn class="terminology">SIR model</dfn>.</p>
+<p id="p-657">We can model how the disease acts with the following system of equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems01-figure-SIR-epidemic.html" id="md-89">
+\begin{align*}
+\frac{ds}{dt} &amp; = - \alpha si\\
+\frac{di}{dt} &amp; = \alpha si - \beta i\\
+\frac{dr}{dt} &amp; = \beta i.
+\end{align*}
+</div>
+<p class="continuation">We say that <span class="process-math">\(\alpha\)</span> is the rate of infection and <span class="process-math">\(\beta\)</span> is the rate at which the infected are removed. That is, an infected individual either dies or recovers after <span class="process-math">\(1/ \beta\)</span> days. Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems01-figure-SIR-epidemic.html">
+\begin{equation*}
+\frac{d}{dt}\left[ s(t) + i(t) + r(t)\right] = \frac{d}{dt} N = 0,
+\end{equation*}
+</div>
+<p class="continuation">we need only solve the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems01-figure-SIR-epidemic.html" id="md-90">
+\begin{align*}
+\frac{ds}{dt} &amp; = - \alpha si\\
+\frac{di}{dt} &amp; = \alpha si - \beta i.
+\end{align*}
+</div>
+<p class="continuation">Letting <span class="process-math">\(\alpha = 0.005\)</span> and <span class="process-math">\(\beta = 0.08\text{,}\)</span> we can see how the susceptible and infected populations interact in an SIR epidemic in <a href="" class="xref" data-knowl="./knowl/systems01-figure-SIR-epidemic.html" title="Figure 2.1.6">Figure 2.1.6</a>.</p>
+<figure class="figure figure-like" id="systems01-figure-SIR-epidemic"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems01-SIR-epidemic.svg" role="img" class="contained" alt="susceptible and infected populations plotted against time with the susceptible population decreasing to zero and the infected population increasing to a peak and then decreasing to zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.6<span class="period">.</span></span><span class="space"> </span>The susceptible and removed populations for an SIR epidemic</figcaption></figure><p id="p-658">There are many questions associated with epidemic models.</p>
+<ul class="disc">
+<li id="li-165"><p id="p-derived-li-165">Will there be an epidemic?</p></li>
+<li id="li-166"><p id="p-derived-li-166">If there is an epidemic, how many individuals will be infected?</p></li>
+<li id="li-167"><p id="p-derived-li-167">Is there a period of time for which individuals are exposed to the disease but exhibit no symptoms and cannot infect others?</p></li>
+<li id="li-168"><p id="p-derived-li-168">If the disease is endemic, what is the prevalence of the infection?</p></li>
+<li id="li-169"><p id="p-derived-li-169">Can the disease be eradicated or controlled?</p></li>
+<li id="li-170"><p id="p-derived-li-170">What is the effect of the population age structure?</p></li>
+</ul>
+<p class="continuation">To explore <span class="process-math">\(SIR\)</span> models in more depth, see <a href="" class="xref" data-knowl="./knowl/systems05-project-epidemiology.html" title="Project 2.5.1: Project—Modeling a Pandemic">Project 2.5.1</a>.</p></section><section class="subsection" id="systems01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-659" class="disc">
+<li id="li-171">
+<p id="p-660">A <dfn class="terminology">second-order linear equation</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a(t) x'' + b(t) x' + c(t) x = g(t)
+\end{equation*}
+</div>
+<p class="continuation">can be written as a system of first-order equations by letting <span class="process-math">\(v(t) = x'(t)\text{.}\)</span></p>
+</li>
+<li id="li-172">
+<p id="p-661">We define an <dfn class="terminology">equilibrium solution</dfn> for a system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-91">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">to be those values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> such that <span class="process-math">\(f(x, y) = 0\)</span> and <span class="process-math">\(g(x, y) = 0\text{.}\)</span></p>
+</li>
+<li id="li-173">
+<p id="p-662">We can graph solutions to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-92">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y),\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">as parametric plots in the <span class="process-math">\(xy\)</span>-plane.  A point on the graph is given by <span class="process-math">\((x(t), y(t))\)</span> at time <span class="process-math">\(t\text{.}\)</span> The <span class="process-math">\(xy\)</span>-plane is called the <dfn class="terminology">phase plane</dfn> for our system of differential equations.</p>
+</li>
+<li id="li-174">
+<p id="p-663">Solution curves in the phase plane of</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-93">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y),\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">can act very differently depending on how close they are to a particular equilibrium solution.</p>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-system01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-system01-2"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-664">Given a system of first-order differential equations, explain in your own words what it means to be a stable equilibrium solution for the system.</p></article></section><section class="exercises" id="systems01-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">2.1.6</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-149"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-665">Verify whether or not the given pair of functions, <span class="process-math">\((x(t), y(t))\)</span> forms a solution to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-94">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x + 2y\\
+\frac{dy}{dt} &amp; = 3x - y
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-175"><p id="p-666"><span class="process-math">\(x(t) = e^{-2t} + 2e^{5t}\text{,}\)</span> <span class="process-math">\(y(t) = -3e^{-2t} + e^{5t}\)</span></p></li>
+<li id="li-176"><p id="p-667"><span class="process-math">\(x(t) = 2e^{-2t} \text{,}\)</span> <span class="process-math">\(y(t) = -6 e^{-2t} \)</span></p></li>
+<li id="li-177"><p id="p-668"><span class="process-math">\(x(t) = 2e^{-2t} \text{,}\)</span> <span class="process-math">\(y(t) = -5 e^{-2t} \)</span></p></li>
+<li id="li-178"><p id="p-669"><span class="process-math">\(x(t) = c_1e^{-2t} + 2c_2e^{5t}\text{,}\)</span> <span class="process-math">\(y(t) = -3c_1 e^{-2t} + c_2 e^{5t}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-150"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-670">Verify whether or not the given pair of functions, <span class="process-math">\((x(t), y(t))\)</span> forms a solution to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-95">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x -3y\\
+\frac{dy}{dt} &amp; = 3x + 4y
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-179"><p id="p-671"><span class="process-math">\(x(t) = 2e^{4t}\cos 3t\text{,}\)</span> <span class="process-math">\(y(t) = 2e^{4t}\sin 3t\)</span></p></li>
+<li id="li-180"><p id="p-672"><span class="process-math">\(x(t) = 2e^{4t}\cos 3t - 3e^{4t}\sin 3t\text{,}\)</span> <span class="process-math">\(y(t) = 2e^{4t}\sin 3t + 3e^{4t}\cos 3t\)</span></p></li>
+<li id="li-181"><p id="p-673"><span class="process-math">\(x(t) = 3e^{4t}\cos 3t - 4e^{4t}\sin 3t\text{,}\)</span> <span class="process-math">\(y(t) = 3e^{4t}\sin 3t + 5e^{4t}\cos 3t\)</span></p></li>
+<li id="li-182"><p id="p-674"><span class="process-math">\(x(t) =c_1e^{4t}\cos 3t - c_2e^{4t}\sin 3t\text{,}\)</span> <span class="process-math">\(y(t) = c_1e^{4t}\sin 3t + c_2e^{4t}\cos 3t\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-151"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-675">A system is <dfn class="terminology">autonomous</dfn> if <span class="process-math">\(dx/dt\)</span> and <span class="process-math">\(dx/dt\)</span> dop not depend on <span class="process-math">\(t\text{;}\)</span> that is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-96">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x,y)\\
+\frac{dy}{dt} &amp; = g(x,y).
+\end{align*}
+</div>
+<p class="continuation">Which of the following systems are autonomous?</p>
+<ol class="lower-alpha">
+<li id="li-183"><div class="displaymath process-math" data-contains-math-knowls="" id="md-97">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x -3y\\
+\frac{dy}{dt} &amp; = 3x + 4y
+\end{align*}
+</div></li>
+<li id="li-184"><div class="displaymath process-math" data-contains-math-knowls="" id="md-98">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x -3y + \cos x\\
+\frac{dy}{dt} &amp; = 3x + 4y - \sin x
+\end{align*}
+</div></li>
+<li id="li-185"><div class="displaymath process-math" data-contains-math-knowls="" id="md-99">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x -3y +3tx\\
+\frac{dy}{dt} &amp; = 3x + 4y - e^x
+\end{align*}
+</div></li>
+<li id="li-186"><div class="displaymath process-math" data-contains-math-knowls="" id="md-100">
+\begin{align*}
+\frac{dx}{dt} &amp; = 4x \\
+\frac{dy}{dt} &amp; =  4y
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-152"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<p id="p-680">Change each of the following second-order initial value problems into a system of equations.</p>
+<ol class="lower-alpha">
+<li id="li-187"><div class="displaymath process-math" data-contains-math-knowls="" id="md-101">
+\begin{align*}
+x'' + 6x' - 2x \amp = 0\\
+x(0) \amp = 1\\
+x'(0) \amp = 1
+\end{align*}
+</div></li>
+<li id="li-188"><div class="displaymath process-math" data-contains-math-knowls="" id="md-102">
+\begin{align*}
+y'' + y' - 2y \amp = 0\\
+y(0) \amp = 2\\
+y'(0) \amp = 0
+\end{align*}
+</div></li>
+<li id="li-189"><div class="displaymath process-math" data-contains-math-knowls="" id="md-103">
+\begin{align*}
+\frac{d^2x}{dt^2} + \frac{dx}{dt}' + 4x \amp = \sin t\\
+x(0) \amp = 4\\
+x'(0) \amp = -3
+\end{align*}
+</div></li>
+<li id="li-190"><div class="displaymath process-math" data-contains-math-knowls="" id="md-104">
+\begin{align*}
+x'' + tx' - 2 \amp = 0\\
+x(0) \amp = 0\\
+x'(0) \amp = 1
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-153"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-685">Change each of the following second-order initial value problems into a system of equations.</p>
+<ol class="lower-alpha">
+<li id="li-191"><div class="displaymath process-math" data-contains-math-knowls="" id="md-105">
+\begin{align*}
+x'' + 6x' - 2x \amp = 0\\
+x(0) \amp = 1\\
+x'(0) \amp = 1
+\end{align*}
+</div></li>
+<li id="li-192"><div class="displaymath process-math" data-contains-math-knowls="" id="md-106">
+\begin{align*}
+y'' + y' - 2y \amp = 0\\
+y(0) \amp = 2\\
+y'(0) \amp = 0
+\end{align*}
+</div></li>
+<li id="li-193"><div class="displaymath process-math" data-contains-math-knowls="" id="md-107">
+\begin{align*}
+\frac{d^2x}{dt^2} + \frac{dx}{dt}' + 4x \amp = \sin t\\
+x(0) \amp = 4\\
+x'(0) \amp = -3
+\end{align*}
+</div></li>
+<li id="li-194"><div class="displaymath process-math" data-contains-math-knowls="" id="md-108">
+\begin{align*}
+x'' + tx' - 2 \amp = 0\\
+x(0) \amp = 0\\
+x'(0) \amp = 1
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-154"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<p id="p-690">Consider the SIR model</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-109">
+\begin{align*}
+\frac{dS}{dt} &amp; = - \alpha SI\\
+\frac{dI}{dt} &amp; = \alpha SI - \beta I,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(S\)</span> is the susceptible population and <span class="process-math">\(I\)</span> is the infected population.</p>
+<ol class="lower-alpha">
+<li id="li-195"><p id="p-691">Modify the SIR model to account for the situation where the susceptible population is reproducing at a rate proportional to the current population.</p></li>
+<li id="li-196"><p id="p-692">Modify the SIR model to account for the situation where the susceptible population is decreasing at a constant rate such as susceptibles leaving an infected area or city.</p></li>
+<li id="li-197"><p id="p-693">Modify the SIR model to account for the situation where the infected population is increasing at a constant rate such as infected individuals entering an infected area or city from the outside.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-155"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-694">A mass weighing 4 pounds stretches a spring 4 inches.</p>
+<ol class="lower-alpha">
+<li id="li-198"><p id="p-695">Consider the function <span class="process-math">\(y(t) = \cos \beta t\text{.}\)</span> Under what conditions on <span class="process-math">\(\beta\)</span> is <span class="process-math">\(y(t)\)</span> a solution to the differential equation?</p></li>
+<li id="li-199"><p id="p-696">Formulate an initial value problem that corresponds to the motion of this undamped mass-spring system if the mass is extended <span class="process-math">\(1\)</span> foot from its rest position and released with no initial velocity.</p></li>
+<li id="li-200"><p id="p-697">Using the result of the previous exercise, find the solution of this initial value problem.</p></li>
+</ol></article></section><section class="subsection" id="systems01-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span>
+</h3>
+<p id="p-698">We can use <em class="emphasis">Sage</em> to plot the solution of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-3">
+\begin{align}
+x' &amp; = -x - y\tag{2.1.1}\\
+y' &amp; = x + y/5\tag{2.1.2}\\
+x(0) &amp; = 1\tag{2.1.3}\\
+y(0) &amp; = -1\tag{2.1.4}
+\end{align}
+</div>
+<p class="continuation">First, let us plot a direction field for our system.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-34"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+p = plot_vector_field(F, (x,-4,4), (y,-4,4))
+p
+</script></pre>
+<p id="p-699">Notice the vectors are different lengths depending on their magnitudes. If we wish all of the vectors to be the same length, we can divide each component by the length of the vector.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-35"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+n = sqrt(F[0]^2 + F[1]^2)
+F_unit = [F[0]/n, F[1]/n]
+p = plot_vector_field(F_unit, (x,-4,4), (y,-4,4))
+p
+</script></pre>
+<p id="p-700">We can also add axes labels to our plot.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-36"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+n = sqrt(F[0]^2 + F[1]^2)
+F_unit = [F[0]/n, F[1]/n]
+p = plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'])
+p
+</script></pre>
+<p id="p-701">Now suppose that we wish to plot solutions <span class="process-math">\(x(t)\)</span> and <span class="process-math">\(y(t)\)</span> to our system. We can use the <em class="emphasis">Sage</em> command <code class="code-inline tex2jax_ignore">desolve_system_rk4</code>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-37"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+P
+</script></pre>
+<p id="p-702">We now have a numerical approximation of the solution to the system <a href="" class="xref" data-knowl="./knowl/systems01-equation-desolve-rk4-system-1.html" title="Equation 2.1.1">(2.1.1)</a>–<a href="" class="xref" data-knowl="./knowl/systems01-equation-desolve-rk4-system-4.html" title="Equation 2.1.4">(2.1.4)</a>. However, our approximation is just a very long list of points. In fact, we get a list of triples, <span class="process-math">\((t, x, y)\text{.}\)</span> It would be much more useful if we could display a graph of the solution. In the code below, we grab pairs <span class="process-math">\((t,x)\)</span> and <span class="process-math">\((t, y)\)</span> and then plot the points using the <code class="code-inline tex2jax_ignore">line</code> command.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-38"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+Q = [ [i, j] for i,j,k in P]
+R = [ [i, k] for i,j,k in P]
+p = line(Q)
+p += line(R)
+p
+</script></pre>
+<p id="p-703">We can also add colors, axes labels, and legend colors so that the plot makes more sense.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-39"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+Q = [ [i, j] for i,j,k in P]
+R = [ [i, k] for i,j,k in P]
+p = line(Q, color='red', axes_labels=['$t$','$x(t), y(t)$'], legend_label='$x(t)$', legend_color='red', fontsize=12)
+p += line(R, color='blue', legend_label='$y(t)$', legend_color='blue')
+p
+</script></pre>
+<p id="p-704">To plot the solution in the <span class="process-math">\(xy\)</span>–plane, we will need to select the second two entries in each triple.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-40"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+Q = [ [j,k] for i,j,k in P]
+p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
+p
+</script></pre>
+<p id="p-705">We can adjust the thickness of the plot add an arrow to indicate the direction of the solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-41"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+Q = [ [j,k] for i,j,k in P]
+p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12, thickness=3)
+p += arrow(Q[int(len(Q)/5)], Q[int(len(Q)/5) + 1])
+p
+</script></pre>
+<p id="p-706">Now let us add a vector field to our plot.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-42"><script type="text/x-sage">x, y, t = var('x y t')
+F = [-x - y, x + y/5]
+P = desolve_system_rk4(F, [x, y], ics = [0,1,-1], ivar = t, end_points = 10, step = 0.01)
+Q = [ [j,k] for i,j,k in P]
+p = line(Q, axes_labels=['$x(t)$','$y(t)$'], fontsize=12, thickness=3)
+p += arrow(Q[int(len(Q)/5)], Q[int(len(Q)/5) + 1])
+n = sqrt(F[0]^2 + F[1]^2)
+F_unit = [F[0]/n, F[1]/n]
+p += plot_vector_field(F_unit, (x,-1.5,1.5), (y,-1.5,1.5), axes_labels=['$x(t)$','$y(t)$'])
+p
+</script></pre>
+<p id="p-707">To learn more about how to use Sage to solve systems of differential equations, see <a class="external" href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html</code></a>. The Sage cell below can be used to make your own computations.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-43"><script type="text/x-sage">
+</script></pre></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-22"><div class="fn">Foxes are omnivores. Their diet consists of small mammals, including rabbits, as well as fruits, berries, and vegetables. They will even eat fish and crabs.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-23"><div class="fn">You will find technology extremely useful when analyzing systems. We will introduce <em class="emphasis">Sage</em> commands for analyzing systems of equations at the end of this section.</div></div>
+</div></main>
+</div>
+</body>
+</html>

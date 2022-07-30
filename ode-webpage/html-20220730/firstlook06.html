@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Existence and Uniqueness of Solutions</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook05.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook07.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook05.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook07.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="active">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="firstlook06"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span>
+</h2>
+<article class="objectives goal-like" id="objectives-6"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc"><li id="li-125"><p id="p-483">To understand  that the existence and uniqueness of solutions of differential equations have important implications.</p></li></ul></article><section class="introduction" id="introduction-31"><p id="p-484">If <span class="process-math">\(x' = f(t, x)\)</span> and <span class="process-math">\(x(t_0) = x_0\)</span> is a linear differential equation, we have already shown that a solution exists and is unique.  We will now take up the question of existence and uniqueness of solutions for all first-order differential equations. The existence and uniqueness of solutions will prove to be very important—even when we consider applications of differential equations.</p></section><section class="subsection" id="firstlook06-subsection-existence"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span>
+</h3>
+<p id="p-485">The following theorem tells us that solutions to first-order differential equations exist and are unique under certain reasonable conditions.</p>
+<article class="theorem theorem-like" id="firstlook06-theorem-existence-uniqueness"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">1.6.1</span><span class="period">.</span><span class="space"> </span><span class="title">Existence and Uniqueness Theorem.</span>
+</h4>
+<p id="p-486">Let <span class="process-math">\(x' = f(t, x)\)</span> have the initial condition <span class="process-math">\(x(t_0) = x_0\text{.}\)</span> If <span class="process-math">\(f\)</span> and <span class="process-math">\(\partial f/ \partial x\)</span> are continuous functions on the rectangle</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+R = \left\{ (t, x) : 0 \leq |t - t_0| \leq a, 0 \leq |x - x_0| \leq b \right\},
+\end{equation*}
+</div>
+<p class="continuation">there exists a unique solution <span class="process-math">\(u = u(t)\)</span> for  <span class="process-math">\(x' = f(t, x)\)</span> and <span class="process-math">\(x(t_0) = x_0\)</span> on some interval <span class="process-math">\(|t - t_0| \lt h\)</span> contained in the interval <span class="process-math">\(|t - t_0| \lt a\text{.}\)</span></p></article><p id="p-487">Let us examine some consequences of the existence and uniqueness of solutions.</p>
+<article class="example example-like" id="example-18"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-18"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.6.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-18"><article class="example example-like"><p id="p-488">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-61">
+\begin{align*}
+x'(t) &amp; = \frac{\sin(tx)}{x^2 + t^2},\\
+x(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">In this case <span class="process-math">\(f(t,x) = \sin(tx)/(x^2 + t^2)\)</span> is continuous at <span class="process-math">\((0,1)\)</span> as is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = 
+\frac{t \cos(t x)}{t^{2} + x^{2}} - \frac{2 x \sin(t x)}{{\left(t^{2} + x^{2}\right)}^{2}}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, a solution to the initial value problem must exist.  However, finding such a solution in terms of elementary functions may be quite difficult if not impossible.</p></article></div>
+<article class="example example-like" id="example-19"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-19"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.6.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-19"><article class="example example-like"><p id="p-489">Consider the initial value problem <span class="process-math">\(y' = y^{1/3}\)</span> with <span class="process-math">\(y(0) = 0\)</span> and <span class="process-math">\(t \geq 0\text{.}\)</span> Separating the variables,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y^{-1/3}\, dy = dt.
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{3}{2} y^{2/3} = t + C
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \left( \frac{2}{3} ( t + C) \right)^{3/2}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(C = 0\text{,}\)</span> the initial condition is satisfied and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \left( \frac{2}{3} t \right)^{3/2}
+\end{equation*}
+</div>
+<p class="continuation">is a solution for <span class="process-math">\(t \geq 0\text{.}\)</span> However, we can find two additional solutions  for <span class="process-math">\(t \geq 0\text{:}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-62">
+\begin{align*}
+y &amp; = - \left( \frac{2}{3} t \right)^{3/2},\\
+y &amp; \equiv 0.
+\end{align*}
+</div>
+<p class="continuation">This is especially troubling if we are looking for equilibrium solutions. Although <span class="process-math">\(y' = y^{1/3}\)</span> is an autonomous differential equation, there is no equilibrium solution at <span class="process-math">\(y = 0\text{.}\)</span> The problem is that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial}{\partial y} y^{1/3} = \frac{1}{3} y^{-2/3}
+\end{equation*}
+</div>
+<p class="continuation">is not defined at <span class="process-math">\(y = 0\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-20"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-20"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.6.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-20"><article class="example example-like"><p id="p-490">Suppose that <span class="process-math">\(y' = y^2\)</span> with <span class="process-math">\(y(0) = 1\text{.}\)</span> Since <span class="process-math">\(f(t,y) = y^2\)</span> and <span class="process-math">\(\partial f/ \partial y = 2y\)</span> are continuous everywhere, a unique solution exists near <span class="process-math">\(t = 0\text{.}\)</span> Separating the variables,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{y^2} \; dy = dt,
+\end{equation*}
+</div>
+<p class="continuation">we see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = - \frac{1}{t + C}
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \frac{1}{1-t}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, a solution also exists on <span class="process-math">\((-\infty, 1)\)</span> if <span class="process-math">\(y(0) = -1\text{.}\)</span> In the case that <span class="process-math">\(y(0) = -1\text{,}\)</span> the solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = - \frac{1}{t + 1},
+\end{equation*}
+</div>
+<p class="continuation">and a solution exists on <span class="process-math">\((-1, \infty)\text{.}\)</span> Solutions are only guaranteed to exist on an open interval containing the initial value and are very dependent on the initial condition.</p></article></div>
+<article class="remark remark-like" id="remark-1"><h4 class="heading">
+<span class="type">Remark</span><span class="space"> </span><span class="codenumber">1.6.5</span><span class="period">.</span><span class="space"> </span><span class="title">Solutions Curves Cannot Cross.</span>
+</h4>
+<p id="p-491">The Existence and Uniqueness Theorem tells us that the integral curves of any differential equation satisfying the appropriate hypothesis, cannot cross. If the curves did cross, we could take the point of intersection as the initial value for the differential equation. In this case, we would no longer be guaranteed a unique solution to a differential equation.</p></article><article class="activity project-like" id="activity-12"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.6.1</span><span class="period">.</span><span class="space"> </span><span class="title">Applying the Existence and Uniqueness Theorem.</span>
+</h4>
+<div class="introduction" id="introduction-32"><p id="p-492">Which of the following initial value problems are guaranteed to have a unique solution by the Existence and Uniqueness Theorem (<a href="" class="xref" data-knowl="./knowl/firstlook06-theorem-existence-uniqueness.html" title="Theorem 1.6.1: Existence and Uniqueness Theorem">Theorem 1.6.1</a>)?  In each case, justify your conclusion.</p></div>
+<article class="task exercise-like" id="task-45"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-493"><span class="process-math">\(y' = 4 + y^3\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="task exercise-like" id="task-46"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-494"><span class="process-math">\(y' = \sqrt{y}\text{,}\)</span> <span class="process-math">\(y(1) = 0\)</span></p></article><article class="task exercise-like" id="task-47"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-495"><span class="process-math">\(y' = \sqrt{y}\text{,}\)</span> <span class="process-math">\(y(1) = 1\)</span></p></article><article class="task exercise-like" id="task-48"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-496"><span class="process-math">\(x' = \dfrac{t}{x-2}\text{,}\)</span> <span class="process-math">\(x(0) = 2\)</span></p></article><article class="task exercise-like" id="task-49"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-497"><span class="process-math">\(x' = \dfrac{t}{x-2}\text{,}\)</span> <span class="process-math">\(x(2) = 0\)</span></p></article><article class="task exercise-like" id="task-50"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<p id="p-498"><span class="process-math">\(y' = x \tan y\text{,}\)</span> <span class="process-math">\(y(0) = 0\)</span></p></article><article class="task exercise-like" id="task-51"><h5 class="heading"><span class="codenumber">(g)</span></h5>
+<p id="p-499"><span class="process-math">\(y' = \dfrac{1}{t} y + 2t\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article></article></section><section class="subsection" id="firstlook06-subsection-picard"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span>
+</h3>
+<p id="p-500">It was Emile Picard (1856–1941) who developed the method of successive approximations to show the existence of solutions of ordinary differential equations. He proved that it is possible to construct a sequence of functions that converges to a solution of the differential equation. One of the first steps towards understanding <dfn class="terminology">Picard iteration</dfn> is to realize that an initial value problem can be recast in terms of an integral equation.</p>
+<article class="theorem theorem-like" id="firstlook06-theorem-picard"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">1.6.6</span><span class="period">.</span>
+</h4>
+<p id="p-501">The function <span class="process-math">\(u = u(t)\)</span> is a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-63">
+\begin{align*}
+x' &amp; = f(t, x)\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>
+<p class="continuation">if and only if <span class="process-math">\(u\)</span> is a solution to the integral equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.
+\end{equation*}
+</div></article><article class="hiddenproof" id="proof-2"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-2"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-2"><article class="hiddenproof"><p id="p-502">Suppose that <span class="process-math">\(u = u(t)\)</span> is a solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-64">
+\begin{align*}
+x' &amp; = f(t, x)\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>
+<p class="continuation">on some interval <span class="process-math">\(I\)</span> containing <span class="process-math">\(t_0\text{.}\)</span>  Since <span class="process-math">\(u\)</span> is continuous on <span class="process-math">\(I\)</span> and <span class="process-math">\(f\)</span> is continuous on <span class="process-math">\(R\text{,}\)</span> the function <span class="process-math">\(F(t) = f(t, u(t))\)</span> is also continuous on <span class="process-math">\(I\text{.}\)</span> Integrating both sides of <span class="process-math">\(u'(t) = f(t, u(t))\)</span> and applying the Fundamental Theorem of Calculus, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u(t) - u(t_0) = \int_{t_0}^t u'(s) \, ds = \int_{t_0}^t f(s, u(s)) \, ds
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(u(t_0) = x_0\text{,}\)</span> the function <span class="process-math">\(u\)</span> is a solution of the integral equation.</p>
+<p id="p-503">Conversely, assume that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u(t) = x_0 + \int_{t_0}^t f(s, u(s)) \, ds.
+\end{equation*}
+</div>
+<p class="continuation">If we differentiate both sides of this equation, we obtain <span class="process-math">\(u'(t) = f(t, u(t))\text{.}\)</span> Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u(t_0) = x_0 + \int_{t_0}^{t_0} f(s, u(s)) \, ds = x_0,
+\end{equation*}
+</div>
+<p class="continuation">the initial condition is fulfilled.</p></article></div>
+<p id="p-504">To show the existence of a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-exercises-exist.html" id="md-65">
+\begin{align*}
+x' &amp; = f(t, x)\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>
+<p class="continuation">we will construct a sequence of functions, <span class="process-math">\(\{ u_n(t) \}\text{,}\)</span> that will converge to a function <span class="process-math">\(u(t)\)</span> that is a solution to the integral equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-exercises-exist.html">
+\begin{equation*}
+x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.
+\end{equation*}
+</div>
+<p class="continuation">We define the first function of the sequence using the initial condition,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-exercises-exist.html">
+\begin{equation*}
+u_0(t) = x_0.
+\end{equation*}
+</div>
+<p class="continuation">We derive the next function in our sequence using the right-hand side of the integral equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-exercises-exist.html">
+\begin{equation*}
+u_1(t) = x_0 + \int_{t_0}^t f(s, u_0(s)) \, ds.
+\end{equation*}
+</div>
+<p class="continuation">Subsequent terms in the sequence can be defined recursively,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-exercises-exist.html">
+\begin{equation*}
+u_{n+1} = x_0 + \int_{t_0}^t f(s, u_n(s)) \, ds.
+\end{equation*}
+</div>
+<p class="continuation">Our goal is to show that <span class="process-math">\(u_n(t) \rightarrow u(t)\)</span> as <span class="process-math">\(n \rightarrow \infty\text{.}\)</span> Furthermore, we need to show that <span class="process-math">\(u\)</span> is the continuous, unique solution to our initial value problem. We will leave the proof of Picard's Theorem to a series of exercises (<a href="" class="xref" data-knowl="./knowl/firstlook06-exercises-exist.html" title="Exercise Group 1.6.5.4–12: Proof of the Existence and Uniqueness Theorem">Exercise Group 1.6.5.4–12</a>), but let us see how this works by developing an example.</p>
+<article class="example example-like" id="example-21"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-21"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.6.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-21"><article class="example example-like"><p id="p-505">Consider the exponential growth equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-66">
+\begin{align*}
+\frac{dx}{dt} &amp; = kx\\
+x(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">We already know that the solution is <span class="process-math">\(x(t) = e^{kt}\text{.}\)</span> We define the first few terms of our sequence <span class="process-math">\(\{ u_n(t) \}\)</span> as follows:</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-67">
+\begin{align*}
+u_0(t) &amp; = 1,\\
+u_1(t) &amp; = 1 + \int_0^t ku_0(s) \, ds\\
+&amp; = 1 + \int_0^t k \, ds\\
+&amp; = 1 + kt,\\
+u_2(t) &amp; = 1 + \int_0^t ku_1(s) \, ds\\
+&amp; = 1 + \int_0^t k(1 + ks) \, ds\\
+&amp; = 1 + kt + \frac{(kt)^2}{2}.
+\end{align*}
+</div>
+<p class="continuation">The next term in the sequence is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+u_3(t) = 1 + kt + \frac{(kt)^2}{2} + \frac{(kt)^3}{2\cdot 3},
+\end{equation*}
+</div>
+<p class="continuation">and the <span class="process-math">\(n\)</span>th term is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-68">
+\begin{align*}
+u_n(t) &amp; = 1 + 1 + \int_0^t ku_{n-1}(s) \, ds\\
+&amp; = 1 + \int_0^t k\left(1 + ks  \frac{(kt)^2}{2!} + \frac{(kt)^3}{3!} + \cdots +\frac{(kt)^{n-1}}{(n-1)!}\right) \, ds\\
+&amp; = 1 + kt + \frac{(kt)^2}{2!} + \frac{(kt)^3}{3!} + \cdots + \frac{(kt)^n}{n!}.
+\end{align*}
+</div>
+<p class="continuation">However, this is just the <span class="process-math">\(n\)</span>th partial sum for the power series for <span class="process-math">\(u(t) = e^{kt}\text{,}\)</span> which is what we expected.</p></article></div></section><section class="subsection" id="firstlook06-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-506" class="disc">
+<li id="li-126">
+<p id="p-507">Existence and uniqueness of solutions of differential equations has important implications. Let <span class="process-math">\(x' = f(t, x)\)</span> have the initial condition <span class="process-math">\(x(t_0) = x_0\text{.}\)</span> If <span class="process-math">\(f\)</span> and <span class="process-math">\(\partial f/ \partial x\)</span> are continuous functions on the rectangle</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+R = \left\{ (t, x) : 0 \leq |t - t_0| \lt a, 0 \leq |x - x_0| \lt b \right\},
+\end{equation*}
+</div>
+<p class="continuation">there exists a unique solution <span class="process-math">\(u = u(t)\)</span> for  <span class="process-math">\(x' = f(t, x)\)</span> and <span class="process-math">\(x(t_0) = x_0\)</span> on some interval <span class="process-math">\(|t - t_0| \lt h\)</span> contained in the interval <span class="process-math">\(|t - t_0| \lt a\text{.}\)</span> In particular,</p>
+<ul class="circle">
+<li id="li-127"><p id="p-508">Solutions are only guaranteed to exist locally.</p></li>
+<li id="li-128"><p id="p-509">Uniqueness is especially important when it comes to finding equilibrium solutions.</p></li>
+<li id="li-129"><p id="p-510">Uniqueness of solutions tells us that the integral curves for a differential equation cannot cross.</p></li>
+</ul>
+</li>
+<li id="li-130"><p id="p-derived-li-130">The function <span class="process-math">\(u = u(t)\)</span> is a solution to the initial value problem<div class="displaymath process-math" data-contains-math-knowls="" id="md-69">
+\begin{align*}
+x' &amp; = f(t, x)\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>if and only if <span class="process-math">\(u\)</span> is a solution to the integral equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.
+\end{equation*}
+</div></p></li>
+<li id="li-131"><p id="p-derived-li-131">Existence and uniqueness of solutions is proved by Picard iteration. This is of particular interest since the proof actually tells us how to construct a sequence of functions that converge to our solution.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook06"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook06-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-511">Explain <a href="" class="xref" data-knowl="./knowl/firstlook06-theorem-existence-uniqueness.html" title="Theorem 1.6.1: Existence and Uniqueness Theorem">Theorem 1.6.1</a> in your own words.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook06-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-512">The differential equations <span class="process-math">\(y' = \sqrt[5]{y}\)</span> and <span class="process-math">\(y(0) = 0\)</span> has two solutions, <span class="process-math">\(y(t) \equiv 0\)</span> and <span class="process-math">\(y(t) = 5y^{6/5}/6\text{.}\)</span>  Why does this not contradict <a href="" class="xref" data-knowl="./knowl/firstlook06-theorem-existence-uniqueness.html" title="Theorem 1.6.1: Existence and Uniqueness Theorem">Theorem 1.6.1</a>?</p></article></section><section class="exercises" id="exercises-firstlook06"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.6.5</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-130"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-513">Find an explicit solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-70">
+\begin{align*}
+y' &amp; = \frac{1}{(t - 1)(y + 1)}\\
+y(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">Use your solution to determine the interval of existence.</p></article><article class="exercise exercise-like" id="exercise-131"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-514">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-71">
+\begin{align*}
+y' &amp; = 3y^{2/3}\\
+y(0) &amp; = 0.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-132"><p id="p-515">Show that the constant function, <span class="process-math">\(y(t) \equiv 0\text{,}\)</span> is a solution to the initial value problem.</p></li>
+<li id="li-133">
+<p id="p-516">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y(t) =
+\begin{cases}
+0,      &amp;  t \leq t_0 \\
+(t - t_0)^3,      &amp; t \gt t_0
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">is a solution for the initial value problem, where <span class="process-math">\(t_0\)</span> is any real number.  Hence, there exists an infinite number of solutions to the initial value problem.</p>
+</li>
+<li id="li-134"><p id="p-517">Explain why this example does not contradict the Existence and Uniqueness Theorem.</p></li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-12" id="hint-12"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-12"><div class="hint solution-like"><p id="p-518">(b) Make sure that the derivative of <span class="process-math">\(y(t)\)</span> exists at <span class="process-math">\(t = t_0\text{.}\)</span></p></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-132"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-519">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-72">
+\begin{align*}
+y' &amp; = 2ty + t\\
+y(0) &amp; = 1.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-135"><p id="p-520">Use the fact that <span class="process-math">\(y' = 2ty + t\)</span> is a first-order linear differential equation to find a solution to the initial value problem.</p></li>
+<li id="li-136"><p id="p-521">Let <span class="process-math">\(\phi_0(t) = 1\)</span> and use Picard iteration to find <span class="process-math">\(\phi_n(t)\text{.}\)</span></p></li>
+<li id="li-137"><p id="p-522">Show that the sequence <span class="process-math">\(\{ \phi_n(t) \}\)</span> converges to the exact solution that you found in part (a) as <span class="process-math">\(n \to \infty\text{.}\)</span></p></li>
+</ol></article><div class="exercisegroup" id="firstlook06-exercises-exist">
+<h4 class="heading"><span class="title">Proof of the Existence and Uniqueness Theorem.</span></h4>
+<div class="introduction" id="introduction-33"><p id="p-523">In <a href="" class="xref" data-knowl="./knowl/firstlook06-exercises-exist.html" title="Exercise Group 1.6.5.4–12: Proof of the Existence and Uniqueness Theorem">Exercise Group 1.6.5.4–12</a>, prove the Existence and Uniqueness Theorem for first-order differential equations.</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-133"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-524">Use the Fundamental Theorem of Calculus to show that the function <span class="process-math">\(u = u(t)\)</span> is a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-73">
+\begin{align*}
+x' &amp; = f(t, x)\\
+x(t_0) &amp; = x_0,
+\end{align*}
+</div>
+<p class="continuation">if and only if <span class="process-math">\(u\)</span> is a solution to the integral equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-134"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-525">If <span class="process-math">\(\partial f/ \partial x\)</span> is continuous on the rectangle</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+R = \left\{ (t, x) : 0 \leq |t - t_0| \lt a, 0 \leq |x - x_0| \lt b \right\},
+\end{equation*}
+</div>
+<p class="continuation">prove that there exists a <span class="process-math">\(K \gt 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t, x_1) - f(t, x_2) | \leq K |x_1 - x_2|
+\end{equation*}
+</div>
+<p class="continuation">for all <span class="process-math">\((t, x_1)\)</span> and <span class="process-math">\((t, x_2)\)</span> in <span class="process-math">\(R\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-135"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-526">Define  the sequence <span class="process-math">\(\{  u_n \}\)</span> by</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-74">
+\begin{align*}
+u_0(t) &amp; = x_0,\\
+u_{n+1} &amp; = x_0 + \int_{t_0}^t f(s, u_n(s)) \, ds, \qquad n = 1, 2, \ldots.
+\end{align*}
+</div>
+<p class="continuation">Use the result of the previous exercise to show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|f(t, u_n(t)) - f(t, u_{n-1}(t) )| \leq K|u_n(t) - u_{n-1}(t) |.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-136"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-527">Show that  there exists an <span class="process-math">\(M \gt 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|u_1(t) - x_0| \leq M | t - t_0|.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-137"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-528">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|u_2(t) - u_1(t)| \leq  \frac{KM | t - t_0|^2}{2}.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-138"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-529">Use mathematical induction to show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|u_n(t) - u_{n -1}(t)| \leq \frac{K^{n-1}M |t - t_0|^n}{n!}.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-139"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-530">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-uniform-continuity.html">
+\begin{equation*}
+u_n(t) = u_1(t) + [u_2(t) - u_1(t)] + \cdots + [u_n(t) - u_{n-1}(t)],
+\end{equation*}
+</div>
+<p class="continuation">we can view <span class="process-math">\(u_n(t)\)</span> as a partial sum for the series</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-uniform-continuity.html">
+\begin{equation*}
+u_0(t) + \sum_{n=1}^\infty [u_n(t) - u_{n-1}(t)].
+\end{equation*}
+</div>
+<p class="continuation">If we can show that this series converges absolutely, then our sequence will converge to a function <span class="process-math">\(u(t)\text{.}\)</span> Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook06-uniform-continuity.html">
+\begin{equation*}
+\sum_{n=1}^\infty |u_n(t) - u_{n-1}(t)| \leq \frac{M}{K} \sum_{n=1}^\infty \frac{(K |t - t_0|)^n}{n!} \leq \frac{M}{K} \left( e^{K|h|} - 1 \right),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(h\)</span> is the maximum distance between <span class="process-math">\((t_0, x_0)\)</span> and the boundary of the rectangle <span class="process-math">\(R\text{.}\)</span>  Since <span class="process-math">\(|u_n(t) - u_{n -1}(t)| \to 0\text{,}\)</span> we know that <span class="process-math">\(u_n(t)\)</span> converges to a continuous function <span class="process-math">\(u(t)\)</span> that solves our equation.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-15" id="fn-15"><sup> 1 </sup></a></p></article><article class="exercise exercise-like" id="exercise-140"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-531">To show uniqueness, assume that <span class="process-math">\(u(t)\)</span> and <span class="process-math">\(v(t)\)</span> are both solutions to</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = x_0 + \int_{t_0}^t f(s, x(s)) \, ds.
+\end{equation*}
+</div>
+<p class="continuation">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|u(t) - v(t)|\leq K \int_{t_0}^t |u(s) - v(s)| \, ds.
+\end{equation*}
+</div></article><article class="exercise exercise-like" id="exercise-141"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<ol id="p-532" class="lower-alpha">
+<li id="li-138">
+<p id="p-533">Define<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-16" id="fn-16"><sup> 2 </sup></a></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi(t) = \int_{t_0}^t |u(s) - v(s)| \, ds,
+\end{equation*}
+</div>
+<p class="continuation">then <span class="process-math">\(\phi(t_0) = 0\)</span> and <span class="process-math">\(\phi(t) \geq 0\)</span> for <span class="process-math">\(t \geq t_0\text{.}\)</span> Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi'(t) = |u(t) - v(t)|.
+\end{equation*}
+</div>
+</li>
+<li id="li-139">
+<p id="p-534">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|u(t) - v(t)| - K \int_{t_0}^t |u(s) - v(s)| \, ds \leq 0,
+\end{equation*}
+</div>
+<p class="continuation">we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi'(t) - K \phi(t) \leq 0.
+\end{equation*}
+</div>
+<p class="continuation">Use this fact to show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} \left[ e^{-Kt} \phi(t) \right] \leq 0.
+\end{equation*}
+</div>
+<p class="continuation">Conclude that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi(t) = \int_{t_0}^t |u(s) - v(s)| \, ds = 0
+\end{equation*}
+</div>
+<p class="continuation">for <span class="process-math">\(t \geq t_0\)</span> or for all <span class="process-math">\(t \geq t_0\)</span> and <span class="process-math">\(u(t) = v(t)\text{.}\)</span></p>
+</li>
+</ol></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="firstlook06-uniform-continuity"><h4 class="heading"><span class="codenumber">13<span class="period">.</span></span></h4>
+<p id="p-535">Let <span class="process-math">\(\phi_n(x) = x^n\)</span> for <span class="process-math">\(0 \leq x \leq 1\)</span> and show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lim_{n \rightarrow \infty} \phi_n(x) 
+=
+\begin{cases}
+0,      &amp; 0 \leq x \lt 1 \\
+1,      &amp; x = 1.
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">This is an example of a sequence of continuous functions that does not converge to a continuous function, which helps explain the need for <dfn class="terminology">uniform continuity</dfn> in the proof of the Existence and Uniqueness Theorem.</p></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-15"><div class="fn">We must a theorem from advanced calculus here to ensure uniform continuity (see <a href="" class="xref" data-knowl="./knowl/firstlook06-uniform-continuity.html" title="Exercise 1.6.5.13">Exercise 1.6.5.13</a>).  Any sequence of functions that converges uniformly, must converge to a continuous function.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-16"><div class="fn">A similar argument will work for <span class="process-math">\(t \leq t_0\text{.}\)</span>
+</div></div>
+</div></main>
+</div>
+</body>
+</html>

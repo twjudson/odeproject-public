@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:28+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Separable Differential Equations</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="active">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="firstlook02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span>
+</h2>
+<article class="objectives goal-like" id="objectives-2"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-43">
+<p id="p-128">To understand that a differential equation of <dfn class="terminology">order</dfn> <span class="process-math">\(n\)</span> is an equation that can be put in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, x, x', x'', \ldots, x^{(n)}) = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(F\)</span> is a function of <span class="process-math">\(n + 2\)</span> variables, and to understand that a <dfn class="terminology">solution</dfn> to the equation on an interval <span class="process-math">\(I = (a, b)\)</span> is a function <span class="process-math">\(u = u(t)\)</span> such that the first <span class="process-math">\(n\)</span> derivatives of <span class="process-math">\(u\)</span> are defined on <span class="process-math">\(I\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, u, u', u'', \ldots, u^{(n)}) = 0.
+\end{equation*}
+</div>
+</li>
+<li id="li-44">
+<p id="p-129">To understand that a <dfn class="terminology">first-order differential equation</dfn> is an equation that can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(t, x).
+\end{equation*}
+</div>
+</li>
+<li id="li-45">
+<p id="p-130">To understand that a differential equation is <dfn class="terminology">separable</dfn> if it can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx} =M(x) N(y),
+\end{equation*}
+</div>
+<p class="continuation">and by rewriting the equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+g(y) \, dy = f(x) \, dx
+\end{equation*}
+</div>
+<p class="continuation">the equation can be solved by integrating both sides.</p>
+</li>
+</ul></article><section class="introduction" id="introduction-9"><p id="p-131">We will define a <dfn class="terminology">differential equation</dfn> of <dfn class="terminology">order</dfn> <span class="process-math">\(n\)</span> to be an equation that can be put in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, x, x', x'', \ldots, x^{(n)}) = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(F\)</span> is a function of <span class="process-math">\(n + 2\)</span> variables. A <dfn class="terminology">solution</dfn> to this equation on an interval <span class="process-math">\(I = (a, b)\)</span> is a function <span class="process-math">\(u = u(t)\)</span> such that the first <span class="process-math">\(n\)</span> derivatives of <span class="process-math">\(u\)</span> are defined on <span class="process-math">\(I\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, u, u', u'', \ldots, u^{(n)}) = 0.
+\end{equation*}
+</div>
+<p class="continuation">We will concentrate on first-order differential equations in this chapter. That is, we will consider equations of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(t, x).
+\end{equation*}
+</div></section><section class="subsection" id="firstlook02-subsection-separable-de"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span>
+</h3>
+<p id="p-132">In general, we cannot generally find such a formula for an arbitrary first-order differential equation. We can, however, solve a differential equation <span class="process-math">\(y' = f(x, y)\)</span> if we can write the equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x) + g(y) \frac{dy}{dx} = 0.
+\end{equation*}
+</div>
+<p class="continuation">Such equations are called <dfn class="terminology">separable</dfn>. We can solve separable equations by integrating the first term with respect to <span class="process-math">\(x\)</span> and the second term with respect to <span class="process-math">\(y\text{.}\)</span></p>
+<article class="example example-like" id="example-4"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-4"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-4"><article class="example example-like"><p id="p-133">Suppose that we wish to solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-20">
+\begin{align*}
+\frac{dy}{dx} &amp; =  xy\\
+y(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">We can rewrite this equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{y} \frac{dy}{dx} = x
+\end{equation*}
+</div>
+<p class="continuation">or in the alternate form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{y} \, dy = x \, dx.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of the equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\ln |y| = \frac{1}{2} x^2 + C,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(C\)</span> is an arbitrary constant. Using the initial condition, <span class="process-math">\(y(0) = 1\)</span> to find <span class="process-math">\(C\text{,}\)</span> we see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+0 = \ln|1| = 0 + C.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the solution to our initial value problem can be given implicitly by <span class="process-math">\(\ln y = x^2/2\text{.}\)</span> In this example, we can actually write down an explicit solution that is defined everywhere,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = e^{x^2/2}.
+\end{equation*}
+</div>
+<p class="continuation">The <em class="emphasis">Sage</em> commands for solving our initial value problem are below.</p>
+<pre class="ptx-sagecell hidden-sagecell-sage" id="sage-6"><script type="text/x-sage">x = var('x') #declare x as a variable
+y = function('y')(x) #declare y as a function of x
+de = diff(y, x) == x*y #write the differential equation
+solution = desolve(de, y, ics=[0, 1]) #find the solution
+solution
+</script></pre></article></div>
+<p id="p-134">If we ask <em class="emphasis">Sage</em> to solve a differential equation that it cannot solve analytically, the computation will return an error. <em class="emphasis">Sage</em> will not solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-21">
+\begin{align*}
+\frac{dy}{dx} &amp; =  \sin(xy)\\
+y(0) &amp; =  1.
+\end{align*}
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-7"><script type="text/x-sage">x = var('x')
+y = function('y')(x)
+de = diff(y, x) == sin(x*y)
+solution = desolve(de, y, ics=[0, 1])
+solution
+</script></pre>
+<article class="example example-like" id="example-5"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-5"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-5"><article class="example example-like"><p id="p-135">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-22">
+\begin{align*}
+\frac{dy}{dt} &amp; =  \frac{t}{y - t^2y}\\
+y(0) &amp; = 4.
+\end{align*}
+</div>
+<p class="continuation">First, we separate the variables of the equations and write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y \, dy = \frac{t}{1 - t^2} \, dt.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of the equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{2} y^2 = - \frac{1}{2} \ln|1 - t^2| + C \qquad \text{or} \qquad y^2 = - \ln|1 - t^2| + C.
+\end{equation*}
+</div>
+<p class="continuation">Using the initial condition, <span class="process-math">\(y(0) = 4\text{,}\)</span> we can determine the value of <span class="process-math">\(C\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y^2 = 16 - \ln|1 - t^2| \qquad \text{or} \qquad y = \sqrt{16 - \ln|1 - t^2| }.
+\end{equation*}
+</div>
+<p class="continuation">Notice that the solution does not make sense for all values of <span class="process-math">\(t\text{.}\)</span> In fact, the solution is only defined on the interval <span class="process-math">\(-1 \lt t \lt 1\text{,}\)</span> if we require that our solution be continuous. Let us see what <em class="emphasis">Sage</em> has to say.</p>
+<pre class="ptx-sagecell hidden-sagecell-sage" id="sage-8"><script type="text/x-sage">t = var('t')
+y = function('y')(t)
+de = diff(y, t) == t/(y - t^2*y)
+solution = desolve(de, y, ics=[0, 4])
+solution
+</script></pre>
+<p id="p-136"><em class="emphasis">Sage</em> does return a solution even if it looks a bit different than the one that we arrived at above. Notice that we have an imaginary term in our solution, where <span class="process-math">\(i^2 = -1\text{.}\)</span> We will examine the role of complex numbers and how useful they are in the study of ordinary differential equations in a later chapter, but for the moment complex numbers will just muddy the situation.</p></article></div>
+<article class="example example-like" id="example-6"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-6"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-6"><article class="example example-like"><p id="p-137">The initial value problem in <a href="" class="xref" data-knowl="./knowl/firstlook01-example-logistic-growth.html" title="Example 1.1.2">Example 1.1.2</a> is a good example of a separable differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html" id="md-23">
+\begin{align*}
+\frac{dP}{dt} &amp; = k \left( 1 - \frac{P}{1000} \right) P\\
+P(0) &amp; = 100.
+\end{align*}
+</div>
+<p class="continuation">Using partial fractions, we can rewrite this equation as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html" id="firstlook02-equation-logistic-IVP">
+\begin{equation}
+\frac{1000}{P(1000 - P)} \, dP = \left( \frac{1}{P} + \frac{1}{1000-P}\right) \, dP = k \, dt.\tag{1.2.1}
+\end{equation}
+</div>
+<p class="continuation">Integrating both sides of <a href="" class="xref" data-knowl="./knowl/firstlook02-equation-logistic-IVP.html" title="Equation 1.2.1">(1.2.1)</a>, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html">
+\begin{equation*}
+\ln|P| - \ln|1000 - P| = \ln \left|\frac{P}{1000 - P}\right| = kt + C.
+\end{equation*}
+</div>
+<p class="continuation">Taking the exponential of both sides yields</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html">
+\begin{equation*}
+\frac{P}{1000 - P} = e^{kt + C} = e^{kt} e^C.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(C\)</span> is an arbitrary constant, we know that <span class="process-math">\(e^C\)</span> is an arbitrary positive constant, which we will also call <span class="process-math">\(C\text{.}\)</span> So we can rewrite this last equation as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html">
+\begin{equation*}
+P = Ce^{kt} (1000 - P) = 1000 Ce^{kt} - Ce^{kt}P.
+\end{equation*}
+</div>
+<p class="continuation">Solving for <span class="process-math">\(P\)</span> yields</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-example-logistic-growth.html ./knowl/firstlook02-equation-logistic-IVP.html">
+\begin{equation*}
+P = \frac{1000Ce^{kt}}{Ce^{kt} + 1} = \frac{1000}{Ce^{-kt} + 1}.
+\end{equation*}
+</div>
+<p class="continuation">Using our initial condition <span class="process-math">\(P(0) = 100\text{,}\)</span> we can determine that <span class="process-math">\(C = 9\text{.}\)</span></p></article></div>
+<article class="activity project-like" id="activity-3"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Separable Differential Equations.</span>
+</h4>
+<div class="introduction" id="introduction-10"><p id="p-138">Solve each of the following differential equations using the separation of variables technique.</p></div>
+<article class="task exercise-like" id="task-10"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-139"><span class="process-math">\(dy/dx = y/x\)</span></p></article><article class="task exercise-like" id="task-11"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-140"><span class="process-math">\((x^2 + 1)y' = xy\)</span></p></article><article class="task exercise-like" id="task-12"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-141"><span class="process-math">\(dx/dt = e^x \sqrt{t}\)</span></p></article><article class="task exercise-like" id="task-13"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-142"><span class="process-math">\(\dfrac{dx}{dt} = \dfrac{\sec^2 t + 2t}{2x}\text{,}\)</span> <span class="process-math">\(x(0) = -2\)</span></p></article><article class="task exercise-like" id="task-14"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-143"><span class="process-math">\(dy/dx = \sqrt{xy}\text{,}\)</span> <span class="process-math">\(y(1) = 3\)</span></p></article></article></section><section class="subsection" id="firstlook02-subsection-newtons-law-cooling"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span>
+</h3>
+<p id="p-144">Separable equations arise in a wide range of application problems. One does not have to watch too many crime dramas to realize that the time of death of a murder victim is an important question in many criminal investigations. How does a forensic scientist or a medical examiner determine the time of death? Human beings have a temperature of <span class="process-math">\(98.6^\circ\)</span>F. If the surrounding temperature is cooler, then the body will cool down after death. Eventually, the temperature of the body will match the temperature of the environment. We should not expect the body to cool at a constant rate either. Think of how a hot cup of coffee or tea cools. The liquid will cool quite quickly during the first few minutes but will remain relatively warm for quite a long period.</p>
+<p id="p-145">The answer to our forensic question can be found by using <dfn class="terminology">Newton's law of cooling</dfn>, which tells us that the rate of change of the temperature of an object is proportional to the difference between the temperature of the object and the temperature of the surrounding medium. Newton's law of cooling can be easily stated as a differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dT}{dt} = k(T - T_m),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(T\)</span> is the temperature of the object, <span class="process-math">\(T_m\)</span> is the temperature of the surrounding medium, and <span class="process-math">\(k\)</span> is the proportionality constant.</p>
+<p id="p-146">Suppose that the temperature of the surrounding environment is <span class="process-math">\(70^\circ\)</span>F, and we know from experience that a body under these conditions cools off approximately <span class="process-math">\(2^\circ\)</span>F during the first hour after death.  In order to determine a formula for the time of death, we must solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html" id="md-24">
+\begin{align*}
+\frac{dT}{dt} &amp; =  k(T - 70)\\
+T(0) &amp; =  98.6,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(T(1) = 96.6\text{.}\)</span> If we rewrite the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+\frac{dT}{dt} = k(T - 70) 
+\end{equation*}
+</div>
+<p class="continuation">as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+\frac{1}{T - 70} \frac{dT}{dt} = k,
+\end{equation*}
+</div>
+<p class="continuation">we see that this equation is separable.  Integrating both sides of the last equation, we obtain <span class="process-math">\(\ln | T - 70| = kt + C\text{.}\)</span> Since we are assuming that <span class="process-math">\(T \gt 70\text{,}\)</span> we can write <span class="process-math">\(T - 70\)</span> instead of <span class="process-math">\(|T - 70|\text{.}\)</span>  Thus, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+\ln( T- 70) = kt + C \qquad \text{or} \qquad T - 70 = e^{kt + C} = e^{kt}e^C.
+\end{equation*}
+</div>
+<p class="continuation">Letting <span class="process-math">\(D = e^C\text{,}\)</span> the solution becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+T(t) = D e^{kt} + 70.
+\end{equation*}
+</div>
+<p class="continuation">The initial condition, <span class="process-math">\(T(0) = 98.6\text{,}\)</span> tells us that <span class="process-math">\(D = 28.6\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+T(t) = 28.6 e^{kt} + 70.
+\end{equation*}
+</div>
+<p class="continuation">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+96.6 = T(1) =28.6 e^{k \cdot 1} + 70,
+\end{equation*}
+</div>
+<p class="continuation">we can determine the constant <span class="process-math">\(k\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+k = \ln\left( \frac{26.6}{28.6} \right) \approx -0.0725.
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-figure--newton-cooling.html">
+\begin{equation*}
+T(t) =28.6 e^{-0.0725 t} + 70.
+\end{equation*}
+</div>
+<p class="continuation">The graph of the <span class="process-math">\(T\)</span> seems appropriate to our model (<a href="" class="xref" data-knowl="./knowl/firstlook02-figure--newton-cooling.html" title="Figure 1.2.4">Figure 1.2.4</a>).</p>
+<figure class="figure figure-like" id="firstlook02-figure--newton-cooling"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook02-newton-cooling.svg" role="img" class="contained" alt="a curve that starts at 98.6 and slowly decreases to seventy"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.2.4<span class="period">.</span></span><span class="space"> </span>Newton's law of cooling</figcaption></figure><p id="p-147">Let us solve our differential equation using <em class="emphasis">Sage</em>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-9"><script type="text/x-sage">k,t = var('k,t')
+T = function('T')(t)
+de = diff(T,t) == k*(T - 70)
+solution = desolve(de, T, ivar=t)
+solution.show()
+</script></pre>
+<p id="p-148">We can use <em class="emphasis">Sage</em> to plot our solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-10"><script type="text/x-sage">t = var('t')
+T(t) = 28.6 * exp(-0.0725 * t) + 70
+plot(T, (t, 0, 24))
+</script></pre>
+<article class="activity project-like" id="activity-4"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Coffee Temperature.</span>
+</h4>
+<div class="introduction" id="introduction-11"><p id="p-149">The brewing temperature of the water used is very important. It should be between <span class="process-math">\(195^\circ\)</span>F and <span class="process-math">\(205^\circ\)</span>F. The closer to <span class="process-math">\(205^\circ\)</span>F the better. Boiling water (<span class="process-math">\(212^\circ\)</span>F) should never be used, as it will burn the coffee. Water that is less than <span class="process-math">\(195^\circ\)</span>F will not extract properly. On the other hand, coffee that has a temperature of <span class="process-math">\(205^\circ\)</span>F is too hot to drink.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-11" id="fn-11"><sup> 1 </sup></a>  Coffee is best when it is served at a temperature of <span class="process-math">\(140^\circ\)</span>F to <span class="process-math">\(155^\circ\)</span>F (the Goldilocks range).</p></div>
+<article class="task exercise-like" id="firstlook02-task-coffee"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-150">Suppose coffee is initially brewed at <span class="process-math">\(205^\circ\)</span>F.  If room temperature is <span class="process-math">\(70^\circ\)</span>F, set up an initial value problem to model the temperature of the coffee at time <span class="process-math">\(t\text{,}\)</span> where <span class="process-math">\(t\)</span> is the time in minutes after brewing has finished.</p></article><article class="task exercise-like" id="task-16"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-151">Solve the initial value problem from <a href="" class="xref" data-knowl="./knowl/firstlook02-task-coffee.html" title="Task 1.2.2.a">Task 1.2.2.a</a></p></article><article class="task exercise-like" id="task-17"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-152">If the temperature of the coffee drops from <span class="process-math">\(205^\circ\)</span>F to <span class="process-math">\(200^\circ\)</span>F in the first two minutes after brewing, how long before the coffee reaches a temperature of <span class="process-math">\(155^\circ\)</span>F?</p></article></article></section><section class="subsection" id="firstlook02-subsection-mixing-problem"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span>
+</h3>
+<p id="p-153">There is a large class of problems in modeling known as <dfn class="terminology">mixing problems</dfn>. These problems refer to situations where two or more substances are mixed together in a container or containers.  For example, we might wish to model how chemicals are mixed together in a refinery, how pollutants are mixed together in a pond or a lake, how ingredients are mixed together when brewing beer, or even how various greenhouse gases mix together across different layers of the atmosphere.</p>
+<article class="example example-like" id="example-7"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-7"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-7"><article class="example example-like"><p id="p-154">Suppose that we have a large tank containing 1000 gallons of pure water and that water containing 0.5 pounds of salt per gallon flows into the tank at a rate of 10 gallons per minute.  If the tank is also draining at a rate of 10 gallons per minute, the water level in the tank will remain constant.  We will assume that the water in the tank is constantly stirred so that the mixture of salt and water is uniform in the tank.</p>
+<p id="p-155">We can model the amount of salt in the tank using differential equations. If <span class="process-math">\(x(t)\)</span> is the amount of salt in the tank at time <span class="process-math">\(t\text{,}\)</span> then the rate at which the salt is changing in the tank is the difference between the rate at which salt is flowing into the tank and the rate at which it is leaving the tank, or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html" id="firstlook02-equation-mixing-problem">
+\begin{equation}
+\frac{dx}{dt} = \text{rate in} - \text{rate out}.\tag{1.2.2}
+\end{equation}
+</div>
+<p class="continuation">Of course, the salt flows into the tank at the rate of <span class="process-math">\(10 \cdot 0.5 = 5\)</span> pounds of salt per minute. However, the rate at which the salt leaves the tank depends on <span class="process-math">\(x(t)\text{,}\)</span> the amount salt in the tank at time <span class="process-math">\(t\text{.}\)</span>  At time <span class="process-math">\(t\text{,}\)</span> there is <span class="process-math">\(x(t)/1000\)</span> pounds of salt in one gallon. Therefore, salt flows out of the tank at a rate of <span class="process-math">\(10x(t)/1000 = x(t)/100\)</span> pounds per minute. Equation <a href="" class="xref" data-knowl="./knowl/firstlook02-equation-mixing-problem.html" title="Equation 1.2.2">(1.2.2)</a> now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html" id="md-25">
+\begin{align*}
+\frac{dx}{dt} \amp = 5 - \frac{x}{100}\\
+x(0) \amp = 0.
+\end{align*}
+</div>
+<p class="continuation">This equation is separable,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html">
+\begin{equation*}
+\frac{dx}{500 - x} = \frac{dt}{100}.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of the equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html">
+\begin{equation*}
+-\ln|500 - x| = \frac{t}{100} + k
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html">
+\begin{equation*}
+\ln|500 - x| = - \frac{t}{100} - k.
+\end{equation*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html">
+\begin{equation*}
+500 - x = C e^{-0.01t},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(C = e^{-k}\text{.}\)</span>  From our initial condition, we can quickly determine that <span class="process-math">\(C = 500\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-mixing-problem.html">
+\begin{equation*}
+x(t) = 500 - 500 e^{-0.01t}
+\end{equation*}
+</div>
+<p class="continuation">models the amount of salt in the tank at time <span class="process-math">\(t\text{.}\)</span> Notice that <span class="process-math">\(x(t)\to 500\)</span> as <span class="process-math">\(t \to \infty\text{,}\)</span> as expected.</p></article></div>
+<article class="activity project-like" id="activity-5"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.2.3</span><span class="period">.</span><span class="space"> </span><span class="title">A Brewery Problem.</span>
+</h4>
+<div class="introduction" id="introduction-12"><p id="p-156">The vast majority of beers from around the world have alcohol contents of 4 to 6 percent alcohol by volume (for example, Heineken Lager Beer has a 5 percent alcohol content).  Suppose a local brewery has produced two beers with different alcohol contents, one 4 percent and one 7 percent. The master brewer would like to add some of the 7 percent beer to the 4 percent beer to obtain a beer with 5 percent alcohol.</p></div>
+<article class="task exercise-like" id="firstlook02-task-beer"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-157">A vat contains 500 gallons of 4% alcohol (by volume). Beer with 7% alcohol is pumped into the tank at a rate of 5 gallons per minute. Beer is also pumped out of the vat at a rate of 5 gallons per minute, so there is always 500 gallons in the tank.  Set up an initial value problem to model the percentage of alcohol in the vat at time <span class="process-math">\(t\text{,}\)</span> where <span class="process-math">\(t\)</span> is the elapsed time in minutes.</p></article><article class="task exercise-like" id="task-19"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-158">Solve the initial value problem from <a href="" class="xref" data-knowl="./knowl/firstlook02-task-beer.html" title="Task 1.2.3.a">Task 1.2.3.a</a></p></article><article class="task exercise-like" id="task-20"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-159">What is the percentage of alcohol in the vat after one hour?</p></article><article class="task exercise-like" id="task-21"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-160">At what time will the beer reach 5% alcohol?</p></article></article></section><section class="subsection" id="firstlook02-subsection-retirement"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span>
+</h3>
+<p id="p-161">Differential equations have many applications in economics and finance. For example, Dr. J., a college professor, wisely started saving for his retirement as soon as he entered the workforce, and he now has $500,000 in a retirement account earning an interest of 5% compounded continuously. The initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-26">
+\begin{align*}
+\frac{dP}{dt} \amp = 0.05 P\\
+P(0) \amp = 500
+\end{align*}
+</div>
+<p class="continuation">provides a nice model of Dr. J.'s investment, where <span class="process-math">\(P(t)\)</span> is the amount in thousands of dollars in the fund at time <span class="process-math">\(t\text{.}\)</span> The solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(t) = 500e^{0.05t}.
+\end{equation*}
+</div>
+<p class="continuation">If Dr. J. plans to retire in 10 years, he can expect a nest egg of <span class="process-math">\(P(10) \approx 824.360635350064\)</span> or about $824,360.</p>
+<p id="p-162">Of course, Dr. J. still plans to make contributions to his retirement fund during his next ten years of employment.  His annual contribution will be $5,000, which his employer will generously match. If we assume that these contributions will spread out evenly over the course of the year, we can incorporate this information into our original initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-27">
+\begin{align*}
+\frac{dP}{dt} \amp = 0.05 P + 10\\
+P(0) \amp = 500
+\end{align*}
+</div>
+<p class="continuation">This differential equation is separable, so we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\int \frac{dP}{0.05P + 10} = \int dt.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of this equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+20\ln|0.05P + 10| = t + k,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(k\)</span> is an arbitrary constant. Since <span class="process-math">\(0.05P + 10 \gt 0\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+20\ln(0.05P + 10) = t + k.
+\end{equation*}
+</div>
+<p class="continuation">This last equation is equivalent to</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+0.05P + 10 = e^{0.05(t + k)} = e^{0.05t} e^{0.05k}.
+\end{equation*}
+</div>
+<p class="continuation">If we let <span class="process-math">\(C = e^{0.05k}\)</span> and solve for <span class="process-math">\(P\text{,}\)</span> we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = 20 C e^{0.05t} - 200.
+\end{equation*}
+</div>
+<p class="continuation">Using our initial condition,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+500 = P(0) = 20 C e^{0.05 \cdot 0} - 200 = 20 C - 200,
+\end{equation*}
+</div>
+<p class="continuation">we have <span class="process-math">\(C = 35\text{.}\)</span>  Thus, the solution that we seek is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(t) = 700e^{0.05t} - 200.
+\end{equation*}
+</div>
+<p class="continuation">Dr. J.'s nest egg is now <span class="process-math">\(P(10) \approx 954.104889490090\)</span> or about $954,105.</p>
+<p id="p-163">Once Dr. J. retires, he will need to begin withdrawing money from his account.  He estimates that he will need to withdraw $60,000 a year for living expenses if he wishes to travel and enjoy his golden years. Of course, whatever remains in his account at any given time will still collect interest. We describe  J.'s retirement situation with the initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-28">
+\begin{align*}
+\frac{dP}{dt} \amp = \begin{cases}  0.05 P + 10, \amp t \leq 10 \\ 0.05 P - 60, \amp t \gt 10 \end{cases}\\
+P(0) \amp = 500.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(P = 954\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = 0.05 P - 60 \approx -12.3 \lt 0.
+\end{equation*}
+</div>
+<p class="continuation">Hence, the rate of withdrawal exceeds the rate at which Dr. J.'s account is earning interest.  Eventually, Dr. J.'s retirement fund will disappear. This may pose a problem, if Dr. J. plans to retire early and live a long life.</p>
+<p id="p-164">Again, the differential equation <span class="process-math">\(dP/dt = 0.05 P - 60\)</span> is separable, and we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\int \frac{dP}{0.05P - 60} = \int dt.
+\end{equation*}
+</div>
+<p class="continuation">Intergrating both sides of this equation yields</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+20\ln|0.05P - 60| = t + k.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(0.05 P - 60 \lt 0\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+|0.05P - 60| = 60 - 0.05P,
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+20\ln(60 - 0.05P) = t + k.
+\end{equation*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+60 - 0.05P = e^{(t + k)/20},
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = 1200 - C e^{0.05t},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(C = 20e^{k/20}\text{.}\)</span> Now, we can apply our initial condition <span class="process-math">\(P(10) = 954\)</span> to determine that <span class="process-math">\(C \approx 149.21\text{.}\)</span> Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = 1200 - 149.21 e^{0.05t}
+\end{equation*}
+</div>
+<p class="continuation">describes how much money Dr. J.has after he retires (<span class="process-math">\(t \geq 10\)</span>).</p>
+<p id="p-165">If Dr. J. wants to know how long his retirement fund will last, he must solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+1200 - 149.21 e^{0.05t} = 0.
+\end{equation*}
+</div>
+<p class="continuation">In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+t = 20 \ln\left( \frac{1200}{149.21} \right) \approx 41.7.
+\end{equation*}
+</div>
+<p class="continuation">This means that if Dr. J. retires in 10 years at the early age of 55, he can expect his retirement to last into his mid 90s.</p></section><section class="subsection" id="firstlook02-subsection-some-theory"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.5</span> <span class="title">Some Theory</span>
+</h3>
+<p id="p-166">We now give a theoretical basis for solving first-order separable differential equations. A differential equation <span class="process-math">\(y' = F(x, y)\)</span> is called <dfn class="terminology">separable</dfn> if it can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html" id="firstlook02-equation-separable">
+\begin{equation}
+f(x) + g(y) \frac{dy}{dx} = 0.\tag{1.2.3}
+\end{equation}
+</div>
+<p class="continuation">We now will prove that such an equation can be solved by integrating the first term with respect to <span class="process-math">\(x\)</span> and the second term with respect to <span class="process-math">\(y\text{.}\)</span> If</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html" id="md-29">
+\begin{align*}
+h_1(s) &amp; = \int f(s) \, ds\\
+h_2(s) &amp; = \int g(s) \, ds,
+\end{align*}
+</div>
+<p class="continuation">then we can rewrite equation <a href="" class="xref" data-knowl="./knowl/firstlook02-equation-separable.html" title="Equation 1.2.3">(1.2.3)</a> as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+h_1'(x) + h_2'(y) \frac{dy}{dx} = 0.
+\end{equation*}
+</div>
+<p class="continuation">Applying the chain rule to the second term, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+h_2'(y) \frac{dy}{dx} = \frac{d}{dx} [ h_2(y)].
+\end{equation*}
+</div>
+<p class="continuation">Hence, equation <a href="" class="xref" data-knowl="./knowl/firstlook02-equation-separable.html" title="Equation 1.2.3">(1.2.3)</a> now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+\frac{d}{dx} (h_1(x) + h_2(y)) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Integrating,  we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html ./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+h_1(x) + h_2(y) = C,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(C\)</span> is any arbitrary constant.</p>
+<p id="p-167">Now suppose that <span class="process-math">\(y(x_0) = y_0\)</span> is an initial condition for</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+f(x) + g(y) \frac{dy}{dx} = 0.
+\end{equation*}
+</div>
+<p class="continuation">Then <span class="process-math">\(h_1(x_0) + h_2(y_0) = C\text{.}\)</span> By the Fundamental Theorem of Calculus</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html" id="md-30">
+\begin{align*}
+h_1(x) - h_1(x_0) &amp; = \int_{x_0}^x f(s) \; ds,\\
+h_2(y) - h_2(y_0) &amp; = \int_{y_0}^y g(s) \; ds.
+\end{align*}
+</div>
+<p class="continuation">Consequently, we can replace equation <a href="" class="xref" data-knowl="./knowl/firstlook02-equation-separable.html" title="Equation 1.2.3">(1.2.3)</a> with the <dfn class="terminology">integral equation</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook02-equation-separable.html">
+\begin{equation*}
+\int_{x_0}^x f(s) \; ds + \int_{y_0}^y g(s) \, ds = 0.
+\end{equation*}
+</div>
+<p class="continuation">In other words, we simply need to integrate each term to solve the differential equation.</p></section><section class="subsection" id="firstlook02-subsection-what-can-go-wrong"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span>
+</h3>
+<article class="example example-like" id="example-8"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-8"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-8"><article class="example example-like"><p id="p-168">It is not always possible to explicitly solve a separable differential equation. Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx} = \frac{y(1 + y^2)}{y^2 + y + 1}.
+\end{equation*}
+</div>
+<p class="continuation">This equation can be rewritten in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\left( \frac{1}{1+ y^2} + \frac{1}{y} \right) \, dy = dx
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of the equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\arctan y + \ln|y| = x + C.
+\end{equation*}
+</div>
+<p class="continuation">However, we have no method of solving this last equation explicitly for <span class="process-math">\(y\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-9"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-9"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-9"><article class="example example-like"><p id="p-169">Another difficulty arises if we consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y' = t e^{-y^2}.
+\end{equation*}
+</div>
+<p class="continuation">This equation is separable since we can rewrite it in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{y^2} \, dy = t \, dt.
+\end{equation*}
+</div>
+<p class="continuation">Although the Fundamental Theorem of Calculus guarantees that every continuous function has an antiderivative, we cannot find an antiderivative for the function <span class="process-math">\(e^{y^2}\)</span> in terms of elementary functions. Thus, we are forced to write our solution as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\int_0^y e^{s^2} \, ds = \frac{1}{2} t^2 + C.
+\end{equation*}
+</div></article></div>
+<article class="example example-like" id="example-10"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-10"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-10"><article class="example example-like"><p id="p-170">Even if we have a separable differential equation, we are not guaranteed a unique solution. Consider the initial value problem <span class="process-math">\(y' = y^{1/3}\)</span> with <span class="process-math">\(y(0) = 0\)</span> and <span class="process-math">\(t \geq 0\text{.}\)</span> Separating the variables,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05.html">
+\begin{equation*}
+y^{-1/3} \, dy = dt.
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05.html">
+\begin{equation*}
+\frac{3}{2} y^{2/3} = t + C
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05.html">
+\begin{equation*}
+y = \left( \frac{2}{3} ( t + C)\right)^{3/2}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(C = 0\text{,}\)</span> the initial condition is satisfied and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05.html">
+\begin{equation*}
+y = \left(  \frac{2}{3} t \right)^{3/2}
+\end{equation*}
+</div>
+<p class="continuation">is a solution for <span class="process-math">\(t \geq 0\text{.}\)</span> However, we can find at least two additional solutions for <span class="process-math">\(t \geq 0\text{:}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook05.html" id="md-31">
+\begin{align*}
+y &amp; = - \left( \frac{2}{3} t \right)^{3/2},\\
+y &amp; \equiv  0.
+\end{align*}
+</div>
+<p class="continuation">In <a href="firstlook05.html" class="internal" title="Section 1.5: First-Order Linear Equations">Section 1.5</a> we will learn sufficient conditions for a first-order initial value problem to have a unique solution.</p></article></div>
+<article class="example example-like" id="example-11"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-11"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.9</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-11"><article class="example example-like"><p id="p-171">Suppose that <span class="process-math">\(y' = y^2\)</span> with <span class="process-math">\(y(0) = 1\text{.}\)</span> Separating the variables,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{y^2} \, dy = dt,
+\end{equation*}
+</div>
+<p class="continuation">we see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = - \frac{1}{t + C}
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \frac{1}{1-t}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, a continuous solution also exists on <span class="process-math">\((-\infty, 1)\)</span> if <span class="process-math">\(y(0) = 1\text{.}\)</span> In the case that <span class="process-math">\(y(0) = -1\text{,}\)</span> the solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = - \frac{1}{t + 1},
+\end{equation*}
+</div>
+<p class="continuation">and a continuous solution exists on <span class="process-math">\((-1, \infty)\text{.}\)</span></p></article></div></section><section class="subsection" id="firstlook02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-172" class="disc">
+<li id="li-46">
+<p id="p-173">A differential equation of <dfn class="terminology">order</dfn> <span class="process-math">\(n\)</span> is an equation that can be put in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, x, x', x'', \ldots, x^{(n)}) = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(F\)</span> is a function of <span class="process-math">\(n + 2\)</span> variables. A <dfn class="terminology">solution</dfn> to the equation on an interval <span class="process-math">\(I = (a, b)\)</span> is a function <span class="process-math">\(u = u(t)\)</span> such that the first <span class="process-math">\(n\)</span> derivatives of <span class="process-math">\(u\)</span> are defined on <span class="process-math">\(I\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+F(t, u, u', u'', \ldots, u^{(n)}) = 0.
+\end{equation*}
+</div>
+</li>
+<li id="li-47">
+<p id="p-174">A <dfn class="terminology">first-order differential equation</dfn> is an equation that can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(t, x).
+\end{equation*}
+</div>
+</li>
+<li id="li-48">
+<p id="p-175">A differential equation is separable if it can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx} =M(x) N(y).
+\end{equation*}
+</div>
+<p class="continuation">In this case we can rewrite the equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x) + g(y)\frac{dy}{dx} = 0
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+g(y) \, dy = f(x) \, dx
+\end{equation*}
+</div>
+<p class="continuation">and solve by integrating both sides.</p>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-176">Does a differential equation always have a solution? Explain.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-177">Is the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt} = y^2 + t^2
+\end{equation*}
+</div>
+<p class="continuation">separable? Why or why not?</p></article></section><section class="exercises" id="firstlook02-exercises-"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.2.9</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="firstlook02-exercise-baked-potato"><h4 class="heading">
+<span class="codenumber">1<span class="period">.</span></span><span class="space"> </span><span class="title">Baking a Potato (Part 2).</span>
+</h4>
+<p id="p-178">Solve the differential equation that you used to model the temperature of a baked potato in <a href="" class="xref" data-knowl="./knowl/firstlook01-exercise-baked-potato.html" title="Exercise 1.1.9.1: Baking a Potato (Part 1)">Exercise 1.1.9.1</a>.</p></article><div class="exercisegroup" id="firstlook02-exercises-find-solutions">
+<h4 class="heading"><span class="title">Finding General Solutions.</span></h4>
+<div class="introduction" id="introduction-13"><p id="p-179">Find the general solution for each equation in <a href="" class="xref" data-knowl="./knowl/firstlook02-exercises-find-solutions.html" title="Exercise Group 1.2.9.2–11: Finding General Solutions">Exercise Group 1.2.9.2–11</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook02-exercise-find-solution-1"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-180"><span class="process-math">\(x \, dx - y^2 \, dy = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-2"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-181"><span class="process-math">\(\dfrac{dy}{dx} = \dfrac{y}{x}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-3"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-182"><span class="process-math">\((t^2 + 1) \, dt + (x^2 + x) \, dx = 0\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-4"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-183"><span class="process-math">\(\dfrac{dx}{dt} = x^2 - 6x + 14\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-5"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-184"><span class="process-math">\(y' = \dfrac{x^2}{y(2 + x^3)}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-6"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-185"><span class="process-math">\(\dfrac{dy}{dx} = \dfrac{\sin x}{y}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-7"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-186"><span class="process-math">\(xy' = \sqrt{1 - y^2}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-8"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-187"><span class="process-math">\(\dfrac{dy}{dt} = \dfrac{4t - t^3}{4 + y^3}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-9"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-188"><span class="process-math">\(y' = \dfrac{1}{ty + 2t + y + 2}\)</span></p></article><article class="exercise exercise-like" id="firstlook02-exercise-find-solution-10"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-189"><span class="process-math">\(\dfrac{dx}{dt} = xe^t + 3e^t + x - 3\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook02-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-14"><p id="p-190">Solve the initial value problems in <a href="" class="xref" data-knowl="./knowl/firstlook02-exercises-solve-ivps.html" title="Exercise Group 1.2.9.12–21: Solving Initial Value Problems">Exercise Group 1.2.9.12–21</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-48"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-191"><span class="process-math">\(x \, dx - y^2 \, dy = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-49"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-192"><span class="process-math">\(\dfrac{dy}{dx} = \dfrac{y}{x}\text{,}\)</span> <span class="process-math">\(y(1) = -2\)</span></p></article><article class="exercise exercise-like" id="exercise-50"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-193"><span class="process-math">\((t^2 + 1) \, dt + (x^2 + x) \, dx = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\)</span></p></article><article class="exercise exercise-like" id="exercise-51"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-194"><span class="process-math">\(\dfrac{dx}{dt} = x^2 - 6x + 14\text{,}\)</span> <span class="process-math">\(x(0) = 3\)</span></p></article><article class="exercise exercise-like" id="exercise-52"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-195"><span class="process-math">\(y' = \dfrac{x^2}{y(2 + x^3)}\text{,}\)</span> <span class="process-math">\(y(0) = -2\)</span></p></article><article class="exercise exercise-like" id="exercise-53"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-196"><span class="process-math">\(\dfrac{dy}{dx} = \dfrac{\sin x}{y}\text{,}\)</span> <span class="process-math">\(y(0) = 2\)</span></p></article><article class="exercise exercise-like" id="exercise-54"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-197"><span class="process-math">\(xy' = \sqrt{1 - y^2}\text{,}\)</span> <span class="process-math">\(y(1) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-55"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-198"><span class="process-math">\(\dfrac{dy}{dt} = \dfrac{4t - t^3}{4 + y^3}\text{,}\)</span> <span class="process-math">\(y(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-56"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-199"><span class="process-math">\(y' = \dfrac{1}{ty + 2t + y + 2}\text{,}\)</span> <span class="process-math">\(y(0) = -3\)</span></p></article><article class="exercise exercise-like" id="exercise-57"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<p id="p-200"><span class="process-math">\(\dfrac{dx}{dt} = xe^t + 3e^t + x - 3\text{,}\)</span> <span class="process-math">\(x(0) = 0\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-58"><h4 class="heading"><span class="codenumber">22<span class="period">.</span></span></h4>
+<p id="p-201">Solve the initial value problems in <a href="" class="xref" data-knowl="./knowl/firstlook02-exercises-solve-ivps.html" title="Exercise Group 1.2.9.12–21: Solving Initial Value Problems">Exercise Group 1.2.9.12–21</a> using Sage.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-11"><script type="text/x-sage">
+</script></pre></article><article class="exercise exercise-like" id="exercise-59"><h4 class="heading"><span class="codenumber">23<span class="period">.</span></span></h4>
+<p id="p-202"><em class="emphasis">Homogeneous Equations</em>. A first-order differential equation, <span class="process-math">\(y' = f(x, y)\text{,}\)</span> is <em class="emphasis">homogeneous</em> if <span class="process-math">\(f(x, y) = f(tx, ty)\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-49">
+<p id="p-203">Show that the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx} = \frac{x^2 + y^2}{2xy}
+\end{equation*}
+</div>
+<p class="continuation">is homogeneous.</p>
+</li>
+<li id="li-50">
+<p id="p-204">Let <span class="process-math">\(y = xv\)</span> and show that the equation in part (a) can be written as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+v + x\frac{dv}{dx} = \frac{x^2 + v^2 x^2}{2v x^2}.
+\end{equation*}
+</div>
+<p class="continuation">Use the fact that this new equation is separable to solve for <span class="process-math">\(y\text{.}\)</span></p>
+</li>
+<li id="li-51"><p id="p-205">Show that any homogeneous equation <span class="process-math">\(y' = f(x, y)\)</span> can be transformed into a separable differential equation by making the substitution <span class="process-math">\(y = vx\text{.}\)</span></p></li>
+<li id="li-52">
+<p id="p-206">A function <span class="process-math">\(f\)</span> is said to homogeneous of degree <span class="process-math">\(n\)</span> if <span class="process-math">\(f(t x, t y)= t^n f(x, y)\)</span> for <span class="process-math">\(n = 1, 2, \ldots\text{.}\)</span> Show that differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P(x, y) dx + Q(x, y) dy = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(P\)</span> and <span class="process-math">\(Q\)</span> are both homogeneous of degree <span class="process-math">\(n\text{,}\)</span> can be transformed into a separable differential equation using the substitution <span class="process-math">\(y = vx\text{.}\)</span></p>
+</li>
+<li id="li-53">
+<p id="p-207">Solve the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x^2 y' = 2 y^2 - x^2.
+\end{equation*}
+</div>
+</li>
+</ol></article><article class="exercise exercise-like" id="exercise-60"><h4 class="heading"><span class="codenumber">24<span class="period">.</span></span></h4>
+<p id="p-208">Mr. Ratchett, an elderly American, was found murdered in his train compartment on the Orient Express at 7 AM. When his body was discovered, the famous detective Hercule Poirot noted that Ratchett had a body temperature of 28 degrees. The body had cooled to a temperature of 27 degrees one hour later. If the normal temperature of a human being is 37 degrees and the air temperature in the train is 22 degrees, estimate the time of Ratchett's death using Newton's Law of Cooling.</p></article><article class="exercise exercise-like" id="exercise-61"><h4 class="heading"><span class="codenumber">25<span class="period">.</span></span></h4>
+<p id="p-209">You are starting a new position, and your employer has a generous retirement plan.  If you put $500 a month into a 401(k) plan, your employer will match your contributions.</p>
+<ol class="lower-alpha">
+<li id="li-54"><p id="p-210">Assume that you are 25 years old and plan to retire at age 65, how large can you expect your 401(k) pension to be when you retire?  Assume that your 401(k) plan will collect interest at a rate of 5%.</p></li>
+<li id="li-55"><p id="p-211">If you begin withdrawing $60,000 every year at age 65, how long will your retirement fund last?</p></li>
+</ol></article></section><section class="subsection" id="firstlook02-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span>
+</h3>
+<p id="p-212"><em class="emphasis">Sage</em> has powerful algorithms for finding exact and numerical solutions of differential equations. In addition, we can plot solutions and direction fields. Although some differential equations have an exact solution and can be solved using analytic techniques with calculus, many differential equations can only be solved using numerical techniques. This should not be too surprising if we consider how we solve polynomials. It is quite easy to find the roots of any equation of the form <span class="process-math">\(ax^2 + bx + c = 0\)</span> by either factoring or using the quadratic equation, but solving an equation such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+5x^7 - 6x^4 +3x^3 -23 x^2 +3x -17 = 0
+\end{equation*}
+</div>
+<p class="continuation">is a much more difficult problem.  Unlike the situation for quadratic equations, there does not exist a general formula for solving seventh degree equations. We can even encounter difficulties when using a numerical method such as the Newton-Raphson algorithm.</p>
+<p id="p-213">In general, <em class="emphasis">Sage</em> needs three things to solve a differential equation:</p>
+<ol class="decimal">
+<li id="li-56"><p id="p-214">An abstract function</p></li>
+<li id="li-57"><p id="p-215">A differential equation</p></li>
+<li id="li-58"><p id="p-216">A <em class="emphasis">Sage</em> command to solve the equation.</p></li>
+</ol>
+<p class="continuation">Suppose we wish to solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx} = x + y.
+\end{equation*}
+</div>
+<p class="continuation">We can use the following sequence of <em class="emphasis">Sage</em> commands.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-12"><script type="text/x-sage">y = function('y')(x)
+de = diff(y,x) == x + y
+solution = desolve(de, y)
+solution.show()
+</script></pre>
+<p id="p-217">The first command defines the abstract function. The second describes the actual differential equation. Finally, we use the Sage command <code class="code-inline tex2jax_ignore">desolve</code> to find the actual solution. Try replacing the <code class="code-inline tex2jax_ignore">h</code> command with <code class="code-inline tex2jax_ignore">show(h)</code> or <code class="code-inline tex2jax_ignore">show(expand(h))</code>.</p>
+<p id="p-218">We can also specify an initial condition for our differential equation, say <span class="process-math">\(y(0) = 1\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-13"><script type="text/x-sage">y = function('y')(x)
+de = diff(y,x) == x + y
+solution = desolve(de, y, ics=[0,1])
+solution.show()
+</script></pre>
+<p id="p-219">There are many other commands and packages to solve ordinary differential equations using Sage. For more information, see <a class="external" href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html</code></a>. An empty Sage cell is below for practice and exploration.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-14"><script type="text/x-sage">
+</script></pre></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-11"><div class="fn">Google the famous MacDonald's lawsuit.</div></div>
+</div></main>
+</div>
+</body>
+</html>

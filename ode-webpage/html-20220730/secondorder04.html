@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:32+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Forcing and Resonance</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="secondorder03.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="secondorder05.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="secondorder03.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a class="next-button button toolbar-item" href="secondorder05.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="active">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="secondorder04"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span>
+</h2>
+<article class="objectives goal-like" id="objectives-24"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-474">
+<p id="p-1679">To understand how the natural frequency, <span class="process-math">\(omega_0\text{,}\)</span> interacts with the frequency of the forcing term, <span class="process-math">\(\omega\)</span> in an undamped harmonic oscillator</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + \omega_0^2 x = A \cos \omega t.
+\end{equation*}
+</div>
+<p class="continuation">If the two frequencies are the same, we can observe a phenomenon called <dfn class="terminology">resonance</dfn>. If the two frequencies are close, we can observe a phenomenon called <dfn class="terminology">beats</dfn>.</p>
+</li>
+<li id="li-475">
+<p id="p-1680">To understand that the <dfn class="terminology">gain</dfn> (or frequency response) <span class="process-math">\(G(\omega)\)</span> of a forced damped harmonic oscillator,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>
+<p class="continuation">is defined as the absolute value of the ratio of the output amplitude to the steady-state input amplitude and that the amplitude and phase of the steady-state solution is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = G(\omega) A \cos(\omega t - \phi).
+\end{equation*}
+</div>
+</li>
+</ul></article><section class="introduction" id="introduction-110"><p id="p-1681">Resonance happens when the natural frequency and the forcing frequency of an undamped harmonic oscillator are the same. There are many real world examples of resonance. For example, it is possible for a trained singer to shatter a champagne glass by simply singing the correct note (see <a class="external" href="https://www.youtube.com/watch?v=IZD8ffPwXRo" target="_blank"><code class="code-inline tex2jax_ignore">www.youtube.com/watch?v=IZD8ffPwXRo</code></a>). Shattering a glass by singing the correct note can be modeled by an equation of an undamped harmonic oscillator with sinusoidal forcing. While a certain amount of damping occurs in all physical systems, the damping is often so small that it makes sense to use an undamped harmonic oscillator.</p></section><section class="subsection" id="secondorder04-subsection-resonance"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.1</span> <span class="title">Resonance</span>
+</h3>
+<p id="p-1682">Resonance was responsible for the collapse of the Broughton suspension bridge near Manchester, England in 1831. The collapse occurred when a column of soldiers marched in cadence over the bridge, setting up a periodic force of rather large amplitude. The frequency of the force was approximately equal to the natural frequency of the bridge. Thus, the bridge collapsed when large oscillations occurred. For this reason soldiers are ordered to break cadence whenever they cross a bridge.</p>
+<p id="p-1683">The Millennium Bridge, the first new bridge to span the Thames River in London in over 100 years, is a modern example of how resonance can effect a bridge (<a href="" class="xref" data-knowl="./knowl/secondorder04-figure-millennium-bridge.html" title="Figure 4.4.1">Figure 4.4.1</a>). This pedestrian bridge, which opened to the public in June 2000, was quickly closed after the bridge experienced high amplitude horizontal oscillations during periods of high traffic. Studies by designers found that the bridge experienced high amplitude horizontal oscillations in response to horizontal forcing at a rate of one cycle per second. Typically, people walk at a rate of two steps per second, so the time between two successive steps of the left foot is about one second. Thus, if people were to walk in cadence, they could set up strong horizontal forcing that would place a destructive load on the bridge. The engineers did not envision this to be a problem since tourists do not generally march in time. However, a video of tourists crossing the bridge revealed the opposite.  When the bridge began oscillating, people tended to walk in cadence in order to keep their balance (<a class="external" href="https://www.youtube.com/watch?v=gQK21572oSU" target="_blank"><code class="code-inline tex2jax_ignore">www.youtube.com/watch?v=gQK21572oSU</code></a>).</p>
+<figure class="figure figure-like" id="secondorder04-figure-millennium-bridge"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/millennium-bridge.jpg" class="contained" alt="a photo of the Millennium Bridge in London"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.1<span class="period">.</span></span><span class="space"> </span>The Millennium Bridge</figcaption></figure><p id="p-1684">Consider the case of an undamped harmonic oscillator with a sinusoidal forcing function. We know that we can model this situation with the second-order linear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + \omega_0^2 x = A \cos \omega t.
+\end{equation*}
+</div>
+<p class="continuation">Since the homogeneous solution to this equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_h(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t,
+\end{equation*}
+</div>
+<p class="continuation">we can see that the <dfn class="terminology">natural frequency</dfn> of the harmonic oscillator is <span class="process-math">\(\omega_0\text{.}\)</span> This is the frequency of the oscillations if there is no forcing term. Depending on whether or not the frequency of the forcing term <span class="process-math">\(\omega\)</span> is equal to the natural frequency, we will have two very different situations. If the two frequencies are equal, then they will re-enforce one another and we will have <dfn class="terminology">resonance</dfn>. If the two frequencies are close but not equal, we will see the phenomenon of <dfn class="terminology">beats</dfn>. We wish to investigate what happens when the <dfn class="terminology">driving frequency</dfn> <span class="process-math">\(\omega\)</span> is equal to the natural frequency and when it is not.</p>
+<p id="p-1685">Let us examine the case where the forcing frequency and the natural frequency of the oscillator are the same,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html" id="secondorder04-equation-resonance-5">
+\begin{equation}
+x'' + \omega_0^2 x = A \cos \omega_0 t.\tag{4.4.1}
+\end{equation}
+</div>
+<p class="continuation">Since <span class="process-math">\(A \cos \omega_0 t\)</span> is a solution to the homogeneous equation <span class="process-math">\(x'' + \omega_0^2 x = 0\text{,}\)</span> we cannot assume that a particular solution to equation <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-5.html" title="Equation 4.4.1">(4.4.1)</a> has the form <span class="process-math">\(a \cos \omega_0 t + b \sin \omega_0 t\text{.}\)</span> Equivalently, if we use the complex method, we cannot assume that our solution has the form <span class="process-math">\(ae^{i \omega_0t}\text{.}\)</span> Therefore, we will look for a complex solution of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html">
+\begin{equation*}
+x_c = a t e^{i \omega_0 t}
+\end{equation*}
+</div>
+<p class="continuation">for the complex equation that corresponds to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-5.html" title="Equation 4.4.1">(4.4.1)</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html" id="secondorder04-equation-resonance-6">
+\begin{equation}
+x'' + \omega_0^2 x = A e^{i \omega_0 t}.\tag{4.4.2}
+\end{equation}
+</div>
+<p class="continuation">In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html" id="md-408">
+\begin{align*}
+x_c' &amp;  = a ( 1 + i \omega_0 t )e^{i \omega_0 t} \\
+x_c'' &amp;  = a (2 i \omega_0 - \omega_0^2 t) e^{i \omega_0 t}.
+\end{align*}
+</div>
+<p class="continuation">Substituting <span class="process-math">\(x_c\)</span> and <span class="process-math">\(x_c''\)</span> into the left-hand side of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-6.html" title="Equation 4.4.2">(4.4.2)</a>, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html" id="md-409">
+\begin{align*}
+x_c'' + \omega_0^2 x_c &amp;  = a (2 i \omega_0 - \omega_0^2 t )e^{i \omega_0 t} + \omega_0^2 a t e^{i \omega_0 t}\\
+&amp; = 2ai \omega_0 e^{i \omega t}.
+\end{align*}
+</div>
+<p class="continuation">In order for <span class="process-math">\(x_c = a t e^{i \omega_0 t}\)</span> to be a solution to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-6.html" title="Equation 4.4.2">(4.4.2)</a>, we must have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html">
+\begin{equation*}
+a = \frac{A}{2 i \omega_0}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, our solution to the complex form of the differential equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html" id="md-410">
+\begin{align*}
+x_c &amp;  = \frac{A}{2i \omega_0} t e^{i \omega_0 t}\\
+&amp; = - \frac{Ai}{2 \omega_0} t e^{i \omega_0 t}\\
+&amp; = - \frac{Ai}{2 \omega_0} t (\cos \omega_0 t + i \sin \omega_0 t)\\
+&amp; = \frac{A}{2 \omega_0} t \sin \omega_0 t - i \frac{A}{2 \omega_0} t \cos \omega_0 t.
+\end{align*}
+</div>
+<p class="continuation">The real part of <span class="process-math">\(x_c\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html">
+\begin{equation*}
+x_p(t) = \frac{A}{2 \omega_0} t \sin \omega_0 t,
+\end{equation*}
+</div>
+<p class="continuation">is a particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-5.html" title="Equation 4.4.1">(4.4.1)</a>. Thus, our general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-5.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-6.html ./knowl/secondorder04-equation-resonance-5.html">
+\begin{equation*}
+x(t) = x_h(t) + x_p(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t + \frac{A}{2 \omega_0} t \sin \omega_0 t.
+\end{equation*}
+</div>
+<article class="example example-like" id="example-79"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-79"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.4.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-79"><article class="example example-like"><p id="p-1686">Now let us consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html" id="md-411">
+\begin{align*}
+x'' + 144 x &amp; = 4 \cos 12t\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(A = 4\)</span> and <span class="process-math">\(\omega_0 = 12\text{.}\)</span> The solution to the homogeneous equation <span class="process-math">\(x'' + 144 x = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+x_h(t) = c_1 \cos 12t + c_2 \sin 12t.
+\end{equation*}
+</div>
+<p class="continuation">To find a particular solution to <span class="process-math">\(x'' + 144 x = 4 \cos 12t\text{,}\)</span> we will use the complex method and try to find a particular solution to <span class="process-math">\(x'' + 144 x = 4 e^{12it}\text{.}\)</span> We must assume that the solution has the form <span class="process-math">\(x_c(t) = a t e^{12it}\text{,}\)</span> since <span class="process-math">\(a e^{12it}\)</span> is a solution to the homogeneous equation. As before, we have <span class="process-math">\(x_c'' = a (24i - 144 t) e^{12it}\text{.}\)</span> If we substitute <span class="process-math">\(x_c\)</span> and <span class="process-math">\(x_c''\)</span> into the left-hand side of our differential equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+x_c'' + 144 x_c = a (24i - 144 t) e^{12it} + 144 a t e^{12i t} = 24ai e^{12i t}.
+\end{equation*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+a = \frac{4}{24i} = - \frac{1}{6}i,
+\end{equation*}
+</div>
+<p class="continuation">and our complex solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+- \frac{1}{6} i  t e^{12it} = - \frac{1}{6} i t (\cos 12t + i \sin 12 t) = \frac{1}{6} t \sin 12 t - \frac{1}{6} i t \cos 12 t.
+\end{equation*}
+</div>
+<p class="continuation">Taking the real part of our complex solution, we have a particular solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+x_p(t) = \frac{1}{6} t \sin 12t.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the general solution to <span class="process-math">\(x'' + 144 x = 4 \cos 12t\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+x(t) = x_h(t)  + x_p(t)= c_1 \cos 12t + c_2 \sin 12t + \frac{1}{6} t \sin 12t.
+\end{equation*}
+</div>
+<p class="continuation">Applying the initial conditions, both <span class="process-math">\(c_1 = 0\)</span> and <span class="process-math">\(c_2 = 0\text{.}\)</span> Consequently, the solution to the initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-3.html">
+\begin{equation*}
+x(t) = \frac{1}{6} t \sin 12t.
+\end{equation*}
+</div>
+<p class="continuation">The graph of this solution is given in <a href="" class="xref" data-knowl="./knowl/secondorder04-figure-resonance-3.html" title="Figure 4.4.3">Figure 4.4.3</a>. Notice that our solution grows with time. This growth is due to the fact that the frequency of the forcing term is equal to the natural frequency of the oscillator. Since the force pulls and pushes at a frequency equal to the natural frequency of the oscillator, the amplitude increases with time. This type of behavior is called <dfn class="terminology">resonance</dfn>.</p>
+<figure class="figure figure-like" id="secondorder04-figure-resonance-3"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder04-resonance-3.svg" role="img" class="contained" alt="an oscillating position curve with amplitudes increasing as time increases"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.3<span class="period">.</span></span><span class="space"> </span>The solution to <span class="process-math">\(x'' + 4 x = 4 \sin 2t\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x'(0) = 0\text{.}\)</span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-37"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Resonance.</span>
+</h4>
+<div class="introduction" id="introduction-111"><p id="p-1687">Solve each of the following initial value problems and plot the solution for <span class="process-math">\(t \geq 0\text{.}\)</span>  In each case, what is the natural (and forcing) frequency of the harmonic oscillator?</p></div>
+<article class="task exercise-like" id="task-197"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-412">
+\begin{align*}
+x'' + 121 x &amp; = 3 \cos 11t\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 0.
+\end{align*}
+</div></article><article class="task exercise-like" id="task-198"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-413">
+\begin{align*}
+x'' + 169 x &amp; = 5 \cos 13t\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 0.
+\end{align*}
+</div></article></article></section><section class="subsection" id="secondorder04-subsection-beats"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span>
+</h3>
+<p id="p-1690">If the forcing frequency and natural frequency are not equal but close, then we have the phenomenon of beats. For example, a piano tuner uses this phenomenon to make certain that a particular string is correctly tuned. The tuner will strike a tuning fork which vibrates at the correct frequency. Next, the tuner hits the poorly tuned piano string. This modulation gives rise to beats in the tone that are readily audible. When the string is properly tuned, the beats will go away. To see another example of beats, watch the video <a class="external" href="https://www.youtube.com/watch?v=pRpN9uLiouI" target="_blank"><code class="code-inline tex2jax_ignore">www.youtube.com/watch?v=pRpN9uLiouI</code></a>.</p>
+<p id="p-1691">To understand the situation where the forcing and natural frequencies differ by a small amount, <span class="process-math">\(\omega \neq \omega_0\text{,}\)</span> we will first consider the equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html" id="secondorder04-equation-beats-1">
+\begin{equation}
+x'' + \omega_0^2 x = A \cos \omega t.\tag{4.4.3}
+\end{equation}
+</div>
+<p class="continuation">The solution to the homogeneous equation <span class="process-math">\(x'' + \omega_0^2 x = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html">
+\begin{equation*}
+x_h(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t.
+\end{equation*}
+</div>
+<p class="continuation">Since the forcing frequency is not equal to the natural frequency, we can look for a particular solution to the complex of the form of equation <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-beats-1.html" title="Equation 4.4.3">(4.4.3)</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html" id="secondorder04-equation-beats-2">
+\begin{equation}
+x'' + \omega_0^2 = A e^{i \omega t}.\tag{4.4.4}
+\end{equation}
+</div>
+<p class="continuation">If we assume out solution has the form <span class="process-math">\(x_c = a e^{i\omega t}\)</span> and substitute <span class="process-math">\(x_c\)</span> into the left-hand side of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-beats-2.html" title="Equation 4.4.4">(4.4.4)</a>, we find</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html" id="md-414">
+\begin{align*}
+x_c'' + \omega_0^2 x_c \amp = -a \omega^2 e^{i \omega t} + \omega_0^2 a e^{i \omega t}\\
+\amp = a(\omega_0^2 - \omega^2)e^{i \omega t}.
+\end{align*}
+</div>
+<p class="continuation">Therefore, for <span class="process-math">\(x_c = a e^{i\omega t}\)</span> to be a solution for</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html">
+\begin{equation*}
+x'' + \omega_0^2 x = Ae^{i\omega t},
+\end{equation*}
+</div>
+<p class="continuation">we must have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html">
+\begin{equation*}
+a = \frac{A}{\omega_0^2 - \omega^2}.
+\end{equation*}
+</div>
+<p class="continuation">The real part of <span class="process-math">\(x_c\)</span> is a particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-beats-1.html" title="Equation 4.4.3">(4.4.3)</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html">
+\begin{equation*}
+x_p(t) = \frac{A}{\omega_0^2 - \omega^2} \cos \omega t.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the general solution to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-beats-1.html" title="Equation 4.4.3">(4.4.3)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-2.html ./knowl/secondorder04-equation-beats-1.html ./knowl/secondorder04-equation-beats-1.html">
+\begin{equation*}
+x(t) = x_h(t) + x_p(t) = c_1 \cos \omega_0 t + c_2 \sin \omega_0 t + \frac{A}{\omega_0^2 - \omega^2} \cos \omega t.
+\end{equation*}
+</div>
+<p id="p-1692">Now let us examine the case where the motion starts at equilibrium. That is, we will investigate what happens when <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(x'(0) = 0\text{.}\)</span> In this case, we can easily determine that <span class="process-math">\(c_1 = -A/(\omega_0^2 - \omega^2)\)</span> and <span class="process-math">\(c_2 = 0\text{.}\)</span>  Hence the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder04-equation-resonance-2">
+\begin{equation}
+x(t) = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t).\tag{4.4.5}
+\end{equation}
+</div>
+<p class="continuation">Thus, we have a superposition to two oscillations of different frequencies.</p>
+<p id="p-1693">To understand how the superposition of the two frequencies works, we will let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\overline{\omega} = \frac{\omega_0 + \omega}{2}
+\end{equation*}
+</div>
+<p class="continuation">be the <dfn class="terminology">mean frequency</dfn> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\delta = \frac{\omega_0 -  \omega}{2}
+\end{equation*}
+</div>
+<p class="continuation">be the <dfn class="terminology">half difference</dfn>. Since <span class="process-math">\(\omega = \overline{\omega} - \delta\)</span> and <span class="process-math">\(\omega_0 = \overline{\omega} + \delta\text{,}\)</span> we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-415">
+\begin{align*}
+x(t) &amp; = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t)\\
+&amp; = \frac{A}{(\overline{\omega} + \delta)^2 - (\overline{\omega} - \delta)^2} (\cos [(\overline{\omega} - \delta) t] - \cos[(\overline{\omega} + \delta) t])\\
+&amp; = \frac{A}{4\overline{\omega} \delta} [\cos(\overline{\omega} t - \delta t) - \cos(\overline{\omega}t + \delta t)]\\
+&amp; = \frac{A}{4\overline{\omega} \delta} [\cos(\overline{\omega} t) \cos( \delta t)  + \sin(\overline{\omega} t) \sin( \delta t) - \cos(\overline{\omega} t) \cos( \delta t) + \sin(\overline{\omega} t) \sin( \delta t)]\\
+&amp; = \frac{A}{4\overline{\omega} \delta} [2 \sin(\overline{\omega} t) \sin( \delta t)]\\
+&amp; = \frac{A \sin \delta t}{2 \overline{\omega} \delta} \sin \overline{\omega} t.
+\end{align*}
+</div>
+<p class="continuation">Thus, we have a sine function, <span class="process-math">\(\sin \overline{\omega} t\)</span> whose amplitude varies according to <span class="process-math">\(|(A/2 \overline{\omega} \delta) \sin \delta t|\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder04-equation-resonance-3">
+\begin{equation}
+x(t) = \frac{A \sin \delta t}{2 \overline{\omega} \delta} \sin \overline{\omega} t.\tag{4.4.6}
+\end{equation}
+</div>
+<article class="example example-like" id="example-80"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-80"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.4.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-80"><article class="example example-like"><p id="p-1694">In the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-1.html" id="mdn-11">
+\begin{align}
+x'' + 144 x \amp = 4 \cos(13t)\tag{4.4.7}\\
+x(0) \amp = 0\tag{4.4.8}\\
+x'(0) \amp = 0,\tag{4.4.9}
+\end{align}
+</div>
+<p class="continuation">we have <span class="process-math">\(A= 4\text{,}\)</span> <span class="process-math">\(\omega_0 = 12\text{,}\)</span> and <span class="process-math">\(\omega = 13\text{.}\)</span> The solution to this equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-figure-resonance-1.html">
+\begin{equation*}
+x(t) = \frac{4}{25}(\cos 12 t - \cos 13 t).
+\end{equation*}
+</div>
+<p class="continuation">The graph of this solution is given in <a href="" class="xref" data-knowl="./knowl/secondorder04-figure-resonance-1.html" title="Figure 4.4.5">Figure 4.4.5</a> and illustrate the phenomenon of <dfn class="terminology">beats</dfn>. The two frequencies are almost equal and interfere with each other.</p>
+<figure class="figure figure-like" id="secondorder04-figure-resonance-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder04-resonance-4.svg" role="img" class="contained" alt="an oscillating solution curve with the amplitudes also oscillating"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.5<span class="period">.</span></span><span class="space"> </span>Solution to the initial value problem <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-7.html" title="Equation 4.4.7">(4.4.7)</a></figcaption></figure><p id="p-1695">In our example, <span class="process-math">\(\delta = -1/2\)</span> and <span class="process-math">\(\overline{\omega} = 25/2\text{.}\)</span> The factor  <span class="process-math">\(\sin \delta t = \sin( - t/2)\)</span> in <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-3.html" title="Equation 4.4.6">(4.4.6)</a> oscillates very slowly in comparison to <span class="process-math">\(\sin(\overline{\omega}) = \sin(25t/2)\text{.}\)</span> Thus, we can view the solution <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-3.html" title="Equation 4.4.6">(4.4.6)</a> as a fast oscillation with a frequency <span class="process-math">\(\overline{\omega}\)</span> and amplitude</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-resonance-3.html ./knowl/secondorder04-equation-resonance-3.html ./knowl/secondorder04-equation-resonance-4.html ./knowl/secondorder04-figure-resonance-1.html" id="secondorder04-equation-resonance-4">
+\begin{equation}
+\left| \frac{A \sin \delta t}{2 \overline{\omega} \delta} \right| = \left| \frac{8}{25} \sin\left( \frac{t}{2}\right)\right|,\tag{4.4.10}
+\end{equation}
+</div>
+<p class="continuation">which oscillates much more slowly. If we superimpose the graph of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-4.html" title="Equation 4.4.10">(4.4.10)</a> onto the graph in <a href="" class="xref" data-knowl="./knowl/secondorder04-figure-resonance-1.html" title="Figure 4.4.5">Figure 4.4.5</a>, we obtain an <dfn class="terminology">envelope</dfn> of the faster oscillation.</p>
+<figure class="figure figure-like" id="secondorder04-figure-resonance-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder04-resonance-5.svg" role="img" class="contained" alt="an oscillating solution curve with the amplitudes also oscillating and an envelope curve that bounds the oscillating amplitudes"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.6<span class="period">.</span></span><span class="space"> </span>Envelope for the initial value problem <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-7.html" title="Equation 4.4.7">(4.4.7)</a></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-38"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.4.2</span><span class="period">.</span><span class="space"> </span><span class="title">Beats.</span>
+</h4>
+<div class="introduction" id="introduction-112">
+<p id="p-1696">Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-416">
+\begin{align*}
+x'' + 196 x \amp = 4 \cos(15t)\\
+x(0) \amp = 0\\
+x'(0) \amp = 0.
+\end{align*}
+</div>
+</div>
+<article class="task exercise-like" id="task-199"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1697">Solve the initial value problem and plot its solution.</p></article><article class="task exercise-like" id="task-200"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1698">Calculate the mean frequency, <span class="process-math">\(\overline{\omega} = (\omega_0 + \omega)/2\text{,}\)</span> and the half difference, <span class="process-math">\(\delta = (\omega_0 - \omega)/2\text{,}\)</span> where <span class="process-math">\(\omega_ 0\)</span> is the natural frequency and <span class="process-math">\(\omega\)</span> is the forcing frequency and rewrite the solution to the initial value problem in the form <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-resonance-3.html" title="Equation 4.4.6">(4.4.6)</a>.</p></article><article class="task exercise-like" id="task-201"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1699">Plot the envelope, <span class="process-math">\(|(A \sin \delta t)/(2 \overline{\omega} \delta)|\text{,}\)</span> over the plot of the solution to the initial value problem.</p></article><article class="task exercise-like" id="task-202"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1700">Discuss what is going on in this activity.</p></article></article></section><section class="subsection" id="secondorder04-subsection-forced-damped"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span>
+</h3>
+<p id="p-1701">Since perpetual motion does not really exist, we should consider what happens when we add some damping to our harmonic oscillator,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder04-equation-force-damped-1">
+\begin{equation}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t.\tag{4.4.11}
+\end{equation}
+</div>
+<article class="example example-like" id="example-secondorder04-force-damped"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-secondorder04-force-damped"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.4.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-secondorder04-force-damped"><article class="example example-like"><p id="p-1702">Let us consider the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html" id="secondorder04-equation-example-0">
+\begin{equation}
+x'' + 2x' + 2x = 3 \cos 4t.\tag{4.4.12}
+\end{equation}
+</div>
+<p class="continuation">The corresponding homogeneous equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x'' + 2x' + 2x = 0,
+\end{equation*}
+</div>
+<p class="continuation">which has solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x_h(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t.
+\end{equation*}
+</div>
+<p class="continuation">To find a particular solution for the equation <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-example-0.html" title="Equation 4.4.12">(4.4.12)</a>, we will look for a solution of the form <span class="process-math">\(x_c = a e^{4 i t}\)</span> to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html" id="secondorder04-equation-example-3">
+\begin{equation}
+x'' + 2x' + 2x = 3e^{4 it}\tag{4.4.13}
+\end{equation}
+</div>
+<p class="continuation">and then set <span class="process-math">\(x_p(t)\)</span> to the real part of the solution. Substituting <span class="process-math">\(x_c\)</span> into the lefthand side of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-example-3.html" title="Equation 4.4.13">(4.4.13)</a>, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x_c'' + 2x_c' + 2 x_c = (-14 + 8i) a e^{4it} = P(4i)a e^{4it} = 3e^{4 it},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(P(\lambda) = \lambda^2 + 2 \lambda + 2\)</span> is the characteristic polynomial of <span class="process-math">\(x'' + 2x' + 2x = 0\text{.}\)</span> Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+a = \frac{3}{P(4i)} = \frac{3}{-14 + 8i} = - \frac{3}{130}(7 + 4i),
+\end{equation*}
+</div>
+<p class="continuation">and the solution to the complex equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html" id="md-417">
+\begin{align*}
+x_c \amp = - \frac{3}{130}(7 + 4i)e^{4 i t}\\
+\amp = - \frac{3}{130}(7 + 4i)(\cos 4t + i \sin 4t)\\
+\amp = \frac{3}{130}[(- 7 \cos 4t + 4 \sin 4t) + i(- 4 \cos 4t - 7 \sin 4t)].
+\end{align*}
+</div>
+<p class="continuation">Thus, we can determine a particular solution by taking the real part of <span class="process-math">\(x_c\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x_p(t) = \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).
+\end{equation*}
+</div>
+<p class="continuation">The general solution for <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-example-0.html" title="Equation 4.4.12">(4.4.12)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x(t) = x_h(t) + x_p(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t +  \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).
+\end{equation*}
+</div>
+<p class="continuation">It is easy to see that all solutions approach <span class="process-math">\(x_p(t)\)</span> as <span class="process-math">\(t \to \infty\)</span> no matter what the initial conditions may be. However, it would be much more useful if we would write the particular solution in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-example-0.html ./knowl/secondorder04-equation-example-3.html ./knowl/secondorder04-equation-example-0.html">
+\begin{equation*}
+x_p(t) = K \cos(4 t - \phi )
+\end{equation*}
+</div>
+<p class="continuation">for some constants <span class="process-math">\(K\)</span> and <span class="process-math">\(\phi\)</span> rather than a linear combination of <span class="process-math">\(\cos 4t\)</span> and <span class="process-math">\(\sin 4t\text{.}\)</span></p></article></div>
+<p id="p-1703">Returning to the general case, the associated homogeneous equation for <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-1.html" title="Equation 4.4.11">(4.4.11)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-2.html ./knowl/secondorder04-equation-force-damped-2.html" id="secondorder04-equation-force-damped-2">
+\begin{equation}
+x'' + 2c x' + \omega_0^2 x = 0.\tag{4.4.14}
+\end{equation}
+</div>
+<p class="continuation">The characteristic polynomial of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-2.html" title="Equation 4.4.14">(4.4.14)</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-2.html ./knowl/secondorder04-equation-force-damped-2.html" id="secondorder04-equation-force-damped-3">
+\begin{equation}
+P(\lambda ) = \lambda^2 + 2c \lambda + \omega_0^2,\tag{4.4.15}
+\end{equation}
+</div>
+<p class="continuation">has roots</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-2.html ./knowl/secondorder04-equation-force-damped-2.html">
+\begin{equation*}
+\lambda = - c \pm \sqrt{c^2 - \omega_0^2}.
+\end{equation*}
+</div>
+<p class="continuation">If our harmonic oscillator is undedamped (<span class="process-math">\(c \lt \omega_0\)</span>), then the solution to the homogeneous equation <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-2.html" title="Equation 4.4.14">(4.4.14)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-2.html ./knowl/secondorder04-equation-force-damped-2.html">
+\begin{equation*}
+x_h = e^{-ct} (c_1 \cos \beta t + c_2 \sin \beta t),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\beta = \sqrt{\omega_0^2 - c^2}\text{.}\)</span></p>
+<p id="p-1704">As in <a href="" class="xref" data-knowl="./knowl/example-secondorder04-force-damped.html" title="Example 4.4.7">Example 4.4.7</a>, we will look for a particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-1.html" title="Equation 4.4.11">(4.4.11)</a> by examining the equivalent complex differential equation. That is, we shall look for a solution of the form <span class="process-math">\(x_c = a e^{i \omega t}\)</span> to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-4.html ./knowl/secondorder04-equation-force-damped-3.html ./knowl/secondorder04-equation-force-damped-4.html" id="secondorder04-equation-force-damped-4">
+\begin{equation}
+x_c'' + 2c x_c' + \omega_0^2 x_c = Ae^{i \omega t},\tag{4.4.16}
+\end{equation}
+</div>
+<p class="continuation">and then set <span class="process-math">\(x_p\)</span> equal to the real part of our solution. Substituting <span class="process-math">\(x_c\)</span> into the right-hand side of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-4.html" title="Equation 4.4.16">(4.4.16)</a>, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-4.html ./knowl/secondorder04-equation-force-damped-3.html ./knowl/secondorder04-equation-force-damped-4.html">
+\begin{equation*}
+x_c'' + 2c x_c' + \omega_0^2 x_c = [(i\omega)^2 + 2c(i \omega) + \omega_0^2] a e^{i \omega t} = P(i \omega) a e^{i \omega t},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(P\)</span> is the characteristic polynomial <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-3.html" title="Equation 4.4.15">(4.4.15)</a>. Thus, equation <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-4.html" title="Equation 4.4.16">(4.4.16)</a> becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-4.html ./knowl/secondorder04-equation-force-damped-3.html ./knowl/secondorder04-equation-force-damped-4.html">
+\begin{equation*}
+P(i \omega) a e^{i \omega t} =  Ae^{i \omega t},
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-4.html ./knowl/secondorder04-equation-force-damped-3.html ./knowl/secondorder04-equation-force-damped-4.html">
+\begin{equation*}
+x_c(t) = a e ^{i \omega t} = \frac{A}{P(i \omega)} e^{i \omega t} =  H(i \omega) A e^{i \omega t},
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-equation-force-damped-1.html ./knowl/secondorder04-equation-force-damped-4.html ./knowl/secondorder04-equation-force-damped-3.html ./knowl/secondorder04-equation-force-damped-4.html">
+\begin{equation*}
+H(i \omega) = \frac{1}{P(i \omega)}.
+\end{equation*}
+</div>
+<p class="continuation">We say that <span class="process-math">\(H(\lambda) = 1 / P(\lambda)\)</span> is the <dfn class="terminology">transfer function</dfn>.</p>
+<p id="p-1705">Let us examine the transfer function more closely to see if we can use it to write our particular solution in a more useable form. First, let us write</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+P(i \omega ) = (i\omega)^2 + 2c(i \omega) + \omega_0^2 = (\omega_0^2 - \omega^2) + 2ic \omega.
+\end{equation*}
+</div>
+<p class="continuation">in polar form,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+P(i \omega) = R e^{i \phi} = R(\cos \phi + i \sin \phi),
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+R = \sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(\phi\)</span> is the angle defined by the equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html" id="md-418">
+\begin{align*}
+\cos \phi &amp; = \frac{\omega_0^2 - \omega^2}{\sqrt{(\omega_0^2 - \omega^2)^2 - 4 c^2  \omega^2}},\\
+\sin \phi &amp; = \frac{2c\omega}{\sqrt{(\omega_0^2 - \omega^2)^2 - 4 c^2  \omega^2}}.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\(2 c \omega \gt 0\text{,}\)</span> we know that <span class="process-math">\(\sin \phi \gt 0\text{.}\)</span>  Equivalently, <span class="process-math">\(0 \lt \phi \lt \pi\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right).
+\end{equation*}
+</div>
+<p class="continuation">Therefore, we can write the transfer function as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+H(i \omega) = \frac{1}{P(i \omega)} = \frac{1}{R} e^{-i \phi}.
+\end{equation*}
+</div>
+<p class="continuation">We define the <dfn class="terminology">gain</dfn> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+G(\omega) = \frac{1}{R} = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}},
+\end{equation*}
+</div>
+<p class="continuation">and we will rewrite the transfer function as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+H(i \omega) = G(\omega) e^{-i \phi(\omega)}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+x_c'' + 2c x_c' + \omega_0^2 x_c = Ae^{i \omega t}
+\end{equation*}
+</div>
+<p class="continuation">is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html" id="secondorder04-equation-force-damped-complex">
+\begin{equation}
+x_c(t) = H(i \omega) A e^{i \omega t} = G(\omega) A e^{i(\omega t - \phi)}.\tag{4.4.17}
+\end{equation}
+</div>
+<p class="continuation">Taking the real part of <a href="" class="xref" data-knowl="./knowl/secondorder04-equation-force-damped-complex.html" title="Equation 4.4.17">(4.4.17)</a>, our particular solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder04-equation-force-damped-complex.html">
+\begin{equation*}
+x_p(t) =  \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi ).
+\end{equation*}
+</div>
+<p id="p-1706">It is now clear that particular solution has the same frequency as the forcing term. In addition, <span class="process-math">\(x_p\)</span> is out of phase with the driving force by the amount</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega}\right).
+\end{equation*}
+</div>
+<p class="continuation">The general solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>
+<p class="continuation">is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = x_h(t) + x_p(t) = e^{-ct} (c_1 \cos(\eta t) + c_2 \sin(\eta t)) + G(\omega) A \cos(\omega t - \phi).
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(x_h\)</span> has the factor <span class="process-math">\(e^{-ct}\text{,}\)</span> the homogeneous part of the solution quickly decays to zero as <span class="process-math">\(t \to \infty\text{.}\)</span> For this reason, <span class="process-math">\(x_h\)</span> is called the <dfn class="terminology">transient term</dfn> while <span class="process-math">\(x_p\)</span> is called the <dfn class="terminology">steady-state term</dfn>.</p>
+<article class="example example-like" id="example-82"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-82"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.4.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-82"><article class="example example-like"><p id="p-1707">Let us examine the steady-state solution of the harmonic oscillator in <a href="" class="xref" data-knowl="./knowl/example-secondorder04-force-damped.html" title="Example 4.4.7">Example 4.4.7</a>. We have already determined that the second-order linear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-figure-forced-spring-steady-state.html">
+\begin{equation*}
+x'' + 2x' + 2x = 3 \cos 4t
+\end{equation*}
+</div>
+<p class="continuation">has solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-figure-forced-spring-steady-state.html">
+\begin{equation*}
+x(t) = x_h(t) + x_p(t) = c_1 e^{-t} \cos t + c_2 e^{-t} \sin t + \frac{3}{130}(- 7 \cos 4t + 4 \sin 4t).
+\end{equation*}
+</div>
+<p class="continuation">The natural frequency is <span class="process-math">\(\omega_0 = \sqrt{2} \approx 1.4142\)</span> If we choose the initial conditions so that <span class="process-math">\(c_1 = 0\)</span> and <span class="process-math">\(c_2 = 1\text{,}\)</span> our transient term is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/example-secondorder04-force-damped.html ./knowl/secondorder04-figure-forced-spring-steady-state.html">
+\begin{equation*}
+x_h(t) = e^{-ct} \sin \beta t = e^{-t} \sin t.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(c = 1\text{,}\)</span> <span class="process-math">\(\omega = 4\text{,}\)</span> and <span class="process-math">\(A = 3\text{,}\)</span> the gain is <span class="process-math">\(G(4) \approx 0.0620\text{,}\)</span> the amplitude of the steady state solution is <span class="process-math">\(G(4) \cdot 4 \approx 0.2481\text{.}\)</span> The phase is <span class="process-math">\(\phi = \phi(4) \approx 2.6224.\)</span> The solution and the steady-state solution are given in <a href="" class="xref" data-knowl="./knowl/secondorder04-figure-forced-spring-steady-state.html" title="Figure 4.4.9">Figure 4.4.9</a>. As we can see, transient solutions can be quite large when compared to steady-state solutions.</p>
+<figure class="figure figure-like" id="secondorder04-figure-forced-spring-steady-state"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder04-forced-spring-steady-state.svg" role="img" class="contained" alt="an oscillating steady-state solution and a solution curve to a forced damped harmonic oscillator that converges to the steady-state solution"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.9<span class="period">.</span></span><span class="space"> </span>A forced damped harmonic oscillator and the steady-state solution.</figcaption></figure></article></div>
+<p id="p-1708">Large transient currents can be destructive in electrical circuits. For example, a light bulb usually burns out when a large transient flows through an already weakened bulb. This, usually occurs at the time the light bulb is turned out or turned off. Large transient currents are particularly harmful to the hard drive in a computer. For this reason, computers should be left on except in the case that they are not being used for a period of several days.</p></section><section class="subsection" id="secondorder04-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1709" class="disc">
+<li id="li-476"><p id="p-derived-li-476">A forced damped harmonic oscillator,<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>has homogeneous solution<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_h = e^{-ct} (c_1 \cos \eta t + c_2 \sin \eta t),
+\end{equation*}
+</div>where <span class="process-math">\(\eta = \sqrt{\omega_0^2 - c^2}\text{.}\)</span> A particular solution is given by<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi ),
+\end{equation*}
+</div>where the phase angle <span class="process-math">\(\phi\)</span> is<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right)
+\end{equation*}
+</div>and the gain <span class="process-math">\(G\)</span> is given by<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+G(\omega) = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}}.
+\end{equation*}
+</div></p></li>
+<li id="li-477"><p id="p-derived-li-477">The amplitude and phase of the steady-state solution,<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = G(\omega) A \cos(\omega t - \phi),
+\end{equation*}
+</div>are determined by<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\omega_0^2G = \frac{1}{\sqrt{(1- s^2)^2 + D^2 s^2}},
+\end{equation*}
+</div>where <span class="process-math">\(\omega = s \omega_0\)</span> and <span class="process-math">\(D = 2c/\omega_0\text{.}\)</span></p></li>
+<li id="li-478"><p id="p-derived-li-478">In an undamped harmonic oscillators with a sinusoidal forcing term, the natural frequency of the solution interacts with the frequency of the forcing term. As the frequency of the forcing term approaches the natural frequency of the equation, we can observe a phenomenon called <dfn class="terminology">resonance</dfn>. We can use the equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>to model an undamped harmonic oscillator with sinusoidal forcing.</p></li>
+<li id="li-479"><p id="p-derived-li-479">If the driving frequency is not equal to the natural frequency (<span class="process-math">\(\omega \neq \omega_0\)</span>), we have a particular solution<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = \frac{A}{\omega_0^2 - \omega^2} (\cos \omega t - \cos \omega_0 t).
+\end{equation*}
+</div>If the two frequencies are close, we can see a phenomenon called <dfn class="terminology">beats</dfn>.</p></li>
+<li id="li-480"><p id="p-derived-li-480">If the driving frequency is equal to the natural frequency, we have a particular solution<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t)  = \frac{A}{2 \omega_0} t \sin \omega_0 t.
+\end{equation*}
+</div>In this case, we can see the <dfn class="terminology">resonance</dfn> phenomenon.</p></li>
+<li id="li-481"><p id="p-derived-li-481">A forced damped harmonic oscillator,<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>has homogeneous solution<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_h = e^{-ct} (c_1 \cos \eta t + c_2 \sin \eta t),
+\end{equation*}
+</div>where <span class="process-math">\(\eta = \sqrt{\omega_0^2 - c^2}\text{.}\)</span> A particular solution is given by<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = \real(x_c(t)) = G(\omega) A \cos(\omega t - \phi),
+\end{equation*}
+</div>where the phase angle <span class="process-math">\(\phi\)</span> is<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi = \phi(\omega) = \cot^{-1} \left( \frac{\omega_0^2 - \omega^2}{2c \omega} \right)
+\end{equation*}
+</div>and the gain <span class="process-math">\(G\)</span> is given by<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+G(\omega) = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}}.
+\end{equation*}
+</div></p></li>
+</ul></section><section class="reading-questions" id="reading-questions-secondorder04"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-secondorder04-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1710">Describe what resonance means in your own words.</p></article><article class="exercise exercise-like" id="reading-questions-secondorder04-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1711">Describe in words alone what the steady state solution of a damped harmonic oscillator is.</p></article></section><section class="exercises" id="secondorder04-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">4.4.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="secondorder04-exercises-beats-resonance">
+<h4 class="heading"><span class="title">Beats and Resonance.</span></h4>
+<div class="introduction" id="introduction-113"><p id="p-1712">Solve the initial problems in <a href="" class="xref" data-knowl="./knowl/secondorder04-exercises-beats-resonance.html" title="Exercise Group 4.4.6.1–6: Beats and Resonance">Exercise Group 4.4.6.1–6</a>. Do you find any beats or resonance?</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-411"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-1713"><span class="process-math">\(y'' + y = \cos t\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-412"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-1714"><span class="process-math">\(y'' + y = \cos(11t/10)\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-413"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-1715"><span class="process-math">\(y'' + 4y = \sin 2 t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-414"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-1716"><span class="process-math">\(y'' + 4y = 3 \sin(13t/12)\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = -1\)</span></p></article><article class="exercise exercise-like" id="exercise-415"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-1717"><span class="process-math">\(y'' + 16y = 5\cos 4t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-416"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-1718"><span class="process-math">\(y'' + 16y = 5\cos(4t +1)\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder04-exercises-graph-beats">
+<h4 class="heading"><span class="title">Plotting the Envelope for Beats.</span></h4>
+<div class="introduction" id="introduction-114"><p id="p-1719">For each of the functions in <a href="" class="xref" data-knowl="./knowl/secondorder04-exercises-graph-beats.html" title="Exercise Group 4.4.6.7–10: Plotting the Envelope for Beats">Exercise Group 4.4.6.7–10</a> compute the envelope function. Then plot <span class="process-math">\(y(t)\)</span> and the envelope function on the same set of axes.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-417"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-1720"><span class="process-math">\(y = \cos 10 t - \cos 11t\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-418"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-1721"><span class="process-math">\(y = \cos 11 t - \cos 12t\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-419"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-1722"><span class="process-math">\(y = \sin 11 t - \sin 10t\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-420"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-1723"><span class="process-math">\(y = \sin 12 t - \sin 11t\text{.}\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-421"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
+<p id="p-1724">Consider the function <span class="process-math">\(y = \cos 10 t - \cos 11t\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-482"><p id="p-derived-li-482">Find the mean frequency <span class="process-math">\(\overline{\omega} = (\omega_0 + \omega)/2\)</span> and half difference <span class="process-math">\(\delta = (\omega_0 -  \omega)/2\text{.}\)</span></p></li>
+<li id="li-483"><p id="p-derived-li-483">Use (a) to show that<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = \cos 10 t - \cos 11t = 2 \sin\left( \frac{1}{2} t \right) \sin(\left( \frac{21}{2} t \right).
+\end{equation*}
+</div>You will find the following trigonmetric identity very useful,<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+2 \sin A \sin B = \cos(A - B) - \cos(A + B).
+\end{equation*}
+</div></p></li>
+<li id="li-484"><p id="p-derived-li-484">Using (b), plot the graph of <span class="process-math">\(y\)</span> and <span class="process-math">\(2 \sin(t/2)\)</span> on the same axes.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-422"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
+<p id="p-1725">For large <span class="process-math">\(t\text{,}\)</span> every solution of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' + py' + qy = \cos \omega t
+\end{equation*}
+</div>
+<p class="continuation">oscillates with angular frequency <span class="process-math">\(\omega\)</span> and amplitude <span class="process-math">\(A\)</span> given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A( \omega, p, q) = \frac{1}{\sqrt{(q - \omega^2)^2 + p^2 \omega^2}}.
+\end{equation*}
+</div>
+<p class="continuation">That is, the amplitude of <span class="process-math">\(A\)</span> is a function of the parameters <span class="process-math">\(\omega\text{,}\)</span> <span class="process-math">\(p\text{,}\)</span> and <span class="process-math">\(q\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-485"><p id="p-derived-li-485">Compute <span class="process-math">\(\dfrac{\partial A}{\partial \omega}\text{.}\)</span></p></li>
+<li id="li-486"><p id="p-derived-li-486">For fixed <span class="process-math">\(p\)</span> and <span class="process-math">\(q\text{,}\)</span> let <span class="process-math">\(M(p, q)\)</span> denote the maximum value of <span class="process-math">\(A( \omega, p, q)\)</span> as a function of <span class="process-math">\(\omega\text{.}\)</span> Compute an expression for <span class="process-math">\(M(p, q)\text{.}\)</span></p></li>
+<li id="li-487"><p id="p-derived-li-487">Set <span class="process-math">\(q = 1\)</span> and plot <span class="process-math">\(M(p, q)\)</span> as a function of <span class="process-math">\(p\text{.}\)</span></p></li>
+<li id="li-488"><p id="p-derived-li-488">Explain why <span class="process-math">\(M(p, q)\)</span> is proportional to <span class="process-math">\(1/p\)</span> as <span class="process-math">\(p \to 0\text{.}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-423"><h4 class="heading"><span class="codenumber">13<span class="period">.</span></span></h4>
+<p id="p-1726">Let us examine the amplitude and phase of the steady-state solution,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x_p(t) = G(\omega) A \cos(\omega t - \phi),
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+G(\omega) = \frac{1}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4 c^2 \omega^2}}.
+\end{equation*}
+</div>
+<p class="continuation">Now let <span class="process-math">\(s = \omega / \omega_0\)</span> and <span class="process-math">\(D = 2c/\omega_0\text{.}\)</span>  These new constants, <span class="process-math">\(s\)</span> and <span class="process-math">\(D\text{,}\)</span> measure the ratio of the driving frequency to the natural frequency and the effect of the damping force, respectively.  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+G = \frac{1}{\omega_0^2\sqrt{(1- s^2)^2 + D^2 s^2}}
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\omega_0^2G = \frac{1}{\sqrt{(1- s^2)^2 + D^2 s^2}}.
+\end{equation*}
+</div>
+<p class="continuation">This expression shows us how the gain varies as <span class="process-math">\(s = \omega/\omega_0\)</span> varies.  The natural frequency is fixed in</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2c x' + \omega_0^2 x = A \cos \omega t
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(D = 2c/\omega_0\)</span> is proportional to the damping constant.</p></article></section></section></div></main>
+</div>
+</body>
+</html>

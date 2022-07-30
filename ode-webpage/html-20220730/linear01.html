@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Linear Algebra in a Nutshell</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="active">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="linear01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span>
+</h2>
+<article class="objectives goal-like" id="objectives-12"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-279"><p id="p-896">To understand and be able to apply definitions such as linear dependence and independence, basis, and linear combinations to vectors in <span class="process-math">\(\mathbb R^2\text{.}\)</span></p></li>
+<li id="li-280"><p id="p-897">To understand and be able to do operations such as matrix arithmetic, computing determinants, finding eigenvalues and eigenvectors, and finding matrix inverses for <span class="process-math">\(2 \times 2\)</span> matrices.</p></li>
+</ul></article><section class="introduction" id="introduction-54"><p id="p-898">Linear algebra and matrices provide a convenient notation for representing the <span class="process-math">\(2 \times 2\)</span> system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-198">
+\begin{align*}
+\frac{dx}{dt} &amp; = a x + b y,\\
+\frac{dy}{dt} &amp; = c x + d y.
+\end{align*}
+</div>
+<p class="continuation">If we let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\quad\text{and}\quad
+{\mathbf x}(t)
+=
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then we can rewrite our system as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+x'(t) \\ y'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+ax(t) + b y(t) \\ cx(t) + d y(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">In other words, we can write our system as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d \mathbf x}{dt} = A {\mathbf x},
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x' = \frac{d \mathbf x}{dt} = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}.
+\end{equation*}
+</div></section><section class="subsection" id="linear01-subsection-matrices"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span>
+</h3>
+<p id="p-899">A short review of linear algebra and <span class="process-math">\(2 \times 2\)</span> matrices is useful at this point. Recall that any system of two equations in two variables,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-199">
+\begin{align*}
+ax + by &amp; = \alpha,\\
+cx + dy &amp; = \beta,
+\end{align*}
+</div>
+<p class="continuation">can be written as a matrix equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="linear01-equation-2x2-3">
+\begin{equation}
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y 
+\end{pmatrix}
+=
+\begin{pmatrix}
+ax + by \\ cx + dy 
+\end{pmatrix}
+=
+\begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix}.\tag{3.1.1}
+\end{equation}
+</div>
+<p class="continuation">We will denote the <span class="process-math">\(2 \times 2\)</span> <dfn class="terminology">coefficient matrix</dfn> by <span class="process-math">\(A\text{.}\)</span> That is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-900">If a solution for the system <a href="" class="xref" data-knowl="./knowl/linear01-equation-2x2-3.html" title="Equation 3.1.1">(3.1.1)</a> exists, it is easy to find. A unique solution will occur exactly when the matrix <span class="process-math">\(A\)</span> is <dfn class="terminology">invertible</dfn> (or <dfn class="terminology">nonsingular</dfn>). The unique solution is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-2x2-3.html">
+\begin{equation*}
+\begin{pmatrix}
+x \\ y 
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}^{-1}
+\begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-2x2-3.html">
+\begin{equation*}
+A^{-1}
+= \frac{1}{ad - bc}
+\begin{pmatrix}
+d &amp; -b \\
+-c &amp; a 
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The matrix <span class="process-math">\(A\)</span> is invertible if and only if its <dfn class="terminology">determinant</dfn> is nonzero,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-2x2-3.html">
+\begin{equation*}
+\det(A) = ad - bc \neq 0.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(\det(A) = 0\text{,}\)</span> then we either have no solution or infinitely many solutions.</p>
+<p id="p-901">Let us consider the special case</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A 
+\begin{pmatrix}
+x \\ y 
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ 0
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(\det(A) \neq 0\text{,}\)</span> we have exactly one solution, <span class="process-math">\(x = 0\)</span> and <span class="process-math">\(y = 0\text{.}\)</span> On the other hand, if <span class="process-math">\(\det(A) = 0\text{,}\)</span> we have infinitely many solutions. Suppose that <span class="process-math">\(a \neq 0\text{.}\)</span> Then <span class="process-math">\(x = - (b/a)y\text{,}\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+-c \left( \frac{b}{a}\right) y + dy = 0.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, <span class="process-math">\((ad - bc) y =0\text{.}\)</span> Since <span class="process-math">\(\det(A) = ad - bc = 0\text{,}\)</span> the variable <span class="process-math">\(y\)</span> can assume any value and <span class="process-math">\(x = - (b/a)y\text{.}\)</span> Thus, the solutions to our system lie along a line through the origin. In fact, we will always get a line of solutions through the origin as long as at least one entry in our matrix is nonzero.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-34" id="fn-34"><sup> 1 </sup></a></p></section><section class="subsection" id="linear01-subsection-linear-independence"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span>
+</h3>
+<p id="p-902">We say that two vectors <span class="process-math">\({\mathbf x}\)</span> and <span class="process-math">\({\mathbf y}\)</span> in <span class="process-math">\({\mathbb R}^2\)</span> are <dfn class="terminology">linearly independent</dfn> if they do not lie on the same line through the origin. If, on the other hand, they do lie on the same line, then the vectors are <dfn class="terminology">linearly dependent</dfn>. Equivalently, two vectors are linearly dependent if one vector is a multiple of the other. We leave the proof of the following theorem as an exercise.</p>
+<article class="theorem theorem-like" id="systems01-theorem-independence-determinant"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.1.1</span><span class="period">.</span>
+</h4>
+<p id="p-903">Let <span class="process-math">\({\mathbf x} = (x_1, x_2)\)</span> and <span class="process-math">\({\mathbf y} = (y_1, y_2)\text{.}\)</span> Then <span class="process-math">\({\mathbf x}\)</span> and <span class="process-math">\({\mathbf y}\)</span> are linearly independent if and only if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det
+\begin{pmatrix}
+x_1 &amp; y_1 \\
+x_2 &amp; y_2
+\end{pmatrix}
+\neq 0.
+\end{equation*}
+</div></article><p id="p-904">If we have a pair of linearly independent vectors in <span class="process-math">\({\mathbb R}^2\text{,}\)</span> then we can write any vector in <span class="process-math">\({\mathbb R}^2\)</span> as a unique <dfn class="terminology">linear combination</dfn> of the two vectors. That is, given two linearly independent vectors <span class="process-math">\({\mathbf x} = (x_1, x_2)\)</span> and <span class="process-math">\({\mathbf y} = (y_1, y_2)\text{,}\)</span> we can write <span class="process-math">\({\mathbf z} = (z_1, z_2)\)</span> as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+z_1 \\ z_2
+\end{pmatrix}
+=
+\alpha
+\begin{pmatrix}
+x_1 \\ x_2
+\end{pmatrix}
++
+\beta
+\begin{pmatrix}
+y_1 \\ y_2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> are unique. To see why this is true, we must solve the equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-200">
+\begin{align*}
+z_1 &amp; = \alpha x_1 + \beta y_1\\
+z_2 &amp; = \alpha x_2 + \beta y_2
+\end{align*}
+</div>
+<p class="continuation">for <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\text{.}\)</span> However, this system has a unique solution since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det
+\begin{pmatrix}
+x_1 &amp; y_1 \\
+x_2 &amp; y_2
+\end{pmatrix}
+\neq 0.
+\end{equation*}
+</div>
+<p class="continuation">Two vectors are said to be a <dfn class="terminology">basis</dfn> for <span class="process-math">\({\mathbb R}^2\)</span> if we can write any vector in <span class="process-math">\({\mathbb R}^2\)</span> as a linear combination of these two vectors. By our arguments above, any two linearly independent vectors will form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span></p>
+<article class="example example-like" id="example-31"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-31"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.1.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-31"><article class="example example-like"><p id="p-905">The vectors <span class="process-math">\({\mathbf e}_1 = (1, 0)\)</span> and <span class="process-math">\({\mathbf e}_2 = (0, 1)\)</span> form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span> Indeed, if <span class="process-math">\({\mathbf z} = (z_1, z_2)\text{,}\)</span> then we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf z} = z_1 {\mathbf e}_1 + z_2 {\mathbf e}_2.
+\end{equation*}
+</div>
+<p class="continuation">The vectors <span class="process-math">\({\mathbf e}_1\)</span> and <span class="process-math">\({\mathbf e}_2\)</span> are called the <dfn class="terminology">standard basis</dfn> for <span class="process-math">\({\mathbb R}^2\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-32"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-32"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.1.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-32"><article class="example example-like"><p id="p-906">Let <span class="process-math">\({\mathbf v}_1 = (2,1)\)</span> and <span class="process-math">\({\mathbf v}_2 = (3, 2)\text{.}\)</span> Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det
+\begin{pmatrix}
+2 &amp; 3 \\
+1 &amp; 2
+\end{pmatrix}
+\neq 0,
+\end{equation*}
+</div>
+<p class="continuation">these vectors form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span> If <span class="process-math">\({\mathbf z} = (-5, -4)\text{,}\)</span> then we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf z} = 2 {\mathbf v}_1 - 3 {\mathbf v}_2.
+\end{equation*}
+</div>
+<p class="continuation">We say that the <dfn class="terminology">coordinates</dfn> of <span class="process-math">\({\mathbf z}\)</span> are <span class="process-math">\((2, -3)\)</span> with respect to the basis <span class="process-math">\(\{ {\mathbf v}_1, {\mathbf v}_2 \}\text{.}\)</span></p></article></div>
+<article class="example example-like" id="example-33"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-33"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.1.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-33"><article class="example example-like"><p id="p-907">The vectors <span class="process-math">\((1, 1)\)</span> and <span class="process-math">\((-1, -1)\)</span> do not form a basis for <span class="process-math">\({\mathbb R}^2\)</span> since these two vectors lie along the same line.</p></article></div>
+<p id="p-908">If <span class="process-math">\(2 \times 2\)</span> matrices and the rest of what we have described above make you nervous, you should work through the exercises at the end of this section.</p>
+<article class="activity project-like" id="activity-21"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Matrix Operations.</span>
+</h4>
+<div class="introduction" id="introduction-55">
+<p id="p-909">Given the matrices and vectors</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+5 &amp; 3 \\
+-6 &amp; 4
+\end{pmatrix},
+B = \begin{pmatrix}
+2 &amp; 3 \\
+1 &amp; 2
+\end{pmatrix},                    
+\mathbf x =
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
+\mathbf y =
+\begin{pmatrix}
+2 \\ -1 
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">compute each of the following expressions.</p>
+</div>
+<article class="task exercise-like" id="task-117"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-910"><span class="process-math">\(AB\text{,}\)</span> <span class="process-math">\(BA\)</span></p></article><article class="task exercise-like" id="task-118"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-911"><span class="process-math">\(A^{-1}\text{,}\)</span> <span class="process-math">\(B^{-1}\text{,}\)</span> <span class="process-math">\((AB)^{-1}\text{,}\)</span> <span class="process-math">\(B^{-1}A^{-1}\)</span></p></article><article class="task exercise-like" id="task-119"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-912"><span class="process-math">\(\det(A), \det(B), \det(AB), \det(A^{-1})\)</span></p></article><article class="task exercise-like" id="task-120"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-913"><span class="process-math">\(A \mathbf x\text{,}\)</span> <span class="process-math">\(A \mathbf y\text{,}\)</span> <span class="process-math">\(\mathbf y^T \mathbf x\text{,}\)</span> <span class="process-math">\(\mathbf x \mathbf y^T\text{,}\)</span> where <span class="process-math">\(\mathbf y^T = (2, -1)\)</span></p></article></article></section><section class="subsection" id="linear01-subsection-finding-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span>
+</h3>
+<p id="p-914">A <em class="emphasis">nonzero</em> vector <span class="process-math">\({\mathbf v}\)</span> is an <dfn class="terminology">eigenvector</dfn> of <span class="process-math">\(A\)</span> if <span class="process-math">\(A {\mathbf v} = \lambda {\mathbf v}\)</span> for some <span class="process-math">\(\lambda \in {\mathbf R}\text{.}\)</span> The constant <span class="process-math">\(\lambda\)</span> is called an <dfn class="terminology">eigenvalue</dfn> of <span class="process-math">\(A\text{.}\)</span> Letting</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix} \quad \text{and} \quad
+\mathbf v
+=
+\begin{pmatrix} x \\ y \end{pmatrix} \neq \mathbf 0,
+\end{equation*}
+</div>
+<p class="continuation">we have <span class="process-math">\(A \mathbf x = \lambda \mathbf v\)</span> or <span class="process-math">\(A \mathbf v - \lambda \mathbf v =  \mathbf 0\text{.}\)</span> In matrix form this is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-201">
+\begin{align*}
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix} 
+\begin{pmatrix} x \\ y \end{pmatrix}
+- \lambda \begin{pmatrix} x \\ y \end{pmatrix} 
+\amp =
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix} 
+\begin{pmatrix} x \\ y \end{pmatrix}
+- \begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \lambda 
+\end{pmatrix}  
+\begin{pmatrix} x \\ y \end{pmatrix}\\
+\amp = 
+\begin{pmatrix}
+a- \lambda &amp; b \\
+c &amp; d - \lambda
+\end{pmatrix} 
+\begin{pmatrix} x \\ y \end{pmatrix}\\
+\amp = 
+\begin{pmatrix} 0 \\ 0 \end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">This matrix equation is certainly true if <span class="process-math">\((x, y) = (0, 0)\text{.}\)</span> However, we seek nonzero solutions to this system. This will occur exactly when the determinant of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A - \lambda I = \begin{pmatrix}
+a- \lambda &amp; b \\
+c &amp; d - \lambda
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is zero. In this case</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det(A - \lambda I)
+=
+\det\begin{pmatrix}
+a - \lambda  &amp; b \\
+c &amp; d - \lambda
+\end{pmatrix}
+=
+\lambda^2 - (a + d) \lambda + (ad - bc).
+\end{equation*}
+</div>
+<p class="continuation">We say that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det(A - \lambda I) = \lambda^2 - (a + d) \lambda + (ad - bc)
+\end{equation*}
+</div>
+<p class="continuation">is the <dfn class="terminology">characteristic polynomial</dfn> of <span class="process-math">\(A\text{.}\)</span> We summarize the results of this discussion in the following theorem.</p>
+<article class="theorem theorem-like" id="linear01-theorem-characteristic-polynomial"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.1.5</span><span class="period">.</span>
+</h4>
+<p id="p-915">The roots of the characteristic polynomial of <span class="process-math">\(A\)</span> are the eigenvalues of <span class="process-math">\(A\text{.}\)</span></p></article><article class="example example-like" id="linear01-example-example-1"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-linear01-example-example-1"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.1.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear01-example-example-1"><article class="example example-like"><p id="p-916">Suppose that we wish to find the eigenvalues and associated eigenvectors of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+1 &amp; 2 \\
+4 &amp; 3
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">To find the eigenvalues and eigenvectors for <span class="process-math">\(A\text{,}\)</span> we must solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A 
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+\lambda
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If we let <span class="process-math">\(I\)</span> denote the <span class="process-math">\(2 \times 2\)</span> identity matrix,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+I =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we can rewrite this equation in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="linear01-equation-characteristic">
+\begin{equation}
+(A - \lambda I) 
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+= 
+\begin{pmatrix}
+0 \\ 0
+\end{pmatrix}. \tag{3.1.2}
+\end{equation}
+</div>
+<p class="continuation">We know that <span class="process-math">\(A - \lambda I\)</span> is a <span class="process-math">\(2 \times 2\)</span> matrix and that this system will only have nonzero solutions if <span class="process-math">\(\det(A - \lambda I) = 0\text{.}\)</span> In our example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-202">
+\begin{align*}
+\det(A - \lambda I) 
+&amp; =
+\det\begin{pmatrix}
+1 - \lambda &amp; 2 \\
+4 &amp; 3 - \lambda
+\end{pmatrix} \\
+&amp; = (1 - \lambda) (3 - \lambda ) - 8\\
+&amp; = \lambda^2 - 4\lambda - 5\\
+&amp; = (\lambda - 5)(\lambda +1 ).
+\end{align*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(\lambda = 5\)</span> or <span class="process-math">\(-1\text{.}\)</span></p>
+<p id="p-917">To see this from a different perspective, we will rewrite equation <a href="" class="xref" data-knowl="./knowl/linear01-equation-characteristic.html" title="Equation 3.1.2">(3.1.2)</a> as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-characteristic.html" id="md-203">
+\begin{align*}
+x + 2 y &amp; = \lambda x\\
+4 x + 3 y &amp; = \lambda y.
+\end{align*}
+</div>
+<p class="continuation">This system is equivalent to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-characteristic.html" id="md-204">
+\begin{align*}
+(1 - \lambda) x + 2 y &amp; = 0\\
+4 x + (3 - \lambda) y &amp; = 0
+\end{align*}
+</div>
+<p class="continuation">which can be reduced to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-equation-characteristic.html" id="md-205">
+\begin{align*}
+(1 - \lambda) x + 2 y &amp; = 0\\
+(\lambda^2 - 4\lambda - 5) y &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Therefore, either <span class="process-math">\(\lambda = 5\)</span> or <span class="process-math">\(\lambda = -1\)</span> to obtain a nonzero solution.</p>
+<ul class="disc">
+<li id="li-281"><p id="p-918">If <span class="process-math">\(\lambda = 5\text{,}\)</span> the first equation in the system becomes <span class="process-math">\(-2x + y = 0\text{,}\)</span> and the eigenvectors corresponding to this eigenvalue are the nonzero solutions of this equation. That is, a vector must be a nonzero multiple of <span class="process-math">\((1, 2)\)</span> to be an eigenvector of <span class="process-math">\(A\)</span> corresponding to <span class="process-math">\(\lambda = 5\text{.}\)</span></p></li>
+<li id="li-282"><p id="p-919">If <span class="process-math">\(\lambda = -1\text{,}\)</span> then the corresponding eigenvectors are the nonzero multiples of <span class="process-math">\((1, -1)\text{.}\)</span></p></li>
+</ul></article></div>
+<article class="activity project-like" id="activity-22"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.1.2</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Eigenvalues and Eigenvectors.</span>
+</h4>
+<div class="introduction" id="introduction-56"><p id="p-920">For each of the following matrices (1) find the characteristic polynomial, (2) find all of the eigenvalues, and (3) find an eigenvector for each eigenvalue.</p></div>
+<article class="task exercise-like" id="task-121"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-921">
+\begin{equation*}
+A =
+\begin{pmatrix}
+1 &amp; 3 \\
+1 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div></article><article class="task exercise-like" id="task-122"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-922">
+\begin{equation*}
+A =
+\begin{pmatrix}
+-8 &amp; 2 \\
+-15 &amp; 3
+\end{pmatrix}.
+\end{equation*}
+</div></article><article class="task exercise-like" id="task-123"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-923">
+\begin{equation*}
+A =
+\begin{pmatrix}
+4 &amp; 3 \\
+-6 &amp; -5
+\end{pmatrix}.
+\end{equation*}
+</div></article><article class="task exercise-like" id="task-124"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-924">
+\begin{equation*}
+A =
+\begin{pmatrix}
+7 &amp; 4 \\
+-10 &amp; -5
+\end{pmatrix}.
+\end{equation*}
+</div></article><article class="task exercise-like" id="task-125"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-925">
+\begin{equation*}
+A =
+\begin{pmatrix}
+3 &amp; 1 \\
+-1 &amp; 1
+\end{pmatrix}.
+\end{equation*}
+</div></article></article></section><section class="subsection" id="linear01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-926" class="disc">
+<li id="li-283">
+<p id="p-927">A matrix <span class="process-math">\(A\)</span> is <dfn class="terminology">invertible</dfn> (or <dfn class="terminology">nonsingular</dfn>) if there exists a matrix <span class="process-math">\(A^{-1}\)</span> such that <span class="process-math">\(AA^{-1} = A^{-1}A = I\text{,}\)</span> where <span class="process-math">\(I\)</span> is the identity matrix. In the case of <span class="process-math">\(2 \times 2\)</span> matrices,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+I =\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1 
+\end{pmatrix}.
+\end{equation*}
+</div>
+</li>
+<li id="li-284">
+<p id="p-928">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A^{-1}
+= \frac{1}{ad - bc}
+\begin{pmatrix}
+d &amp; -b \\
+-c &amp; a 
+\end{pmatrix}.
+\end{equation*}
+</div>
+</li>
+<li id="li-285">
+<p id="p-929">A matrix <span class="process-math">\(A\)</span> is invertible if and only if its <dfn class="terminology">determinant</dfn> is nonzero,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det(A) = ad - bc \neq 0.
+\end{equation*}
+</div>
+</li>
+<li id="li-286"><p id="p-930">We say that two vectors <span class="process-math">\({\mathbf x}\)</span> and <span class="process-math">\({\mathbf y}\)</span> in <span class="process-math">\({\mathbb R}^2\)</span> are <dfn class="terminology">linearly independent</dfn> if they do not lie on the same line through the origin. If, on the other hand, they do lie on the same line, then the vectors are <dfn class="terminology">linearly dependent</dfn>. Equivalently, two vectors are linearly dependent if one vector is a multiple of the other.</p></li>
+<li id="li-287">
+<p id="p-931">Let <span class="process-math">\({\mathbf x} = (x_1, x_2)\)</span> and <span class="process-math">\({\mathbf y} = (y_1, y_2)\text{.}\)</span> Then <span class="process-math">\({\mathbf x}\)</span> and <span class="process-math">\({\mathbf y}\)</span> are linearly independent if and only if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det
+\begin{pmatrix}
+x_1 &amp; y_1 \\
+x_2 &amp; y_2
+\end{pmatrix}
+\neq 0.
+\end{equation*}
+</div>
+</li>
+<li id="li-288">
+<p id="p-932">If we have a pair of linearly independent vectors in <span class="process-math">\({\mathbb R}^2\text{,}\)</span> then we can write any vector in <span class="process-math">\({\mathbb R}^2\)</span> as a unique <dfn class="terminology">linear combination</dfn> of the two vectors. That is, given two linearly independent vectors <span class="process-math">\({\mathbf x} = (x_1, x_2)\)</span> and <span class="process-math">\({\mathbf y} = (y_1, y_2)\text{,}\)</span> we can write <span class="process-math">\({\mathbf z} = (z_1, z_2)\)</span> as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+z_1 \\ z_2
+\end{pmatrix}
+=
+\alpha
+\begin{pmatrix}
+x_1 \\ x_2
+\end{pmatrix}
++
+\beta
+\begin{pmatrix}
+y_1 \\ y_2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> are unique.</p>
+</li>
+<li id="li-289"><p id="p-933">Two vectors are  a <dfn class="terminology">basis</dfn> for <span class="process-math">\({\mathbb R}^2\)</span> if we can write any vector in <span class="process-math">\({\mathbb R}^2\)</span> as a linear combination of these two vectors. Any two linearly independent vectors will form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span></p></li>
+<li id="li-290">
+<p id="p-934">The roots of the <dfn class="terminology">characteristic polynomial</dfn>, <span class="process-math">\(\det(A - \lambda I)\text{,}\)</span> of a matrix <span class="process-math">\(A\)</span> are the eigenvalues of <span class="process-math">\(A\text{.}\)</span> Given a specific eigenvalue, <span class="process-math">\(\lambda\text{,}\)</span> for a matrix <span class="process-math">\(A\text{,}\)</span> the eigenvectors associated with <span class="process-math">\(A\)</span> are the nonzero solutions of the system of equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(A - \lambda I)
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ 0
+\end{pmatrix}.
+\end{equation*}
+</div>
+</li>
+<li id="li-291"><p id="p-935">If <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are eigenvectors of two distinct real eigenvalues of a matrix <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly independent.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-linear01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear01-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-936">Explain what it means for two vectors to be linearly independent.</p></article><article class="exercise exercise-like" id="reading-questions-linear01-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-937">Explain what it means for a matrix to be nonsingular.</p></article><article class="exercise exercise-like" id="reading-questions-linear01-3"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-938">What is an eigenvalue and an eigenvector?</p></article></section><section class="exercises" id="exercises-linear01"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.1.6</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-174"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-939">Given a column vector</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x =
+\begin{pmatrix}
+x_1 \\ x_2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we define the <dfn class="terminology">transpose</dfn> of <span class="process-math">\(\mathbf x\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x^T =
+\begin{pmatrix}
+x_1 \amp x_2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+3 &amp; -2 \\
+0 &amp; -1
+\end{pmatrix},
+\mathbf x =
+\begin{pmatrix}
+4 \\ 1
+\end{pmatrix},
+\quad \text{and} \quad
+\mathbf y =
+\begin{pmatrix}
+-2 \\ 3
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">find each of the following.</p>
+<ol class="lower-alpha cols2">
+<li id="li-292"><p id="p-940"><span class="process-math">\(\displaystyle A \mathbf x\)</span></p></li>
+<li id="li-293"><p id="p-941"><span class="process-math">\(\displaystyle A \mathbf y\)</span></p></li>
+<li id="li-294"><p id="p-942"><span class="process-math">\(\displaystyle \mathbf x^T \mathbf y\)</span></p></li>
+<li id="li-295"><p id="p-943"><span class="process-math">\(\displaystyle \mathbf y^T \mathbf x\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-175"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-944">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+1 &amp; -2 \\
+3 &amp; 1
+\end{pmatrix}
+\quad \text{and} \quad
+B =
+\begin{pmatrix}
+4 &amp; 1 \\
+-1 &amp; -2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">find each of the following.</p>
+<ol class="lower-alpha cols3">
+<li id="li-296"><p id="p-945"><span class="process-math">\(\displaystyle A + B\)</span></p></li>
+<li id="li-297"><p id="p-946"><span class="process-math">\(\displaystyle 2A - 3B\)</span></p></li>
+<li id="li-298"><p id="p-947"><span class="process-math">\(\displaystyle AB\)</span></p></li>
+<li id="li-299"><p id="p-948"><span class="process-math">\(\displaystyle BA\)</span></p></li>
+<li id="li-300"><p id="p-949"><span class="process-math">\(\displaystyle A^{-1}\)</span></p></li>
+<li id="li-301"><p id="p-950"><span class="process-math">\(\displaystyle B^{-1}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-176"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-951">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+2 &amp; 1 - i \\
+2 - i &amp; 2
+\end{pmatrix}
+\quad \text{and} \quad
+B =
+\begin{pmatrix}
+4i &amp; 1 - i \\
+1 + 3i &amp; -2 -i
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">find each of the following.</p>
+<ol class="lower-alpha cols2">
+<li id="li-302"><p id="p-952"><span class="process-math">\(\displaystyle A + B\)</span></p></li>
+<li id="li-303"><p id="p-953"><span class="process-math">\(\displaystyle 3A - 2B\)</span></p></li>
+<li id="li-304"><p id="p-954"><span class="process-math">\(\displaystyle AB\)</span></p></li>
+<li id="li-305"><p id="p-955"><span class="process-math">\(\displaystyle BA\)</span></p></li>
+</ol></article><div class="exercisegroup" id="linear01-exercises-determinants">
+<h4 class="heading"><span class="title">Finding Determinants.</span></h4>
+<div class="introduction" id="introduction-57"><p id="p-956">Find the determinant of each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear01-exercises-determinants.html" title="Exercise Group 3.1.6.4–13: Finding Determinants">Exercise Group 3.1.6.4–13</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-177"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-957"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 4 \\
+2 &amp; 1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-178"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-958"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+6 &amp; 3 \\
+-4 &amp; -1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-179"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-959"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 1 \\
+-1 &amp; 1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-180"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-960"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-1 &amp; 6 \\
+-2 &amp; 6
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-181"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-961"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 1 \\
+-2 &amp; 0
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-182"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-962"><span class="process-math">\(\displaystyle A =
+\begin{pmatrix}
+1 &amp; -2 \\
+1 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-183"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-963"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+2 &amp; 0 \\
+0 &amp; -3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-184"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-964"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; 2 \\
+0 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-185"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-965"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-186"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-966"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; -2 \\
+-3 &amp; 2
+\end{pmatrix}\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear01-exercises-matrix-inverse">
+<h4 class="heading"><span class="title">Finding Inverses.</span></h4>
+<div class="introduction" id="introduction-58">
+<p id="p-967">Find the inverse (if it exists) of each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear01-exercises-matrix-inverse.html" title="Exercise Group 3.1.6.14–21: Finding Inverses">Exercise Group 3.1.6.14–21</a>. that is, find the matrix <span class="process-math">\(A^{-1}\)</span> such that <span class="process-math">\(A A^{-1} = A^{-1} A = I\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-exercises-matrix-inverse.html">
+\begin{equation*}
+I = \begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-187"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-968"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-188"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-969"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+6 &amp; 3 \\
+-4 &amp; -1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-189"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-970"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; -7 \\
+-2 &amp; 5
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-190"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-971"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+8 &amp; 7 \\
+2 &amp; 2
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-191"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-972"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-3 &amp; 4 \\
+-2 &amp; 5
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-192"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-973"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 2 \\
+4 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-193"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-974"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+4 &amp; 0 \\
+0 &amp; -3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-194"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<p id="p-975"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; 2 \\
+-3 &amp; -6
+\end{pmatrix}\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear01-exercises-eigenvalues">
+<h4 class="heading"><span class="title">Finding Eigenvalues and Eigenvectors.</span></h4>
+<div class="introduction" id="introduction-59">
+<p id="p-976">For each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear01-exercises-eigenvalues.html" title="Exercise Group 3.1.6.22–31: Finding Eigenvalues and Eigenvectors">Exercise Group 3.1.6.22–31</a>:</p>
+<ol class="lower-alpha">
+<li id="li-306"><p id="p-977">Find the characteristic polynomial of <span class="process-math">\(A\text{.}\)</span></p></li>
+<li id="li-307"><p id="p-978">Find all of the eigenvalues of <span class="process-math">\(A\text{.}\)</span></p></li>
+<li id="li-308"><p id="p-979">Find an eigenvector for each eigenvalue of <span class="process-math">\(A\text{.}\)</span></p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-195"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5>
+<p id="p-980"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 4 \\
+2 &amp; 1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-196"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5>
+<p id="p-981"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+6 &amp; 3 \\
+-4 &amp; -1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-197"><h5 class="heading"><span class="codenumber">24<span class="period">.</span></span></h5>
+<p id="p-982"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 1 \\
+-1 &amp; 1
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-198"><h5 class="heading"><span class="codenumber">25<span class="period">.</span></span></h5>
+<p id="p-983"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-1 &amp; 6 \\
+-2 &amp; 6
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-199"><h5 class="heading"><span class="codenumber">26<span class="period">.</span></span></h5>
+<p id="p-984"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 1 \\
+-2 &amp; 0
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-200"><h5 class="heading"><span class="codenumber">27<span class="period">.</span></span></h5>
+<p id="p-985"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; -2 \\
+1 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-201"><h5 class="heading"><span class="codenumber">28<span class="period">.</span></span></h5>
+<p id="p-986"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+2 &amp; 0 \\
+0 &amp; -3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-202"><h5 class="heading"><span class="codenumber">29<span class="period">.</span></span></h5>
+<p id="p-987"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; 2 \\
+0 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-203"><h5 class="heading"><span class="codenumber">30<span class="period">.</span></span></h5>
+<p id="p-988"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 3
+\end{pmatrix}\)</span></p></article><article class="exercise exercise-like" id="exercise-204"><h5 class="heading"><span class="codenumber">31<span class="period">.</span></span></h5>
+<p id="p-989"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+1 &amp; -2 \\
+-3 &amp; 2
+\end{pmatrix}\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-205"><h4 class="heading"><span class="codenumber">32<span class="period">.</span></span></h4>
+<p id="p-990">For what values of <span class="process-math">\(a\)</span> are the vectors <span class="process-math">\((2, a)\)</span> and <span class="process-math">\((4,-1)\)</span> linearly independent?</p></article><article class="exercise exercise-like" id="exercise-206"><h4 class="heading"><span class="codenumber">33<span class="period">.</span></span></h4>
+<p id="p-991">We define the <dfn class="terminology">trace</dfn> of a <span class="process-math">\(2 \times 2\)</span> matrix to be the sum of its diagonal entries. That is, the trace of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is <span class="process-math">\(\trace(A) = a + d\text{.}\)</span> Show that <span class="process-math">\(\trace(AB) = \trace(BA)\)</span> for any <span class="process-math">\(2 \times 2\)</span> matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-207"><h4 class="heading"><span class="codenumber">34<span class="period">.</span></span></h4>
+<p id="p-992">Let <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> be two <span class="process-math">\(2 \times 2\)</span> matrices. Show that <span class="process-math">\(\det(AB) = \det(A) \det(B)\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-208"><h4 class="heading"><span class="codenumber">35<span class="period">.</span></span></h4>
+<p id="p-993">Let <span class="process-math">\(A\)</span> be a <span class="process-math">\(2 \times 2\)</span> matrix. Show that <span class="process-math">\(\det(A^{-1]}) = 1/\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-209"><h4 class="heading"><span class="codenumber">36<span class="period">.</span></span></h4>
+<p id="p-994">Define the <span class="process-math">\(2 \times 2\)</span> <dfn class="terminology">identity matrix</dfn> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+I
+=\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Show that <span class="process-math">\(AI = IA = A\)</span> for any <span class="process-math">\(2 \times 2\)</span> matrix.</p></article><article class="exercise exercise-like" id="exercise-210"><h4 class="heading"><span class="codenumber">37<span class="period">.</span></span></h4>
+<p id="p-995">An <dfn class="terminology">upper triangular matrix</dfn> <span class="process-math">\(A\)</span> is a matrix of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=\begin{pmatrix}
+\alpha &amp; \gamma \\
+0 &amp; \beta
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Show that <span class="process-math">\(A\)</span> has eigenvalues <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-211"><h4 class="heading"><span class="codenumber">38<span class="period">.</span></span></h4>
+<p id="p-996">Let <span class="process-math">\({\mathbf x} = (x_1, x_2)\)</span> and <span class="process-math">\({\mathbf y} = (y_1, y_2)\text{.}\)</span> Prove that <span class="process-math">\({\mathbf x}\)</span> and <span class="process-math">\({\mathbf y}\)</span> are linearly independent if and only if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det
+\begin{pmatrix}
+x_1 &amp; y_1 \\
+x_2 &amp; y_2
+\end{pmatrix}
+\neq 0.
+\end{equation*}
+</div></article></section><section class="subsection" id="linear01-subsection-sage-project"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span>
+</h3>
+<p id="p-997"><em class="emphasis">Sage</em> can be used to find eigenvalues and eigenvectors for a matrix <span class="process-math">\(A\)</span> for now. Consider the matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+1 &amp; 3 \\
+1 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Using <em class="emphasis">Sage</em>, we would enter the matrix <span class="process-math">\(A\)</span> as follows.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-50"><script type="text/x-sage">A = matrix([[1, 3], [1, -1]])
+A
+</script></pre>
+<p id="p-998">We can use the following command to find the eigenvalues of <span class="process-math">\(A\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-51"><script type="text/x-sage">A = matrix([[1, 3], [1, -1]])
+A.eigenvalues()
+</script></pre>
+<p id="p-999"><em class="emphasis">Sage</em> will also allow us to find eigenvectors for each of the eigenvalues of <span class="process-math">\(A\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-52"><script type="text/x-sage">A = matrix([[1, 3], [1, -1]])
+A.eigenvectors_right()
+</script></pre>
+<p id="p-1000">Thus, the matrix <span class="process-math">\(A\)</span> has two eigenvalues: <span class="process-math">\(\lambda_1 = 2\)</span> with eigenvector <span class="process-math">\(\mathbf v_1 = (1, 1/3)\)</span> and <span class="process-math">\(\lambda_2 = -2\)</span> with eigenvector <span class="process-math">\(\mathbf v_2 = (1, -1)\text{.}\)</span></p>
+<p id="p-1001">There is a third entry in the <em class="emphasis">Sage</em> output which refers to the multiplicity of the eigenvalue.  In the previous example, the multiplicity is 1.  In the matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+B =
+\begin{pmatrix}
+1 &amp; 1 \\
+-1 &amp; 3
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">in the <em class="emphasis">Sage</em> cell below, we obtain a single repeated eigenvalue <span class="process-math">\(\lambda = 2\)</span> and only one eigenvector <span class="process-math">\(\mathbf v = (1,1)\text{.}\)</span> The multiplicity of this eigenvalue is 2.  In our previous examples, we obtained two linearly independent eigenvalues allowing us to solve initial value problems given a general solution.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-53"><script type="text/x-sage">B = matrix([[1, 1],[-1, 3]])
+B.eigenvectors_right()
+</script></pre>
+<p id="p-1002">We may also have matrices such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+C =
+\begin{pmatrix}
+4 &amp; 1 \\
+-1 &amp; 4
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has complex eigenvalues, <span class="process-math">\(\lambda = 4 - i\)</span> and <span class="process-math">\(\mu = 4 + i\text{.}\)</span> Eigenvectors for <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\)</span> are <span class="process-math">\(\mathbf u = (1, -i)\)</span> and <span class="process-math">\(\mathbf v = (1, i)\text{,}\)</span> respectively.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-54"><script type="text/x-sage">C = matrix([[4, 1],[-1, 4]])
+C.eigenvectors_right()
+</script></pre>
+<p id="p-1003">The complex number <span class="process-math">\(4 - i\)</span> is written as <code class="code-inline tex2jax_ignore">4 - 1*I</code> in <em class="emphasis">Sage</em>.</p></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-34"><div class="fn">We will not worry about the <span class="process-math">\(2 \times 2\)</span> zero matrix, since it will not play a role in our study of linear equations.</div></div>
+</div></main>
+</div>
+</body>
+</html>

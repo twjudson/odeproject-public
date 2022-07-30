@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:32+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Forcing</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="secondorder01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="secondorder03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="secondorder01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a class="next-button button toolbar-item" href="secondorder03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="active">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="secondorder02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.2</span> <span class="title">Forcing</span>
+</h2>
+<article class="objectives goal-like" id="objectives-22"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-450">
+<p id="p-1559">To understand that the general solution to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = g(t)
+\end{equation*}
+</div>
+<p class="continuation">is <span class="process-math">\(x = x_h + x_p\text{,}\)</span> where <span class="process-math">\(x_p\)</span> is a particular solution <span class="process-math">\(x_p\)</span> to <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\)</span> and <span class="process-math">\(x_h\)</span> is the general solution of the corresponding homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>
+</li>
+<li id="li-451"><p id="p-1560">To understand and be able to apply the <dfn class="terminology">Method of Undetermined Coefficients</dfn> to find particular solutions to <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\text{.}\)</span></p></li>
+</ul></article><section class="introduction" id="introduction-99"><p id="p-1561">Harmonic oscillators such as a spring-mass system (<a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal" title="Subsection 1.1.3: A Spring-Mass Model">Subsection 1.1.3</a>) or an RLC circuit (<a href="secondorder01.html" class="internal" title="Section 4.1: Homogeneous Linear Equations">Section 4.1</a>) can be modeled with second-order linear differential equations. Indeed, we can model a spring-mass system with the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-subsection-spring-mass.html ./knowl/secondorder01.html ./knowl/secondorder01.html">
+\begin{equation*}
+mx''(t) + b x'(t) +k x(t) = g(t),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(m\)</span> is the mass, <span class="process-math">\(b\)</span> is the damping coefficient, <span class="process-math">\(k\)</span> is the spring constant, and <span class="process-math">\(F(t) = g(t)\)</span> represents some external force applied to our system. RLC circuits can also be modeled to provide another example of forcing. If <span class="process-math">\(I(t)\)</span> is the rate at which a charge flows through a circuit (measured in amperes or amps), <span class="process-math">\(R\)</span> is the resistance (measured in ohms), <span class="process-math">\(C\)</span> is the capacitance (measured in farads), and the inductance, <span class="process-math">\(L\text{,}\)</span> is (measured in henrys), then the derivative of the impressed voltage (measured in volts), <span class="process-math">\(E(t)\text{,}\)</span> is the forcing term</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-subsection-spring-mass.html ./knowl/secondorder01.html ./knowl/secondorder01.html">
+\begin{equation*}
+L I'' + RI' + \frac{1}{C} I = E'(t).
+\end{equation*}
+</div>
+<p class="continuation">What is different about these two equations from those that we considered in <a href="secondorder01.html" class="internal" title="Section 4.1: Homogeneous Linear Equations">Section 4.1</a> is that the terms on the righthand side, <span class="process-math">\(g(t)\)</span> and <span class="process-math">\(E'(t)\text{,}\)</span> are not zero. Such a term is called a <dfn class="terminology">forcing term</dfn>.</p></section><section class="subsection" id="secondorder02-subsection-nonhomogeneous-de"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span>
+</h3>
+<p id="p-1562">A <dfn class="terminology">nonhomogeneous second-order linear differential equation</dfn> is an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = g(t).
+\end{equation*}
+</div>
+<p class="continuation">We have already seen how examples of such equations arise when examining models of harmonic oscillators with forcing terms. Our goal is to be able to solve such equations. In general, these equations can be difficult to solve for an arbitrary function <span class="process-math">\(g(t)\text{.}\)</span> Before we attempt to find solutions for some of the more common functions that might occur for <span class="process-math">\(g(t)\text{,}\)</span> let us derive some fundamental facts about second-order linear differential equations.</p>
+<article class="theorem theorem-like" id="secondorder02-theorem-nonhomogeneous-difference"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">4.2.1</span><span class="period">.</span>
+</h4>
+<p id="p-1563">Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder02-equation-nonhomogeneous-difference">
+\begin{equation}
+x'' +p(t) x' + q(t) x = g(t)\tag{4.2.1}
+\end{equation}
+</div>
+<p class="continuation">has solutions <span class="process-math">\(x_1 = x_1(t)\)</span> and <span class="process-math">\(x_2 = x_2(t)\text{.}\)</span>  Then <span class="process-math">\(x_1(t) - x_2(t)\)</span> is a solution of the homogeneous linear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div></article><article class="hiddenproof" id="proof-15"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-15"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-15"><article class="hiddenproof"><p id="p-1564">Since <span class="process-math">\(x_1\)</span> and <span class="process-math">\(x_2\)</span> are solutions of <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-nonhomogeneous-difference.html" title="Equation 4.2.1">(4.2.1)</a>, we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-nonhomogeneous-difference.html" id="md-379">
+\begin{align*}
+x_1'' +p(t) x_1' + q(t) x_1 &amp; = g(t)\\
+x_2'' +p(t) x_2' + q(t) x_2 &amp; = g(t).
+\end{align*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-nonhomogeneous-difference.html" id="md-380">
+\begin{gather*}
+\frac{d^2}{dt^2} (x_1 - x_2) + p(t) \frac{d}{dt} (x_1 - x_2) + q(t) (x_1 - x_2)\\
+= \left( \frac{d^2 x_1}{dt^2}  + p(t) \frac{dx_1}{dt} + q(t) x_1 \right) - \left( \frac{d^2 x_2}{dt^2}  + p(t) \frac{dx_2}{dt} + q(t) x_2 \right)\\
+= g(t) - g(t) = 0.
+\end{gather*}
+</div></article></div>
+<p id="p-1565">We can use <a href="" class="xref" data-knowl="./knowl/secondorder02-theorem-nonhomogeneous-difference.html" title="Theorem 4.2.1">Theorem 4.2.1</a> to derive the fact that the general solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html" id="secondorder02-equation-nonhomogeneous">
+\begin{equation}
+x'' +p(t) x' + q(t) x = g(t).\tag{4.2.2}
+\end{equation}
+</div>
+<p class="continuation">can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html">
+\begin{equation*}
+x = x_h + x_p,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(x_h\)</span> is the general solution of the homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0,
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(x_p\)</span> is any solution of <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-nonhomogeneous.html" title="Equation 4.2.2">(4.2.2)</a>. Indeed, suppose that <span class="process-math">\(x_q\)</span> is another solution to <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-nonhomogeneous.html" title="Equation 4.2.2">(4.2.2)</a>. Then <span class="process-math">\(x_q - x_p\)</span> is a solution to the homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html">
+\begin{equation*}
+x_q - x_p =x_h
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-theorem-nonhomogeneous-difference.html ./knowl/secondorder02-equation-nonhomogeneous.html ./knowl/secondorder02-equation-nonhomogeneous.html">
+\begin{equation*}
+x_q =x_h + x_p.
+\end{equation*}
+</div>
+<p class="continuation">We state this fact in the following theorem.</p>
+<article class="theorem theorem-like" id="secondorder02-theorem-nonhomogeneous-general-solution"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">4.2.2</span><span class="period">.</span>
+</h4>
+<p id="p-1566">Let <span class="process-math">\(x_p\)</span> be a particular solution of the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = g(t),
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(x_h\)</span> be the general solution of the corresponding homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>
+<p class="continuation">Then the general solution to <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\)</span> is <span class="process-math">\(x = x_h + x_p\text{.}\)</span></p></article></section><section class="subsection" id="secondorder02-subsection-forcing"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span>
+</h3>
+<p id="p-1567">The equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+m x'' + bx' + kx = g(t)
+\end{equation*}
+</div>
+<p class="continuation">can be used to model a harmonic oscillator where forcing occurs. In general, we will not be able to solve this equation explicitly for a given <span class="process-math">\(g(t)\text{;}\)</span> however, certain forcing functions often occur in practice. Some of the more important forcing functions are <span class="process-math">\(g(t) = e^{-at}\text{,}\)</span> where the external force decreases exponentially over time; <span class="process-math">\(g(t) = k\text{,}\)</span> where a constant force is applied; and <span class="process-math">\(g(t) = \cos \omega t\)</span> or <span class="process-math">\(g(t) = \sin \omega t\text{,}\)</span> where a force is applied periodically.</p>
+<p id="p-1568">In the case of the unforced damped harmonic oscillator,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+m x'' + b x' + kx =0,
+\end{equation*}
+</div>
+<p class="continuation">we know that <span class="process-math">\(m \gt 0\text{,}\)</span> <span class="process-math">\(b \gt 0\text{,}\)</span> and <span class="process-math">\(k \gt 0\text{.}\)</span> Thus, we can rewrite this equation as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + px' + q x = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(p = b/m\)</span> and <span class="process-math">\(q = k/m\)</span> are both positive. As a first-order linear system, the harmonic oscillator is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-381">
+\begin{align*}
+x' &amp; =  y\\
+y' &amp; = - qx -py.
+\end{align*}
+</div>
+<p class="continuation">The matrix corresponding to this system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+-q &amp; -p
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">has trace of <span class="process-math">\(-p\)</span> and determinant <span class="process-math">\(q\text{.}\)</span> Since <span class="process-math">\(\trace(A) \lt 0\)</span> and <span class="process-math">\(\det(A) \gt 0\text{,}\)</span> we know that any solution of the unforced equation tends toward the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> That is, the solution is a sink. This leads us to the following conclusion.</p>
+<article class="theorem theorem-like" id="secondorder02-theorem-steady-state"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">4.2.3</span><span class="period">.</span>
+</h4>
+<p id="p-1569">Suppose</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + px' + q x = g(t)
+\end{equation*}
+</div>
+<p class="continuation">has solution <span class="process-math">\(x = x_h + x_p\text{,}\)</span> where <span class="process-math">\(p \gt 0\)</span> and <span class="process-math">\(q \gt 0\text{.}\)</span>  If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x = x_h + x_p
+\end{equation*}
+</div>
+<p class="continuation">is the general solution to the equation, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x = x_h + x_p \to x_p
+\end{equation*}
+</div>
+<p class="continuation">as <span class="process-math">\(t \to \infty\text{.}\)</span></p></article><p id="p-1570">In other words, all solutions of a damped harmonic oscillator with nonzero damping are essentially the same for large values of <span class="process-math">\(t\text{.}\)</span></p></section><section class="subsection" id="secondorder02-subsection-undetermined-coefficients"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span>
+</h3>
+<article class="example example-like" id="example-71"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-71"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.2.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-71"><article class="example example-like"><p id="p-1571">Let us solve the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-damped-oscillator.html ./knowl/secondorder02-figure-solutions-damped-oscillator.html" id="secondorder02-equation-damped-oscillator">
+\begin{equation}
+x'' + 5x' + 4x = 1,\tag{4.2.3}
+\end{equation}
+</div>
+<p class="continuation">a harmonic oscillator with a constant forcing function. It is easy to check that the general solution to the homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-damped-oscillator.html ./knowl/secondorder02-figure-solutions-damped-oscillator.html">
+\begin{equation*}
+x'' + 5x' + 4x = 0
+\end{equation*}
+</div>
+<p class="continuation">is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-damped-oscillator.html ./knowl/secondorder02-figure-solutions-damped-oscillator.html">
+\begin{equation*}
+x_h = c_1 e^{-t} + c_2 e^{-4t}.
+\end{equation*}
+</div>
+<p class="continuation">A particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-damped-oscillator.html" title="Equation 4.2.3">(4.2.3)</a> is given by <span class="process-math">\(x_p = 1/4\text{.}\)</span> Thus, the general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-damped-oscillator.html ./knowl/secondorder02-figure-solutions-damped-oscillator.html">
+\begin{equation*}
+x(t) = c_1 e^{-t} + c_2 e^{-4t} + \frac{1}{4}.
+\end{equation*}
+</div>
+<p class="continuation">As <span class="process-math">\(t \to \infty\text{,}\)</span> all solutions approach the constant solution <span class="process-math">\(x = 1/4\)</span> (<a href="" class="xref" data-knowl="./knowl/secondorder02-figure-solutions-damped-oscillator.html" title="Figure 4.2.5: Solutions to x'' + 5x' + 4x = 1">Figure 4.2.5</a>).</p>
+<figure class="figure figure-like" id="secondorder02-figure-solutions-damped-oscillator"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder02-solutions-damped-oscillator.svg" role="img" class="contained" alt="solution curves plotted against time with the position curve approaching one-fourth and the velocity curve approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.2.5<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="example example-like" id="example-72"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-72"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.2.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-72"><article class="example example-like"><p id="p-1572">Now let us consider a more complicated example. Suppose that we wish to solve</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-figure-solutions-exponential-forcing-1.html" id="secondorder02-equation-exponential-forcing-1">
+\begin{equation}
+x'' + 5x' + 4x = e^{-2t}.\tag{4.2.4}
+\end{equation}
+</div>
+<p class="continuation">This is the equation of a harmonic oscillator with a forcing function that decreases exponentially with time. We already know the solution to the homogeneous equation. We will use the <dfn class="terminology">Method of Undetermined Coefficients</dfn> to find a particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exponential-forcing-1.html" title="Equation 4.2.4">(4.2.4)</a>. It is reasonable to guess that a particular solution will have the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-figure-solutions-exponential-forcing-1.html">
+\begin{equation*}
+x_p = Ae^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">Substituting this expression into <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exponential-forcing-1.html" title="Equation 4.2.4">(4.2.4)</a>, we find that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-figure-solutions-exponential-forcing-1.html">
+\begin{equation*}
+e^{-2t}= x_p'' + 5 x_p' + 4x_p = 4 A e^{-2t} - 10 A e^{-2t} + 4 Ae^{-2t} = -2 A e^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">Hence, <span class="process-math">\(A = -1/2\text{.}\)</span> Therefore, the solution that we seek is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-equation-exponential-forcing-1.html ./knowl/secondorder02-figure-solutions-exponential-forcing-1.html">
+\begin{equation*}
+x = c_1 e^{-t} + c_2 e^{-4t} - \frac{1}{2} e^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">Again, all solutions approach zero as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/secondorder02-figure-solutions-exponential-forcing-1.html" title="Figure 4.2.7: Solutions to x'' + 5x' + 4x = e^{-2t}">Figure 4.2.7</a>).</p>
+<figure class="figure figure-like" id="secondorder02-figure-solutions-exponential-forcing-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder02-solutions-exponential-forcing-1.svg" role="img" class="contained" alt="solution curves plotted against time with the position and the velocity curves approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.2.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="example example-like" id="example-73"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-73"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.2.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-73"><article class="example example-like"><p id="p-1573">Now let us examine what happens if we have a periodic forcing function. Let us assume that the particular solution to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html">
+\begin{equation*}
+x'' + 5x' + 4x = 2 \cos t.
+\end{equation*}
+</div>
+<p class="continuation">takes the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html">
+\begin{equation*}
+x_p = A \cos t + B \sin t.
+\end{equation*}
+</div>
+<p class="continuation">Then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html" id="md-382">
+\begin{align*}
+x_p' &amp; = -A \sin t + B \cos t\\
+x_p'' &amp; = -A \cos t - B \sin t.
+\end{align*}
+</div>
+<p class="continuation">Substituting these expressions into the differential equation, we see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html" id="md-383">
+\begin{align*}
+2 \cos t &amp; = x_p'' + 5 x_p' + 4 x_p\\
+&amp; = (-A \cos t - B \sin t) + 5(-A \sin t + B \cos t) + 4(A \cos t + B \sin t)\\
+&amp; = (3A + 5B) \cos t +(-5A + 3B) \sin t.
+\end{align*}
+</div>
+<p class="continuation">We must solve the following system of equations to find a particular solution:</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html" id="md-384">
+\begin{align*}
+3A + 5B &amp; = 2\\
+-5A + 3B &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">The solution of this system is <span class="process-math">\(A = 3/17\)</span> and <span class="process-math">\(B = 5/17\text{.}\)</span> Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html">
+\begin{equation*}
+x_p = \frac{3}{17} \cos t + \frac{5}{17} \sin t
+\end{equation*}
+</div>
+<p class="continuation">is a particular solution to <span class="process-math">\(x'' +5x' + 4x = 2 \cos t\text{.}\)</span> The general solution to our equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-cosine-forcing.html">
+\begin{equation*}
+x = c_1 e^{-t} + c_2 e^{-4t} + \frac{3}{17} \cos t + \frac{5}{17} \sin t.
+\end{equation*}
+</div>
+<p class="continuation">The solutions to this equation are given in <a href="" class="xref" data-knowl="./knowl/secondorder02-figure-solutions-cosine-forcing.html" title="Figure 4.2.9: Solutions to x'' + 5x' + 4x = 2 \cos t">Figure 4.2.9</a>.</p>
+<figure class="figure figure-like" id="secondorder02-figure-solutions-cosine-forcing"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder02-solutions-cosine-forcing.svg" role="img" class="contained" alt="solution curves plotted against time with the position and the velocity curves converging to the same oscillating curves"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.2.9<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="example example-like" id="example-74"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-74"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.2.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-74"><article class="example example-like"><p id="p-1574">As a final example, consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html">
+\begin{equation*}
+x'' + 5x' + 4x = e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">Recall that the solution to the homogeneous equation <span class="process-math">\(x'' + 5x' + 4x = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html">
+\begin{equation*}
+x_h = c_1 e^{-t} + c_2 e^{-4t}.
+\end{equation*}
+</div>
+<p class="continuation">Our guess of <span class="process-math">\(x_p(t) = A e^{-t}\)</span> for a particular solution will no longer work since <span class="process-math">\(e^{-t}\)</span> is a solution to the homogeneous equation. We must therefore consider a function of a different form. Such a function must yield a multiple of <span class="process-math">\(e^{-t}\)</span> when differentiated. The simplest such function is of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html">
+\begin{equation*}
+x_p = A t e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">Using this guess,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html" id="md-385">
+\begin{align*}
+e^{-t} &amp; = \frac{d^2}{dt^2} Ate^{-t} + 5 \frac{d}{dt} Ate^{-t} + 4A te^{-t}\\
+&amp; = A(- e^{-t} - e^{-t} + t e^{-t}) + 5A(e^{-t} - t e^{-t} ) + 4 A te^{-t}\\
+&amp; = 3A e^{-t}.
+\end{align*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(A = 1/3\)</span> and our general solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html">
+\begin{equation*}
+x = c_1 e^{-t} + c_2 e^{-4t}  + \frac{1}{3} t e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">Solutions to the differential equation <span class="process-math">\(x'' + 5x' + 4x = e^{-t}\)</span> are given in <a href="" class="xref" data-knowl="./knowl/secondorder02-figure-solutions-exponential-forcing-2.html" title="Figure 4.2.11: Solutions to x'' + 5x' + 4x = e^{-t}">Figure 4.2.11</a>.</p>
+<figure class="figure figure-like" id="secondorder02-figure-solutions-exponential-forcing-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/secondorder02-solutions-exponential-forcing-2.svg" role="img" class="contained" alt="solution curves plotted against time with the position and the velocity curves approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.2.11<span class="period">.</span></span><span class="space"> </span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-34"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Forced Second-Order Linear Differential Equations.</span>
+</h4>
+<div class="introduction" id="introduction-100"><p id="p-1575">Find (1) a particular solution and (2) a general solution for each of the following differential equations.</p></div>
+<article class="task exercise-like" id="task-181"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1576"><span class="process-math">\(x'' + 4x' - 21x = 2 e^{4t}\)</span></p></article><article class="task exercise-like" id="task-182"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1577"><span class="process-math">\(x'' + 4x' - 21x  = 3e^{3t}\)</span></p></article><article class="task exercise-like" id="task-183"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1578"><span class="process-math">\(x'' - 4x' + 20x  = 3 \sin 3t\)</span></p></article><article class="task exercise-like" id="task-184"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1579"><span class="process-math">\(x'' - 4x' + 20x  = 2 \cos 4t\)</span></p></article><article class="task exercise-like" id="task-185"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1580"><span class="process-math">\(x'' - 14 x' + 49 x = \sin 3t\)</span></p></article></article></section><section class="subsection" id="secondorder02-subsection-strategy"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.2.4</span> <span class="title">A Strategy</span>
+</h3>
+<p id="p-1581">We outline a general strategy for choosing <span class="process-math">\(x_p\)</span> for the Method of Undetermined Coefficients in <a href="" class="xref" data-knowl="./knowl/secondorder02-table-undetermined-coefficients.html" title="Table 4.2.12: Particular solutions of x'' + px' + qx = g(t)">Table 4.2.12</a>.  Here <span class="process-math">\(s = 0, 1, 2\)</span> is the smallest integer that will ensure that no term in <span class="process-math">\(x_p\)</span> is a solution of the corresponding homogeneous equation.</p>
+<figure class="table table-like" id="secondorder02-table-undetermined-coefficients"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">4.2.12<span class="period">.</span></span><span class="space"> </span>Particular solutions of <span class="process-math">\(x'' + px' + qx = g(t)\text{.}\)</span></figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(g(t)\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(x_p\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(P_n(t) = a_nt^n + \cdots + a_1 t + a_0\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(t^s(A_nt^n + \cdots + A_1 t + A_0)\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(P_n(t) e^{\alpha t}\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(t^s(A_nt^n + \cdots + A_1 t + A_0) e^{\alpha t}\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(\displaystyle P_n(t) e^{\alpha t} \left\{\begin{array}{c}
+\sin \beta t \\
+\cos \beta t
+\end{array}\right.\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(t^se^{\alpha t}[(A_nt^n + \cdots + A_1 t + A_0) \cos \beta t \)</span></td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines"></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(+ (B_n t^n + \cdots + B_1 t + B_0) \sin \beta t]\)</span></td>
+</tr>
+</table></div></figure></section><section class="subsection" id="secondorder02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1582" class="disc">
+<li id="li-452"><p id="p-derived-li-452">A <dfn class="terminology">nonhomogeneous second-order linear differential equation</dfn> is an equation of the form<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + p(t) x' + q(t) x = g(t).
+\end{equation*}
+</div>Forced harmonic oscillators and RLC circuits provide good examples of nonhomogeneous second-order linear differential equations.</p></li>
+<li id="li-453"><p id="p-derived-li-453">Suppose that<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = g(t)
+\end{equation*}
+</div>has solutions <span class="process-math">\(x_1 = x_1(t)\)</span> and <span class="process-math">\(x_2 = x_2(t)\text{.}\)</span>  Then <span class="process-math">\(x_1(t) - x_2(t)\)</span> is a solution of the homogeneous linear differential equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div></p></li>
+<li id="li-454"><p id="p-derived-li-454">Let <span class="process-math">\(x_p\)</span> be a particular solution of the equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = g(t),
+\end{equation*}
+</div>and <span class="process-math">\(x_h\)</span> be the general solution of the corresponding homogeneous equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' +p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>Then the general solution to <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\)</span> is <span class="process-math">\(x = x_h + x_p\text{.}\)</span> In particular, if the solution to <span class="process-math">\(x'' +p(t) x' + q(t) x = 0\)</span> has a sink at the origin, all solutions of the equation <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\)</span> approach <span class="process-math">\(x_p(t)\)</span> as <span class="process-math">\(t \to \infty\text{.}\)</span></p></li>
+<li id="li-455"><p id="p-derived-li-455">The <dfn class="terminology">Method of Undetermined Coefficients</dfn> is useful for solving the equation <span class="process-math">\(x'' +p(t) x' + q(t) x = g(t)\text{,}\)</span> when <span class="process-math">\(g\)</span> is of the form<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+g(t) =
+P_n(t) e^{\alpha t} \left\{\begin{array}{c}
+\sin \beta t \\
+\cos \beta t
+\end{array}\right.
+\end{equation*}
+</div></p></li>
+</ul></section><section class="reading-questions" id="reading-questions-secondorder02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-secondorder02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1583">Suppose that <span class="process-math">\(x_p(t)\)</span> and <span class="process-math">\(x_q(t)\)</span> are two solutions for <span class="process-math">\(ax'' + bx' + cx = g(t)\text{.}\)</span> How are these two solutions related?</p></article><article class="exercise exercise-like" id="reading-questions-secondorder02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1584">Describe the <dfn class="terminology">Method of Undetermined Coefficients</dfn> in your own words.</p></article></section><section class="exercises" id="secondorder02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">4.2.7</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="secondorder02-exercises-find-particular-solutions">
+<h4 class="heading"><span class="title">Finding Particular Solutions.</span></h4>
+<div class="introduction" id="introduction-101"><p id="p-1585">Find a particular solution for each equation in <a href="" class="xref" data-knowl="./knowl/secondorder02-exercises-find-particular-solutions.html" title="Exercise Group 4.2.7.1–8: Finding Particular Solutions">Exercise Group 4.2.7.1–8</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-356"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-1586"><span class="process-math">\(y'' - 2y' - 3y = 3 e^{2t}\)</span></p></article><article class="exercise exercise-like" id="exercise-357"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-1587"><span class="process-math">\(y'' - y' - 2y = 4x^2\)</span></p></article><article class="exercise exercise-like" id="exercise-358"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-1588"><span class="process-math">\(\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = 64e^{-t}\)</span></p></article><article class="exercise exercise-like" id="exercise-359"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-1589"><span class="process-math">\(y'' + 16y = 2 \sin 2t\)</span></p></article><article class="exercise exercise-like" id="exercise-360"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-1590"><span class="process-math">\(y'' + 16y = 2 \sin 4t\)</span></p></article><article class="exercise exercise-like" id="exercise-361"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-1591"><span class="process-math">\(y'' + 2y' + y = 2e^{-t}\)</span></p></article><article class="exercise exercise-like" id="exercise-362"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-1592"><span class="process-math">\(y'' + 6y' + 8y = \cos 3t\)</span></p></article><article class="exercise exercise-like" id="exercise-363"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-1593"><span class="process-math">\(u'' + \omega_0^2 y = \cos \omega t\text{,}\)</span> <span class="process-math">\(\omega^2 \neq \omega_0^2\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder02-exercises-find-general-solutions">
+<h4 class="heading"><span class="title">Finding General Solutions.</span></h4>
+<div class="introduction" id="introduction-102"><p id="p-1594">Find the general solution for each equation in <a href="" class="xref" data-knowl="./knowl/secondorder02-exercises-find-general-solutions.html" title="Exercise Group 4.2.7.9–16: Finding General Solutions">Exercise Group 4.2.7.9–16</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-364"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-1595"><span class="process-math">\(y'' - 2y' - 3y = 3 e^{2t}\)</span></p></article><article class="exercise exercise-like" id="exercise-365"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-1596"><span class="process-math">\(y'' - y' - 2y = 4x^2\)</span></p></article><article class="exercise exercise-like" id="exercise-366"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-1597"><span class="process-math">\(\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = 64e^{-t}\)</span></p></article><article class="exercise exercise-like" id="exercise-367"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-1598"><span class="process-math">\(y'' + 16y = 2 \sin 2t\)</span></p></article><article class="exercise exercise-like" id="exercise-368"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-1599"><span class="process-math">\(y'' + 16y = 2 \sin 4t\)</span></p></article><article class="exercise exercise-like" id="exercise-369"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-1600"><span class="process-math">\(y'' + 2y' + y = 2e^{-t}\)</span></p></article><article class="exercise exercise-like" id="exercise-370"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-1601"><span class="process-math">\(y'' + 6y' + 8y = \cos 3t\)</span></p></article><article class="exercise exercise-like" id="exercise-371"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-1602"><span class="process-math">\(u'' + \omega_0^2 y = \cos \omega t\text{,}\)</span> <span class="process-math">\(\omega^2 \neq \omega_0^2\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder02-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-103"><p id="p-1603">Solve the initial problems in <a href="" class="xref" data-knowl="./knowl/secondorder02-exercises-solve-ivps.html" title="Exercise Group 4.2.7.17–24: Solving Initial Value Problems">Exercise Group 4.2.7.17–24</a>.</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-372"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-1604"><span class="process-math">\(y'' - 2y' - 3y = 3 e^{2t}\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-373"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-1605"><span class="process-math">\(y'' - y' - 2y = 4x^2\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-374"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-1606"><span class="process-math">\(\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = 64e^{-t}\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = -2\)</span></p></article><article class="exercise exercise-like" id="exercise-375"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-1607"><span class="process-math">\(y'' + 16y = 2 \sin 2t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-376"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<p id="p-1608"><span class="process-math">\(y'' + 16y = 2 \sin 4t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-377"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5>
+<p id="p-1609"><span class="process-math">\(y'' + 2y' + y = 2e^{-t}\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 3\)</span></p></article><article class="exercise exercise-like" id="exercise-378"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5>
+<p id="p-1610"><span class="process-math">\(y'' + 6y' + 8y = \cos 3t\text{,}\)</span> <span class="process-math">\(y(0) = -2\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-379"><h5 class="heading"><span class="codenumber">24<span class="period">.</span></span></h5>
+<p id="p-1611"><span class="process-math">\(u'' + \omega_0^2 y = \cos \omega t\text{,}\)</span> <span class="process-math">\(\omega^2 \neq \omega_0^2\text{,}\)</span> <span class="process-math">\(u(0) = 1\text{,}\)</span> <span class="process-math">\(u'(0) = -1\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-380"><h4 class="heading"><span class="codenumber">25<span class="period">.</span></span></h4>
+<p id="p-1612">We define two functions, <span class="process-math">\(f(t)\)</span> and <span class="process-math">\(g(t)\text{,}\)</span> to be <dfn class="terminology">linearly independent</dfn> on an open interval <span class="process-math">\(I = (a, b)\)</span> if there do not exist nonzero constants <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+c_1 f(t) + c_2 g(t) = 0
+\end{equation*}
+</div>
+<p class="continuation">for all <span class="process-math">\(t \in I\text{.}\)</span> Equivalently, two functions are linearly independent, if one function is not a multiple of the other. Otherwise, <span class="process-math">\(f(t)\)</span> and <span class="process-math">\(f(t)\)</span> are <dfn class="terminology">linearly dependent</dfn>.  Suppose that <span class="process-math">\(f(t)\)</span> and <span class="process-math">\(g(t)\)</span> are solutions to the homogeneous linear equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' + p y' + q y = 0.
+\end{equation*}
+</div>
+<p class="continuation">Show that <span class="process-math">\(f(t)\)</span> and <span class="process-math">\(g(t)\)</span> are linearly dependent on an interval <span class="process-math">\(I = (a, b)\)</span> if and only if <span class="process-math">\(W[f, g](t) \equiv 0\text{,}\)</span> where <span class="process-math">\(W[f, g](t) = f(t) g'(t) - g(t) f'(t)\)</span> is the <dfn class="terminology">Wronskian</dfn> of <span class="process-math">\(f\)</span> and <span class="process-math">\(g\text{.}\)</span></p>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-18" id="hint-18"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-18"><div class="hint solution-like">
+<p id="p-1613">Suppose that that <span class="process-math">\(f(t)\)</span> and <span class="process-math">\(g(t)\)</span> are linearly dependent on an interval <span class="process-math">\(I = (a, b)\text{.}\)</span> Then one function is a multiple of the other, say <span class="process-math">\(f(t) = c g(t)\text{.}\)</span>  Thus, <span class="process-math">\(f'(t) = cg'(t)\text{.}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+W(f, g)(t) 
+=
+\det
+\begin{pmatrix}
+f(t) &amp; g(t) \\
+f'(t) &amp; g'(t) 
+\end{pmatrix}
+= f(t) g'(t) - f'(t) g(t) 
+= c g(t) g'(t) - cg'(t) g(t)
+=
+0.
+\end{equation*}
+</div>
+<p id="p-1614">Conversely, suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+W(f, g)(t) 
+=
+\det
+\begin{pmatrix}
+f(t) &amp; g(t) \\
+f'(t) &amp; g'(t) 
+\end{pmatrix}
+= 0,
+\end{equation*}
+</div>
+<p class="continuation">for all <span class="process-math">\(t\)</span> in <span class="process-math">\((a, b)\text{.}\)</span>  If <span class="process-math">\(g = 0\text{,}\)</span> then <span class="process-math">\(0 f = g\)</span> and the two functions are linearly dependent. Assume that <span class="process-math">\(g(t_0) \neq 0\)</span> for some <span class="process-math">\(t_0\)</span> in <span class="process-math">\((a, b)\text{.}\)</span>  Since <span class="process-math">\(g\)</span> is differentiable, it must also be continuous and there is some interval <span class="process-math">\((c, d)\)</span> contained in <span class="process-math">\((a, b)\)</span> such that <span class="process-math">\(t_0 \in (c, d)\)</span> and <span class="process-math">\(g\)</span> does not vanish on this interval.  Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} \left( \frac{f}{g} \right) = \frac{f'  g - f g'}{g^2} = - \frac{W(f,g)}{g^2} = 0,
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\(f/g\)</span> is constant on the interval <span class="process-math">\((c, d)\text{.}\)</span>  Thus, <span class="process-math">\(f(t_0) = c g(t_0)\)</span> and <span class="process-math">\(f'(t_0) = c g'(t_0)\text{.}\)</span>  Since <span class="process-math">\(f\)</span> and <span class="process-math">\(cg\)</span> are both solutions to the differential equation <span class="process-math">\(y'' + p y' + q y = 0\)</span> and have the same initial condition, <span class="process-math">\(f(t) = cg(t)\)</span> for all <span class="process-math">\(t \in (a, b)\)</span> by the existence and uniqueness theorem.  Consequently, <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> are linearly dependent.</p>
+</div></div>
+</div></article><article class="exercise exercise-like" id="exercise-381"><h4 class="heading"><span class="codenumber">26<span class="period">.</span></span></h4>
+<p id="p-1615"><dfn class="terminology">Abel's Theorem</dfn>. If <span class="process-math">\(y_1\)</span> and <span class="process-math">\(y_2\)</span> are solutions of the homogeneous equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' + p(t) y' + q(t) y = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(p\)</span> and <span class="process-math">\(q\)</span> are continuous on an open interval <span class="process-math">\(I = (a, b)\text{,}\)</span> show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+W[y_1, y_2](t) = c \exp\left(   - \int p(t) \, dt \right),
+\end{equation*}
+</div>
+<p class="continuation">for some constant <span class="process-math">\(c\)</span> that depends on <span class="process-math">\(y_1\)</span> and <span class="process-math">\(y_2\)</span> but not on <span class="process-math">\(t\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-456"><p id="p-derived-li-456">Use Abel's Theorem to find the Wronskian of <span class="process-math">\(2 t^2 y'' + 3ty' - y = 0\)</span> up to a constant multiple, where <span class="process-math">\(t \gt 0\text{.}\)</span></p></li>
+<li id="li-457"><p id="p-derived-li-457">Prove Abel's Theorem.</p></li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-19" id="hint-19"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-19"><div class="hint solution-like"><ol id="p-1616" class="lower-alpha">
+<li id="li-458"><p id="p-derived-li-458">We can rewrite <span class="process-math">\(2 t^2 y'' + 3ty' - y = 0\)</span> as<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' + \frac{3}{2t} y' - \frac{1}{2t^2} y = 0.
+\end{equation*}
+</div>Since <span class="process-math">\(p(t) = 1/2t\text{,}\)</span> Abel's Theorem tells us that<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+W[y_1, y_2](t) = c \exp\left(   - \int \frac{3}{2t} \, dt \right) = c \exp\left(   - \frac{3}{2} \ln t \right) = ct^{-3/2}.
+\end{equation*}
+</div></p></li>
+<li id="li-459"><p id="p-derived-li-459">Since <span class="process-math">\(y_1\)</span> and <span class="process-math">\(y_2\)</span> are solutions to our differential equation, we know that<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html" id="md-386">
+\begin{gather*}
+y_1'' + p(t) y_1' + q(t) y_1 = 0\\
+y_2'' + p(t) y_2' + q(t) y_2 = 0.
+\end{gather*}
+</div>Multiplying the first equation by <span class="process-math">\(y_2\)</span> and the second equation by <span class="process-math">\(y_1\)</span> and subtracting, we obtain<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html" id="secondorder02-equation-exercise-abel-hint">
+\begin{equation}
+(y_1 y_2'' - y_1'' y_2) + p(t) (y_1 y_2' - y_1' y_2) = 0.\tag{4.2.5}
+\end{equation}
+</div>If<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html">
+\begin{equation*}
+W(t) = W(y_1, y_2)(t) = y_1 y_2' - y_1' y_2,
+\end{equation*}
+</div>then<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html">
+\begin{equation*}
+W' = y_1 y_2'' - y_1'' y_2,
+\end{equation*}
+</div>and equation <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exercise-abel-hint.html" title="Equation 4.2.5">(4.2.5)</a> becomes<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html">
+\begin{equation*}
+W' + p(t) W = 0.
+\end{equation*}
+</div>This equation is separable with solution<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-abel-hint.html">
+\begin{equation*}
+W(t) = c \exp\left( - \int p(t) \, dt \right).
+\end{equation*}
+</div></p></li>
+</ol></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-382"><h4 class="heading"><span class="codenumber">27<span class="period">.</span></span></h4>
+<p id="p-1617"><dfn class="terminology">The Method of Variation of Parameters</dfn>. In this problem we will describe another method of finding a particular solution to a nonhomogeneous equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html" id="secondorder02-equation-exercise-variation-of-parameters">
+\begin{equation}
+y'' + p(t) y' + q(t) y = f(t),\tag{4.2.6}
+\end{equation}
+</div>
+<p class="continuation">if we know know that the general solution to the homogeneous equation <span class="process-math">\(y'' + p(t) y' + q(t) y = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html">
+\begin{equation*}
+y_h = c_1 y_1 + c_2 y_2.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-460"><p id="p-derived-li-460">Assume that a particular solution of <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" title="Equation 4.2.6">(4.2.6)</a> has the form<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html">
+\begin{equation*}
+y_p(t) = u_1(t) y_1(t) + u_2(t) y_2(t),
+\end{equation*}
+</div>where<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html">
+\begin{equation*}
+u_1'(t) y_1(t) + u_2'(t) y_2(t)=0.
+\end{equation*}
+</div>Substitute <span class="process-math">\(y_p\)</span> into the left-hand side of <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" title="Equation 4.2.6">(4.2.6)</a> to show that<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html ./knowl/secondorder02-equation-exercise-variation-of-parameters.html">
+\begin{equation*}
+u_1'(t) y_1'(t) + u_2'(t) y_2'(t) = f(t).
+\end{equation*}
+</div></p></li>
+<li id="li-461"><p id="p-derived-li-461">Show that<div class="displaymath process-math" data-contains-math-knowls="" id="md-387">
+\begin{align*}
+u_1'(t) &amp; = \frac{- y_2(t) f(t)}{W[y_1, y_2](t)}\\
+u_2'(t) &amp; = \frac{y_1(t) f(t)}{W[y_1, y_2](t)},
+\end{align*}
+</div>where <span class="process-math">\(W[y_1, y_2](t) = y_1(t) y_2'(t) - y_2(t) y_1'(t)\)</span> is the Wronskian of <span class="process-math">\(y_1\)</span> and <span class="process-math">\(y_2\text{.}\)</span></p></li>
+<li id="li-462"><p id="p-derived-li-462">If <span class="process-math">\(p\text{,}\)</span> <span class="process-math">\(q\text{,}\)</span> and <span class="process-math">\(f\)</span> are continuous on an interval <span class="process-math">\(I\text{,}\)</span> show that<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" id="md-388">
+\begin{align*}
+u_1(t) &amp; = - \int_{t_0}^t \frac{y_2(s) f(s)}{W[y_1, y_2](s)} \, ds\\
+u_2(t) &amp; = \int_{t_0}^t \frac{ y_1(s) f(s)}{W[y_1, y_2](s)} \, ds
+\end{align*}
+</div>for any point <span class="process-math">\(t_0\)</span> in <span class="process-math">\(I\text{.}\)</span> Consequently, a particular solution to <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" title="Equation 4.2.6">(4.2.6)</a> is<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html">
+\begin{equation*}
+y_p = -y_1(t) \int_{t_0}^t \frac{ y_2(s) f(s)}{W[y_1, y_2](s)} \, ds + y_2(t) \int_{t_0}^t \frac{ y_1(s) f(s)}{W[y_1, y_2](s)} \, ds.
+\end{equation*}
+</div></p></li>
+<li id="li-463"><p id="p-derived-li-463">Find the general solution of the differential equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' + 4y = 3 \csc t.
+\end{equation*}
+</div></p></li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-20" id="hint-20"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-20"><div class="hint solution-like"><ol id="p-1618" class="lower-alpha">
+<li id="li-464"><p id="p-derived-li-464">If <span class="process-math">\(y_p = u_1y_1 + u_2 y_2\text{,}\)</span> then<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" id="md-389">
+\begin{gather*}
+y_p' = u_1' y_1 + u_1 y_1' + u_2' y_2 + u_2 y_2' = u_1 y_1' +  u_2 y_2'\\
+y_p'' = u_1' y_1' + u_1 y_1'' +  u_2' y_2' + u_2 y_2''.
+\end{gather*}
+</div>Substituting these expressions into equation <a href="" class="xref" data-knowl="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" title="Equation 4.2.6">(4.2.6)</a>, we have<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder02-equation-exercise-variation-of-parameters.html" id="md-390">
+\begin{align*}
+y_p'' + p y_p' + q y_p &amp; = ( u_1' y_1' + u_1 y_1'' +  u_2' y_2' + u_2 y_2'') + p(u_1 y_1' +  u_2 y_2')\\
+&amp; + q(u_1y_1 + u_2 y_2)\\
+&amp; = u_1[y_1'' + p y_1' +q y_1] + u_2[y_2'' + p y_2' +q y_2] + u_1' y_1' + u_2' y_2'\\
+&amp; = u_1' y_1' + u_2' y_2'\\
+&amp; = f(t).
+\end{align*}
+</div></p></li>
+<li id="li-465"><p id="p-derived-li-465">If we solve the system<div class="displaymath process-math" data-contains-math-knowls="" id="md-391">
+\begin{align*}
+u_1'(t) y_1(t) + u_2'(t) y_2(t) &amp; = 0\\
+u_1'(t) y_1' (t)+ u_2'(t) y_2'(t) &amp; = f(t).
+\end{align*}
+</div>for <span class="process-math">\(u_1'\)</span> and <span class="process-math">\(u_2'\text{,}\)</span> we obtain<div class="displaymath process-math" data-contains-math-knowls="" id="md-392">
+\begin{align*}
+u_1'(t) &amp; = \frac{- y_2(t) f(t)}{W[y_1, y_2](t)}\\
+u_2'(t) &amp; = \frac{y_1(t) f(t)}{W[y_1, y_2](t)}.
+\end{align*}
+</div></p></li>
+<li id="li-466"><p id="p-derived-li-466">Integrate the two equations from part (2).</p></li>
+<li id="li-467"><p id="p-derived-li-467">The general solution to the homogeneous equation <span class="process-math">\(y'' + 4y = 0\)</span> is<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y_h = c_1 \cos 2t + c_2 \sin 2t.
+\end{equation*}
+</div>To find a particular solution, assume that the solution has the form<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y_p = u_1(t) \cos 2t + u_2(t) \sin 2t.
+\end{equation*}
+</div>By part (2)<div class="displaymath process-math" data-contains-math-knowls="" id="md-393">
+\begin{align*}
+u_1'(t) &amp; = -3 \cos t\\
+u_2'(t) &amp; = \frac{3}{2} \csc t - 3 \sin t.
+\end{align*}
+</div>Integrating, we obtain<div class="displaymath process-math" data-contains-math-knowls="" id="md-394">
+\begin{align*}
+u_1(t) &amp; = -3 \sin t\\
+u_2(t) &amp; = \frac{3}{2} \ln| \csc t  - \cot t| + 3 \cos t.
+\end{align*}
+</div>Therefore,<div class="displaymath process-math" data-contains-math-knowls="" id="md-395">
+\begin{align*}
+y_p(t) &amp; = u_1(t) y_1(t) + u_2(t) y_2(t)\\
+&amp; = -3 \sin t  \cos 2t + \left[\frac{3}{2} \ln| \csc t  - \cot t| + 3 \cos t\right] \sin 2t,
+\end{align*}
+</div>and the general solution is<div class="displaymath process-math" data-contains-math-knowls="" id="md-396">
+\begin{align*}
+y &amp; = y_h + y_p\\
+&amp; = c_1 \cos 2t + c_2 \sin 2t -3 \sin t  \cos 2t + \left[\frac{3}{2} \ln| \csc t  - \cot t| + 3 \cos t\right] \sin 2t.
+\end{align*}
+</div></p></li>
+</ol></div></div>
+</div></article></section></section></div></main>
+</div>
+</body>
+</html>

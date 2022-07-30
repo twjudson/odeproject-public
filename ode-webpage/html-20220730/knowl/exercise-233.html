@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:38+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="exercise exercise-like"><h4 class="heading">
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">6<span class="period">.</span></span>
+</h4>
+<p>Consider the linear system <span class="process-math">\(d \mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+3 \amp 2 \\
+3 \amp -2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Suppose the initial conditions for the solution curve are <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span>  We can use the following Sage code to plot the phase portrait of this system, including the straight-line solutions and a solution curve.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-55"><script type="text/x-sage">x, y, t = var('x y t') #declare the variables
+F = [3*x + 2*y, 3*x - 2*y] #declare the system
+# normalize the vector fields so that all of the arrows are the same length
+n = sqrt(F[0]^2 + F[1]^2)
+# plot the vector field
+p = plot_vector_field((F[0]/n, F[1]/n), (x, -4, 4), (y, -4, 4), aspect_ratio = 1)
+# solve the system for the initial condition t = 0, x = 1, y = 1
+P1 = desolve_system_rk4(F, [x, y], ics=[0, 1, 1], ivar = t, end_points = 5, step = 0.01)
+# grab the x and y values
+S1 = [ [j, k] for i, j, k in P1]
+# plot the solution
+# Setting xmin, xmax, ymin, ymax will clip the window
+# Try plotting without doing this to see what happens
+p += line(S1, thickness = 2, axes_labels=['$x(t)$','$y(t)$'], xmin = -4, xmax = 4, ymin = -4, ymax = 4) 
+# plot the straight-line solutions
+p += line([(-4, -2), (4, 2)], thickness = 2, color = "red") 
+p += line([(-4/3, 4), (4/3, -4)], thickness = 2, color = "red")
+p
+</script></pre>
+<p>Use Sage to graph the direction field for the system linear systems <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> in <a href="" class="xref" data-knowl="./knowl/linear03-exercises-solving-linear-systems.html" title="Exercise Group 3.3.6.1–4: Phase Plane Analysis of Linear Systems with Distinct Real Eigenvalues">Exercise Group 3.3.6.1–4</a>.  Plot a solution curve for the initial condition <span class="process-math">\(\mathbf x(0) = (2,2)\text{.}\)</span>  Be sure to show the corresponding straight-line solutions on your graph.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-56"><script type="text/x-sage">
+</script></pre></article><span class="incontext"><a href="linear03.html#exercise-233" class="internal">in-context</a></span>
+</body>
+</html>

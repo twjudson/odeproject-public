@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:33+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project More Nonlinear Mechanics</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="nonlinear02.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="nonlinear04.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="nonlinear02.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="nonlinear04.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="active">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="nonlinear03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span>
+</h2>
+<article class="objectives goal-like" id="objectives-27"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-538"><p id="p-derived-li-538">To understand that the equation for the nonlinear pendulum with damping<div class="displaymath process-math" data-contains-math-knowls="" id="md-503">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>can be analyzed by examining <span class="process-math">\(dH/dt\text{,}\)</span> where <span class="process-math">\(H\)</span> is the Hamiltonian function for the ideal pendulum. The function <span class="process-math">\(H\)</span> for this system is an example of a <dfn class="terminology">Lyapunov function</dfn>.</p></li>
+<li id="li-539"><p id="p-1837">To understand how to use Lyapunov functions to determine the stability of an equilibrium solution for a nonlinear system.</p></li>
+</ul></article><section class="introduction" id="introduction-126"><p id="p-1838">The equation for the nonlinear pendulum with damping is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 \theta}{dt^2} + \frac{b}{m} \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.
+\end{equation*}
+</div>
+<p class="continuation">As a system, we can model the pendulum as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-21">
+\begin{align}
+\frac{d \theta}{dt} &amp; = v\tag{5.3.1}\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.\tag{5.3.2}
+\end{align}
+</div>
+<p class="continuation">This system is not Hamiltonian since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial v}{\partial \theta} = 0,
+\end{equation*}
+</div>
+<p class="continuation">but</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+-\frac{\partial }{\partial v}  \left(  - \frac{b}{m} v - \frac{g}{L} \sin \theta \right) = \frac{b}{m} \neq 0.
+\end{equation*}
+</div>
+<p class="continuation">We shall have to invent new techniques to analyze such systems.</p></section><section class="subsection" id="nonlinear03-subsection-pendulum-damping"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span>
+</h3>
+<p id="p-1839">To find the nullclines of the nonlinear pendulum, let</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html" id="md-504">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v = 0\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta = 0.
+\end{align*}
+</div>
+<p class="continuation">The <span class="process-math">\(\theta\)</span>-nullcline is <span class="process-math">\(v = 0\text{,}\)</span> while the <span class="process-math">\(v\)</span>-nullcline is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+v = -\frac{mg}{bL} \sin \theta.
+\end{equation*}
+</div>
+<p class="continuation">It follows that the equilibrium solutions for the nonlinear pendulum occur at</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+(\theta, v) = (0,0), (\pm \pi, 0), (\pm 2\pi, 0), \ldots.
+\end{equation*}
+</div>
+<p class="continuation">This makes sense since the pendulum should not move if the bob is initially hanging downward (<span class="process-math">\(\theta = 2 \pi n\)</span>) or is at the very top or the very bottom of a swing (<span class="process-math">\(\theta = (2n + 1)\pi\)</span>). Since our first goal is to determine the nature of each equilibrium solution, we will compute the Jacobian of the system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html" title="Equation 5.3.1">(5.3.1)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html" title="Equation 5.3.2">(5.3.2)</a>. This is just</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+\begin{pmatrix}
+0 &amp; 1 \\
+-(g/L) \cos \theta &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">At the equilibrium solutions <span class="process-math">\((\theta, v) = (0,0), (\pm 2\pi, 0), (\pm 4\pi, 0), \ldots\text{,}\)</span> the pendulum is hanging downward, and the Jacobian matrix becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+J_1
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+-g/L &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">On the other hand, if <span class="process-math">\((\theta, v) = (\pm \pi, 0),  (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots\text{,}\)</span> the pendulum is at the top of its swing, and the Jacobian matrix is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+J_2
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+g/L &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-1840">We will first examine the case where the pendulum is hanging downward. The characteristic polynomial of <span class="process-math">\(J_1\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html">
+\begin{equation*}
+\lambda^2 + \frac{b}{m} \lambda + \frac{g}{L}.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the eigenvalues of <span class="process-math">\(J_1\)</span> are</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" id="nonlinear03-equation-mechanics-1">
+\begin{equation}
+\lambda = -\frac{b}{2m} \pm \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.\tag{5.3.3}
+\end{equation}
+</div>
+<p class="continuation">We can analyze the nature of these eigenvalues by examining the sign of</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html">
+\begin{equation*}
+\Delta = \left(  \frac{b}{2m} \right)^2 - \frac{g}{L}.
+\end{equation*}
+</div>
+<ul class="disc">
+<li id="li-540"><p id="p-derived-li-540">If <span class="process-math">\(\Delta \lt 0\text{,}\)</span> the eigenvalues of the Jacobian are complex. Since the real part of <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-mechanics-1.html" title="Equation 5.3.3">(5.3.3)</a> is negative, these equilibrium solutions are spiral sinks.</p></li>
+<li id="li-541"><p id="p-derived-li-541">If <span class="process-math">\(\Delta \gt 0\text{,}\)</span> we have two distinct real eigenvalues. Since<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} \lt \left(  \frac{b}{2m} \right)^2,
+\end{equation*}
+</div>we know that<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\left(  \frac{b}{2m} \right) \gt \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.
+\end{equation*}
+</div>Thus, both of our eigenvalues must be negative.  Therefore, we have a nodal sink.</p></li>
+<li id="li-542"><p id="p-derived-li-542">If <span class="process-math">\(\Delta = 0\text{,}\)</span> we have a single real negative eigenvalue. Thus, we also have a sink.</p></li>
+</ul>
+<p class="continuation">Consequently, if we assume that <span class="process-math">\(b\)</span> is small, then <span class="process-math">\(\Delta \lt 0\)</span> and we will only have spiral sinks (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" title="Figure 5.3.1">Figure 5.3.1</a>).</p>
+<figure class="figure figure-like" id="nonlinear03-figure-damped-pendulum-nullclines"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-damped-pendulum-nullclines.svg" role="img" class="contained" alt="solution curves for the damped pendulum on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.1<span class="period">.</span></span><span class="space"> </span>Nullclines of the damped pendulum</figcaption></figure><p id="p-1841">Now let us consider the type of equilibrium solutions that we will obtain when the pendulum is standing upright. These solutions will occur at <span class="process-math">\((\theta, v) = (\pm \pi, 0), (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots\text{.}\)</span>  The characteristic polynomial of the Jacobian matrix <span class="process-math">\(J_2\)</span> at these points is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda^2 + \frac{b}{m} \lambda - \frac{g}{L};
+\end{equation*}
+</div>
+<p class="continuation">hence, the eigenvalues of <span class="process-math">\(J_2\)</span> are</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="nonlinear03-equation-mechanics-2">
+\begin{equation}
+\lambda  = -\frac{b}{2m} \pm \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} }.\tag{5.3.4}
+\end{equation}
+</div>
+<p class="continuation">Furthermore, we have distinct real eigenvalues since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\left(  \frac{b}{2m} \right)^2 + \frac{g}{L} \gt 0.
+\end{equation*}
+</div>
+<p class="continuation">In fact, the eigenvalues will have opposite sign</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-505">
+\begin{align*}
+\lambda_1 &amp; = -\frac{b}{2m} + \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \gt 0\\
+\lambda_2 &amp; = -\frac{b}{2m} - \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \lt 0.
+\end{align*}
+</div>
+<p class="continuation">Thus, the equilibrium solutions are saddles.</p></section><section class="subsection" id="nonlinear03-subsection-lyapunov-functions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span>
+</h3>
+<p id="p-1842">The function</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+H(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta 
+\end{equation*}
+</div>
+<p class="continuation">is a Hamiltonian function for the ideal pendulum</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-506">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta,
+\end{align*}
+</div>
+<p class="continuation">since <span class="process-math">\(d H/ dt = 0\text{.}\)</span> However, if <span class="process-math">\(b \gt 0\text{,}\)</span> then our system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-507">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>
+<p class="continuation">has damping and</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-508">
+\begin{align*}
+\frac{dH}{dt} &amp; =\frac{\partial H}{\partial \theta} \frac{d \theta}{dt} + \frac{\partial H}{\partial v} \frac{dv}{dt}\\
+&amp; = \left( \frac{g}{L} \sin \theta \right) v + v\left(  -\frac{b}{m} v - \frac{g}{L} \sin \theta \right)\\
+&amp; = - \frac{b}{m} v^2 \leq 0.
+\end{align*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(H\)</span> is decreasing whenever <span class="process-math">\(v \neq 0\text{.}\)</span> Hence, solution curves in the <span class="process-math">\(\theta v\)</span>-plane cross the level sets of <span class="process-math">\(H\)</span> moving from larger to smaller <span class="process-math">\(H\)</span> values.</p>
+<p id="p-1843">We can now devise a strategy for sketching the phase plane of the damped pendulum. If <span class="process-math">\(b/m\)</span>  and <span class="process-math">\(v\)</span> are both small, the value of <span class="process-math">\(H\)</span> decreases slowly along the solutions (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" title="Figure 5.3.1">Figure 5.3.1</a>).</p>
+<p id="p-1844">The function <span class="process-math">\(H\)</span> in the case of the damped pendulum is an example of a Lyapunov function. Specifically, a function <span class="process-math">\(L(x, y)\)</span> is called a <dfn class="terminology">Lyapunov function</dfn> for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-509">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">if for every solution of the system, <span class="process-math">\((x(t), y(t))\text{,}\)</span> that is not an equilibrium solution of the system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dL}{dt} \leq  0,
+\end{equation*}
+</div>
+<p class="continuation">with strict inequality except possible for a discrete set of <span class="process-math">\(t\)</span>s.</p>
+<p id="p-1845">As an example, let us return to the damped harmonic oscillator</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-510">
+\begin{align*}
+\frac{dy}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - qy - pv.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(p = 0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+H(y, v) = \frac{1}{2} v^2 + \frac{q}{2} y^2
+\end{equation*}
+</div>
+<p class="continuation">is a Hamiltonian function for our system.  Recall that we also call <span class="process-math">\(H\)</span> the energy function of the system. However, if <span class="process-math">\(p \gt 0\)</span> and <span class="process-math">\((y(t), v(t))\)</span> is a solution for our system, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-511">
+\begin{align*}
+\frac{dH}{dt}(y, v) &amp; = \frac{\partial H}{\partial y} \frac{dy}{dt} + \frac{\partial H}{\partial v} \frac{dy}{dt}\\
+&amp; = (qy)v + v(-qy - pv)\\
+&amp; = -pv^2 \leq 0.
+\end{align*}
+</div>
+<p class="continuation">Consequently, <span class="process-math">\(H(y(t), v(t))\)</span> decreases at a nonzero rate (except when <span class="process-math">\(v = 0\)</span>), and <span class="process-math">\(H\)</span> is a Lyapunov function. The level sets of <span class="process-math">\(H\)</span> are ellipses in the <span class="process-math">\(yv\)</span>-plane.  As <span class="process-math">\(H\)</span> decreases, the energy dissipates and the ellipses become spiral sinks.</p>
+<p id="p-1846">It is easy to see that the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" id="mdn-22">
+\begin{align}
+\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)\tag{5.3.5}\\
+\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2)\tag{5.3.6}
+\end{align}
+</div>
+<p class="continuation">has an equilibrium solution at the origin no matter what the value of <span class="process-math">\(\alpha\)</span> is. The Jacobian of this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+3 \alpha x^2 + \alpha y^2 &amp; 1 + 2 \alpha xy \\
+-1 + 2 \alpha x y &amp; \alpha x^2 + 3 \alpha y^2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since our equilibrium solution is the origin,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+0 &amp; 1 \\
+-1 &amp; 0
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">and the linearization of our system at the origin is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" id="md-512">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = -x.
+\end{align*}
+</div>
+<p class="continuation">Since the eigenvalues of</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+0 &amp; 1 \\
+-1 &amp; 0
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">are <span class="process-math">\(\pm i\text{,}\)</span> the linearization has a center at the origin. The phase plane consists of circles about the origin (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" title="Figure 5.3.2">Figure 5.3.2</a>).  Notice that the linearization does not depend on <span class="process-math">\(\alpha\text{.}\)</span></p>
+<figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-1.svg" role="img" class="contained" alt="a closed circular solution curve on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.2<span class="period">.</span></span><span class="space"> </span>Solution curves for the linearization.</figcaption></figure><p id="p-1847">Now let us consider what happens to system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-1.html" title="Equation 5.3.5">(5.3.5)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-2.html" title="Equation 5.3.6">(5.3.6)</a> if we consider different values of <span class="process-math">\(\alpha\text{.}\)</span> If <span class="process-math">\(\alpha = 5\text{,}\)</span> the situation is quite different than the linearization of our system. A solution curve spirals out from the origin as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-2.html" title="Figure 5.3.3">Figure 5.3.3</a>). As <span class="process-math">\(t \to - \infty\text{,}\)</span> the solution curve spirals back into the origin, but it seems to stop before actually reaching the origin. If <span class="process-math">\(\alpha = -5\)</span> on the other hand, we seem to have the opposite behavior with the solution curves spiraling into the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> As before, the solutions do not seem to reach the origin (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-3.html" title="Figure 5.3.4">Figure 5.3.4</a>).</p>
+<figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-2.svg" role="img" class="contained" alt="a solution curve with a downward trajectory on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.3<span class="period">.</span></span><span class="space"> </span>Solution curves <span class="process-math">\(\alpha = 5\text{.}\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-3"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-3.svg" role="img" class="contained" alt="a solution curve with a upward trajectory on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.4<span class="period">.</span></span><span class="space"> </span>Solution curves for <span class="process-math">\(\alpha = -5\text{.}\)</span></figcaption></figure><p id="p-1848">Suppose that <span class="process-math">\((x(t), y(t))\)</span> is a solution to the nonlinear system. The function</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+r(t) = \sqrt{x(t)^2 + y(t)^2}
+\end{equation*}
+</div>
+<p class="continuation">is the distance of a point on the solution curve  to the origin in the <span class="process-math">\(xy\)</span>-plane. To see how <span class="process-math">\(r\)</span> changes as <span class="process-math">\(t \to \pm \infty\text{,}\)</span> we can compute the derivative of <span class="process-math">\(r\text{.}\)</span> Actually, it is easier to work with the equation <span class="process-math">\(r(t)^2 = x(t)^2 + y(t)^2\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-513">
+\begin{align*}
+\frac{d}{dt} r^2 &amp; = \frac{d}{dt} (x(t)^2 + y(t)^2)\\
+&amp; = 2 x \frac{dx}{dt} + 2y \frac{dy}{dt}\\
+&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))\\
+&amp; = 2 \alpha (x^2 + y^2)^2\\
+&amp; = 2 \alpha r^4.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\((r^2)' = 2r r'\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="nonlinear03-equation-lyapunov-3">
+\begin{equation}
+r' = \alpha r^3\tag{5.3.7}
+\end{equation}
+</div>
+<p class="continuation">for <span class="process-math">\(r \neq 0\text{.}\)</span></p>
+<p id="p-1849">Equation <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-3.html" title="Equation 5.3.7">(5.3.7)</a> is separable, and it is quite easy to determine the solution as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-lyapunov-3.html ./knowl/nonlinear03-equation-lyapunov-3.html ./knowl/nonlinear03-equation-lyapunov-1.html ./knowl/nonlinear03-equation-lyapunov-2.html">
+\begin{equation*}
+r(t) = \frac{1}{\sqrt{C - 2 \alpha t}}.
+\end{equation*}
+</div>
+<p class="continuation">However, we do not need to know this solution  to determine the nature of the equilibrium solution at the origin. If <span class="process-math">\(\alpha \gt 0\)</span> and <span class="process-math">\(t \to -\infty\text{,}\)</span> equation <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-3.html" title="Equation 5.3.7">(5.3.7)</a> tells us that <span class="process-math">\(r(t) \to 0\text{.}\)</span> Thus, any solution to the system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-1.html" title="Equation 5.3.5">(5.3.5)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-2.html" title="Equation 5.3.6">(5.3.6)</a> we have a spiral sink at the origin if <span class="process-math">\(\alpha = -5\text{.}\)</span>  Even though linearization fails to tell us the nature of the equilibrium solution at the origin, we were able to determine the nature of the equilibrium solution with further analysis.</p>
+<p id="p-1850">We will now try to exploit what we have learned from our last example and from Hamiltonian systems to see if it is possible to analyze more general systems. If we consider solutions, <span class="process-math">\((x(t), y(t))\text{,}\)</span> of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-514">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">we might ask how a function <span class="process-math">\(V(x, y)\)</span> varies along the solution curve. We already have an answer if our system is Hamiltonian, and <span class="process-math">\(V\)</span> is the corresponding Hamiltonian function. In this case <span class="process-math">\(dV/dt = 0\text{.}\)</span>  In general, we  know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-515">
+\begin{align*}
+\frac{dV}{dt} (x(t), y(t)) &amp; = \frac{\partial V}{\partial x} \frac{dx}{dt} + \frac{\partial V}{\partial y} \frac{dy}{dt}\\
+&amp; =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y).
+\end{align*}
+</div>
+<p class="continuation">Thus, if we let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\dot{V} =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y),
+\end{equation*}
+</div>
+<p class="continuation">we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dV}{dt}(x(t), y(t)) = \dot{V} (x(t), y(t)).
+\end{equation*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(V\)</span> is increasing along a solution curve if <span class="process-math">\(\dot{V}(x, y) \gt 0\)</span> and decreasing along a solution curve if <span class="process-math">\(\dot{V}(x, y) \lt 0\text{.}\)</span> Our example suggests that we can determine this information without finding the solution.</p>
+<p id="p-1851">Recall that the gradient of a function <span class="process-math">\(V: {\mathbb R}^2 \rightarrow {\mathbb R}\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\nabla V = \left(\frac{\partial V}{\partial x}, \frac{\partial V}{\partial y}\right).
+\end{equation*}
+</div>
+<p class="continuation">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf F}(x, y) =
+\begin{pmatrix}
+f(x, y) \\ g(x, y)
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\dot{V} = \nabla V \cdot {\mathbf F},
+\end{equation*}
+</div>
+<p class="continuation">is the directional derivative of <span class="process-math">\(V\)</span> in the direction of <span class="process-math">\({\mathbf F}\text{.}\)</span></p>
+<p id="p-1852">Let us use this new information about <span class="process-math">\(V\)</span> to obtain information about equilibrium solutions of our system. We do know that <span class="process-math">\(V(x, y)\)</span> graphs as a surface in <span class="process-math">\({\mathbb R}^3\)</span> and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+V(x, y) = \text{constant}
+\end{equation*}
+</div>
+<p class="continuation">gives the contour lines or level curves of the surface in the <span class="process-math">\(xy\)</span>-plane.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-44" id="fn-44"><sup> 1 </sup></a>  We also know that the gradient of <span class="process-math">\(V\)</span> points in the direction that <span class="process-math">\(V\)</span> is increasing the fastest and that the gradient is orthogonal to the level curves of <span class="process-math">\(V\text{.}\)</span>  Thus, if <span class="process-math">\(\dot{V}(x, y) \gt 0\text{,}\)</span> we know that <span class="process-math">\(V\)</span> is increasing in the direction of the vector field <span class="process-math">\({\mathbf F}\)</span> and the elevation of the solution curve through <span class="process-math">\((x, y)\)</span> in <span class="process-math">\({\mathbb R}^3\)</span> is increasing. That is, the solution curve is traveling uphill.  Similarly, if <span class="process-math">\(\dot{V}(x, y) \lt 0\text{,}\)</span> we know that the solution curve at <span class="process-math">\((x, y)\)</span> is going downhill.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-45" id="fn-45"><sup> 2 </sup></a></p>
+<p id="p-1853">Now suppose that <span class="process-math">\(V\)</span> is a real-valued function defined on a set <span class="process-math">\(S\)</span> in the <span class="process-math">\(xy\)</span>-plane, where the point <span class="process-math">\({\mathbf x}_0 = (x_0, y_0)\)</span> is in <span class="process-math">\(S\text{.}\)</span> We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive definite</dfn> if <span class="process-math">\(V({\mathbf x}) \gt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{,}\)</span> and <span class="process-math">\(V\)</span> is <dfn class="terminology">positive semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \geq 0\text{.}\)</span> Similarly, we say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative definite</dfn> and <dfn class="terminology">negative semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \lt 0\)</span> and <span class="process-math">\(V({\mathbf x}) \leq 0\text{,}\)</span> respectively.</p>
+<p id="p-1854">For example, if we consider the system for a harmonic oscillator</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-516">
+\begin{align*}
+y' &amp; = v\\
+v' &amp; = -\frac{k}{m} y - \frac{b}{m} v,
+\end{align*}
+</div>
+<p class="continuation">then the energy function,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+E(y, v) = \frac{1}{2} mv^2 + \frac{1}{2} ky^2,
+\end{equation*}
+</div>
+<p class="continuation">is positive definite.</p>
+<article class="theorem theorem-like" id="nonlinear03-theorem-lyapunov"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">5.3.5</span><span class="period">.</span>
+</h4>
+<p id="p-1855">Suppose that the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-517">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">has an equilibrium solution at <span class="process-math">\((x_0, y_0)\text{.}\)</span>  Let <span class="process-math">\(V\)</span> be a continuously differentiable function defined on a neighborhood <span class="process-math">\(U\)</span> of <span class="process-math">\((x_0, y_0)\)</span> that is positive definite with minimum at <span class="process-math">\((x_0, y_0)\text{.}\)</span></p>
+<ol class="decimal">
+<li id="li-543"><p id="p-derived-li-543">If <span class="process-math">\(\dot{V}\)</span> is negative semidefinite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</p></li>
+<li id="li-544"><p id="p-derived-li-544">If <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is an asymptotically stable equilibrium solution or a sink.</p></li>
+</ol></article><p id="p-1856">Recall our example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-theorem-lyapunov.html" id="md-518">
+\begin{align*}
+\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)\\
+\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2).
+\end{align*}
+</div>
+<p class="continuation">The function <span class="process-math">\(V(x, y) = x^2 + y^2\)</span> is positive definite on <span class="process-math">\({\mathbb R}^2\text{,}\)</span> with an isolated minimum at the origin.  We can compute</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-theorem-lyapunov.html" id="md-519">
+\begin{align*}
+\dot{V}&amp; = \frac{\partial V}{\partial x}(x, y)  f(x, y) + \frac{\partial V}{\partial y}(x, y) g(x, y)\\
+&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))\\
+&amp; = 2 \alpha (x^2 + y^2)^2.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> then <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\({\mathbb R}^2\text{.}\)</span> <a href="" class="xref" data-knowl="./knowl/nonlinear03-theorem-lyapunov.html" title="Theorem 5.3.5">Theorem 5.3.5</a> tells us that the origin is a stable equilibrium point.</p>
+<p id="p-1857">The function <span class="process-math">\(V\)</span> in <a href="" class="xref" data-knowl="./knowl/nonlinear03-theorem-lyapunov.html" title="Theorem 5.3.5">Theorem 5.3.5</a> is called a <dfn class="terminology">Lyapunov function</dfn>. If we compare Theorem 1 to using linearization to determine stability of an equilibrium solution, we will find that we can apply this result where linearization fails.  Also, Lyapunov functions are defined on a domain <span class="process-math">\(U\text{,}\)</span> where linearization only tells us what happens on a small neighborhood around the equilibrium solution. Unfortunately, there are no general ways of finding Lyapunov functions.</p></section><section class="subsection" id="nonlinear03-subsection-gradient-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span>
+</h3>
+<p id="p-1858">Let <span class="process-math">\(S\)</span> be a real-valued function on the <span class="process-math">\(xy\)</span>-plane. The gradient of <span class="process-math">\(S\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\nabla S = \left(  \frac{\partial S}{\partial x}, \frac{\partial S}{\partial y} \right).
+\end{equation*}
+</div>
+<p class="continuation">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-520">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">is a <dfn class="terminology">gradient system</dfn> if</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-521">
+\begin{align*}
+f(x, y) &amp; = \frac{\partial S}{\partial x}\\
+g(x, y) &amp; = \frac{\partial S}{\partial y}.
+\end{align*}
+</div>
+<p class="continuation">For example, the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-522">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - x^3\\
+\frac{dy}{dt} &amp; = -y
+\end{align*}
+</div>
+<p class="continuation">is a gradient system, where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+S(x, y) = \frac{x^2}{2} - \frac{x^4}{4} - \frac{y^2}{2} + 8.
+\end{equation*}
+</div>
+<p class="continuation">Now, let us see what happens on the solution curves of this gradient system. If <span class="process-math">\((x(t), y(t))\)</span> is a solution curve,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dS}{dt} = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = (x - x^3)^2 + y^2 \geq 0.
+\end{equation*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(S\)</span> increases at the point on the solution curve where the gradient of <span class="process-math">\(S\)</span> is nonzero. That is, <span class="process-math">\(S\)</span> increases at every point on the solution curve except at the equilibrium points.</p>
+<p id="p-1859">In general, suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-523">
+\begin{align*}
+\frac{dx}{dt} &amp; =  \frac{\partial S}{\partial x}\\
+\frac{dy}{dt} &amp; =  \frac{\partial S}{\partial y}
+\end{align*}
+</div>
+<p class="continuation">is a gradient system.  Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dS}{dt} (x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = \left( \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,
+\end{equation*}
+</div>
+<p class="continuation">we know that <span class="process-math">\(S\)</span> increases on every solution to the system except at the critical points of <span class="process-math">\(S(x(t), y(t))\text{.}\)</span></p>
+<p id="p-1860">Let us see what this means in terms of the linearization of the system. The Jacobian matrix of <span class="process-math">\((f, g)\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J =
+\begin{pmatrix}
+f_x &amp; f_y \\
+g_x &amp; g_y
+\end{pmatrix}
+=
+\begin{pmatrix}
+S_{xx} &amp; S_{xy} \\
+S_{yx} &amp; S_{yy}
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(S_{xy} = S_{yx}\text{,}\)</span> the matrix <span class="process-math">\(J\)</span> must have the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J=
+\begin{pmatrix}
+\alpha &amp; \beta \\
+\beta &amp; \gamma
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha = S_{xx}\text{,}\)</span> <span class="process-math">\(\beta = S_{xy}\text{,}\)</span> and <span class="process-math">\(\gamma = S_{yy}\text{.}\)</span> The characteristic polynomial of <span class="process-math">\(J\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda^2 - (\alpha + \gamma) \lambda + \alpha \gamma - \beta^2.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, the eigenvalues are</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda = \frac{1}{2}( \alpha + \beta) \pm \frac{1}{2} \sqrt{(\alpha - \gamma)^2 + 4 \beta^2}.
+\end{equation*}
+</div>
+<p class="continuation">Since we have real eigenvalues, a gradient system can have no spiral sources, spiral sinks, or centers.</p>
+<p id="p-1861">For example, <span class="process-math">\(x^2 + y^2\)</span> is a Lyapunov function for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-524">
+\begin{align*}
+\frac{dx}{dt} &amp; =  -x + y\\
+\frac{dy}{dt} &amp; = -x - y.
+\end{align*}
+</div>
+<p class="continuation">However, the origin is a spiral sink, so this system cannot be a gradient system.</p></section><section class="subsection" id="nonlinear03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1862" class="disc">
+<li id="li-545"><p id="p-derived-li-545">The equation for the nonlinear pendulum with damping<div class="displaymath process-math" data-contains-math-knowls="" id="md-525">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>can be analyzed by examining <span class="process-math">\(dH/dt\text{,}\)</span> where <span class="process-math">\(H\)</span> is the Hamiltonian function for the ideal pendulum. The function <span class="process-math">\(H\)</span> for this system is an example of a <dfn class="terminology">Lyapunov function</dfn>.</p></li>
+<li id="li-546">
+<p id="p-1863">Let <span class="process-math">\(V\)</span> be a real-valued function defined on a set <span class="process-math">\(S\)</span> in the <span class="process-math">\(xy\)</span>-plane such that the point <span class="process-math">\({\mathbf x}_0 = (x_0, y_0)\)</span> is in <span class="process-math">\(S\)</span> and <span class="process-math">\(V({\mathbf x}_0) = 0\text{.}\)</span></p>
+<ul class="circle">
+<li id="li-547"><p id="p-derived-li-547">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive definite</dfn> if <span class="process-math">\(V({\mathbf x}) \gt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{.}\)</span></p></li>
+<li id="li-548"><p id="p-derived-li-548">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \geq 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{.}\)</span></p></li>
+<li id="li-549"><p id="p-derived-li-549">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative definite</dfn> if <span class="process-math">\(V({\mathbf x}) \lt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{.}\)</span></p></li>
+<li id="li-550"><p id="p-derived-li-550">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \leq 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{.}\)</span></p></li>
+</ul>
+</li>
+<li id="li-551">
+<p id="p-1864">Suppose that the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-526">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">has an equilibrium solution at <span class="process-math">\((x_0, y_0)\text{.}\)</span> Let <span class="process-math">\(V\)</span> be a continuously differentiable function defined on a neighborhood <span class="process-math">\(U\)</span> of <span class="process-math">\((x_0, y_0)\)</span> that is positive definite with minimum at <span class="process-math">\((x_0, y_0)\text{.}\)</span></p>
+<ol class="decimal">
+<li id="li-552"><p id="p-derived-li-552">If <span class="process-math">\(\dot{V}\)</span> is negative semidefinite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</p></li>
+<li id="li-553"><p id="p-derived-li-553">If <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is an asymptotically stable equilibrium solution or a sink.</p></li>
+</ol>
+<p class="continuation">We can use these results to analyze the behavior of equilibrium solutions where linearization fails. The function <span class="process-math">\(V\)</span> is called a <dfn class="terminology">Lyapunov function</dfn>. We have no general methods for finding Lyapunov functions.</p>
+</li>
+<li id="li-554"><p id="p-derived-li-554">The system<div class="displaymath process-math" data-contains-math-knowls="" id="md-527">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>is a <dfn class="terminology">gradient system</dfn> if<div class="displaymath process-math" data-contains-math-knowls="" id="md-528">
+\begin{align*}
+f(x, y) &amp; = \frac{\partial S}{\partial x}\\
+g(x, y) &amp; = \frac{\partial S}{\partial y},
+\end{align*}
+</div>where <span class="process-math">\(S\)</span> is a real-valued function on the <span class="process-math">\(xy\)</span>-plane. Since<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dS}{dt} (x(t), y(t)) = \left(  \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,
+\end{equation*}
+</div><span class="process-math">\(S\)</span> increases on every solution to the system except at the critical points of <span class="process-math">\(S(x(t), y(t))\text{.}\)</span> Since the eigenvalues of a gradient system are real, a gradient system has no spiral sources, spiral sinks, or centers.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-nonlinear03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-nonlinear03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1865">Explain in your own words what a Lyapunov function is.</p></article><article class="exercise exercise-like" id="reading-questions-nonlinear03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1866">Expalin in your own words what a gradient system is.</p></article></section><section class="exercises" id="nonlinear03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">5.3.6</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-446"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1867">This is an exercise.</p></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-44"><div class="fn">See Figures 1 and 2 in John Polking, Albert Boggess, and David Arnold. {\it Differential Equations}.  Prentice Hall, Upper Saddle River, NJ, 2001, p. 611.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-45"><div class="fn">The argument that we have made here also works in higher dimensions.</div></div>
+</div></main>
+</div>
+</body>
+</html>

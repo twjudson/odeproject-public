@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:31+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Linear Systems in Higher Dimensions</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear07.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear09.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear07.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear09.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="active">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="linear08"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span>
+</h2>
+<article class="objectives goal-like" id="objectives-19"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-358"><p id="p-1321">To understand we can solve the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> by finding eigenvalues and eigenvectors for <span class="process-math">\(A\text{,}\)</span> where <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix.</p></li>
+<li id="li-359"><p id="p-1322">To understand that the Principle of Superposition holds for higher-order systems.</p></li>
+<li id="li-360"><p id="p-1323">To understand that the geometry of a system in <span class="process-math">\({\mathbb R}^3\)</span> is characterized by stable lines and stable planes.</p></li>
+</ul></article><section class="introduction" id="introduction-88"><p id="p-1324">Suppose that we have two masses on a table, <span class="process-math">\(m_1\)</span> and <span class="process-math">\(m_2\text{,}\)</span> connected by three springs with the outside springs connected to two walls (<a href="" class="xref" data-knowl="./knowl/linear08-figure-double-spring-mass-system.html" title="Figure 3.8.1">Figure 3.8.1</a>), and the masses are free to move horizontally. We will assume that the springs are uniform and all have the same spring constant <span class="process-math">\(k\text{.}\)</span> The horizontal displacements of the springs are denoted by <span class="process-math">\(x_1(t)\)</span> and <span class="process-math">\(x_2(t)\)</span> for the masses <span class="process-math">\(m_1\)</span> and <span class="process-math">\(m_2\text{,}\)</span> respectively. Assuming that there is no damping, the only forces acting on mass <span class="process-math">\(m_1\)</span> at time <span class="process-math">\(t\)</span> are those of left and middle springs. The force from the left spring will be <span class="process-math">\(-kx_1\)</span> while the force from middle spring will be <span class="process-math">\(k(x_2 - x_1)\text{.}\)</span> By Newton's Second Law of motion, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-double-spring-mass-system.html">
+\begin{equation*}
+m_1 x_1'' = -kx_1 + k(x_2 - x_1).
+\end{equation*}
+</div>
+<p class="continuation">Similarly, the only forces acting on the second mass, <span class="process-math">\(m_2\text{,}\)</span> will come from middle and right springs. Again using Newton's Second Law,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-double-spring-mass-system.html">
+\begin{equation*}
+m_2 x_2'' = -k(x_2 - x_1) - kx_2.
+\end{equation*}
+</div>
+<figure class="figure figure-like" id="linear08-figure-double-spring-mass-system"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="generated/latex-image/linear08-double-spring-mass-system.svg" role="img" class="contained" alt="two masses sliding back and forth on a frictionless table between two walls with the masses and the walls connected by three springs"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.8.1<span class="period">.</span></span><span class="space"> </span>A double spring-mass system</figcaption></figure><p id="p-1325">We now have a system of two second-order linear equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-305">
+\begin{align*}
+m_1 x_1'' &amp; = -2kx_1 + kx_2\\
+m_2 x_2'' &amp; = kx_1 - 2kx_2.
+\end{align*}
+</div>
+<p class="continuation">If we define <span class="process-math">\(x_3\)</span> and <span class="process-math">\(x_4\)</span> by <span class="process-math">\(x_3 = x_1'\)</span> and <span class="process-math">\(x_4 = x_2'\text{,}\)</span> we now have first-order linear system of four equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-306">
+\begin{align*}
+x_1' &amp; = x_3\\
+x_2' &amp; = x_4\\
+x_3' &amp; = -2 \frac{k}{m_1} x_1 + \frac{k}{m_1} x_2\\
+x_4' &amp; = \frac{k}{m_2} x_1 - 2\frac{k}{m_2} x_2
+\end{align*}
+</div>
+<p class="continuation">We can represent this system in the matrix form <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+-2k/m_1 &amp; k/m_1 &amp; 0 &amp; 0 \\
+k / m_2 &amp; - 2k/m_2 &amp; 0 &amp; 0
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">We will learn how to analyze and solve such systems in the next two sections.</p></section><section class="subsection" id="linear08-subsection-higher-order-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span>
+</h3>
+<p id="p-1326">We can write the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-307">
+\begin{align*}
+x_1' &amp; = a_{11} x_1 + \cdots a_{1n} x_n\\
+x_2' &amp; = a_{21} x_1 + \cdots a_{2n} x_n\\
+&amp; \vdots\\
+x_n' &amp; = a_{n1} x_1 + \cdots a_{nn} x_n
+\end{align*}
+</div>
+<p class="continuation">in matrix form <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn} 
+\end{pmatrix}
+\qquad\text{and}\qquad
+{\mathbf x}
+=
+\begin{pmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-1327">The strategy for finding solutions to the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is the same as for systems of two equations. If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with eigenvector <span class="process-math">\({\mathbf v}\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = e^{\lambda t} {\mathbf v}
+\end{equation*}
+</div>
+<p class="continuation">is a solution for our system. Indeed,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}'(t)
+=
+\lambda e^{\lambda t} {\mathbf v}
+=
+e^{\lambda t} (\lambda {\mathbf v})
+=
+e^{\lambda t} A {\mathbf v}
+=
+A(e^{\lambda t} {\mathbf v})
+=
+A {\mathbf x}(t).
+\end{equation*}
+</div>
+<article class="example example-like" id="linear08-example-saddle"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-linear08-example-saddle"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.8.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear08-example-saddle"><article class="example example-like"><p id="p-1328">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-308">
+\begin{align*}
+x' &amp; = -5x - 8y - 2z\\
+y' &amp; = 5x + 12y + 4z\\
+z' &amp; = -11x - 19y - 5z
+\end{align*}
+</div>
+<p class="continuation">can be rewritten as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}'
+=
+\begin{pmatrix}
+x' \\ y' \\ z'
+\end{pmatrix}
+=
+\begin{pmatrix}
+-5 &amp; -8 &amp; -2 \\
+5 &amp; 12 &amp; 4 \\
+-11 &amp; -19 &amp; -5
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y \\ z
+\end{pmatrix}
+= A {\mathbf x}.
+\end{equation*}
+</div>
+<p class="continuation">We can compute the eigenvalues of <span class="process-math">\(A\)</span> by finding the roots of its characteristic polynomial</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det( A - \lambda I) = -\lambda^3 - 2\lambda^2 - \lambda + 2 = (\lambda - 1)(\lambda + 1)(\lambda - 2).
+\end{equation*}
+</div>
+<p class="continuation">Thus, the eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda = 2\text{,}\)</span> <span class="process-math">\(\lambda = 1\text{,}\)</span> and <span class="process-math">\(\lambda = -1\text{.}\)</span> To find an eigenvector for <span class="process-math">\(\lambda = 2\text{,}\)</span> we must find a nontrivial solution for system of equations <span class="process-math">\((A - 2I){\mathbf x} = {\mathbf 0}\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-309">
+\begin{align*}
+-7x - 8y - 2z \amp = 0\\
+-5x + 10y + 4z \amp = 0\\
+-11x - 19y - 7z \amp = 0.
+\end{align*}
+</div>
+<p class="continuation">It is easy to check that <span class="process-math">\((2, -3, 5)\)</span> is a solution. Similarly, we can determine that <span class="process-math">\((5, -7, 13)\)</span> is an eigenvector for <span class="process-math">\(\lambda = 1\)</span> and <span class="process-math">\((1, -1, 2)\)</span> is an eigenvector for <span class="process-math">\(\lambda = -1\text{.}\)</span> Thus, we have found three solutions for the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x_1(t) = e^{2t} \begin{pmatrix}  2 \\ -3 \\ 5 \end{pmatrix}, \quad
+\mathbf x_2(t) = e^{t} \begin{pmatrix}  5 \\ -7 \\ 13 \end{pmatrix}, \quad \text{and} \quad
+\mathbf x_3(t) = e^{-t} \begin{pmatrix}  1 \\ -1 \\ 2 \end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-1329">The Principle of Superposition also holds for higher-order systems. If <span class="process-math">\({\mathbf x}_1(t)\)</span> and <span class="process-math">\({\mathbf x}_2(t)\)</span> are solutions for <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)
+\end{equation*}
+</div>
+<p class="continuation">is a solution for the system, since</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-310">
+\begin{align*}
+\frac{d}{dt}[c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)] &amp; = c_1 \frac{d}{dt}{\mathbf x}_1(t) + c_2 \frac{d}{dt}{\mathbf x}_2(t)\\
+&amp; = c_1 A {\mathbf x}_1(t) + c_2 A {\mathbf x}_2(t)\\
+&amp; = A[c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)].
+\end{align*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1 e^{2t} \begin{pmatrix}  2 \\ -3 \\ 5 \end{pmatrix}
++
+e^{t} \begin{pmatrix}  5 \\ -7 \\ 13 \end{pmatrix}
++
+c_3 e^{-t} \begin{pmatrix}  1 \\ -1 \\ 2 \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is a solution for our system. This is, in fact, the general solution for the system.</p></article></div>
+<p id="p-1330">Although we shall not cover the notions of linear independence, canonical matrices, and change of coordinates for <span class="process-math">\({\mathbb R}^n\text{,}\)</span> the same ideas that we used for systems of first-order linear differential equations in <span class="process-math">\({\mathbb R}^2\)</span> carry over to <span class="process-math">\({\mathbb R}^n\text{.}\)</span> The necessary linear algebra is covered in any good linear algebra course. Also, see Chapters 5 and 6 in <a href="" class="xref" data-knowl="./knowl/hirsch-2004.html" title="Bibliographic Entry 12: Differential Equations, Dynamical Systems, &amp; an Introduction to Chaos">[12]</a>.  In addition, finding eigenvalues for matrices greater than <span class="process-math">\(2 \times 2\text{,}\)</span> we will need to find the roots of a characteristic polynomial of degree greater than two, which can be difficult.  A good course in linear algebra will cover techniques of finding eigenvalues for larger matrices.</p>
+<article class="example example-like" id="example-55"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-55"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.8.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-55"><article class="example example-like"><p id="p-1331">Let us see how the linear algebra works in the previous example. If we form the matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+T
+=
+\begin{pmatrix}
+2 &amp; 5 &amp; 1 \\
+-3 &amp; -7 &amp; -1 \\
+5 &amp; 13 &amp; 2
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">from the eigenvectors of <span class="process-math">\(A\text{,}\)</span> we can convert the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-311">
+\begin{align*}
+{\mathbf y}' \amp = (T^{-1} A T) {\mathbf y}\\
+\amp 
+\begin{pmatrix}
+1 &amp; -3 &amp; -2\\
+-1 &amp; 1 &amp; 1 \\
+4 &amp; 1 &amp; -1
+\end{pmatrix}
+\begin{pmatrix}
+-5 &amp; -8 &amp; -2 \\
+5 &amp; 12 &amp; 4 \\
+-11 &amp; -19 &amp; -5
+\end{pmatrix}
+\begin{pmatrix}
+2 &amp; 5 &amp; 1 \\
+-3 &amp; -7 &amp; -1 \\
+5 &amp; 13 &amp; 2
+\end{pmatrix}
+{\mathbf y},\\
+\amp = \begin{pmatrix}
+2 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; -1
+\end{pmatrix}
+{\mathbf y},
+\end{align*}
+</div>
+<p class="continuation">which we can immediately solve:</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf y}(t)
+=
+c_1
+e^{2t}
+\begin{pmatrix}  1 \\ 0 \\ 0 \end{pmatrix}  
++
+c_2
+e^{t}
+\begin{pmatrix}  0 \\ 1 \\ 0 \end{pmatrix} 
++
+c_3
+e^{-t}
+\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Multiplying our solution by <span class="process-math">\(T\)</span> yields the general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+T {\mathbf y}
+=
+c_1 e^{2t} \begin{pmatrix} 2 \\ -3 \\ 5 \end{pmatrix}
++
+e^{t} \begin{pmatrix} 5 \\ -7 \\ 13 \end{pmatrix}
++
+c_3 e^{-t} \begin{pmatrix} 1 \\ -1 \\ 2 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">the solution to the system <span class="process-math">\(\mathbf x' A \mathbf x\text{.}\)</span></p></article></div></section><section class="subsection" id="linear08-subsection-geometry"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span>
+</h3>
+<p id="p-1332">In <a href="linear06.html" class="internal" title="Section 3.6: Changing Coordinates">Section 3.6</a>, we classified all of the geometry of the solutions for planar systems using the trace-determinant plane. The geometry for linear systems in three variables is a bit more complicated. For a system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06.html" id="md-312">
+\begin{align*}
+x' \amp = a_1 x + a_1 y + a_3 z\\
+y' \amp = b_1 x + b_2 y + b_3 z\\
+z' \amp = c_1 x + c_2 y + c_3 z,
+\end{align*}
+</div>
+<p class="continuation">our solution curves live in <span class="process-math">\(\mathbb R^3\text{,}\)</span> and there is simply a lot more room to move around in three dimensions than in two dimensions. The origin is still an equilibrium solution for a system of linear differential equations in three variables. The origin is a <dfn class="terminology">stable</dfn> equilibrium solution if any solution <span class="process-math">\(\mathbf x(t)\)</span> approaches <span class="process-math">\(\mathbf 0 = (0, 0, 0)\)</span> as <span class="process-math">\(t \to \infty\text{;}\)</span> otherwise, <span class="process-math">\(\mathbf 0\)</span> is an <dfn class="terminology">unstable</dfn> equilibrium solution. In the case of planar systems, an unstable solution is a nodal saddle, a nodal source, a spiral source, or a source with a single unstable line. In the case of <span class="process-math">\(\mathbb R^3\text{,}\)</span> we could have a <dfn class="terminology">stable line</dfn> of solutions and an <dfn class="terminology">unstable plane</dfn> of solutions. In this case, all solutions of the system with initial condition lying on the stable line would approach the origin as <span class="process-math">\(t \to \infty\text{,}\)</span> but all solutions with initial conditions that are a nonzero point on the unstable plane would move away from the origin.</p>
+<article class="example example-like" id="example-56"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-56"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.8.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-56"><article class="example example-like"><p id="p-1333">In <a href="" class="xref" data-knowl="./knowl/linear08-example-saddle.html" title="Example 3.8.2">Example 3.8.2</a>, we had solutions</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-example-saddle.html ./knowl/linear08-figure-saddle-r3.html">
+\begin{equation*}
+\mathbf x_1(t) = e^{2t} \begin{pmatrix}  2 \\ -3 \\ 5 \end{pmatrix}, 
+\mathbf x_2(t) = e^{t} \begin{pmatrix}  5 \\ -7 \\ 13 \end{pmatrix}, \quad \text{and} \quad
+\mathbf x_3(t) = e^{-t} \begin{pmatrix}  1 \\ -1 \\ 2 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The straight line through the origin and the point <span class="process-math">\((1, -1, 2)\)</span> is a stable line. That is, for any initial condition <span class="process-math">\({\mathbf x}(0) = (x_0, y_0, z_0)\)</span> lying on this line, our solution will tend toward the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> On the other hand, the plane spanned by <span class="process-math">\((2, -3, 5)\)</span> and <span class="process-math">\((5, -7, 13)\)</span> is unstable plane. Solutions on this plane move away from the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> Of course, <span class="process-math">\((0, 0, 0)\)</span> is an equlibrium solution for our system. We say that the origin is a <dfn class="terminology">saddle</dfn> in this example (<a href="" class="xref" data-knowl="./knowl/linear08-figure-saddle-r3.html" title="Figure 3.8.5">Figure 3.8.5</a>).</p>
+<figure class="figure figure-like" id="linear08-figure-saddle-r3"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="generated/latex-image/linear08-saddle-r3.svg" role="img" class="contained" alt="a stable line and an unstable plane in three dimensions with a transformation to another unstable plane and stable line"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.8.5<span class="period">.</span></span><span class="space"> </span>A saddle in <span class="process-math">\({\mathbb R}^3\)</span></figcaption></figure></article></div>
+<article class="example example-like" id="example-57"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-57"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.8.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-57"><article class="example example-like"><p id="p-1334">For the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-center-r3.html">
+\begin{equation*}
+{\mathbf x}'
+=
+\begin{pmatrix}
+0 &amp; 1 &amp; 0 \\
+-1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; -1
+\end{pmatrix}
+{\mathbf x}
+\end{equation*}
+</div>
+<p class="continuation">we have a very different type of unstable equilibrium solution. The eigenvalues of this matrix are <span class="process-math">\(\lambda = \pm i\)</span> and <span class="process-math">\(\lambda = -1\text{.}\)</span> Thus, a solution satisfying the initial condition <span class="process-math">\({\mathbf x}(0) = (x_0, y_0, z_0)\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-center-r3.html">
+\begin{equation*}
+{\mathbf x}(t)
+=
+x_0
+\begin{pmatrix}
+\cos t \\ - \sin t \\ 0
+\end{pmatrix}
++
+y_0
+\begin{pmatrix}
+\sin t \\ \cos t \\ 0
+\end{pmatrix}
++ z_0
+e^{-t}
+\begin{pmatrix}
+0 \\ 0 \\ 1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(z_0 = 0\text{,}\)</span> then our initial condition is in the <span class="process-math">\(xy\)</span>-plane and all of the solutions lie on circles centered at the origin. On the other hand, if <span class="process-math">\(x_0 = 0\)</span> and <span class="process-math">\(y_0 = 0\text{,}\)</span>  we have a stable line of solutions lying along the <span class="process-math">\(z\)</span>-axis. In fact, each solution that does not lie on the stable line lies on a cylinder in <span class="process-math">\({\mathbb R}^3\)</span> given by <span class="process-math">\(x^2 + y^2 = r^2\)</span> for some constant <span class="process-math">\(r \gt 0\text{.}\)</span> These solutions spiral towards the circular solution of radius <span class="process-math">\(r\)</span> in the <span class="process-math">\(xy\)</span>-plane if <span class="process-math">\(z_0 \neq 0\)</span> (<a href="" class="xref" data-knowl="./knowl/linear08-figure-spiral-center-r3.html" title="Figure 3.8.7">Figure 3.8.7</a>).</p>
+<figure class="figure figure-like" id="linear08-figure-spiral-center-r3"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><div class="asymptote-box" style="padding-top: 101.005025125628%"><iframe src="generated/asymptote/linear08-spiral-center-r3.html" class="asymptote"></iframe></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.8.7<span class="period">.</span></span><span class="space"> </span>A spiral center in <span class="process-math">\({\mathbb R}^3\)</span></figcaption></figure></article></div>
+<article class="example example-like" id="linear08-example-spiral-saddle-r3"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-linear08-example-spiral-saddle-r3"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.8.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear08-example-spiral-saddle-r3"><article class="example example-like"><p id="p-1335">For an example of a stable plane and an unstable line, let us consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-saddle-r3.html">
+\begin{equation*}
+{\mathbf x}'
+=
+\begin{pmatrix}
+-1 &amp; 1 &amp; 0 \\
+-1 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+{\mathbf x}
+=
+A {\mathbf x}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic equation of the matrix <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-saddle-r3.html">
+\begin{equation*}
+\lambda^3 + \lambda^2 - 2 = (\lambda - 1)(\lambda^2 + 2\lambda + 2) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Thus, the eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda = 1\)</span> and <span class="process-math">\(\lambda = -1 \pm i\text{.}\)</span> Solving</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-saddle-r3.html">
+\begin{equation*}
+[A - (-1 + i) ]{\mathbf x} = {\mathbf 0}
+\end{equation*}
+</div>
+<p class="continuation">gives us an eigenvector <span class="process-math">\((1, i, 0)\)</span> for <span class="process-math">\(\lambda = -1 + i\text{.}\)</span> Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-saddle-r3.html">
+\begin{equation*}
+\begin{pmatrix}
+1 \\ i \\ 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \\ 0 \\ 0
+\end{pmatrix}
++
+i \begin{pmatrix}
+0 \\ 1 \\ 0
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we will let <span class="process-math">\({\mathbf v}_1 = (1, 0, 0)\)</span> and <span class="process-math">\({\mathbf v}_2 = (0, 1, 0)\text{.}\)</span> Since <span class="process-math">\({\mathbf v}_3 = (0, 0, 1)\)</span> is an eigenvector for <span class="process-math">\(\lambda = 1\text{,}\)</span> our system has solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-spiral-saddle-r3.html">
+\begin{equation*}
+{\mathbf x}(t)
+=
+x_0 e^{-t}
+\begin{pmatrix}
+\cos t \\ - \sin t \\ 0
+\end{pmatrix}
++
+y_0 e^{-t}
+\begin{pmatrix}
+\sin t \\ \cos t \\ 0
+\end{pmatrix}
++
+z_0 e^t
+\begin{pmatrix}
+0 \\ 0 \\ 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\mathbf x(0) = (x_0, y_0, z_0)\text{.}\)</span> If <span class="process-math">\(z_0 = 0\text{,}\)</span> our initial condition lies in the <span class="process-math">\(xy\)</span>-plane and solution curves spiral in towards the origin. Thus, we have a stable plane. On the other hand, if <span class="process-math">\(x_0 = 0\)</span> and <span class="process-math">\(y_0 = 0\)</span> but <span class="process-math">\(z_0 \neq 0\text{,}\)</span> then our solution approaches <span class="process-math">\(\pm \infty\)</span> as <span class="process-math">\(t \to \infty\text{.}\)</span> In this case, the <span class="process-math">\(z\)</span>-axis is an unstable line (<a href="" class="xref" data-knowl="./knowl/linear08-figure-spiral-saddle-r3.html" title="Figure 3.8.9">Figure 3.8.9</a>).</p>
+<figure class="figure figure-like" id="linear08-figure-spiral-saddle-r3"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><div class="asymptote-box" style="padding-top: 78.5992217898833%"><iframe src="generated/asymptote/linear08-spiral-saddle-r3.html" class="asymptote"></iframe></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.8.9<span class="period">.</span></span><span class="space"> </span>A spiral saddle in <span class="process-math">\({\mathbb R}^3\)</span></figcaption></figure></article></div>
+<p id="p-1336">For an example of a stable equilibrium solution at the origin, consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-figure-sink-r3.html">
+\begin{equation*}
+{\mathbf x}' 
+=
+\begin{pmatrix}
+\lambda_1 &amp; 0 &amp; 0 \\
+0 &amp; \lambda_2 &amp; 0 \\
+0 &amp; 0 &amp; \lambda_3
+\end{pmatrix}
+{\mathbf x},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\lambda_3 \lt \lambda_2 \lt \lambda_1 \lt 0\text{.}\)</span> For an initial condition <span class="process-math">\((x_0, y_0, z_0)\)</span> with at least one coordinate nonzero, the corresponding solution tends towards the origin tangentially to the <span class="process-math">\(x\)</span>-axis as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/linear08-figure-sink-r3.html" title="Figure 3.8.10">Figure 3.8.10</a>).</p>
+<figure class="figure figure-like" id="linear08-figure-sink-r3"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><div class="asymptote-box" style="padding-top: 88.5964912280702%"><iframe src="generated/asymptote/linear08-sink-r3.html" class="asymptote"></iframe></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.8.10<span class="period">.</span></span><span class="space"> </span>A sink in <span class="process-math">\({\mathbb R}^3\)</span></figcaption></figure><p id="p-1337">Changing the system that in Example<a href="" class="xref" data-knowl="./knowl/linear08-example-spiral-saddle-r3.html" title="Example 3.8.8">Example 3.8.8</a> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-example-spiral-saddle-r3.html">
+\begin{equation*}
+{\mathbf x}'
+=
+\begin{pmatrix}
+-1 &amp; 1 &amp; 0 \\
+-1 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; -1
+\end{pmatrix}
+{\mathbf x},
+\end{equation*}
+</div>
+<p class="continuation">we obtain the solution satisfying the initial condition <span class="process-math">\({\mathbf x}(0) = (x_0, y_0, z_0)\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear08-example-spiral-saddle-r3.html">
+\begin{equation*}
+{\mathbf x}(t)
+=
+x_0 e^{-t}
+\begin{pmatrix}
+\cos t \\ - \sin t \\ 0
+\end{pmatrix}
++
+y_0 e^{-t}
+\begin{pmatrix}
+\sin t \\ \cos t \\ 0
+\end{pmatrix}
++
+z_0 e^{-t}
+\begin{pmatrix}
+0 \\ 0 \\ 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\mathbf x(0) = (x_0, y_0, z_0)\text{.}\)</span> In this case, all solutions will approach the origin as <span class="process-math">\(t \to \infty\text{.}\)</span></p></section><section class="subsection" id="linear08-subsection-double-spring-mass"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span>
+</h3>
+<p id="p-1338">Let us return to our spring-mass system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+-2k/m_1 &amp; k/m_1 &amp; 0 &amp; 0 \\
+k / m_2 &amp; - 2k/m_2 &amp; 0 &amp; 0
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">To keep matters simple, we will assume that <span class="process-math">\(m_1 = m_2 = k = 1\text{.}\)</span> Thus, our matrix now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+-2 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; - 2 &amp; 0 &amp; 0
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\det(A - \lambda I) = \lambda^4 + 4\lambda^2 + 3 = (\lambda^2 + 1)(\lambda^2 + 3).
+\end{equation*}
+</div>
+<p class="continuation">Thus, the eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda = \pm i\)</span> and <span class="process-math">\(\lambda = \pm i \sqrt{3}\text{.}\)</span> We can find eigenvectors</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf v}_1
+=
+\begin{pmatrix}
+i / \sqrt{3} \\ - i / \sqrt{3} \\ -1 \\ 1
+\end{pmatrix},
+{\mathbf v}_2
+=
+\begin{pmatrix}
+-i / \sqrt{3} \\  i / \sqrt{3} \\ -1 \\ 1
+\end{pmatrix},
+{\mathbf v}_3
+=
+\begin{pmatrix}
+-i \\ - i \\ 1 \\ 1
+\end{pmatrix},
+{\mathbf v}_4
+=
+\begin{pmatrix}
+i \\ i \\ 1 \\ 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">corresponding to the eigenvalues <span class="process-math">\(\lambda_1 =  i \sqrt{3}\text{,}\)</span> <span class="process-math">\(\lambda_2 = - i \sqrt{3}\text{,}\)</span> <span class="process-math">\(\lambda_3 = i\text{,}\)</span> <span class="process-math">\(\lambda_4 = - i\text{,}\)</span> respectively. Consequently, the general solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1 e^{ i \sqrt{3} t} {\mathbf v}_1 +
+c_1 e^{ -i \sqrt{3} t} {\mathbf v}_2 +
+c_1 e^{ i  t} {\mathbf v}_3 +
+c_1 e^{ -i  t} {\mathbf v}_4;
+\end{equation*}
+</div>
+<p class="continuation">however, this form of the solution is not very useful. By examining real and imaginary parts of <span class="process-math">\(e^{ i \sqrt{3} t} {\mathbf v}_1\)</span> and <span class="process-math">\(c_1 e^{ i  t} {\mathbf v}_3\text{,}\)</span> we can rewrite the solution as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1
+\begin{pmatrix}
+\cos \sqrt{3} t \\ - \cos \sqrt{3}t \\ - \sqrt{3} \sin \sqrt{3}t \\ \sqrt{3} \sin \sqrt{3}t
+\end{pmatrix}
++
+c_2
+\begin{pmatrix}
+- \sin \sqrt{3} t \\  \sin \sqrt{3}t \\ -\sqrt{3} \cos \sqrt{3} t \\ \sqrt{3} \cos \sqrt{3} t
+\end{pmatrix}
++
+c_3
+\begin{pmatrix}
+\cos  t \\  \cos t \\ -\sin t \\ - \sin t
+\end{pmatrix}
++
+c_4
+\begin{pmatrix}
+\sin t \\ \sin t \\ \cos t \\ \cos t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If we have the following initial conditions,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-313">
+\begin{align*}
+x_1(0) &amp; = 0\\
+x_2(0) &amp; = 0\\
+x_1'(0) = x_3(0) &amp; = 2\\
+x_2'(0) = x_4(0) &amp; = 2,
+\end{align*}
+</div>
+<p class="continuation">we can determine <span class="process-math">\(c_1 = c_2 = c_3 = 0\)</span> and <span class="process-math">\(c_4 = 2\text{.}\)</span> Thus, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \begin{pmatrix} 2 \sin t \\ 2 \sin t \\ 2 \cos t \\ 2 \cos t \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">and the two masses will oscillate with a frequency of one and an amplitude of two. We leave the details as an exercise.</p></section><section class="subsection" id="linear08-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1339" class="disc">
+<li id="li-361">
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-314">
+\begin{align*}
+x_1' &amp; = a_{11} x_1 + \cdots a_{1n} x_n\\
+x_2' &amp; = a_{21} x_1 + \cdots a_{2n} x_n\\
+&amp; \vdots\\
+x_n' &amp; = a_{n1} x_1 + \cdots a_{nn} x_n
+\end{align*}
+</div>
+<p class="continuation">can be written in matrix form <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn} 
+\end{pmatrix}
+\qquad\text{and}\qquad
+{\mathbf x}
+=
+\begin{pmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{pmatrix}.
+\end{equation*}
+</div>
+</li>
+<li id="li-362"><p id="p-1341">As in the case of <span class="process-math">\({\mathbb R}^2\text{,}\)</span> we can solve the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> by finding eigenvalues and eigenvectors for <span class="process-math">\(A\text{.}\)</span></p></li>
+<li id="li-363">
+<p id="p-1342">The Principle of Superposition holds for higher-order systems. If <span class="process-math">\({\mathbf x}_1(t)\)</span> and <span class="process-math">\({\mathbf x}_2(t)\)</span> are solutions for <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)
+\end{equation*}
+</div>
+<p class="continuation">is a solution for the system.</p>
+</li>
+<li id="li-364"><p id="p-1343">The geometry for a system in <span class="process-math">\({\mathbb R}^3\)</span> is more complicated than the planar case.  However, the solutions are usually characterized by stable lines or stable planes.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-linear08"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear08-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1344">Is it possible for a <span class="process-math">\(3 \times 3\)</span> to have a line of stable solutions and a plane of unstable solutions? Explain.</p></article></section><section class="exercises" id="linear08-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.8.6</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-295"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1345">Solve the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-315">
+\begin{align*}
+x' &amp; = -5x + 15y - 4z\\
+y' &amp; = -x + 5y - z\\
+z' &amp; =4 x -6y + 3z\\
+x(0) &amp; = -1\\
+y(0) &amp; = 2\\
+z(0) &amp; = 0
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-296"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1346">Find the general solution of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-316">
+\begin{align*}
+x_1' &amp; = 6x_1 + 9x_2 + x_3 + 4 x_4\\
+x_2' &amp; = -x_1 + x_2 + x_3\\
+x_3' &amp; = 3x_1 + 8x_2 + 4x_3 + 4 x_4\\
+x_4' &amp; = -3x_1 - 8x_2 -7 x_3 - 5 x_4
+\end{align*}
+</div></article></section></section></div></main>
+</div>
+</body>
+</html>

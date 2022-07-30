@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:28+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Geometric and Quantitative Analysis</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook02.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook04.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook02.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook04.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="active">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="firstlook03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span>
+</h2>
+<article class="objectives goal-like" id="objectives-3"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-59"><p id="p-220">To understand that <dfn class="terminology">direction fields</dfn> are a useful way of analyzing a differential equation from a geometric point of view, especially since not all differential equations can be solved analytically.</p></li>
+<li id="li-60"><p id="p-221">To understand that an <dfn class="terminology">autonomous equation</dfn> is a differential equation of the form <span class="process-math">\(y' = f(y)\)</span> and that phase lines can be used to analyze autonomous differential equations.</p></li>
+<li id="li-61"><p id="p-222">To understand <dfn class="terminology">equilibrium solutions</dfn> to a differential equation <span class="process-math">\(y' = f(y)\text{.}\)</span> are those solutions given by <span class="process-math">\(f(y) = 0\)</span> for all <span class="process-math">\(y\text{.}\)</span>  In particular, an equilibrium solution is either a <dfn class="terminology">sink</dfn>, <dfn class="terminology">source</dfn>, or <dfn class="terminology">node</dfn>.</p></li>
+</ul></article><section class="introduction" id="introduction-15"><p id="p-223">If we view the differential equation <span class="process-math">\(y' = f(t,y)\)</span> as a formula for the slope of a tangent line to a solution curve, we can approximate the graph of a solution curve.  For example, if we consider the equation <span class="process-math">\(y' = t + y\text{,}\)</span> then a solution curve will have a slope of <span class="process-math">\(2\)</span> at the point <span class="process-math">\((1, 1)\text{.}\)</span> We can use this information to obtain a geometric description of the solutions to the equation.</p></section><section class="subsection" id="firstlook03-subsection-rc-circuits"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span>
+</h3>
+<p id="p-224">Suppose that we wish to analyze how an electric current flows through a circuit. An <dfn class="terminology">RC circuit</dfn> is a very simple circuit might contain a voltage source, a capacitor, and a resistor (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-rc-circuit.html" title="Figure 1.3.1">Figure 1.3.1</a>). A battery or generator is an example of a voltage source. The glowing red heating element in a toaster or an electric stove is an example of something that provides resistance in a circuit. A capacitor stores an electrical charge and can be made by separating two metal plates with an insulating material. Capacitors are used to power the electronic flashes for cameras. Current, <span class="process-math">\(I(t)\text{,}\)</span> is the rate at which a charge flows through this circuit and is measured in amperes or amps (A). We assign a direction to the current. A current flowing in the opposite direction will be given negative values.</p>
+<figure class="figure figure-like" id="firstlook03-figure-rc-circuit"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/latex-image/firstlook03-rc-circuit.svg" role="img" class="contained" alt="an electrical circuit containing a voltage source and  a resistor and a capacitor"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.1<span class="period">.</span></span><span class="space"> </span>An RC circuit</figcaption></figure><p id="p-225">The source voltage, <span class="process-math">\(E(t)\text{,}\)</span> is measured in volts (V). <dfn class="terminology">Kirchhoff's Second Law</dfn> tells us that the impressed voltage in a closed circuit is equal to the sum of the voltage drops in the rest of the circuit. Thus, we need only compute the voltage drop across the resistor, <span class="process-math">\(E_R\text{,}\)</span> and the voltage drop across the capacitor, <span class="process-math">\(E_C\text{.}\)</span> According to Kirchhoff's Law, this is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+E_R + E_C = E.
+\end{equation*}
+</div>
+<p id="p-226">Resistance, <span class="process-math">\(R\text{,}\)</span> to the current is measured in ohms (<span class="process-math">\(\Omega\)</span>). <dfn class="terminology">Ohm's Law</dfn> tells us that the voltage drop across a resistor is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-ohms-law">
+\begin{equation}
+E_R = IR.\tag{1.3.1}
+\end{equation}
+</div>
+<p class="continuation">Finally, capacitance, <span class="process-math">\(C\text{,}\)</span> is measured in farads (F).  <dfn class="terminology">Coulomb's Law</dfn> tells us how current flows across a capacitor,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-coulombs-law">
+\begin{equation}
+I = C \frac{d E_C}{dt}. \tag{1.3.2}
+\end{equation}
+</div>
+<p class="continuation">Thus, if we combine the equations <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-ohms-law.html" title="Equation 1.3.1">(1.3.1)</a> and <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-coulombs-law.html" title="Equation 1.3.2">(1.3.2)</a>, our equation <span class="process-math">\(E_R + E_C = E\)</span> becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-rc-circuit">
+\begin{equation}
+RC \frac{d E_C}{dt} + E_C = E(t).\tag{1.3.3}
+\end{equation}
+</div>
+<p id="p-227">We will now investigate how our circuit reacts under different voltage sources. For example, we might have a zero voltage source (the capacitor could still hold a charge). We could also have a constant nonzero source of voltage such as a battery or a fluctuating source of voltage such as a generator. We might even have a series of pulses of voltage where the current is periodically turned on and off. We would like to be able to understand the solutions to the equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-rc-circuit.html" title="Equation 1.3.3">(1.3.3)</a> for different voltage sources <span class="process-math">\(E(t)\text{.}\)</span> If we view the differential equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-rc-circuit.html" title="Equation 1.3.3">(1.3.3)</a> as an expression for computing how fast current is flowing across the capacitor, we can analyze our circuit from a geometric point of view and can actually say a great deal about circuits without solving a differential equation.</p></section><section class="subsection" id="firstlook03-subsection-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span>
+</h3>
+<p id="p-228">Any differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt} = f(t, y)
+\end{equation*}
+</div>
+<p class="continuation">can be viewed as a formula for the slope of a function <span class="process-math">\(y = y(t)\text{.}\)</span> Geometrically, the equation tells us that, at any point <span class="process-math">\((t_0, y_0)\text{,}\)</span> the slope of a solution curve is given by <span class="process-math">\(f(t_0, y_0)\text{.}\)</span> Suppose that our differential equation is defined on the rectangle <span class="process-math">\(R = [a, b] \times [c, d]\text{,}\)</span> and let <span class="process-math">\(y(t)\)</span> be a solution curve for <span class="process-math">\(y' = f(t, y)\)</span> that passes through the point <span class="process-math">\((t_0, y_0)\text{.}\)</span>  Then the differential equation tells us the slope of this solution curve at <span class="process-math">\((t_0, y_0)\text{.}\)</span> We can indicate this on the <span class="process-math">\((t, y)\)</span>-plane by drawing a short line segment at the point <span class="process-math">\((t, y)\)</span> with slope <span class="process-math">\(f(t_0, y_0)\text{.}\)</span> Thus, we can obtain a <dfn class="terminology">direction field</dfn> or <dfn class="terminology">slope field</dfn> for the differential equation. A solution curve must be tangent to its direction field at every point.</p>
+<p id="p-229">For example, consider the differential equation <span class="process-math">\(y' = y^2/2 - t\text{.}\)</span> The direction field for this equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-direction-field.html" title="Figure 1.3.2">Figure 1.3.2</a> along with several solution curves.</p>
+<figure class="figure figure-like" id="firstlook03-figure-direction-field"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-direction-field.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.2<span class="period">.</span></span><span class="space"> </span>The direction field for <span class="process-math">\(y' = y^2/2 - t\)</span></figcaption></figure><p id="p-230">Although direction fields can be tedious to compute using pencil and paper, we can easily generate direction fields for any differential equation with the use of computer software. Most computer algebra systems, including <em class="emphasis">Sage</em>, have facilities for generating and graphing direction fields. For example, the following <em class="emphasis">Sage</em> cell will generate the direction field for <span class="process-math">\(y' = y^2/2 - t\)</span> using the command <code class="code-inline tex2jax_ignore">plot_slope_field</code>. We will learn how to add solution curves at the end of this section.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-15"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+plot_slope_field(f, (t, -1, 5), (y, -5, 10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+</script></pre>
+<article class="activity project-like" id="activity-6"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.1</span><span class="period">.</span><span class="space"> </span><span class="title">Plotting Direction Fields.</span>
+</h4>
+<div class="introduction" id="introduction-16"><p id="p-231">Plot the direction field and the solution curves for each of the following initial conditions.</p></div>
+<article class="task exercise-like" id="task-22"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-232"><span class="process-math">\(y' = y - 2x\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{.}\)</span></p></article><article class="task exercise-like" id="task-23"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-233"><span class="process-math">\(y' = y(1 + x)\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{.}\)</span></p></article><article class="task exercise-like" id="task-24"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-234"><span class="process-math">\(\dfrac{dx}{dt} + 2tx = x\text{,}\)</span> <span class="process-math">\(x(0) = 5\text{.}\)</span></p></article><article class="task exercise-like" id="task-25"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-235"><span class="process-math">\(\dfrac{dy}{dt} = 2y(1 - y/4)\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 5\text{.}\)</span></p></article><article class="task exercise-like" id="task-26"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-236"><span class="process-math">\(y' = -1 - y^4\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y(0) = -4\text{.}\)</span></p></article><div class="conclusion" id="conclusion-1"><p id="p-237">In each case comment on anything that you notice about the direction field and the solutions.</p></div></article></section><section class="subsection" id="firstlook03-subsection-rc-circuits-revisited"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span>
+</h3>
+<p id="p-238">Now let us return to our RC circuit and consider different functions <span class="process-math">\(E(t)\)</span> for the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-no-current.html">
+\begin{equation*}
+\frac{d E_C}{dt} = \frac{E(t) - E_C}{RC},
+\end{equation*}
+</div>
+<p class="continuation">with <span class="process-math">\(R = 1\)</span> and <span class="process-math">\(C = 1\text{.}\)</span> First suppose that there is no voltage source in the circuit. If we let <span class="process-math">\(E(t) = 0\)</span> for all <span class="process-math">\(t \ge 0\text{,}\)</span> we will get the direction field of given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-no-current.html" title="Figure 1.3.3">Figure 1.3.3</a>. The direction field agrees with our analytic solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-no-current.html">
+\begin{equation*}
+E_C(t) = v_0 e^{-t},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(v_0 = E_C(0)\text{.}\)</span></p>
+<figure class="figure figure-like" id="firstlook03-figure-no-current"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-no-current.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows with the curves approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.3<span class="period">.</span></span><span class="space"> </span>The direction field for no current</figcaption></figure><p id="p-239">If we assume that we have a nonzero constant source of voltage, <span class="process-math">\(E(t) = K\text{,}\)</span> in our circuit such as a battery, then we obtain the separable differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-constant-current.html">
+\begin{equation*}
+\frac{d E_C}{dt} = K - E_C.
+\end{equation*}
+</div>
+<p class="continuation">The direction field for this differential equation for <span class="process-math">\(K = 10\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-constant-current.html" title="Figure 1.3.4">Figure 1.3.4</a>.</p>
+<figure class="figure figure-like" id="firstlook03-figure-constant-current"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-constant-current.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows with the curves approaching two"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.4<span class="period">.</span></span><span class="space"> </span>The direction field for a constant current</figcaption></figure><p id="p-240">If we attach a battery to our circuit at time <span class="process-math">\(t = 0\)</span> and then disconnect the battery at <span class="process-math">\(t = 4\text{,}\)</span> then we obtain a different solution. For example, if</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-single-pulse.html">
+\begin{equation*}
+E(t) =
+\begin{cases}
+10     &amp; 0 \leq t \leq 4, \\
+0     &amp; t \gt 4,
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">we will obtain a different direction field (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-single-pulse.html" title="Figure 1.3.5">Figure 1.3.5</a>).</p>
+<figure class="figure figure-like" id="firstlook03-figure-single-pulse">a direction field of slope arrows and three curves following the arrows with the curves approaching ten and then to zero once the time is four<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-single-pulse-current.svg" role="img" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.5<span class="period">.</span></span><span class="space"> </span>The direction field for a single pulse</figcaption></figure><p id="p-241">If our voltage source emits a series of pulses, say</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-series-pulses.html">
+\begin{equation*}
+E(t) =
+\begin{cases}
+10 &amp; 0 \leq t \lt 4, \\
+0 &amp; 4 \leq t \lt 8, \\
+10 &amp; 8 \leq t \lt 12, \\
+&amp; \vdots
+\end{cases}
+\end{equation*}
+</div>
+<p class="continuation">then the direction field for our differential equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-series-pulses.html" title="Figure 1.3.6">Figure 1.3.6</a>.</p>
+<figure class="figure figure-like" id="firstlook03-figure-series-pulses"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-series-pulses.svg" role="img" class="contained" alt="a direction field of slope arrows and a curve following the arrows with the curve decreasing to ten and then to zero and then increasing to ten and then decreasing"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.6<span class="period">.</span></span><span class="space"> </span>The direction field for a series of pulses</figcaption></figure><p id="p-242">Finally, if we use a generator for a voltage source, the voltage source might be given by a function such as <span class="process-math">\(E(t) = \sin(\pi t /2)\text{.}\)</span> The direction field for this circuit is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-oscillating-voltage.html" title="Figure 1.3.7">Figure 1.3.7</a>.</p>
+<figure class="figure figure-like" id="firstlook03-figure-oscillating-voltage"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-oscillating-voltage.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows and eventually converging to the same oscillating curve"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.7<span class="period">.</span></span><span class="space"> </span>The direction field for an oscillating voltage</figcaption></figure></section><section class="subsection" id="firstlook03-subsection-sage-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span>
+</h3>
+<p id="p-243">The Sage interact below will help you plot direction fields for a given initial value problem. A Sage interact is a menu driven Sage applet. All of the Sage code is “under the hood.” You can then change each field in the cell output to solve a particular initial value problem.</p>
+<figure class="figure figure-like" id="firstlook03-figure-interactive-direction-fields"><iframe id="firstlook03-interactive-direction-fields" width="600" height="900" src="firstlook03-interactive-direction-fields-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.8<span class="period">.</span></span><span class="space"> </span>A Sage applet for plotting direction fields</figcaption></figure><p id="p-244">Of course, it is quite easy to give the interact an initial value problem that yield unitelligible results.</p></section><section class="subsection" id="firstlook03-subsection-autonomous-equations"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span>
+</h3>
+<p id="p-245">An <dfn class="terminology">autonomous differential equation</dfn> is one of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(x).
+\end{equation*}
+</div>
+<p class="continuation">In other words, a differential equation is autonomous if the variable <span class="process-math">\(t\)</span> does not appear on the righthand side of the equation. Since an autonomous differential equation <span class="process-math">\(dx/dt = f(x)\)</span> only depends on the variable <span class="process-math">\(x\text{,}\)</span> its direction field is particularly easy to graph. The slope only depends on <span class="process-math">\(x\)</span> and is the same for all values of <span class="process-math">\(t\text{.}\)</span></p>
+<article class="example example-like" id="firstlook03-example-harvesting"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-firstlook03-example-harvesting"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.3.9</span><span class="period">.</span><span class="space"> </span><span class="title">A Logistic Model with Harvesting.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook03-example-harvesting"><article class="example example-like"><p id="p-246">Let us consider a trout pond that has a carrying capacity of 200 fish. Suppose that the trout population can be modeled according to the logistic equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-logistic-direction-field.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right),
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(t\)</span> is the time in years. If we allow the fish to be harvested at a constant rate of 32 per year, our equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-logistic-direction-field.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.
+\end{equation*}
+</div>
+<p class="continuation">The direction field for this equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-logistic-direction-field.html" title="Figure 1.3.10">Figure 1.3.10</a>.</p>
+<figure class="figure figure-like" id="firstlook03-figure-logistic-direction-field"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-logistic-direction-field.svg" role="img" class="contained" alt="a direction field of slope arrows with two  curves approaching 160 and one curve aproaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.10<span class="period">.</span></span><span class="space"> </span>Logistic growth with harvesting</figcaption></figure><p id="p-247">One of the basic questions that we can ask of our model is whether or not we have a sustainable population in our trout pond given this harvest rate. If so, under what conditions for sustainablility?</p></article></div>
+<p id="p-248">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-phase-line.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32 = -\frac{1}{200}(P - 40)(P - 160)
+\end{equation*}
+</div>
+<p class="continuation">is an autonomous differential equation, the direction field does not depend on <span class="process-math">\(t\text{.}\)</span> Consequently, we need only keep track of what happens on the vertical axis.  We can do this with a <dfn class="terminology">phase line</dfn>.  Instead of drawing the entire direction field, we can draw a single line containing the same information (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line.html" title="Figure 1.3.11">Figure 1.3.11</a>).</p>
+<figure class="figure figure-like" id="firstlook03-figure-phase-line"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="generated/latex-image/firstlook03-phase-line.svg" role="img" class="contained" alt="a vertical line with arrows approaching a sink at 160 and diverging from a source at 40"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.11<span class="period">.</span></span><span class="space"> </span>Phase line diagram</figcaption></figure><p id="p-249">Notice that <span class="process-math">\(dP/dt = 0\)</span> when <span class="process-math">\(P= 40\)</span> or <span class="process-math">\(P = 160\text{.}\)</span> Thus, the two constant solutions <span class="process-math">\(P(t) = 40\)</span> and <span class="process-math">\(P(t) = 160\)</span> are the same for all values of the independent variable <span class="process-math">\(t\text{.}\)</span> We say that such a solution is an <dfn class="terminology">equilibrium solution</dfn>. Equilibrium solutions graph as horizontal lines on the direction field. We can identify equilibrium solutions by setting the derivative of the function equal to zero. On our phase line we will represent these solutions as equilibrium points. For values of <span class="process-math">\(P\)</span> between 40 and 160, we know that <span class="process-math">\(dP/dt \gt 0\text{.}\)</span> Thus, any solution curve must be increasing. We denote this property on the phase line by drawing an upward pointing arrow. On the other hand, we know that <span class="process-math">\(dP/dt \lt 0\)</span> when <span class="process-math">\(P \lt 40\)</span> or <span class="process-math">\(P \gt 160\text{.}\)</span> In this case any solution curve will be decreasing, and we will indicate this by a downward pointing arrow.</p>
+<p id="p-250">Let <span class="process-math">\(y' = f(y)\)</span> and suppose that <span class="process-math">\(y = y_0\)</span> is an equilibrium solution. We say this solution is a <dfn class="terminology">sink</dfn> if for any solution <span class="process-math">\(y(t)\)</span> with initial condition sufficiently close to <span class="process-math">\(y_0\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-phase-line.html">
+\begin{equation*}
+\lim_{t \to \infty} y(t) = y_0.
+\end{equation*}
+</div>
+<p class="continuation">We say that an equilibrium point is a <dfn class="terminology">source</dfn> if all solutions that start sufficiently close to <span class="process-math">\(y_0\)</span> tend toward <span class="process-math">\(y_0\)</span> as <span class="process-math">\(t \to - \infty\text{.}\)</span> An equilibrium solution that is neither a sink or a source is called a <dfn class="terminology">node</dfn> (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line.html" title="Figure 1.3.11">Figure 1.3.11</a>). When <span class="process-math">\(P= 40\text{,}\)</span> we have a source, and when <span class="process-math">\(P = 160\text{,}\)</span> we have a sink.</p>
+<p id="p-251">An equilibrium solution is <dfn class="terminology">stable</dfn> if a small change in the initial conditions gives a solution which tends toward the equilibrium as the independent variable tends towards positive infinity. An equilibrium solution is <dfn class="terminology">unstable</dfn> if a small change in the initial conditions gives a solution which veers away from the equilibrium as the independent variable tends towards positive infinity.</p>
+<p id="p-252">Consider the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-sinks-sources-nodes.html" id="firstlook03-equation-sinks-sources-nodes">
+\begin{equation}
+\frac{dy}{dt} = y^4 - 4y^2 = y^2(y + 2)(y - 2).\tag{1.3.4}
+\end{equation}
+</div>
+<p class="continuation">The graph of <span class="process-math">\(f(y) = y^4 - 4y^2\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-sinks-sources-nodes.html" title="Figure 1.3.12">Figure 1.3.12</a>. If <span class="process-math">\(y = -2\text{,}\)</span> we have a sink.  If <span class="process-math">\(y = 2\text{,}\)</span> we have a source.  Finally, if <span class="process-math">\(y = 0\text{,}\)</span> we have a node.</p>
+<figure class="figure figure-like" id="firstlook03-figure-sinks-sources-nodes"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-sinks-sources-nodes.svg" role="img" class="contained" alt="a fourth degree polynomial curve with two local minimums and one local maximum"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.12<span class="period">.</span></span><span class="space"> </span>Sinks, sources, and nodes</figcaption></figure><p id="p-253">It is easy to generate a phase line diagram for equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-sinks-sources-nodes.html" title="Equation 1.3.4">(1.3.4)</a> from the graph of <span class="process-math">\(f(y) = y^2(y + 2)(y - 2)\)</span> (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-sinks-sources-nodes.html" title="Figure 1.3.12">Figure 1.3.12</a>). If the graph is above the <span class="process-math">\(y\)</span>-axis, then <span class="process-math">\(y\)</span> is increasing. If the graph is below the <span class="process-math">\(y\)</span>-axis, then <span class="process-math">\(y\)</span> is decreasing. Therefore, the phase line is easy to sketch (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line-1.html" title="Figure 1.3.13">Figure 1.3.13</a>).</p>
+<figure class="figure figure-like" id="firstlook03-figure-phase-line-1"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="generated/latex-image/firstlook03-phase-line-1.svg" role="img" class="contained" alt="a vertical line with arrows diverging from a source at two and approaching a sink at negative two with zero being a node"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.13<span class="period">.</span></span><span class="space"> </span>Phase line diagram for <span class="process-math">\(y' = y^2(y + 2)(y - 2)\)</span></figcaption></figure><article class="activity project-like" id="activity-7"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Autonomous Equations and Phase Lines.</span>
+</h4>
+<div class="introduction" id="introduction-17"><p id="p-254">For each of the differential equations below, draw the phase line and classify each equilibrium solution as a sink, a source, or a node.</p></div>
+<article class="task exercise-like" id="task-27"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-255"><span class="process-math">\(y' = y(y - 2)(y + 3)\text{.}\)</span></p></article><article class="task exercise-like" id="task-28"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-256"><span class="process-math">\(y' = y^2(y - 2)(y + 3)\text{.}\)</span></p></article><article class="task exercise-like" id="task-29"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-257"><span class="process-math">\(y' = \cos y\text{.}\)</span></p></article><article class="task exercise-like" id="task-30"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-258"><span class="process-math">\(y' = \cos^2 y\text{.}\)</span></p></article><div class="conclusion" id="conclusion-2"><p id="p-259">In each case comment on anything that you notice about the phase line and the equilibrium solutions.</p></div></article><p id="p-260">One of the reasons why autonomous equations are so important is Taylor's theorem, which tells us that any function <span class="process-math">\(f(x)\)</span> can be approximated near a point <span class="process-math">\(x_0\)</span> by an <span class="process-math">\(n\)</span>th degree polynomial,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x) \approx f(x_0) + f'(x_0)(x - x_0) + \frac{ f''(x_0)}{2!} (x - x_0)^2 + \cdots + \frac{ f^{(n)}(x_0)}{n!} (x - x_0)^n
+\end{equation*}
+</div>
+<p class="continuation">near <span class="process-math">\(x_0\text{.}\)</span>  For example, if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f(x) = \cos(x^2 + \pi)
+\end{equation*}
+</div>
+<p class="continuation">with <span class="process-math">\(x(0) = x_0\text{,}\)</span> then we may approximate this initial value problem near <span class="process-math">\(x_0\)</span> with</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-32">
+\begin{align*}
+\frac{dx}{dt} &amp; =  f(x_0) + f'(x_0)(x - x_0) = \cos(x_0^2 + \pi) + 2 x _0 \sin(x_0^2 + \pi)(x - x_0)\\
+x(0) &amp; = x_0.
+\end{align*}
+</div>
+<p class="continuation">Of course, this strategy might not work very well if <span class="process-math">\(f(x_0) = \cos(x_0^2 + \pi) = 0\)</span> or <span class="process-math">\(f'(x_0) = 2 x _0 \sin(x_0^2 + \pi) = 0\text{.}\)</span></p></section><section class="subsection" id="firstlook03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-261" class="disc">
+<li id="li-62"><p id="p-262">Direction fields and phase lines are a useful way of analyzing a differential equation from a geometric point of view, especially since not all differential equations can be solved analytically.</p></li>
+<li id="li-63"><p id="p-263">An autonomous equation is a differential equation of the form <span class="process-math">\(y' = f(y)\text{.}\)</span>  We can use a phase line to analyze autonomous differential equations.</p></li>
+<li id="li-64"><p id="p-264">Equilibrium solutions to a differential equation <span class="process-math">\(y' = f(y)\)</span> are those solutions given by <span class="process-math">\(f(y) = 0\)</span> for all <span class="process-math">\(y\text{.}\)</span>  In this case, any solution must be constant.  We can classify equilibrium solutions according to whether they are stable or unstable.  In particular, an equilibrium solution is either a sink, source, or node.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-265">Explain why solution curves to a differential equation cannot intersect.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-266">Explain in your own words what an autonomous differential equation is.</p></article></section><section class="exercises" id="firstlook03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.3.8</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="firstlook03-exercises-sketching-direction-fields">
+<h4 class="heading"><span class="title">Plotting direction fields by hand.</span></h4>
+<div class="introduction" id="introduction-18"><p id="p-267">For each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-direction-fields.html" title="Exercise Group 1.3.8.1–6: Plotting direction fields by hand">Exercise Group 1.3.8.1–6</a>, plot the direction field on the integer coordinates <span class="process-math">\((t,x)\)</span> of the rectangle <span class="process-math">\(-2 \lt t \lt 2\)</span> and <span class="process-math">\(-2 \lt x \lt 2\)</span> by drawing a short line of the appropriate slope.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-1"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-268"><span class="process-math">\(x' = x + t\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-2"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-269"><span class="process-math">\(x' = xt\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-3"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-270"><span class="process-math">\(x' = x^2 + t^2\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-4"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-271"><span class="process-math">\(x' = t + \tan(x)\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-5"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-272"><span class="process-math">\(x' = (x + t)/(x^2 + t^2)\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-6"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-273"><span class="process-math">\(x' = x - t + 1\)</span></p></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-w-sage"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-274">Use Sage to plot the direction fields of each differential equation in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-direction-fields.html" title="Exercise Group 1.3.8.1–6: Plotting direction fields by hand">Exercise Group 1.3.8.1–6</a>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-16"><script type="text/x-sage">t, x = var('t, x')
+f(t,x) = x + t
+plot_slope_field(f, (t, -2, 2), (x, -2, 2), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'])
+</script></pre></article><div class="exercisegroup" id="firstlook03-exercises-phaselines">
+<h4 class="heading"><span class="title">Equilibrium solutions and phase lines.</span></h4>
+<div class="introduction" id="introduction-19"><p id="p-275">Find the equilibrium solutions for each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-phaselines.html" title="Exercise Group 1.3.8.8–13: Equilibrium solutions and phase lines">Exercise Group 1.3.8.8–13</a>. Draw the phase line for each equation and classify each equilibrium solution as a sink, a source, or a node.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook03-exercise-phaseline-1"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-276"><span class="process-math">\(y' = 2y - 5\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-2"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-277"><span class="process-math">\(\dfrac{dx}{dt} = (x - 1)(x + 2)\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-3"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-278"><span class="process-math">\(\dfrac{dx}{dt} = (x^2 - 1)(x - 2)\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-4"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-279"><span class="process-math">\(\dfrac{dy}{dx} = \sin 2y\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-5"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-280"><span class="process-math">\(x' = (x^2 + 1)(x - 1)\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-6"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-281"><span class="process-math">\(x' = x^2 + x + 1\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook03-exercises-sketching-solutions">
+<h4 class="heading"><span class="title">Sketching solutions.</span></h4>
+<div class="introduction" id="introduction-20"><p id="p-282">Each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-solutions.html" title="Exercise Group 1.3.8.14–19: Sketching solutions">Exercise Group 1.3.8.14–19</a> has several initial conditions specified. Sketch the solution curves that satisfy the initial conditions.  Sketch your solutions for each equation on the same pair of axes.</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-1"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-283"><span class="process-math">\(y' = 2y - 5\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-2"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-284"><span class="process-math">\(\dfrac{dx}{dt} = (x - 1)(x + 2)\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-3"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-285"><span class="process-math">\(\dfrac{dx}{dt} = (x^2 - 1)(x - 2)\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\text{.}\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-4"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-286"><span class="process-math">\(\dfrac{dy}{dx} = \sin 2y\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-5"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-287"><span class="process-math">\(x' = (x^2 + 1)(x - 1)\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-6"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-288"><span class="process-math">\(x' = x^2 + x + 1\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\text{.}\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook03-exercises-derivative-graphs">
+<h4 class="heading"><span class="title">Phase lines from graphs of the derivative.</span></h4>
+<div class="introduction" id="introduction-21"><p id="p-289">Consider the differential equation <span class="process-math">\(y' = f(y)\text{,}\)</span> where the graph of <span class="process-math">\(f(y)\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-derivative-graphs.html" title="Exercise Group 1.3.8.20–23: Phase lines from graphs of the derivative">Exercise Group 1.3.8.20–23</a>. Draw the phase line for each equation and classify each equilibrium solution as a sink, a source, or a node.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-83"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-1.svg" role="img" class="contained" alt="a parabola opening up and intersecting the horizontal axis at two and minus two"></div></article><article class="exercise exercise-like" id="exercise-84"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-2.svg" role="img" class="contained" alt="a curve that decreases intersecting the horizontal axis at minus three halves then increasing to intersect the horizontal axis at one where it immediately decreases and finally increases to intersect the horizontal axis at five halves"></div></article><article class="exercise exercise-like" id="exercise-85"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-3.svg" role="img" class="contained" alt="a fourth degree polynomial curve with two local maximums and one local minimum that intersects the horizontal axis at two and minus two"></div></article><article class="exercise exercise-like" id="exercise-86"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5>
+<div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-4.svg" role="img" class="contained" alt="a curve that increases and intersects the horizontal axis at minus two then decreases intersecting the horizontal axis at minus one then increases to one after which it immediately decreases  and then increases to intersect the x axis at five halves"></div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-87"><h4 class="heading"><span class="codenumber">24<span class="period">.</span></span></h4>
+<p id="p-290">What happens if we increase the harvest rate to 100 in <a href="" class="xref" data-knowl="./knowl/firstlook03-example-harvesting.html" title="Example 1.3.9: A Logistic Model with Harvesting">Example 1.3.9</a>? What should be our strategy to maintain a viable population in the trout pond and still permit fishing?</p></article></section><section class="subsection" id="firstlook03-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span>
+</h3>
+<section class="subsubsection" id="firstlook03-subsection-direction-fields-sage"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span> <span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span>
+</h4>
+<p id="p-291">If we wish to plot a direction field for a differential equation, we can use the command <code class="code-inline tex2jax_ignore">plot_slope_field</code>. Let us plot the direction field for the equation <span class="process-math">\(y' = y^2/2 - t\text{.}\)</span></p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-17"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+v
+</script></pre>
+<p id="p-292">There are a few extra commands to specify the size of the arrows in the plot and to label the axes. Try changing or omitting these commands and see what happens.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-18"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+v
+</script></pre>
+<p id="p-293">For more examples and options, see <a class="external" href="http://doc.sagemath.org/html/en/reference/plotting/sage/plot/plot_field.html" target="_blank"><code class="code-inline tex2jax_ignore">doc.sagemath.org/html/en/reference/plotting/sage/plot/plot_field.html</code></a></p></section><section class="subsubsection" id="firstlook03-subsection-desolve_rk4"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span> <span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span>
+</h4>
+<p id="p-294">Now let us find a numerical solution to the equation using the command <code class="code-inline tex2jax_ignore">desolve_rk4</code>. This is a fourth-order Runge-Kutta method, and returns a numerical solution (a table of values). Here, we must supply the dependent variable and initial conditions.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-19"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+p = desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+p
+</script></pre>
+<p id="p-295">Of course, we can combine the two plots.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-20"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'], fontsize=12)
+p += desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+p.show(xmin = -1, xmax = 5, ymin = -5, ymax = 10)  #set the size of the plot window
+</script></pre>
+<p id="p-296">There are many other commands and packages to solve ordinary differential equations using Sage. For more information, see <a class="external" href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html</code></a>. Below is an empty Sage cell, where you can practice.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-21"><script type="text/x-sage">
+</script></pre></section><section class="exercises" id="exercises-5"><h4 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span>
+</h4>
+<article class="exercise exercise-like" id="exercise-88"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-297">Suppose that the population of a trout pond can be accurately modeled by the logistic equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dp}{dt} = 0.4p \left( 1 - \frac{p}{500}\right).
+\end{equation*}
+</div>
+<p class="continuation">At time <span class="process-math">\(t = 30\text{,}\)</span> a disease is introduced into the population that kills 10% of the population per year. To see how the disease affects the fish population, we will change our original model to the following:</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dp}{dt} = 
+\begin{cases}
+0.4p \left(  1 - \dfrac{p}{500}\right) &amp; \text{for } 0 \leq t \lt 30; \\
+0.4p \left(  1 - \dfrac{p}{500}\right) - 0.1p &amp; \text{for } t \gt 30.
+\end{cases}
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-65">Plot the direction field for this equation using <em class="emphasis">Sage</em>. <pre class="ptx-sagecell sagecell-sage" id="sage-22"><script type="text/x-sage">
+</script></pre>
+</li>
+<li id="li-66"><p id="p-298">Plot the graphs of two or three representative solutions to this equation on the direction field.</p></li>
+<li id="li-67"><p id="p-299">Find formulas for the solutions of this equation for initial conditions <span class="process-math">\(p(0) = 30\text{.}\)</span></p></li>
+<li id="li-68"><p id="p-300">Give a qualitative description of how the disease affects the population.</p></li>
+</ol></article></section></section></section></div></main>
+</div>
+</body>
+</html>

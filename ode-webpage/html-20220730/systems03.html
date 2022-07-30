@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Numerical Techniques for Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="systems02.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="systems04.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="systems02.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a class="next-button button toolbar-item" href="systems04.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="active">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="systems03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-10"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-236"><p id="p-785">To understand that many systems of equations cannot be solved analytically but can be solved using numerical techniques such as <dfn class="terminology">Euler's Method</dfn> or <dfn class="terminology">Runge-Kutta methods</dfn> to find approximate solutions for the system.</p></li>
+<li id="li-237"><p id="p-786">To understand that we are guaranteed unique local solutions to any system of first-order differential equations provided certain condtions are met.</p></li>
+<li id="li-238"><p id="p-787">To understand that uniqueness tells us that two distinct solutions cannot start at the same place nor can solutions intersect.</p></li>
+<li id="li-239"><p id="p-788">To understand that solutions do not depend on time in an autonomous system.</p></li>
+</ul></article><section class="introduction" id="introduction-48"><p id="p-789">If we are unable to find an analytic solution to a first-order differential equation <span class="process-math">\(y' = f(t, y)\text{,}\)</span> there is no reason to expect that it will be any easier to solve a system of equations. However, many of the numerical techniques that are used to solve a first-order equation can be extended to solve a system.</p></section><section class="subsection" id="systems03-subsection-duffing"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span>
+</h3>
+<p id="p-790">Large mobile cranes can reach up to 700 feet (<a href="" class="xref" data-knowl="./knowl/systems03-figure-cranes.html" title="Figure 2.3.1">Figure 2.3.1</a>). This is about the same height as a 50 story building. At such heights, cranes are susceptible to winds and the end of the boom can move back and forth several feet even in moderate winds. We can model the motion as a harmonic oscillator if the side-to-side motion is not too great. However, if the wind becomes too strong and the crane moves too much, gravity will become a factor and the crane may topple due to its weight.</p>
+<figure class="figure figure-like" id="systems03-figure-cranes"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/cranes-london.jpg" class="contained" alt="a photo of two construction cranes"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.1<span class="period">.</span></span><span class="space"> </span>Cranes</figcaption></figure><p id="p-791">Before we can construct a model that might best describe the swaying of a large crane, we should remind ourselves of how harmonic oscillators work (see <a href="firstlook01.html" class="internal" title="Section 1.1: Modeling with Differential Equations">Section 1.1</a>). A simple mass-spring system can be modeled by the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html">
+\begin{equation*}
+m \frac{d^2 x}{dt^2} = - kx,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(x = x(t)\)</span> is the displacement of the mass at time <span class="process-math">\(t\text{.}\)</span> Given such a system, the mass will oscillate forever with constant amplitude. If we want to be a bit more realistic, we can introduce a damping force,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html">
+\begin{equation*}
+-b \frac{dx}{dt},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(b \gt 0\text{.}\)</span>  Our equation now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html">
+\begin{equation*}
+m \frac{d^2 x}{dt^2} = - kx - b \frac{dx}{dt}.
+\end{equation*}
+</div>
+<p class="continuation">If we let <span class="process-math">\(p = b/m\)</span> and <span class="process-math">\(q = k/m\text{,}\)</span> we can rewrite this last equation as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html">
+\begin{equation*}
+\frac{d^2 x}{dt^2} + p \frac{dx}{dt} + q x = 0.
+\end{equation*}
+</div>
+<p class="continuation">If we set <span class="process-math">\(v = x'\text{,}\)</span> we can rewrite this second-order equation as a system of first-order equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html" id="md-140">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - qx - pv.
+\end{align*}
+</div>
+<p id="p-792">In the case of our swaying crane, we will let <span class="process-math">\(x = x(t)\)</span> be the displacement of the end of the boom from the perfect vertical position. When <span class="process-math">\(x(t) \neq 0\text{,}\)</span> the boom is bent, and the structure of the boom supplies a strong restorative force to bring everything back to a true vertical position. Thus, the swaying of our crane's boom might be described by an equation such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 x}{dt^2} + 0.1 \frac{dx}{dt} + 0.3 x = 0
+\end{equation*}
+</div>
+<p class="continuation">or the equivalent system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-141">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - 0.3 x - 0.1 v.
+\end{align*}
+</div>
+<p class="continuation">We will learn how to solve such systems later, but it is easy to check that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) =  c_1 e^{-t/20} \cos \left(\frac{\sqrt{119}}{20} t\right) + c_2 e^{-t/20} \sin \left(\frac{\sqrt{119}}{20} t\right)
+\end{equation*}
+</div>
+<p class="continuation">is a solution to our equation. The <em class="emphasis">Sage</em> code for solving this system is given below.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-46"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+b = 0.1
+k = 0.3
+position = desolve(diff(x,t,2)+b*diff(x,t)+ k*x == 0,x)
+velocity = diff(position, t)
+position.show()
+velocity.show()
+</script></pre>
+<p id="p-793">The constants <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> can be determined if we know the initial position and initial velocity of the end of the crane's boom. We show several solutions to our equation in <a href="" class="xref" data-knowl="./knowl/systems03-figure-solutions-crane.html" title="Figure 2.3.2">Figure 2.3.2</a>.</p>
+<figure class="figure figure-like" id="systems03-figure-solutions-crane"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems03-solutions-crane.svg" role="img" class="contained" alt="position and velocity curves with the amplitude of the oscillations decreasing as time increases"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.2<span class="period">.</span></span><span class="space"> </span>Solutions to <span class="process-math">\(x'' + 0.1x' + 0.3 x = 0\)</span></figcaption></figure><p id="p-794">Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <span class="process-math">\(x(t)\)</span> is large, part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane and will cause the crane to bend even further. We can model this effect by setting the equation for our harmonic oscillator equal to a factor of <span class="process-math">\(x^3\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="systems03-equation-duffing">
+\begin{equation}
+\frac{d^2 x}{dt^2}  + 0.1 \frac{dx}{dt} + 0.3 x = 0.02 x^3.\tag{2.3.1}
+\end{equation}
+</div>
+<p class="continuation">When <span class="process-math">\(x\)</span> is small, this forcing term will not contribute much to the motion of the building. However, when <span class="process-math">\(x\)</span> is large, the term will contribute a great deal. The equation <span class="process-math">\(x'' + 0.1 x' + 0.3 x = 0.02 x^3\)</span> is an example of <dfn class="terminology">Duffing's equation</dfn>.</p>
+<p id="p-795">We can rewrite equation <a href="" class="xref" data-knowl="./knowl/systems03-equation-duffing.html" title="Equation 2.3.1">(2.3.1)</a> as a system of first-order differential equations by letting <span class="process-math">\(dx/dt = v\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-equation-duffing.html" id="mdn-8">
+\begin{align}
+\frac{dx}{dt} \amp = v\tag{2.3.2}\\
+\frac{dv}{dt} \amp = - 0.1 v - 0.3 x + 0.02 x^3.\tag{2.3.3}
+\end{align}
+</div>
+<p class="continuation">Thus, one of our main objectives should be finding and analyzing solutions to such a system.</p></section><section class="subsection" id="systems03-subsection-eulers-method"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span>
+</h3>
+<p id="p-796">The system of equations <a href="" class="xref" data-knowl="./knowl/systems03-equation-duffing-system-1.html" title="Equation 2.3.2">(2.3.2)</a>–<a href="" class="xref" data-knowl="./knowl/systems03-equation-duffing-system-2.html" title="Equation 2.3.3">(2.3.3)</a> is nonlinear due the <span class="process-math">\(x^3\)</span> term. There is little hope to finding an analytic solution to such a system. We can use software to plot the phase plane in order to learn something about the solutions (<a href="" class="xref" data-knowl="./knowl/systems03-figure-duffings-equation-phase-plane.html" title="Figure 2.3.3">Figure 2.3.3</a>). However, we still need to numerically generate solutions in order to plot the phase plane.</p>
+<figure class="figure figure-like" id="systems03-figure-duffings-equation-phase-plane"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems03-duffings-equation-phase-plane.svg" role="img" class="contained" alt="three curves on a field of slope arrows with two curves approaching an equilibrium solution at the origin and the remaining curve approaching infinity"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.3<span class="period">.</span></span><span class="space"> </span>The phase plane for Duffing's equation</figcaption></figure><p id="p-797">Let us see how we might find a numerical solution for a system. Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-phase-plane.html" id="md-142">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(t, x, y)\\
+\frac{dy}{dt} &amp; = g(t, x, y),
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\(x(t_0) = x_0\)</span> and <span class="process-math">\(y(t_0) = y_0\text{.}\)</span> We can rewrite our system in vector form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-phase-plane.html" id="md-143">
+\begin{align*}
+\frac{d {\mathbf x}}{dt} &amp; = {\mathbf f}(t, {\mathbf x})\\
+{\mathbf x}(t_0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\({\mathbf x} = (x, y)\text{,}\)</span> <span class="process-math">\(d{\mathbf x}/dt = (dx/dt, dy/dt)\text{,}\)</span> <span class="process-math">\({\mathbf f} = (f, g)\text{,}\)</span> and <span class="process-math">\({\mathbf x}_0 = (x_0, y_0)\text{.}\)</span> We wish to find approximate values <span class="process-math">\(x_1, x_2, \ldots, x_n\)</span> and <span class="process-math">\(y_1, y_2, \ldots, y_n\)</span> for the solution <span class="process-math">\(x(t)\)</span> and <span class="process-math">\(y(t)\)</span> at the points</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-phase-plane.html">
+\begin{equation*}
+t_k = t_0 + kh, \qquad k = 1, 2, \ldots, n,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(h\)</span> is the step size. If we let <span class="process-math">\({\mathbf x}_k = (x_k, y_k)\)</span> and <span class="process-math">\({\mathbf f}_k = (f(x_k, y_k ), g(x_k, y_k ))\text{,}\)</span> then Euler's method now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-phase-plane.html">
+\begin{equation*}
+{\mathbf x}_{k + 1} = {\mathbf x}_k + h {\mathbf f}_k
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-phase-plane.html" id="md-144">
+\begin{align*}
+x_{k + 1} &amp; = x_k + h f(t_k, x_k, y_k)\\
+y_{k + 1} &amp; = y_k + h g(t_k, x_k, y_k).
+\end{align*}
+</div>
+<p class="continuation">The initial conditions are used to determine <span class="process-math">\({\mathbf f}_0\text{,}\)</span> which is the tangent vector to the graph of the solution <span class="process-math">\(\mathbf x(t)\)</span> in the <span class="process-math">\(xy\)</span>-plane (<a href="" class="xref" data-knowl="./knowl/systems03-figure-duffings-equation-phase-plane.html" title="Figure 2.3.3">Figure 2.3.3</a>). We can move in the direction of this tangent vector for time <span class="process-math">\(h\)</span> in order to find the next point <span class="process-math">\({\mathbf x}_1\text{.}\)</span> We then calculate a new tangent vector <span class="process-math">\({\mathbf f}_1\)</span> and then move along this new vector for a time step <span class="process-math">\(h\)</span> to find <span class="process-math">\({\mathbf x}_2\text{.}\)</span> We can repeat this technique to generate an approximate solution curve in the phase plane.</p>
+<article class="example example-like" id="example-28"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-28"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.3.4</span><span class="period">.</span><span class="space"> </span><span class="title">Numerical Solutions for Duffing's Equation.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-28"><article class="example example-like"><p id="p-798">We are now in a position to calculate some solutions to Duffing's equation. Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-figure-duffings-equation-solutions-1.html" id="md-145">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - 0.3 x + 0.02x^3 - 0.1 v,
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\((t_0, x_0, v_0) = (0, 0, 1.7652)\text{.}\)</span>  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (<a href="" class="xref" data-knowl="./knowl/systems03-figure-duffings-equation-solutions-1.html" title="Figure 2.3.5">Figure 2.3.5</a>).</p>
+<figure class="figure figure-like" id="systems03-figure-duffings-equation-solutions-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems03-duffings-equation-solutions-1.svg" role="img" class="contained" alt="a position and a velocity curve that both approach zero with smaller and smaller oscillations"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.5<span class="period">.</span></span><span class="space"> </span>Solutions for Duffing's equation with initial conditions <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(v(0) = 1.7652\)</span></figcaption></figure><p id="p-799">The surprising thing about Duffing's equation is that it is extremely sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. If we change the initial velocity to <span class="process-math">\(v(0) = 1.7653\text{,}\)</span> we obtain a very different graph of the solution (<a href="" class="xref" data-knowl="./knowl/systems03-figure-duffings-equation-solutions-1.html" title="Figure 2.3.5">Figure 2.3.5</a> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
+<figure class="figure figure-like" id="systems03-figure-duffings-equation-solutions-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems03-duffings-equation-solutions-2.svg" role="img" class="contained" alt="a position and a velocity curve that both approach positive infinity"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.6<span class="period">.</span></span><span class="space"> </span>Solutions for Duffing's equation with initial conditions <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(v(0) = 1.7653\)</span></figcaption></figure></article></div>
+<article class="example example-like" id="example-29"><a href="" data-knowl="" class="id-ref example-knowl original has-image has-tabular" data-refid="hk-example-29"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.3.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-29"><article class="example example-like"><p id="p-800">Let us consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-table-euler-approximation.html" id="md-146">
+\begin{align*}
+x' &amp; = x - y + t\\
+y' &amp; = -x + y^2 - t^2\\
+x(0) &amp; = 1\\
+y(0) &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Then <span class="process-math">\((x_0, y_0) = (1, 0)\text{.}\)</span>  Letting the step size be <span class="process-math">\(h = 0.1\text{,}\)</span> we obtain and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-table-euler-approximation.html" id="md-147">
+\begin{align*}
+\begin{pmatrix}
+x_1 \\ y_1
+\end{pmatrix}
+&amp; =
+\begin{pmatrix}
+x_0 \\ y_0
+\end{pmatrix}
++ h
+\begin{pmatrix}
+f(t_0, x_0, y_0) \\  g(t_0, x_0, y_0)
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
++
+(0.1)
+\begin{pmatrix}
+1 \\ -1
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+1.1 \\ -0.1
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Similarly,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems03-table-euler-approximation.html" id="md-148">
+\begin{align*}
+\begin{pmatrix}
+x_2 \\ y_2
+\end{pmatrix}
+&amp; =
+\begin{pmatrix}
+x_1 \\ y_1
+\end{pmatrix}
++ h
+\begin{pmatrix}
+f(t_1, x_1, y_1) \\  g(t_1, x_1, y_1)
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+1.1 \\ -0.1
+\end{pmatrix}
++
+(0.1)
+\begin{pmatrix}
+1.3 \\ -1.1
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+1.23 \\ -0.21
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Using this procedure, we can generate a list of values that will approximate the solution to our system (<a href="" class="xref" data-knowl="./knowl/systems03-table-euler-approximation.html" title="Table 2.3.8: Euler's approximation for a system of equations">Table 2.3.8</a>).</p>
+<figure class="table table-like" id="systems03-table-euler-approximation"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">2.3.8<span class="period">.</span></span><span class="space"> </span>Euler's approximation for a system of equations</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(t_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(x_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(hf(t_k, x_k, y_k)\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(y_k\)</span></td>
+<td class="c m b2 r0 l0 t2 lines"><span class="process-math">\(hg(t_k, x_k, y_k)\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.0\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.0000\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.1000\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.0000\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1000\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.1\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.1000\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.1300\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1000\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1100\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(2\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.2\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.2300\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.1640\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.2100\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1226\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(3\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.3\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.3940\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.2027\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.3326\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1373\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(4\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.4\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.5967\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.2467\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.4699\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1536\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(5\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.5\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(1.8433\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.2967\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.6235\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1705\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(6\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.6\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(2.1400\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.3534\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.7940\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.1870\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(7\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.7\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(2.4934\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.4174\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.9809\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.2021\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(8\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.8\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(2.9108\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.4894\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-1.1830\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.2151\)</span></td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(9\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.9\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(3.4002\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(0.5698\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-1.3982\)</span></td>
+<td class="c m b0 r0 l0 t0 lines"><span class="process-math">\(-0.2255\)</span></td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(10\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(1.0\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(3.9701\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(0.6594\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(-1.6237\)</span></td>
+<td class="c m b2 r0 l0 t0 lines"><span class="process-math">\(-0.2334\)</span></td>
+</tr>
+</table></div></figure><p id="p-801">Notice that our system is not autonomous and depends on time. Therefore, we cannot graph the phase plane of this system; however, we can graph a solution curve in three dimensions (<a href="" class="xref" data-knowl="./knowl/systems03-figure-euler.html" title="Figure 2.3.9">Figure 2.3.9</a>).</p>
+<figure class="figure figure-like" id="systems03-figure-euler"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><div class="asymptote-box" style="padding-top: 112.222222222222%"><iframe src="generated/asymptote/figure-euler.html" class="asymptote"></iframe></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.3.9<span class="period">.</span></span><span class="space"> </span>A solution curve for Duffing's equation</figcaption></figure></article></div>
+<article class="activity project-like" id="activity-19"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.3.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving a System Numerically.</span>
+</h4>
+<div class="introduction" id="introduction-49">
+<p id="p-802">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-149">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = y
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(y(0) = 3\text{.}\)</span><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-24" id="fn-24"><sup> 1 </sup></a></p>
+</div>
+<article class="task exercise-like" id="task-101"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-803">Show that <span class="process-math">\({\mathbf x}(t) = (e^{2t}, 3e^t)\)</span> satisfies the initial value problem.</p></article><article class="task exercise-like" id="task-102"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-804">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.5\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></article><article class="task exercise-like" id="task-103"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-805">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.1\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></article><article class="task exercise-like" id="task-104"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-806">Discuss how and why the Euler approximations differ from the real solution.</p></article></article></section><section class="subsection" id="systems03-subsection-taylor-series"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span>
+</h3>
+<p id="p-807">Just as in the case of a single first-order differential equation, we can think of Euler's approximation as the first two terms of the Taylor series expansion,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-150">
+\begin{align*}
+\begin{pmatrix}
+x_{k + 1} \\ y_{k + 1}
+\end{pmatrix}
+&amp; =
+\begin{pmatrix}
+x_{k} \\ y_{k}
+\end{pmatrix}
++ h
+\begin{pmatrix}
+x'_{k} \\ y'_{k}
+\end{pmatrix}
++
+\frac{h^2}{2}
+\begin{pmatrix}
+x''_{k} \\ y''_{k}
+\end{pmatrix}
++ \cdots\\
+&amp; =
+\begin{pmatrix}
+x_{k} \\ y_{k}
+\end{pmatrix}
++ h
+\begin{pmatrix}
+f(t_k, x_k, y_k) \\ g(t_k, x_k, y_k)
+\end{pmatrix}
++
+\frac{h^2}{2}
+\begin{pmatrix}
+x''_{k} \\ y''_{k}
+\end{pmatrix}
++ \cdots.
+\end{align*}
+</div>
+<p class="continuation">To get a more accurate approximation, we can take the first two terms of the Taylor series. In this case, we must compute <span class="process-math">\({\mathbf x}''\text{.}\)</span> If we return to our example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-151">
+\begin{align*}
+x' &amp; = x - y + t\\
+y' &amp; = -x + y^2 - t^2\\
+x(0) &amp; = 1\\
+y(0) &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">we can see how this is done. First, note that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-152">
+\begin{align*}
+{\mathbf x}'' 
+&amp; =
+\begin{pmatrix}
+x''  \\ y''
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+x' -  y' + 1 \\ -x' + 2yy' - 2t
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+(x - y + t) - (-x^2 + y^2 - t^2) \\
+-(x - y + t) + 2y(-x +y^2 - t^2) - 2t
+\end{pmatrix}\\
+&amp; = 
+\begin{pmatrix}
+2x - y - y^2 + t + t^2 \\
+-x + y - 2xy + 2y^3 - 2t^2y - 3t
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Our algorithm now becomes clear,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-153">
+\begin{align*}
+\begin{pmatrix}
+x_{k + 1} \\ y_{k + 1}
+\end{pmatrix}
+&amp; =
+\begin{pmatrix}
+x_{k} \\ y_{k}
+\end{pmatrix}
++ h
+\begin{pmatrix}
+f(t_k, x_k, y_k) \\ g(t_k, x_k, y_k)
+\end{pmatrix}
++
+\frac{h^2}{2}
+\begin{pmatrix}
+x''_{k} \\ y''_{k}
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+x_k + h(x_k - y_k + t_k) + h^2(2x_k - y_k - y_k^2 + t_k + t_k^2)/2 \\
+y_k + h(-x_k + y_k^2 - t_k^2) + h^2(-x_k + y_k - 2x_ky_k + 2y_k^3 - 2t_k^2y_k - 3t_k)/2
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Of course, this algorithm requires us to compute some derivatives.</p></section><section class="subsection" id="systems03-subsection-existence-uniqueness"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span>
+</h3>
+<article class="theorem theorem-like" id="systems03-theorem-existence-uniqueness-systems"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">2.3.10</span><span class="period">.</span>
+</h4>
+<p id="p-808">Let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d {\mathbf x}}{dt} = {\mathbf f}(t, {\mathbf x})
+\end{equation*}
+</div>
+<p class="continuation">be a system of differential equations such that <span class="process-math">\({\mathbf f}\)</span> is continuously differentiable. If <span class="process-math">\({\mathbf x}_0\)</span> is the initial value at time <span class="process-math">\(t_0\text{,}\)</span> there exists a unique solution for the initial value problem on some open interval <span class="process-math">\(t_0 - \epsilon \lt t \lt t_0 + \epsilon\)</span> for some <span class="process-math">\(\epsilon &gt; 0\text{.}\)</span></p></article><p id="p-809">The consequences of the Existence and Uniqueness Theorem are much the same as they were for first-order differential equations.</p>
+<ul class="disc">
+<li id="li-240"><p id="p-810">If we are interested in a certain system of differential equations, it is very nice to know that a unique solution exists.</p></li>
+<li id="li-241"><p id="p-811">Uniqueness tells us that two solutions cannot start at the same place. Geometrically, this implies that solution curves cannot cross.</p></li>
+<li id="li-242"><p id="p-812">If we have an autonomous system <span class="process-math">\({\mathbf x}' = {\mathbf f}({\mathbf x})\text{,}\)</span> our solution does not depend on time. Thus, we obtain the same solution curve if we start at the same point even though we might start at different times.</p></li>
+</ul>
+<p class="continuation">For a proof of existence and uniqueness for systems of differential equations, see <a href="" class="xref" data-knowl="./knowl/hirsch-2004.html" title="Bibliographic Entry 12: Differential Equations, Dynamical Systems, &amp; an Introduction to Chaos">[12]</a>.</p></section><section class="subsection" id="systems03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-813" class="disc">
+<li id="li-243">
+<p id="p-814">A damped harmonic oscillator can be described by the second-order equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 x}{dt^2}  + p \frac{dx}{dt} + q x = 0.
+\end{equation*}
+</div>
+<p class="continuation">We can rewrite this equation as a first-order system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-154">
+\begin{align*}
+\frac{dx}{dt} &amp; = v,\\
+\frac{dv}{dt} &amp; = - qx - pv.
+\end{align*}
+</div>
+</li>
+<li id="li-244">
+<p id="p-815"><em class="emphasis">Duffing's equation</em>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 x}{dt^2}  + p \frac{dx}{dt} + q x = x^3,
+\end{equation*}
+</div>
+<p class="continuation">is an example of a differential equation that is very sensitive to initial conditions.</p>
+</li>
+<li id="li-245">
+<p id="p-816">Many systems of equations cannot be solved analytically. However, we can use numerical techniques such as <em class="emphasis">Euler's Method</em> to find approximate solutions for the system.  Given the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-155">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(t, x, y)\\
+\frac{dy}{dt} &amp; = g(t, x, y),
+\end{align*}
+</div>
+<p class="continuation">with initial condition <span class="process-math">\((x_0, y_0)\)</span> and step size <span class="process-math">\(h\text{,}\)</span> we can approximate a solution to the system by</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-156">
+\begin{align*}
+x_{k+1} &amp; = x_k + f(x_k, y_k) h\\
+y_{k+1} &amp; = y_k + g(x_k, y_k) h.
+\end{align*}
+</div>
+<p class="continuation">We can extend this method to the improved Euler's method, Taylor series methods, or Runge-Kutta methods.</p>
+</li>
+<li id="li-246"><p id="p-817">Provided certain conditions are met, we are guaranteed unique local solutions to any system of first-order differential equations. Some of the following are consequences of existence and uniqueness.</p></li>
+<li id="li-247"><p id="p-818">Uniqueness tells us that two distinct solutions cannot start at the same place. Geometrically, this implies that solution curves cannot cross.</p></li>
+<li id="li-248"><p id="p-819">If we have an autonomous system <span class="process-math">\({\mathbf x}' = {\mathbf f}({\mathbf x})\text{,}\)</span> our solution does not depend on time. Thus, we obtain the same solution curve if we start at the same point even though we might start at different times.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-system03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-system03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-820">What does it mean for a system of equations to be autonomous?</p></article><article class="exercise exercise-like" id="reading-questions-system03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-821">What does it mean for a system of equations to be sensitive to initial conditions?</p></article></section><section class="exercises" id="systems03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">2.3.7</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-163"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-822">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-157">
+\begin{align*}
+x' &amp; = x + 3y\\
+y' &amp; = x - y
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-25" id="fn-25"><sup> 2 </sup></a></p>
+<ol class="lower-alpha">
+<li id="li-249">
+<p id="p-823">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \begin{pmatrix} \frac{3}{4} e^{2t} - \frac{3}{4} e^{-2t} \\ \frac{1}{4} e^{2t} + \frac{3}{4} e^{-2t} \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">satisfies the initial value problem.</p>
+</li>
+<li id="li-250"><p id="p-824">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.5\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-251"><p id="p-825">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.1\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-252"><p id="p-826">Discuss how and why the Euler approximations differ from the real solution.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-164"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-827">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-158">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = -10x - 2y
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-26" id="fn-26"><sup> 3 </sup></a></p>
+<ol class="lower-alpha">
+<li id="li-253">
+<p id="p-828">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \begin{pmatrix} \frac{1}{3} e^{-t} \sin 3t \\  e^{-t} \cos 3t - \frac{1}{3} e^{-t} \sin 3t \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">satisfies the initial value problem.</p>
+</li>
+<li id="li-254"><p id="p-829">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.5\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-255"><p id="p-830">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.1\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-256"><p id="p-831">Discuss how and why the Euler approximations differ from the real solution.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-165"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-832">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-159">
+\begin{align*}
+x' &amp; = -x - y\\
+y' &amp; = x - 3y
+\end{align*}
+</div>
+<p class="continuation">with initial conditions <span class="process-math">\(x(0) = 5\)</span> and <span class="process-math">\(y(0) = 1\text{.}\)</span><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-27" id="fn-27"><sup> 4 </sup></a></p>
+<ol class="lower-alpha">
+<li id="li-257">
+<p id="p-833">Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = e^{-2t} \begin{pmatrix} 5 + 4t \\  1 + 4t \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">satisfies the initial value problem.</p>
+</li>
+<li id="li-258"><p id="p-834">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.5\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-259"><p id="p-835">Use Euler's method with step size <span class="process-math">\(\Delta t = 0.1\)</span> to approximate this solution, and check how close the approximation is to the real solution when <span class="process-math">\(t = 2\text{,}\)</span> <span class="process-math">\(t = 4\text{,}\)</span> and <span class="process-math">\(t = 6\text{.}\)</span></p></li>
+<li id="li-260"><p id="p-836">Discuss how and why the Euler approximations differ from the real solution.</p></li>
+</ol></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-24"><div class="fn">You will find Sage very useful for this exercise</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-25"><div class="fn">You will find Sage very useful for this exercise</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-26"><div class="fn">You will find Sage very useful for this exercise</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-27"><div class="fn">You will find Sage very useful for this exercise</div></div>
+</div></main>
+</div>
+</body>
+</html>

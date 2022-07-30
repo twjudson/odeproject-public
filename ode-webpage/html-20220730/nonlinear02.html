@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:33+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Hamiltonian Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="nonlinear01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="nonlinear03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="nonlinear01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="nonlinear03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="active">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="nonlinear02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-26"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-506">
+<p id="p-1795">To understand that a <dfn class="terminology">Hamiltonian system</dfn> is a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-461">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(H : {\mathbb R}^2 \rightarrow {\mathbb R}^2\)</span> is a smooth function.  In particular, <span class="process-math">\(H\)</span> is called a <dfn class="terminology">Hamiltonian function</dfn> for the system.</p>
+</li>
+<li id="li-507">
+<p id="p-1796">To understand that if</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-462">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>
+<p class="continuation">is a Hamiltonian system, then <span class="process-math">\(H\)</span> is constant along any solution curve. In particular, the solution curves of a Hamiltonian system are the level sets of <span class="process-math">\(H\text{.}\)</span></p>
+</li>
+<li id="li-508"><p id="p-1797">To understand how to compute <span class="process-math">\(H\)</span> for a Hamiltonian system</p></li>
+<li id="li-509"><p id="p-1798">To understand that a Hamiltonian system has no spiral sinks or sources.</p></li>
+</ul></article><section class="introduction" id="introduction-123"><p id="p-1799">An undamped harmonic oscillator, <span class="process-math">\(m y'' + k y = 0\text{,}\)</span> can be written as the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-463">
+\begin{align*}
+y' \amp = v\\
+v' \amp = -\frac{k}{m} y.
+\end{align*}
+</div>
+<p class="continuation">Now suppose that <span class="process-math">\((y(t), v(t))\)</span> is a solution curve in the <span class="process-math">\(yv\)</span>-plane. We will calculate the slope of the solution curve, <span class="process-math">\(dv/dy\text{.}\)</span> Using the fact from calculus that the derivative of an inverse function is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dx} f^{-1}(x) = \frac{1}{f'(x)},
+\end{equation*}
+</div>
+<p class="continuation">we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dv}{dy} = \frac{dv}{dt} \cdot \frac{dt}{dy} = \frac{dv/dt}{dy/dt} = - \frac{ky}{mv}.
+\end{equation*}
+</div>
+<p class="continuation">In general for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-464">
+\begin{align*}
+\frac{dx}{dt} \amp = f(x, y)\\
+\frac{dy}{dt} \amp = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dx}  = \frac{g(x, y)}{f(x, y)}.
+\end{equation*}
+</div>
+<p id="p-1800">Using separation of variables to solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-conservation-of-energy.html ./knowl/nonlinear02-equation-conservation-of-energy.html">
+\begin{equation*}
+\frac{dv}{dy} = - \frac{ky}{mv},
+\end{equation*}
+</div>
+<p class="continuation">we obtain the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-conservation-of-energy.html ./knowl/nonlinear02-equation-conservation-of-energy.html" id="nonlinear02-equation-conservation-of-energy">
+\begin{equation}
+\frac{1}{2} m v^2 + \frac{1}{2} k y^2 = C,\tag{5.2.1}
+\end{equation}
+</div>
+<p class="continuation">where <span class="process-math">\(C\)</span> is a constant. The first term of <a href="" class="xref" data-knowl="./knowl/nonlinear02-equation-conservation-of-energy.html" title="Equation 5.2.1">(5.2.1)</a> is the <dfn class="terminology">kinetic energy function</dfn> of the harmonic oscillator</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-conservation-of-energy.html ./knowl/nonlinear02-equation-conservation-of-energy.html">
+\begin{equation*}
+K = \frac{1}{2} m v^2,
+\end{equation*}
+</div>
+<p class="continuation">while the second term is the <dfn class="terminology">potential energy function</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-conservation-of-energy.html ./knowl/nonlinear02-equation-conservation-of-energy.html">
+\begin{equation*}
+U = \int_0^y k s \, ds = \frac{1}{2} k y^2.
+\end{equation*}
+</div>
+<p class="continuation">For this reason, we call the function</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-conservation-of-energy.html ./knowl/nonlinear02-equation-conservation-of-energy.html">
+\begin{equation*}
+E = K + U = \frac{1}{2} m v^2 + \frac{1}{2} k y^2
+\end{equation*}
+</div>
+<p class="continuation">the <dfn class="terminology">total energy function</dfn> of the harmonic oscillator. Equation <a href="" class="xref" data-knowl="./knowl/nonlinear02-equation-conservation-of-energy.html" title="Equation 5.2.1">(5.2.1)</a> tells us that energy is conserved. That is, the sum of the potential energy and the kinetic energy is constant.</p></section><section class="subsection" id="nonlinear02-subsection-pendulum"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span>
+</h3>
+<p id="p-1801">While pendulums have long been used in clocks to keep time, they have also been used to measure gravity as well as used in early seismometers to measure the effect of earthquakes. One of the more interesting uses of a pendulum has been to measure the rotation of the earth. In 1851, the French physicist, Léon Foucault, used a pendulum (<a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-fouclault.html" title="Figure 5.2.1">Figure 5.2.1</a>) to demonstrate that the earth actually rotated on its axis. The fact that the earth rotates had been known for a long time, but Foucault's experiment gave the first simple proof of this phenomena.</p>
+<figure class="figure figure-like" id="nonlinear02-figure-fouclault"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/nonlinear02-fouclaut.jpg" class="contained" alt="a photo of the Foucault Pendulum Clock at the California Academy of Sciences"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.1<span class="period">.</span></span><span class="space"> </span>Foucault Pendulum Clock—California Academy of Sciences</figcaption></figure><p id="p-1802">Let us consider a pendulum made of a light rod of length <span class="process-math">\(L\)</span> called the <dfn class="terminology">arm</dfn> of the pendulum with a mass <span class="process-math">\(m\)</span> on the end of the rod called the <dfn class="terminology">bob</dfn> (<a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-pendulum-1.html" title="Figure 5.2.2">Figure 5.2.2</a>). We will ignore the mass of the arm in our system. The position of the bob is given by <span class="process-math">\(\theta(t)\text{,}\)</span> which we will measure in a counterclockwise direction.  We will assume that <span class="process-math">\(\theta(0)\)</span> is when the bob is in the vertical position.</p>
+<figure class="figure figure-like" id="nonlinear02-figure-pendulum-1"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="generated/latex-image/nonlinear02-pendulum-1.svg" role="img" class="contained" alt="a diagram of a pendulum with an arm of length L and  displacement of theta and a bob of mass m"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.2<span class="period">.</span></span><span class="space"> </span>The nonlinear pendulum</figcaption></figure><p id="p-1803">There are two forces acting on the pendulum—gravity and friction. The position of the bob at time <span class="process-math">\(t\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html">
+\begin{equation*}
+(L \sin \theta(t), - L \cos \theta(t)),
+\end{equation*}
+</div>
+<p class="continuation">and the velocity of the bob is <span class="process-math">\(L (d \theta / dt)\text{,}\)</span> the length of the velocity vector (<a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-pendulum-2.html" title="Figure 5.2.3">Figure 5.2.3</a>). The component of the acceleration that points along the direction of motion of the bob is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html">
+\begin{equation*}
+L \frac{d^2 \theta}{dt^2}.
+\end{equation*}
+</div>
+<p class="continuation">We can take the force due to friction to be proportional to the velocity,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html">
+\begin{equation*}
+- b L \frac{d \theta}{dt},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(b \geq 0\text{.}\)</span>  Thus, Newton's second law tells us that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html">
+\begin{equation*}
+m L \frac{d^2 \theta}{dt^2} = -b L \frac{d \theta}{dt} - mg \sin \theta
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html">
+\begin{equation*}
+\frac{d^2 \theta}{dt^2} + \frac{b}{m}  \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.
+\end{equation*}
+</div>
+<p class="continuation">As a system, we can model the pendulum as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-pendulum-2.html" id="md-465">
+\begin{align*}
+\frac{d \theta}{dt} \amp = v\\
+\frac{dv}{dt} \amp = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>
+<figure class="figure figure-like" id="nonlinear02-figure-pendulum-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/latex-image/nonlinear02-pendulum-2.svg" role="img" class="contained" alt="a diagram of a pendulum with an arm of length L and  displacement of theta and a bob of mass m and the forces acting on the mass"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.3<span class="period">.</span></span><span class="space"> </span>Forces on the nonlinear pendulum</figcaption></figure><p id="p-1804">If there is no damping for our pendulum, we say that we have an <dfn class="terminology">ideal pendulum</dfn>. In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-466">
+\begin{align*}
+\frac{d \theta}{dt} \amp = v\\
+\frac{dv}{dt} \amp = - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>
+<p class="continuation">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dv}{d \theta} = - \frac{g \sin \theta}{Lv},
+\end{equation*}
+</div>
+<p class="continuation">we know that the energy function for the pendulum is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.
+\end{equation*}
+</div>
+<p class="continuation">Of course, <span class="process-math">\(E(\theta, v)\)</span> is constant on the ideal pendulum.</p></section><section class="subsection" id="nonlinear02-subsection-hamiltonian-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span>
+</h3>
+<p id="p-1805">The ideal pendulum and the undamped harmonic oscillator are examples of Hamiltonian systems. More specifically, a <dfn class="terminology">Hamiltonian system</dfn> is a system of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-467">
+\begin{align*}
+\frac{dx}{dt} \amp = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} \amp = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(H : {\mathbb R}^2 \rightarrow {\mathbb R}\)</span> is a smooth function.</p>
+<article class="example example-like" id="nonlinear02-example-hamilitonian-1"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-nonlinear02-example-hamilitonian-1"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.2.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-nonlinear02-example-hamilitonian-1"><article class="example example-like"><p id="p-1806">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-468">
+\begin{align*}
+\frac{dx}{dt} \amp = -2x - 3y^2\\
+\frac{dy}{dt} \amp = -3x^2 + 2y
+\end{align*}
+</div>
+<p class="continuation">is Hamiltonian since for <span class="process-math">\(H(x, y) = x^3 - 2xy - y^3\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-469">
+\begin{align*}
+\frac{\partial H}{\partial y} \amp = -2x - 3y^2\\
+\frac{\partial H}{\partial x} \amp = -(-3x^2 + 2y).
+\end{align*}
+</div></article></div>
+<article class="example example-like" id="example-89"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-89"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.2.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-89"><article class="example example-like"><p id="p-1807">In the case of the harmonic oscillator and ideal pendulum, <span class="process-math">\(H\)</span> is just the energy function. For the harmonic oscillator, the Hamiltonian function is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+E = K + U = \frac{1}{2} m v^2 + \frac{1}{2} k y^2.
+\end{equation*}
+</div>
+<p class="continuation">In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-470">
+\begin{align*}
+\frac{\partial E}{\partial v} \amp = y' = mv\\
+-\frac{\partial E}{\partial y} \amp = v' = -k y.
+\end{align*}
+</div>
+<p class="continuation">A change of variables (<span class="process-math">\(y = my\)</span>) tells us that this system is equivalent to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-471">
+\begin{align*}
+y' \amp = v\\
+v' \amp = -\frac{k}{m} y.
+\end{align*}
+</div>
+<p id="p-1808">For the ideal pendulum</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-472">
+\begin{align*}
+\frac{\partial E}{\partial v} \amp =\frac{d \theta}{dt} = v\\
+-\frac{\partial E}{\partial \theta} \amp =\frac{dv}{dt} = - \frac{g}{L} \sin \theta,
+\end{align*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.
+\end{equation*}
+</div></article></div>
+<p id="p-1809">The following theorem tells the importance of Hamiltonian systems. That is, the solution curves of the system are simply the level sets of the Hamiltonian function.</p>
+<article class="theorem theorem-like" id="nonlinear02-theorem-hamiltonian-constant"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">5.2.6</span><span class="period">.</span>
+</h4>
+<p id="p-1810">Let</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-473">
+\begin{align*}
+\frac{dx}{dt} \amp = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} \amp = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>
+<p class="continuation">be a Hamiltonian system, where <span class="process-math">\(H : {\mathbb R}^2 \rightarrow {\mathbb R}\text{.}\)</span> Then <span class="process-math">\(H\)</span> is constant along any solution curve.</p></article><article class="hiddenproof" id="proof-16"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-16"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-16"><article class="hiddenproof"><p id="p-1811">Let <span class="process-math">\((x(t), y(t))\)</span> be a solution curve for the system. Using the chain rule</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-474">
+\begin{align*}
+\frac{dH}{dt} \amp = \frac{\partial H}{\partial x} \frac{dx}{dt} + \frac{\partial H}{\partial y} \frac{dy}{dt}\\
+\amp = \frac{\partial H}{\partial x} \left(\frac{\partial H}{\partial y} \right)+ \frac{\partial H}{\partial y} \left(  -\frac{\partial H}{\partial x} \right)\\
+\amp = 0.
+\end{align*}
+</div></article></div>
+<p id="p-1812"><a href="" class="xref" data-knowl="./knowl/nonlinear02-theorem-hamiltonian-constant.html" title="Theorem 5.2.6">Theorem 5.2.6</a> tells us how to draw the solution curves in the phase plane without solving the system. Assuming that the Hamiltonian function <span class="process-math">\(H\)</span> is not constant on any open set in <span class="process-math">\({\mathbb R}^2\text{,}\)</span> we simply need to plot the level curves, <span class="process-math">\(H(x, y) = C\text{.}\)</span> The solutions of the system live on these level sets, and all we need to do is find the direction of the solution curve. However, this is quite easy since we know the vector field of the system.  Furthermore, the equilibrium points of the Hamiltonian system occur at the critical points of <span class="process-math">\(H\)</span> (where the partials of <span class="process-math">\(H\)</span> vanish). For example, we can see the solution curves of</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-theorem-hamiltonian-constant.html ./knowl/nonlinear02-figure-hamiltonian-solutions.html" id="md-475">
+\begin{align*}
+\frac{\partial H}{\partial y} \amp = -2x - 3y^2\\
+\frac{\partial H}{\partial x} \amp = -(-3x^2 + 2y).
+\end{align*}
+</div>
+<p class="continuation">in <a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-hamiltonian-solutions.html" title="Figure 5.2.7">Figure 5.2.7</a>.</p>
+<figure class="figure figure-like" id="nonlinear02-figure-hamiltonian-solutions"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear02-hamiltonian-solutions.svg" role="img" class="contained" alt="solution curves on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.7<span class="period">.</span></span><span class="space"> </span>Solution curves of <span class="process-math">\(x' = x - 3 y^2\)</span> and <span class="process-math">\(y' = -y\)</span></figcaption></figure></section><section class="subsection" id="nonlinear02-subsection-ideal-pendulum"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span>
+</h3>
+<p id="p-1813">The ideal pendulum</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-ideal-pendulum.html ./knowl/nonlinear02-figure-ideal-pendulum.html" id="md-476">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>
+<p class="continuation">is Hamiltonian, since the total energy function</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-ideal-pendulum.html ./knowl/nonlinear02-figure-ideal-pendulum.html" id="nonlinear02-equation-ideal-pendulum">
+\begin{equation}
+H(\theta, v) = E(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta.\tag{5.2.2}
+\end{equation}
+</div>
+<p class="continuation">is the Hamiltonian function for the system. If we set <span class="process-math">\(g/L = 1\text{,}\)</span> then the solution curves of the system are just the level curves of <a href="" class="xref" data-knowl="./knowl/nonlinear02-equation-ideal-pendulum.html" title="Equation 5.2.2">(5.2.2)</a>. In <a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-ideal-pendulum.html" title="Figure 5.2.8">Figure 5.2.8</a>, the closed ellipses correspond to the normal motion of a pendulum, while cosine curves correspond to a pendulum that always rotates in the same direction. The curves that join the equilibrium points correspond to the pendulum that rotates exactly to the top of the arc and then rotates back in the other direction.</p>
+<figure class="figure figure-like" id="nonlinear02-figure-ideal-pendulum"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear02-ideal-pendulum.svg" role="img" class="contained" alt="solution curves on a direction field of slope arrows for the ideal pendulum"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.8<span class="period">.</span></span><span class="space"> </span>The ideal pendulum</figcaption></figure><p id="p-1814">Hamiltonian systems are rather rare. Given a system, we need a test to see if it is indeed Hamiltonian. For the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-477">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">we wish to find a function <span class="process-math">\(H(x, y)\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-478">
+\begin{align*}
+\frac{\partial H}{\partial y} &amp; = f(x, y)\\
+\frac{\partial H}{\partial x} &amp; = -g(x, y).
+\end{align*}
+</div>
+<p class="continuation">If such a function exists, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = \frac{\partial^2 H}{\partial x \partial y} = \frac{\partial^2 H}{\partial y \partial x} = - \frac{\partial g}{\partial y}.
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y},
+\end{equation*}
+</div>
+<p class="continuation">if our system is Hamiltonian.</p>
+<article class="example example-like" id="example-90"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-90"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.2.9</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-90"><article class="example example-like"><p id="p-1815">We already know that the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-479">
+\begin{align*}
+\frac{dx}{dt} \amp = -2x - 3y^2\\
+\frac{dy}{dt} \amp = -3x^2 + 2y
+\end{align*}
+</div>
+<p class="continuation">is Hamiltonian. Indeed,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y} = -2.
+\end{equation*}
+</div></article></div>
+<p id="p-1816">The condition that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y},
+\end{equation*}
+</div>
+<p class="continuation">is also sufficient for</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-480">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">to be a Hamiltonian system. That is, we can construct a Hamiltonian function if <span class="process-math">\(\partial f/ \partial x = - \partial g/ \partial y\text{.}\)</span> If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f(x, y) = \frac{\partial H}{\partial y}(x, y),
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+H(x, y) = \int f(x, y) \, dy + \phi(x).
+\end{equation*}
+</div>
+<p class="continuation">Differentiating <span class="process-math">\(H\)</span> with respect to <span class="process-math">\(x\text{,}\)</span> tells us that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial H}{\partial x}(x, y) = \frac{\partial}{\partial x}  \int f(x, y) \, dy + \phi'(x) = - g(x, y).
+\end{equation*}
+</div>
+<p class="continuation">Now we can determine <span class="process-math">\(\phi(x)\)</span> by solving the first-order differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi'(x) =  - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy.
+\end{equation*}
+</div>
+<p class="continuation">We summarize our results in the following theorem.</p>
+<article class="theorem theorem-like" id="nonlinear02-theorem-finding-hamiltonians"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">5.2.10</span><span class="period">.</span>
+</h4>
+<p id="p-1817">Let</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-finding-hamiltonians.html" id="md-481">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(f\)</span> and <span class="process-math">\(g\)</span> are continuously differentiable.</p>
+<ol class="decimal">
+<li id="li-510"><p id="p-derived-li-510">If the system is Hamiltonian, then<div class="displaymath process-math" data-contains-math-knowls="" id="nonlinear02-equation-finding-hamiltonians">
+\begin{equation}
+\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y}.\tag{5.2.3}
+\end{equation}
+</div></p></li>
+<li id="li-511"><p id="p-derived-li-511">If equation <a href="" class="xref" data-knowl="./knowl/nonlinear02-equation-finding-hamiltonians.html" title="Equation 5.2.3">(5.2.3)</a> is true on a rectangle <span class="process-math">\(R\text{,}\)</span> then the system is Hamiltonian on <span class="process-math">\(R\)</span> and<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-finding-hamiltonians.html">
+\begin{equation*}
+H(x, y) = \int f(x, y) \, dy + \phi(x),
+\end{equation*}
+</div>where<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-equation-finding-hamiltonians.html">
+\begin{equation*}
+\phi'(x) = -\frac{\partial}{\partial x}\left( \int f(x, y) \, dy \right)  - g(x, y).
+\end{equation*}
+</div></p></li>
+</ol></article><article class="example example-like" id="example-91"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-91"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.2.11</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-91"><article class="example example-like"><p id="p-1818">As an example, we will show how we constructed the Hamiltonian function given in <a href="" class="xref" data-knowl="./knowl/nonlinear02-example-hamilitonian-1.html" title="Example 5.2.4">Example 5.2.4</a> for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html" id="md-482">
+\begin{align*}
+\frac{dx}{dt} \amp = -2x - 3y^2\\
+\frac{dy}{dt} \amp = -3x^2 + 2y
+\end{align*}
+</div>
+<p class="continuation">First,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html">
+\begin{equation*}
+H(x, y) = \int f(x, y) \, dy + \phi(x) = \int (-2x - 3y^2) \, dy + \phi(x) = -2xy - y^3 + \phi(x).
+\end{equation*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html" id="md-483">
+\begin{align*}
+\phi'(x) \amp = - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy\\
+\amp = -(-3x^2 + 2y) - \frac{\partial}{\partial x}(-2xy - y^3)\\
+\amp = 3x^2 - 2y + 2y\\
+\amp = 3x^2,
+\end{align*}
+</div>
+<p class="continuation">and <span class="process-math">\(\phi(x) = x^3 + C\text{,}\)</span> where <span class="process-math">\(C\)</span> is any constant. If we choose <span class="process-math">\(C = 0\text{,}\)</span> our Hamiltonian function is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html">
+\begin{equation*}
+H(x, y) = -2xy - y^3 + \phi(x) = -2xy - y^3 + x^3.
+\end{equation*}
+</div></article></div>
+<article class="example example-like" id="nonlinear02-example-finding-hamiltonians"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-nonlinear02-example-finding-hamiltonians"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.2.12</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-nonlinear02-example-finding-hamiltonians"><article class="example example-like"><p id="p-1819">As a second example, suppose</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-finding-hamiltonians.html" id="md-484">
+\begin{align*}
+\frac{dx}{dt} &amp; = -x^2 \cos y \sin x\\
+\frac{dy}{dt} &amp; = x^2 \cos x \sin y + 2x(\sin x \sin y - 1).
+\end{align*}
+</div>
+<p class="continuation">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-finding-hamiltonians.html">
+\begin{equation*}
+\frac{\partial f}{\partial x} = x^2 \cos x \cos y - 2x \cos y \sin x = - \frac{\partial g}{\partial y}
+\end{equation*}
+</div>
+<p class="continuation">our system is Hamiltonian. To find a Hamiltonian, we compute</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-finding-hamiltonians.html">
+\begin{equation*}
+H(x, y) = \int f(x, y) \, dy + \phi(x) = \int (-x^2 \cos y \sin x) \, dy + \phi(x) = -x^2 \sin x \sin y + \phi(x).
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-finding-hamiltonians.html" id="md-485">
+\begin{align*}
+\phi'(x) &amp; = - g(x, y) - \frac{\partial}{\partial x}  \int f(x, y) \, dy\\
+&amp; = -(x^2 \cos x \sin y + 2x(\sin x \sin y - 1))  - ( 2x \sin x \sin y - x^2 \cos x \sin y)\\
+&amp; = 2x,
+\end{align*}
+</div>
+<p class="continuation">and <span class="process-math">\(\phi(x) = x^2 + C\text{.}\)</span> Letting <span class="process-math">\(C = 0\text{,}\)</span> our Hamiltonian function is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-figure-finding-hamiltonians.html">
+\begin{equation*}
+H(x, y) = x^2 - x^2 \sin x \sin y  = x^2(1 - \sin x \sin y).
+\end{equation*}
+</div>
+<p class="continuation">Solution curves for this system are given in <a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-finding-hamiltonians.html" title="Figure 5.2.13">Figure 5.2.13</a>.</p>
+<figure class="figure figure-like" id="nonlinear02-figure-finding-hamiltonians"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear02-finding-hamiltonians.svg" role="img" class="contained" alt="solution curves as level sets on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.2.13<span class="period">.</span></span><span class="space"> </span>Solution curves for <a href="" class="xref" data-knowl="./knowl/nonlinear02-example-finding-hamiltonians.html" title="Example 5.2.12">Example 5.2.12</a></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-40"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Hamiltonian Systems.</span>
+</h4>
+<div class="introduction" id="introduction-124">
+<p id="p-1820">For each of the systems,</p>
+<ol class="decimal">
+<li id="li-512"><p id="p-derived-li-512">Show that the system is Hamiltonian.</p></li>
+<li id="li-513"><p id="p-derived-li-513">Find a Hamiltonian function <span class="process-math">\(H(x, y)\)</span> for the system.</p></li>
+<li id="li-514"><p id="p-derived-li-514">Plot the level sets of <span class="process-math">\(H(x, y)\text{.}\)</span></p></li>
+<li id="li-515"><p id="p-derived-li-515">Plot the phase portrait of the system, describing any equilibrium solutions.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-43" id="fn-43"><sup> 1 </sup></a></p></li>
+</ol>
+</div>
+<article class="task exercise-like" id="task-222"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-486">
+\begin{align*}
+\frac{dx}{dt} &amp; = -e^x \sin y\\
+\frac{dy}{dt} &amp; = -e^x \cos y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-223"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-487">
+\begin{align*}
+\frac{dx}{dt} &amp; = x^2 \cos x \sin y\\
+\frac{dy}{dt} &amp; = -x^2 \cos y \sin x + 2x(\cos x \cos y - 1)
+\end{align*}
+</div></article></article></section><section class="subsection" id="nonlinear02-subsection-equilibrium-solutions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span>
+</h3>
+<p id="p-1823">The system that we studied in <a href="" class="xref" data-knowl="./knowl/nonlinear02-example-hamilitonian-1.html" title="Example 5.2.4">Example 5.2.4</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html ./knowl/nonlinear02-figure-hamiltonian-solutions.html" id="md-488">
+\begin{align*}
+\frac{dx}{dt} \amp = -2x - 3y^2\\
+\frac{dy}{dt} \amp = -3x^2 + 2y
+\end{align*}
+</div>
+<p class="continuation">has equilibrium solutions at <span class="process-math">\((0,0)\)</span> and <span class="process-math">\((-2/3, 2/3)\text{.}\)</span> Referring to the phase portrait for the system (<a href="" class="xref" data-knowl="./knowl/nonlinear02-figure-hamiltonian-solutions.html" title="Figure 5.2.7">Figure 5.2.7</a>), we might guess that <span class="process-math">\((0,0)\)</span> is a saddle, and <span class="process-math">\((-2/3, 2/3)\)</span> is either a center or a spiral sink. Since solution curves must follow contours for the Hamiltonian function <span class="process-math">\(H(x, y) = x^3 - 2xy - y^3\text{,}\)</span> spiral sinks do not make sense.</p>
+<p id="p-1824">Let us examine the possible types of equilibrium solutions for a Hamiltonian system. Suppose that <span class="process-math">\((x_0, y_0)\)</span> is an equilibrium solution for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-489">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y) = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} &amp; = g(x, y) =  -\frac{\partial H}{\partial x}(x, y).
+\end{align*}
+</div>
+<p class="continuation">In order to determine the nature of the equilibrium solution, we will compute the Jacobian matrix of the system at <span class="process-math">\((x_0, y_0)\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+f_x(x_0, y_0) &amp; f_y(x_0, y_0) \\
+g_x(x_0, y_0) &amp; g_y(x_0, y_0)
+\end{pmatrix}=
+\begin{pmatrix}
+H_{yx}(x_0, y_0) &amp; H_{yy}(x_0, y_0) \\
+-H_{xx}(x_0, y_0) &amp; -H_{xy}(x_0, y_0)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If we let</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-490">
+\begin{align*}
+\alpha &amp; =  H_{xy}(x_0, y_0) = H_{yx}(x_0, y_0)\\
+\beta &amp; = H_{yy}(x_0, y_0)\\
+\gamma &amp; = -H_{xx}(x_0, y_0),
+\end{align*}
+</div>
+<p class="continuation">then <span class="process-math">\(J\)</span> becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix}
+\alpha &amp; \beta \\
+\gamma &amp; - \alpha
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of this matrix is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda^2 - \alpha^2 - \beta \gamma.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, our matrix has eigenvalues</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\lambda = \pm \sqrt{\alpha^2 + \beta \gamma},
+\end{equation*}
+</div>
+<p class="continuation">and we have the following possibilities.</p>
+<ul class="disc">
+<li id="li-516"><p id="p-derived-li-516">If <span class="process-math">\(\alpha^2 + \beta \gamma \gt 0\text{,}\)</span> we have two real eigenvalues of opposite signs. Therefore, our equilibrium solution is a saddle.</p></li>
+<li id="li-517"><p id="p-derived-li-517">If <span class="process-math">\(\alpha^2 + \beta \gamma = 0\text{,}\)</span> the only eigenvalue is zero.</p></li>
+<li id="li-518"><p id="p-derived-li-518">If <span class="process-math">\(\alpha^2 + \beta \gamma \lt 0\text{,}\)</span> we have two purely imaginary eigenvalues.</p></li>
+</ul>
+<p class="continuation">In particular, a Hamiltonian system has no spiral sinks or sources.</p>
+<p id="p-1825">Returning to <a href="" class="xref" data-knowl="./knowl/nonlinear02-example-hamilitonian-1.html" title="Example 5.2.4">Example 5.2.4</a>, the Jacobian matrix is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+H_{yx}(x_0, y_0) \amp H_{yy}(x_0, y_0) \\
+-H_{xx}(x_0, y_0) \amp -H_{xy}(x_0, y_0)
+\end{pmatrix}
+=
+\begin{pmatrix}
+-2 \amp -6y_0 \\
+-6x_0 \amp 2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">For the equilibrium solution <span class="process-math">\((0,0)\text{,}\)</span> we have eigenvalues <span class="process-math">\(\lambda = \pm 2\text{,}\)</span> which tells us that the origin is a nodal saddle.  The Jacobian matrix corresponding to <span class="process-math">\((x_0, y_0) = (-2/3, 2/3)\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear02-example-hamilitonian-1.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+-2 \amp -4 \\
+-4 \amp 2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(J\)</span> has eigenvalues <span class="process-math">\(\lambda = \pm 2 \sqrt{5} \, i\text{.}\)</span>  Therefore, solution curves near <span class="process-math">\((-2/3, 2/3)\)</span> should look like closed orbits.</p></section><section class="subsection" id="nonlinear02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1826" class="disc">
+<li id="li-519"><p id="p-derived-li-519">A pendulum can be modeled by the equation<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d^2 \theta}{dt^2} + \frac{b}{m}  \frac{d \theta}{dt} - \frac{g}{L} \sin \theta = 0.
+\end{equation*}
+</div>or the system<div class="displaymath process-math" data-contains-math-knowls="" id="md-491">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div></p></li>
+<li id="li-520"><p id="p-derived-li-520">A <dfn class="terminology">Hamiltonian system</dfn> is a system of the form<div class="displaymath process-math" data-contains-math-knowls="" id="md-492">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>where <span class="process-math">\(H : {\mathbb R}^2 \rightarrow {\mathbb R}^2\)</span> is a smooth function.</p></li>
+<li id="li-521"><p id="p-derived-li-521">If<div class="displaymath process-math" data-contains-math-knowls="" id="md-493">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial H}{\partial y} (x, y)\\
+\frac{dy}{dt} &amp; = -\frac{\partial H}{\partial x}(x, y),
+\end{align*}
+</div>is a Hamiltonian system, then <span class="process-math">\(H\)</span> is constant along any solution curve. In particular, the solution curves of a Hamiltonian system are the level sets of <span class="process-math">\(H\text{.}\)</span></p></li>
+<li id="li-522"><p id="p-derived-li-522">If the system<div class="displaymath process-math" data-contains-math-knowls="" id="md-494">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>is Hamiltonian, then<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{\partial f}{\partial x} = - \frac{\partial g}{\partial y}. 
+\end{equation*}
+</div></p></li>
+<li id="li-523"><p id="p-derived-li-523">If <span class="process-math">\(f_x = - g_y\)</span> is true on a rectangle <span class="process-math">\(R\text{,}\)</span> then the system<div class="displaymath process-math" data-contains-math-knowls="" id="md-495">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>is Hamiltonian on <span class="process-math">\(R\)</span> and<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+H(x, y) = \int f(x, y) \, dy + \phi(x),
+\end{equation*}
+</div>where<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\phi'(x) = -\frac{\partial}{\partial x}\left( \int f(x, y) \, dy \right)  - g(x, y).
+\end{equation*}
+</div></p></li>
+<li id="li-524"><p id="p-derived-li-524">A Hamiltonian system has no spiral sinks or sources.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-nonlinear02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-nonlinear02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1827">Explain in your own words what a Hamiltonian system is.</p></article><article class="exercise exercise-like" id="reading-questions-nonlinear02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1828">What types of equilibrium solutions are possible in a Hamiltonian system?</p></article></section><section class="exercises" id="nonlinear02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">5.2.7</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="nonlinear02-exercises-hamiltonian-systems">
+<h4 class="heading"><span class="title">Hamiltonian Systems.</span></h4>
+<div class="introduction" id="introduction-125">
+<p id="p-1829">For each of the systems in <a href="" class="xref" data-knowl="./knowl/nonlinear02-exercises-hamiltonian-systems.html" title="Exercise Group 5.2.7.1–4: Hamiltonian Systems">Exercise Group 5.2.7.1–4</a>,</p>
+<ol class="lower-alpha">
+<li id="li-525"><p id="p-derived-li-525">Show that the system is Hamiltonian.</p></li>
+<li id="li-526"><p id="p-derived-li-526">Find a Hamiltonian function <span class="process-math">\(H(x, y)\)</span> for the system.</p></li>
+<li id="li-527"><p id="p-derived-li-527">Plot the level sets of <span class="process-math">\(H(x, y)\text{.}\)</span></p></li>
+<li id="li-528"><p id="p-derived-li-528">Plot the phase portrait of the system, describing any equilibrium solutions.</p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-437"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-496">
+\begin{align*}
+\frac{dx}{dt} &amp; = 3y^2\\
+\frac{dy}{dt} &amp; = -3x^2
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-438"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-497">
+\begin{align*}
+\frac{dx}{dt} &amp; = 3y^2 - 4x\\
+\frac{dy}{dt} &amp; = 3x^2 + 4y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-439"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-498">
+\begin{align*}
+\frac{dx}{dt} &amp; = x \cos y + 2y\\
+\frac{dy}{dt} &amp; = -\sin y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-440"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-499">
+\begin{align*}
+\frac{dx}{dt} &amp; = -x \sin y - \cos y\\
+\frac{dy}{dt} &amp; = - \cos y
+\end{align*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-441"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-1834">Consider an ideal pendulum with bob mass <span class="process-math">\(m\)</span> and arm length <span class="process-math">\(l\)</span> given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-500">
+\begin{align*}
+\frac{d\theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{g}{l} \sin \theta.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-529"><p id="p-derived-li-529">What is the linearization  of the ideal pendulum system at the equilibrium point <span class="process-math">\((0, 0)\text{?}\)</span></p></li>
+<li id="li-530"><p id="p-derived-li-530">Using <span class="process-math">\(g = 9.8\)</span> m/s<span class="process-math">\(^2\text{,}\)</span> how should <span class="process-math">\(l\)</span> and <span class="process-math">\(m\)</span> be chosen so that small swings of the pendulum have period 1 second?</p></li>
+<li id="li-531"><p id="p-derived-li-531">For the linearization of the ideal pendulum at <span class="process-math">\((0, 0)\text{,}\)</span> the period of oscillation is independent of the amplitude.  Does the same statement hold for the ideal pendulum itself?  Is the period of oscillation the same no matter how high the pendulum swings?  If not, will the period be shorter or longer for high swings?</p></li>
+<li id="li-532"><p id="p-derived-li-532">An ideal pendulum clock— a clock containing an ideal pendulum that “ticks” once for each swing of the pendulum arm— keeps perfect time when the pendulum makes very high swings.  Will the clock rum fast or slow if the amplitude of the swings is very small?</p></li>
+<li id="li-533"><p id="p-derived-li-533">If the arm length of the ideal pendulum is doubled from <span class="process-math">\(l\)</span> to <span class="process-math">\(2l\text{,}\)</span> what is the effect on the period of small amplitude swinging solutions?</p></li>
+<li id="li-534"><p id="p-derived-li-534">What is the rate of change of the period of small amplitude swings as <span class="process-math">\(l\)</span> varies?</p></li>
+<li id="li-535"><p id="p-derived-li-535">Will an ideal pendulum clock that keeps perfect time on earth run fast or slow on the moon?</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-442"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<p id="p-1835">Describe the phase portrait for</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-501">
+\begin{align*}
+x' &amp; = x^2 - 1\\
+y' &amp; = -xy + a(x^2 -1),
+\end{align*}
+</div>
+<p class="continuation">when <span class="process-math">\(a \lt 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-443"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-1836">Consider the autonomous system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-502">
+\begin{align*}
+x' &amp; = y^2 + \cos x\\
+y' &amp; =1  + 2x + y \sin x.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-536"><p id="p-derived-li-536">Show that this system is a Hamiltonian system.</p></li>
+<li id="li-537"><p id="p-derived-li-537">Find a Hamiltonian function for this system.</p></li>
+</ol></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-43"><div class="fn">Use technology.</div></div>
+</div></main>
+</div>
+</body>
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:31+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project The Matrix Exponential</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear08.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear10.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear08.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear10.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="active">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="linear09"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span>
+</h2>
+<article class="objectives goal-like" id="objectives-20"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-365">
+<p id="p-1347">To understand  that <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-317">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(e^{tA}\)</span> is the matrix exponential.</p>
+</li>
+<li id="li-366"><p id="p-1348">To understand that if <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix A and <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span></p></li>
+<li id="li-367"><p id="p-1349">To understand and be able to apply the properties of the matrix exponential to <span class="process-math">\(n \times n\)</span> matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{.}\)</span></p></li>
+<li id="li-368">
+<p id="p-1350">To understand and be able to use the matrix exponential to solve a linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-318">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0.
+\end{align*}
+</div>
+</li>
+</ul></article><section class="introduction" id="introduction-89"><p id="p-1351">Consider the linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-319">
+\begin{align*}
+x' &amp; = -17x -46y -7z\\
+y' &amp; = 8x + 21y + 3z\\
+z' &amp; = -7x - 15y - z
+\end{align*}
+</div>
+<p class="continuation">The matrix associated with this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A 
+=
+\begin{pmatrix}
+-17 &amp; -46 &amp; -7 \\
+8 &amp; 21 &amp; 3 \\
+-7 &amp; -15 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+p(\lambda) = \det(A - \lambda I) = \lambda^3 - 3\lambda^2 + 3\lambda - 1 = (\lambda - 1)^3
+\end{equation*}
+</div>
+<p class="continuation">hence, there is only a single eigenvalue <span class="process-math">\(\lambda = 1\text{.}\)</span> Moreover, we can only find a single linearly independent eigenvector <span class="process-math">\((1, -1, 4)\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = c e^{-t} \begin{pmatrix} 1 \\ -1 \\ 4\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is a solution to our system. However, this is not the general solution to the system. We can only solve initial value problems where the initial condition lies on the line through the origin containing the vector <span class="process-math">\((1, -1, 4)\text{.}\)</span> To construct a general solution to our system, we will need two other linearly independent solutions.</p></section><section class="subsection" id="linear09-subsection-matrix-exponential"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span>
+</h3>
+<p id="p-1352">Our goal is to construct a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-320">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix. Recalling that the solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-321">
+\begin{align*}
+x' &amp; = kx\\
+x(0) &amp; = x_0
+\end{align*}
+</div>
+<p class="continuation">is <span class="process-math">\(x(t) = x_0 e^{kt}\text{,}\)</span> we might guess that a solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-322">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+<p class="continuation">has the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = e^{tA} {\mathbf x}_0
+\end{equation*}
+</div>
+<p class="continuation">if we can make sense of the expression <span class="process-math">\(e^{tA}\text{.}\)</span></p>
+<p id="p-1353">We will define the <dfn class="terminology">exponential</dfn> of <span class="process-math">\(A\)</span> using the power series for <span class="process-math">\(e^t\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, where <span class="process-math">\(A^0 = I\)</span> by convention. Each term makes sense in our definition since each is an expression of <span class="process-math">\(n \times n\)</span> matrices; however, there are some issues surrounding the convergence of the power series. A series, even a series whose individual terms are matrix expressions, converges if and only if its partial sums,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+S_N =  \sum_{k=0}^N \frac{1}{k!} A^k
+\end{equation*}
+</div>
+<p class="continuation">converge. Although we shall not provide a proof, the matrix exponential <span class="process-math">\(e^A\)</span> converges for all <span class="process-math">\(A\text{.}\)</span></p>
+<article class="example example-like" id="linear09-example-exp-diag-matrix"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-linear09-example-exp-diag-matrix"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear09-example-exp-diag-matrix"><article class="example example-like"><p id="p-1354">Let us compute the exponential of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+s &amp; 0 \\
+0 &amp; t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Actually, this is quite easy,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-323">
+\begin{align*}
+e^A &amp; = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+\begin{pmatrix}
+s &amp; 0 \\
+0 &amp; t
+\end{pmatrix}
++
+\frac{1}{2!}
+\begin{pmatrix}
+s^2 &amp; 0 \\
+0 &amp; t^2
+\end{pmatrix}
++
+\frac{1}{3!}
+\begin{pmatrix}
+s^3 &amp; 0 \\
+0 &amp; t^3
+\end{pmatrix}
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 + s + s^2/2! + s^3/3! + \cdots &amp; 0 \\
+0 &amp; 1 + t + t^2/2! + t^3/3! + \cdots
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+e^s &amp; 0 \\
+0 &amp; e^t
+\end{pmatrix}.
+\end{align*}
+</div></article></div>
+<article class="theorem theorem-like" id="linear09-theorem-matrix-exponential"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.2</span><span class="period">.</span>
+</h4>
+<p id="p-1355">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} e^{tA} = A e^{tA}.
+\end{equation*}
+</div></article><article class="hiddenproof" id="proof-11"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-11"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-11"><article class="hiddenproof"><p id="p-1356">We simply need to differentiate</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{tA} = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3+ \cdots
+\end{equation*}
+</div>
+<p class="continuation">term by term.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-37" id="fn-37"><sup> 1 </sup></a> However,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-324">
+\begin{align*}
+\frac{d}{dt} e^{tA} &amp; = \frac{d}{dt} \left( I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots \right)\\
+&amp; = A + tA^2 + \frac{t^2}{2!} A^3 + \cdots\\
+&amp; = A\left(I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} + \cdots\right)\\
+&amp; = Ae^{tA}.
+\end{align*}
+</div></article></div>
+<article class="corollary theorem-like" id="linear09-corollary-matrix-exponential"><h4 class="heading">
+<span class="type">Corollary</span><span class="space"> </span><span class="codenumber">3.9.3</span><span class="period">.</span>
+</h4>
+<p id="p-1357">Let <span class="process-math">\(A\)</span> be an <span class="process-math">\(n \times n\)</span> matrix. Then <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-325">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div></article><article class="hiddenproof" id="proof-12"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-12"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-12"><article class="hiddenproof"><p id="p-1358">The corollary follows immediately from <a href="" class="xref" data-knowl="./knowl/linear09-theorem-matrix-exponential.html" title="Theorem 3.9.2">Theorem 3.9.2</a>. If <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-theorem-matrix-exponential.html">
+\begin{equation*}
+{\mathbf x}'(t) 
+= \frac{d}{dt} \left( e^{tA}{\mathbf x}_0 \right)
+= \frac{d}{dt} \left( e^{tA} \right) {\mathbf x}_0
+= Ae^{tA} {\mathbf x}_0
+= A {\mathbf x}(t).
+\end{equation*}
+</div></article></div>
+<p id="p-1359">Thus, solving linear systems is simply a matter of computing matrix exponentials. The problem is that matrix exponentials may not be so easy to compute.</p>
+<article class="example example-like" id="example-60"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-60"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-60"><article class="example example-like"><p id="p-1360">The matrix</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has repeated eigenvalues <span class="process-math">\(\lambda = -2\text{.}\)</span> If we try to compute <span class="process-math">\(e^{tA}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-326">
+\begin{align*}
+e^{tA} &amp; = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+t\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
++
+\frac{t^2}{2!}
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}^2
++
+\frac{t^3}{3!}
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}^3
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+t\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
++
+\frac{t^2}{2!}
+\begin{pmatrix}
+-20 \amp -16 \\
+-36 \amp 28
+\end{pmatrix}
++
+\frac{t^3}{3!}
+\begin{pmatrix}
+64 \amp 48 \\
+-108 \amp -80
+\end{pmatrix}
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 + t - 20t^2/2! + 64t^3/3! + \cdots &amp;  4t - 16t^2/2! + 48t^3/ 3! + \cdots \\
+-9t - 36t^2/2! - 108t^3/3! + \cdots &amp; 1 - 8t + 28t^2/2! - 80t^3/3! + \cdots
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">It is not at all clear that this series converges to a matrix whose entries can be expressed in terms of elementary functions.</p></article></div>
+<p id="p-1361">Now let us see how we can use the matrix exponential to solve a linear system as well as invent a more direct way to compute the matrix exponential.</p>
+<article class="theorem theorem-like" id="linear09-theorem-compute-matrix-exponential-1"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.5</span><span class="period">.</span>
+</h4>
+<p id="p-1362">Let <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix <span class="process-math">\(A\text{.}\)</span> If <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span></p></article><article class="hiddenproof" id="proof-13"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-13"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-13"><article class="hiddenproof"><p id="p-1363">Since <span class="process-math">\({\mathbf v}\)</span> is an eigenvalue for <span class="process-math">\(\lambda\text{,}\)</span> we know that <span class="process-math">\(A{\mathbf v} = \lambda {\mathbf v}\text{.}\)</span> Using mathematical induction, we can show that <span class="process-math">\(A^n\)</span> has eigenvalue <span class="process-math">\(\lambda^n\)</span> with associated eigenvector <span class="process-math">\({\mathbf v}\text{.}\)</span> Indeed,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A^n {\mathbf v}
+=
+A (A^{n-1} {\mathbf v})
+=
+A(\lambda^{n-1} {\mathbf v})
+=
+\lambda^{n-1} A {\mathbf v}
+=
+\lambda^n {\mathbf v}.
+\end{equation*}
+</div>
+<p class="continuation">Hence,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-327">
+\begin{align*}
+e^{tA} {\mathbf v}
+&amp; =
+\left(
+I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!}A^3 + \cdots
+\right) 
+{\mathbf v}\\
+&amp; = {\mathbf v} + tA{\mathbf v} + \frac{t^2}{2!} A^2{\mathbf v} + \frac{t^3}{3!} A^3{\mathbf v}+ \cdots\\
+&amp; = {\mathbf v} + t\lambda{\mathbf v} + \frac{t^2}{2!} \lambda^2{\mathbf v} + \frac{t^3}{3!} \lambda^3{\mathbf v}+ \cdots\\
+&amp; =
+\left(
+I + t\lambda + \frac{t^2}{2!} \lambda^2 + \frac{t^3}{3!}\lambda^3 + \cdots
+\right) 
+{\mathbf v}\\
+&amp; = e^{\lambda t} {\mathbf v}.
+\end{align*}
+</div></article></div>
+<p id="p-1364">The matrix exponential shares several properties with the exponential function <span class="process-math">\(e^x\)</span> that we studied in calculus.</p>
+<article class="theorem theorem-like" id="linear09-theorem-matrix-exponential-properties"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.6</span><span class="period">.</span>
+</h4>
+<p id="p-1365">Let <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> be <span class="process-math">\(n \times n\)</span> matrices. Then</p>
+<ol class="decimal">
+<li id="li-369"><p id="p-derived-li-369"><span class="process-math">\(Ae^A = e^A A\text{;}\)</span></p></li>
+<li id="li-370"><p id="p-derived-li-370">if <span class="process-math">\(AB = BA\text{,}\)</span> then <span class="process-math">\(e^A e^B = e^{A+B}\text{;}\)</span></p></li>
+<li id="li-371"><p id="p-derived-li-371"><span class="process-math">\(e^A\)</span> has inverse <span class="process-math">\(e^{-A}\text{.}\)</span></p></li>
+</ol></article><article class="hiddenproof" id="proof-14"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-14"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-14"><article class="hiddenproof"><p id="p-1366">To prove (1), we can simply expand both sides of the equality in a power series,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-328">
+\begin{align*}
+A e^A&amp; = A \left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right)\\
+&amp; =A + A^2 + \frac{1}{2!} A^3 + \frac{1}{3!} A^4 + \cdots\\
+&amp; =\left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right) A\\
+&amp; =e^A A.
+\end{align*}
+</div>
+<p class="continuation">Proving (2) is a only bit more complicated if we notice that the binomial expansion holds for matrices,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(A + B)^n  = \sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k},
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\begin{pmatrix} n \\ k \end{pmatrix} = \frac{n!}{k! (n-k)!},
+\end{equation*}
+</div>
+<p class="continuation">providing <span class="process-math">\(AB = BA\text{.}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-329">
+\begin{align*}
+e^{A + B} &amp; = \sum_{n=0}^\infty \frac{1}{n!} (A + B)^n\\
+&amp; = \sum_{n=0}^\infty \frac{1}{n!} \left(\sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k} \right)\\
+&amp; = \sum_{n=0}^\infty \left( \sum_{k = 0}^n \frac{1}{k!(n-k)!}  A^k B^{n-k} \right)\\
+&amp; =
+\left(
+\sum_{n=0}^\infty \frac{1}{n!} A^n
+\right)
+\left(
+\sum_{n=0}^\infty \frac{1}{n!} B^n
+\right)\\
+&amp; = e^A e^B.
+\end{align*}
+</div>
+<p class="continuation">Simply expand each series out to see that this is true. Part (3) follows directly from Part (2), since <span class="process-math">\(A\)</span> and <span class="process-math">\(-A\)</span> commute.</p></article></div>
+<article class="example example-like" id="example-61"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-61"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-61"><article class="example example-like"><p id="p-1367">Now let us compute <span class="process-math">\(e^{tA}\)</span> once again for</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">First notice that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A = \lambda I + (A - \lambda I).
+\end{equation*}
+</div>
+<p class="continuation">Since the identity matrix <span class="process-math">\(I\)</span> commutes with every matrix, we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+e^{t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t(A - \lambda I)}.
+\end{equation*}
+</div>
+<p class="continuation">We also know that <span class="process-math">\(e^{\lambda t I } = e^{\lambda t} I\)</span> by <a href="" class="xref" data-knowl="./knowl/linear09-example-exp-diag-matrix.html" title="Example 3.9.1">Example 3.9.1</a>.  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+e^{ t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t (A - \lambda I)} = e^{\lambda t} e^{t (A - \lambda I)}.
+\end{equation*}
+</div>
+<p class="continuation">The matrix <span class="process-math">\(A\)</span> has repeated eigenvalue <span class="process-math">\(\lambda = -2\text{.}\)</span> Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A - \lambda I = A + 2I = \begin{pmatrix} 6 &amp; 4 \\ -9 &amp; -6 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">and <span class="process-math">\((A - \lambda I)^2\)</span> is the zero matrix. Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html" id="md-330">
+\begin{align*}
+e^{ t A} &amp; = e^{\lambda t} e^{t (A - \lambda I)}\\
+&amp; = e^{\lambda t} \left( I + t (A - \lambda I ) + \frac{t^2}{2!} (A - \lambda I )^2 +  \frac{t^2}{3!} (A - \lambda I )^3 + \cdots \right)\\
+&amp; =e^{- 2t} \left( I + t (A + 2I ) + \frac{t^2}{2!} (A + 2I )^2 +  \frac{t^2}{3!} (A + 2I )^3 + \cdots \right)\\
+&amp; =e^{- 2t} \left( I + t (A + 2I )  \right)\\
+&amp; =
+e^{-2t}
+\begin{pmatrix}
+1 + 6t \amp 4t \\
+-9t \amp -6t
+\end{pmatrix}.
+\end{align*}
+</div></article></div>
+<p id="p-1368">Our example suggests at the following proposition. We leave the proof of this proposition as an exercise.</p>
+<article class="proposition theorem-like" id="linear09-proposition-compute-matrix-exponential-2"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.9.8</span><span class="period">.</span>
+</h4>
+<p id="p-1369">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then there exists a nonnegative integer <span class="process-math">\(k \lt n\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).
+\end{equation*}
+</div></article><article class="example example-like" id="example-62"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-62"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.9</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-62"><article class="example example-like"><p id="p-1370">We are now ready to return to our original system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A 
+=
+\begin{pmatrix}
+-17 &amp; -46 &amp; -7 \\
+8 &amp; 21 &amp; 3 \\
+-7 &amp; -15 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">This matrix has a single eigenvalue <span class="process-math">\(\lambda = 1\text{.}\)</span> It is easy to show that the only nonzero powers of <span class="process-math">\(A - \lambda I = A - I\)</span> are</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-331">
+\begin{align*}
+(A + I) &amp; = 
+\begin{pmatrix}
+-18 &amp; -46 &amp; -7 \\
+8 &amp; 20 &amp; 3 \\
+-7 &amp; -15 &amp; -2
+\end{pmatrix}\\
+(A + I)^2 &amp; = 
+\begin{pmatrix}
+5 &amp; 13 &amp; 2 \\
+-5 &amp; -13 &amp; -2 \\
+20 &amp; 52 &amp; 8
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Therefore,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-332">
+\begin{align*}
+e^{tA} &amp; =
+e^{t} \left(
+I + t (A+I ) + \frac{t^2}{2!} (A + I )^2
+\right)\\
+&amp; =
+e^{t}
+\begin{pmatrix}
+1 - 18t + 5t^2/2 \amp -46t +13t^2/2 \amp - 7t + t^2 \\
+8t - 5t^2/2 \amp 1 + 20t -13t^2/2 \amp 3t - t^2 \\
+-7t + 10t^2 \amp -15t + 26t^2 \amp 1 - 2t + 4t^2
+\end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Now, to compute three linearly independent solutions for <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> we simply compute <span class="process-math">\(e^{t A} {\mathbf v}\)</span> for three linearly independent vectors. We will use the standard basis vectors</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf e}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, 
+{\mathbf e}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, 
+{\mathbf e}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Thus,  the general solution to our system  is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1 
+e^{-t}
+\begin{pmatrix}
+1 - 18t + 5t^2/2  \\
+8t - 5t^2/2  \\
+-7t + 10t^2 
+\end{pmatrix}
++
+c_2
+e^{-t}
+\begin{pmatrix}
+-46t +13t^2/2 \\
+1 + 20t -13t^2/2 \\
+-15t + 26t^2
+\end{pmatrix}
++
+c_3
+e^{-t}
+\begin{pmatrix}
+- 7t + t^2 \\
+3t - t^2 \\
+1 - 2t + 4t^2
+\end{pmatrix}.
+\end{equation*}
+</div></article></div></section><section class="subsection" id="linear09-subsection-generalized-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span>
+</h3>
+<article class="example example-like" id="example-63"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-63"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-63"><article class="example example-like"><p id="p-1371">Consider the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+7 \amp -1 \amp 2 \\
+18 \amp -2 \amp 6 \\
+-9 \amp 2 \amp -1
+\end{pmatrix}\text{.}
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+\det(A - \lambda I) = \lambda^3 - 4\lambda^2 + 5 \lambda - 2 = (\lambda - 1)^2 (\lambda - 2).
+\end{equation*}
+</div>
+<p class="continuation">The eigenvalue <span class="process-math">\(\lambda_1 = 1\)</span> has eigenvector <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> and the eigenvalue <span class="process-math">\(\lambda_2 = 2\)</span> has eigenvector <span class="process-math">\(\mathbf v_2 = (1, 3, -1)\text{.}\)</span> Thus, we can find two linearly independent solutions in this case</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+{\mathbf x}_1(t) = e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
+\qquad\text{and}\qquad
+{\mathbf x}_2(t) = e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(\lambda_1 = 1\)</span> has multiplicity two and we can find only one linearly independent eigenvector, it is not possible to apply <a href="" class="xref" data-knowl="./knowl/linear09-proposition-compute-matrix-exponential-2.html" title="Proposition 3.9.8">Proposition 3.9.8</a> in this case.</p>
+<p id="p-1372">If we consider the exponential</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-333">
+\begin{align*}
+e^{ t A} {\mathbf v} &amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v} + \frac{t^2}{2!} (A - \lambda_1 I )^2 {\mathbf v} +  \frac{t^2}{3!} (A - \lambda_1 I )^3 {\mathbf v} + \cdots \right)
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(\mathbf v, \mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> are linearly independent, our goal is to choose <span class="process-math">\({\mathbf v}\)</span> for which the series truncates. That is, we must look for vectors <span class="process-math">\({\mathbf v}\)</span> such that <span class="process-math">\((A - \lambda_1 I)^k {\mathbf v} = (A - I)^k{\mathbf v} = {\mathbf 0}\text{.}\)</span>  If <span class="process-math">\(k = 1\text{,}\)</span> then <span class="process-math">\((A - \lambda_1 I) {\mathbf v} = (A - I){\mathbf v} = {\mathbf 0}\text{,}\)</span> which means that <span class="process-math">\({\mathbf v}\)</span> is an eigenvector. Thus, <span class="process-math">\({\mathbf v}\)</span> must be a multiple of <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> in this case. Since we already know that the eigenspace associated with this eigenvector has dimension one and is generated by <span class="process-math">\(\mathbf v_1\text{,}\)</span> we must consider higher powers.</p>
+<p id="p-1373">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(A - \lambda I) = (A - I) = 
+\begin{pmatrix}
+6 \amp -1 \amp 2 \\
+18 \amp -3 \amp 6 \\
+-9 \amp 2 \amp -2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+(A - \lambda I)^2 = (A - I)^2 = 
+\begin{pmatrix}
+0 &amp; 1 &amp; 2 \\
+0 &amp; 3 &amp; 6 \\
+0 &amp; -1 &amp; -2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The nullspace of this matrix has dimension two. Certainly, <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> is in the nullspace of <span class="process-math">\((A - I)^2\text{,}\)</span> since it is the nullspace of <span class="process-math">\(A - I\text{.}\)</span> We wish to find a vector that is not a multiple of the vector <span class="process-math">\(\mathbf v_1\)</span> that is also in the nullspace of <span class="process-math">\((A - I)^2\text{.}\)</span> The vector <span class="process-math">\(\mathbf v = (0, 2, -1)\)</span> will do.  Now our series truncates,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-334">
+\begin{align*}
+{\mathbf x}_3(t) &amp; = e^{ t A} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v}  \right)\\
+&amp; = e^{\lambda_1 t} \left[  \begin{pmatrix} 0 \\ 2 \\ -1 \end{pmatrix} + t (A  -  I )\begin{pmatrix} 0 \\ 2 \\ -1 \end{pmatrix}  \right]\\
+&amp; = e^{t} \begin{pmatrix}  -4t \\ 2 - 12t \\ -1 + 6 t \end{pmatrix}
+\end{align*}
+</div>
+<p class="continuation">We now have a general solution for our system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1
+e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
++
+c_2
+e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}
++
+c_3
+e^{t} \begin{pmatrix}  -4t \\ 2 - 12t \\ -1 + 6 t \end{pmatrix}.
+\end{equation*}
+</div></article></div>
+<p id="p-1374">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and <span class="process-math">\((A - \lambda I)^p {\mathbf v} = {\mathbf 0}\)</span> for some <span class="process-math">\(p \geq 1\text{,}\)</span> then <span class="process-math">\({\mathbf v}\)</span> is called a <dfn class="terminology">generalized eigenvector</dfn> of <span class="process-math">\(A\text{.}\)</span> When eigenvalues have algebraic multiplicity greater than one, we can compute extra solutions by looking for vectors in the nullspace of  <span class="process-math">\((A - \lambda I)^p\)</span> for <span class="process-math">\(p &gt; 1\text{.}\)</span> The following theorem tells us that this is always possible. We leave the proof of the theorem as an exercise in linear algebra.</p>
+<article class="theorem theorem-like" id="linear09-theorem-dimension-nullspace"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.11</span><span class="period">.</span>
+</h4>
+<p id="p-1375">Suppose that <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with multiplicity <span class="process-math">\(q\text{.}\)</span> Then there exists an integer <span class="process-math">\(p \leq q\)</span> such that the dimension of the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> is <span class="process-math">\(q\text{.}\)</span></p></article><p id="p-1376">We now have a procedure for finding <span class="process-math">\(q\)</span> linearly independent solutions corresponding to an eigenvalue <span class="process-math">\(\lambda\)</span> of multiplicity <span class="process-math">\(q\text{.}\)</span></p>
+<ol class="decimal">
+<li id="li-372"><p id="p-1377">Find the smallest integer <span class="process-math">\(p\)</span> such that the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> has dimension <span class="process-math">\(q\text{.}\)</span></p></li>
+<li id="li-373"><p id="p-1378">Find a basis <span class="process-math">\(\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}\)</span> for the nullspace of <span class="process-math">\((A - \lambda I)^p\text{.}\)</span></p></li>
+<li id="li-374">
+<p id="p-1379">For each <span class="process-math">\({\mathbf v}_j\)</span> (<span class="process-math">\(j = 1, 2, \ldots, q\)</span>), we have the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-335">
+\begin{align*}
+{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j\\
+&amp; =
+e^{\lambda t}
+\left(
+{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+\right).
+\end{align*}
+</div>
+</li>
+</ol>
+<p class="continuation">This procedure works for complex eigenvalues as well as real. If <span class="process-math">\(\lambda = \alpha + i \beta\)</span> has eigenvector <span class="process-math">\({\mathbf z} = \mathbf x + i \mathbf y\text{,}\)</span> then set <span class="process-math">\({\mathbf x} = \real{\mathbf z}\)</span> and <span class="process-math">\({\mathbf y} = \imaginary{\mathbf z}\text{.}\)</span></p></section><section class="subsection" id="linear09-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1380" class="disc">
+<li id="li-375">
+<p id="p-1381">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, we define the <dfn class="terminology">exponential</dfn> of <span class="process-math">\(A\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k.
+\end{equation*}
+</div>
+</li>
+<li id="li-376">
+<p id="p-1382">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d}{dt} e^{tA} = A e^{tA}.
+\end{equation*}
+</div>
+</li>
+<li id="li-377">
+<p id="p-1383">Let <span class="process-math">\(A\)</span> be an <span class="process-math">\(n \times n\)</span> matrix. Then <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-336">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+</li>
+<li id="li-378"><p id="p-1384">Let <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix A. If <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span></p></li>
+<li id="li-379">
+<p id="p-1385">Let <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> be <span class="process-math">\(n \times n\)</span> matrices. Then</p>
+<ul class="circle">
+<li id="li-380"><p id="p-1386"><span class="process-math">\(Ae^A = e^A A\text{;}\)</span></p></li>
+<li id="li-381"><p id="p-1387">if <span class="process-math">\(AB = BA\text{,}\)</span> then <span class="process-math">\(e^A e^B = e^{A+B}\text{;}\)</span></p></li>
+<li id="li-382"><p id="p-1388"><span class="process-math">\(e^A\)</span> is nonsingular with inverse <span class="process-math">\(e^{-A}\text{.}\)</span></p></li>
+</ul>
+</li>
+<li id="li-383">
+<p id="p-1389">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then there exists nonnegative integer <span class="process-math">\(k \lt n\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).
+\end{equation*}
+</div>
+</li>
+<li id="li-384"><p id="p-1390">Suppose that <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with multiplicity <span class="process-math">\(q\text{.}\)</span> Then there exists an integer <span class="process-math">\(p \leq q\)</span> such that the dimension of the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> is <span class="process-math">\(q\text{.}\)</span></p></li>
+<li id="li-385">
+<p id="p-1391">The procedure for finding <span class="process-math">\(q\)</span> linearly independent solutions corresponding to an eigenvalue <span class="process-math">\(\lambda\)</span> of multiplicity <span class="process-math">\(q\)</span> is the following.</p>
+<ul class="circle">
+<li id="li-386"><p id="p-1392">Find the smallest integer <span class="process-math">\(p\)</span> such that the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> has dimension <span class="process-math">\(q\text{.}\)</span></p></li>
+<li id="li-387"><p id="p-1393">Find a basis <span class="process-math">\(\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}\)</span> for the nullspace of <span class="process-math">\((A - \lambda I)^p\text{.}\)</span></p></li>
+<li id="li-388">
+<p id="p-1394">For each <span class="process-math">\({\mathbf v}_j\)</span> (<span class="process-math">\(j = 1, 2, \ldots, q\)</span>), we have the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-337">
+\begin{align*}
+{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j\\
+&amp; =
+e^{\lambda t}
+\left(
+{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+\right).
+\end{align*}
+</div>
+</li>
+</ul>
+<p class="continuation">The procedure works for complex eigenvalues as well as real. If <span class="process-math">\(\lambda = \alpha + i \beta\)</span> has eigenvector <span class="process-math">\({\mathbf z}\text{,}\)</span> then set <span class="process-math">\({\mathbf x} = \real{\mathbf z}\)</span> and <span class="process-math">\({\mathbf y} = \imaginary{\mathbf z}\text{.}\)</span></p>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-linear09"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear09-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1395">What is the exponential of a matrix <span class="process-math">\(A\text{?}\)</span></p></article><article class="exercise exercise-like" id="reading-questions-linear09-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1396">Explain what a <dfn class="terminology">generalized eigenvector</dfn> for a matrix <span class="process-math">\(A\)</span> is.</p></article></section><section class="exercises" id="linear09-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.9.5</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-299"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1397">Solve the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-338">
+\begin{align*}
+x' &amp; = -5x + 15y - 4z\\
+y' &amp; = -x + 5y - z\\
+z' &amp; =4 x -6y + 3z\\
+x(0) &amp; = -1\\
+y(0) &amp; = 2\\
+z(0) &amp; = 0
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-300"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1398">Find the general solution of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-339">
+\begin{align*}
+x_1' &amp; = 6x_1 + 9x_2 + x_3 + 4 x_4\\
+x_2' &amp; = -x_1 + x_2 + x_3\\
+x_3' &amp; = 3x_1 + 8x_2 + 4x_3 + 4 x_4\\
+x_4' &amp; = -3x_1 - 8x_2 -7 x_3 - 5 x_4
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-301"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-1399">Let <span class="process-math">\(a x'' + b x' + cx = 0\text{,}\)</span> where <span class="process-math">\(a \neq 0\)</span> and <span class="process-math">\(b^2 - 4ac = 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-389"><p id="p-1400">Show that <span class="process-math">\(x_1(t) = e^{-bt/2a}\)</span> is a solution to <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p></li>
+<li id="li-390">
+<p id="p-1401">Assume that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = v(t) x_1(t) = v(t) e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a solution to  <span class="process-math">\(a x'' + b x' + cx = 0\)</span> and show that <span class="process-math">\(v(t) = c_1  + c_2 t\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a general solution for <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p>
+</li>
+</ol></article><article class="exercise exercise-like" id="exercise-302"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<p id="p-1402">Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' - (2 \alpha -1) y' + \alpha (\alpha - 1) y =0.
+\end{equation*}
+</div>
+<p class="continuation">Determine all values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all solutions tend toward zero as <span class="process-math">\(t \to \infty\text{.}\)</span>  Also, determine the values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all nonzero solutions become unbounded as <span class="process-math">\(t \to \infty\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-303"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-1403">Solve each of the following initial value problems.</p>
+<ol class="lower-alpha">
+<li id="li-391"><div class="displaymath process-math" data-contains-math-knowls="" id="md-340">
+\begin{align*}
+y'' - 2y' + 5y &amp; = 0\\
+y(\pi/2) &amp; = 0\\
+y'(\pi/2) &amp; = 2
+\end{align*}
+</div></li>
+<li id="li-392"><div class="displaymath process-math" data-contains-math-knowls="" id="md-341">
+\begin{align*}
+9y'' - 12y' + 4y &amp; = 0\\
+y(0) &amp; = 2\\
+y'(0) &amp; = -1
+\end{align*}
+</div></li>
+<li id="li-393"><div class="displaymath process-math" data-contains-math-knowls="" id="md-342">
+\begin{align*}
+y'' + 8y' -9y &amp; = 0\\
+y(1) &amp; = 1\\
+y'(1) &amp; = 0
+\end{align*}
+</div></li>
+<li id="li-394"><div class="displaymath process-math" data-contains-math-knowls="" id="md-343">
+\begin{align*}
+y''  + 2ay' + (a^2 + 1)y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></li>
+</ol></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-37"><div class="fn">Since we are differentiating an infinite series, we still need to show that differentiating term by term is something that can be done. We will, however, leave the details to a course in advanced calculus.</div></div>
+</div></main>
+</div>
+</body>
+</html>

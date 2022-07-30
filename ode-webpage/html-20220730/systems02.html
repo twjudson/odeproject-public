@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project The Geometry of Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="systems01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="systems03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="systems01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="systems.html" title="Up">Up</a><a class="next-button button toolbar-item" href="systems03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="active">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="systems02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-9"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-201">
+<p id="p-708">To understand how the righthand side of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-110">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">can be viewed as a vector field, <span class="process-math">\((f(x,y), g(x,y))\text{,}\)</span> which can be plotted in the <span class="process-math">\(x,y\)</span>-plane.</p>
+</li>
+<li id="li-202">
+<p id="p-709">To understand and be able to use nullclines and phase plane analysis to sketch solution curves for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-111">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y).
+\end{align*}
+</div>
+</li>
+</ul></article><section class="introduction" id="introduction-45"><p id="p-710">We can use <dfn class="terminology">direction fields</dfn> in the phase plane to represent <dfn class="terminology">autonomous systems</dfn></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-harmonic-oscillator-1.html ./knowl/systems02-equation-harmonic-oscillator-2.html" id="mdn-4">
+\begin{align}
+\frac{dx}{dt} &amp; = f(x, y),\tag{2.2.1}\\
+\frac{dy}{dt} &amp; = g(x, y).\tag{2.2.2}
+\end{align}
+</div>
+<p class="continuation">Equation <a href="" class="xref" data-knowl="./knowl/systems02-equation-harmonic-oscillator-1.html" title="Equation 2.2.1">(2.2.1)</a> tells us how a solution curve changes in the <span class="process-math">\(x\)</span> direction, while equation <a href="" class="xref" data-knowl="./knowl/systems02-equation-harmonic-oscillator-2.html" title="Equation 2.2.2">(2.2.2)</a> tells us how a solution curve changes in the <span class="process-math">\(y\)</span> direction.</p></section><section class="subsection" id="systems02-subsection-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span>
+</h3>
+<article class="example example-like" id="example-24"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-24"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.2.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-24"><article class="example example-like"><p id="p-711">Consider the differential equation for a simple harmonic oscillator that we developed in <a href="firstlook01.html" class="internal" title="Section 1.1: Modeling with Differential Equations">Section 1.1</a>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html ./knowl/systems02-figure-harmonic-oscillator.html">
+\begin{equation*}
+mx'' + kx = 0.
+\end{equation*}
+</div>
+<p class="continuation">If we assume that <span class="process-math">\(k\)</span> and <span class="process-math">\(m\)</span> are both equal to one and let <span class="process-math">\(x' = v\text{,}\)</span> we can rewrite this equation as the first order system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html ./knowl/systems02-figure-harmonic-oscillator.html" id="md-112">
+\begin{align*}
+x' &amp; = v,\\
+v' &amp; = -x.
+\end{align*}
+</div>
+<p class="continuation">The direction field is relatively easy to understand. After plotting only few vectors, we can very quickly see that the vectors are tangent to circles centered at the origin (<a href="" class="xref" data-knowl="./knowl/systems02-figure-harmonic-oscillator.html" title="Figure 2.2.2">Figure 2.2.2</a>). Since the solutions to the undamped harmonic oscillator <span class="process-math">\(x'' + x = 0\)</span> are of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01.html ./knowl/systems02-figure-harmonic-oscillator.html">
+\begin{equation*}
+x(t) =  A \cos t + B \sin t
+\end{equation*}
+</div>
+<p class="continuation">for arbitrary constants <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{,}\)</span> this should not be too surprising.</p>
+<figure class="figure figure-like" id="systems02-figure-harmonic-oscillator"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-harmonic-oscillator.svg" role="img" class="contained" alt="a circle plotted on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.2<span class="period">.</span></span><span class="space"> </span>The direction field for a harmonic oscillator</figcaption></figure></article></div>
+<p id="p-712">Let us examine some systems of equations with direction fields that are easily plotted.</p>
+<article class="example example-like" id="example-25"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-25"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.2.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-25"><article class="example example-like"><p id="p-713">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-direction-field-example-1.html" id="md-113">
+\begin{align*}
+x' &amp; = x\\
+y' &amp; = y
+\end{align*}
+</div>
+<p class="continuation">gives us a direction field where the vectors point away from the origin (<a href="" class="xref" data-knowl="./knowl/systems02-figure-direction-field-example-1.html" title="Figure 2.2.4">Figure 2.2.4</a>).</p>
+<figure class="figure figure-like" id="systems02-figure-direction-field-example-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-direction-field-example-1.svg" role="img" class="contained" alt="a field of slope arrows pointing away from the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.4<span class="period">.</span></span><span class="space"> </span>The direction field for <span class="process-math">\(x' = x\)</span> and <span class="process-math">\(y' = y\)</span></figcaption></figure><p id="p-714">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-direction-field-example-2.html" id="md-114">
+\begin{align*}
+x' &amp; = -x,\\
+y' &amp; = -y.
+\end{align*}
+</div>
+<p class="continuation">gives us a direction field where the vectors point towards the origin (<a href="" class="xref" data-knowl="./knowl/systems02-figure-direction-field-example-2.html" title="Figure 2.2.5">Figure 2.2.5</a>).</p>
+<figure class="figure figure-like" id="systems02-figure-direction-field-example-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-direction-field-example-2.svg" role="img" class="contained" alt="a field of slope arrows pointing towards the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.5<span class="period">.</span></span><span class="space"> </span>The direction field for <span class="process-math">\(x' = -x\)</span> and <span class="process-math">\(y' = -y\)</span></figcaption></figure><p id="p-715">The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-direction-field-example-2.html" id="md-115">
+\begin{align*}
+x' &amp; = -x,\\
+y' &amp; = -5y.
+\end{align*}
+</div>
+<p class="continuation">also gives us a direction field where the vectors point towards the origin; however, we shall soon see that there are important differences between this direction field and the direction field of the previous system (<a href="" class="xref" data-knowl="./knowl/systems02-figure-direction-field-example-2.html" title="Figure 2.2.5">Figure 2.2.5</a>).</p>
+<figure class="figure figure-like" id="systems02-figure-direction-field-example-3"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-direction-field-example-3.svg" role="img" class="contained" alt="a field of slope arrows pointing towards the origin with the arrows point more directly towards the horizontal axis"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.6<span class="period">.</span></span><span class="space"> </span>The direction field for <span class="process-math">\(x' = -x\)</span> and <span class="process-math">\(y' = -5y\)</span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-17"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Plotting Direction Fields.</span>
+</h4>
+<div class="introduction" id="introduction-46"><p id="p-716">Plot direction fields for each of the following systems of differential equations in the <span class="process-math">\(xy\)</span>-plane.</p></div>
+<article class="task exercise-like" id="task-92"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-116">
+\begin{align*}
+x' &amp; = -3x\\
+y' &amp; = 4y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-93"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-117">
+\begin{align*}
+x' &amp; = 2x\\
+y' &amp; = y/2
+\end{align*}
+</div></article><article class="task exercise-like" id="task-94"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-118">
+\begin{align*}
+x' &amp; = x/2\\
+y' &amp; = 2y
+\end{align*}
+</div></article><article class="task exercise-like" id="task-95"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-119">
+\begin{align*}
+x' &amp; = x + y\\
+y' &amp; = x - y
+\end{align*}
+</div></article></article></section><section class="subsection" id="systems02-subsection-predator-prey"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span>
+</h3>
+<p id="p-721">Let us recall the modified predator-prey system that we developed in the last section. That is, we will assume that the prey in our model has logistic growth,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-120">
+\begin{align*}
+\frac{dR}{dt} &amp; = aR(1 - R/N) - bRF,\\
+\frac{dF}{dt} &amp; = -cF + dRF,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(N\)</span> is the carrying capacity. In order to investigate the geometric properties of our system, we will rewrite our system in vector form.  For each value of <span class="process-math">\(t\text{,}\)</span> we will use <span class="process-math">\({\mathbf x}(t)\)</span> to denote the vector-valued function</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \begin{pmatrix} R(t) \\ F(t) \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">This vector-valued function, <span class="process-math">\(\mathbf x(t)\)</span> corresponds to our solution curve <span class="process-math">\((R(t), F(t))\)</span> in the <span class="process-math">\(RF\)</span>-plane. Now we can write our predator-prey model as a single vector equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d \mathbf x}{dt} = \begin{pmatrix} R'(t) \\ F'(t) \end{pmatrix} = \begin{pmatrix} aR(1 - R/N) - bRF, \\ -cF + dRF \end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-722">We can view the right side of the equation as a <dfn class="terminology">vector field</dfn>. The specific example that we examined was</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-predator-prey.html" id="md-121">
+\begin{align*}
+\frac{dR}{dt} &amp; = 2R\left(1 - \frac{R}{10}\right) - RF,\\
+\frac{dF}{dt} &amp; = -5F + RF.
+\end{align*}
+</div>
+<p class="continuation">The vector field form of this system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-predator-prey.html">
+\begin{equation*}
+\frac{d \mathbf x}{dt} = \begin{pmatrix} 2R(1 - R/10) - RF \\ -5F + RF \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">We can associate a vector in the <span class="process-math">\(RF\)</span>-plane for each value of <span class="process-math">\(R\)</span> and <span class="process-math">\(F\text{.}\)</span> For example, if we let <span class="process-math">\((R, F) = (10, 10)\text{,}\)</span> we have <span class="process-math">\((R', F') = (-100, 50)\text{.}\)</span>  At this particular point, the population of rabbits is falling rapidly while the number of foxes is climbing very quickly, We can represent this vector in the phase plane by drawing an arrow in the proper direction. Thus, we obtain a direction field for our system of differential equations (<a href="" class="xref" data-knowl="./knowl/systems02-figure-predator-prey.html" title="Figure 2.2.7">Figure 2.2.7</a>).</p>
+<figure class="figure figure-like" id="systems02-figure-predator-prey"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-predator-prey.svg" role="img" class="contained" alt="a curve that spirals towards an equilibrium solution on a field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.7<span class="period">.</span></span><span class="space"> </span>A vector field for the predator-prey system</figcaption></figure></section><section class="subsection" id="systems02-subsection-competing-species"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span>
+</h3>
+<p id="p-723">Suppose that <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are the population of two distinct species that compete for the same resources. For example, two species of fish may compete for the same food in a lake, leopards and lions may compete for the same prey, or cattle and sheep may compete for the same grazing land. We can model two competing species using the following system of first-order differential equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-122">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x \left(1 - \frac{x}{M} \right) - \beta xy\\
+\frac{dy}{dt} &amp; = \gamma y \left(1 - \frac{y}{N} \right) - \delta xy.
+\end{align*}
+</div>
+<p class="continuation">The first term in each equation is the logistic growth of each species. The second term is how the species is affected by interacting with the competing species.</p>
+<article class="example example-like" id="systems02-example-competing-species"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-systems02-example-competing-species"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.2.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-systems02-example-competing-species"><article class="example example-like"><p id="p-724">Suppose that <span class="process-math">\(x = x(t)\)</span> and <span class="process-math">\(y = y(t)\)</span> are two populations, competing for the same resources, are governed by the following system of differential equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-123">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(1-x) - \alpha xy\\
+\frac{dy}{dt} &amp; = y(1-y) - \alpha xy.
+\end{align*}
+</div>
+<p class="continuation">If we study how the two populations interact, we will discover two very different cases depending on the value of the parameter <span class="process-math">\(\alpha\text{.}\)</span></p>
+<p id="p-725">If we let <span class="process-math">\(\alpha = 2\text{,}\)</span> then there is a strong interaction between the two species and our system becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-nullcline-competing-species-1.html ./knowl/systems02-equation-nullcline-competing-species-4.html" id="md-124">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(1-x) - 2xy\\
+\frac{dy}{dt} &amp; = y(1-y) - 2xy.
+\end{align*}
+</div>
+<p class="continuation">We are interested in what happens as <span class="process-math">\(t \to \infty\text{.}\)</span> First we will examine what happens when <span class="process-math">\(dx/dt =0\)</span> and <span class="process-math">\(dy/dt =0\text{:}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-nullcline-competing-species-1.html ./knowl/systems02-equation-nullcline-competing-species-4.html" id="md-125">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(1 - x - 2y)\\
+\frac{dy}{dt} &amp; = y(1 - y - 2x).
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(dx/dt = 0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-nullcline-competing-species-1.html ./knowl/systems02-equation-nullcline-competing-species-4.html" id="mdn-5">
+\begin{align}
+x &amp; = 0\tag{2.2.3}\\
+y &amp; = (1 - x)/2.\tag{2.2.4}
+\end{align}
+</div>
+<p class="continuation">Similarly, if <span class="process-math">\(dy/dt = 0\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-nullcline-competing-species-1.html ./knowl/systems02-equation-nullcline-competing-species-4.html" id="mdn-6">
+\begin{align}
+y &amp; = 0\tag{2.2.5}\\
+y &amp; = 1 - 2x.\tag{2.2.6}
+\end{align}
+</div>
+<p class="continuation">The lines in equations <a href="" class="xref" data-knowl="./knowl/systems02-equation-nullcline-competing-species-1.html" title="Equation 2.2.3">(2.2.3)</a>–<a href="" class="xref" data-knowl="./knowl/systems02-equation-nullcline-competing-species-4.html" title="Equation 2.2.6">(2.2.6)</a> are called <dfn class="terminology">nullclines</dfn>. In general, if we are given the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-equation-nullcline-competing-species-1.html ./knowl/systems02-equation-nullcline-competing-species-4.html" id="md-126">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">then the values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> satisfying <span class="process-math">\(dx/dt = f(x, y) = 0\)</span> are called the <dfn class="terminology"><span class="process-math">\(x\)</span>-nullclines</dfn> of the system and the values of <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> satisfying the equation <span class="process-math">\(dy/dt = g(x, y) = 0\)</span> are called the <dfn class="terminology"><span class="process-math">\(y\)</span>-nullclines</dfn> of the system.</p>
+<figure class="figure figure-like" id="systems02-figure-nullclines-competing-species-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-nullclines-competing-species-1.svg" role="img" class="contained" alt="a solution curve on a field of slope arrows and nullclines"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.9<span class="period">.</span></span><span class="space"> </span>Nullclines for the case <span class="process-math">\(\beta = 2\)</span></figcaption></figure><p id="p-726">In our example, we can plot the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines to help us understand our system (<a href="" class="xref" data-knowl="./knowl/systems02-figure-nullclines-competing-species-1.html" title="Figure 2.2.9">Figure 2.2.9</a>). Of course, we have an equilibrium solution whenever an <span class="process-math">\(x\)</span>-nullcline intersects with a <span class="process-math">\(y\)</span>-nullcline. Thus, the equilibrium points for our particular system are <span class="process-math">\((0,0)\text{,}\)</span> <span class="process-math">\((1, 0)\text{,}\)</span> <span class="process-math">\((0, 1)\text{,}\)</span> and <span class="process-math">\((1/3, 1/3)\text{.}\)</span> Furthermore, we can choose a representative point in each region to find how the direction field is oriented. If we are given the  initial condition <span class="process-math">\((1.4, 1.3)\)</span> for example, we can see that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-nullclines-competing-species-1.html" id="md-127">
+\begin{align*}
+\frac{dx}{dt} &amp; = -4.2\\
+\frac{dy}{dt} &amp; = -4.03.
+\end{align*}
+</div>
+<p class="continuation">Since both of these numbers are negative, we can see that our initial trajectory is headed down and to the left—slightly more to the left than down. However, we have no guarantee that the trajectory will continue in this direction.</p>
+<p id="p-727">Before we proceed further with our analysis, let us determine what happens on the nullclines themselves. That is, we will examine the case when <span class="process-math">\(dx/dt = 0\)</span> or <span class="process-math">\(dy/dt = 0\text{.}\)</span> If <span class="process-math">\(dx/dt = 0\text{,}\)</span> then any solution crossing this <span class="process-math">\(x\)</span>-nullcline must be moving vertically. There can be no right or left movement at this point in the phase portrait. We can indicate this fact along with the direction of vertical movement by drawing a vertical slash with an arrow on the <span class="process-math">\(x\)</span>-nullcline (<a href="" class="xref" data-knowl="./knowl/systems02-figure-nullclines-competing-species-1.html" title="Figure 2.2.9">Figure 2.2.9</a>). For example, the point <span class="process-math">\((0.5, 0.25)\)</span> lies on the <span class="process-math">\(x\)</span>-nullcline and</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-nullclines-competing-species-1.html">
+\begin{equation*}
+\frac{dy}{dt}(0.5, 0.25) \lt 0.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, the trajectory that crosses the <span class="process-math">\(R\)</span>-nullcline at <span class="process-math">\((0.5, 0.25)\)</span> is moving down. As we move along the <span class="process-math">\(x\)</span>-nullcline, the direction of this arrow can only change when we cross an <span class="process-math">\(y\)</span>-nullcline.</p>
+<p id="p-728">Similarly, there can be no vertical motion on an <span class="process-math">\(y\)</span>-nullcline. We will indicate the direction of horizontal motion by drawing a horizontal line with an arrow pointing to the right if <span class="process-math">\(dx/dt \gt 0\)</span> on the <span class="process-math">\(y\)</span>-nullcline and an arrow pointing to the left if <span class="process-math">\(dx/dt \lt 0\)</span> on the <span class="process-math">\(y\)</span>-nullcline.</p>
+<p id="p-729">We can also determine the basic direction of the solution curve by checking what happens at a point in each of the regions bounded by the nullclines. For example, at the point <span class="process-math">\((0.1, 0.1)\)</span> we find that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-nullclines-competing-species-1.html" id="md-128">
+\begin{align*}
+\frac{d}{dt}x(0.1, 0.1) &amp; = 0.7\\
+\frac{d}{dt}y(0.1, 0.1) &amp; = 0.7.
+\end{align*}
+</div>
+<p class="continuation">Thus, the general direction of any solution curve in this region is up and right (<a href="" class="xref" data-knowl="./knowl/systems02-figure-nullclines-competing-species-1.html" title="Figure 2.2.9">Figure 2.2.9</a>).</p>
+<p id="p-730">What happens to the initial condition <span class="process-math">\((1.4, 1.3)\text{?}\)</span> We see three possible scenarios if we follow the nullclines for large values of <span class="process-math">\(t\text{.}\)</span></p>
+<ul class="disc">
+<li id="li-203"><p id="p-731">Only species <span class="process-math">\(x\)</span> survives and species <span class="process-math">\(y\)</span> becomes extinct.</p></li>
+<li id="li-204"><p id="p-732">Only species <span class="process-math">\(y\)</span> survives and species <span class="process-math">\(x\)</span> becomes extinct.</p></li>
+<li id="li-205"><p id="p-733">There are essentially equal numbers of species <span class="process-math">\(x\)</span> and <span class="process-math">\(y\text{.}\)</span></p></li>
+</ul></article></div>
+<article class="activity project-like" id="activity-18"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Plotting Direction Fields with Nullclines.</span>
+</h4>
+<div class="introduction" id="introduction-47">
+<p id="p-734">Consider the competing species model</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-129">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(1-x) - \beta xy\\
+\frac{dy}{dt} &amp; = y(1-y) - \beta xy,
+\end{align*}
+</div>
+<p class="continuation">where the species interact weakly, say <span class="process-math">\(\beta = 1/2\text{.}\)</span></p>
+</div>
+<article class="task exercise-like" id="task-96"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-735">Find the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines for this system.</p></article><article class="task exercise-like" id="task-97"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-736">Find all equilibrium points for this system.</p></article><article class="task exercise-like" id="task-98"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-737">The nullclines will divide the first quadrant of the plane,  <span class="process-math">\(x \geq 0\)</span> and <span class="process-math">\(y \geq 0\text{,}\)</span> into different regions.  In each of these regions find a slope vector at some point <span class="process-math">\((x_0, y_0)\)</span> in the region.  For example, at the point <span class="process-math">\((1,2)\text{,}\)</span> we can attach slope vector <span class="process-math">\((-1, -3)\text{.}\)</span></p></article><article class="task exercise-like" id="task-99"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-738">Sketch the phase plane for this system.</p></article><article class="task exercise-like" id="task-100"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-739">If the initial populations are given by <span class="process-math">\(x(0) = 2.4\)</span> and <span class="process-math">\(y(0) = 0.3\text{,}\)</span> what happens to the two populations as <span class="process-math">\(t \to \infty\text{?}\)</span></p></article></article><article class="example example-like" id="example-27"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-27"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">2.2.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-27"><article class="example example-like"><p id="p-740">There is no reason why our nullclines should be limited to straight lines. The system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/systems02-figure-nullclines-nonlinear.html" id="md-130">
+\begin{align*}
+x' &amp; = y - x^2\\
+y' &amp; = x - 2
+\end{align*}
+</div>
+<p class="continuation">has an <span class="process-math">\(x\)</span>-nullcline <span class="process-math">\(y = x^2\)</span> and a <span class="process-math">\(y\)</span>-nullcline <span class="process-math">\(x = 2\text{.}\)</span> These two nullclines intersect at <span class="process-math">\((2, 4)\text{,}\)</span> and the system has a single equilibrium solution. The nullclines divide the plane into four basic regions (<a href="" class="xref" data-knowl="./knowl/systems02-figure-nullclines-nonlinear.html" title="Figure 2.2.11">Figure 2.2.11</a>). By choosing a point in each of these regions and determining the direction of the slope field at that point, we can decide the direction of the slope field in the entire region.</p>
+<figure class="figure figure-like" id="systems02-figure-nullclines-nonlinear"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/systems02-nullclines-nonlinear.svg" role="img" class="contained" alt="a solution curve on a field of slope arrows and nullclines"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.11<span class="period">.</span></span><span class="space"> </span>The system <span class="process-math">\(x' = y - x^2\)</span> and <span class="process-math">\(y' = x - 2\)</span></figcaption></figure><p id="p-741">The only equilibrium solution of our system occurs at <span class="process-math">\((2, 4)\text{.}\)</span></p></article></div></section><section class="subsection" id="systems02-subsection-sage-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span>
+</h3>
+<p id="p-742">It is easy to plot direction fields using <em class="emphasis">Sage</em>. We can plot the direction field for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-131">
+\begin{align*}
+x' &amp; = y - 2x,\\
+y' &amp; = x - xy - x^3
+\end{align*}
+</div>
+<p class="continuation">using the following <em class="emphasis">Sage</em> interact. You can evaluate the cell below to get a menu driven applet for drawing direction fields for systems of two differential equations.</p>
+<figure class="figure figure-like" id="systems02-figure-interactive-direction-fields"><iframe id="systems02-interactive-direction-fields" width="600" height="1500" src="systems02-interactive-direction-fields-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.2.12<span class="period">.</span></span><span class="space"> </span>A Sage applet for plotting direction fields for systems</figcaption></figure></section><section class="subsection" id="systems02-subsection-phase-plane-analysis"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span>
+</h3>
+<p id="p-743">We can use the following series of steps to summarize phase plane analysis for the nonlinear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-132">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y).
+\end{align*}
+</div>
+<ul class="disc">
+<li id="li-206"><p id="p-744"><em class="emphasis">Step 1.</em> Draw the curves where <span class="process-math">\(f(x, y) = 0\text{.}\)</span> These curves are called the <dfn class="terminology"><span class="process-math">\(x\)</span>-nullclines</dfn>. When a solution curve <span class="process-math">\({\mathbf x}(t)\)</span> lies on one of these curves, <span class="process-math">\(dx/dt = 0\text{,}\)</span> draw vertical slash marks on the <span class="process-math">\(x\)</span>-nullclines to remind yourself that a trajectory crossing the nullcline can only do so if it is moving in a vertical direction at the instant of crossing.</p></li>
+<li id="li-207"><p id="p-745"><em class="emphasis">Step 2.</em> Draw the curves where <span class="process-math">\(g(x, y) = 0\text{.}\)</span> These curves are called the <dfn class="terminology"><span class="process-math">\(y\)</span>-nullclines</dfn>. When <span class="process-math">\({\mathbf x}(t)\)</span> lies on one of these curves, <span class="process-math">\(dg/dt = 0\text{.}\)</span> Draw horizontal slash marks on the <span class="process-math">\(y\)</span>-nullclines to remind yourself that a trajectory crossing the nullcline can only do so if it is moving in a horizontal direction at the instant of crossing.</p></li>
+<li id="li-208"><p id="p-746"><em class="emphasis">Step 3.</em> Label the points where the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines intersect. These intersections are the <dfn class="terminology">equilibrium points</dfn>. If <span class="process-math">\({\mathbf x}(t)\)</span> is ever at one of these points, then both <span class="process-math">\(dx/dt\)</span> and <span class="process-math">\(dy/dt\)</span> vanish. This means that the trajectory stays at the equilibrium point for all time. If our system is going to tend towards a steady state, then  <span class="process-math">\({\mathbf x}(t)\)</span> will approach on of the equilibrium points as <span class="process-math">\(t \to \infty\text{.}\)</span></p></li>
+<li id="li-209"><p id="p-747"><em class="emphasis">Step 4.</em> Label the regions of the <span class="process-math">\(xy\)</span>-plane where <span class="process-math">\(dx/dt \lt 0\)</span> and where <span class="process-math">\(dx/dt \gt 0\text{.}\)</span> These regions are always separated by <span class="process-math">\(x\)</span>-nullclines.  Likewise, label the regions where <span class="process-math">\(dy/dt\)</span> is positive and negative.</p></li>
+<li id="li-210"><p id="p-748"><em class="emphasis">Step 5.</em>Go back and put arrows on the vertical hash marks of the <span class="process-math">\(x\)</span> nullclines. These arrows indicate whether the motion across the nullcline is up or down. The arrows are up on the parts of the <span class="process-math">\(x\)</span>-nullclines that are in the <span class="process-math">\(dy/dt \gt 0\)</span> region, and down on those parts of the <span class="process-math">\(x\)</span>-nullclines in the <span class="process-math">\(dy/dt \lt 0\)</span> regions. Likewise, draw arrows on the horizontal slash marks of the <span class="process-math">\(y\)</span>-nullclines. These arrows are pointing right on the parts of the <span class="process-math">\(y\)</span>-nullclines in the <span class="process-math">\(dx/dt \gt 0\)</span> regions and left point on the parts in the <span class="process-math">\(dx/dt \lt 0\)</span> regions.</p></li>
+<li id="li-211">
+<p id="p-749"><em class="emphasis">Step 6.</em></p>
+<ul class="circle">
+<li id="li-212"><p id="p-750">If <span class="process-math">\(dx/dt \gt 0\)</span> and <span class="process-math">\(dy/dt \gt 0\text{,}\)</span> then both <span class="process-math">\(x(t)\)</span> and <span class="process-math">\(y(t)\)</span> are increasing and the trajectory moves up and right.</p></li>
+<li id="li-213"><p id="p-751">If <span class="process-math">\(dx/dt \gt 0\)</span> and <span class="process-math">\(dy/dt \lt 0\text{,}\)</span> the trajectory moves down and right.</p></li>
+<li id="li-214"><p id="p-752">If <span class="process-math">\(dx/dt \lt 0\)</span> and <span class="process-math">\(dy/dt \gt 0\text{,}\)</span> the trajectory moves up and left.</p></li>
+<li id="li-215"><p id="p-753">If <span class="process-math">\(dx/dt \lt 0\)</span> and <span class="process-math">\(dy/dt \lt 0\text{,}\)</span> the trajectory moves down and left.</p></li>
+</ul>
+</li>
+</ul></section><section class="subsection" id="systems02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-754" class="disc">
+<li id="li-216">
+<p id="p-755">The righthand side of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-133">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<p class="continuation">can be viewed as a vector field, <span class="process-math">\((f(x,y), g(x,y))\text{,}\)</span> which can be plotted in the <span class="process-math">\(x,y\)</span>-plane.</p>
+</li>
+<li id="li-217">
+<p id="p-756">Competition between two competing species can be modeled with the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-134">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x \left(1 - \frac{x}{M} \right) - \beta xy\\
+\frac{dy}{dt} &amp; = \gamma y \left(1 - \frac{y}{N} \right) - \delta xy.
+\end{align*}
+</div>
+</li>
+<li id="li-218">
+<p id="p-757">We can use nullclines and phase plane analysis to sketch solution curves for the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-135">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y).
+\end{align*}
+</div>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-system02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-system02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-758">Using your own words, explain what a nullcline is.</p></article><article class="exercise exercise-like" id="reading-questions-system02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-759">What happens at the intersection of an <span class="process-math">\(x\)</span>-nullcline and a <span class="process-math">\(y\)</span>-nullcline?</p></article></section><section class="exercises" id="systems02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">2.2.8</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-158"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-760">Consider a cooperating species model</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-136">
+\begin{align*}
+\frac{dx}{dt} &amp; = x(1-x) + \beta xy\\
+\frac{dy}{dt} &amp; = y(1-y) + \beta xy,
+\end{align*}
+</div>
+<p class="continuation">where the species interact weakly, say <span class="process-math">\(\beta = 1/2\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-219"><p id="p-761">Find the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span>-nullclines for this system.</p></li>
+<li id="li-220"><p id="p-762">Find all equilibrium points for this system.</p></li>
+<li id="li-221"><p id="p-763">Sketch the phase plane for this system.</p></li>
+<li id="li-222"><p id="p-764">If the initial populations are given by <span class="process-math">\(x(0) = 2.4\)</span> and <span class="process-math">\(y(0) = 0.3\text{,}\)</span> what happens to the two populations as <span class="process-math">\(t \to \infty\text{?}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-159"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-765">For the following two systems of equations</p>
+<ul class="disc">
+<li id="li-223"><p id="p-766">Find the equilibrium points of the system.</p></li>
+<li id="li-224"><p id="p-767">Sketch the phase plane and direction field for each system using technology.</p></li>
+<li id="li-225"><p id="p-768">Briefly describe the behavior of typical solutions.</p></li>
+</ul>
+<ol class="lower-alpha">
+<li id="li-226"><div class="displaymath process-math" data-contains-math-knowls="" id="md-137">
+\begin{align*}
+x' &amp; = \cos y\\
+y' &amp; = -x + y
+\end{align*}
+</div></li>
+<li id="li-227"><div class="displaymath process-math" data-contains-math-knowls="" id="md-138">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = x - x^3 -y
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-160"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-771">Consider an epidemic that moves through an isolated population.  We will make the following assumptions about the epidemic.</p>
+<ul class="disc">
+<li id="li-228"><p id="p-772">Individuals are infected at a rate proportional to the product of the number of infected and susceptible individuals.  We assume that the constant of proportionality is <span class="process-math">\(\alpha\text{.}\)</span></p></li>
+<li id="li-229"><p id="p-773">The length of the incubation period is negligible, and infectious individuals are immediately infectious.</p></li>
+<li id="li-230"><p id="p-774">On the average, an infected individual dies after 10 days.</p></li>
+<li id="li-231"><p id="p-775">Only a single individual is initially ill.</p></li>
+<li id="li-232"><p id="p-776">Infected individuals do not give birth, but susceptible individuals have a birth rate of 0.0003 per individual per year.  Newborns are susceptible.</p></li>
+</ul>
+<p class="continuation">If <span class="process-math">\(S(t)\)</span> is the number of susceptible and <span class="process-math">\(I(t)\)</span> is the number of infected people, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-7">
+\begin{align}
+\frac{dS}{dt} &amp; = -\alpha SI + 0.0003S\tag{2.2.7}\\
+\frac{dI}{dt} &amp; = \alpha SI - 0.1I.\tag{2.2.8}
+\end{align}
+</div>
+<p id="p-777">The constant <span class="process-math">\(\alpha\)</span> is a measure of the relative infectivity of the disease.  Some diseases such as Ebola, a viral hemorrhagic fever, are extremely infectious with a mortaility rate of up to 90%. On the other hand, AIDS which is caused by the HIV virus, has a much lower transmission rate.  The goal of this exercise is to examine the differences between the two.</p>
+<ol class="lower-alpha">
+<li id="li-233"><p id="p-778">If <span class="process-math">\(\alpha = 0.05\text{,}\)</span> draw the phase portrait.  Be sure to label all nullclines and equilibrium solutions.  Suppose that <span class="process-math">\(S(0) = 1000\)</span> and <span class="process-math">\(I(0) = 1\text{.}\)</span>  What happens to the solution curve as <span class="process-math">\(t \to \infty\text{?}\)</span></p></li>
+<li id="li-234"><p id="p-779">If <span class="process-math">\(\alpha = 0.000001\text{,}\)</span> draw the phase portrait.  Be sure to label all nullclines and equilibrium solutions.  Suppose that <span class="process-math">\(S(0) = 30000\)</span> and <span class="process-math">\(I(0) = 1\text{.}\)</span>  What happens to the solution curve as <span class="process-math">\(t \to \infty\text{?}\)</span></p></li>
+<li id="li-235"><p id="p-780">What conclusions can you draw about the behavior of the two different epidemics?</p></li>
+</ol></article></section><section class="subsection" id="subsection-sytems02-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span>
+</h3>
+<p id="p-781">Let us use <em class="emphasis">Sage</em> to analyze the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-139">
+\begin{align*}
+x' &amp; = x + y,\\
+y' &amp; = -2x + y.
+\end{align*}
+</div>
+<p class="continuation">First let us plot the phase plane of the system without nullclines.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-44"><script type="text/x-sage">x, y, t = var('x y t')
+F = [x + y, -2*x + y]
+P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=10,step=0.01)
+Q = [ [j,k] for i,j,k in P]
+p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2)
+n = sqrt(F[0]^2 + F[1]^2)
+F_unit = [F[0]/n, F[1]/n] #set all vectors in the vector field to be same length
+p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'], xmax = 4, xmin = -4, ymax = 4, ymin = -4, aspect_ratio=1)
+p
+</script></pre>
+<p id="p-782">If these <em class="emphasis">Sage</em> commands seem unfamiliar, you may want to refer to <a href="systems01.html#systems01-subsection-sage" class="internal" title="Subsection 2.1.7: Using Sage to Solve Systems">Subsection 2.1.7</a></p>
+<p id="p-783">We can add nullclines to our plot using the <code class="code-inline tex2jax_ignore">implicit_plot</code> function from <em class="emphasis">Sage</em>.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-45"><script type="text/x-sage">x, y, t = var('x y t')
+F = [x + y, -2*x + y]
+P = desolve_system_rk4(F,[x, y],ics=[0,0.55,0],ivar=t,end_points=10,step=0.01)
+Q = [ [j,k] for i,j,k in P]
+p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=2)
+n = sqrt(F[0]^2 + F[1]^2)
+F_unit = [F[0]/n, F[1]/n] #set all vectors in the vector field to be same length
+p += plot_vector_field(F_unit, (x,-4,4), (y,-4,4), axes_labels=['$x(t)$','$y(t)$'], xmax = 4, xmin = -4, ymax = 4, ymin = -4, aspect_ratio=1)
+p += implicit_plot(F[0], (x,-4,4), (y,-4,4), color="green")
+p += implicit_plot(F[1], (x,-4,4), (y,-4,4), color="red")
+p
+</script></pre>
+<p id="p-784">The <span class="process-math">\(x\)</span>-nullclines are plotted in green and the <span class="process-math">\(y\)</span>-nullclines are in red.</p></section></section></div></main>
+</div>
+</body>
+</html>

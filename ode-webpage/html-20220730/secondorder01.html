@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:31+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Homogeneous Linear Equations</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="secondorder.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="secondorder02.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="secondorder.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="secondorder.html" title="Up">Up</a><a class="next-button button toolbar-item" href="secondorder02.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="active">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="secondorder01"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span>
+</h2>
+<article class="objectives goal-like" id="objectives-21"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-395">
+<p id="p-1410">To understand that a second-order linear differential equation with constant coefficients is an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + bx' + cx = 0.
+\end{equation*}
+</div>
+<p class="continuation">and can be solved by examining the roots of the characteristic polynomial <span class="process-math">\(ar^2 + br + c = 0\text{.}\)</span></p>
+</li>
+<li id="li-396">
+<p id="p-1411">To understand that  simple harmonic oscillator can be modeled by the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(m \gt 0\text{,}\)</span> <span class="process-math">\(k \gt 0\text{,}\)</span> and <span class="process-math">\(b \geq 0\text{.}\)</span></p>
+</li>
+</ul></article><section class="introduction" id="introduction-92"><p id="p-1412">A differential equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a(t) x'' + b(t) x' + c(t) x = g(t)
+\end{equation*}
+</div>
+<p class="continuation">is called a <dfn class="terminology">second-order linear differential equation</dfn>. We will first consider the case</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + b x' + cx = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(c\)</span> are constants and <span class="process-math">\(a \neq 0\text{.}\)</span> An equation of this form is said to be <dfn class="terminology">homogeneous</dfn> with <dfn class="terminology">constant coefficients</dfn>. We already know how to solve such equations since we can rewrite them as a system of first-order linear equations. Thus, we can find the general solution of a homogeneous second-order linear differential equation with constant coefficients by computing the eigenvalues and eigenvectors of the matrix of the corresponding system.</p></section><section class="subsection" id="secondorder01-subsection-rlc-circuit"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span>
+</h3>
+<p id="p-1413">Recall the RC circuits that we studied earlier (see <a href="firstlook03.html" class="internal" title="Section 1.3: Geometric and Quantitative Analysis">Section 1.3</a>). Such circuits contained a voltage source, a capacitor, and a resistor. A battery or generator is an example of a voltage source, and a toaster or an electric stove is an example of something that might provide a resistance in a circuit. Capacitors store an electrical charge and are used in electronic flashes for cameras. We will now add an inductor such as a solenoid, a coil that generates a magnetic field. Inductor applications include transformers, power supplies, televisions, and radios. Our new circuit is called an RLC circuit (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-rlc-circuit.html" title="Figure 4.1.1">Figure 4.1.1</a>).</p>
+<figure class="figure figure-like" id="secondorder01-figure-rlc-circuit"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="generated/latex-image/secondorder01-rlc-circuit.svg" role="img" class="contained" alt="an electrical circuit containing a voltage source, and resistor, a capacitor, and an inductor"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.1<span class="period">.</span></span><span class="space"> </span>An RLC Circuit</figcaption></figure><p id="p-1414">Current, <span class="process-math">\(I(t)\text{,}\)</span> is the rate at which a charge flows through this circuit and is measured in amperes or amps. We assign a direction to the current, and a current flowing in the opposite direction will be given negative values. The impressed voltage, <span class="process-math">\(E(t)\text{,}\)</span> is measured in volts, the resistance <span class="process-math">\(R\)</span> is measured in ohms, and the capacitance <span class="process-math">\(C\)</span> is measured in farads. The charge on the capacitor <span class="process-math">\(Q(t)\)</span> at time <span class="process-math">\(t\)</span> is measured in coulombs. Inductance on the coil, <span class="process-math">\(L\text{,}\)</span> is measured in henrys.</p>
+<p id="p-1415">The following laws from physics govern how our circuit behaves.</p>
+<ul class="disc">
+<li id="li-397"><p id="p-1416"><span class="process-math">\(I = \dfrac{dQ}{dt}\text{.}\)</span></p></li>
+<li id="li-398"><p id="p-1417">The voltage drop across a resistor is <span class="process-math">\(IR\)</span> (Ohm's Law).</p></li>
+<li id="li-399"><p id="p-1418">The voltage drop across a capacitor is <span class="process-math">\(Q/C\text{.}\)</span></p></li>
+<li id="li-400"><p id="p-1419">The voltage drop across an inductor is <span class="process-math">\(L (dI/dt)\text{.}\)</span></p></li>
+<li id="li-401"><p id="p-1420">In a closed circuit the impressed voltage is equal to the sum of the voltage drops in the rest of the circuit (Kirchhoff's Second Law).</p></li>
+</ul>
+<p class="continuation">Applying Kirchhoff's Second Law  to our circuit, we have the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-RLC.html" id="secondorder01-equation-RLC">
+\begin{equation}
+L \frac{dI}{dt} + RI + \frac{1}{C} Q = E(t)\tag{4.1.1}
+\end{equation}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-RLC.html">
+\begin{equation*}
+LQ'' + RQ' + \frac{1}{C} Q = E(t).
+\end{equation*}
+</div>
+<p class="continuation">Differentiating both sides of <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-RLC.html" title="Equation 4.1.1">(4.1.1)</a>, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-RLC.html">
+\begin{equation*}
+L I'' + RI' + \frac{1}{C} I = E'(t).
+\end{equation*}
+</div>
+<p id="p-1421">For example, we might consider an RLC circuit with <span class="process-math">\(R = 1\text{,}\)</span> <span class="process-math">\(L = 1\text{,}\)</span> and <span class="process-math">\(C = 1\text{.}\)</span> At <span class="process-math">\(t = 0\)</span> when both <span class="process-math">\(I(0) =0\)</span> and <span class="process-math">\(I'(0) = Q(0) = 0\text{,}\)</span> the impressed voltage on the circuit is given by <span class="process-math">\(E(t) = \sin(t)\text{.}\)</span> Our equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+I'' + I' + I = E'(t) = \cos t.
+\end{equation*}
+</div>
+<p class="continuation">This is an example of a <dfn class="terminology">second-order linear differential equation</dfn>.</p></section><section class="subsection" id="secondorder01-subsection-second-order-linear-de"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span>
+</h3>
+<p id="p-1422">Suppose that we have a homogeneous second-order linear differential equation with constant coefficients,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html ./knowl/secondorder01-equation-constant-coef.html" id="secondorder01-equation-constant-coef">
+\begin{equation}
+a x'' + b x' + cx = 0.\tag{4.1.2}
+\end{equation}
+</div>
+<p class="continuation">The goal of this section is to be able to solve all such equations. However, we did a great deal of work finding unique solutions to systems of first-order linear systems equations in <a href="linear.html" class="internal" title="Chapter 3: Linear Systems">Chapter 3</a>. Our efforts are now rewarded. Since each second-order homogeneous system with constant coefficients can be rewritten as a first-order linear system, we are guaranteed the existence and uniqueness of solutions. Indeed, we can rewrite <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-constant-coef.html" title="Equation 4.1.2">(4.1.2)</a> as a system of first-order linear equations,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear.html ./knowl/secondorder01-equation-constant-coef.html" id="md-344">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = -\frac{c}{a} x - \frac{b}{a} y,
+\end{align*}
+</div>
+<p class="continuation">and then find the general solution by computing the eigenvalues and eigenvectors of the matrix of the corresponding system.</p>
+<article class="example example-like" id="secondorder01-example-real-solutions"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-secondorder01-example-real-solutions"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-secondorder01-example-real-solutions"><article class="example example-like"><p id="p-1423">Solutions of a linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> often include terms of the form <span class="process-math">\(e^{r t}\text{.}\)</span> It makes sense that solutions to equation <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-constant-coef.html" title="Equation 4.1.2">(4.1.2)</a> take the same form. Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-constant-coef.html ./knowl/secondorder01-equation-guess.html" id="secondorder01-equation-guess">
+\begin{equation}
+x'' + 3 x' - 10 x = 0.\tag{4.1.3}
+\end{equation}
+</div>
+<p class="continuation">If we assume that a solution is of the form <span class="process-math">\(e^{rt}\text{,}\)</span> we can substitute this expression into the left-hand side of <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-guess.html" title="Equation 4.1.3">(4.1.3)</a> to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-constant-coef.html ./knowl/secondorder01-equation-guess.html" id="md-345">
+\begin{align*}
+\frac{d^2}{dt^2} e^{rt} + \frac{d}{dt} 3 e^{rt} - 10 e^{rt} &amp; = r^2 e^{rt} + 3 r e^{rt} - 10 e^{rt}\\
+&amp; = (r^2 + 3r - 10) e^{rt}\\
+&amp; = (r + 5)(r - 2) e^{rt}.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\(e^{rt}\)</span> is never zero, we find that <span class="process-math">\((r + 5)(r - 2) = 0\)</span> or <span class="process-math">\(r = -5\)</span> or <span class="process-math">\(2\text{.}\)</span> Thus, we have two solutions</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-constant-coef.html ./knowl/secondorder01-equation-guess.html">
+\begin{equation*}
+x_1(t) = e^{-5t} \mbox{ and } x_2(t) = e^{2t}.
+\end{equation*}
+</div>
+<p class="continuation">By the Principle of Superposition,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-constant-coef.html ./knowl/secondorder01-equation-guess.html" id="secondorder01-equation-guess-soln">
+\begin{equation}
+x(t) = c_1 x_1(t) + c_2 x_2(t) = c_1 e^{-5t} + c_2 e^{2t}\tag{4.1.4}
+\end{equation}
+</div>
+<p class="continuation">is a solution to <span class="process-math">\(x'' + 3x' - 10 x = 0\text{.}\)</span></p>
+<p id="p-1424">Indeed, this is the general solution of our second-order equation since we have a one-to-one correspondence between the solutions of</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-guess-soln.html">
+\begin{equation*}
+x'' + 3x' - 10 x = 0
+\end{equation*}
+</div>
+<p class="continuation">and the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-guess-soln.html" id="md-346">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = 10x - 3 y.
+\end{align*}
+</div>
+<p class="continuation">The matrix associated with this system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-guess-soln.html">
+\begin{equation*}
+A = \begin{pmatrix} 0 \amp 1 \\ 10 \amp -3 \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">has characteristic polynomial <span class="process-math">\(\lambda^2 + 3 \lambda - 10\text{.}\)</span> The eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda_1 = -5\)</span> and <span class="process-math">\(\lambda_2 = 2\)</span> with eigenvectors <span class="process-math">\(\mathbf v_1 = (1, -5)\)</span> and <span class="process-math">\(\mathbf v_2 = (1, 2)\text{,}\)</span> respectively. Consequently, the solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-guess-soln.html">
+\begin{equation*}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}
+=
+c_1 e^{-5t} \begin{pmatrix} 1 \\ -5 \end{pmatrix}
++
+c_2 e^{2t} \begin{pmatrix} 1 \\ 2 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">which agrees with <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-guess-soln.html" title="Equation 4.1.4">(4.1.4)</a>.</p></article></div>
+<p id="p-1425">In general, suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+a x'' + b x' + c x = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(a \neq 0\text{.}\)</span>  Applying the strategy in <a href="" class="xref" data-knowl="./knowl/secondorder01-example-real-solutions.html" title="Example 4.1.2">Example 4.1.2</a>, we can find the general solution for this equation by finding the roots of the quadratic polynomial <span class="process-math">\(a \lambda^2 + b \lambda + c\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+\lambda = - \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(b^2 - 4ac \gt 0\text{,}\)</span> we have real roots</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a},
+\end{equation*}
+</div>
+<p class="continuation">and the solution to our second-order differential equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html" id="secondorder01-equation-real-soln">
+\begin{equation}
+x(t) = c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t},\tag{4.1.5}
+\end{equation}
+</div>
+<p class="continuation">where <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> are arbitrary constants.</p>
+<p id="p-1426">To prove that equation <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-real-soln.html" title="Equation 4.1.5">(4.1.5)</a> is indeed the general solution to the second-order equation <span class="process-math">\(a x'' + b x' + c x = 0\text{,}\)</span> we can study the equivalent system of linear equations. If we let <span class="process-math">\(y = x'\text{,}\)</span> the corresponding linear system is <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-real-soln.html">
+\begin{equation*}
+A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The characteristic polynomial of <span class="process-math">\(A\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-real-soln.html">
+\begin{equation*}
+p(\lambda) = \det(A - \lambda I) = \lambda^2 + \frac{b}{a} \lambda + \frac{c}{a}.
+\end{equation*}
+</div>
+<p class="continuation">The roots of <span class="process-math">\(p(\lambda)\)</span> are the same as the roots of <span class="process-math">\(a\lambda^2 + b\lambda + c\text{.}\)</span></p>
+<p id="p-1427">If <span class="process-math">\(b^2 - 4ac \gt 0\text{,}\)</span> we have real roots</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-real-soln.html">
+\begin{equation*}
+\lambda_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \quad \text{and} \quad \lambda_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}.
+\end{equation*}
+</div>
+<p class="continuation">We can find eigenvectors</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-real-soln.html" id="md-347">
+\begin{align*}
+\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b + \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix}\\
+\mathbf v_1 \amp = \begin{pmatrix} 1 \\ (-b - \sqrt{b^2 - 4ac}\,)/2a \end{pmatrix} = \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix}
+\end{align*}
+</div>
+<p class="continuation">for <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> respectively. Thus, the general solution to the system of differential equations <span class="process-math">\(\mathbf x' = A \mathbf x\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-real-soln.html">
+\begin{equation*}
+\mathbf x(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix} = c_1 e^{\lambda_1 t} \begin{pmatrix} 1 \\ \lambda_1 \end{pmatrix} + c_2 e^{\lambda_2 t} \begin{pmatrix} 1 \\ \lambda_2 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">which agrees with <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-real-soln.html" title="Equation 4.1.5">(4.1.5)</a>.</p>
+<article class="example example-like" id="example-65"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-65"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-65"><article class="example example-like"><p id="p-1428">Now let us solve the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html" id="md-348">
+\begin{align*}
+x'' + 4 x' + 5 x &amp; = 0\\
+x(0) &amp; = 1\\
+x'(0) &amp; = 1.
+\end{align*}
+</div>
+<p class="continuation">Again, we will assume that our solution has the form <span class="process-math">\(x(t) = e^{rt}\text{.}\)</span> Substituting this function into our differential equation, we find that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+0 = x'' + 4 x' + 5 x = r^2 e^{rt} + 4r e^{rt} + 5 e^{rt} = (r^2 + 4r + 5) e^{rt}.
+\end{equation*}
+</div>
+<p class="continuation">As in <a href="" class="xref" data-knowl="./knowl/secondorder01-example-real-solutions.html" title="Example 4.1.2">Example 4.1.2</a>, <span class="process-math">\(r^2 + 4r + 5 = 0\text{;}\)</span> however, the roots of this polynomial are complex,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+r = \frac{-4 \pm \sqrt{-4}}{2} = - 2 \pm i.
+\end{equation*}
+</div>
+<p class="continuation">Using Euler's formula, we can find a complex solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+x(t) = e^{(-2 + i)t} = e^{-2t} e^{it} = e^{-2t} (\cos t + i \sin t).
+\end{equation*}
+</div>
+<p class="continuation">The real and imaginary parts of our solution are</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html" id="md-349">
+\begin{align*}
+x_1(t) \amp = e^{-2t} \cos t\\
+x_2(t) \amp = e^{-2t} \sin t,
+\end{align*}
+</div>
+<p class="continuation">respectively. We claim that both <span class="process-math">\(x_1(t)\)</span> and <span class="process-math">\(x_2(t)\)</span> are solutions to our differential equation. Indeed, since <span class="process-math">\(x(t) = x_1(t) + i x_2(t)\)</span> is a solution,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html" id="md-350">
+\begin{align*}
+0 \amp = ax'' + bx' + cx\\
+\amp = a(x_1 + i x_2)'' + b(x_1 + i x_2)' + c(x_1 + i x_2)\\
+\amp = (ax_1'' + bx_1' + cx_1) + i(ax_2'' + bx_2' + cx_2).
+\end{align*}
+</div>
+<p class="continuation">Since the real part and the imaginary part of <span class="process-math">\(x(t)\)</span> must both be zero, we can conclude that <span class="process-math">\(ax_1'' + bx_1' + cx_1 = 0\)</span> and <span class="process-math">\(ax_2'' + bx_2' + cx_2 = 0\text{.}\)</span> Therefore, the general solution to our equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-real-solutions.html">
+\begin{equation*}
+x(t) = c_1 e^{-2t} \cos t + c_2 e^{-2t} \sin t.
+\end{equation*}
+</div>
+<p id="p-1429">To apply our initial conditions <span class="process-math">\(x(0) = 1\)</span> and <span class="process-math">\(x'(0) = 1\text{,}\)</span> we first calculate</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'(t) = -2 e^{-2t} (c_1  \cos t + c_2 \sin t) + e^{-2t} (- c_1  \sin t + c_2 \cos t).
+\end{equation*}
+</div>
+<p class="continuation">Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-351">
+\begin{align*}
+1 \amp = x(0) = c_1\\
+1 \amp = x'(0) = -2c_1  + c_2,
+\end{align*}
+</div>
+<p class="continuation">and <span class="process-math">\(c_1 =1\)</span> and <span class="process-math">\(c_2= 3\text{.}\)</span> Hence, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = e^{-2t} \cos t + 3 e^{-2t} \sin t.
+\end{equation*}
+</div></article></div>
+<p id="p-1430">As before, the corresponding linear sytem is <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A = \begin{pmatrix} 0 \amp 1 \\ -c/a \amp -b/a \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(b^2 - 4ac \lt 0\text{,}\)</span> the eigenvalue of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda = \alpha + i \beta\)</span> and <span class="process-math">\(\overline{\lambda} = \alpha - i \beta\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\alpha = - \frac{b}{2a} \quad \text{and} \quad \beta = \frac{\sqrt{4ac - b^2}}{2a}.
+\end{equation*}
+</div>
+<p class="continuation">The vector <span class="process-math">\(\mathbf v = (1, \alpha + i \beta)\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{.}\)</span> Thus, a solution to our system of differential equations is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-352">
+\begin{align*}
+\mathbf x(t) \amp = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix}\\
+\amp = \begin{pmatrix} x(t) \\ x'(t) \end{pmatrix}\\
+\amp = e^{(\alpha + i \beta)t} \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}\\
+\amp = e^{\alpha t} (\cos \beta t + i \sin \beta t) \begin{pmatrix} 1 \\ \alpha + i \beta \end{pmatrix}\\
+\amp = e^{\alpha t} \begin{pmatrix} \cos \beta t  \\ \alpha \cos \beta t - \beta \sin \beta t \end{pmatrix} + i e^{\alpha t} \begin{pmatrix} \sin \beta t \\ \alpha \sin \beta t + \beta \cos \beta t \end{pmatrix}.
+\end{align*}
+</div>
+<p class="continuation">Taking the real and imaginary parts of <span class="process-math">\(x(t)\text{,}\)</span> we obtain two real solutions to the system, <span class="process-math">\(x_1(t) = e^{\alpha t} \cos \beta t\)</span> and <span class="process-math">\(x_2(t) = e^{\alpha t} \sin \beta t\text{.}\)</span> Therefore, the general solution to <span class="process-math">\(ax_1'' + bx_1' + cx_1 = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t.
+\end{equation*}
+</div>
+<p id="p-1431">Given a second-order linear differential equation with constant coefficients, <span class="process-math">\(ax'' + bx' + cx = 0\text{,}\)</span> our strategy has been to solve the <dfn class="terminology">characteristic equation</dfn> <span class="process-math">\(a \lambda^2 + b \lambda + c = 0\)</span> to obtain two linearly independent solutions. We have covered the case where this equation has two distinct real solutions as well as when there are complex solutions, but what if there is only a single real solution <span class="process-math">\(\lambda = -b/2a\text{?}\)</span></p>
+<article class="example example-like" id="secondorder01-example-reduction-of-order"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-secondorder01-example-reduction-of-order"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-secondorder01-example-reduction-of-order"><article class="example example-like"><p id="p-1432">Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2x' + x = 0.
+\end{equation*}
+</div>
+<p class="continuation">If we choose <span class="process-math">\(e^{\lambda t}\)</span> as our guess, we find</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-353">
+\begin{align*}
+x'' + 2 x' + x &amp; = \lambda^2 e^{\lambda t} + 2\lambda e^{\lambda t} + e^{\lambda t}\\
+&amp; = e^{\lambda t} (\lambda + 1)^2\\
+&amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Thus, <span class="process-math">\(\lambda  = -1\)</span> and we have a solution <span class="process-math">\(x_1(t) = e^{-t}\text{.}\)</span></p>
+<p id="p-1433">In order to find a general solution to <span class="process-math">\(x'' + 2x' + x = 0\text{,}\)</span> we must find a second solution that is not a multiple of <span class="process-math">\(x_1(t) = e^{-t}\text{.}\)</span> Since we already know that <span class="process-math">\(c x_1(t)\)</span> is a solution to our differential equation, we will try to generalize this observation by replacing <span class="process-math">\(c\)</span> with a nonconstant function <span class="process-math">\(v(t)\)</span> and then try to determine <span class="process-math">\(v(t)\)</span> so that <span class="process-math">\(v(t) x_1(t)\)</span> is a solution to <span class="process-math">\(x'' + 2x' + x = 0\text{.}\)</span> Indeed, if</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = v(t) x_1(t) = v(t) e^{-t},
+\end{equation*}
+</div>
+<p class="continuation">then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'(t) = v(t) x_1'(t) + v'(t) x_1(t) = -v(t) e^{-t} + v'(t) e^{-t}
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-354">
+\begin{align*}
+x''(t) &amp; = v''(t) x_1(t) + 2v'(t) x_1'(t) + v(t) x_1''(t)\\
+&amp; = v''(t) e^{-t} - 2 v'(t) e^{-t} + v(t) e^{-t}.
+\end{align*}
+</div>
+<p class="continuation">Consequently,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-355">
+\begin{align*}
+x'' + 2 x' + x &amp; = [v'' e^{-t} - 2 v' e^{-t} + v e^{-t}] + 2 [-v e^{-t} + v' e^{-t}]  + [v e^{-t}]\\
+&amp; = e^{-t} v''\\
+&amp; = 0,
+\end{align*}
+</div>
+<p class="continuation">and <span class="process-math">\(v'' = 0\text{.}\)</span> Therefore, <span class="process-math">\(v = c_1 t + c_2\text{.}\)</span> Letting <span class="process-math">\(c_1 = 1\)</span> and <span class="process-math">\(c_2 = 0\text{,}\)</span> we can assume that <span class="process-math">\(v(t) = t\text{,}\)</span> and the second solution to our equation is <span class="process-math">\(x = t e^{-t}\text{.}\)</span> Hence, the general solution to  <span class="process-math">\(x'' + 2x' + x = 0\)</span> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1 e^{-t} + c_2 t e^{-t}.
+\end{equation*}
+</div>
+<p class="continuation">We leave it as an exercise to show that our solution agrees with the solution that we would obtain from solving the equivalent first-order linear system.</p></article></div>
+<p id="p-1434">The technique that we have used in <a href="" class="xref" data-knowl="./knowl/secondorder01-example-reduction-of-order.html" title="Example 4.1.4">Example 4.1.4</a> is called <dfn class="terminology">reduction of order</dfn>.  We leave it as an exercise to show that this technique works in general. That is, given a second-order linear differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-reduction-of-order.html">
+\begin{equation*}
+a x'' + bx' + cx = 0
+\end{equation*}
+</div>
+<p class="continuation">such that <span class="process-math">\(b^2 - 4ac = 0\text{,}\)</span> then the general solution is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-example-reduction-of-order.html">
+\begin{equation*}
+x(t) = c_1 e^{\lambda t} + c_2 t e^{\lambda t},
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\lambda = -b/2a\text{.}\)</span></p>
+<article class="activity project-like" id="activity-33"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Second-Order Homogeneous Linear Differential Equations.</span>
+</h4>
+<div class="introduction" id="introduction-93"><p id="p-1435">Solve each of the following initial value problems.</p></div>
+<article class="task exercise-like" id="task-176"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-356">
+\begin{align*}
+x'' - 5 x' -14 x &amp; = 0\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 2.
+\end{align*}
+</div></article><article class="task exercise-like" id="task-177"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-357">
+\begin{align*}
+6x'' - 11 x' + 3 x &amp; = 0\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 2.
+\end{align*}
+</div></article><article class="task exercise-like" id="task-178"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-358">
+\begin{align*}
+x'' - 14 x' + 53 x &amp; = 0\\
+x(0) &amp; = 1\\
+x'(0) &amp; = 1.
+\end{align*}
+</div></article><article class="task exercise-like" id="task-179"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-359">
+\begin{align*}
+4x'' - 20 x' + 41 x &amp; = 0\\
+x(0) &amp; = 0\\
+x'(0) &amp; = 1.
+\end{align*}
+</div></article><article class="task exercise-like" id="task-180"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-360">
+\begin{align*}
+x'' -1 4 x' +49 x &amp; = 0\\
+x(0) &amp; = 1\\
+x'(0) &amp; = 0.
+\end{align*}
+</div></article></article></section><section class="subsection" id="secondorder01-subsection-harmonic-oscillators"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span>
+</h3>
+<p id="p-1441">Recall from <a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal" title="Subsection 1.1.3: A Spring-Mass Model">Subsection 1.1.3</a> that we can model harmonic motion using the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook01-subsection-spring-mass.html">
+\begin{equation*}
+m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.
+\end{equation*}
+</div>
+<p class="continuation">In the case of a spring-mass system, <span class="process-math">\(m\)</span> is the oscillating mass, <span class="process-math">\(b\)</span> is the damping coefficient, and <span class="process-math">\(k\)</span> is the spring constant. It is important to remember that both <span class="process-math">\(m\)</span> and <span class="process-math">\(k\)</span> are positive constants and <span class="process-math">\(b \geq 0\text{.}\)</span></p>
+<p id="p-1442">If <span class="process-math">\(b = 0\text{,}\)</span> then the oscillator is <dfn class="terminology">undamped</dfn> In this case,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-harmonic.html" id="secondorder01-equation-harmonic">
+\begin{equation}
+m \frac{d^2 x}{dt^2} + k x = 0.\tag{4.1.6}
+\end{equation}
+</div>
+<p class="continuation">The characteristic equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-harmonic.html">
+\begin{equation*}
+m \lambda^2 + k = 0,
+\end{equation*}
+</div>
+<p class="continuation">and we have eigenvalues <span class="process-math">\(\lambda = \pm i \sqrt{k/m}\text{.}\)</span> Hence, the complex solution to our undamped oscillator is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-harmonic.html">
+\begin{equation*}
+e^{i \omega t} = \cos \omega t + i \sin \omega t,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\omega = \sqrt{k/m}\text{.}\)</span> Since both the real and imaginary parts of the complex solution are also solutions to <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-harmonic.html" title="Equation 4.1.6">(4.1.6)</a>, the general solution to the undamped harmonic oscillator is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-harmonic.html">
+\begin{equation*}
+x(t) = c_1 \cos \omega t + c_2 \sin \omega t,
+\end{equation*}
+</div>
+<p class="continuation">giving us the position of the mass at time <span class="process-math">\(t\text{.}\)</span> Now, of course, it is easy to determine the velocity of the mass at time <span class="process-math">\(t\)</span> to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-harmonic.html">
+\begin{equation*}
+v(t) = x'(t) = - c_1 \omega \sin \omega t + c_2 \omega \cos \omega t.
+\end{equation*}
+</div>
+<article class="example example-like" id="example-67"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-67"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-67"><article class="example example-like"><p id="p-1443">Suppose that an undamped harmonic oscillator is modeled by the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-undamped-oscillator.html ./knowl/secondorder01-figure-undamped-oscillator-phase-plane.html" id="md-361">
+\begin{align*}
+\frac{d^2x}{dt^2} + 9 x \amp = 0\\
+x(0) \amp = 2\\
+x'(0) \amp = 1.
+\end{align*}
+</div>
+<p class="continuation">We can quickly determine the solution of this initial value problem to be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-undamped-oscillator.html ./knowl/secondorder01-figure-undamped-oscillator-phase-plane.html" id="md-362">
+\begin{align*}
+x(t) \amp = 2 \cos 3t +\frac{1}{3} \sin 3t\\
+v(t) \amp = \cos 3t - 6 \sin 3t,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(v(t) = x'(t)\)</span> is the velocity of the oscillator (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-undamped-oscillator.html" title="Figure 4.1.6">Figure 4.1.6</a>). Examining the phase plane of the undamped oscillator, we find that the period of the oscillations is given by <span class="process-math">\(2 \pi / \omega = 2 \pi / 3 \approx 2.094\)</span> (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-undamped-oscillator-phase-plane.html" title="Figure 4.1.7">Figure 4.1.7</a>).</p>
+<figure class="figure figure-like" id="secondorder01-figure-undamped-oscillator"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/secondorder01-undamped-oscillator.svg" role="img" class="contained" alt="position and velocity of an undamped harmonic oscillator plotted agains time"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.6<span class="period">.</span></span><span class="space"> </span>Position and velocity of an undamped harmonic oscillator</figcaption></figure><figure class="figure figure-like" id="secondorder01-figure-undamped-oscillator-phase-plane"><div class="image-box" style="width: 20%; margin-left: 40%; margin-right: 40%;"><img src="generated/sageplot/secondorder01-undamped-oscillator-phase-plane.svg" role="img" class="contained" alt="the velocity of a harmonic oscillator plotted against the position forming an ellipse in the position-velocity plane"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.7<span class="period">.</span></span><span class="space"> </span>The phase plane of an undamped harmonic oscillator</figcaption></figure></article></div>
+<p id="p-1444">If we add damping to the oscillator, the equation becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-damped-oscillator.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html" id="secondorder01-equation-damped-oscillator">
+\begin{equation}
+m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0.\tag{4.1.7}
+\end{equation}
+</div>
+<p class="continuation">where <span class="process-math">\(b \gt 0\text{.}\)</span> The charactersitic equation of <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-damped-oscillator.html" title="Equation 4.1.7">(4.1.7)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-damped-oscillator.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html">
+\begin{equation*}
+m\lambda^2 + b\lambda + k = 0\text{,}
+\end{equation*}
+</div>
+<p class="continuation">which has roots</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-damped-oscillator.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html ./knowl/secondorder01-equation-characteristic-eq-roots.html" id="secondorder01-equation-characteristic-eq-roots">
+\begin{equation}
+\lambda = \frac{-b \pm \sqrt{b^2 - 4mk}}{2m}.\tag{4.1.8}
+\end{equation}
+</div>
+<p class="continuation">There are three possible types of types of motion for the oscillator depending on the nature of the roots of <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-characteristic-eq-roots.html" title="Equation 4.1.8">(4.1.8)</a>.</p>
+<ul class="disc">
+<li id="li-402"><p id="p-1445">If the damping value of <span class="process-math">\(b\)</span> is small when compared to <span class="process-math">\(4mk\text{,}\)</span> then <span class="process-math">\(b^2 - 4mk \lt 0\)</span> and the roots of <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-characteristic-eq-roots.html" title="Equation 4.1.8">(4.1.8)</a> will be complex. Furthermore, the real part of each root, <span class="process-math">\(-b/ 2m\text{,}\)</span> is always negative. In such a situation, we say that the oscillator is <dfn class="terminology">under-damped</dfn>. </p></li>
+<li id="li-403"><p id="p-1446">If the damping value of <span class="process-math">\(b\)</span> is large , then <span class="process-math">\(b^2 - 4mk \gt 0\text{,}\)</span> and we obtain distinct real negative roots for <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-characteristic-eq-roots.html" title="Equation 4.1.8">(4.1.8)</a>. The oscillator is <dfn class="terminology">over-damped</dfn>. </p></li>
+<li id="li-404"><p id="p-1447">Finally, we say that the oscillator is <dfn class="terminology">critically-damped</dfn>  if <span class="process-math">\(b^2 - 4mk = 0\text{.}\)</span></p></li>
+</ul>
+<article class="example example-like" id="example-68"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-68"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.8</span><span class="period">.</span><span class="space"> </span><span class="title">An Under-Damped Oscillator.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-68"><article class="example example-like"><p id="p-1448">Suppose that an oscillator is modeled by the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-under-damped-oscillator.html ./knowl/secondorder01-figure-under-damped-oscillator-phase-plane.html" id="md-363">
+\begin{align*}
+\frac{d^2 x}{dt^2} + 0.4 \frac{dx}{dt} + 1.04 x \amp = 0\\
+x(0) \amp = 0\\
+x'(0) \amp = 1.
+\end{align*}
+</div>
+<p class="continuation">Notice that the damping <span class="process-math">\(b = 0.4\)</span> is very small compared with the spring constant <span class="process-math">\(k = 1.04\text{.}\)</span> The characteristic equation of the differential equation is <span class="process-math">\(\lambda^2 + 0.4 \lambda + 1.04 = 0\text{,}\)</span> which has roots <span class="process-math">\(\lambda = -0.2 \pm i\text{.}\)</span> Therefore, the complex solution must be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-under-damped-oscillator.html ./knowl/secondorder01-figure-under-damped-oscillator-phase-plane.html">
+\begin{equation*}
+x(t) = e^{(-0.2 \pm i)t} = e^{-0.2t} ( \cos t + i \sin t),
+\end{equation*}
+</div>
+<p class="continuation">and the general solution must be</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-under-damped-oscillator.html ./knowl/secondorder01-figure-under-damped-oscillator-phase-plane.html">
+\begin{equation*}
+x(t) = c_1 e^{-0.2t} \cos t + c_2 e^{-0.2t} \sin t.
+\end{equation*}
+</div>
+<p class="continuation">Applying the initial conditions, our solution becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-under-damped-oscillator.html ./knowl/secondorder01-figure-under-damped-oscillator-phase-plane.html" id="md-364">
+\begin{align*}
+x(t) \amp =  e^{-0.2t} \sin t\\
+v(t) \amp = x'(t) = e^{-0.2t} (\cos t - 0.2 \sin t).
+\end{align*}
+</div>
+<p class="continuation">Notice that the period of the oscillations, <span class="process-math">\(2 \pi / \omega = 2 \pi \approx 6.283\text{,}\)</span> does not change; however, the amplitude slowly decreases (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-under-damped-oscillator.html" title="Figure 4.1.9">Figure 4.1.9</a> and <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-under-damped-oscillator-phase-plane.html" title="Figure 4.1.10">Figure 4.1.10</a>).</p>
+<figure class="figure figure-like" id="secondorder01-figure-under-damped-oscillator"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/secondorder01-under-damped-oscillator.svg" role="img" class="contained" alt="velocity and position plotted against time with oscillations becoming smaller as time increases"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.9<span class="period">.</span></span><span class="space"> </span>Position and velocity of an under-damped harmonic oscillator</figcaption></figure><figure class="figure figure-like" id="secondorder01-figure-under-damped-oscillator-phase-plane"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="generated/sageplot/secondorder01-under-damped-oscillator-phase-plane.svg" role="img" class="contained" alt="the velocity of a harmonic oscillator plotted against the position spiraling towards the origin on the position-velocity plane"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.10<span class="period">.</span></span><span class="space"> </span>The phase plane of an under-damped harmonic oscillator</figcaption></figure></article></div>
+<article class="example example-like" id="example-69"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-69"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.11</span><span class="period">.</span><span class="space"> </span><span class="title">An Over-Damped Oscillator.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-69"><article class="example example-like"><p id="p-1449">We can expect a different type of behavior in the case of an over-damped oscillator. For example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-over-damped-oscillator.html ./knowl/secondorder01-figure-over-damped-oscillator-phase-plane.html" id="md-365">
+\begin{align*}
+\frac{d^2 x}{dt^2} + 4 \frac{dx}{dt} + 3 x \amp = 0\\
+x(0) \amp = 0\\
+x'(0) \amp = 1.
+\end{align*}
+</div>
+<p class="continuation">The characteristic equation of this initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-over-damped-oscillator.html ./knowl/secondorder01-figure-over-damped-oscillator-phase-plane.html">
+\begin{equation*}
+\lambda^2 + 4 \lambda + 3 = (\lambda + 3)(\lambda + 1) = 0;
+\end{equation*}
+</div>
+<p class="continuation">hence, we have the general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-over-damped-oscillator.html ./knowl/secondorder01-figure-over-damped-oscillator-phase-plane.html">
+\begin{equation*}
+x(t) = c_1 e^{-t} + c_2 e^{-3t}.
+\end{equation*}
+</div>
+<p class="continuation">Applying the initial conditions, our solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-over-damped-oscillator.html ./knowl/secondorder01-figure-over-damped-oscillator-phase-plane.html" id="md-366">
+\begin{align*}
+x(t) \amp =  x(t) = \frac{1}{2}e^{-t} - \frac{1}{2} e^{-3t}\\
+v(t) \amp = x'(t) = -\frac{1}{2}e^{-t} + \frac{3}{2} e^{-3t}.
+\end{align*}
+</div>
+<p class="continuation">Notice that the damping is too strong for any oscillations to occur (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-over-damped-oscillator.html" title="Figure 4.1.12">Figure 4.1.12</a> and <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-over-damped-oscillator-phase-plane.html" title="Figure 4.1.13">Figure 4.1.13</a>).</p>
+<figure class="figure figure-like" id="secondorder01-figure-over-damped-oscillator"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/secondorder01-over-damped-oscillator.svg" role="img" class="contained" alt="velocity and position plotted against time with the two curves approaching zero for large times"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.12<span class="period">.</span></span><span class="space"> </span>Position and velocity of an over-damped harmonic oscillator</figcaption></figure><figure class="figure figure-like" id="secondorder01-figure-over-damped-oscillator-phase-plane"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="generated/sageplot/secondorder01-over-damped-oscillator-phase-plane.svg" role="img" class="contained" alt="the velocity of a harmonic oscillator plotted against the position with the solution curve approaching the origin on the position-velocity plane"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.13<span class="period">.</span></span><span class="space"> </span>The phase plane of an over-damped harmonic oscillator</figcaption></figure></article></div>
+<article class="example example-like" id="example-70"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-70"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.14</span><span class="period">.</span><span class="space"> </span><span class="title">A Critically-Damped Oscillator.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-70"><article class="example example-like"><p id="p-1450">As we increase the damping, the oscillations will cease to occur for some value of <span class="process-math">\(b\text{.}\)</span> This will happen when <span class="process-math">\(b^2 - 4mk = 0\text{.}\)</span> the At this point we have critical damping. Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-crit-damped-oscillator.html ./knowl/secondorder01-figure-crit-damped-oscillator-phase-plane.html" id="md-367">
+\begin{align*}
+\frac{d^2 x}{dt^2} + 4 \frac{dx}{dt} + 4 x \amp = 0\\
+x(0) \amp = 0\\
+x'(0) \amp = 1.
+\end{align*}
+</div>
+<p class="continuation">The general solution to this initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-crit-damped-oscillator.html ./knowl/secondorder01-figure-crit-damped-oscillator-phase-plane.html">
+\begin{equation*}
+x(t) = c_1 e^{-2t} + c_2 t e^{-2t}.
+\end{equation*}
+</div>
+<p class="continuation">The solution to the initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-crit-damped-oscillator.html ./knowl/secondorder01-figure-crit-damped-oscillator-phase-plane.html" id="md-368">
+\begin{align*}
+x(t) \amp =  x(t) = t e^{-2t}\\
+v(t) \amp = x'(t) = (1 - 2t)e^{-2t}.
+\end{align*}
+</div>
+<p class="continuation">Although we see that no oscillations for this oscillator (<a href="" class="xref" data-knowl="./knowl/secondorder01-figure-crit-damped-oscillator.html" title="Figure 4.1.15">Figure 4.1.15</a> and <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-crit-damped-oscillator-phase-plane.html" title="Figure 4.1.16">Figure 4.1.16</a>), oscillations will commence as soon as we start to reduce the damping constant <span class="process-math">\(b = 4\text{.}\)</span></p>
+<figure class="figure figure-like" id="secondorder01-figure-crit-damped-oscillator"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/sageplot/secondorder01-crit-damped-oscillator.svg" role="img" class="contained" alt="velocity and position plotted against time with the two curves approaching zero for large times"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.15<span class="period">.</span></span><span class="space"> </span>Position and velocity of a critically damped harmonic oscillator</figcaption></figure><figure class="figure figure-like" id="secondorder01-figure-crit-damped-oscillator-phase-plane"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="generated/sageplot/secondorder01-crit-damped-oscillator-phase-plane.svg" role="img" class="contained" alt="the phase plane of a critically damped harmonic oscillator with the solution curve approaching the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.16<span class="period">.</span></span><span class="space"> </span>The phase plane of a critically damped harmonic oscillator</figcaption></figure></article></div></section><section class="subsection" id="secondorder01-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1451" class="disc">
+<li id="li-405">
+<p id="p-1452">A second-order linear differential equation with constant coefficients is an equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + bx' + cx = 0.
+\end{equation*}
+</div>
+<p class="continuation">We can guess the solution to this equation. Since we can rewrite this equation as a system of first-order linear differential equations, we can determine the general solution to <span class="process-math">\(a x'' + bx' + cx = 0\text{.}\)</span></p>
+</li>
+<li id="li-406">
+<p id="p-1453">Suppose that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + b x' + c x = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(a \neq 0\)</span> and <span class="process-math">\(b^2 - 4ac \gt 0\text{.}\)</span> If the roots of <span class="process-math">\(ar^2 + br + c\)</span> are <span class="process-math">\(r_1\)</span> and <span class="process-math">\(r_2\text{,}\)</span> the general solution to this differential equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t}.
+\end{equation*}
+</div>
+</li>
+<li id="li-407">
+<p id="p-1454">If  <span class="process-math">\(b^2 - 4ac \lt 0\text{,}\)</span> the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + b x' + c x = 0
+\end{equation*}
+</div>
+<p class="continuation">has a general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(\alpha \pm i \beta\)</span> are the roots of <span class="process-math">\(a r^2 + br + c = 0\text{.}\)</span></p>
+</li>
+<li id="li-408">
+<p id="p-1455">If <span class="process-math">\(b^2 - 4ac = 0\text{,}\)</span> the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+a x'' + b x' + c x = 0
+\end{equation*}
+</div>
+<p class="continuation">has a general solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1 e^{- bt/2a} + c_2 t e^{-bt/2a}.
+\end{equation*}
+</div>
+</li>
+<li id="li-409">
+<p id="p-1456">A simple harmonic oscillator can be modeled by the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + k x = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(m \gt 0\text{,}\)</span> <span class="process-math">\(k \gt 0\text{,}\)</span> and <span class="process-math">\(b \geq 0\text{.}\)</span> There are three possible types of motion for the oscillator depending on the sign of <span class="process-math">\(b^2 - 4mk\text{.}\)</span></p>
+<ul class="circle">
+<li id="li-410"><p id="p-1457">If <span class="process-math">\(b^2 - 4mk \lt 0\text{,}\)</span> the oscillator is under-damped.</p></li>
+<li id="li-411"><p id="p-1458">If <span class="process-math">\(b^2 - 4mk \gt 0\text{,}\)</span> the oscillator is over-damped.</p></li>
+<li id="li-412"><p id="p-1459">If <span class="process-math">\(b^2 - 4mk = 0\text{,}\)</span> the oscillator is critically damped.</p></li>
+</ul>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-secondorder01"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-secondorder01-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1460">What is the <dfn class="terminology">characteristic equation</dfn> of <span class="process-math">\(ax'' + bx' + cx = 0\text{?}\)</span></p></article><article class="exercise exercise-like" id="reading-questions-secondorder01-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1461">Describe the possible types of damping of a harmonic oscillator?</p></article></section><section class="exercises" id="secondorder01-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">4.1.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="secondorder01-exercises-find-solutions">
+<h4 class="heading"><span class="title">Finding General Solutions.</span></h4>
+<div class="introduction" id="introduction-94"><p id="p-1462">Find the general solution for each equation in <a href="" class="xref" data-knowl="./knowl/secondorder01-exercises-find-solutions.html" title="Exercise Group 4.1.6.1–10: Finding General Solutions">Exercise Group 4.1.6.1–10</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-306"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<p id="p-1463"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-307"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<p id="p-1464"><span class="process-math">\(x'' - 2x' - 8x = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-308"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<p id="p-1465"><span class="process-math">\(y'' + 5y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-309"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<p id="p-1466"><span class="process-math">\(\dfrac{d^2 x}{dt^2} + 6 \dfrac{dx}{dt} + 5x = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-310"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<p id="p-1467"><span class="process-math">\(x'' - 10x' + 25x = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-311"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<p id="p-1468"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - 2\dfrac{dy}{dx} + 4y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-312"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<p id="p-1469"><span class="process-math">\(y'' - 8y' + 4y = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-313"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<p id="p-1470"><span class="process-math">\(\dfrac{d^2 x}{dx^2} + 3\dfrac{dx}{dt} - 10x = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-314"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<p id="p-1471"><span class="process-math">\(\dfrac{d^2 Q}{dt^2} - 4 \dfrac{dQ}{dt} + 9Q = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-315"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<p id="p-1472"><span class="process-math">\(\dfrac{d^2 y}{dt^2} + 6 \dfrac{dy}{dt} + 9y = 0\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder01-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-95"><p id="p-1473">Solve the initial value problems in <a href="" class="xref" data-knowl="./knowl/secondorder01-exercises-solve-ivps.html" title="Exercise Group 4.1.6.11–20: Solving Initial Value Problems">Exercise Group 4.1.6.11–20</a>.</p></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-316"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<p id="p-1474"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-317"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<p id="p-1475"><span class="process-math">\(x'' - 2x' - 8x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = 2\)</span></p></article><article class="exercise exercise-like" id="exercise-318"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<p id="p-1476"><span class="process-math">\(y'' + 5y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-319"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<p id="p-1477"><span class="process-math">\(\dfrac{d^2 x}{dt^2} + 6 \dfrac{dx}{dt} + 5x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x'(0) = -1\)</span></p></article><article class="exercise exercise-like" id="exercise-320"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<p id="p-1478"><span class="process-math">\(x'' - 10x' + 25x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-321"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<p id="p-1479"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - 2\dfrac{dy}{dx} + 4y = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\text{,}\)</span> <span class="process-math">\(x'(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-322"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<p id="p-1480"><span class="process-math">\(y'' - 8y' + 4y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = -2\)</span></p></article><article class="exercise exercise-like" id="exercise-323"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<p id="p-1481"><span class="process-math">\(\dfrac{d^2 x}{dx^2} + 3\dfrac{dx}{dt} - 10x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = 2\)</span></p></article><article class="exercise exercise-like" id="exercise-324"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<p id="p-1482"><span class="process-math">\(\dfrac{d^2 Q}{dt^2} - 4 \dfrac{dQ}{dt} + 9Q = 0\text{,}\)</span> <span class="process-math">\(Q(0) = -1\text{,}\)</span> <span class="process-math">\(Q'(0) = 2\)</span></p></article><article class="exercise exercise-like" id="exercise-325"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5>
+<p id="p-1483"><span class="process-math">\(\dfrac{d^2 y}{dt^2} + 6 \dfrac{dy}{dt} + 9y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder01-exercises-harmonic-oscillators">
+<h4 class="heading"><span class="title">Harmonic Oscillators.</span></h4>
+<div class="introduction" id="introduction-96">
+<p id="p-1484">Consider the harmonic oscillators with mass <span class="process-math">\(m\text{,}\)</span> damping coeeficient <span class="process-math">\(b\text{,}\)</span> and spring constant <span class="process-math">\(k\)</span> in <a href="" class="xref" data-knowl="./knowl/secondorder01-exercises-harmonic-oscillators.html" title="Exercise Group 4.1.6.21–28: Harmonic Oscillators">Exercise Group 4.1.6.21–28</a>.</p>
+<ol class="lower-alpha">
+<li id="li-413"><p id="p-1485">Write the second-order initial value problem corresponding for the harmonic oscillator.</p></li>
+<li id="li-414"><p id="p-1486">Classify the oscillator as undamped, under-damped, over-damped, or critically damped.</p></li>
+<li id="li-415"><p id="p-1487">Solve the initial value problem.</p></li>
+<li id="li-416"><p id="p-1488">Sketch the <span class="process-math">\(x(t)\)</span> and <span class="process-math">\(v(t)\)</span>-graphs of the solution of the initial value problem.</p></li>
+<li id="li-417"><p id="p-1489">Sketch the phase portrait of the initial value problem.</p></li>
+</ol>
+</div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-326"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5>
+<p id="p-1490"><span class="process-math">\(m = 1\text{,}\)</span> <span class="process-math">\(b = 1\)</span> <span class="process-math">\(k = 1\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(v(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-327"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5>
+<p id="p-1491"><span class="process-math">\(m = 1\text{,}\)</span> <span class="process-math">\(b = 2\)</span> <span class="process-math">\(k = 3\text{,}\)</span> <span class="process-math">\(x(0) = -3\text{,}\)</span> <span class="process-math">\(v(0) = 4\)</span></p></article><article class="exercise exercise-like" id="exercise-328"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5>
+<p id="p-1492"><span class="process-math">\(m = 1\text{,}\)</span> <span class="process-math">\(b = 5\)</span> <span class="process-math">\(k = 3\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = -3\)</span></p></article><article class="exercise exercise-like" id="exercise-329"><h5 class="heading"><span class="codenumber">24<span class="period">.</span></span></h5>
+<p id="p-1493"><span class="process-math">\(m = 1\text{,}\)</span> <span class="process-math">\(b = 0\)</span> <span class="process-math">\(k = 25\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = 0\)</span></p></article><article class="exercise exercise-like" id="exercise-330"><h5 class="heading"><span class="codenumber">25<span class="period">.</span></span></h5>
+<p id="p-1494"><span class="process-math">\(m = 2\text{,}\)</span> <span class="process-math">\(b = 3\)</span> <span class="process-math">\(k = 5\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = -1\)</span></p></article><article class="exercise exercise-like" id="exercise-331"><h5 class="heading"><span class="codenumber">26<span class="period">.</span></span></h5>
+<p id="p-1495"><span class="process-math">\(m = 4\text{,}\)</span> <span class="process-math">\(b = 4\)</span> <span class="process-math">\(k = 1\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-332"><h5 class="heading"><span class="codenumber">27<span class="period">.</span></span></h5>
+<p id="p-1496"><span class="process-math">\(m = 3\text{,}\)</span> <span class="process-math">\(b = 4\)</span> <span class="process-math">\(k = 1\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = 1\)</span></p></article><article class="exercise exercise-like" id="exercise-333"><h5 class="heading"><span class="codenumber">28<span class="period">.</span></span></h5>
+<p id="p-1497"><span class="process-math">\(m = 8\text{,}\)</span> <span class="process-math">\(b = 4\)</span> <span class="process-math">\(k = 1\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(v(0) = 1\)</span></p></article>
+</div>
+</div>
+<div class="exercisegroup" id="secondorder01-exercises-hanging-mass">
+<h4 class="heading"><span class="title">Oscillations of a Hanging Mass.</span></h4>
+<div class="introduction" id="introduction-97">
+<p id="p-1498">In <a href="" class="xref" data-knowl="./knowl/secondorder01-exercises-hanging-mass.html" title="Exercise Group 4.1.6.29–31: Oscillations of a Hanging Mass">Exercise Group 4.1.6.29–31</a>, we will consider the motion of a mass <span class="process-math">\(m\)</span> hanging at the end of a vertical spring as in <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-hanging-mass.html" title="Figure 4.1.17">Figure 4.1.17</a>. The mass stretches the spring in a downward (positive) direction by length <span class="process-math">\(L\text{.}\)</span> There are two forces acting on the point where the mass is attached to the spring—the force exerted by the spring and gravity. The force of gravity, the weight of the mass, acts downward with a magnitude of <span class="process-math">\(mg\text{,}\)</span> where <span class="process-math">\(g\)</span> is the acceleration due to gravity. On the other hand, the force of the spring acts upward and is given by <span class="process-math">\(-kL\text{,}\)</span> where <span class="process-math">\(L\)</span> is the length of the spring.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-38" id="fn-38"><sup> 1 </sup></a> When the mass is hanging in equilibrium the force of gravity and the force of the spring balance each other out; that is,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-exercises-hanging-mass.html ./knowl/secondorder01-figure-hanging-mass.html ./knowl/firstlook01-subsection-spring-mass.html">
+\begin{equation*}
+mg - kL = 0.
+\end{equation*}
+</div>
+<figure class="figure figure-like" id="secondorder01-figure-hanging-mass"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/latex-image/secondorder01-hanging-mass.svg" role="img" class="contained" alt="three springs hanging from a beam with masses attacheds the right two springs and the rightmost spring extended"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.1.17<span class="period">.</span></span><span class="space"> </span>A spring-mass system</figcaption></figure><p id="p-1499">We would like to investigate the motion of the mass if is initially displaced or acted on by an external force. Let <span class="process-math">\(x(t)\)</span> be the displacement of the mass from its equilibrium position, where a downward displacement is positive. The force acting on the mass are the weight of the mass <span class="process-math">\(mg\)</span> and the force exerted by the spring, which is the total elongation of the spring, or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+-k(L + x).
+\end{equation*}
+</div>
+<p class="continuation">By Newton's second law of motion,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' = mg - k(L + x).
+\end{equation*}
+</div>
+<p class="continuation">Furthermore, it is possible to add a damping term, <span class="process-math">\(bx'\text{,}\)</span> or even an external force <span class="process-math">\(F(t)\)</span> to obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' = mg - k(L + x) + bx' + F(t).
+\end{equation*}
+</div>
+<p class="continuation">Since <span class="process-math">\(mg - kL = 0\text{,}\)</span> we obtain the familiar equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+mx'' + bx' + kx = F(t).
+\end{equation*}
+</div>
+</div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-334"><h5 class="heading"><span class="codenumber">29<span class="period">.</span></span></h5>
+<p id="p-1500">Suppose that a mass of <span class="process-math">\(100\)</span> grams stretches a spring <span class="process-math">\(2\)</span> centimeters.</p>
+<ol class="lower-alpha">
+<li id="li-418"><p id="p-1501">Determine the spring constant <span class="process-math">\(k\text{.}\)</span></p></li>
+<li id="li-419"><p id="p-1502">If the mass is displaced an additional <span class="process-math">\(4\)</span> centimeters and released, write an initial value problem that will model the motion of the oscillating mass.</p></li>
+<li id="li-420"><p id="p-1503">Solve the initial value problem.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-335"><h5 class="heading"><span class="codenumber">30<span class="period">.</span></span></h5>
+<p id="p-1504">Suppose that a mass of <span class="process-math">\(1\)</span> kilogram stretches a spring <span class="process-math">\(5\)</span> centimeters.</p>
+<ol class="lower-alpha">
+<li id="li-421"><p id="p-1505">Determine the spring constant <span class="process-math">\(k\text{.}\)</span></p></li>
+<li id="li-422"><p id="p-1506">If the mass is displaced an additional <span class="process-math">\(5\)</span> centimeters and released, write an initial value problem that will model the motion of the oscillating mass.</p></li>
+<li id="li-423"><p id="p-1507">Suppose the the spring-mass system is suspended in a fluid that exerts a resistance of <span class="process-math">\(0.25\)</span> kilograms when the mass has a velocity of <span class="process-math">\(2\)</span> centimeters per second. Modify the intial-value problem that you wrote in (b) to take this fact into account.</p></li>
+<li id="li-424"><p id="p-1508">Solve the initial value problem.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-336"><h5 class="heading"><span class="codenumber">31<span class="period">.</span></span></h5>
+<p id="p-1509">Suppose that a mass weighing 4 lbs stretches a spring 3 inches.</p>
+<ol class="lower-alpha">
+<li id="li-425"><p id="p-1510">If <span class="process-math">\(g = 32 \text{ft/sec}^2\text{,}\)</span> determine <span class="process-math">\(m\text{.}\)</span></p></li>
+<li id="li-426"><p id="p-1511">Determine the spring constant <span class="process-math">\(k\text{.}\)</span></p></li>
+<li id="li-427"><p id="p-1512">If the mass is displaced an additional 6 inches and released, write an initial value problem that will model the motion of the oscillating mass.</p></li>
+<li id="li-428"><p id="p-1513">Solve the initial value problem.</p></li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-15" id="hint-15"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-15"><div class="hint solution-like"><p id="p-1514">Pay careful attention to units.</p></div></div>
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-337"><h4 class="heading"><span class="codenumber">32<span class="period">.</span></span></h4>
+<p id="p-1515">Let <span class="process-math">\(a x'' + b x' + cx = 0\text{,}\)</span> where <span class="process-math">\(a \neq 0\)</span> and <span class="process-math">\(b^2 - 4ac = 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-429"><p id="p-1516">Show that <span class="process-math">\(x_1(t) = e^{-bt/2a}\)</span> is a solution to <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p></li>
+<li id="li-430">
+<p id="p-1517">Assume that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = v(t) x_1(t) = v(t) e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a solution to  <span class="process-math">\(a x'' + b x' + cx = 0\)</span> and show that <span class="process-math">\(v(t) = c_1  + c_2 t\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a general solution for <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p>
+</li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-16" id="hint-16"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-16"><div class="hint solution-like"><ol id="p-1518" class="lower-alpha">
+<li id="li-431">
+<p id="p-1519">Observe that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-369">
+\begin{align*}
+a x_1'' + b_1' + cx_1 &amp; = a \left(\frac{-b}{2a}\right)^2e^{-bt/2a} + b \left( \frac{-b}{2a} \right) e^{-bt/2a} + c e^{-bt/2a}\\
+&amp; = e^{-bt/2a} \left( \frac{b^2}{4a} - \frac{b^2}{2a}  + c  \right)\\
+&amp; = e^{-bt/2a} \left( \frac{-b^2 + 4ac}{4a}  \right)\\
+&amp; = 0.
+\end{align*}
+</div>
+</li>
+<li id="li-432">
+<p id="p-1520">If <span class="process-math">\(y = v(t) x_1(t) = v(t) e^{-bt/2a}\)</span> is a solution to our differential equation, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-370">
+\begin{align*}
+a y'' + b y' + cy &amp; = a (v''x_1 + 2 v'x_1' + vx_1'' ) + b(v' x_1 + v x_1') + cv x_1\\
+&amp; = a v''x_1 + 2a v'x_1'   + bv' x_1 + v(a x_1'' +b  x_1' + c x_1)\\
+&amp; = a v'' e^{-bt/2a} + \left[2a \left( \frac{-b}{2a} \right) e^{-bt/2a}   + b e^{-bt/2a} \right] v'\\
+&amp; = a v'' e^{-bt/2a}\\
+&amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\(a \neq 0\text{,}\)</span> we know that <span class="process-math">\(v'' = 0\text{.}\)</span>  Hence, <span class="process-math">\(v(t) = c_1  + c_2 t\text{.}\)</span></p>
+</li>
+</ol></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-338"><h4 class="heading"><span class="codenumber">33<span class="period">.</span></span></h4>
+<p id="p-1521"><em class="emphasis">Reduction of Order</em>.  Suppose that <span class="process-math">\(x_1(t)\)</span> is a solution (not identically zero) to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-exercise-reduction-of-order-1.html ./knowl/secondorder01-equation-exercise-reduction-of-order-2.html">
+\begin{equation*}
+x'' + p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-433">
+<p id="p-1522">Assume that <span class="process-math">\(x(t) = v(t) x_1(t)\)</span> is a solution to <span class="process-math">\(x'' + p(t) x' + q(t) x = 0\)</span> and derive the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder01-equation-exercise-reduction-of-order-1">
+\begin{equation}
+x_1 v'' +(2x_1' + px_1)v' = 0.\tag{4.1.9}
+\end{equation}
+</div>
+</li>
+<li id="li-434"><p id="p-1523">Let <span class="process-math">\(u = v'\)</span> and show that <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-exercise-reduction-of-order-1.html" title="Equation 4.1.9">(4.1.9)</a> is a first-order linear differential equation in <span class="process-math">\(u\text{.}\)</span></p></li>
+<li id="li-435">
+<p id="p-1524">Show that <span class="process-math">\(x_1(t) = 1/t\)</span> is a solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-exercise-reduction-of-order-2.html" id="secondorder01-equation-exercise-reduction-of-order-2">
+\begin{equation}
+2 t^2 x'' + 3t x' - x = 0 \tag{4.1.10}
+\end{equation}
+</div>
+<p class="continuation">for <span class="process-math">\(t \gt 0\)</span> and find a second linearly independent solution to <a href="" class="xref" data-knowl="./knowl/secondorder01-equation-exercise-reduction-of-order-2.html" title="Equation 4.1.10">(4.1.10)</a>.</p>
+</li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-17" id="hint-17"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-17"><div class="hint solution-like"><ol id="p-1525" class="lower-alpha">
+<li id="li-436"><div class="displaymath process-math" data-contains-math-knowls="" id="md-371">
+\begin{align*}
+x'' + px' + qx &amp; = (v''x_1 + 2 v' x_1' + vx_1'') + p(v'x_1 + vx_1') + q(vx_1)\\
+&amp; = x_1 v'' + 2v' x_1' + p x_1 v' + v (x_1'' + p x_1' + q x_1)\\
+&amp; = x_1 v'' +(2x_1' + px_1)v' \\
+&amp; = 0.
+\end{align*}
+</div></li>
+<li id="li-437"><p id="p-1527">If <span class="process-math">\(u = v'\text{,}\)</span> then <span class="process-math">\(x_1 u' +(2x_1' + px_1)u= 0\text{.}\)</span></p></li>
+<li id="li-438">
+<p id="p-1528">If <span class="process-math">\(x_1(t) = 1/t\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+2 t^2 x_1'' + 3t x_1' - x_1 = 2 t^2 \left(\frac{2}{t^3}\right) + 3t \left(\frac{-1}{t^2}\right) - \frac{1}{t} = 0.
+\end{equation*}
+</div>
+<p class="continuation">If we assume that <span class="process-math">\(x = v/t\)</span> is a second solution, then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+2 t^2 x'' + 3t x' - x = 2tv'' - v' = 0.
+\end{equation*}
+</div>
+<p class="continuation">If we let <span class="process-math">\(u = v'\text{,}\)</span> then a solution of <span class="process-math">\(2tu' - u = 0\)</span> is <span class="process-math">\(u = \sqrt{t}\)</span> and <span class="process-math">\(v = \int \sqrt{t} \, dt = 2 t^{3/2} / 3\text{.}\)</span>  Therefore, the second solution to our equation is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x = \frac{v}{t} = \frac{2}{3} \sqrt{t}.
+\end{equation*}
+</div>
+</li>
+</ol></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-339"><h4 class="heading"><span class="codenumber">34<span class="period">.</span></span></h4>
+<p id="p-1529">Let <span class="process-math">\(a x'' + b x' + cx = 0\text{,}\)</span> where <span class="process-math">\(a \neq 0\)</span> and <span class="process-math">\(b^2 - 4ac = 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-439"><p id="p-1530">Show that <span class="process-math">\(x_1(t) = e^{-bt/2a}\)</span> is a solution to <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p></li>
+<li id="li-440">
+<p id="p-1531">Assume that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y = v(t) x_1(t) = v(t) e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a solution to  <span class="process-math">\(a x'' + b x' + cx = 0\)</span> and show that <span class="process-math">\(v(t) = c_1  + c_2 t\text{.}\)</span>  Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}
+\end{equation*}
+</div>
+<p class="continuation">is a general solution for <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span></p>
+</li>
+</ol></article><article class="exercise exercise-like" id="exercise-340"><h4 class="heading"><span class="codenumber">35<span class="period">.</span></span></h4>
+<p id="p-1532">Consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y'' - (2 \alpha -1) y' + \alpha (\alpha - 1) y =0.
+\end{equation*}
+</div>
+<p class="continuation">Determine all values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all solutions tend toward zero as <span class="process-math">\(t \to \infty\text{.}\)</span>  Also, determine the values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all nonzero solutions become unbounded as <span class="process-math">\(t \to \infty\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-341"><h4 class="heading"><span class="codenumber">36<span class="period">.</span></span></h4>
+<p id="p-1533">Solve each of the following initial value problems.</p>
+<ol class="lower-alpha">
+<li id="li-441"><div class="displaymath process-math" data-contains-math-knowls="" id="md-372">
+\begin{align*}
+y'' - 2y' + 5y &amp; = 0\\
+y(\pi/2) &amp; = 0\\
+y'(\pi/2) &amp; = 2
+\end{align*}
+</div></li>
+<li id="li-442"><div class="displaymath process-math" data-contains-math-knowls="" id="md-373">
+\begin{align*}
+9y'' - 12y' + 4y &amp; = 0\\
+y(0) &amp; = 2\\
+y'(0) &amp; = -1
+\end{align*}
+</div></li>
+<li id="li-443"><div class="displaymath process-math" data-contains-math-knowls="" id="md-374">
+\begin{align*}
+y'' + 8y' -9y &amp; = 0\\
+y(1) &amp; = 1\\
+y'(1) &amp; = 0
+\end{align*}
+</div></li>
+<li id="li-444"><div class="displaymath process-math" data-contains-math-knowls="" id="md-375">
+\begin{align*}
+y''  + 2ay' + (a^2 + 1)y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></li>
+</ol></article><article class="exercise exercise-like" id="exercise-342"><h4 class="heading"><span class="codenumber">37<span class="period">.</span></span></h4>
+<p id="p-1538"><em class="emphasis">Reduction of Order</em>.  Suppose that <span class="process-math">\(x_1(t)\)</span> is a solution (not identically zero) to the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-exercise-reduction-of-order-1a.html ./knowl/secondorder01-equation-exercise-reduction-of-order-2a.html">
+\begin{equation*}
+x'' + p(t) x' + q(t) x = 0.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-445">
+<p id="p-1539">Assume that <span class="process-math">\(x(t) = v(t) x_1(t)\)</span> is a solution to <span class="process-math">\(x'' + p(t) x' + q(t) x = 0\)</span> and derive the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="secondorder01-equation-exercise-reduction-of-order-1a">
+\begin{equation}
+x_1 v'' +(2x_1' + px_1)v' = 0.\tag{4.1.11}
+\end{equation}
+</div>
+</li>
+<li id="li-446"><p id="p-1540">Let <span class="process-math">\(u = v'\)</span> and show that (<a href="" class="xref" data-knowl="./knowl/secondorder01-equation-exercise-reduction-of-order-1a.html" title="Equation 4.1.11">(4.1.11)</a>) is a first-order linear differential equation in <span class="process-math">\(u\text{.}\)</span></p></li>
+<li id="li-447">
+<p id="p-1541">Show that <span class="process-math">\(x_1(t) = 1/t\)</span> is a solution to</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-equation-exercise-reduction-of-order-2a.html" id="secondorder01-equation-exercise-reduction-of-order-2a">
+\begin{equation}
+2 t^2 x'' + 3t x' - x = 0\tag{4.1.12}
+\end{equation}
+</div>
+<p class="continuation">for <span class="process-math">\(t \gt 0\)</span> and find a second linearly independent solution to (<a href="" class="xref" data-knowl="./knowl/secondorder01-equation-exercise-reduction-of-order-2a.html" title="Equation 4.1.12">(4.1.12)</a>).</p>
+</li>
+</ol></article><article class="exercise exercise-like" id="exercise-343"><h4 class="heading"><span class="codenumber">38<span class="period">.</span></span></h4>
+<p id="p-1542"><em class="emphasis">Euler Equations</em>. An important class of second-order linear differential equations are equations of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+t^2 y'' + \alpha t y' + \beta y = 0,
+\end{equation*}
+</div>
+<p class="continuation">where <span class="process-math">\(t \gt 0\)</span> and <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> are real constants.  An equation of this form is called an <em class="emphasis">Euler equation</em>.</p>
+<ol class="lower-alpha">
+<li id="li-448">
+<p id="p-1543">Show that the substitution <span class="process-math">\(x = \ln t\)</span> transforms an Euler equation into an equation of constant coefficients. {\em Hint}:  Show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-376">
+\begin{align*}
+\frac{dy}{dt} &amp; = \frac{dx}{dt} \frac{dy}{dx}\\
+\frac{d^2y}{dt^2} &amp; = \left( \frac{dx}{dt} \right)^2 \frac{d^2y}{dx^2} + \frac{d^2x}{dt^2} \frac{dy}{dx}.
+\end{align*}
+</div>
+</li>
+<li id="li-449">
+<p id="p-1544">Solve the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+t^2 y'' + 4ty' + 2y = 0.
+\end{equation*}
+</div>
+</li>
+</ol></article></section><section class="subsection" id="secondorder01-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span>
+</h3>
+<p id="p-1545">Second order homogeneous linear differential equations with constant coefficeints can be solved sybolically using <em class="emphasis">Sage</em>. For example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+x'' + 2 x' + x = 0
+\end{equation*}
+</div>
+<p class="continuation">can be solved using the following Sage commands.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-59"><script type="text/x-sage">t = var('t')  
+x = function('x')(t)
+DE = diff(x,t,2) + 2*diff(x,t) + x == 0
+desolve(DE, [x,t])
+</script></pre>
+<p id="p-1546">We can even solve initial value problems such as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-377">
+\begin{align*}
+x'' + 2 x' + x \amp = 0\\
+x(0) \amp = 1\\
+x'(0) \amp = 2
+\end{align*}
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-60"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+DE = diff(x,t,2) + 2*diff(x,t) + x == 0
+desolve(DE, [x,t], ics=[0, 1, 2])
+</script></pre>
+<p id="p-1547">Of course, we can add a forcing term to our initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-378">
+\begin{align*}
+x'' + 2 x' + x \amp = t \cos 2t\\
+x(0) \amp = 1\\
+x'(0) \amp = 2
+\end{align*}
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-61"><script type="text/x-sage">t = var('t')
+x = function('x')(t)
+DE = diff(x,t,2)+3*diff(x,t)+2*x == t*cos(2*t)
+desolve(DE, [x,t], ics=[0, 1, 2])
+</script></pre></section><section class="exercises" id="secondorder01-exercises-sage"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">4.1.8</span> <span class="title">Exercises</span>
+</h3>
+<section class="introduction" id="introduction-98"><p id="p-1548">Solve each of the following differential equations using <em class="emphasis">Sage</em>.</p></section><article class="exercise exercise-like" id="exercise-344"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1549"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = 0\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-62"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-345"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1550"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = 0\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-63"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-346"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-1551"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = \cos 2t\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-64"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-347"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<p id="p-1552"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = \cos 2t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-65"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-348"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-1553"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = \cos t\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-66"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-349"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<p id="p-1554"><span class="process-math">\(\dfrac{d^2 y}{dx^2} - y = \cos t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-67"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-350"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<p id="p-1555"><span class="process-math">\(x'' - 2x' - 8x = 0\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-68"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-351"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<p id="p-1556"><span class="process-math">\(x'' - 2x' - 8x = 0\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = 2\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-69"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-352"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-1557"><span class="process-math">\(x'' - 2x' - 8x = e^{-2t}\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-70"><script type="text/x-sage">
+</script></pre>
+<article class="exercise exercise-like" id="exercise-353"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<p id="p-1558"><span class="process-math">\(x'' - 2x' - 8x = e^{-2t} + e^{4t}\)</span></p></article><pre class="ptx-sagecell sagecell-sage" id="sage-71"><script type="text/x-sage">
+</script></pre></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-38"><div class="fn">This is commonly known as Hooke's law. See <a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal" title="Subsection 1.1.3: A Spring-Mass Model">Subsection 1.1.3</a>.</div></div>
+</div></main>
+</div>
+</body>
+</html>

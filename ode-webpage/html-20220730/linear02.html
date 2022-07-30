@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Planar Systems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="linear01.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="linear03.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="linear01.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="linear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="linear03.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="active">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="linear02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.2</span> <span class="title">Planar Systems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-13"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc"><li id="li-309">
+<p id="p-1004">To understand that for <span class="process-math">\(2 \times 2\)</span> matrix <span class="process-math">\(A\)</span> with distinct real eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> and associated eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{,}\)</span> that the general solution of the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \alpha e^{\lambda_1 t} {\mathbf v}_1 + \beta e^{\lambda_2 t} {\mathbf v}_2.
+\end{equation*}
+</div>
+</li></ul></article><section class="introduction" id="introduction-60"><p id="p-1005">A <dfn class="terminology">first-order linear system of <span class="process-math">\(n\)</span> equations and <span class="process-math">\(n\)</span> variables</dfn> is any system that can be written in the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-206">
+\begin{align*}
+\frac{dx_1}{dt} &amp; = a_{11}(t) x_1(t) + \cdots + a_{1n}(t) x_n(t) + f_1(t),\\
+\frac{dx_2}{dt} &amp; = a_{21}(t) x_1(t) + \cdots + a_{2n}(t) x_n(t) + f_2(t),\\
+&amp; \vdots\\
+\frac{dx_n}{dt} &amp; = a_{n1}(t) x_1(t) + \cdots + a_{nn}(t) x_n(t) + f_n(t).
+\end{align*}
+</div>
+<p class="continuation">If each of the coefficients is constant and the functions <span class="process-math">\(f_i\)</span> vanish, then we have a <dfn class="terminology">homogeneous first-order linear system with constant coefficients</dfn>,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-207">
+\begin{align*}
+\frac{dx_1}{dt} &amp; = a_{11} x_1 + \cdots + a_{1n} x_n\\
+\frac{dx_2}{dt} &amp; = a_{21} x_1 + \cdots + a_{2n} x_n,\\
+&amp; \vdots\\
+\frac{dx_n}{dt} &amp; = a_{n1} x_1 + \cdots + a_{nn} x_n.
+\end{align*}
+</div>
+<p id="p-1006">We will concentrate on <span class="process-math">\(2 \times 2\)</span> homogeneous first-order linear systems or <dfn class="terminology">planar systems</dfn> for the time being,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-9">
+\begin{align}
+\frac{dx}{dt} &amp; = a x + b y,\tag{3.2.1}\\
+\frac{dy}{dt} &amp; = c x + d y.\tag{3.2.2}
+\end{align}
+</div></section><section class="subsection" id="linear02-subsection-planar-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span>
+</h3>
+<p id="p-1007">We will use linear systems of differential equations to illustrate how we can use systems of differential equations to model how subtances flow back and forth between two or more compartments. Suppose that we have two tanks (<span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span>) between which a mixture of brine flows (<a href="" class="xref" data-knowl="./knowl/linear02-figure-mixing-example.html" title="Figure 3.2.1">Figure 3.2.1</a>). Tank <span class="process-math">\(A\)</span> contains 300 liters of water in which 100 kilograms of salt has been dissolved and Tank <span class="process-math">\(B\)</span> contains 300 liters of pure water. Fresh water is pumped into Tank <span class="process-math">\(A\)</span> at the rate of 500 liters per hour, and brine is pumped into Tank <span class="process-math">\(B\)</span> from Tank <span class="process-math">\(A\)</span> at the rate of 900 liters per hour. Brine is also pumped back into Tank <span class="process-math">\(A\)</span> from Tank <span class="process-math">\(B\)</span> at the rate of 400 liters per hour, and an additional 500 liters of brine per hour is drained from Tank <span class="process-math">\(B\text{.}\)</span> All brine mixtures are well-stirred. If we let <span class="process-math">\(x = x(t)\)</span> be the amount of salt in Tank <span class="process-math">\(A\)</span> at time <span class="process-math">\(t\)</span> and <span class="process-math">\(y = y(t)\)</span> be the amount of salt in Tank <span class="process-math">\(B\)</span> at time <span class="process-math">\(t\text{,}\)</span> then we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-figure-mixing-example.html" id="md-208">
+\begin{align*}
+x(0) &amp; = 100\\
+y(0) &amp; = 0
+\end{align*}
+</div>
+<p class="continuation">We know that the salt concentrations in the two tanks are <span class="process-math">\(x/300\)</span> kilograms per liter and <span class="process-math">\(y/300\)</span> kilograms per liter.  Thus, we can describe the rate of change in each tank with a differential equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-figure-mixing-example.html" id="md-209">
+\begin{align*}
+\frac{dx}{dt} &amp; = - 900 \cdot \frac{x}{300} + 400 \cdot \frac{y}{300} = - 3 x + \frac{4}{3} y,\\
+\frac{dy}{dt} &amp; = 900 \cdot \frac{x}{300} - 400 \cdot \frac{y}{300} - 500 \cdot \frac{y}{300} = 3x - 3 y.
+\end{align*}
+</div>
+<figure class="figure figure-like" id="linear02-figure-mixing-example"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/latex-image/linear02-mixing-example.svg" role="img" class="contained" alt="two three hundred liter tanks connected with two pipes flowing between the first and second tanks with the first tank having an input pipe and the second having a drain pipe"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.2.1<span class="period">.</span></span><span class="space"> </span>Mixing example with two tanks</figcaption></figure><p id="p-1008">Matrix notation gives us a convenient way of representing the <span class="process-math">\(2 \times 2\)</span> system <a href="" class="xref" data-knowl="./knowl/linear02-equation-2x2-1.html" title="Equation 3.2.1">(3.2.1)</a>–<a href="" class="xref" data-knowl="./knowl/linear02-equation-2x2-1.html" title="Equation 3.2.1">(3.2.1)</a>. If we let</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-2x2-1.html ./knowl/linear02-equation-2x2-1.html">
+\begin{equation*}
+A =
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\quad\text{and}\quad
+{\mathbf x}(t)
+=
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">then we can rewrite our system as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-2x2-1.html ./knowl/linear02-equation-2x2-1.html">
+\begin{equation*}
+\begin{pmatrix}
+x'(t) \\ y'(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+ax(t) + b y(t) \\ cx(t) + d y(t)
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">In other words, we can write our system as</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-2x2-1.html ./knowl/linear02-equation-2x2-1.html">
+\begin{equation*}
+\frac{d \mathbf x}{dt} = A {\mathbf x},
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-2x2-1.html ./knowl/linear02-equation-2x2-1.html">
+\begin{equation*}
+\mathbf x' = \frac{d \mathbf x}{dt} = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}.
+\end{equation*}
+</div></section><section class="subsection" id="linear02-subsection-systems-of-de"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span>
+</h3>
+<p id="p-1009">A linear planar system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-210">
+\begin{align*}
+x' &amp; = ax + by\\
+y' &amp; = cx + dy
+\end{align*}
+</div>
+<p class="continuation">has an <dfn class="terminology">equilibrium solution</dfn> at <span class="process-math">\((x_0, y_0)\)</span> if</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-211">
+\begin{align*}
+a x_0 + b y_0 &amp; = 0,\\
+c x_0 + d y_0 &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">The following proposition tells us exactly where to find the equilibrium solutions of a linear system with constant coefficients.</p>
+<article class="theorem theorem-like" id="linear02-theorem-equilibrium-solution"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.2.2</span><span class="period">.</span>
+</h4>
+<p id="p-1010">Let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{d {\mathbf x}}{dt} = A {\mathbf x}
+\end{equation*}
+</div>
+<p class="continuation">be a <span class="process-math">\(2 \times 2\)</span> linear system, where <span class="process-math">\(A\)</span> is not the zero matrix.</p>
+<ol class="decimal">
+<li id="li-310"><p id="p-derived-li-310">If <span class="process-math">\(\det(A) \neq 0\text{,}\)</span> then <span class="process-math">\((x, y) = (0, 0)\)</span> is the unique equilibrium solution for the system.</p></li>
+<li id="li-311"><p id="p-derived-li-311">If <span class="process-math">\(\det(A) = 0\text{,}\)</span> then the equilibrium solutions for the system form a straight line in <span class="process-math">\({\mathbb R}^2\text{.}\)</span></p></li>
+</ol></article><p id="p-1011">Now let us attack the problem of finding all of the solutions of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span> Suppose that we can find a nonzero vector <span class="process-math">\({\mathbf v}_0\)</span> such that <span class="process-math">\(A {\mathbf v}_0 = \lambda {\mathbf v}_0\)</span> for some real number <span class="process-math">\(\lambda\text{.}\)</span> In this case, the matrix <span class="process-math">\(A\)</span> just sends the vector <span class="process-math">\({\mathbf v}_0\)</span> to a vector on the same line through the origin, <span class="process-math">\(\lambda {\mathbf v}_0\text{.}\)</span> This is a very special case of course; however, we claim that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = e^{\lambda t} {\mathbf v}_0
+\end{equation*}
+</div>
+<p class="continuation">is a solution for our linear system if we can find such a vector. To see that this is indeed the case, we compute</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-212">
+\begin{align*}
+{\mathbf x}'(t) &amp; = \lambda e^{\lambda t} {\mathbf v}_0\\
+&amp; = e^{\lambda t} (\lambda {\mathbf v}_0)\\
+&amp; = e^{\lambda t} (A {\mathbf v}_0 )\\
+&amp; = A( e^{\lambda t} {\mathbf v}_0)\\
+&amp; = A {\mathbf x}(t).
+\end{align*}
+</div>
+<p class="continuation">In other words, the key to solving a linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is to be able to find eigenvalues and eigenvectors for the matrix <span class="process-math">\(A\text{.}\)</span> We are now ready to state the results of our discussion in a theorem.</p>
+<article class="theorem theorem-like" id="linear02-theorem-eigenvalues"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.2.3</span><span class="period">.</span>
+</h4>
+<p id="p-1012">Let <span class="process-math">\({\mathbf v}_0\)</span> be an eigenvector for the matrix <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{.}\)</span>  Then the function <span class="process-math">\({\mathbf x}(t) = e^{\lambda t}{\mathbf v}_0\)</span> is a solution of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span></p></article><p id="p-1013">We say that the solution <span class="process-math">\({\mathbf x}(t) = e^{\lambda t}{\mathbf v}_0\)</span> is a <dfn class="terminology">straight-line solution</dfn>. The vector <span class="process-math">\(e^{\lambda t}{\mathbf v}_0\)</span> lies on the same line for each value of <span class="process-math">\(t\text{.}\)</span> Note that if <span class="process-math">\({\mathbf v}_0\)</span> is an eigenvector for <span class="process-math">\(A\text{,}\)</span> then any nonzero multiple of <span class="process-math">\({\mathbf v}_0\)</span> is also an eigenvector for <span class="process-math">\(A\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A(\alpha {\mathbf v}_0) = \alpha A{\mathbf v}_0 = \alpha (\lambda {\mathbf v}_0) = \lambda (\alpha {\mathbf v}_0).
+\end{equation*}
+</div>
+<article class="example example-like" id="example-35"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-35"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.2.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-35"><article class="example example-like"><p id="p-1014">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-213">
+\begin{align*}
+x' &amp; = x + 3y\\
+y' &amp; = x - y.
+\end{align*}
+</div>
+<p class="continuation">We can rewrite this system in matrix form as <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+1 &amp; 3 \\
+1 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">The matrix <span class="process-math">\(A\)</span> has an eigenvector <span class="process-math">\({\mathbf u} = (3, 1)\)</span> with associated eigenvalue <span class="process-math">\(\lambda = 2\text{,}\)</span> since</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A \mathbf u =
+\begin{pmatrix}
+1 &amp; 3 \\
+1 &amp; -1
+\end{pmatrix}
+\begin{pmatrix}
+3 \\ 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+6 \\ 2
+\end{pmatrix}
+=
+2
+\begin{pmatrix}
+3\\1
+\end{pmatrix}
+= \lambda \mathbf u.
+\end{equation*}
+</div>
+<p class="continuation">Similarly, <span class="process-math">\({\mathbf v} = (1, -1)\)</span> is an eigenvector for <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\mu = -2\text{.}\)</span> Thus, we have two solutions for our system: the equilibrium solution at the origin, the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_1(t) = e^{2t} \begin{pmatrix} 3 \\ 1 \end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">and the solution</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_2(t) = e^{-2t} \begin{pmatrix} 1 \\ -1 \end{pmatrix}.
+\end{equation*}
+</div>
+<p id="p-1015">Since</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-214">
+\begin{align*}
+\frac{d}{dt} (c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)) &amp; = c_1\frac{d}{dt} {\mathbf x}_1(t) + c_2 \frac{d}{dt} {\mathbf x}_2(t)\\
+&amp; = c_1 A {\mathbf x}_1(t) + c_2 A {\mathbf x}_2(t)\\
+&amp; = A( c_1 {\mathbf x}_1(t) + c_2  {\mathbf x}_2(t)),
+\end{align*}
+</div>
+<p class="continuation">any linear combination of solutions to a linear system is also a solution. Thus, a general solution to our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\mathbf x(t) = c_1  e^{2t} \begin{pmatrix} 3 \\ 1 \end{pmatrix} + c_2 e^{-2t} \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">or</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-215">
+\begin{align*}
+x(t) &amp; = 3 c_1 e^{2t} + c_2 e^{-2t}\\
+y(t) &amp; = c_1 e^{2t} - c_2 e^{-2t}.
+\end{align*}
+</div>
+<p class="continuation">If we are given initial conditions, say <span class="process-math">\(x(0) = 0\)</span> and <span class="process-math">\(y(0) = 1\text{,}\)</span> then we can determine <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> by solving the linear system of equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-216">
+\begin{align*}
+3 c_1 + c_2 &amp; = 0\\
+c_1 - c_2 &amp; = 1
+\end{align*}
+</div>
+<p class="continuation">to get <span class="process-math">\(c_1 = 1/4\)</span> and <span class="process-math">\(c_2 = -3/4\text{.}\)</span> Thus, the solution to our initial value problem is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-217">
+\begin{align*}
+x(t) &amp; = \frac{3}{4} e^{2t} - \frac{3}{4} e^{-2t}\\
+y(t) &amp; = \frac{1}{4} e^{2t} + \frac{3}{4} e^{-2t}.
+\end{align*}
+</div></article></div>
+<article class="activity project-like" id="linear02-activity-distinct-real-eigenvalues"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Planar Systems with Distinct Real Eigenvalues.</span>
+</h4>
+<div class="introduction" id="introduction-61">
+<p id="p-1016">Consider the initial value problem <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-218">
+\begin{align*}
+A \amp  = \begin{pmatrix} 23 \amp 10 \\-50 \amp -22 \end{pmatrix}\\
+\mathbf x(0) \amp = \begin{pmatrix} 3 \\ 3  \end{pmatrix}.
+\end{align*}
+</div>
+</div>
+<article class="task exercise-like" id="task-126"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-1017">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  You should find distinct real eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{.}\)</span></p></article><article class="task exercise-like" id="task-127"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-1018">Find eigenvectors <span class="process-math">\(\mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> for the eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{,}\)</span> respectively.</p></article><article class="task exercise-like" id="task-128"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-1019">Find the straight-line solutions of <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>  Plot the solutions in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="linear02-activity-plot-solution"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<p id="p-1020">Sketch the solution curve to the initial value problem in the <span class="process-math">\(xy\)</span>-plane.</p></article><article class="task exercise-like" id="task-130"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<p id="p-1021">Show that <span class="process-math">\(\mathbf x(t) = c_1 e^{\lambda t} \mathbf v_1 + c_2 e^{\mu t} \mathbf v_2\)</span> is a solution to the linear system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span></p></article><article class="task exercise-like" id="task-131"><h5 class="heading"><span class="codenumber">(f)</span></h5>
+<p id="p-1022">Use the fact that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-activity-plot-solution.html">
+\begin{equation*}
+\mathbf x(0) = \begin{pmatrix} 1 \\ 2  \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">to find <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> such that <span class="process-math">\(\mathbf x(t) = c_1 e^{\lambda t} \mathbf v_1 + c_2 e^{\mu t} \mathbf v_2\)</span> is a solution to the initial value problem.  Does this solution agree with the solution that you plotted in <a href="" class="xref" data-knowl="./knowl/linear02-activity-plot-solution.html" title="Task 3.2.1.d">Task 3.2.1.d</a>?</p></article></article><p id="p-1023">If <span class="process-math">\({\mathbf x}_1(t)\)</span> and  <span class="process-math">\({\mathbf x}_2(t)\)</span> are solutions to the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-219">
+\begin{align*}
+{\mathbf x}_1' &amp; = A {\mathbf x}_1\\
+{\mathbf x}_2' &amp; = A {\mathbf x}_2.
+\end{align*}
+</div>
+<p class="continuation">Thus, for any two real numbers <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-220">
+\begin{align*}
+\frac{d}{dt} (c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t)) &amp; = \alpha \frac{d}{dt} {\mathbf x}_1(t) + c_2 \frac{d}{dt} {\mathbf x}_2(t)\\
+&amp; = c_1 A {\mathbf x}_1(t) + c_2 A {\mathbf x}_2(t)\\
+&amp; = A (c_1 {\mathbf x}_1(t) + c_2 {\mathbf x}_2(t) ).
+\end{align*}
+</div>
+<p class="continuation">We state this result in the following theorem.</p>
+<article class="theorem theorem-like" id="linear02-theorem-superposition"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.2.5</span><span class="period">.</span><span class="space"> </span><span class="title">Principle of Superposition.</span>
+</h4>
+<p id="p-1024">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2 \times 2\)</span> matrix, then any linear combination of solutions  to the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is also a solution.</p></article><p id="p-1025">Revisiting the mixing problem that we posed at the beginning of this section, we have the following initial value problem,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-221">
+\begin{align*}
+\frac{dx}{dt} &amp; = - 3 x + \frac{4}{3} y,\\
+\frac{dy}{dt} &amp; = 3 x - 3 y,\\
+x(0) &amp; = 100,\\
+y(0) &amp; = 0.
+\end{align*}
+</div>
+<p class="continuation">If we write our system in matrix form, <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A =
+\begin{pmatrix}
+-3 &amp; 4/3 \\
+3 &amp; -3
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">It is easy to check that we have eigenvalues <span class="process-math">\(\lambda = -1\)</span> and <span class="process-math">\(\mu  = -5\)</span> with eigenvectors <span class="process-math">\({\mathbf u} = (2, 3)\)</span> and <span class="process-math">\({\mathbf v} = (-2, 3)\text{,}\)</span> respectively. Thus, we have two solutions to our system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-222">
+\begin{align*}
+{\mathbf x}_1(t) &amp; = e^{-t} {\mathbf u},\\
+{\mathbf x}_2(t) &amp; = e^{-5t} {\mathbf v}.
+\end{align*}
+</div>
+<p class="continuation">Since any linear combination of solutions is also a solution,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = 
+c_1
+\begin{pmatrix}
+2e^{-t} \\ 3e^{-t}
+\end{pmatrix}
++
+c_2
+\begin{pmatrix}
+-2e^{-5t} \\ 3e^{-5t}
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is a solution to our system.  Using the initial values <span class="process-math">\(x(0) = 100\)</span> and <span class="process-math">\(y(0) = 0\text{,}\)</span> we can determine that <span class="process-math">\(c_1 = 25\)</span> and <span class="process-math">\(c_2 = -25\text{.}\)</span> We now have the solution that we seek,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-223">
+\begin{align*}
+x(t) &amp; = 50 e^{-t} + 50 e^{-5t}\\
+y(t) &amp; = 75 e^{-t} - 75 e^{-5t}.
+\end{align*}
+</div></section><section class="subsection" id="linear02-subsection-solving-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span>
+</h3>
+<p id="p-1026">Our goal is to prove the following theorem.</p>
+<article class="theorem theorem-like" id="linear02-theorem-system-solution"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.2.6</span><span class="period">.</span>
+</h4>
+<p id="p-1027">Suppose that <span class="process-math">\(A\)</span> has a pair of distinct real eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> with associated eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{.}\)</span> Then the general solution of the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2.
+\end{equation*}
+</div></article><article class="lemma theorem-like" id="linear02-lemma-distinct-real-eigenvalues"><h4 class="heading">
+<span class="type">Lemma</span><span class="space"> </span><span class="codenumber">3.2.7</span><span class="period">.</span>
+</h4>
+<p id="p-1028">Let <span class="process-math">\(A\)</span> be an <span class="process-math">\(2 \times 2\)</span> matrix with a pair of distinct real eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> and eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{,}\)</span> respectively. Then <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly independent.</p></article><article class="hiddenproof" id="proof-3"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-3"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-3"><article class="hiddenproof"><p id="p-1029">If <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly dependent, then there exists <span class="process-math">\(\alpha \neq 0\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-distinct-real-eigenvalues-1.html ./knowl/linear02-equation-distinct-real-eigenvalues-2.html ./knowl/linear02-equation-distinct-real-eigenvalues-3.html" id="linear02-equation-distinct-real-eigenvalues-1">
+\begin{equation}
+{\mathbf v}_1 = \alpha {\mathbf v}_2.\tag{3.2.3}
+\end{equation}
+</div>
+<p class="continuation">Multiplying both sides of this equation by <span class="process-math">\(A\text{,}\)</span> we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-distinct-real-eigenvalues-1.html ./knowl/linear02-equation-distinct-real-eigenvalues-2.html ./knowl/linear02-equation-distinct-real-eigenvalues-3.html" id="linear02-equation-distinct-real-eigenvalues-2">
+\begin{equation}
+\lambda_1 {\mathbf v}_1 = A{\mathbf v}_1 = \alpha A {\mathbf v}_2  = \alpha \lambda_2 {\mathbf v}_2.\tag{3.2.4}
+\end{equation}
+</div>
+<p class="continuation">On the other hand, we obtain</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-distinct-real-eigenvalues-1.html ./knowl/linear02-equation-distinct-real-eigenvalues-2.html ./knowl/linear02-equation-distinct-real-eigenvalues-3.html" id="linear02-equation-distinct-real-eigenvalues-3">
+\begin{equation}
+\lambda_2 {\mathbf v}_1  = \alpha \lambda_2 {\mathbf v}_2\tag{3.2.5}
+\end{equation}
+</div>
+<p class="continuation">if we multiply both sides of <a href="" class="xref" data-knowl="./knowl/linear02-equation-distinct-real-eigenvalues-1.html" title="Equation 3.2.3">(3.2.3)</a> by <span class="process-math">\(\lambda_2\text{.}\)</span>  Using <a href="" class="xref" data-knowl="./knowl/linear02-equation-distinct-real-eigenvalues-2.html" title="Equation 3.2.4">(3.2.4)</a> and <a href="" class="xref" data-knowl="./knowl/linear02-equation-distinct-real-eigenvalues-3.html" title="Equation 3.2.5">(3.2.5)</a>, we can conclude that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-distinct-real-eigenvalues-1.html ./knowl/linear02-equation-distinct-real-eigenvalues-2.html ./knowl/linear02-equation-distinct-real-eigenvalues-3.html">
+\begin{equation*}
+(\lambda_1 - \lambda_2) {\mathbf v}_1 = \alpha(\lambda_2 - \lambda_2 ){\mathbf v}_2 = 0 {\mathbf v}_2 = {\mathbf 0}.
+\end{equation*}
+</div>
+<p class="continuation">However, this contradicts the assumption that <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> are distinct.</p></article></div>
+<p id="p-1030">We can now proceed to the proof of the theorem. Suppose that we have a linear system <span class="process-math">\({\mathbf x}' = A{\mathbf x}\)</span> such that <span class="process-math">\(A\)</span> has a pair of distinct real eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> with associated eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{.}\)</span> By the Principle of Superposition, we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-lemma-distinct-real-eigenvalues.html">
+\begin{equation*}
+{\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2.
+\end{equation*}
+</div>
+<p class="continuation">is a solution to the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span> To show that this is the general solution, we must show that we can choose <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> to satisfy a given initial condition <span class="process-math">\({\mathbf x}_0 = {\mathbf x}(0) = (x_0, y_0)\text{.}\)</span> By <a href="" class="xref" data-knowl="./knowl/linear02-lemma-distinct-real-eigenvalues.html" title="Lemma 3.2.7">Lemma 3.2.7</a>, we know that <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span> That is, we can write <span class="process-math">\({\mathbf x}_0\)</span> as a linear combination of <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{.}\)</span>  In other words, we can find <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> such that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-lemma-distinct-real-eigenvalues.html">
+\begin{equation*}
+{\mathbf x}_0 = {\mathbf x}(0) = c_1 {\mathbf v}_1 + c_2 {\mathbf v}_2.
+\end{equation*}
+</div>
+<p id="p-1031">It remains to show that <span class="process-math">\({\mathbf x}(t) = c_1 e^{\lambda_1 t} {\mathbf v}_1 + c_2 e^{\lambda_2 t} {\mathbf v}_2\)</span> is the unique solution to the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-224">
+\begin{align*}
+{\mathbf x}'(t) &amp; = A {\mathbf x}(t),\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0.
+\end{align*}
+</div>
+<p class="continuation">Suppose that there is another solution <span class="process-math">\({\mathbf y}(t)\)</span> such that <span class="process-math">\({\mathbf y}(0) = {\mathbf x}_0\text{.}\)</span> Then we can write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf y}(t) = f(t) {\mathbf v}_1 + g(t) {\mathbf v}_2,
+\end{equation*}
+</div>
+<p class="continuation">where</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-225">
+\begin{align*}
+f(0) &amp; = c_1,\\
+g(0) &amp; = c_2.
+\end{align*}
+</div>
+<p class="continuation">Since <span class="process-math">\({\mathbf y}(t)\)</span> is a solution to our system of equations, we know that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A {\mathbf y}(t) = {\mathbf y}'(t) = f'(t) {\mathbf v}_1 + g'(t) {\mathbf v}_2.
+\end{equation*}
+</div>
+<p class="continuation">On the other hand,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+A {\mathbf y}(t) = f(t) A {\mathbf v}_1 + g(t) A {\mathbf v}_2 = \lambda_1 f(t) {\mathbf v}_1 + \lambda_2 g(t) {\mathbf v}_2.
+\end{equation*}
+</div>
+<p class="continuation">Consequently, we have two first-order initial value problems,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-226">
+\begin{align*}
+f'(t) &amp; = \lambda_1 f(t),\\
+f(0) &amp; = c_1,
+\end{align*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-227">
+\begin{align*}
+g'(t) &amp; = \lambda_2 g(t),\\
+g(0) &amp; = c_2.
+\end{align*}
+</div>
+<p class="continuation">The solutions of these initial value problems are</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-228">
+\begin{align*}
+f(t) &amp; = c_1 e^{\lambda_1 t},\\
+g(t) &amp; = c_2 e^{\lambda_2 t},
+\end{align*}
+</div>
+<p class="continuation">respectively. Thus, <span class="process-math">\({\mathbf y}(t) = {\mathbf x}(t)\text{,}\)</span> and proof our theorem is complete.</p></section><section class="subsection" id="linear02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1032" class="disc">
+<li id="li-312"><p id="p-1033">If <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are eigenvectors of two distinct real eigenvalues of a matrix <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly independent.</p></li>
+<li id="li-313"><p id="p-1034">The Principle of Superposition tells us that any linear combination of solutions to the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is also a solution.</p></li>
+<li id="li-314">
+<p id="p-1035">Let <span class="process-math">\(A\)</span> be a <span class="process-math">\(2 \times 2\)</span> matrix. If <span class="process-math">\(A\)</span> has a pair of distinct real eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> with associated eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{,}\)</span> then the general solution of the linear system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}(t) = \alpha e^{\lambda_1 t} {\mathbf v}_1 + \beta e^{\lambda_2 t} {\mathbf v}_2.
+\end{equation*}
+</div>
+</li>
+</ul></section><section class="reading-questions" id="reading-questions-linear02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1036">What is a <span class="process-math">\(2 \times 2\)</span> linear system of differential equations?</p></article><article class="exercise exercise-like" id="reading-questions-linear02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1037">What is the Principle of Superposition?</p></article></section><section class="exercises" id="linear02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.2.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="linear02-exercises-solving-linear-systems">
+<h4 class="heading"><span class="title">Solving Linear Systems with Distinct Real Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-62"><p id="p-1038">Find the general solution of each of the linear systems in <a href="" class="xref" data-knowl="./knowl/linear02-exercises-solving-linear-systems.html" title="Exercise Group 3.2.6.1–4: Solving Linear Systems with Distinct Real Eigenvalues">Exercise Group 3.2.6.1–4</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-214"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-229">
+\begin{align*}
+x' &amp; = x + 2y\\
+y' &amp; = -x + 4y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-215"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-230">
+\begin{align*}
+x' &amp; = 4x + 2y\\
+y' &amp; = x + 3y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-216"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-231">
+\begin{align*}
+x' &amp; = -3 x + 4y\\
+y' &amp; = 3x - 2y
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-217"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-232">
+\begin{align*}
+x' &amp; = 6x + 4y\\
+y' &amp; = -8x - 6y
+\end{align*}
+</div></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear02-exercises-solving-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-63"><p id="p-1043">Solve each of the following linear systems for the given initial values. in <a href="" class="xref" data-knowl="./knowl/linear02-exercises-solving-ivps.html" title="Exercise Group 3.2.6.5–8: Solving Initial Value Problems">Exercise Group 3.2.6.5–8</a>.</p></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-218"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-233">
+\begin{align*}
+x' &amp; = x + 2y\\
+y' &amp; = -x + 4y\\
+x(0) &amp; = 3\\
+y(0) &amp; = 2
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-219"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-234">
+\begin{align*}
+x' &amp; = 4x + 2y\\
+y' &amp; = x + 3y\\
+x(0) &amp; = 3\\
+y(0) &amp; = 2
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-220"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-235">
+\begin{align*}
+x' &amp; = -3 x + 4y\\
+y' &amp; = 3x - 2y\\
+x(0) &amp; = 1\\
+y(0) &amp; = 3
+\end{align*}
+</div></article><article class="exercise exercise-like" id="exercise-221"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-236">
+\begin{align*}
+x' &amp; = 6x + 4y\\
+y' &amp; = -8x - 6y\\
+x(0) &amp; = 1\\
+y(0) &amp; = 3
+\end{align*}
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-222"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<p id="p-1048">Consider the nonhomogeneous system of linear differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-exercise-nonhomogeneous-system.html" id="mdn-10">
+\begin{align}
+x' &amp; = a(t)x + b(t)y + f(t)\tag{3.2.6}\\
+y' &amp; = c(t)x + d(t)y + g(t)\tag{3.2.7}
+\end{align}
+</div>
+<p class="continuation">and assume that the general solution of</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-exercise-nonhomogeneous-system.html" id="md-237">
+\begin{align*}
+x' &amp; = a(t)x + b(t)y\\
+y' &amp; = c(t)x + d(t)y
+\end{align*}
+</div>
+<p class="continuation">is given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-exercise-nonhomogeneous-system.html">
+\begin{equation*}
+{\mathbf x}_h =
+\begin{pmatrix}
+x(t) \\ y(t)
+\end{pmatrix}
+=
+c_1 \begin{pmatrix} u_1(t) \\ u_2(t) \end{pmatrix} +
+c_2 \begin{pmatrix} v_1(t) \\ v_2(t) \end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-exercise-nonhomogeneous-system.html">
+\begin{equation*}
+{\mathbf x}_p
+=
+\begin{pmatrix}
+\phi_1(t) \\ \phi_2(t)
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is a <dfn class="terminology">particular solution</dfn> of <a href="" class="xref" data-knowl="./knowl/linear02-equation-exercise-nonhomogeneous-system.html" title="Equation 3.2.6">(3.2.6)</a>, show that</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-equation-exercise-nonhomogeneous-system.html">
+\begin{equation*}
+{\mathbf x}_h + {\mathbf x}_p =
+\begin{pmatrix}
+x(t) + \phi_1(t) \\ y(t) + \phi_2(t)
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is the general solution to the system. Thus, to solve a nonhomogeneous system of linear differential equations, we need to find the solution of the corresponding homogeneous system and one particular solution of the nonhomogeneous system.</p></article><article class="exercise exercise-like" id="exercise-223"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<p id="p-1049">Consider the linear system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-238">
+\begin{align*}
+x' &amp; = x + 3y + (t - 3t^2)\\
+y' &amp; = x - y + (2 - t + t^2)\\
+x(0) &amp; = 1\\
+y(0) &amp; = -1.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-315">
+<p id="p-1050">Find the general solution of the homogeneous system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-239">
+\begin{align*}
+x' &amp; = x + 3y\\
+y' &amp; = x - y
+\end{align*}
+</div>
+</li>
+<li id="li-316">
+<p id="p-1051">Find a particular solution for</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-240">
+\begin{align*}
+x' &amp; = x + 3y + (t - 3t^2)\\
+y' &amp; = x - y + (2 - t + t^2)
+\end{align*}
+</div>
+</li>
+<li id="li-317">
+<p id="p-1052">Find the solution of</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-241">
+\begin{align*}
+x' &amp; = x + 3y + (t - 3t^2)\\
+y' &amp; = x - y + (2 - t + t^2)\\
+x(0) &amp; = 1\\
+y(0) &amp; = -1.
+\end{align*}
+</div>
+</li>
+</ol>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-14" id="hint-14"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-14"><div class="hint solution-like">
+<p id="p-1053">Assume that your solution must be of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}_p =
+\begin{pmatrix}
+a_2 t^2 + a_1 t + a_0 \\
+b_2 t^2 + b_1 t + b_0.
+\end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">This is called the <dfn class="terminology">method of undetermined coefficients</dfn>.</p>
+</div></div>
+</div></article><article class="exercise exercise-like" id="exercise-224"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
+<p id="p-1054">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-242">
+\begin{align*}
+x' &amp; = ax + y\\
+y' &amp; = 2ax + 2y,
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(a \in {\mathbb R}\text{.}\)</span> For what values of <span class="process-math">\(a\)</span> do you find a bifurcation (a change in the type of phase portrait)? Sketch  typical phase portraits for a values of <span class="process-math">\(a\)</span> above and below the bifurcation point.</p></article><article class="exercise exercise-like" id="exercise-225"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
+<p id="p-1055">Prove that</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\alpha e^{\lambda t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \beta e^{\lambda t} \begin{pmatrix} t \\ 1 \end{pmatrix}
+\end{equation*}
+</div>
+<p class="continuation">is the general solution of</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+{\mathbf x}' 
+=
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}
+{\mathbf x}.
+\end{equation*}
+</div></article></section></section></div></main>
+</div>
+</body>
+</html>

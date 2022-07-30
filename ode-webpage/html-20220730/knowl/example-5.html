@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:36+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="example example-like"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span>
+</h4>
+<p>Consider the initial value problem</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{align*}
+\frac{dy}{dt} &amp; =  \frac{t}{y - t^2y}\\
+y(0) &amp; = 4.
+\end{align*}
+</div>
+<p class="continuation">First, we separate the variables of the equations and write</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y \, dy = \frac{t}{1 - t^2} \, dt.
+\end{equation*}
+</div>
+<p class="continuation">Integrating both sides of the equation, we have</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{1}{2} y^2 = - \frac{1}{2} \ln|1 - t^2| + C \qquad \text{or} \qquad y^2 = - \ln|1 - t^2| + C.
+\end{equation*}
+</div>
+<p class="continuation">Using the initial condition, <span class="process-math">\(y(0) = 4\text{,}\)</span> we can determine the value of <span class="process-math">\(C\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+y^2 = 16 - \ln|1 - t^2| \qquad \text{or} \qquad y = \sqrt{16 - \ln|1 - t^2| }.
+\end{equation*}
+</div>
+<p class="continuation">Notice that the solution does not make sense for all values of <span class="process-math">\(t\text{.}\)</span> In fact, the solution is only defined on the interval <span class="process-math">\(-1 \lt t \lt 1\text{,}\)</span> if we require that our solution be continuous. Let us see what <em class="emphasis">Sage</em> has to say.</p>
+<pre class="ptx-sagecell sagecell-sage" id="sage-8"><script type="text/x-sage">t = var('t')
+y = function('y')(t)
+de = diff(y, t) == t/(y - t^2*y)
+solution = desolve(de, y, ics=[0, 4])
+solution
+</script></pre>
+<p><em class="emphasis">Sage</em> does return a solution even if it looks a bit different than the one that we arrived at above. Notice that we have an imaginary term in our solution, where <span class="process-math">\(i^2 = -1\text{.}\)</span> We will examine the role of complex numbers and how useful they are in the study of ordinary differential equations in a later chapter, but for the moment complex numbers will just muddy the situation.</p></article><span class="incontext"><a href="firstlook02.html#example-5" class="internal">in-context</a></span>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:33+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project The Hopf Bifurcation</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="nonlinear03.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="nonlinear05.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="nonlinear03.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="nonlinear.html" title="Up">Up</a><a class="next-button button toolbar-item" href="nonlinear05.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="internal">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="active">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content">
+<section class="section" id="nonlinear04"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span>
+</h2>
+<article class="objectives goal-like" id="objectives-28"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc"><li id="li-555"><p id="p-derived-li-555">To understand that <dfn class="terminology">Hopf bifurcations</dfn>; that is, bifurcations for systems parameterized by <span class="process-math">\(\alpha\text{,}\)</span> occur if an attracting periodic solution encircling an equilibrium solution develops as <span class="process-math">\(\alpha\)</span> passes through the bifurcation value.</p></li></ul></article><section class="introduction" id="introduction-127"><p id="p-1868">If we consider the phase portrait of a system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-529">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<p class="continuation">we may see closed orbits and various types of equilibrium solutions. If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink. However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <dfn class="terminology">bifurcation</dfn> has occurred.</p></section><section class="subsection" id="nonlinear04-subsection-bifurcations"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span>
+</h3>
+<p id="p-1869">The simplest bifurcations occur when an equilibrium solution appears, disappears, or splits into two or more equilibrium solutions. For example, the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-hopf-1.html" id="md-530">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha + x^2\\
+\frac{dy}{dt} &amp; = -y
+\end{align*}
+</div>
+<p class="continuation">has no equilibrium solution if <span class="process-math">\(\alpha \gt 0\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-hopf-1.html" title="Figure 5.4.1">Figure 5.4.1</a>). However, we have a single equilibrium solution at the origin if <span class="process-math">\(\alpha = 0\)</span> and two equilibrium solutions, <span class="process-math">\((\pm \sqrt{-\alpha}, 0)\text{,}\)</span> if <span class="process-math">\(\alpha \lt 0\text{.}\)</span></p>
+<figure class="figure figure-like" id="nonlinear04-figure-hopf-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-hopf-1.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution moving down and right"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.1<span class="period">.</span></span><span class="space"> </span>Solutions for <span class="process-math">\(\alpha \gt 0\)</span></figcaption></figure><p id="p-1870">The Jacobian of the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-hopf-2.html" id="md-531">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha + x^2\\
+\frac{dy}{dt} &amp; = -y
+\end{align*}
+</div>
+<p class="continuation">is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-hopf-2.html">
+\begin{equation*}
+J(x,y)
+=
+\begin{pmatrix}
+2x &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">If <span class="process-math">\(\alpha = 0\text{,}\)</span> then <span class="process-math">\(J\)</span> has eigenvalues 0 and <span class="process-math">\(-1\text{.}\)</span> This is not an elementary equilibrium point such a saddle, a sink, or a spiral source. We call this type of equilibrium solution a <dfn class="terminology">saddle-node</dfn>.  On the right half of the <span class="process-math">\(xy\)</span>-plane, the equilibrium solution resembles a saddle, while on the left half it resembles a sink (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-hopf-2.html" title="Figure 5.4.2">Figure 5.4.2</a>).</p>
+<figure class="figure figure-like" id="nonlinear04-figure-hopf-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-hopf-2.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution moving right and then down"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.2<span class="period">.</span></span><span class="space"> </span>Solutions for <span class="process-math">\(\alpha \lt 0\)</span></figcaption></figure><p id="p-1871">If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-bifurcation.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+2 \sqrt{-\alpha} &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}
+\text{ or }
+\begin{pmatrix}
+-2 \sqrt{-\alpha} &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<p class="continuation">In the first case, we have a saddle since the eigenvalues are real and of opposite sign. In the second case, we have a nodal sink, since both eigenvalues are negative.  The two equilibrium solutions move in opposite directions as <span class="process-math">\(\alpha\)</span> decreases. We can summarize what happens for various values of <span class="process-math">\(\alpha\)</span> with a bifurcation diagram such as the one in <a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-bifurcation.html" title="Figure 5.4.3">Figure 5.4.3</a>.</p>
+<figure class="figure figure-like" id="nonlinear04-figure-bifurcation"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-bifurcation.svg" role="img" class="contained" alt="a parabola with the vertex at the origin and opening to the left with a bifurcation point at the origin and stable equilibrium solutions on the negative part of the parabola and saddle points on the positive part of the parabola"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.3<span class="period">.</span></span><span class="space"> </span>Bifurcation diagram</figcaption></figure></section><section class="subsection" id="nonlinear04-subsection-hopf-bifurcation"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span>
+</h3>
+<p id="p-1872">Now let us consider an entirely different type of bifurcation by examining the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-532">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)\\
+\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2).
+\end{align*}
+</div>
+<p class="continuation">The origin is an equilibrium solution for all values of <span class="process-math">\(\alpha\text{.}\)</span> The linearization of our system is</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-533">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x + 5y\\
+\frac{dy}{dt} &amp; = -5x + \alpha y.
+\end{align*}
+</div>
+<p class="continuation">Since the eigenvalues of this system are <span class="process-math">\(\alpha \pm 5i\text{,}\)</span> we can easily determine the nature of of our linearization. If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> we have a spiral sink. As <span class="process-math">\(\alpha\)</span> moves from negative values to positive values, the origin changes to a center (<span class="process-math">\(\alpha = 0\)</span>), and then to a spiral source (<span class="process-math">\(\alpha \gt 0\)</span>).</p>
+<p id="p-1873">In the case of the nonlinear system, the origin is still a spiral sink for <span class="process-math">\(\alpha \gt 0\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-hopf-5.html" title="Figure 5.4.4">Figure 5.4.4</a>). If <span class="process-math">\(\alpha \gt 0\text{,}\)</span> the origin is still a spiral source (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-hopf-6.html" title="Figure 5.4.5">Figure 5.4.5</a>). However, something quite different happens at <span class="process-math">\(\alpha = 0\text{.}\)</span> The origin is stable equilibrium solution with solutions spiraling into the origin very slowly. As <span class="process-math">\(\alpha\)</span> increases past zero, the equilibrium solution destabilizes and becomes a source. In addition, a closed orbit of radius <span class="process-math">\(\sqrt{\alpha}\)</span> develops.  Solutions inside of this closed orbit spiral out towards the orbit, while solutions outside of the orbit spiral inward (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-hopf-7.html" title="Figure 5.4.6">Figure 5.4.6</a>).</p>
+<figure class="figure figure-like" id="nonlinear04-figure-hopf-5"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-hopf-5.svg" role="img" class="contained" alt="a direction field of slope arrows and a solution spiraling towards the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.4<span class="period">.</span></span><span class="space"> </span>Solutions for <span class="process-math">\(\alpha \lt 0\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear04-figure-hopf-6"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-hopf-6.svg" role="img" class="contained" alt="a direction field of slope arrows and a solution spiraling towards a stable circle around the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.5<span class="period">.</span></span><span class="space"> </span>Solutions for <span class="process-math">\(\alpha = 0\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear04-figure-hopf-7"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-hopf-7.svg" role="img" class="contained" alt="a direction field of slope arrows and two solutions witn one spiraling in towards a stable circle around the origin and the second spiraling out towards a stable circle"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.6<span class="period">.</span></span><span class="space"> </span>Solutions for <span class="process-math">\(\alpha \gt 0\)</span></figcaption></figure><p id="p-1874">To see exactly what happens as <span class="process-math">\(\alpha\)</span> passes zero and becomes positive, we will rewrite our system in polar coordinates. If we make the substitution <span class="process-math">\(x = r \cos \theta\)</span> and <span class="process-math">\(y = r \sin \theta\text{,}\)</span> our nonlinear system can be rewritten as</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-534">
+\begin{align*}
+\frac{dr}{dt} &amp; = \alpha r - r^3\\
+\frac{d\theta}{dt} &amp; = -5.
+\end{align*}
+</div>
+<p class="continuation">If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> the origin is a sink since <span class="process-math">\(\alpha r - r^3 \lt 0\)</span> for all <span class="process-math">\(r \gt 0\text{.}\)</span> In this case all solutions tend towards the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> When <span class="process-math">\(\alpha \gt 0\text{,}\)</span> the origin is still an equilibrium solution. Moreover, <span class="process-math">\(r' = 0\text{,}\)</span> when <span class="process-math">\(r = \sqrt{\alpha}\text{.}\)</span> We also know that <span class="process-math">\(r' \gt 0\)</span> for <span class="process-math">\(0 \lt r \lt \sqrt{\alpha}\)</span> and <span class="process-math">\(r' \lt 0\)</span> if <span class="process-math">\(r \gt \sqrt{\alpha}\text{.}\)</span> So the circle of radius <span class="process-math">\(\sqrt{\alpha}\)</span> is a periodic solution with the trajectory moving clockwise since <span class="process-math">\(\theta' = -5 \lt 0\text{.}\)</span> All nonzero solutions spiral towards this orbit as <span class="process-math">\(t \to \infty\text{.}\)</span> This type of bifurcation is called a <dfn class="terminology">Hopf bifurcation</dfn>. No new equilibrium solutions arise, but a periodic solution develops as <span class="process-math">\(\alpha\)</span> passes through the bifurcation value.</p>
+<article class="theorem theorem-like" id="nonlinear04-theorem-lyapunov"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">5.4.7</span><span class="period">.</span><span class="space"> </span><span class="title">Hopf Bifurcation.</span>
+</h4>
+<p id="p-1875">Suppose that <span class="process-math">\((x_0(\alpha), y_0(\alpha))\)</span> is a equilibrium solution for the family of systems</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-535">
+\begin{align*}
+\frac{dx}{dt} &amp; = f_\alpha(x, y)\\
+\frac{dy}{dt} &amp; = g_\alpha(x, y)
+\end{align*}
+</div>
+<p class="continuation">parameterized by <span class="process-math">\(\alpha\text{,}\)</span> and the Jacobian matrix for the system evaluated at this equilibrium has eigenvalues <span class="process-math">\(a(\alpha) \pm i b(\alpha)\text{.}\)</span> Assume that at some <span class="process-math">\(\alpha = \alpha_0\text{,}\)</span> we have <span class="process-math">\(a(\alpha_0) = 0\text{,}\)</span> <span class="process-math">\(a'(\alpha_0) \gt 0\text{,}\)</span> <span class="process-math">\(b(\alpha_0) \neq 0\text{,}\)</span> and that the equilibrium point is asymptotically stable. Then there exists an <span class="process-math">\(\alpha_1\)</span> such that the system has a periodic solution encircling the equilibrium solution for <span class="process-math">\(\alpha_0 \lt \alpha \lt \alpha_1\text{.}\)</span><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-46" id="fn-46"><sup> 1 </sup></a></p></article><p id="p-1876">Recall that our example system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-536">
+\begin{align*}
+\frac{dx}{dt} &amp; = \alpha x + 5y - x(x^2 + y^2)\\
+\frac{dy}{dt} &amp; = -5x + \alpha y - y(x^2 + y^2)
+\end{align*}
+</div>
+<p class="continuation">has an equilibrium at <span class="process-math">\((0, 0)\)</span> with eigenvalues  <span class="process-math">\(\alpha \pm 5i\text{.}\)</span>  If we let <span class="process-math">\(\alpha_0 = 0\text{,}\)</span> then <span class="process-math">\(a(0) = 0\text{,}\)</span> <span class="process-math">\(a'(0) = 1\text{,}\)</span> and <span class="process-math">\(b(0) = 5\text{.}\)</span> Thus, the hypothesis of the Hopf Bifurcation Theorem are satisfied and we are guaranteed a period solution surrounding our equilibrium solution.</p>
+<article class="example example-like" id="example-93"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-93"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">5.4.8</span><span class="period">.</span><span class="space"> </span><span class="title">Van der Pol's equation.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-93"><article class="example example-like"><p id="p-1877">Van der Pol's equation, a simple nonlinear equation having applications in electrical engineering and mathematical biology, is <span class="process-math">\(x'' - x(1 - x^2)x' + x = 0\text{.}\)</span> This equation can be written as the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-van-der-pol.html ./knowl/nonlinear04-equation-van-der-pol-a.html ./knowl/nonlinear04-equation-van-der-pol-a.html" id="mdn-23">
+\begin{align}
+\frac{dx}{dt} \amp = y\tag{5.4.1}\\
+\frac{dy}{dt} \amp = -x + x(1 - x^2)y.\tag{5.4.2}
+\end{align}
+</div>
+<p class="continuation">The phase portrait for Van der Pol's equation is given in <a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-van-der-pol.html" title="Figure 5.4.9">Figure 5.4.9</a>. The origin is the only equilibrium solution to Van der Pol's equation, and one might guess that this solution acts like a spiral source by examining the phase portrait. If we examine the system consisting of only linear terms on the right-hand side of the equation,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-van-der-pol.html ./knowl/nonlinear04-equation-van-der-pol-a.html ./knowl/nonlinear04-equation-van-der-pol-a.html" id="md-537">
+\begin{align*}
+\frac{dx}{dt} \amp = y\\
+\frac{dy}{dt} \amp = - x + y 
+\end{align*}
+</div>
+<p class="continuation">we might get a better sense of what is happening.  The matrix for this linear system,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-van-der-pol.html ./knowl/nonlinear04-equation-van-der-pol-a.html ./knowl/nonlinear04-equation-van-der-pol-a.html">
+\begin{equation*}
+A =
+\begin{pmatrix}
+0 \amp 1 \\
+-1 \amp 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">has eigenvalues <span class="process-math">\(\lambda = (1 \pm i\sqrt{3})/2\text{.}\)</span> This suggests that the origin looks like a spiral source at least locally. Indeed, the Jacobian matrix for <a href="" class="xref" data-knowl="./knowl/nonlinear04-equation-van-der-pol-a.html" title="Equation 5.4.1">(5.4.1)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear04-equation-van-der-pol-a.html" title="Equation 5.4.1">(5.4.1)</a> is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-van-der-pol.html ./knowl/nonlinear04-equation-van-der-pol-a.html ./knowl/nonlinear04-equation-van-der-pol-a.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+0  \amp 1 \\
+-1 - 2 x_0 y_0 \amp 1 - x_0^2
+\end{pmatrix},
+\end{equation*}
+</div>
+<p class="continuation">which agrees with <span class="process-math">\(A\)</span> for <span class="process-math">\((x_0, y_0) = (0,0)\text{.}\)</span></p>
+<figure class="figure figure-like" id="nonlinear04-figure-van-der-pol"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-van-der-pol.svg" role="img" class="contained" alt="a direction field of slope arrows with a closed orbit about the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.9<span class="period">.</span></span><span class="space"> </span>Van der Pol's equation</figcaption></figure></article></div>
+<p id="p-1878">Let us examine how a bifurcation might occur in a predator-prey model.  In our model, we will assume that a predator's appetite is satiated when food is abundant. If this is the case, an increase in the prey population has little effect on the interaction terms in our model.  We might model this satiable predator-prey scenario by the equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-538">
+\begin{align*}
+\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha x}\\
+\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha x},
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(x(t)\)</span> is the prey population at time <span class="process-math">\(t\)</span> and <span class="process-math">\(y(t)\)</span> is the predator population at time <span class="process-math">\(t\text{.}\)</span> Here, <span class="process-math">\(a, \ldots, f\)</span> and <span class="process-math">\(\alpha\)</span> are constants. Let us choose the constants <span class="process-math">\(a, \ldots, f\)</span> so that our system becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-539">
+\begin{align*}
+\frac{dx}{dt} &amp; = (1 - x)x - \frac{xy}{0.3 + \alpha x}\\
+\frac{dy}{dt} &amp; = -0.5y + \frac{xy}{0.3 + \alpha x}.
+\end{align*}
+</div>
+<p class="continuation">The constant <span class="process-math">\(\alpha\)</span> is know as the <dfn class="terminology">satiation constant</dfn>. The larger the value of <span class="process-math">\(\alpha\text{,}\)</span> the more quickly a predator's appetite is satiated as the prey population increases.</p>
+<p id="p-1879">Let us see examine the phase portrait for several values of <span class="process-math">\(\alpha\text{.}\)</span> If <span class="process-math">\(\alpha = 0\text{,}\)</span> then there is no satiation effect. In this case, all trajectories inside the population quadrant spiral asymptotically towards a single stable equilibrium point (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-satiated-predator-prey-1.html" title="Figure 5.4.10">Figure 5.4.10</a>).  If <span class="process-math">\(\alpha = 1.35\text{,}\)</span> we have a very similar phase portrait with solutions spiraling in towards a stable equilibrium solution (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-satiated-predator-prey-2.html" title="Figure 5.4.11">Figure 5.4.11</a>). However, if <span class="process-math">\(\alpha = 0.9\text{,}\)</span> we have a periodic trajectory. All other trajectories are pulled toward this attracting periodic orbit (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-satiated-predator-prey-3.html" title="Figure 5.4.12">Figure 5.4.12</a>).</p>
+<figure class="figure figure-like" id="nonlinear04-figure-satiated-predator-prey-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-satiated-predator-prey-1.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve spiraling in towards an equilibrium solution"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.10<span class="period">.</span></span><span class="space"> </span>Predator-prey model with <span class="process-math">\(\alpha = 0\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear04-figure-satiated-predator-prey-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-satiated-predator-prey-2.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve spiraling in towards an equilibrium solution"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.11<span class="period">.</span></span><span class="space"> </span>Predator-prey model with <span class="process-math">\(\alpha = 1.35\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear04-figure-satiated-predator-prey-3"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-satiated-predator-prey-3.svg" role="img" class="contained" alt="a direction field of slope arrows with a solution curve spiraling in towards a stable closed orbit"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.12<span class="period">.</span></span><span class="space"> </span>Predator-prey model with <span class="process-math">\(\alpha = 0.9\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear04-figure-satiated-predator-prey-4"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear04-satiated-predator-prey-4.svg" role="img" class="contained" alt="a bifurcation curve plotted on the alpha verses x-axis with the curve moving up and right and with two bifurcation points moving from a sink to a source and back to a sink"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.4.13<span class="period">.</span></span><span class="space"> </span>Bifurcation diagram for the satiable predator-prey model</figcaption></figure><p id="p-1880">As <span class="process-math">\(\alpha\)</span> continues to increase a Hopf bifurcation occurs at <span class="process-math">\(\alpha \approx 0.5\text{.}\)</span> At this point the equilibrium solution destabilizes and spawns an attracting periodic orbit. As <span class="process-math">\(\alpha\)</span> continues to increase, the amplitude of this periodic orbit increases. However, at <span class="process-math">\(\alpha \approx 0.85\text{,}\)</span> the amplitude of the periodic solution begins to decrease. At <span class="process-math">\(\alpha \approx 1.2\text{,}\)</span> the equilibrium point re-stabilizes and the periodic solution is absorbed. For <span class="process-math">\(\alpha &gt; 1.2\text{,}\)</span> we only have a stable equilibrium solution in the first quadrant. The <span class="process-math">\(x\)</span>-coordinate of our equilibrium solution is</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear04-figure-satiated-predator-prey-4.html">
+\begin{equation*}
+x = \frac{0.15}{1 - 0.5 \alpha},
+\end{equation*}
+</div>
+<p class="continuation">and we can summarize our findings with a bifurcation diagram  (<a href="" class="xref" data-knowl="./knowl/nonlinear04-figure-satiated-predator-prey-4.html" title="Figure 5.4.13">Figure 5.4.13</a>).</p></section><section class="subsection" id="nonlinear04-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-1881" class="disc">
+<li id="li-556"><p id="p-derived-li-556">If we make a slight change in the system, then we might reasonably expect the phase portrait to change slightly. For example, a closed orbit might expand or contract, an equilibrium solution might shift, or a spiral source might tighten up, but we would not expect new equilibrium solutions to appear or a spiral source to turn into a spiral sink.  However, this may be exactly what happens. If such a change occurs in the system through an adjustment of a parameter, we say a <dfn class="terminology">bifurcation</dfn> has occurred.</p></li>
+<li id="li-557"><p id="p-derived-li-557">A <dfn class="terminology">Hopf bifurcation</dfn> if an attracting periodic solution encircling an equilibrium solution develops as <span class="process-math">\(\alpha\)</span> passes through the bifurcation value.</p></li>
+<li id="li-558"><p id="p-derived-li-558">Suppose that <span class="process-math">\((x_0(\alpha), y_0(\alpha))\)</span> is a equilibrium solution for the family of systems<div class="displaymath process-math" data-contains-math-knowls="" id="md-540">
+\begin{align*}
+\frac{dx}{dt} &amp; = f_\alpha(x, y)\\
+\frac{dy}{dt} &amp; = g_\alpha(x, y)
+\end{align*}
+</div>parameterized by <span class="process-math">\(\alpha\text{,}\)</span> and the Jacobian matrix for the system evaluated at this equilibrium has eigenvalues <span class="process-math">\(a(\alpha) \pm i b(\alpha)\text{.}\)</span> Assume that at some <span class="process-math">\(\alpha = \alpha_0\text{,}\)</span> we have <span class="process-math">\(a(\alpha_0) = 0\text{,}\)</span> <span class="process-math">\(a'(\alpha_0) \gt 0\text{,}\)</span> <span class="process-math">\(b(\alpha_0) \neq 0\text{,}\)</span> and that the equilibrium point is asymptotically stable. Then there exists an <span class="process-math">\(\alpha_1\)</span> such that the system has a periodic solution encircling the equilibrium solution for <span class="process-math">\(\alpha_0 \lt \alpha \lt \alpha_1\text{.}\)</span></p></li>
+<li id="li-559"><p id="p-derived-li-559">A satiable predator-prey scenario can be modeled by the equations<div class="displaymath process-math" data-contains-math-knowls="" id="md-541">
+\begin{align*}
+\frac{dx}{dt} &amp; = (a -bx)x - \frac{cxy}{d + \alpha y}\\
+\frac{dy}{dt} &amp; = -ey + \frac{fxy}{d + \alpha y},
+\end{align*}
+</div>where <span class="process-math">\(x(t)\)</span> is the prey population at time <span class="process-math">\(t\)</span> and <span class="process-math">\(y(t)\)</span> is the predator population at time <span class="process-math">\(t\text{.}\)</span> Here, <span class="process-math">\(a, \ldots, f\)</span> and <span class="process-math">\(\alpha\)</span> are constants. The constant <span class="process-math">\(\alpha\)</span> is know as the <dfn class="terminology">satiation constant</dfn>. The larger the value of <span class="process-math">\(\alpha\text{,}\)</span> the more quickly a predator's appetite is satiated as the prey population increases.</p></li>
+</ul></section><section class="reading-questions" id="reading-questions-nonlinear04"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-nonlinear04-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1882">Explain what a Hopf bifurcation is.</p></article><article class="exercise exercise-like" id="reading-questions-nonlinear04-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1883">What scenerio does a satiated predator-prey model describe? Explain.</p></article></section><section class="exercises" id="nonlinear04-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">5.4.5</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-449"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-1884">Consider the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-542">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = -x - \frac{y}{4} + x^2.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-560"><p id="p-derived-li-560">Verify that the function<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+L(x, y) = \frac{x^2}{2} +  \frac{y^2}{2} - \frac{x^3}{3}
+\end{equation*}
+</div>is a Lyapunov function for the system.</p></li>
+<li id="li-561"><p id="p-derived-li-561">Sketch the level sets of <span class="process-math">\(L\text{.}\)</span></p></li>
+<li id="li-562"><p id="p-derived-li-562">What can you conclude about the phase portrait of the system from (1) and (2)?</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-450"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-1885">Let <span class="process-math">\(G(x, y) = x^3 - 3xy^2\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-563"><p id="p-derived-li-563">What is the gradient system with vector field given by the gradient of <span class="process-math">\(G\text{?}\)</span></p></li>
+<li id="li-564"><p id="p-derived-li-564">Sketch the graph of <span class="process-math">\(G\)</span> and the level sets of <span class="process-math">\(G\text{.}\)</span></p></li>
+<li id="li-565"><p id="p-derived-li-565">Sketch the phase portrait of the gradient system in (1).</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-451"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-1886">Suppose that the smell of a bunch of dead fish in the region <span class="process-math">\(-2 \leq x \leq 2\text{,}\)</span> <span class="process-math">\(-2 \leq y \leq 2\)</span> is given by the function</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+S(x, y) = x^2 + y^2 - \frac{x^4 + y^4}{4} - 3x^2 y^2 + 100.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-566"><p id="p-derived-li-566">What is the gradient system who vector field is the gradient of <span class="process-math">\(S\text{?}\)</span></p></li>
+<li id="li-567"><p id="p-derived-li-567">Use Sage to graph the  phase portrait of the system.</p></li>
+<li id="li-568"><p id="p-derived-li-568">How many dead fish are there and where are they?</p></li>
+<li id="li-569"><p id="p-derived-li-569">Using the results from part (2), sketch the level sets of <span class="process-math">\(S\text{.}\)</span></p></li>
+<li id="li-570"><p id="p-derived-li-570">Why is this model not realistic for large values of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{?}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-452"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<p id="p-1887">Consider the system of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-543">
+\begin{align*}
+x' &amp; = x(-x -y + 1)\\
+y' &amp; = y(-ax -y + b),
+\end{align*}
+</div>
+<p class="continuation">where <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are parameters with <span class="process-math">\(a, b \gt 0\text{.}\)</span>  Suppose that this system is only defined for <span class="process-math">\(x, y \geq 0\text{.}\)</span></p>
+<ol class="lower-alpha">
+<li id="li-571"><p id="p-derived-li-571">Use nullclines to sketch the phase portrait for this system for several values of <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span></p></li>
+<li id="li-572"><p id="p-derived-li-572">Determine the values of <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> at which a bifurcation occurs.</p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-453"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<p id="p-1888">Show that the quadratic polynomial</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+V(x, y) = ax^2 + 2bxy + cy^2
+\end{equation*}
+</div>
+<p class="continuation">is positive definite with minimum at <span class="process-math">\((x, y) = (0, 0)\)</span> if and only if <span class="process-math">\(a \gt 0\)</span> and <span class="process-math">\(ac - b^2 \gt 0\text{.}\)</span></p></article><article class="exercise exercise-like" id="exercise-454"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<p id="p-1889">Use the positive definite function <span class="process-math">\(V(x, y) = x^2 + y^2\)</span> to argue that the system</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-544">
+\begin{align*}
+x' &amp; = -x - 2y^2\\
+y' &amp; = 2xy - y^3
+\end{align*}
+</div>
+<p class="continuation">has an asymptotically stable equilibrium solution at  <span class="process-math">\((x, y) = (0, 0)\text{.}\)</span></p></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-46"><div class="fn">For a proof and description of the Hopf Bifurcation Theorem see C. Chicone. <em class="emphasis">Ordinary Differential Equations with Applications</em>.  Springer-Verlag, New York, 1999.</div></div>
+</div></main>
+</div>
+</body>
+</html>

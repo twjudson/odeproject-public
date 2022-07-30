@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*       on 2022-07-30T11:18:29+02:00       *-->
+<!--*   A recent stable commit (2020-08-09):   *-->
+<!--* 98f21740783f166a773df4dc83cab5293ab63a4a *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Bifurcations</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</head>
+<body class="pretext-book ignore-math has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+</div></div>
+<nav id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3">
+<a class="index-button toolbar-item button" href="index-1.html" title="Index">Index</a><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="firstlook06.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="firstlook08.html" title="Next">Next</a></span>
+</div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="firstlook06.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="firstlook.html" title="Up">Up</a><a class="next-button button toolbar-item" href="firstlook08.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
+<li><a href="colophon-1.html" data-scroll="colophon-1" class="internal">Colophon</a></li>
+<li><a href="dedication-1.html" data-scroll="dedication-1" class="internal">Dedication</a></li>
+<li><a href="preface-1.html" data-scroll="preface-1" class="internal">Preface</a></li>
+<li><a href="acknowledgement-1.html" data-scroll="acknowledgement-1" class="internal">Acknowledgements</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="firstlook.html" data-scroll="firstlook" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a><ul>
+<li><a href="firstlook01.html" data-scroll="firstlook01" class="internal">Modeling with Differential Equations</a></li>
+<li><a href="firstlook02.html" data-scroll="firstlook02" class="internal">Separable Differential Equations</a></li>
+<li><a href="firstlook03.html" data-scroll="firstlook03" class="internal">Geometric and Quantitative Analysis</a></li>
+<li><a href="firstlook04.html" data-scroll="firstlook04" class="internal">Analyzing Equations Numerically</a></li>
+<li><a href="firstlook05.html" data-scroll="firstlook05" class="internal">First-Order Linear Equations</a></li>
+<li><a href="firstlook06.html" data-scroll="firstlook06" class="internal">Existence and Uniqueness of Solutions</a></li>
+<li><a href="firstlook07.html" data-scroll="firstlook07" class="active">Bifurcations</a></li>
+<li><a href="firstlook08.html" data-scroll="firstlook08" class="internal">Projects for First-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="systems.html" data-scroll="systems" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a><ul>
+<li><a href="systems01.html" data-scroll="systems01" class="internal">Modeling with Systems</a></li>
+<li><a href="systems02.html" data-scroll="systems02" class="internal">The Geometry of Systems</a></li>
+<li><a href="systems03.html" data-scroll="systems03" class="internal">Numerical Techniques for Systems</a></li>
+<li><a href="systems04.html" data-scroll="systems04" class="internal">Solving Systems Analytically</a></li>
+<li><a href="systems05.html" data-scroll="systems05" class="internal">Projects for Systems of Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="linear.html" data-scroll="linear" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a><ul>
+<li><a href="linear01.html" data-scroll="linear01" class="internal">Linear Algebra in a Nutshell</a></li>
+<li><a href="linear02.html" data-scroll="linear02" class="internal">Planar Systems</a></li>
+<li><a href="linear03.html" data-scroll="linear03" class="internal">Phase Plane Analysis of Linear Systems</a></li>
+<li><a href="linear04.html" data-scroll="linear04" class="internal">Complex Eigenvalues</a></li>
+<li><a href="linear05.html" data-scroll="linear05" class="internal">Repeated Eigenvalues</a></li>
+<li><a href="linear06.html" data-scroll="linear06" class="internal">Changing Coordinates</a></li>
+<li><a href="linear07.html" data-scroll="linear07" class="internal">The Trace-Determinant Plane</a></li>
+<li><a href="linear08.html" data-scroll="linear08" class="internal">Linear Systems in Higher Dimensions</a></li>
+<li><a href="linear09.html" data-scroll="linear09" class="internal">The Matrix Exponential</a></li>
+<li><a href="linear10.html" data-scroll="linear10" class="internal">Projects Systems of Linear Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="secondorder.html" data-scroll="secondorder" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a><ul>
+<li><a href="secondorder01.html" data-scroll="secondorder01" class="internal">Homogeneous Linear Equations</a></li>
+<li><a href="secondorder02.html" data-scroll="secondorder02" class="internal">Forcing</a></li>
+<li><a href="secondorder03.html" data-scroll="secondorder03" class="internal">Sinusoidal Forcing</a></li>
+<li><a href="secondorder04.html" data-scroll="secondorder04" class="internal">Forcing and Resonance</a></li>
+<li><a href="secondorder05.html" data-scroll="secondorder05" class="internal">Projects for Second-Order Differential Equations</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="nonlinear.html" data-scroll="nonlinear" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a><ul>
+<li><a href="nonlinear01.html" data-scroll="nonlinear01" class="internal">Linearization</a></li>
+<li><a href="nonlinear02.html" data-scroll="nonlinear02" class="internal">Hamiltonian Systems</a></li>
+<li><a href="nonlinear03.html" data-scroll="nonlinear03" class="internal">More Nonlinear Mechanics</a></li>
+<li><a href="nonlinear04.html" data-scroll="nonlinear04" class="internal">The Hopf Bifurcation</a></li>
+<li><a href="nonlinear05.html" data-scroll="nonlinear05" class="internal">Projects</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="laplace.html" data-scroll="laplace" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a><ul>
+<li><a href="laplace01.html" data-scroll="laplace01" class="internal">The Laplace Transform</a></li>
+<li><a href="laplace02.html" data-scroll="laplace02" class="internal">Solving Initial Value Problems</a></li>
+<li><a href="laplace03.html" data-scroll="laplace03" class="internal">Delta Functions and Forcing</a></li>
+<li><a href="laplace04.html" data-scroll="laplace04" class="internal">Convolution</a></li>
+<li><a href="laplace05.html" data-scroll="laplace05" class="internal">Projects for Laplace Transforms</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Reference</span></a></li>
+<li class="link"><a href="appendix-gfdl.html" data-scroll="appendix-gfdl" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></li>
+<li class="link"><a href="solutions-1.html" data-scroll="solutions-1" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></li>
+<li class="link"><a href="references-1.html" data-scroll="references-1" class="internal"><span class="title">Readings and References</span></a></li>
+<li class="link"><a href="appendix-2.html" data-scroll="appendix-2" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></li>
+<li class="link"><a href="index-1.html" data-scroll="index-1" class="internal"><span class="title">Index</span></a></li>
+<li class="link"><a href="colophon-2.html" data-scroll="colophon-2" class="internal"><span class="title">Colophon</span></a></li>
+</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="firstlook07"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.7</span> <span class="title">Bifurcations</span>
+</h2>
+<article class="objectives goal-like" id="objectives-7"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-140">
+<p id="p-536">To understand that a one-parameter family of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f_\lambda(x)
+\end{equation*}
+</div>
+<p class="continuation">has a <dfn class="terminology">bifurcation</dfn> at <span class="process-math">\(\lambda = \lambda_0\)</span> if a change in the number or type of equilibrium solutions occurs.</p>
+</li>
+<li id="li-141"><p id="p-537">To understand that bifurcation diagrams are an effective way of representing the nature of the solutions of a one-parameter family of differential equations.</p></li>
+</ul></article><section class="introduction" id="introduction-34"><p id="p-538">Many of the equations that we have examined have a <dfn class="terminology">parameter</dfn>, which means that we actually have a family of differential equations. For example,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = kx
+\end{equation*}
+</div>
+<p class="continuation">has the growth rate parameter <span class="process-math">\(k\text{.}\)</span> The logistic equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = kP\left( 1 - \frac{P}{N} \right)
+\end{equation*}
+</div>
+<p class="continuation">has two parameters, <span class="process-math">\(k\)</span> and <span class="process-math">\(N\text{.}\)</span> In this section we will investigate how the solutions of a differential equation vary as we change the value of a parameter.</p></section><section class="subsection" id="firstlook07-subsection-logisitic-harvesting"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span>
+</h3>
+<p id="p-539">Recall how we modeled logistic growth in a trout pond in <a href="" class="xref" data-knowl="./knowl/firstlook03-example-harvesting.html" title="Example 1.3.9: A Logistic Model with Harvesting">Example 1.3.9</a> with the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-example-harvesting.html ./knowl/firstlook07-figure-logistic-harvesting-sink-source.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right).
+\end{equation*}
+</div>
+<p class="continuation">If we allowed fishing in our pond at a rate of 32 fish per year, then the equation became</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-example-harvesting.html ./knowl/firstlook07-figure-logistic-harvesting-sink-source.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.
+\end{equation*}
+</div>
+<p class="continuation">There are two equilibrium solutions for this equation, <span class="process-math">\(P_1 = 160\)</span> (a sink) and <span class="process-math">\(P_2 = 40\)</span> (a source). If the population of the pond falls below 40, then the fish will die out unless the pond is restocked or fishing is banned (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-logistic-harvesting-sink-source.html" title="Figure 1.7.1">Figure 1.7.1</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-logistic-harvesting-sink-source"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-harvesting-sink-source.svg" role="img" class="contained" alt="a direction field of slope arrows with two curves approaching 160 and one curve aproaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.1<span class="period">.</span></span><span class="space"> </span>Harvesting with <span class="process-math">\(H = 32\)</span></figcaption></figure><p id="p-540">Now let us see what happens when we allow more fishing in our pond, say <span class="process-math">\(H = 100\text{.}\)</span> Our differential equation now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-over-harvesting.html ./knowl/firstlook07-figure-over-harvesting.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 100.
+\end{equation*}
+</div>
+<p class="continuation">To determine the equilibrium solutions, we must solve</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-over-harvesting.html ./knowl/firstlook07-figure-over-harvesting.html" id="firstlook07-equation-over-harvesting">
+\begin{equation}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 100 = 0\tag{1.7.1}
+\end{equation}
+</div>
+<p class="continuation">for <span class="process-math">\(P\text{.}\)</span> This last equation can be rewritten as <span class="process-math">\(P^2 - 200P + 20000 = 0\text{.}\)</span> Thus,</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-over-harvesting.html ./knowl/firstlook07-figure-over-harvesting.html">
+\begin{equation*}
+P = \frac{200 \pm \sqrt{200^2 - 4 \cdot 20000}}{2} = 100 \pm \sqrt{-10000},
+\end{equation*}
+</div>
+<p class="continuation">which means that equation <a href="" class="xref" data-knowl="./knowl/firstlook07-equation-over-harvesting.html" title="Equation 1.7.1">(1.7.1)</a> has no real solutions and that we have no equilibrium solutions. Furthermore, <span class="process-math">\(dP/dt \lt 0\)</span> for all values of <span class="process-math">\(P\text{.}\)</span>  This means that no matter how many fish are in the pond initially, the trout population will eventually die out due to overfishing  (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-over-harvesting.html" title="Figure 1.7.2">Figure 1.7.2</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-over-harvesting"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-over-harvesting.svg" role="img" class="contained" alt="a direction field of slope arrows with three curves decreasing to zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.2<span class="period">.</span></span><span class="space"> </span>Harvesting with <span class="process-math">\(H = 100\)</span></figcaption></figure><p id="p-541">Finally, we will let <span class="process-math">\(H = 50\text{.}\)</span> In this case, we must solve</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-figure-logistic-harvesting-bifurcation.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 50 = 0
+\end{equation*}
+</div>
+<p class="continuation">in order to determine any equilibrium solutions. We now obtain a single equilibrium solution at <span class="process-math">\(P = 100\text{.}\)</span> In fact, <span class="process-math">\(P = 100\)</span> will be a node. For values of <span class="process-math">\(P \gt 100\)</span> as well as values of <span class="process-math">\(P \lt 100\text{,}\)</span> we have <span class="process-math">\(dP/dt \lt 0\text{,}\)</span> and the number of fish in the pond will decrease (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-logistic-harvesting-bifurcation.html" title="Figure 1.7.3">Figure 1.7.3</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-logistic-harvesting-bifurcation"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-harvesting-bifurcation.svg" role="img" class="contained" alt="a direction field of slope arrows with one curve decreasing towards one hundred and a horizontal line at one hundread and a curve the begins below one hundred and decreases"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.3<span class="period">.</span></span><span class="space"> </span>Harvesting with <span class="process-math">\(H = 50\)</span></figcaption></figure><p id="p-542">To better understand what is happening, we will generalize our model. Suppose that a population with a limited carrying capacity <span class="process-math">\(N\)</span> is modeled with the logistic equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = kP\left(1 - \frac{P}{N}\right).
+\end{equation*}
+</div>
+<p class="continuation">If we allow harvesting at a constant rate <span class="process-math">\(H\text{,}\)</span> our model now becomes</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = kP\left(1 - \frac{P}{N}\right) - H.
+\end{equation*}
+</div>
+<p class="continuation">To analyze our model, we will first find the equilibrium solutions. If we will let</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+f_H(P) = kP\left(1 - \frac{P}{N}\right) - H,
+\end{equation*}
+</div>
+<p class="continuation">each equilibrium solution must satisfy <span class="process-math">\(f_H(P) = 0\)</span> or</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+-k P^2 + kNP - H  N = 0.
+\end{equation*}
+</div>
+<p class="continuation">Therefore, our equilibrium solutions are given by</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P = \frac{-kN \pm \sqrt{k^2N^2 - 4kHN}}{-2k} = \frac{N}{2} \pm  \sqrt{\frac{N^2}{4} - \frac{HN}{k}}.
+\end{equation*}
+</div>
+<p id="p-543">The explanation of how our model behaves lies in the discriminant,</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{N^2}{4} - \frac{HN}{k}.
+\end{equation*}
+</div>
+<p class="continuation">If</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{N^2}{4} - \frac{HN}{k} \lt 0
+\end{equation*}
+</div>
+<p class="continuation">or, equivalently if <span class="process-math">\(H \gt kN/4\text{,}\)</span> there are no equilibrium solutions and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dP}{dt} = f_H(P) \lt 0
+\end{equation*}
+</div>
+<p class="continuation">for all values of <span class="process-math">\(P\text{.}\)</span> In particular, all solutions of <span class="process-math">\(dP/dt = f_H(P)\)</span> tend towards negative infinity as <span class="process-math">\(t \to \infty\text{.}\)</span> In this case, the population is doomed to extinction no matter how large the initial population is. Since negative populations do not make sense, we say that the population is extinct when <span class="process-math">\(P = 0\text{.}\)</span></p>
+<p id="p-544">On the other hand, if <span class="process-math">\(H \lt kN/4\text{,}\)</span> we have equilibrium solutions at</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P_1 =\frac{N}{2} + \sqrt{\frac{N^2}{4} - \frac{HN}{k}}
+\end{equation*}
+</div>
+<p class="continuation">and</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+P_2 = \frac{N}{2} - \sqrt{\frac{N^2}{4} - \frac{HN}{k}}.
+\end{equation*}
+</div>
+<p class="continuation">The first equilibrium solution, <span class="process-math">\(P_1\)</span> is a sink, while the second, <span class="process-math">\(P_2\)</span> is a source.</p>
+<p id="p-545">Finally, if <span class="process-math">\(H = kN/4\text{,}\)</span> then we will have exactly one equilibrium solution at <span class="process-math">\(P = N/2\text{.}\)</span> Although <span class="process-math">\(dP/dt \lt 0\)</span> for all <span class="process-math">\(P \neq N/2\text{,}\)</span> we see that <span class="process-math">\(P \to N/2\)</span> as <span class="process-math">\(t \to \infty\)</span> for all initial values of <span class="process-math">\(P\)</span> greater than <span class="process-math">\(N/2\text{.}\)</span> For initial values of <span class="process-math">\(P\)</span> less than <span class="process-math">\(N/2\text{,}\)</span> solutions tend towards <span class="process-math">\(- \infty\)</span> as <span class="process-math">\(t \to \infty\text{.}\)</span> Thus, the initial population of fish must be at least <span class="process-math">\(kN/4\text{;}\)</span> otherwise, the fish will go extinct.</p>
+<p id="p-546">In our example, we have a family of differential equations—one for each value of <span class="process-math">\(H\text{,}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-fishing.html" id="firstlook07-equation-fishing">
+\begin{equation}
+\frac{dP}{dt} = P\left( 1 - \frac{P}{200}\right) - H.\tag{1.7.2}
+\end{equation}
+</div>
+<p class="continuation">A small change in <span class="process-math">\(H\)</span> can have a dramatic effect on how the solutions of the differential equation behave. Changing the value of <span class="process-math">\(H\)</span> from <span class="process-math">\(50\)</span> to <span class="process-math">\(50.1\)</span> will doom the population of fish to extinction no matter what the initial population is. As we increase the value of <span class="process-math">\(H\text{,}\)</span> the number of equilibrium solutions changes from two to one and then to none. This change occurs exactly at <span class="process-math">\(H = 50\text{.}\)</span> We say that a <dfn class="terminology">bifurcation</dfn> occurs at <span class="process-math">\(H = 50\)</span> for equation <a href="" class="xref" data-knowl="./knowl/firstlook07-equation-fishing.html" title="Equation 1.7.2">(1.7.2)</a>.</p>
+<article class="activity project-like" id="activity-13"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.7.1</span><span class="period">.</span><span class="space"> </span><span class="title">Upland Bird Populations.</span>
+</h4>
+<div class="introduction" id="introduction-35"><p id="p-547">The chukar partridge, or simply chukar, is a upland gamebird in the pheasant family. Originally native to Asia and ranging from the eastern Mediterranean to Himalayas, the chukar has been widely introduced as an upland game bird with populations now established in the United States, Canada, Chile, Argentina, New Zealand and Hawaii. One particularly good area for hunting chukar is the western Great Basin area of the U.S. (eastern Oregon and Washington and western Idaho).</p></div>
+<article class="task exercise-like" id="task-52"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-548">Suppose that the population of chukar on a private game ranch in eastern Oregon grows logisitically.  Estimates tell us that the one hundred square mile ranch and that the ranch can support at most <span class="process-math">\(120\)</span> birds per square mile. The growth rate of the chukar population is estimated to be <span class="process-math">\(1.5\)</span> birds per year. Model the growth of the chukar population with an initial value problem.</p></article><article class="task exercise-like" id="task-53"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-549">Suppose that hunting on the ranch is restricted to guests and the average guest harvest <span class="process-math">\(10\)</span> chukars per visit. Modify the model in part (a) to take into account the effect that hunting has on the chukar population.</p></article><article class="task exercise-like" id="task-54"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<p id="p-550">What is the maximum number of guests that the ranch can accommodate and still maintain a healthy population of game birds? How many chukar per square mile would be needed to allow this many guests?</p></article></article></section><section class="subsection" id="firstlook07-subsection-one-parameter-families"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span>
+</h3>
+<p id="p-551">Let us consider the equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="firstlook07-equation-one-parameter-bifurcation">
+\begin{equation}
+\frac{dx}{dt} = x^2 - 4x + \lambda\tag{1.7.3}
+\end{equation}
+</div>
+<p class="continuation">as a family of differential equations indexed by the parameter <span class="process-math">\(\lambda\text{.}\)</span> If we let <span class="process-math">\(f_\lambda(x) = x^2 - 4x + \lambda\text{,}\)</span> then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f_\lambda(x)
+\end{equation*}
+</div>
+<p class="continuation">is a called <dfn class="terminology">one-parameter family</dfn> of differential equations. For each value of <span class="process-math">\(\lambda\text{,}\)</span> we obtain an autonomous differential equation, and for each value of <span class="process-math">\(\lambda\text{,}\)</span> we have a different phase line to examine.</p>
+<p id="p-552">For <span class="process-math">\(\lambda = 0\text{,}\)</span> the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-figure-one-parameter-bifurcation-0.html">
+\begin{equation*}
+\frac{dx}{dt} = f_0(x) = x^2 - 4x = x(x-4),
+\end{equation*}
+</div>
+<p class="continuation">there is a sink at <span class="process-math">\(x = 0\)</span> and a source at <span class="process-math">\(x = 4\)</span> (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-one-parameter-bifurcation-0.html" title="Figure 1.7.4">Figure 1.7.4</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-one-parameter-bifurcation-0"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-one-parameter-bifurcation-0.svg" role="img" class="contained" alt="a direction field of slope arrows with three curves with the curve starting above two approaching infinity and the two curves starting below two approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.4<span class="period">.</span></span><span class="space"> </span><span class="process-math">\(x' = x^2 - 4x + \lambda\)</span> for <span class="process-math">\(\lambda = 0\)</span></figcaption></figure><p id="p-553">For <span class="process-math">\(\lambda = 4\text{,}\)</span> the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-figure-one-parameter-bifurcation-4.html">
+\begin{equation*}
+\frac{dx}{dt} = f_4(x) = x^2 - 4x + 4 = (x - 2)^2,
+\end{equation*}
+</div>
+<p class="continuation">we have exactly one equilibrium solution, a node at <span class="process-math">\(x = 2\)</span> (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-one-parameter-bifurcation-4.html" title="Figure 1.7.5">Figure 1.7.5</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-one-parameter-bifurcation-4"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-one-parameter-bifurcation-4.svg" role="img" class="contained" alt="a direction field of slope arrows with two curves with the curve starting above two approaching infinity and the two curves starting below two approaching two"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.5<span class="period">.</span></span><span class="space"> </span><span class="process-math">\(x' = x^2 - 4x + \lambda\)</span> for <span class="process-math">\(\lambda = 4\)</span></figcaption></figure><p id="p-554">If <span class="process-math">\(\lambda = 8\text{,}\)</span> then the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-figure-one-parameter-bifurcation-8.html">
+\begin{equation*}
+\frac{dx}{dt} = f_8(x) = x^2 - 4x + 8
+\end{equation*}
+</div>
+<p class="continuation">has no equilibrium solutions (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-one-parameter-bifurcation-8.html" title="Figure 1.7.6">Figure 1.7.6</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-one-parameter-bifurcation-8"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-one-parameter-bifurcation-8.svg" role="img" class="contained" alt="a direction field of slope arrows with three curves with each curve approaching infinity"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.6<span class="period">.</span></span><span class="space"> </span><span class="process-math">\(x' = x^2 - 2x + \lambda\)</span> for <span class="process-math">\(\lambda = 8\)</span></figcaption></figure><p id="p-555">In fact, the number of equilibrium solutions for <a href="" class="xref" data-knowl="./knowl/firstlook07-equation-one-parameter-bifurcation.html" title="Equation 1.7.3">(1.7.3)</a> changes at <span class="process-math">\(\lambda = 4\text{.}\)</span> We say that <span class="process-math">\(\lambda = 4\)</span> is a <dfn class="terminology">bifurcation value</dfn> for the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-one-parameter-bifurcation.html ./knowl/firstlook07-equation-bifurcation-1.html ./knowl/firstlook07-figure-bifurcation-diagram.html" id="firstlook07-equation-bifurcation-1">
+\begin{equation}
+\frac{dx}{dt} = f_\lambda(x) = x^2 - 4x + \lambda.\tag{1.7.4}
+\end{equation}
+</div>
+<p class="continuation">For <span class="process-math">\(\lambda \lt 4\text{,}\)</span> we have two equilibrium solutions.</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-one-parameter-bifurcation.html ./knowl/firstlook07-equation-bifurcation-1.html ./knowl/firstlook07-figure-bifurcation-diagram.html">
+\begin{equation*}
+x = 2 \pm \sqrt{4 - \lambda}.
+\end{equation*}
+</div>
+<p class="continuation">For values of <span class="process-math">\(\lambda \gt 4\text{,}\)</span> there are no equilibrium solutions. We can record all of the information for the various values in a graph called the <dfn class="terminology">bifurcation diagram</dfn>. The horizontal axis is <span class="process-math">\(\lambda\)</span> and the vertical axis is <span class="process-math">\(x\text{.}\)</span> Over each value of <span class="process-math">\(\lambda\text{,}\)</span> we will plot the corresponding phase line. The curve in the graph represents the various equilibrium solutions for the different values of <span class="process-math">\(\lambda\text{.}\)</span> The bifurcation diagram for equation <a href="" class="xref" data-knowl="./knowl/firstlook07-equation-bifurcation-1.html" title="Equation 1.7.4">(1.7.4)</a> is a parabola (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-bifurcation-diagram.html" title="Figure 1.7.7">Figure 1.7.7</a>). We have a phase line for each value of <span class="process-math">\(\lambda\text{.}\)</span></p>
+<figure class="figure figure-like" id="firstlook07-figure-bifurcation-diagram"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-bifurcation-diagram.svg" role="img" class="contained" alt="a parabola with the vertex to the right and opening to the left and the parabola intersected by vertical lines with each line indicating where the solution increases and decreases"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.7<span class="period">.</span></span><span class="space"> </span>Bifurcation diagram for <span class="process-math">\(x' = x^2 - 4x + \lambda\)</span></figcaption></figure><p id="p-556">Bifurcations for a one-parameter family of differential equations <span class="process-math">\(dx/dt = f_\lambda(x)\)</span> are, in fact, rare. Let us consider a bifurcation where a sink changes to a source as we vary the parameter <span class="process-math">\(\lambda\text{.}\)</span> Suppose that for <span class="process-math">\(\lambda = \lambda_0\text{,}\)</span> we have a sink at <span class="process-math">\(x_0\text{.}\)</span> Then</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f_{\lambda_0}(x_0) = 0.
+\end{equation*}
+</div>
+<p class="continuation">Furthermore, the graph of <span class="process-math">\(f_{\lambda_0}(x)\)</span> must be decreasing for <span class="process-math">\(x\)</span> near <span class="process-math">\(x_0\text{,}\)</span> since <span class="process-math">\(f_{\lambda_0}(x)\)</span> must be postive for values of <span class="process-math">\(x \lt x_0\)</span> and negative for values of <span class="process-math">\(x \gt x_0\text{.}\)</span>  In other words, <span class="process-math">\(f'_{\lambda_0}(x) \lt 0\)</span> for <span class="process-math">\(x\)</span> near <span class="process-math">\(x_0\)</span> with <span class="process-math">\(f'_{\lambda_0}(x_0) \lt 0\text{,}\)</span> then for all <span class="process-math">\(\lambda_1\)</span> sufficiently close to <span class="process-math">\(\lambda_0\text{,}\)</span> the differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f_{\lambda_1}(x)
+\end{equation*}
+</div>
+<p class="continuation">must have sink at a point <span class="process-math">\(x = x_1\)</span> very close to <span class="process-math">\(x_0\text{.}\)</span>  A similar situation holds if <span class="process-math">\(x_0\)</span> is a source and <span class="process-math">\(f'_{\lambda_0}(x_0) \gt 0\text{.}\)</span> Thus, bifurcations can only occur when <span class="process-math">\(f_{\lambda_0}(x_0) = 0\)</span> and <span class="process-math">\(f'_{\lambda_0}(x_0) = 0\text{.}\)</span></p>
+<article class="example example-like" id="example-22"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-22"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.7.8</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-22"><article class="example example-like"><p id="p-557">Now consider the one-parameter family</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-figure-bifurcation-pitchfork.html">
+\begin{equation*}
+\frac{dy}{dt}  = y^3 - \alpha y = y (y^2 - \alpha).
+\end{equation*}
+</div>
+<p class="continuation">We will have an equilibrium solution at zero for all values of <span class="process-math">\(\alpha\)</span> and two additional equilibrium solutions at <span class="process-math">\(\pm \sqrt{\alpha}\)</span> for <span class="process-math">\(\alpha \gt 0\text{.}\)</span>  This type of  bifurcation is a <dfn class="terminology">pitch fork bifurcation</dfn> (<a href="" class="xref" data-knowl="./knowl/firstlook07-figure-bifurcation-pitchfork.html" title="Figure 1.7.9">Figure 1.7.9</a>).</p>
+<figure class="figure figure-like" id="firstlook07-figure-bifurcation-pitchfork"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-bifurcation-pitchfork.svg" role="img" class="contained" alt="a parabola with a vertex at the origin and opeing to the right and a horizontal line on the horizontal axis"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.9<span class="period">.</span></span><span class="space"> </span>The bifurcation diagram for <span class="process-math">\(y' = y^3 - \alpha y\)</span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-14"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.7.2</span><span class="period">.</span><span class="space"> </span><span class="title">Bifurcations.</span>
+</h4>
+<div class="introduction" id="introduction-36"><p id="p-558">For each of the following parametrized family of differential equations, plot phase lines for <span class="process-math">\(c = -2, -1, 0, 1, 2\text{,}\)</span> find any bifurcation values, and sketch the bifurcation diagram.</p></div>
+<article class="task exercise-like" id="task-55"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<p id="p-559"><span class="process-math">\(y' = (1 - y)y + c\)</span></p></article><article class="task exercise-like" id="task-56"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<p id="p-560"><span class="process-math">\(y' = (c - y^2)y\)</span></p></article></article><article class="example example-like" id="example-23"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-23"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.7.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-23"><article class="example example-like"><p id="p-561">Let us find the bifurcation values of the one-parameter family</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-bifurcation-2.html ./knowl/firstlook07-figure-two-bifurcations.html" id="firstlook07-equation-bifurcation-2">
+\begin{equation}
+\frac{dy}{dt}  = y(y - 2)^2 + \lambda.\tag{1.7.5}
+\end{equation}
+</div>
+<p class="continuation">If <span class="process-math">\(g_\lambda(y) = y(y - 2)^2 + \lambda\text{,}\)</span> then <span class="process-math">\(g'_\lambda(y) =  3y^2 - 8y + 4\text{.}\)</span> The roots of <span class="process-math">\(g'_\lambda(y) = 0\)</span> are <span class="process-math">\(y = 2\)</span> and <span class="process-math">\(y = 2/3\text{.}\)</span> In order for <span class="process-math">\(\lambda\)</span> to be a bifurcation value, we must have  <span class="process-math">\(g_\lambda(2) = \lambda = 0\)</span> or</p>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook07-equation-bifurcation-2.html ./knowl/firstlook07-figure-two-bifurcations.html">
+\begin{equation*}
+g_\lambda(2/3) = \frac{32}{27} + \lambda = 0 
+\end{equation*}
+</div>
+<p class="continuation">Thus, equation <a href="" class="xref" data-knowl="./knowl/firstlook07-equation-bifurcation-2.html" title="Equation 1.7.5">(1.7.5)</a> has two bifurcation values, <span class="process-math">\(\lambda = -32/27\)</span> and <span class="process-math">\(\lambda = 0\text{.}\)</span> The bifurcation diagram for this one-parameter family is given in <a href="" class="xref" data-knowl="./knowl/firstlook07-figure-two-bifurcations.html" title="Figure 1.7.11">Figure 1.7.11</a>.</p>
+<figure class="figure figure-like" id="firstlook07-figure-two-bifurcations"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook07-two-bifurcations.svg" role="img" class="contained" alt="a curve that decreases to the right until it intersects the vertical axis at two and then decreases to the left until it reaches a half on the vertical axis and finally decreases back to the right through the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.7.11<span class="period">.</span></span><span class="space"> </span>The bifurcation diagram for <span class="process-math">\(y' =  y(1 - y)^2 + \lambda\)</span></figcaption></figure></article></div></section><section class="subsection" id="firstlook07-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span>
+</h3>
+<ul id="p-562" class="disc">
+<li id="li-142">
+<p id="p-563">A one-parameter family of differential equations</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dx}{dt} = f_\lambda(x)
+\end{equation*}
+</div>
+<p class="continuation">has a bifurcation at <span class="process-math">\(\lambda = \lambda_0\)</span> if a change in the number of equilibrium solutions occurs.</p>
+</li>
+<li id="li-143"><p id="p-564">Bifurcation diagrams are an effective way of representing the nature of the solutions of a one-parameter family of differential equations.</p></li>
+<li id="li-144"><p id="p-565">Bifurcations for a one-parameter family of differential equations <span class="process-math">\(dx/dt = f_\lambda(x)\)</span> are rare. Bifurcations occur when <span class="process-math">\(f_{\lambda_0}(x_0) = 0\)</span> and <span class="process-math">\(f'_{\lambda_0}(x_0) = 0\text{.}\)</span></p></li>
+</ul></section><section class="reading-questions" id="reading-questions-firstlook07"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook07-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-566">Explain what a bifurcation is in your own words.</p></article><article class="exercise exercise-like" id="reading-questions-firstlook07-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-567">Explain why a bifurcation is relatively rare for a one-parameter family of differential equations.</p></article></section><section class="exercises" id="firstlook07-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.7.5</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-145"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<p id="p-568">For each of the following parametrized family of differential equations, plot phase lines for <span class="process-math">\(\lambda = -2, -1, 0, 1, 2\text{,}\)</span> find any bifurcation values, and sketch the bifurcation diagram.</p>
+<ol class="lower-alpha">
+<li id="li-145"><p id="p-569"><span class="process-math">\(y' = \lambda - y^2\text{.}\)</span></p></li>
+<li id="li-146"><p id="p-570"><span class="process-math">\(y' = \lambda y^2 - 1\)</span> for <span class="process-math">\(\lambda \in {\mathbb R}\text{.}\)</span></p></li>
+<li id="li-147"><p id="p-571"><span class="process-math">\(y' = \lambda - 2y + y^2\text{.}\)</span></p></li>
+<li id="li-148"><p id="p-572"><span class="process-math">\(y' = (\lambda - 4y^2)y\text{.}\)</span></p></li>
+<li id="li-149"><p id="p-573"><span class="process-math">\(y' = (\lambda - y^4)y\text{.}\)</span></p></li>
+</ol></article><article class="exercise exercise-like" id="exercise-146"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<p id="p-574">Describe the phase line portraits for <span class="process-math">\(y' = \lambda y - \sin y\)</span> for <span class="process-math">\(\lambda &gt; 2 / \pi\)</span> and how it depends on the parameter <span class="process-math">\(\lambda\text{.}\)</span> Draw the bifurcation diagram for this equation.</p></article><article class="exercise exercise-like" id="exercise-147"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<p id="p-575">The differential equation</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{dy}{dt} = y - 4t + y^2 - 8yt + 16 t^2 + 4.
+\end{equation*}
+</div>
+<p class="continuation">is not autonomous, separable, or linear; however, we can solve this equation with a change of variable.</p>
+<ol class="lower-alpha">
+<li id="li-150">
+<p id="p-576">Transform this equation into a new differential equation of the form</p>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\frac{du}{dt}= f(u)
+\end{equation*}
+</div>
+<p class="continuation">by letting <span class="process-math">\(u = y - 4t\text{.}\)</span></p>
+</li>
+<li id="li-151"><p id="p-577">Sketch the phase line for this new equation, <span class="process-math">\(u' = f(u)\text{,}\)</span> and sketch several solutions.</p></li>
+<li id="li-152"><p id="p-578">Find the solutions of the original differential equation that correspond to the equilibrium solutions of <span class="process-math">\(u' = f(u)\text{.}\)</span> Graph these solutions in <span class="process-math">\(ty\)</span>-plane.  Also, sketch the graphs of the solutions that you plotted in part (b).</p></li>
+<li id="li-153"><p id="p-579">Solve the differential new equation and use this information to solve the original differential equation.</p></li>
+</ol></article></section></section></div></main>
+</div>
+</body>
+</html>
