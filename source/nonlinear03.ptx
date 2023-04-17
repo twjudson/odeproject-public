@@ -20,6 +20,8 @@
         
             <li><p>To understand how to use Lyapunov functions to determine the stability of an equilibrium solution for a nonlinear system.</p></li>
 
+            <li><p>To understand gradient systems and the types of solutions for gradient systems.</p></li>
+
         </ul>
     </objectives>    
     <introduction>
@@ -800,25 +802,42 @@
         </exercise>
 
         <exercise>
-            <title>Loster Navigation</title>
+            <title>Lobster Navigation</title>
             <statement>
-                <p>Lobsters are a family (Nephropidae, synonym Homaridae) of marine crustaceans. They have long bodies with muscular tails and live in crevices or burrows on the sea floor. Three of their five pairs of legs have claws, including the first pair, which are usually much larger than the others. Lobsters are omnivores and typically eat live prey such as fish, mollusks, other crustaceans, worms, and some plant life.
+                <p>Lobsters are a family (Nephropidae, synonym Homaridae) of marine crustaceans. They have long bodies with muscular tails and live in crevices or burrows  on rocky, sandy, or muddy bottoms from the shoreline to beyond the edge of the continental shelf.  Lobsters are omnivores and typically eat live prey such as fish, mollusks, other crustaceans, worms, and some plant life. They scavange if necessary.  Because lobsters live in murky environments at the bottom of the ocean, they mostly use their antennae as sensors. Lobsters can "smell" their food by using four small antennae on the front of their heads and tiny sensing hairs that cover their bodies.</p>
 
-                    Consider the system
+                <p>Let us assume that a lobster moves in a plane.  If the position of the lobster is <m>(x(t), y(t))</m> at time <m>t</m>, then the lobster will head in the direction of a velocity vector, <m>(x'(t), y'(t))</m>, at time <m>t</m>.  If <m>S(x,y)</m> is the concentration of the chemicals emanating from a potential food source, say a dead fish, then the lobster will move in the direction of the greatest increase <m>S</m>.  However, this direction is just the gradient vector of <m>S</m>, <m>(\partial S/\partial x, \partial S/\partial y)</m>.  Therefore, the motion of the lobster is described by the system
                     <md>
-                        <mrow>\frac{dx}{dt} &amp; = y</mrow>
-                        <mrow>\frac{dy}{dt} &amp; = -x - \frac{y}{4} + x^2.</mrow>
-                    </md>
+                        <mrow>\frac{dx}{dt} &amp; = \frac{\partial S}{\partial x}</mrow>
+                        <mrow>\frac{dy}{dt} &amp; = \frac{\partial S}{\partial y}.</mrow>
+                    </md></p>
+
+                <p>Suppose that <m>S(x, y)</m> is defined on the rectangle <m>-3 \leq x \leq 3</m> and <m>-3 \leq xy\leq 3</m> by
+                    <me>S(x,y) = \frac{y^2}{2} - \frac{y^4}{4} - \frac{x^2}{2} + 6.</me>
                 <ol>
-                    <li><p>Verify that the function
-                        <me>V(x, y) = \frac{y^2}{2} + \frac{x^2}{2} - \frac{x^3}{3}</me>
-                    is a Lyapunov function for the system.</p></li>
+                    <li><p>What is the gradient system for <m>S</m>?</p></li>
 
-                    <li><p>Sketch the level sets of <m>V</m>.</p></li>
+                    <li><p>Show that
+                            <me>\frac{d}{dt} S(x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} \geq 0.</me>
+                        Hence, we can deduce that <m>S</m> is increasing whenever <m>\nabla S \neq 0</m>.
+                    </p></li>
 
-                    <li><p>Sketch the phase portrait of the system.</p></li>
+                    <li><p>Sketch the level sets of <m>S</m> for <m>-3 \leq x \leq 3</m> and <m>-3 \leq xy\leq 3</m>.</p></li>
+
+                    <li><p>Sketch the vector field given by 
+                        <md>
+                            <mrow>\frac{dx}{dt} &amp; = \frac{\partial S}{\partial x}</mrow>
+                            <mrow>\frac{dy}{dt} &amp; = \frac{\partial S}{\partial y}.</mrow>
+                        </md>
+                        What do you notice about the two plots?</p></li>
+
+                    <li><p>If
+                            <me>S(x,y) = x^2 + y^2 - \frac{x^4 + y^4}{4} - 5x^2y^2 + 50,</me>
+                        how many dead fish will there be?  Where are the dead fish located?</p></li>
+
                 </ol></p>
             </statement>
+            <hint><p>You may find Sage useful.</p></hint>
         </exercise>
 
 
