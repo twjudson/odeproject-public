@@ -687,9 +687,142 @@
                     </ol></p>
             </statement>
 
-        </exercise>    
+        </exercise>     
 
     </exercises>
+<subsection xml:id="systems03-subsection-sage">
+        <title>Using <em>Sage</em> to Solve Systems with Euler's Method</title>
+        
+        <p><em>Sage</em> is a very convenient tool for solving systems using Euler's method.  Consider the system
+            <mdn>
+                <mrow xml:id="systems03-equation-eulers-method-2x2-1">x' &amp; = x + y + t</mrow>
+                <mrow xml:id="systems03-equation-eulers-method-2x2-2">y' &amp; = x - y</mrow>
+                <mrow xml:id="systems03-equation-eulers-method-2x2-3">x(0) &amp; = -1</mrow>
+                <mrow xml:id="systems03-equation-eulers-method-2x2-4">y(0) &amp; = 1,</mrow>
+            </mdn>
+        where <m>h = 1/4</m> and <m>t</m> ranges from <m>0</m> to <m>1</m>.</p>
+
+        <sage>
+            <input>
+            t, x, y = PolynomialRing(QQ,3,"txy").gens()
+            f = x+y+t
+            g = x-y
+            eulers_method_2x2(f,g, 0, -1, 1, 1/4, 1)
+            </input>
+            <output>    
+            </output>
+        </sage>
+
+        <p>We can generate a list of points instead of a table.</p>
+
+        <sage>
+            <input>
+            t, x, y = PolynomialRing(QQ,3,"txy").gens()
+            f = x+y+t
+            g = x-y
+            pts = eulers_method_2x2(f,g, 0, -1, 1, 1/4, 1, algorithm ="none")
+            pts
+            </input>
+            <output>    
+            </output>
+        </sage> 
+
+        <p>A list of points can be useful for creating a line plot.</p>
+
+        <sage>
+            <input>
+            Q = [ [j, k] for i,j,k in pts]
+            p = list_plot(Q, color="red")
+            p += line(Q, xmin = -2, ymin = -1.2, xmax=2, ymax = 1.2, axes_labels=['$x$','$y$'])
+            p
+            </input>
+            <output>
+            </output>
+            </sage>         
+
+        <p>Notice that we have been working over the rationals.  The command to work over the real number is similar.</p>    
+        <sage>
+            <input>
+            RR = RealField(sci_not=0, prec=4, rnd='RNDU')
+            t, x, y=PolynomialRing(RR,3,"txy").gens()
+            f = x+y+t
+            g = x-y
+            eulers_method_2x2(f,g, 0, -1, 1, 0.25, 1)
+            </input>
+            <output>
+            </output>
+        </sage>
+
+        <p>In practice a Runge-Kuta method is much more efficient that Euler's method.  Consider the system
+            <md>
+                <mrow>x' &amp; = 2x - xy</mrow>
+                <mrow>y' &amp; = -5y + xy</mrow>
+            </md>
+        with initial conditions <m>x(0) = 1</m> and <m>y(0) = 1</m>.  We can use the <c>desolve_system_rk4</c> command to obtain and plot a numerical solution.</p>
+
+        <sage>
+            <input>
+            var('x y t')
+            dx = 2*x - x*y
+            dy = -5*y + x*y
+            pts = desolve_system_rk4(des=[dx, dy], vars=[x, y], ivar=t, step = 0.01, end_points=[0, 10], ics=[0, 1, 1])
+            ptsx = [[i, j] for i, j, k in pts]
+            ptsy = [[i, k] for i, j, k in pts]
+            p = line(ptsx, color='blue') + line(ptsy, color='red')
+            p.show(axes_labels=['$t$', '$x, y$'])
+            </input>
+            <output>
+            </output>
+        </sage>
+
+         <exercises>
+            <title>Sage Exercises</title>
+
+            <exercise>
+                <statement>
+                    <p>Consider the system
+                        <md>
+                            <mrow>x' &amp; = x^2 + y</mrow>
+                            <mrow>y' &amp; = -3x - 2y^2</mrow>
+                        </md>
+                    with initial conditions <m>x(0) = 2</m> and <m>y(0) = 1</m>.
+                        <ol>
+
+                            <li><p>Use <c>eulers_method_2x2</c> with step size <m>h = 0.05</m> to find an approximate solution for <m>0 \leq t \leq 1</m>.
+                                <sage>
+                                <input>
+                                </input>
+                                <output>
+                                </output>
+                                </sage></p>
+                            </li>
+
+                            <li><p>Use <c>desolve_system_rk4</c> with step size <m>h = 0.05</m> to find an approximate solution for <m>0 \leq t \leq 1</m>.
+                                <sage>
+                                <input>
+                                </input>
+                                <output>
+                                </output>
+                                </sage></p>
+                            </li>
+
+                            <li><p>Plot the solutions given by <c>eulers_method_2x2</c> and <c>desolve_system_rk4</c> on the same axes.
+                                <sage>
+                                <input>
+                                </input>
+                                <output>
+                                </output>
+                                </sage></p>
+                            </li>
+
+                            <li><p>Discuss how and why the solution given by <c>eulers_method_2x2</c> differs from the one given by <c>desolve_system_rk4</c>.</p></li>
+
+                        </ol></p>
+                </statement>
+            </exercise>
+        </exercises>
+        
+    </subsection>       
 
 </section>
 
