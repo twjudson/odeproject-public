@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="task exercise-like"><h4 class="heading">
+<span class="type">Task</span><span class="space"> </span><span class="codenumber">2.5.1.a</span><span class="period">.</span>
+</h4>
+<div class="para">Using Sage, we can plot the solutions, and visualize the interaction of the three groups. Consider the initial population fractions <span class="process-math">\(S(0) = 0.99\text{,}\)</span> <span class="process-math">\(I(0) = 0.01\text{,}\)</span> <span class="process-math">\(R(0) = 0\text{,}\)</span> <span class="process-math">\(\alpha = 1\text{,}\)</span> <span class="process-math">\(\beta = 0.2\text{,}\)</span> and a time period of 30 days. Adjust the parameters values to examine different behaviors and view the changes in action. What do you observe by increasing or decreasing <span class="process-math">\(\alpha\text{?}\)</span>
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-57"><script type="text/x-sage">Susceptible, Infected, Recovered, t = var('Susceptible, Infected, Recovered, t')
+alpha = 1.0
+beta = 0.2
+F = [-alpha*Susceptible*Infected, alpha*Susceptible*Infected - beta*Infected, beta*Infected]
+P = desolve_system_rk4(F,[Susceptible, Infected, Recovered],ics=[0,0.99,0.01,0],ivar=t,end_points=30,step=0.1)
+Q = [ [i, j] for i,j,k,l in P]
+R = [ [i, k] for i,j,k,l in P]
+S = [ [i, l] for i,j,k,l in P]
+LQ = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
+LR = line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
+LS = line(S, color='green', legend_label='$R(t)$', legend_color='green', thickness=2)
+p = LQ + LR + LS
+p
+</script></pre></article><span class="incontext"><a href="systems05.html#task-109" class="internal">in-context</a></span>
+</body>
+</html>

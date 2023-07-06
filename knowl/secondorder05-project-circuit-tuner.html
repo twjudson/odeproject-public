@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="project project-like"><h3 class="heading">
+<span class="type">Project</span><span class="space"> </span><span class="codenumber">4.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Project—Tuning a Circuit.</span>
+</h3>
+<div class="introduction">
+<div class="para logical">
+<div class="para">Differential equations prove exceptional at modeling electrical circuits. In <a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal" title="Subsection 4.1.1: RLC Circuits">Subsection 4.1.1</a>, we modeled a simple RLC circuit, which is fundamental to larger circuit building. We found that circuits with the three of the most fundamental electrical objects, resistors, capacitors, and inductors, can be modeled by constant coefficient, linear, second order differential equations. Consider the circuit in <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-rlc-circuit.html" title="Figure 4.1.1">Figure 4.1.1</a>. We found that the circuit can be modeled by</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-subsection-rlc-circuit.html ./knowl/secondorder01-figure-rlc-circuit.html ./knowl/secondorder05-equation-rlc.html ./knowl/systems01-subsection-spring-mass.html ./knowl/secondorder05-table-rlc-spring-mass.html">
+\begin{equation}
+L I'' + RI' + \frac{1}{C} I = E'(t),\tag{4.5.1}
+\end{equation}
+</div>
+<div class="para">where <span class="process-math">\(I(t)\)</span> is the current flowing through the circuit, <span class="process-math">\(E(t)\)</span> is the impressed voltage, <span class="process-math">\(R\)</span> is the resistance <span class="process-math">\(R\text{,}\)</span> and <span class="process-math">\(C\)</span> is the capacitance.  Of course we will also need to know <span class="process-math">\(I(0)\)</span> and <span class="process-math">\(I'(0)\)</span> if we wish to formulate an initial value problem.  Notice that <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-rlc.html" title="Equation 4.5.1">(4.5.1)</a> is very similar to the spring-mass model developed in <a href="systems01.html#systems01-subsection-spring-mass" class="internal" title="Subsection 2.1.2: The Spring-Mass Model Revisited">Subsection 2.1.2</a>,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-subsection-rlc-circuit.html ./knowl/secondorder01-figure-rlc-circuit.html ./knowl/secondorder05-equation-rlc.html ./knowl/systems01-subsection-spring-mass.html ./knowl/secondorder05-table-rlc-spring-mass.html">
+\begin{equation*}
+mx'' + bx' + kx = f(t),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(m\)</span> is the mass, <span class="process-math">\(b\)</span> is the damping coefficient, and <span class="process-math">\(k\)</span> is the spring constant (<a href="" class="xref" data-knowl="./knowl/secondorder05-table-rlc-spring-mass.html" title="Table 4.5.1: Comparison of terms between spring-mass and RLC circuit differential equations">Table 4.5.1</a>).<a href="" class="fn-knowl original" data-knowl="./knowl/fn-40-hidden.html" title="Footnote 4.5.1"><sup> 1 </sup></a>
+</div>
+</div> <figure class="table table-like"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">4.5.1<span class="period">.</span></span><span class="space"> </span>Comparison of terms between spring-mass and RLC circuit differential equations</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t2 lines">Spring-Mass Model</td>
+<td class="c m b2 r0 l0 t2 lines">RLC Circuit</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">mass <span class="process-math">\(m\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">inductance <span class="process-math">\(L\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">damping <span class="process-math">\(b\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">resistance <span class="process-math">\(R\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">spring constant <span class="process-math">\(k\)</span>
+</td>
+<td class="c m b0 r0 l0 t0 lines">inverse of capacitance <span class="process-math">\(1/C\)</span>
+</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">forcing function <span class="process-math">\(f(t)\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">derivative of induced voltage <span class="process-math">\(E'(t)\)</span>
+</td>
+</tr>
+</table></div></figure>
+</div>
+<article class="task exercise-like"><h4 class="heading">
+<span class="codenumber">(a)</span><span class="space"> </span><span class="title">Simple RLC Circuit Model, Solution, and Interpretation.</span>
+</h4>
+<div class="introduction"><div class="para logical">
+<div class="para">We now examine a circuit in which a current is present and does not have a driving <span class="process-math">\(E(t)\text{,}\)</span> expecting things to dampen out, in this case current to run out. Let us consider an RLC circuit as depicted in <a href="" class="xref" data-knowl="./knowl/secondorder01-figure-rlc-circuit.html" title="Figure 4.1.1">Figure 4.1.1</a> in which we have an initial current, <span class="process-math">\(I(0) = 3.2\)</span> amps with a resistance of <span class="process-math">\(R = 7\)</span> ohms, an inductance of <span class="process-math">\(L = 1\)</span> henry, and a capacitance of <span class="process-math">\(C = 0.1\)</span> farads. Since we have some current in the circuit already <span class="process-math">\(I(0) = 3.2\)</span> at the start we shall not need an inducing <span class="process-math">\(E(t)\text{,}\)</span> so <span class="process-math">\(E(t) = 0\text{.}\)</span> Let us see what happens to the current in the circuit by solving the appropriate RLC circuit differential equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-rlc-circuit.html">
+\begin{equation*}
+1 \cdot I'' + 7I' + \frac{1}{0.1} I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.
+\end{equation*}
+</div>
+<div class="para">Of course, this initial value problem might be easier analyze in the form,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder01-figure-rlc-circuit.html">
+\begin{equation}
+I'' + 7I' + 10 I = 0, \quad I(0) = 3.2, \quad I'(0) = 0.\tag{4.5.2}
+\end{equation}
+</div>
+</div></div>
+<article class="task exercise-like"><h5 class="heading"><span class="codenumber">(i)</span></h5>
+<div class="para">Solve the RLC circuit differential equation <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-example-rlc.html" title="Equation 4.5.2">(4.5.2)</a> for <span class="process-math">\(I(t)\text{.}\)</span>  If you use Sage to solve this equation, remember that <code class="code-inline tex2jax_ignore">I</code> is the reserved symbol for <span class="process-math">\(i\text{,}\)</span> the square root of <span class="process-math">\(-1\text{.}\)</span>
+</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(ii)</span></h5>
+<div class="para">Consider the values of <span class="process-math">\(R\)</span> to be <span class="process-math">\(0.007\text{,}\)</span> <span class="process-math">\(0.07\text{,}\)</span> <span class="process-math">\(0.7\text{,}\)</span> <span class="process-math">\(7\text{,}\)</span> <span class="process-math">\(70\text{,}\)</span> and then <span class="process-math">\(700\text{,}\)</span> and solve <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-example-rlc.html" title="Equation 4.5.2">(4.5.2)</a> in each case, keeping all other values the same.  Plot the solutions for the current in the circuit over the time interval <span class="process-math">\([0, 25]\)</span> s with a vertical plot interval <span class="process-math">\([-3, 3]\)</span> in each case. Identify each plot with its associated <span class="process-math">\(R\)</span> value and describe what is happening to the current, <span class="process-math">\(I(t)\text{,}\)</span> in each corresponding circuit over time, <span class="process-math">\(t\text{.}\)</span>
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-82"><script type="text/x-sage">
+</script></pre> </article><div class="conclusion">
+<div class="para logical">
+<div class="para">Let us consider the differential <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-forced-rlc.html" title="Equation 4.5.3">(4.5.3)</a> for an RLC circuit with driving voltage <span class="process-math">\(E(t) = \sin( \omega t)\)</span> (current <span class="process-math">\(I(t) = y(t)\)</span>),</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-forced-rlc.html">
+\begin{equation}
+L y'' + Ry' + \frac{1}{C} y = \omega \cos(\omega t).\tag{4.5.3}
+\end{equation}
+</div>
+<div class="para">We can use Sage to solve this equation.</div>
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-83"><script type="text/x-sage">t =var('t');
+y = function('y')(t); 
+L = var('L'); assume(L < 0)
+R = var('R'); assume(R > 5)
+C = var('C'); assume(C > 5)
+assume(C*R^2 + 4*R^2 - 4*L - 400 >0) 
+omega = var('omega'); assume(omega > 0)
+DE = L*diff(y,t,2) + R*diff(y,t) + y/C == omega*cos(omega*t)
+sol = desolve(DE, y, ivar = t, ics=[0, 0, 0])
+sol.show()
+</script></pre> <div class="para logical">
+<div class="para">The solution is pretty long, but notice that is the transient solution that approaches zero as <span class="process-math">\(t \to \infty\)</span> and then there is the steady state solution,</div>
+<div class="displaymath process-math">
+\begin{equation}
+y_{\text{steady state}} = \frac{C^{2} R \omega^{2} \sin\left(\omega t\right) - {\left(C^{2} L \omega^{3} - C \omega\right)} \cos\left(\omega t\right)}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}.\tag{4.5.4}
+\end{equation}
+</div>
+</div> <div class="para logical">
+<div class="para">We would like to study <dfn class="terminology">gain</dfn>, the ratio of the amplitude of the steady state output voltage, <span class="process-math">\(V_{\text{out}}\)</span> to the amplitude of the input voltage, <span class="process-math">\(V_{\text{in}}\text{,}\)</span> or <span class="process-math">\(V_{\text{out}} / V_{\text{in}}\text{.}\)</span> We measure <span class="process-math">\(V_{\text{out}}\)</span> as the amplitude of the steady state voltage across the resistance <span class="process-math">\(R\)</span> in the circuit or</div>
+<div class="displaymath process-math">
+\begin{equation*}
+V_{\text{out}} = R \cdot \text{Amplitude}(y_{\text{steady state}}(t)).
+\end{equation*}
+</div>
+<div class="para">In our case <span class="process-math">\(V_{\text{in}}\)</span> is just 1 for <span class="process-math">\(E(t) = \sin( \omega t)\text{.}\)</span>
+</div>
+</div>
+</div></article><article class="task exercise-like"><h4 class="heading">
+<span class="codenumber">(b)</span><span class="space"> </span><span class="title">Trigonometry Pause and Phase Angle.</span>
+</h4>
+<div class="introduction">
+<div class="para logical">
+<div class="para">The initial value problem</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-trig-phase-angle.html">
+\begin{equation*}
+ay'' + by' + cy = 0, \quad y(0) = y_0, \quad y'(0) = 0
+\end{equation*}
+</div>
+<div class="para">has the following solution when the discriminant <span class="process-math">\(b^2 - 4ac \lt 0\text{,}\)</span>
+</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-trig-phase-angle.html">
+\begin{align}
+y(t) \amp = A e^{-bt/2a} \sin\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) + Be^{-bt/2a} \cos\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right)\tag{4.5.5}\\
+\amp = e^{-bt/2a} \left( A  \sin\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) + B \cos\left(  \frac{\sqrt{4ac - b^2}}{2a} t \right) \right).\tag{4.5.6}
+\end{align}
+</div>
+<div class="para">If we let <span class="process-math">\(\omega = \sqrt{4ac - b^2}/2a\text{,}\)</span> then <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-trig-phase-angle.html" title="Equation 4.5.5">(4.5.5)</a> simplifies to</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-trig-phase-angle.html">
+\begin{equation}
+y(t) = e^{-bt/2a} (A \sin(\omega t) + B \cos(\omega t)).\tag{4.5.7}
+\end{equation}
+</div>
+</div> <div class="para logical">
+<div class="para">We wish to combine the sine and cosine terms in <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-trig-phase-angle-omega.html" title="Equation 4.5.7">(4.5.7)</a> into one sine function with a phase angle. We can do this because of the trigonometric identity,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-trig-phase-angle-omega.html ./knowl/secondorder05-figure-trig-triangle.html">
+\begin{equation*}
+\sin(\alpha + \beta) = \sin \alpha \cos \beta + \sin \beta \cos \alpha.
+\end{equation*}
+</div>
+<div class="para">Letting <span class="process-math">\(\alpha = \omega t\)</span> and <span class="process-math">\(\beta = \theta\text{,}\)</span> we have</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-trig-phase-angle-omega.html ./knowl/secondorder05-figure-trig-triangle.html">
+\begin{align*}
+A \sin(\omega t) + B \cos(\omega t) \amp = \sqrt{A^2 + B^2} \left( \frac{A}{\sqrt{A^2 + B^2}} \sin(\omega t) + \frac{B}{\sqrt{A^2 + B^2}} \cos(\omega t)\right)\\
+\amp = \sqrt{A^2 + B^2}(\cos \theta \sin(\omega t) + \sin \theta\cos(\omega t))\\
+\amp = \sqrt{A^2 + B^2} \sin(\omega t + \theta)
+\end{align*}
+</div>
+<div class="para">where <span class="process-math">\(\theta = \arctan(B/A)\)</span> (<a href="" class="xref" data-knowl="./knowl/secondorder05-figure-trig-triangle.html" title="Figure 4.5.2">Figure 4.5.2</a>).  The angle <span class="process-math">\(\theta\)</span> is called the <dfn class="terminology">phase shift</dfn>.</div>
+</div> <figure class="figure figure-like"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="generated/latex-image/secondorder05-trig-triangle.svg" role="img" class="contained" alt="a triangle with legs A and B and hypotenuse square root of A squared plus B squared.  The angle between the leg A and the hypotenuse is theta"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.2<span class="period">.</span></span><span class="space"> </span>A triangle diagram that is used in obtaining a single phase shifted solution from the sum of sine and cosine terms in solution</figcaption></figure> <div class="para logical">
+<div class="para">The differential equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-pahse-shift-example.html">
+\begin{equation*}
+y'' + 6y' + 25y = 0, \quad y(0) = 1, \quad y'(0) = 0
+\end{equation*}
+</div>
+<div class="para">has solution</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-pahse-shift-example.html">
+\begin{equation}
+y(t) = \frac{1}{4} e^{-3t} (3 \sin(4t) + 4 \cos(4t)).\tag{4.5.8}
+\end{equation}
+</div>
+<div class="para">The phase shifted form of <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-pahse-shift-example.html" title="Equation 4.5.8">(4.5.8)</a> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-pahse-shift-example.html">
+\begin{align*}
+y(t) \amp = \frac{5}{4} e^{-3t} \sin\left( 4t + \arctan\left( \frac{4}{3} \right) \right)\\
+\amp = \frac{5}{4} e^{-3t} \sin\left( 4 \left( t + \frac{(\arctan(4/3)}{4} \right) \right)\\
+\amp = \frac{5}{4} e^{-3t} \sin(4 ( t + 0.231824 ) ),
+\end{align*}
+</div>
+<div class="para">where <span class="process-math">\(\omega =4\)</span> and <span class="process-math">\(\theta = \arctan(4/3) = 0.231824\)</span> radians.</div>
+</div> <figure class="figure figure-like"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/secondorder05-phase-shift.svg" role="img" class="contained" alt="a plot of the undamped oscillating portion 3 sin(4t) + 4 cos(4t) and the simple frequency curve sin(omega t)"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.3<span class="period">.</span></span><span class="space"> </span>A plot of the oscillating portion (not damped), <span class="process-math">\(3 \sin(4t) + 4 \cos(4t)\text{,}\)</span> of the solution <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-trig-phase-angle-omega.html" title="Equation 4.5.7">(4.5.7)</a> with its simple frequency curve <span class="process-math">\(\sin(\omega t)\text{.}\)</span> Notice the phase angle here of <span class="process-math">\(0.2318\)</span> radians from bottom to bottom illustrating what we mean by out of phase by a phase angle of <span class="process-math">\(0.2318\)</span> radians.</figcaption></figure>
+</div>
+<article class="task exercise-like"><h5 class="heading"><span class="codenumber">(i)</span></h5>
+<div class="para logical">
+<div class="para">Solve the initial value problem</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y'' + 10y' + 29y = 0, \quad y(0) = 1, \quad y'(0) = 0
+\end{equation*}
+</div>
+</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(ii)</span></h5>
+<div class="para">Convert the solution to phase angle format and compute the phase angle <span class="process-math">\(\theta\)</span> in radians.</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(iii)</span></h5>
+<div class="para">Plot both solutions in <a href="" class="xref" data-knowl="./knowl/secondorder05-activity-phase-shift-1.html" title="Task 4.5.1.b.i">Task 4.5.1.b.i</a> and <a href="" class="xref" data-knowl="./knowl/secondorder05-activity-phase-shift-2.html" title="Task 4.5.1.b.ii">Task 4.5.1.b.ii</a> on the same axis over the interval <span class="process-math">\([0,2]\)</span> to confirm your analysis. What should you see?</div></article></article><article class="task exercise-like"><h4 class="heading">
+<span class="codenumber">(c)</span><span class="space"> </span><span class="title">Back to the Circuit.</span>
+</h4>
+<div class="introduction">
+<div class="para logical">
+<div class="para">In our study of phase angle representation in the previous section we saw that the <span class="process-math">\(\sin(\omega t)\)</span> and <span class="process-math">\(\cos(\omega t)\)</span> terms of <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-steady-state.html" title="Equation 4.5.4">(4.5.4)</a>  can be combined into one sine term (albeit with a phase angle) with one amplitude,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-steady-state.html">
+\begin{equation}
+\text{Amplitude}(y_{\text{steady state}}) = R \sqrt{\frac{C^{2} \omega^{2}}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}}.\tag{4.5.9}
+\end{equation}
+</div>
+<div class="para">Thus, our gain (recall, gain is the ratio of the amplitude of the steady state output voltage, <span class="process-math">\(V_{\text{out}}\text{,}\)</span> to the amplitude of the input voltage, <span class="process-math">\(V_{\text{in}}\)</span>) is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder05-equation-steady-state.html">
+\begin{equation*}
+\text{gain} = R \sqrt{\frac{C^{2} \omega^{2}}{C^{2} L^{2} \omega^{4} + {\left(C^{2} R^{2} - 2 \, C L\right)} \omega^{2} + 1}}.
+\end{equation*}
+</div>
+<div class="para">Here, <span class="process-math">\(V_{\text{in}} = 1\)</span> for <span class="process-math">\(E(t) = \sin(\omega t)\)</span> and has amplitude <span class="process-math">\(1\text{,}\)</span> which is a function of <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> <span class="process-math">\(C\text{,}\)</span> and <span class="process-math">\(\omega\text{.}\)</span> Gain is a measure of the response of the circuit to input voltage <span class="process-math">\(E(t)\text{,}\)</span> which in this case is <span class="process-math">\(E(t) = \sin(\omega t)\text{.}\)</span>
+</div>
+</div> <div class="para">Let us fix <span class="process-math">\(R\)</span> at <span class="process-math">\(1\)</span> ohm and <span class="process-math">\(L\)</span> at <span class="process-math">\(1\)</span> henry and see what gain is in this case as a function of <span class="process-math">\(C\)</span> over a range of <span class="process-math">\(\omega\)</span> values. Let us “tune” this circuit by changing <span class="process-math">\(C\text{,}\)</span> the size of the capacitance in the circuit and see how gain changes as input voltage frequency, <span class="process-math">\(\omega\text{,}\)</span> changes.</div> <figure class="figure figure-like"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/secondorder05-gain.svg" role="img" class="contained" alt="plots of the gain with peaks at"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.4<span class="period">.</span></span><span class="space"> </span>Plot of gain as a function of input frequency, <span class="process-math">\(\omega\text{,}\)</span> for various values of capacitance, <span class="process-math">\(C = 0.5\text{,}\)</span> <span class="process-math">\(0.05\text{,}\)</span> <span class="process-math">\(0.005\text{,}\)</span> <span class="process-math">\(0.0005\)</span> farads in with <span class="process-math">\(R = 1\)</span> ohm and <span class="process-math">\(L = 1\)</span> henry.</figcaption></figure> <div class="para">
+<a href="" class="xref" data-knowl="./knowl/secondorder05-figure-gain.html" title="Figure 4.5.4">Figure 4.5.4</a> illustrates the power of differential equation modeling. For we can alter parameters in our equation and see the results in a physical (in this case electrical) system. Indeed, we see in this plot that for a capacitance of <span class="process-math">\(C = 0.0005\)</span> farads if we have an input voltage with a frequency around <span class="process-math">\(\omega = 45\)</span> (<span class="process-math">\(44.7214\)</span> to be precise) then the gain is greatest. Optimization is a calculus problem and we merely have to take the derivative of gain with respect to <span class="process-math">\(\omega\)</span> and find where it is <span class="process-math">\(0\text{.}\)</span> All other frequencies give smaller gain for this particular capacitance. In fact, we can say that as we decrease our capacitance the optimal frequency; i.e., frequency which gives highest gain, decreases and we might want to look into this for a more exact relationship. We shall do that in <a href="" class="xref" data-knowl="./knowl/secondorder05-task-tune-the-radio.html" title="Task 4.5.1.d: Tune the Radio">Task 4.5.1.d</a>.</div> <div class="para">Put another way, we see that if our input voltage has a specific frequency, <span class="process-math">\(\omega\text{,}\)</span> there is a unique capacitance, <span class="process-math">\(C\text{,}\)</span> for this circuit that will maximize our gain. By changing <span class="process-math">\(C\)</span> we can tune our circuit to maximize gain for a given input frequency, <span class="process-math">\(\omega\text{.}\)</span> This is, in fact, how we tune a radio, for we change the capacitance of the radio's circuit so as to maximize the gain for the frequency (on our dial) that we wish to hear. So, the next time you try to find the station where Cousin Brucie is dedicating a Top Ten song from “Billie Bob” to “Sally May” know that a differential equation describes exactly what you are doing. How's that for cool?</div>
+</div>
+<article class="task exercise-like"><h5 class="heading"><span class="codenumber">(i)</span></h5>
+<div class="para logical">
+<div class="para">Use your understanding of RLC circuits to show for an imposed <span class="process-math">\(E(t) = \sin(\omega t)\)</span> on the RLC circuit given by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+L y'' + Ry' + \frac{1}{C} y = \omega \cos(\omega t), \quad y(0) = 0, \quad y'(0) = 0
+\end{equation*}
+</div>
+<div class="para">the maximum gain is obtained when <span class="process-math">\(\omega = 1/\sqrt{LC}\)</span> and thus we could tune our radio by changing the inductance <span class="process-math">\(L\)</span> as well, if that were as convenient as changing the capacitance, which it is not. So let us stick to tuning by changing the capacitance <span class="process-math">\(C\text{.}\)</span>
+</div>
+</div></article></article><article class="task exercise-like"><h4 class="heading">
+<span class="codenumber">(d)</span><span class="space"> </span><span class="title">Tune the Radio.</span>
+</h4>
+<div class="introduction">
+<div class="para logical">
+<div class="para">
+<em class="alert">Tune the Radio.</em> The Amplitude Modulated (AM) radio carrier frequencies are in the frequency range 535–1605 kHz. One Hz means <span class="process-math">\(1\)</span> cycle per second while kHz means <span class="process-math">\(1,{}000\)</span> cycles per second. The unit Hz is called a hertz. Carrier frequencies of 540 to 1600 kHz are assigned at 10 kHz intervals. The (Frequency Modulated (FM) radio band is from 88 to 108 MHz.<a href="" class="fn-knowl original" data-knowl="./knowl/fn-41-hidden.html" title="Footnote 4.5.2"><sup> 2 </sup></a> Recall 1 kHz means 1,000 cycles per second. So 660 kHz is oscillation at the rate of 660,000 cycles per second. We offer up a “radio”,</div>
+<div class="displaymath process-math">
+\begin{equation}
+L \frac{dI^2}{dt^2} + R \frac{dI}{dt} + \frac{1}{C} I = E'(t),\tag{4.5.10}
+\end{equation}
+</div>
+<div class="para">where <span class="process-math">\(E(t) = \sin(\omega t)\text{,}\)</span> and ask you to tune in several stations by changing the capacitance and computing the optimal gain for these stations.</div>
+</div> <div class="para">We will have to tell the circuit what initial current is present; i.e., <span class="process-math">\(I(0) = 0\)</span> usually until we turn the switch on and also we can presume there is no change in the current intially; i.e., <span class="process-math">\(I'(t) = 0\text{.}\)</span> Let us build this radio with the following values: <span class="process-math">\(E(t) = \sin(\omega t)\text{,}\)</span> <span class="process-math">\(L = 0.033\)</span> henrys, <span class="process-math">\(R = 100\)</span> ohms, and <span class="process-math">\(C\)</span> in farads can vary as needed to tune to various input frequencies <span class="process-math">\(\omega\text{.}\)</span> We note that if we wish to have, say 540 kHz, then <span class="process-math">\(\omega = 540{,}000 \cdot 2\pi\text{,}\)</span> and in general to have x kHz we will need <span class="process-math">\(\omega = x \cdot 1000 \cdot 2\pi\text{.}\)</span>
+</div>
+</div>
+<article class="task exercise-like"><h5 class="heading"><span class="codenumber">(i)</span></h5>
+<div class="para">Solve the differential equation <a href="" class="xref" data-knowl="./knowl/secondorder05-equation-radio.html" title="Equation 4.5.10">(4.5.10)</a> for the radio circuit.</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(ii)</span></h5>
+<div class="para">Collect the coefficients <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> of the steady state <span class="process-math">\(\sin(\omega t)\)</span> and <span class="process-math">\(\cos(\omega t)\)</span> terms, respectively.  Show that all other terms will dissipate, i.e. go to zero quickly, leaving only <span class="process-math">\(\sin(\omega t)\)</span> and <span class="process-math">\(\cos(\omega t)\)</span> terms.</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(iii)</span></h5>
+<div class="para">Using the information above compute the gain as a function of capacitance <span class="process-math">\(C\)</span> and input voltage frequency <span class="process-math">\(\omega\text{.}\)</span>
+</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(iv)</span></h5>
+<div class="para">For a given input voltage frequency <span class="process-math">\(\omega\)</span> determine the maximum gain for this circuit.</div></article><article class="task exercise-like"><h5 class="heading"><span class="codenumber">(v)</span></h5>
+<div class="para">For several AM frequencies, say 540 kHz (<span class="process-math">\(\omega = 540000 \cdot 2 \cdot \pi\)</span>), 880 kHz  (<span class="process-math">\(\omega = 880000 \cdot 2 \cdot \pi\)</span>), and 1520 kHz (<span class="process-math">\(\omega = 1520000 \cdot 2 \cdot \pi\)</span>), plot gain as a function of the capacitance <span class="process-math">\(C\)</span> to demonstrate that your maximum gain is what your formula in <a href="" class="xref" data-knowl="./knowl/secondorder05-activity-circuit-tune-1.html" title="Task 4.5.1.d.iii">Task 4.5.1.d.iii</a> predicts and that your radio is tuned in.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-84"><script type="text/x-sage">
+</script></pre></article></article></article><span class="incontext"><a href="secondorder05.html#secondorder05-project-circuit-tuner" class="internal">in-context</a></span>
+</body>
+</html>

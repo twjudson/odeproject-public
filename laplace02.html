@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Solving Initial Value Problems</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="laplace01.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="laplace.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="laplace03.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="dedication-1.html" class="internal"><span class="title">Dedication</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Preface</span></a></div></li>
+<li><div class="toc-item"><a href="acknowledgement-1.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook.html" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="firstlook01.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-exponential-growth" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-logistic-growth" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal"><span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-predator-prey" class="internal"><span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-modeling-hiv" class="internal"><span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-questions-for-thought" class="internal"><span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-important-lessons" class="internal"><span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#reading-questions-firstlook01" class="internal"><span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-exercises" class="internal"><span class="codenumber">1.1.9</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-sage" class="internal"><span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="firstlook01.html#firstlook01-sage-exercises" class="internal"><span class="codenumber">1.1.10</span> <span class="title"><em class="emphasis">Sage</em> Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook02.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-separable-de" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-newtons-law-cooling" class="internal"><span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-mixing-problem" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-retirement" class="internal"><span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-some-theory" class="internal"><span class="codenumber">1.2.5</span> <span class="title">Some Theory</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-what-can-go-wrong" class="internal"><span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-important-lessons" class="internal"><span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#reading-questions-firstlook02" class="internal"><span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-exercises-" class="internal"><span class="codenumber">1.2.9</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-sage" class="internal"><span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook03.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits" class="internal"><span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits-revisited" class="internal"><span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage-direction-fields" class="internal"><span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-autonomous-equations" class="internal"><span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-important-lessons" class="internal"><span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#reading-questions-firstlook03" class="internal"><span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-exercises" class="internal"><span class="codenumber">1.3.8</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage" class="internal"><span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields-sage" class="internal"><span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-desolve_rk4" class="internal"><span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#exercises-5" class="internal"><span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook04.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-eulers-method" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-error-bound" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-improving-euler" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-important-lessons" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#reading-questions-firstlook04" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#exercises-firstlook04" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-sage-project" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook05.html" class="internal"><span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mine-tailings" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-first-order-linear-de" class="internal"><span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mixing-models" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-finance-models" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Finance Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#subsection-33" class="internal"><span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-important-lessons" class="internal"><span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#reading-questions-firstlook05" class="internal"><span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#exercises-firstlook05" class="internal"><span class="codenumber">1.5.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook06.html" class="internal"><span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-existence" class="internal"><span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-picard" class="internal"><span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-important-lessons" class="internal"><span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#reading-questions-firstlook06" class="internal"><span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#exercises-firstlook06" class="internal"><span class="codenumber">1.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook07.html" class="internal"><span class="codenumber">1.7</span> <span class="title">Bifurcations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-logisitic-harvesting" class="internal"><span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-one-parameter-families" class="internal"><span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-important-lessons" class="internal"><span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#reading-questions-firstlook07" class="internal"><span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-exercises" class="internal"><span class="codenumber">1.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="firstlook08.html" class="internal"><span class="codenumber">1.8</span> <span class="title">Projects for First-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="systems01.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-predator-prey" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-spring-mass" class="internal"><span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-epidemics" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-important-lessons" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#reading-questions-system01" class="internal"><span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-exercises" class="internal"><span class="codenumber">2.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-sage" class="internal"><span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems02.html" class="internal"><span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-direction-fields" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-predator-prey" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-competing-species" class="internal"><span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-sage-direction-fields" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-phase-plane-analysis" class="internal"><span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-important-lessons" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#reading-questions-system02" class="internal"><span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-exercises" class="internal"><span class="codenumber">2.2.8</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#subsection-sytems02-sage" class="internal"><span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems03.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-duffing" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-eulers-method" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-taylor-series" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-existence-uniqueness" class="internal"><span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-important-lessons" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#reading-questions-system03" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-exercises" class="internal"><span class="codenumber">2.3.7</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="systems03.html#systems03-subsection-sage" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems with Euler's Method</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="systems03.html#exercises-13" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Sage Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems04.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-partially-coupled" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-sage-linear-systems" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-harmonic-oscillator" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-important-lessons" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#reading-questions-system04" class="internal"><span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-exercises" class="internal"><span class="codenumber">2.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="systems05.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Projects for Systems of Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear.html" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="linear01.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-matrices" class="internal"><span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-linear-independence" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-finding-eigenvalues" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-important-lessons" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#reading-questions-linear01" class="internal"><span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#exercises-linear01" class="internal"><span class="codenumber">3.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-sage-project" class="internal"><span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear02.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Planar Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-planar-systems" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-systems-of-de" class="internal"><span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-solving-systems" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-important-lessons" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#reading-questions-linear02" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-exercises" class="internal"><span class="codenumber">3.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear03.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-different-signs" class="internal"><span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-negative" class="internal"><span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-positive" class="internal"><span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-important-lessons" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#reading-questions-linear03" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-exercises" class="internal"><span class="codenumber">3.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear04.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-spiral-sinks-sources" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-quick-start" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-important-lessons" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#reading-questions-linear04" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-exercises" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear05.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-quick-start" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-important-lessons" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#reading-questions-linear05" class="internal"><span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#exercises-linear05" class="internal"><span class="codenumber">3.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear06.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-linear-maps" class="internal"><span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates" class="internal"><span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates-system" class="internal"><span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-distinct-real-eigenvalues" class="internal"><span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-important-lessons" class="internal"><span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#reading-questions-linear06" class="internal"><span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-exercises" class="internal"><span class="codenumber">3.6.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear07.html" class="internal"><span class="codenumber">3.7</span> <span class="title">The Trace-Determinant Plane</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-trace-determinant" class="internal"><span class="codenumber">3.7.1</span> <span class="title">The Trace-Determinant Plane</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-parameterized-families" class="internal"><span class="codenumber">3.7.2</span> <span class="title">Parameterized Families of Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-important-lessons" class="internal"><span class="codenumber">3.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#reading-questions-linear07" class="internal"><span class="codenumber">3.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-exercises" class="internal"><span class="codenumber">3.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear08.html" class="internal"><span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-higher-order-systems" class="internal"><span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-geometry" class="internal"><span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-double-spring-mass" class="internal"><span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-important-lessons" class="internal"><span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#reading-questions-linear08" class="internal"><span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-exercises" class="internal"><span class="codenumber">3.8.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear09.html" class="internal"><span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-matrix-exponential" class="internal"><span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-generalized-eigenvalues" class="internal"><span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-important-lessons" class="internal"><span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#reading-questions-linear09" class="internal"><span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-exercises" class="internal"><span class="codenumber">3.9.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder.html" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="secondorder01.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal"><span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-second-order-linear-de" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-harmonic-oscillators" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-important-lessons" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#reading-questions-secondorder01" class="internal"><span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises" class="internal"><span class="codenumber">4.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-sage" class="internal"><span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises-sage" class="internal"><span class="codenumber">4.1.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder02.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-nonhomogeneous-de" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-forcing" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-undetermined-coefficients" class="internal"><span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-strategy" class="internal"><span class="codenumber">4.2.4</span> <span class="title">A Strategy</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-important-lessons" class="internal"><span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#reading-questions-secondorder02" class="internal"><span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-exercises" class="internal"><span class="codenumber">4.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder03.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Sinusoidal Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-complexification" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Complexification</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-qualitative-analysis" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Qualitative Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-important-lessons" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#reading-questions-secondorder03" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-exercises" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder04.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-resonance" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Resonance</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-beats" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-forced-damped" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-important-lessons" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#reading-questions-secondorder04" class="internal"><span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-exercises" class="internal"><span class="codenumber">4.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="secondorder05.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Projects for Second-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear.html" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="nonlinear01.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Linearization</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-linearization-fails" class="internal"><span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-important-lessons" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#reading-questions-nonlinear01" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-exercises" class="internal"><span class="codenumber">5.1.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear02.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-pendulum" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-hamiltonian-systems" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-ideal-pendulum" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-important-lessons" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#reading-questions-nonlinear02" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-exercises" class="internal"><span class="codenumber">5.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear03.html" class="internal"><span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-pendulum-damping" class="internal"><span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-lyapunov-functions" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-gradient-systems" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-important-lessons" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#reading-questions-nonlinear03" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-exercises" class="internal"><span class="codenumber">5.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear04.html" class="internal"><span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-bifurcations" class="internal"><span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-hopf-bifurcation" class="internal"><span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-important-lessons" class="internal"><span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#reading-questions-nonlinear04" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-exercises" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="nonlinear05.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Projects</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace.html" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="laplace01.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-definitions" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-properties" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-finding-laplace-transforms" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-important-lessons" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#reading-questions-laplace01" class="internal"><span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-laplace01" class="internal"><span class="codenumber">6.1.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-sage" class="internal"><span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-34" class="internal"><span class="codenumber">6.1.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="laplace02.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-derivatives" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-discontinuous-functions" class="internal"><span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-harmonic-oscillators" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-important-lessons" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#reading-questions-laplace02" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-exercises" class="internal"><span class="codenumber">6.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace03.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Delta Functions and Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-impulse-forcing" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Impulse Forcing</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-dirac-delta" class="internal"><span class="codenumber">6.3.2</span> <span class="title">The Laplace Transform of the Dirac Delta Function</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-important-lessons" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#reading-questions-laplace03" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-exercises" class="internal"><span class="codenumber">6.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace04.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Convolution</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-convolution" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Convolution</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-applying-convolution" class="internal"><span class="codenumber">6.4.2</span> <span class="title">Applying the Convolution Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-important-lessons" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#reading-questions-laplace04" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-exercises" class="internal"><span class="codenumber">6.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="laplace05.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Projects for Laplace Transforms</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="appendix-gfdl.html" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></div></li>
+<li><div class="toc-item"><a href="solutions-1.html" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="references-1.html" class="internal"><span class="title">Readings and References</span></a></div></li>
+<li><div class="toc-item"><a href="appendix-2.html" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="laplace02"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span>
+</h2>
+<article class="objectives goal-like" id="objectives-30"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-628"><div class="para" id="p-2108">To understand how the Laplace transform acts on derivatives.</div></li>
+<li id="li-629"><div class="para logical" id="p-2109">
+<div class="para">To understand how the Laplace transform can be used to solve initial value problems such as</div>
+<div class="displaymath process-math" id="md-597">
+\begin{align*}
+a y''(t) + b y'(t) + c y(t) \amp = f(t)\\
+y(0) \amp = y_0\\
+y'(0) \amp = y'_0
+\end{align*}
+</div>
+<div class="para">even when <span class="process-math">\(f(t)\)</span> is discontinuous.</div>
+</div></li>
+</ul></article><section class="introduction" id="introduction-143"><div class="para logical" id="p-2110">
+<div class="para">There is no need for Laplace transforms when solving many initial value problems. If we consider the initial value problem</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html" id="md-598">
+\begin{align*}
+y''  + 7y' + 10y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 1,
+\end{align*}
+</div>
+<div class="para">the methods described in <a href="secondorder.html" class="internal" title="Chapter 4: Second-Order Linear Equations">Chapter 4</a> work quite well. The characteristic polynomial of <span class="process-math">\(y'' + 7y' + 10y = 0\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+r^2 + 7r + 10 = (r + 2)(r + 5),
+\end{equation*}
+</div>
+<div class="para">and the general solution of the differential equation must be</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+y(t) = c_1 e^{-2t} + c_2 e^{-5t}.
+\end{equation*}
+</div>
+<div class="para">Applying the initial conditions, we find that the solution to our initial value problem is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+y(t) = 2 e^{-2t} - e^{-5t}.
+\end{equation*}
+</div>
+<div class="para">However, suppose that we have a harmonic oscillator with a discontinuous forcing term,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html" id="md-599">
+\begin{gather*}
+y'' + 2 y' + 5y = h(t)\\
+y(0) = y'(0) = 0,
+\end{gather*}
+</div>
+<div class="para">where <span class="process-math">\(h(t)\)</span> is given by</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/secondorder.html">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+7 &amp; t \lt 5 \\
+0 &amp; t \geq 5.
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">None of the previous techniques that we described are sufficient to solve such an initial value problem. Yet, we can easily imagine such equations arising in physics or engineering.</div>
+</div> <div class="para" id="p-2111">Fortunately, Laplace transforms forms behave very nicely with respect to derivatives. We can use Laplace transforms to transform an initial value problem into an algebraic equation. Once the algebraic equation is solved, we can use the inverse transform to obtain the solution to our original initial value problem.</div></section><section class="subsection" id="laplace02-subsection-derivatives"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span>
+</h3>
+<div class="para logical" id="p-2112">
+<div class="para">Suppose that we have linear differential equation with constant coefficients</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-linearity.html">
+\begin{equation*}
+a y''(t) + b y'(t) + c y(t) = f(t)
+\end{equation*}
+</div>
+<div class="para">and initial conditions <span class="process-math">\(y(0) = y_0\)</span> and <span class="process-math">\(y'(0) = y_0'\text{.}\)</span> We can take the Laplace transform of both sides to obtain</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-theorem-linearity.html">
+\begin{equation*}
+a {\mathcal L}(y''(t)) + b {\mathcal L}(y'(t)) + c {\mathcal L}(y(t)) = {\mathcal L}(f(t)).
+\end{equation*}
+</div>
+<div class="para">Notice that we have used the fact that the Laplace transform is a linear operator (<a href="" class="xref" data-knowl="./knowl/laplace01-theorem-linearity.html" title="Theorem 6.1.3">Theorem 6.1.3</a>).  To proceed further, we need to know the Laplace transform of the derivative of a function.</div>
+</div>
+<article class="theorem theorem-like" id="laplace02-theorem-derivative"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.2.1</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-2113">
+<div class="para">Let <span class="process-math">\(y = y(t)\)</span> be a piecewise continuous, exponentially bounded function and assume that <span class="process-math">\(y'\)</span> is also exponentially bounded. Then for large values of <span class="process-math">\(s\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span>
+</div>
+</div></article><article class="hiddenproof" id="proof-17"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-17"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-17"><article class="hiddenproof"><div class="para logical" id="p-2114">
+<div class="para">We can evaluate the Laplace transform of <span class="process-math">\(y'\)</span> by using integration by parts,</div>
+<div class="displaymath process-math" id="md-600">
+\begin{align*}
+{\mathcal L}(y')(s) &amp; = \int_0^\infty y'(t) e^{-st} \, dt\\
+&amp; = \lim_{b \to \infty}\left[  e^{-st} y(t) \Big|_0^b + s \int_0^b y(t) e^{-st} \, dt \right]\\
+&amp; =  \lim_{b \to \infty}\left[  e^{-sb} y(b) -y(0) + s {\mathcal L}(y)(s) \right].
+\end{align*}
+</div>
+<div class="para">We claim that <span class="process-math">\(\lim_{b \to \infty} e^{-sb} y(b) = 0\text{.}\)</span>  Since, <span class="process-math">\(y\)</span> is exponentially bounded, there exist constants <span class="process-math">\(M \geq 0\)</span> and <span class="process-math">\(a\)</span> such that <span class="process-math">\(|y(t)| \leq Me^{at}\text{,}\)</span> for all <span class="process-math">\(t\)</span> in <span class="process-math">\([0, \infty)\text{.}\)</span>  Thus,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+|e^{-sb} y(b)| \leq Me^{-(s -a)b}.
+\end{equation*}
+</div>
+<div class="para">The right-hand side of this inequality as <span class="process-math">\(b \to \infty\)</span> for <span class="process-math">\(s \gt a\text{.}\)</span> Thus,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0).
+\end{equation*}
+</div>
+</div></article></div>
+<div class="para" id="p-2115">The Laplace transform also behave nicely with respect to higher order derivatives.</div>
+<article class="theorem theorem-like" id="laplace02-theorem-derivative-higher"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">6.2.2</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-2116">
+<div class="para">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is  exponentially bounded. Then for large values of <span class="process-math">\(s\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span>  In general, if <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, then</div>
+<div class="displaymath process-math" id="md-601">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div>
+</div></article><div class="para" id="p-2117">We can use <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative.html" title="Theorem 6.2.1">Theorem 6.2.1</a> and <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a> to solve initial value problems.</div>
+<article class="example example-like" id="example-99"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-99"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.3</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-99"><article class="example example-like"><div class="para logical" id="p-2118">
+<div class="para">Consider the initial value problem</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-602">
+\begin{align*}
+y''  + 7y' + 10y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 1.
+\end{align*}
+</div>
+<div class="para">By <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative.html" title="Theorem 6.2.1">Theorem 6.2.1</a> and <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a>
+</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-603">
+\begin{gather*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0)\\
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0).
+\end{gather*}
+</div>
+<div class="para">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span> If we take the Laplace transform of <span class="process-math">\(y'' + 7y' + 10y\text{,}\)</span> we have</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html" id="md-604">
+\begin{align*}
+{\mathcal L}(y'' + 7y' + 10y) &amp; = {\mathcal L}(y'') + 7{\mathcal L}(y') + 10{\mathcal L}(y)\\
+&amp; = [s^2 Y(s) - sy(0) - y'(0)] + 7[s Y(s) - y(0)] + 10Y(s)\\
+&amp; = [s^2 Y(s) - s - 1] + 7[s Y(s) - 1] + 10Y(s).
+\end{align*}
+</div>
+<div class="para">Since <span class="process-math">\({\mathcal L}(0)\text{,}\)</span> we have the algebraic equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html">
+\begin{equation*}
+[s^2 Y(s) - s - 1] + 7[s Y(s) - 1] + 10Y(s) = 0.
+\end{equation*}
+</div>
+<div class="para">Solving for <span class="process-math">\(Y(s)\text{,}\)</span> we get</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace02-theorem-derivative.html ./knowl/laplace02-theorem-derivative-higher.html">
+\begin{equation*}
+Y(s) = \frac{s + 8}{s^2 + 7s + 10} = \frac{s + 8}{(s + 5)(s + 2)} = \frac{2}{s + 2} - \frac{1}{s + 5},
+\end{equation*}
+</div>
+<div class="para">where we have used partial fractions to get the last expression.</div>
+</div> <div class="para logical" id="p-2119">
+<div class="para">Since the Laplace transform of <span class="process-math">\(e^{at}\)</span> is <span class="process-math">\(1/(s - a)\text{,}\)</span> we know that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{1}{s-a}\right) = e^{at}.
+\end{equation*}
+</div>
+<div class="para">We can now solve our initial value problem,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y(t) = 2 e^{-2t} - e^{-5t},
+\end{equation*}
+</div>
+<div class="para">and our solution agrees with the one that we found at the beginning of this section.</div>
+</div></article></div>
+<article class="activity project-like" id="activity-43"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Linear Differential Equations with Laplace Transforms.</span>
+</h4>
+<div class="introduction" id="introduction-144"><div class="para" id="p-2120">Use Laplace Transforms to solve each of the following initial value problems.</div></div>
+<article class="task exercise-like" id="task-260"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="p-2121">
+<span class="process-math">\(x' - 5x = e^{5t}\text{,}\)</span> <span class="process-math">\(x(0) = 0\)</span>
+</div></article><article class="task exercise-like" id="task-261"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="para" id="p-2122">
+<span class="process-math">\(x'' - x' - 6x  = 0\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x'(0) = -1\)</span>
+</div></article><article class="task exercise-like" id="task-262"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="para" id="p-2123">
+<span class="process-math">\(x'' + 4x  = \sin 3t\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x'(0) = 0\)</span>
+</div></article></article></section><section class="subsection" id="laplace02-subsection-discontinuous-functions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span>
+</h3>
+<div class="para logical" id="p-2124">
+<div class="para">If <span class="process-math">\(c \geq 0\)</span> and we define the function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+u_c(t)
+=
+\begin{cases}
+0 &amp; t \lt c \\
+1 &amp; t \geq c,
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">recall that the Laplace transform of <span class="process-math">\(u_c\)</span> is given by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(u_c(t))(s) = \int_0^\infty u_c(t) e^{-st} \, dt = \frac{e^{-cs}}{s}.
+\end{equation*}
+</div>
+<div class="para">We can use this inforamtion to solve initial value problems with discontinuous functions.</div>
+</div>
+<article class="example example-like" id="example-100"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-100"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-100"><article class="example example-like"><div class="para logical" id="p-2125">
+<div class="para">Consider the initial value problem</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html" id="md-605">
+\begin{align*}
+y' + y&amp; = u_3(t)\\
+y(0) &amp; = 1.
+\end{align*}
+</div>
+<div class="para">If we take the Laplace transform of both sides of  <span class="process-math">\(y' + y = u_3(t)\text{,}\)</span> we obtain</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+sY(s) - y(0) + Y(s) = \frac{e^{-3s}}{s}.
+\end{equation*}
+</div>
+<div class="para">Using the fact that <span class="process-math">\(y(0) = 1\)</span> and solving for <span class="process-math">\(Y(s)\text{,}\)</span> we get</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+Y(s) = \frac{1}{s + 1} + \frac{e^{-3s}}{s(s+1)}.
+\end{equation*}
+</div>
+<div class="para">Therefore,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+y(t) = {\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) + {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right).
+\end{equation*}
+</div>
+<div class="para">The inverse Laplace transform of the first term is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}^{-1} \left(  \frac{1}{s + 1} \right) = e^{-t}.
+\end{equation*}
+</div>
+<div class="para">To compute the inverse Laplace transform of the second term, recall from <a href="" class="xref" data-knowl="./knowl/laplace01-example-shift.html" title="Example 6.1.7">Example 6.1.7</a> that if <span class="process-math">\({\mathcal L}(f) = F(s)\text{,}\)</span> then</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}(u_a(t) f( t- a)) = e^{-as} F(s).
+\end{equation*}
+</div>
+<div class="para">Using partial fractions to obtain</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+\frac{1}{s(s+1)} = \frac{1}{s} - \frac{1}{s - 1}.
+\end{equation*}
+</div>
+<div class="para">Hence,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{e^{-3s}}{s(s+1)} \right) = {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s} \right) - {\mathcal L}^{-1} \left(\frac{e^{-3s}}{s+1} \right) = u_3(t) - {\mathcal L}^{-1} \left( \frac{e^{-3s}}{s+1} \right).
+\end{equation*}
+</div>
+<div class="para">If <span class="process-math">\(g(t) = u_3(t) e^{-(t - 3)}\text{,}\)</span> then the Laplace transform of <span class="process-math">\(g(t)\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+{\mathcal L}(g) = e^{-3s} {\mathcal L}(e^{-t}) = \frac{e^{-3s}}{s + 1}.
+\end{equation*}
+</div>
+<div class="para">Thus,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/laplace01-example-shift.html">
+\begin{equation*}
+y(t) = e^{-t} + u_3(t)\left( 1 -  e^{-(t - 3)} \right).
+\end{equation*}
+</div>
+</div></article></div></section><section class="subsection" id="laplace02-subsection-harmonic-oscillators"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span>
+</h3>
+<article class="example example-like" id="example-101"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-101"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.5</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-101"><article class="example example-like"><div class="para logical" id="p-2126">
+<div class="para">Consider the forced harmonic oscillator</div>
+<div class="displaymath process-math" id="md-606">
+\begin{gather*}
+y'' + 4y = 3 \cos t\\
+y(0) = y'(0) = 0.
+\end{gather*}
+</div>
+<div class="para">Taking the Laplace transform of both sides of the equation <span class="process-math">\(y'' + 4y = 3 \cos t\text{,}\)</span> we obtain</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y'') + 4 {\mathcal L}(y) = 3{\mathcal L}(\cos t)
+\end{equation*}
+</div>
+<div class="para">or</div>
+<div class="displaymath process-math">
+\begin{equation*}
+s^2 Y(s) - sy(0) - y'(0) + 4Y(s) = \frac{3s}{s^2 + 1},
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\({\mathcal L}(y)(s) = Y(s)\text{.}\)</span> Substituting the initial conditions and solving for <span class="process-math">\(Y\text{,}\)</span> we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Y(s) = \frac{3s}{(s^2 + 4)(s^2 + 1)} = \frac{-s}{s^2 + 4} + \frac{s}{s^2 + 1},
+\end{equation*}
+</div>
+<div class="para">where the last expression was obtained using partial fractions.  Taking the inverse Laplace transform, we have our solution</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y(t) = {\mathcal L}^{-1} \left( \frac{-s}{s^2 + 4} \right) + {\mathcal L}^{-1} \left(  \frac{s}{s^2 + 1} \right) = -\cos 2t + \cos t.
+\end{equation*}
+</div>
+</div></article></div>
+<article class="example example-like" id="example-102"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-102"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.2.6</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-102"><article class="example example-like"><div class="para logical" id="p-2127">
+<div class="para">Now let us consider a harmonic oscillator with discontinuous forcing,</div>
+<div class="displaymath process-math" id="md-607">
+\begin{gather*}
+y'' + 2 y' + 5y = h(t)\\
+y(0) = y'(0) = 0,
+\end{gather*}
+</div>
+<div class="para">where <span class="process-math">\(h(t)\)</span> is given by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+5 &amp; t \lt 7 \\
+0 &amp; t \geq 7.
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">That is, <span class="process-math">\(h(t) = 5 (1 - u_7(t))\text{.}\)</span> We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <span class="process-math">\(t \lt 7\)</span> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <span class="process-math">\(t = 7\text{,}\)</span> the table is suddenly returned to the level position.</div>
+</div> <div class="para logical" id="p-2128">
+<div class="para">Taking the Laplace transform of both sides of <span class="process-math">\(y'' + 2 y' + 5y = h(t)\text{,}\)</span> we obtain</div>
+<div class="displaymath process-math">
+\begin{equation*}
+[s^2 Y(s) -sy(0) - y'(0)] + 2 [sY(s) - y(0)] + 5Y(s) = {\mathcal L}(h),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\({\mathcal L}(y)(s) = Y(s)\text{.}\)</span>  Substituting the initial conditions and evaluating the Laplace transform on the right, we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(s^2 + 2s + 5)Y(s) = 5 \left( \frac{1}{s} - \frac{e^{-7s}}{s} \right).
+\end{equation*}
+</div>
+<div class="para">Solving for <span class="process-math">\(Y(s)\text{,}\)</span> we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Y(s) = \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = {\mathcal L}^{-1} \left(  \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right).
+\end{equation*}
+</div>
+<div class="para">Using partial fractions, we can rewrite the first term as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.
+\end{equation*}
+</div>
+</div> <div class="para logical" id="p-2129">
+<div class="para">The inverse Laplace transform of <span class="process-math">\(1/s\)</span> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,</div>
+<div class="displaymath process-math" id="md-608">
+\begin{align*}
+\frac{s + 2}{s^2 + 2s + 5} &amp; = \frac{s + 2}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.
+\end{align*}
+</div>
+<div class="para">Consequently,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left( \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+</div> <div class="para logical" id="p-2130">
+<div class="para">We can compute the inverse Laplace transform of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<div class="para">using the Heaviside function <span class="process-math">\(u_7(t)\)</span> and the inverse Laplace transform that we just calculated to obtain</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div>
+<div class="para">Therefore, the solution to our original initial value problem is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div>
+</div></article></div>
+<article class="activity project-like" id="activity-44"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Solving Differential Equations with Laplace Transforms with Discontinuous Forcing Functions.</span>
+</h4>
+<div class="introduction" id="introduction-145"><div class="para" id="p-2131">Use Laplace Transforms to solve each of the following initial value problems.</div></div>
+<article class="task exercise-like" id="task-263"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="p-2132">
+<span class="process-math">\(x' + x = u_3(t)\text{,}\)</span> <span class="process-math">\(x(0) = 2\)</span>
+</div></article><article class="task exercise-like" id="task-264"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="para logical" id="p-2133">
+<div class="para">
+<span class="process-math">\(x'' + x  = h(t)\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x'(0) = 0\)</span> where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+0 &amp; t \lt 1 \\
+2 &amp; t \geq 1.
+\end{cases}
+\end{equation*}
+</div>
+</div></article></article></section><section class="subsection" id="laplace02-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span>
+</h3>
+<div class="para logical" id="p-2134"><ul class="disc">
+<li id="li-630"><div class="para logical" id="p-2135">
+<div class="para">Using the Laplace transform including how the transform behaves, we can solve initial value problems such as</div>
+<div class="displaymath process-math" id="md-609">
+\begin{align*}
+a y''(t) + b y'(t) + c y(t) \amp = f(t)\\
+y(0) \amp = y_0\\
+y'(0) \amp = y'_0
+\end{align*}
+</div>
+<div class="para">even when <span class="process-math">\(f(t)\)</span> is discontinuous.</div>
+</div></li>
+<li id="li-631"><div class="para logical" id="p-2136">
+<div class="para">Let <span class="process-math">\(y = y(t)\)</span> be a piecewise continuous, exponentially bounded function and assume that <span class="process-math">\(y'\)</span> is also exponentially bounded. Then for large values of <span class="process-math">\(s\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y')(s) = s {\mathcal L}(y)(s) - y(0) = s Y(s) - y(0),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-632"><div class="para logical" id="p-2137">
+<div class="para">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is exponentially bounded. Then for large values of <span class="process-math">\(s\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span> In general, if <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, then</div>
+<div class="displaymath process-math" id="md-610">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div>
+</div></li>
+</ul></div></section><section class="reading-questions" id="reading-questions-laplace02"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-laplace02-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para" id="p-2138">Describe in your own words how the Laplace transform can be used to solve an initial value problem.</div></article><article class="exercise exercise-like" id="reading-questions-laplace02-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-2139">Explain what an exponentially bounded function is.  Give an example.</div></article></section><section class="exercises" id="laplace02-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">6.2.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="laplace02-exercises-solve-ivps">
+<h4 class="heading"><span class="title">Solving Initial Value Problems.</span></h4>
+<div class="introduction" id="introduction-146"><div class="para" id="p-2140">Solve the initial problems in <a href="" class="xref" data-knowl="./knowl/laplace02-exercises-solve-ivps.html" title="Exercise Group 6.2.6.1–8: Solving Initial Value Problems">Exercise Group 6.2.6.1–8</a> using the Laplace transform.</div></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="exercise-549"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="para" id="p-2141">
+<span class="process-math">\(y'' - 2y' - 3y = 3 e^{2t}\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-550"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="para" id="p-2142">
+<span class="process-math">\(y'' - y' - 2y = 4x^2\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-551"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="para" id="p-2143">
+<span class="process-math">\(\dfrac{d^2x}{dx^2} - 6 \dfrac{dx}{dt} + 25 x = 64e^{-t}\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x'(0) = -2\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-552"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="para" id="p-2144">
+<span class="process-math">\(y'' + 16y = 2 \sin 2t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-553"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="para" id="p-2145">
+<span class="process-math">\(y'' + 16y = 2 \sin 4t\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y'(0) = 0\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-554"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="para" id="p-2146">
+<span class="process-math">\(y'' + 2y' + y = 2e^{-t}\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{,}\)</span> <span class="process-math">\(y'(0) = 3\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-555"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<div class="para" id="p-2147">
+<span class="process-math">\(y'' + 6y' + 8y = \cos 3t\text{,}\)</span> <span class="process-math">\(y(0) = -2\text{,}\)</span> <span class="process-math">\(y'(0) = 1\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-556"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="para" id="p-2148">
+<span class="process-math">\(u'' + \omega_0^2 y = \cos \omega t\text{,}\)</span> <span class="process-math">\(\omega^2 \neq \omega_0^2\text{,}\)</span> <span class="process-math">\(u(0) = 1\text{,}\)</span> <span class="process-math">\(u'(0) = -1\)</span>
+</div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-557"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2149">
+<div class="para">Find the solution of the initial value problem</div>
+<div class="displaymath process-math" id="md-611">
+\begin{gather*}
+2 y'' + y' + 2y = g(t)\\
+y(0) = y'(0) = 0
+\end{gather*}
+</div>
+<div class="para">where <span class="process-math">\(g(t)\)</span> is defined by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+g(t) = u_5(t) - u_{20}(t) 
+=
+\begin{cases}
+1, &amp; 5 \leq t \lt 20, \\
+0, &amp; 0 \leq t \lt 5 \text{ and } t \geq 20.
+\end{cases}
+\end{equation*}
+</div>
+</div></article><article class="exercise exercise-like" id="exercise-558"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2150">
+<div class="para">Let <span class="process-math">\(y = y(t)\)</span> and <span class="process-math">\(y'(t)\)</span> be piecewise continuous, exponentially bounded functions and assume that <span class="process-math">\(y''\)</span> is  exponentially bounded.</div>
+<ol class="lower-alpha">
+<li id="li-633"><div class="para logical" id="p-2151">
+<div class="para">Prove that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}(y'')(s) = s^2 {\mathcal L}(y)(s) - sy(0) - y'(0)= s^2 Y(s) - sy(0) - y'(0)
+\end{equation*}
+</div>
+<div class="para">for large values of <span class="process-math">\(s\text{,}\)</span> where <span class="process-math">\(Y(s)\)</span> is the Laplace transform of <span class="process-math">\(y\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-634"><div class="para logical" id="p-2152">
+<div class="para">If <span class="process-math">\(y = y(t)\)</span> and all of its derivatives up to order <span class="process-math">\(k - 1\)</span> are piecewise continuous, exponentially bounded functions and <span class="process-math">\(y^{(k)}\)</span> is piecewise continuous, prove that</div>
+<div class="displaymath process-math" id="md-612">
+\begin{gather*}
+{\mathcal L}(y^{(k)})(s) = s^k {\mathcal L}(y)(s) - s^{k - 1}y(0) - \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0)\\
+= s^k Y(s) - s^{k - 1}y(0) - s^{k - 1}y(0)- \cdots - s y^{(k -2)}(0) - y^{(k -1)}(0).
+\end{gather*}
+</div>
+</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-559"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
+<div class="para" id="p-2153">Prove <a href="" class="xref" data-knowl="./knowl/laplace02-theorem-derivative-higher.html" title="Theorem 6.2.2">Theorem 6.2.2</a>.</div></article><article class="exercise exercise-like" id="exercise-560"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2154">
+<div class="para">Let <span class="process-math">\(f(t)\)</span> be a peicewise continuous function for <span class="process-math">\(t \geq 0\text{.}\)</span> In addition, suppose that <span class="process-math">\(f(t)\)</span>satisfies the condition <span class="process-math">\(|f(t)| \leq M e^{ct}\)</span> with <span class="process-math">\(t \geq 0\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-635"><div class="para logical" id="p-2155">
+<div class="para">Prove that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L} \left(  \int_0^t f(\tau) \, d\tau \right) = \frac{1}{s} {\mathcal L}(f(t) = \frac{F(s)}{s}.
+\end{equation*}
+</div>
+</div></li>
+<li id="li-636"><div class="para logical" id="p-2156">
+<div class="para">Show that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left(  \frac{F(s)}{s} \right) = \int_0^t f(\tau) \, d\tau
+\end{equation*}
+</div>
+<div class="para">follows from (a).</div>
+</div></li>
+</ol>
+</div></article></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="laplace01.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="laplace03.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

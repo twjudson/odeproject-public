@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Geometric and Quantitative Analysis</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="firstlook02.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="firstlook.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="firstlook04.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="dedication-1.html" class="internal"><span class="title">Dedication</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Preface</span></a></div></li>
+<li><div class="toc-item"><a href="acknowledgement-1.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook.html" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="firstlook01.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-exponential-growth" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-logistic-growth" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal"><span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-predator-prey" class="internal"><span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-modeling-hiv" class="internal"><span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-questions-for-thought" class="internal"><span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-important-lessons" class="internal"><span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#reading-questions-firstlook01" class="internal"><span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-exercises" class="internal"><span class="codenumber">1.1.9</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-sage" class="internal"><span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="firstlook01.html#firstlook01-sage-exercises" class="internal"><span class="codenumber">1.1.10</span> <span class="title"><em class="emphasis">Sage</em> Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook02.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-separable-de" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-newtons-law-cooling" class="internal"><span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-mixing-problem" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-retirement" class="internal"><span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-some-theory" class="internal"><span class="codenumber">1.2.5</span> <span class="title">Some Theory</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-what-can-go-wrong" class="internal"><span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-important-lessons" class="internal"><span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#reading-questions-firstlook02" class="internal"><span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-exercises-" class="internal"><span class="codenumber">1.2.9</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-sage" class="internal"><span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="firstlook03.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits" class="internal"><span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits-revisited" class="internal"><span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage-direction-fields" class="internal"><span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-autonomous-equations" class="internal"><span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-important-lessons" class="internal"><span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#reading-questions-firstlook03" class="internal"><span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-exercises" class="internal"><span class="codenumber">1.3.8</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage" class="internal"><span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields-sage" class="internal"><span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-desolve_rk4" class="internal"><span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#exercises-5" class="internal"><span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook04.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-eulers-method" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-error-bound" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-improving-euler" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-important-lessons" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#reading-questions-firstlook04" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#exercises-firstlook04" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-sage-project" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook05.html" class="internal"><span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mine-tailings" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-first-order-linear-de" class="internal"><span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mixing-models" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-finance-models" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Finance Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#subsection-33" class="internal"><span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-important-lessons" class="internal"><span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#reading-questions-firstlook05" class="internal"><span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#exercises-firstlook05" class="internal"><span class="codenumber">1.5.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook06.html" class="internal"><span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-existence" class="internal"><span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-picard" class="internal"><span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-important-lessons" class="internal"><span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#reading-questions-firstlook06" class="internal"><span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#exercises-firstlook06" class="internal"><span class="codenumber">1.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook07.html" class="internal"><span class="codenumber">1.7</span> <span class="title">Bifurcations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-logisitic-harvesting" class="internal"><span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-one-parameter-families" class="internal"><span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-important-lessons" class="internal"><span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#reading-questions-firstlook07" class="internal"><span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-exercises" class="internal"><span class="codenumber">1.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="firstlook08.html" class="internal"><span class="codenumber">1.8</span> <span class="title">Projects for First-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="systems01.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-predator-prey" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-spring-mass" class="internal"><span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-epidemics" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-important-lessons" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#reading-questions-system01" class="internal"><span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-exercises" class="internal"><span class="codenumber">2.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-sage" class="internal"><span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems02.html" class="internal"><span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-direction-fields" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-predator-prey" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-competing-species" class="internal"><span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-sage-direction-fields" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-phase-plane-analysis" class="internal"><span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-important-lessons" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#reading-questions-system02" class="internal"><span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-exercises" class="internal"><span class="codenumber">2.2.8</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#subsection-sytems02-sage" class="internal"><span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems03.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-duffing" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-eulers-method" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-taylor-series" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-existence-uniqueness" class="internal"><span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-important-lessons" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#reading-questions-system03" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-exercises" class="internal"><span class="codenumber">2.3.7</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="systems03.html#systems03-subsection-sage" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems with Euler's Method</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="systems03.html#exercises-13" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Sage Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems04.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-partially-coupled" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-sage-linear-systems" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-harmonic-oscillator" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-important-lessons" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#reading-questions-system04" class="internal"><span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-exercises" class="internal"><span class="codenumber">2.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="systems05.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Projects for Systems of Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear.html" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="linear01.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-matrices" class="internal"><span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-linear-independence" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-finding-eigenvalues" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-important-lessons" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#reading-questions-linear01" class="internal"><span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#exercises-linear01" class="internal"><span class="codenumber">3.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-sage-project" class="internal"><span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear02.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Planar Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-planar-systems" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-systems-of-de" class="internal"><span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-solving-systems" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-important-lessons" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#reading-questions-linear02" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-exercises" class="internal"><span class="codenumber">3.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear03.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-different-signs" class="internal"><span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-negative" class="internal"><span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-positive" class="internal"><span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-important-lessons" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#reading-questions-linear03" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-exercises" class="internal"><span class="codenumber">3.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear04.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-spiral-sinks-sources" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-quick-start" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-important-lessons" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#reading-questions-linear04" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-exercises" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear05.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-quick-start" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-important-lessons" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#reading-questions-linear05" class="internal"><span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#exercises-linear05" class="internal"><span class="codenumber">3.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear06.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-linear-maps" class="internal"><span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates" class="internal"><span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates-system" class="internal"><span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-distinct-real-eigenvalues" class="internal"><span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-important-lessons" class="internal"><span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#reading-questions-linear06" class="internal"><span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-exercises" class="internal"><span class="codenumber">3.6.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear07.html" class="internal"><span class="codenumber">3.7</span> <span class="title">The Trace-Determinant Plane</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-trace-determinant" class="internal"><span class="codenumber">3.7.1</span> <span class="title">The Trace-Determinant Plane</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-parameterized-families" class="internal"><span class="codenumber">3.7.2</span> <span class="title">Parameterized Families of Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-important-lessons" class="internal"><span class="codenumber">3.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#reading-questions-linear07" class="internal"><span class="codenumber">3.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-exercises" class="internal"><span class="codenumber">3.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear08.html" class="internal"><span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-higher-order-systems" class="internal"><span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-geometry" class="internal"><span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-double-spring-mass" class="internal"><span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-important-lessons" class="internal"><span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#reading-questions-linear08" class="internal"><span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-exercises" class="internal"><span class="codenumber">3.8.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear09.html" class="internal"><span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-matrix-exponential" class="internal"><span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-generalized-eigenvalues" class="internal"><span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-important-lessons" class="internal"><span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#reading-questions-linear09" class="internal"><span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-exercises" class="internal"><span class="codenumber">3.9.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder.html" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="secondorder01.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal"><span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-second-order-linear-de" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-harmonic-oscillators" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-important-lessons" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#reading-questions-secondorder01" class="internal"><span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises" class="internal"><span class="codenumber">4.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-sage" class="internal"><span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises-sage" class="internal"><span class="codenumber">4.1.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder02.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-nonhomogeneous-de" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-forcing" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-undetermined-coefficients" class="internal"><span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-strategy" class="internal"><span class="codenumber">4.2.4</span> <span class="title">A Strategy</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-important-lessons" class="internal"><span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#reading-questions-secondorder02" class="internal"><span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-exercises" class="internal"><span class="codenumber">4.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder03.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Sinusoidal Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-complexification" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Complexification</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-qualitative-analysis" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Qualitative Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-important-lessons" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#reading-questions-secondorder03" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-exercises" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder04.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-resonance" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Resonance</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-beats" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-forced-damped" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-important-lessons" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#reading-questions-secondorder04" class="internal"><span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-exercises" class="internal"><span class="codenumber">4.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="secondorder05.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Projects for Second-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear.html" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="nonlinear01.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Linearization</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-linearization-fails" class="internal"><span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-important-lessons" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#reading-questions-nonlinear01" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-exercises" class="internal"><span class="codenumber">5.1.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear02.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-pendulum" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-hamiltonian-systems" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-ideal-pendulum" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-important-lessons" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#reading-questions-nonlinear02" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-exercises" class="internal"><span class="codenumber">5.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear03.html" class="internal"><span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-pendulum-damping" class="internal"><span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-lyapunov-functions" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-gradient-systems" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-important-lessons" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#reading-questions-nonlinear03" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-exercises" class="internal"><span class="codenumber">5.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear04.html" class="internal"><span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-bifurcations" class="internal"><span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-hopf-bifurcation" class="internal"><span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-important-lessons" class="internal"><span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#reading-questions-nonlinear04" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-exercises" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="nonlinear05.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Projects</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace.html" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="laplace01.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-definitions" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-properties" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-finding-laplace-transforms" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-important-lessons" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#reading-questions-laplace01" class="internal"><span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-laplace01" class="internal"><span class="codenumber">6.1.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-sage" class="internal"><span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-34" class="internal"><span class="codenumber">6.1.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace02.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-derivatives" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-discontinuous-functions" class="internal"><span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-harmonic-oscillators" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-important-lessons" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#reading-questions-laplace02" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-exercises" class="internal"><span class="codenumber">6.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace03.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Delta Functions and Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-impulse-forcing" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Impulse Forcing</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-dirac-delta" class="internal"><span class="codenumber">6.3.2</span> <span class="title">The Laplace Transform of the Dirac Delta Function</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-important-lessons" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#reading-questions-laplace03" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-exercises" class="internal"><span class="codenumber">6.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace04.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Convolution</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-convolution" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Convolution</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-applying-convolution" class="internal"><span class="codenumber">6.4.2</span> <span class="title">Applying the Convolution Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-important-lessons" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#reading-questions-laplace04" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-exercises" class="internal"><span class="codenumber">6.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="laplace05.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Projects for Laplace Transforms</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="appendix-gfdl.html" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></div></li>
+<li><div class="toc-item"><a href="solutions-1.html" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="references-1.html" class="internal"><span class="title">Readings and References</span></a></div></li>
+<li><div class="toc-item"><a href="appendix-2.html" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="firstlook03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span>
+</h2>
+<article class="objectives goal-like" id="objectives-3"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-59"><div class="para" id="p-220">To understand that <dfn class="terminology">direction fields</dfn> are a useful way of analyzing a differential equation from a geometric point of view, especially since not all differential equations can be solved analytically.</div></li>
+<li id="li-60"><div class="para" id="p-221">To understand that an <dfn class="terminology">autonomous equation</dfn> is a differential equation of the form <span class="process-math">\(y' = f(y)\)</span> and that phase lines can be used to analyze autonomous differential equations.</div></li>
+<li id="li-61"><div class="para" id="p-222">To understand <dfn class="terminology">equilibrium solutions</dfn> to a differential equation <span class="process-math">\(y' = f(y)\text{.}\)</span> are those solutions given by <span class="process-math">\(f(y) = 0\)</span> for all <span class="process-math">\(y\text{.}\)</span>  In particular, an equilibrium solution is either a <dfn class="terminology">sink</dfn>, <dfn class="terminology">source</dfn>, or <dfn class="terminology">node</dfn>.</div></li>
+</ul></article><section class="introduction" id="introduction-15"><div class="para" id="p-223">If we view the differential equation <span class="process-math">\(y' = f(t,y)\)</span> as a formula for the slope of a tangent line to a solution curve, we can approximate the graph of a solution curve.  For example, if we consider the equation <span class="process-math">\(y' = t + y\text{,}\)</span> then a solution curve will have a slope of <span class="process-math">\(2\)</span> at the point <span class="process-math">\((1, 1)\text{.}\)</span> We can use this information to obtain a geometric description of the solutions to the equation.</div></section><section class="subsection" id="firstlook03-subsection-rc-circuits"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span>
+</h3>
+<div class="para" id="p-224">Suppose that we wish to analyze how an electric current flows through a circuit. An <dfn class="terminology">RC circuit</dfn> is a very simple circuit might contain a voltage source, a capacitor, and a resistor (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-rc-circuit.html" title="Figure 1.3.1">Figure 1.3.1</a>). A battery or generator is an example of a voltage source. The glowing red heating element in a toaster or an electric stove is an example of something that provides resistance in a circuit. A capacitor stores an electrical charge and can be made by separating two metal plates with an insulating material. Capacitors are used to power the electronic flashes for cameras. Current, <span class="process-math">\(I(t)\text{,}\)</span> is the rate at which a charge flows through this circuit and is measured in amperes or amps (A). We assign a direction to the current. A current flowing in the opposite direction will be given negative values.</div>
+<figure class="figure figure-like" id="firstlook03-figure-rc-circuit"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="generated/latex-image/firstlook03-rc-circuit.svg" role="img" class="contained" alt="an electrical circuit containing a voltage source and  a resistor and a capacitor"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.1<span class="period">.</span></span><span class="space"> </span>An RC circuit</figcaption></figure><div class="para logical" id="p-225">
+<div class="para">The source voltage, <span class="process-math">\(E(t)\text{,}\)</span> is measured in volts (V). <dfn class="terminology">Kirchhoff's Second Law</dfn> tells us that the impressed voltage in a closed circuit is equal to the sum of the voltage drops in the rest of the circuit. Thus, we need only compute the voltage drop across the resistor, <span class="process-math">\(E_R\text{,}\)</span> and the voltage drop across the capacitor, <span class="process-math">\(E_C\text{.}\)</span> According to Kirchhoff's Law, this is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+E_R + E_C = E.
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-226">
+<div class="para">Resistance, <span class="process-math">\(R\text{,}\)</span> to the current is measured in ohms (<span class="process-math">\(\Omega\)</span>). <dfn class="terminology">Ohm's Law</dfn> tells us that the voltage drop across a resistor is given by</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-ohms-law">
+\begin{equation}
+E_R = IR.\tag{1.3.1}
+\end{equation}
+</div>
+<div class="para">Finally, capacitance, <span class="process-math">\(C\text{,}\)</span> is measured in farads (F).  <dfn class="terminology">Coulomb's Law</dfn> tells us how current flows across a capacitor,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-coulombs-law">
+\begin{equation}
+I = C \frac{d E_C}{dt}. \tag{1.3.2}
+\end{equation}
+</div>
+<div class="para">Thus, if we combine the equations <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-ohms-law.html" title="Equation 1.3.1">(1.3.1)</a> and <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-coulombs-law.html" title="Equation 1.3.2">(1.3.2)</a>, our equation <span class="process-math">\(E_R + E_C = E\)</span> becomes</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-equation-ohms-law.html ./knowl/firstlook03-equation-coulombs-law.html" id="firstlook03-equation-rc-circuit">
+\begin{equation}
+RC \frac{d E_C}{dt} + E_C = E(t).\tag{1.3.3}
+\end{equation}
+</div>
+</div>
+<div class="para" id="p-227">We will now investigate how our circuit reacts under different voltage sources. For example, we might have a zero voltage source (the capacitor could still hold a charge). We could also have a constant nonzero source of voltage such as a battery or a fluctuating source of voltage such as a generator. We might even have a series of pulses of voltage where the current is periodically turned on and off. We would like to be able to understand the solutions to the equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-rc-circuit.html" title="Equation 1.3.3">(1.3.3)</a> for different voltage sources <span class="process-math">\(E(t)\text{.}\)</span> If we view the differential equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-rc-circuit.html" title="Equation 1.3.3">(1.3.3)</a> as an expression for computing how fast current is flowing across the capacitor, we can analyze our circuit from a geometric point of view and can actually say a great deal about circuits without solving a differential equation.</div></section><section class="subsection" id="firstlook03-subsection-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span>
+</h3>
+<div class="para logical" id="p-228">
+<div class="para">Any differential equation</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dy}{dt} = f(t, y)
+\end{equation*}
+</div>
+<div class="para">can be viewed as a formula for the slope of a function <span class="process-math">\(y = y(t)\text{.}\)</span> Geometrically, the equation tells us that, at any point <span class="process-math">\((t_0, y_0)\text{,}\)</span> the slope of a solution curve is given by <span class="process-math">\(f(t_0, y_0)\text{.}\)</span> Suppose that our differential equation is defined on the rectangle <span class="process-math">\(R = [a, b] \times [c, d]\text{,}\)</span> and let <span class="process-math">\(y(t)\)</span> be a solution curve for <span class="process-math">\(y' = f(t, y)\)</span> that passes through the point <span class="process-math">\((t_0, y_0)\text{.}\)</span>  Then the differential equation tells us the slope of this solution curve at <span class="process-math">\((t_0, y_0)\text{.}\)</span> We can indicate this on the <span class="process-math">\((t, y)\)</span>-plane by drawing a short line segment at the point <span class="process-math">\((t, y)\)</span> with slope <span class="process-math">\(f(t_0, y_0)\text{.}\)</span> Thus, we can obtain a <dfn class="terminology">direction field</dfn> or <dfn class="terminology">slope field</dfn> for the differential equation. A solution curve must be tangent to its direction field at every point.</div>
+</div>
+<div class="para" id="p-229">For example, consider the differential equation <span class="process-math">\(y' = y^2/2 - t\text{.}\)</span> The direction field for this equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-direction-field.html" title="Figure 1.3.2">Figure 1.3.2</a> along with several solution curves.</div>
+<figure class="figure figure-like" id="firstlook03-figure-direction-field"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-direction-field.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.2<span class="period">.</span></span><span class="space"> </span>The direction field for <span class="process-math">\(y' = y^2/2 - t\)</span></figcaption></figure><div class="para" id="p-230">Although direction fields can be tedious to compute using pencil and paper, we can easily generate direction fields for any differential equation with the use of computer software. Most computer algebra systems, including <em class="emphasis">Sage</em>, have facilities for generating and graphing direction fields. For example, the following <em class="emphasis">Sage</em> cell will generate the direction field for <span class="process-math">\(y' = y^2/2 - t\)</span> using the command <code class="code-inline tex2jax_ignore">plot_slope_field</code>. We will learn how to add solution curves at the end of this section.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-15"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+plot_slope_field(f, (t, -1, 5), (y, -5, 10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+</script></pre>
+<article class="activity project-like" id="activity-6"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.1</span><span class="period">.</span><span class="space"> </span><span class="title">Plotting Direction Fields.</span>
+</h4>
+<div class="introduction" id="introduction-16"><div class="para" id="p-231">Plot the direction field and the solution curves for each of the following initial conditions.</div></div>
+<article class="task exercise-like" id="task-22"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="p-232">
+<span class="process-math">\(y' = y - 2x\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-23"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="para" id="p-233">
+<span class="process-math">\(y' = y(1 + x)\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y(0) = -1\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-24"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="para" id="p-234">
+<span class="process-math">\(\dfrac{dx}{dt} + 2tx = x\text{,}\)</span> <span class="process-math">\(x(0) = 5\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-25"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="para" id="p-235">
+<span class="process-math">\(\dfrac{dy}{dt} = 2y(1 - y/4)\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 5\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-26"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="para" id="p-236">
+<span class="process-math">\(y' = -1 - y^4\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{,}\)</span> <span class="process-math">\(y(0) = -4\text{.}\)</span>
+</div></article><div class="conclusion" id="conclusion-1"><div class="para" id="p-237">In each case comment on anything that you notice about the direction field and the solutions.</div></div></article></section><section class="subsection" id="firstlook03-subsection-rc-circuits-revisited"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span>
+</h3>
+<div class="para logical" id="p-238">
+<div class="para">Now let us return to our RC circuit and consider different functions <span class="process-math">\(E(t)\)</span> for the differential equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-no-current.html">
+\begin{equation*}
+\frac{d E_C}{dt} = \frac{E(t) - E_C}{RC},
+\end{equation*}
+</div>
+<div class="para">with <span class="process-math">\(R = 1\)</span> and <span class="process-math">\(C = 1\text{.}\)</span> First suppose that there is no voltage source in the circuit. If we let <span class="process-math">\(E(t) = 0\)</span> for all <span class="process-math">\(t \ge 0\text{,}\)</span> we will get the direction field of given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-no-current.html" title="Figure 1.3.3">Figure 1.3.3</a>. The direction field agrees with our analytic solution</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-no-current.html">
+\begin{equation*}
+E_C(t) = v_0 e^{-t},
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(v_0 = E_C(0)\text{.}\)</span>
+</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-no-current"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-no-current.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows with the curves approaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.3<span class="period">.</span></span><span class="space"> </span>The direction field for no current</figcaption></figure><div class="para logical" id="p-239">
+<div class="para">If we assume that we have a nonzero constant source of voltage, <span class="process-math">\(E(t) = K\text{,}\)</span> in our circuit such as a battery, then we obtain the separable differential equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-constant-current.html">
+\begin{equation*}
+\frac{d E_C}{dt} = K - E_C.
+\end{equation*}
+</div>
+<div class="para">The direction field for this differential equation for <span class="process-math">\(K = 10\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-constant-current.html" title="Figure 1.3.4">Figure 1.3.4</a>.</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-constant-current"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-constant-current.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows with the curves approaching two"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.4<span class="period">.</span></span><span class="space"> </span>The direction field for a constant current</figcaption></figure><div class="para logical" id="p-240">
+<div class="para">If we attach a battery to our circuit at time <span class="process-math">\(t = 0\)</span> and then disconnect the battery at <span class="process-math">\(t = 4\text{,}\)</span> then we obtain a different solution. For example, if</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-single-pulse.html">
+\begin{equation*}
+E(t) =
+\begin{cases}
+10     &amp; 0 \leq t \leq 4, \\
+0     &amp; t \gt 4,
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">we will obtain a different direction field (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-single-pulse.html" title="Figure 1.3.5">Figure 1.3.5</a>).</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-single-pulse">a direction field of slope arrows and three curves following the arrows with the curves approaching ten and then to zero once the time is four<div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-single-pulse-current.svg" role="img" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.5<span class="period">.</span></span><span class="space"> </span>The direction field for a single pulse</figcaption></figure><div class="para logical" id="p-241">
+<div class="para">If our voltage source emits a series of pulses, say</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-series-pulses.html">
+\begin{equation*}
+E(t) =
+\begin{cases}
+10 &amp; 0 \leq t \lt 4, \\
+0 &amp; 4 \leq t \lt 8, \\
+10 &amp; 8 \leq t \lt 12, \\
+&amp; \vdots
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">then the direction field for our differential equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-series-pulses.html" title="Figure 1.3.6">Figure 1.3.6</a>.</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-series-pulses"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-series-pulses.svg" role="img" class="contained" alt="a direction field of slope arrows and a curve following the arrows with the curve decreasing to ten and then to zero and then increasing to ten and then decreasing"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.6<span class="period">.</span></span><span class="space"> </span>The direction field for a series of pulses</figcaption></figure><div class="para" id="p-242">Finally, if we use a generator for a voltage source, the voltage source might be given by a function such as <span class="process-math">\(E(t) = \sin(\pi t /2)\text{.}\)</span> The direction field for this circuit is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-oscillating-voltage.html" title="Figure 1.3.7">Figure 1.3.7</a>.</div>
+<figure class="figure figure-like" id="firstlook03-figure-oscillating-voltage"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-oscillating-voltage.svg" role="img" class="contained" alt="a direction field of slope arrows and three curves following the arrows and eventually converging to the same oscillating curve"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.7<span class="period">.</span></span><span class="space"> </span>The direction field for an oscillating voltage</figcaption></figure></section><section class="subsection" id="firstlook03-subsection-sage-direction-fields"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span>
+</h3>
+<div class="para" id="p-243">The Sage interact below will help you plot direction fields for a given initial value problem. A Sage interact is a menu driven Sage applet. All of the Sage code is “under the hood.” You can then change each field in the cell output to solve a particular initial value problem.</div>
+<figure class="figure figure-like" id="firstlook03-figure-interactive-direction-fields"><iframe id="firstlook03-interactive-direction-fields" width="600" height="900" src="firstlook03-interactive-direction-fields-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.8<span class="period">.</span></span><span class="space"> </span>A Sage applet for plotting direction fields</figcaption></figure><div class="para" id="p-244">Of course, it is quite easy to give the interact an initial value problem that yield unitelligible results.</div></section><section class="subsection" id="firstlook03-subsection-autonomous-equations"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span>
+</h3>
+<div class="para logical" id="p-245">
+<div class="para">An <dfn class="terminology">autonomous differential equation</dfn> is one of the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dx}{dt} = f(x).
+\end{equation*}
+</div>
+<div class="para">In other words, a differential equation is autonomous if the variable <span class="process-math">\(t\)</span> does not appear on the righthand side of the equation. Since an autonomous differential equation <span class="process-math">\(dx/dt = f(x)\)</span> only depends on the variable <span class="process-math">\(x\text{,}\)</span> its direction field is particularly easy to graph. The slope only depends on <span class="process-math">\(x\)</span> and is the same for all values of <span class="process-math">\(t\text{.}\)</span>
+</div>
+</div>
+<article class="example example-like" id="firstlook03-example-harvesting"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-firstlook03-example-harvesting"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.3.9</span><span class="period">.</span><span class="space"> </span><span class="title">A Logistic Model with Harvesting.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-firstlook03-example-harvesting"><article class="example example-like"> <div class="para logical" id="p-246">
+<div class="para">Let us consider a trout pond that has a carrying capacity of 200 fish. Suppose that the trout population can be modeled according to the logistic equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-logistic-direction-field.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(t\)</span> is the time in years. If we allow the fish to be harvested at a constant rate of 32 per year, our equation becomes</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-logistic-direction-field.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.
+\end{equation*}
+</div>
+<div class="para">The direction field for this equation is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-logistic-direction-field.html" title="Figure 1.3.10">Figure 1.3.10</a>.</div>
+</div> <figure class="figure figure-like" id="firstlook03-figure-logistic-direction-field"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-logistic-direction-field.svg" role="img" class="contained" alt="a direction field of slope arrows with two  curves approaching 160 and one curve aproaching zero"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.10<span class="period">.</span></span><span class="space"> </span>Logistic growth with harvesting</figcaption></figure> <div class="para" id="p-247">One of the basic questions that we can ask of our model is whether or not we have a sustainable population in our trout pond given this harvest rate. If so, under what conditions for sustainablility?</div></article></div>
+<div class="para logical" id="p-248">
+<div class="para">Since</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-phase-line.html">
+\begin{equation*}
+\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32 = -\frac{1}{200}(P - 40)(P - 160)
+\end{equation*}
+</div>
+<div class="para">is an autonomous differential equation, the direction field does not depend on <span class="process-math">\(t\text{.}\)</span> Consequently, we need only keep track of what happens on the vertical axis.  We can do this with a <dfn class="terminology">phase line</dfn>.  Instead of drawing the entire direction field, we can draw a single line containing the same information (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line.html" title="Figure 1.3.11">Figure 1.3.11</a>).</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-phase-line"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="generated/latex-image/firstlook03-phase-line.svg" role="img" class="contained" alt="a vertical line with arrows approaching a sink at 160 and diverging from a source at 40"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.11<span class="period">.</span></span><span class="space"> </span>Phase line diagram</figcaption></figure><div class="para" id="p-249">Notice that <span class="process-math">\(dP/dt = 0\)</span> when <span class="process-math">\(P= 40\)</span> or <span class="process-math">\(P = 160\text{.}\)</span> Thus, the two constant solutions <span class="process-math">\(P(t) = 40\)</span> and <span class="process-math">\(P(t) = 160\)</span> are the same for all values of the independent variable <span class="process-math">\(t\text{.}\)</span> We say that such a solution is an <dfn class="terminology">equilibrium solution</dfn>. Equilibrium solutions graph as horizontal lines on the direction field. We can identify equilibrium solutions by setting the derivative of the function equal to zero. On our phase line we will represent these solutions as equilibrium points. For values of <span class="process-math">\(P\)</span> between 40 and 160, we know that <span class="process-math">\(dP/dt \gt 0\text{.}\)</span> Thus, any solution curve must be increasing. We denote this property on the phase line by drawing an upward pointing arrow. On the other hand, we know that <span class="process-math">\(dP/dt \lt 0\)</span> when <span class="process-math">\(P \lt 40\)</span> or <span class="process-math">\(P \gt 160\text{.}\)</span> In this case any solution curve will be decreasing, and we will indicate this by a downward pointing arrow.</div>
+<div class="para logical" id="p-250">
+<div class="para">Let <span class="process-math">\(y' = f(y)\)</span> and suppose that <span class="process-math">\(y = y_0\)</span> is an equilibrium solution. We say this solution is a <dfn class="terminology">sink</dfn> if for any solution <span class="process-math">\(y(t)\)</span> with initial condition sufficiently close to <span class="process-math">\(y_0\text{,}\)</span> we have</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-phase-line.html">
+\begin{equation*}
+\lim_{t \to \infty} y(t) = y_0.
+\end{equation*}
+</div>
+<div class="para">We say that an equilibrium point is a <dfn class="terminology">source</dfn> if all solutions that start sufficiently close to <span class="process-math">\(y_0\)</span> tend toward <span class="process-math">\(y_0\)</span> as <span class="process-math">\(t \to - \infty\text{.}\)</span> An equilibrium solution that is neither a sink or a source is called a <dfn class="terminology">node</dfn> (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line.html" title="Figure 1.3.11">Figure 1.3.11</a>). When <span class="process-math">\(P= 40\text{,}\)</span> we have a source, and when <span class="process-math">\(P = 160\text{,}\)</span> we have a sink.</div>
+</div>
+<div class="para" id="p-251">An equilibrium solution is <dfn class="terminology">stable</dfn> if a small change in the initial conditions gives a solution which tends toward the equilibrium as the independent variable tends towards positive infinity. An equilibrium solution is <dfn class="terminology">unstable</dfn> if a small change in the initial conditions gives a solution which veers away from the equilibrium as the independent variable tends towards positive infinity.</div>
+<div class="para logical" id="p-252">
+<div class="para">Consider the differential equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/firstlook03-figure-sinks-sources-nodes.html" id="firstlook03-equation-sinks-sources-nodes">
+\begin{equation}
+\frac{dy}{dt} = y^4 - 4y^2 = y^2(y + 2)(y - 2).\tag{1.3.4}
+\end{equation}
+</div>
+<div class="para">The graph of <span class="process-math">\(f(y) = y^4 - 4y^2\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-figure-sinks-sources-nodes.html" title="Figure 1.3.12">Figure 1.3.12</a>. If <span class="process-math">\(y = -2\text{,}\)</span> we have a sink.  If <span class="process-math">\(y = 2\text{,}\)</span> we have a source.  Finally, if <span class="process-math">\(y = 0\text{,}\)</span> we have a node.</div>
+</div>
+<figure class="figure figure-like" id="firstlook03-figure-sinks-sources-nodes"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/firstlook03-sinks-sources-nodes.svg" role="img" class="contained" alt="a fourth degree polynomial curve with two local minimums and one local maximum"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.12<span class="period">.</span></span><span class="space"> </span>Sinks, sources, and nodes</figcaption></figure><div class="para" id="p-253">It is easy to generate a phase line diagram for equation <a href="" class="xref" data-knowl="./knowl/firstlook03-equation-sinks-sources-nodes.html" title="Equation 1.3.4">(1.3.4)</a> from the graph of <span class="process-math">\(f(y) = y^2(y + 2)(y - 2)\)</span> (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-sinks-sources-nodes.html" title="Figure 1.3.12">Figure 1.3.12</a>). If the graph is above the <span class="process-math">\(y\)</span>-axis, then <span class="process-math">\(y\)</span> is increasing. If the graph is below the <span class="process-math">\(y\)</span>-axis, then <span class="process-math">\(y\)</span> is decreasing. Therefore, the phase line is easy to sketch (<a href="" class="xref" data-knowl="./knowl/firstlook03-figure-phase-line-1.html" title="Figure 1.3.13">Figure 1.3.13</a>).</div>
+<figure class="figure figure-like" id="firstlook03-figure-phase-line-1"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="generated/latex-image/firstlook03-phase-line-1.svg" role="img" class="contained" alt="a vertical line with arrows diverging from a source at two and approaching a sink at negative two with zero being a node"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.13<span class="period">.</span></span><span class="space"> </span>Phase line diagram for <span class="process-math">\(y' = y^2(y + 2)(y - 2)\)</span></figcaption></figure><article class="activity project-like" id="activity-7"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Autonomous Equations and Phase Lines.</span>
+</h4>
+<div class="introduction" id="introduction-17"><div class="para" id="p-254">For each of the differential equations below, draw the phase line and classify each equilibrium solution as a sink, a source, or a node.</div></div>
+<article class="task exercise-like" id="task-27"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="p-255"><span class="process-math">\(y' = y(y - 2)(y + 3)\text{.}\)</span></div></article><article class="task exercise-like" id="task-28"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="para" id="p-256"><span class="process-math">\(y' = y^2(y - 2)(y + 3)\text{.}\)</span></div></article><article class="task exercise-like" id="task-29"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="para" id="p-257"><span class="process-math">\(y' = \cos y\text{.}\)</span></div></article><article class="task exercise-like" id="task-30"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="para" id="p-258"><span class="process-math">\(y' = \cos^2 y\text{.}\)</span></div></article><div class="conclusion" id="conclusion-2"><div class="para" id="p-259">In each case comment on anything that you notice about the phase line and the equilibrium solutions.</div></div></article><div class="para logical" id="p-260">
+<div class="para">One of the reasons why autonomous equations are so important is Taylor's theorem, which tells us that any function <span class="process-math">\(f(x)\)</span> can be approximated near a point <span class="process-math">\(x_0\)</span> by an <span class="process-math">\(n\)</span>th degree polynomial,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+f(x) \approx f(x_0) + f'(x_0)(x - x_0) + \frac{ f''(x_0)}{2!} (x - x_0)^2 + \cdots + \frac{ f^{(n)}(x_0)}{n!} (x - x_0)^n
+\end{equation*}
+</div>
+<div class="para">near <span class="process-math">\(x_0\text{.}\)</span>  For example, if</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dx}{dt} = f(x) = \cos(x^2 + \pi)
+\end{equation*}
+</div>
+<div class="para">with <span class="process-math">\(x(0) = x_0\text{,}\)</span> then we may approximate this initial value problem near <span class="process-math">\(x_0\)</span> with</div>
+<div class="displaymath process-math" id="md-32">
+\begin{align*}
+\frac{dx}{dt} &amp; =  f(x_0) + f'(x_0)(x - x_0) = \cos(x_0^2 + \pi) + 2 x _0 \sin(x_0^2 + \pi)(x - x_0)\\
+x(0) &amp; = x_0.
+\end{align*}
+</div>
+<div class="para">Of course, this strategy might not work very well if <span class="process-math">\(f(x_0) = \cos(x_0^2 + \pi) = 0\)</span> or <span class="process-math">\(f'(x_0) = 2 x _0 \sin(x_0^2 + \pi) = 0\text{.}\)</span>
+</div>
+</div></section><section class="subsection" id="firstlook03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span>
+</h3>
+<div class="para logical" id="p-261"><ul class="disc">
+<li id="li-62"><div class="para" id="p-262">Direction fields and phase lines are a useful way of analyzing a differential equation from a geometric point of view, especially since not all differential equations can be solved analytically.</div></li>
+<li id="li-63"><div class="para" id="p-263">An autonomous equation is a differential equation of the form <span class="process-math">\(y' = f(y)\text{.}\)</span>  We can use a phase line to analyze autonomous differential equations.</div></li>
+<li id="li-64"><div class="para" id="p-264">Equilibrium solutions to a differential equation <span class="process-math">\(y' = f(y)\)</span> are those solutions given by <span class="process-math">\(f(y) = 0\)</span> for all <span class="process-math">\(y\text{.}\)</span>  In this case, any solution must be constant.  We can classify equilibrium solutions according to whether they are stable or unstable.  In particular, an equilibrium solution is either a sink, source, or node.</div></li>
+</ul></div></section><section class="reading-questions" id="reading-questions-firstlook03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-firstlook03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para" id="p-265">Explain why solution curves to a differential equation cannot intersect.</div></article><article class="exercise exercise-like" id="reading-questions-firstlook03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-266">Explain in your own words what an autonomous differential equation is.</div></article></section><section class="exercises" id="firstlook03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.3.8</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="firstlook03-exercises-sketching-direction-fields">
+<h4 class="heading"><span class="title">Plotting direction fields by hand.</span></h4>
+<div class="introduction" id="introduction-18"><div class="para" id="p-267">For each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-direction-fields.html" title="Exercise Group 1.3.8.1–6: Plotting direction fields by hand">Exercise Group 1.3.8.1–6</a>, plot the direction field on the integer coordinates <span class="process-math">\((t,x)\)</span> of the rectangle <span class="process-math">\(-2 \lt t \lt 2\)</span> and <span class="process-math">\(-2 \lt x \lt 2\)</span> by drawing a short line of the appropriate slope.</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-1"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="para" id="p-268"><span class="process-math">\(x' = x + t\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-2"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="para" id="p-269"><span class="process-math">\(x' = xt\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-3"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="para" id="p-270"><span class="process-math">\(x' = x^2 + t^2\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-4"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="para" id="p-271"><span class="process-math">\(x' = t + \tan(x)\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-5"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="para" id="p-272"><span class="process-math">\(x' = (x + t)/(x^2 + t^2)\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-6"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="para" id="p-273"><span class="process-math">\(x' = x - t + 1\)</span></div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-direction-field-w-sage"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para" id="p-274">Use Sage to plot the direction fields of each differential equation in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-direction-fields.html" title="Exercise Group 1.3.8.1–6: Plotting direction fields by hand">Exercise Group 1.3.8.1–6</a>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-16"><script type="text/x-sage">t, x = var('t, x')
+f(t,x) = x + t
+plot_slope_field(f, (t, -2, 2), (x, -2, 2), headaxislength=3, headlength=3, axes_labels=['$t$','$x(t)$'])
+</script></pre></article><div class="exercisegroup" id="firstlook03-exercises-phaselines">
+<h4 class="heading"><span class="title">Equilibrium solutions and phase lines.</span></h4>
+<div class="introduction" id="introduction-19"><div class="para" id="p-275">Find the equilibrium solutions for each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-phaselines.html" title="Exercise Group 1.3.8.8–13: Equilibrium solutions and phase lines">Exercise Group 1.3.8.8–13</a>. Draw the phase line for each equation and classify each equilibrium solution as a sink, a source, or a node.</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="firstlook03-exercise-phaseline-1"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="para" id="p-276"><span class="process-math">\(y' = 2y - 5\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-2"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<div class="para" id="p-277"><span class="process-math">\(\dfrac{dx}{dt} = (x - 1)(x + 2)\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-3"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<div class="para" id="p-278"><span class="process-math">\(\dfrac{dx}{dt} = (x^2 - 1)(x - 2)\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-4"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<div class="para" id="p-279"><span class="process-math">\(\dfrac{dy}{dx} = \sin 2y\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-5"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<div class="para" id="p-280"><span class="process-math">\(x' = (x^2 + 1)(x - 1)\)</span></div></article><article class="exercise exercise-like" id="firstlook03-exercise-phaseline-6"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<div class="para" id="p-281"><span class="process-math">\(x' = x^2 + x + 1\)</span></div></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook03-exercises-sketching-solutions">
+<h4 class="heading"><span class="title">Sketching solutions.</span></h4>
+<div class="introduction" id="introduction-20"><div class="para" id="p-282">Each of the differential equations in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-sketching-solutions.html" title="Exercise Group 1.3.8.14–19: Sketching solutions">Exercise Group 1.3.8.14–19</a> has several initial conditions specified. Sketch the solution curves that satisfy the initial conditions.  Sketch your solutions for each equation on the same pair of axes.</div></div>
+<div class="exercisegroup-exercises">
+<article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-1"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<div class="para" id="p-283">
+<span class="process-math">\(y' = 2y - 5\text{,}\)</span> <span class="process-math">\(y(0) = 4\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{.}\)</span>
+</div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-2"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<div class="para" id="p-284">
+<span class="process-math">\(\dfrac{dx}{dt} = (x - 1)(x + 2)\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{.}\)</span>
+</div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-3"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<div class="para" id="p-285">
+<span class="process-math">\(\dfrac{dx}{dt} = (x^2 - 1)(x - 2)\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\text{.}\)</span>
+</div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-4"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<div class="para" id="p-286">
+<span class="process-math">\(\dfrac{dy}{dx} = \sin 2y\text{,}\)</span> <span class="process-math">\(y(0) = 2\text{,}\)</span> <span class="process-math">\(y(0) = 1\text{,}\)</span> <span class="process-math">\(y(0) = 0\text{.}\)</span>
+</div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-5"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<div class="para" id="p-287">
+<span class="process-math">\(x' = (x^2 + 1)(x - 1)\text{,}\)</span> <span class="process-math">\(x(0) = 2\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{.}\)</span>
+</div></article><article class="exercise exercise-like" id="firstlook03-exercise-sketching-solution-6"><h5 class="heading"><span class="codenumber">19<span class="period">.</span></span></h5>
+<div class="para" id="p-288">
+<span class="process-math">\(x' = x^2 + x + 1\text{,}\)</span> <span class="process-math">\(x(0) = 1\text{,}\)</span> <span class="process-math">\(x(0) = 0\text{,}\)</span> <span class="process-math">\(x(0) = -1\text{.}\)</span>
+</div></article>
+</div>
+</div>
+<div class="exercisegroup" id="firstlook03-exercises-derivative-graphs">
+<h4 class="heading"><span class="title">Phase lines from graphs of the derivative.</span></h4>
+<div class="introduction" id="introduction-21"><div class="para" id="p-289">Consider the differential equation <span class="process-math">\(y' = f(y)\text{,}\)</span> where the graph of <span class="process-math">\(f(y)\)</span> is given in <a href="" class="xref" data-knowl="./knowl/firstlook03-exercises-derivative-graphs.html" title="Exercise Group 1.3.8.20–23: Phase lines from graphs of the derivative">Exercise Group 1.3.8.20–23</a>. Draw the phase line for each equation and classify each equilibrium solution as a sink, a source, or a node.</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-83"><h5 class="heading"><span class="codenumber">20<span class="period">.</span></span></h5> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-1.svg" role="img" class="contained" alt="a parabola opening up and intersecting the horizontal axis at two and minus two"></div> </article><article class="exercise exercise-like" id="exercise-84"><h5 class="heading"><span class="codenumber">21<span class="period">.</span></span></h5> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-2.svg" role="img" class="contained" alt="a curve that decreases intersecting the horizontal axis at minus three halves then increasing to intersect the horizontal axis at one where it immediately decreases and finally increases to intersect the horizontal axis at five halves"></div> </article><article class="exercise exercise-like" id="exercise-85"><h5 class="heading"><span class="codenumber">22<span class="period">.</span></span></h5> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-3.svg" role="img" class="contained" alt="a fourth degree polynomial curve with two local maximums and one local minimum that intersects the horizontal axis at two and minus two"></div> </article><article class="exercise exercise-like" id="exercise-86"><h5 class="heading"><span class="codenumber">23<span class="period">.</span></span></h5> <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="generated/sageplot/firstlook03-exercise-derivative-graphs-4.svg" role="img" class="contained" alt="a curve that increases and intersects the horizontal axis at minus two then decreases intersecting the horizontal axis at minus one then increases to one after which it immediately decreases  and then increases to intersect the x axis at five halves"></div> </article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-87"><h4 class="heading"><span class="codenumber">24<span class="period">.</span></span></h4>
+<div class="para" id="p-290">What happens if we increase the harvest rate to 100 in <a href="" class="xref" data-knowl="./knowl/firstlook03-example-harvesting.html" title="Example 1.3.9: A Logistic Model with Harvesting">Example 1.3.9</a>? What should be our strategy to maintain a viable population in the trout pond and still permit fishing?</div></article></section><section class="subsection" id="firstlook03-subsection-sage"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span>
+</h3>
+<section class="subsubsection" id="firstlook03-subsection-direction-fields-sage"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span> <span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span>
+</h4>
+<div class="para" id="p-291">If we wish to plot a direction field for a differential equation, we can use the command <code class="code-inline tex2jax_ignore">plot_slope_field</code>. Let us plot the direction field for the equation <span class="process-math">\(y' = y^2/2 - t\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-17"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+v
+</script></pre>
+<div class="para" id="p-292">There are a few extra commands to specify the size of the arrows in the plot and to label the axes. Try changing or omitting these commands and see what happens.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-18"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+v = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
+v
+</script></pre>
+<div class="para" id="p-293">For more examples and options, see <a class="external" href="http://doc.sagemath.org/html/en/reference/plotting/sage/plot/plot_field.html" target="_blank"><code class="code-inline tex2jax_ignore">doc.sagemath.org/html/en/reference/plotting/sage/plot/plot_field.html</code></a>
+</div></section><section class="subsubsection" id="firstlook03-subsection-desolve_rk4"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span> <span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span>
+</h4>
+<div class="para" id="p-294">Now let us find a numerical solution to the equation using the command <code class="code-inline tex2jax_ignore">desolve_rk4</code>. This is a fourth-order Runge-Kutta method, and returns a numerical solution (a table of values). Here, we must supply the dependent variable and initial conditions.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-19"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+p = desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+p
+</script></pre>
+<div class="para" id="p-295">Of course, we can combine the two plots.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-20"><script type="text/x-sage">t, y = var('t, y')
+f(t, y) = y^2/2 - t
+p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'], fontsize=12)
+p += desolve_rk4(f, y, ics=[-1,0], ivar=t, output='plot', end_points=[-1,5], thickness=2)
+p.show(xmin = -1, xmax = 5, ymin = -5, ymax = 10)  #set the size of the plot window
+</script></pre>
+<div class="para" id="p-296">There are many other commands and packages to solve ordinary differential equations using Sage. For more information, see <a class="external" href="http://www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html" target="_blank"><code class="code-inline tex2jax_ignore">www.sagemath.org/doc/reference/calculus/sage/calculus/desolvers.html</code></a>. Below is an empty Sage cell, where you can practice.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-21"><script type="text/x-sage">
+</script></pre></section><section class="exercises" id="exercises-5"><h4 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span>
+</h4>
+<article class="exercise exercise-like" id="exercise-88"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="para logical" id="p-297">
+<div class="para">Suppose that the population of a trout pond can be accurately modeled by the logistic equation</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dp}{dt} = 0.4p \left( 1 - \frac{p}{500}\right).
+\end{equation*}
+</div>
+<div class="para">At time <span class="process-math">\(t = 30\text{,}\)</span> a disease is introduced into the population that kills 10% of the population per year. To see how the disease affects the fish population, we will change our original model to the following:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dp}{dt} = 
+\begin{cases}
+0.4p \left(  1 - \dfrac{p}{500}\right) &amp; \text{for } 0 \leq t \lt 30; \\
+0.4p \left(  1 - \dfrac{p}{500}\right) - 0.1p &amp; \text{for } t \gt 30.
+\end{cases}
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-65">Plot the direction field for this equation using <em class="emphasis">Sage</em>. <pre class="ptx-sagecell sagecell-sage" id="sage-22"><script type="text/x-sage">
+</script></pre>
+</li>
+<li id="li-66"><div class="para" id="p-298">Plot the graphs of two or three representative solutions to this equation on the direction field.</div></li>
+<li id="li-67"><div class="para" id="p-299">Find formulas for the solutions of this equation for initial conditions <span class="process-math">\(p(0) = 30\text{.}\)</span>
+</div></li>
+<li id="li-68"><div class="para" id="p-300">Give a qualitative description of how the disease affects the population.</div></li>
+</ol>
+</div></article></section></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="firstlook02.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="firstlook04.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

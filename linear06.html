@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project Changing Coordinates</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="linear05.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="linear.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="linear07.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="dedication-1.html" class="internal"><span class="title">Dedication</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Preface</span></a></div></li>
+<li><div class="toc-item"><a href="acknowledgement-1.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook.html" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="firstlook01.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-exponential-growth" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-logistic-growth" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal"><span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-predator-prey" class="internal"><span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-modeling-hiv" class="internal"><span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-questions-for-thought" class="internal"><span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-important-lessons" class="internal"><span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#reading-questions-firstlook01" class="internal"><span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-exercises" class="internal"><span class="codenumber">1.1.9</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-sage" class="internal"><span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="firstlook01.html#firstlook01-sage-exercises" class="internal"><span class="codenumber">1.1.10</span> <span class="title"><em class="emphasis">Sage</em> Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook02.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-separable-de" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-newtons-law-cooling" class="internal"><span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-mixing-problem" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-retirement" class="internal"><span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-some-theory" class="internal"><span class="codenumber">1.2.5</span> <span class="title">Some Theory</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-what-can-go-wrong" class="internal"><span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-important-lessons" class="internal"><span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#reading-questions-firstlook02" class="internal"><span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-exercises-" class="internal"><span class="codenumber">1.2.9</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-sage" class="internal"><span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook03.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits" class="internal"><span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits-revisited" class="internal"><span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage-direction-fields" class="internal"><span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-autonomous-equations" class="internal"><span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-important-lessons" class="internal"><span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#reading-questions-firstlook03" class="internal"><span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-exercises" class="internal"><span class="codenumber">1.3.8</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage" class="internal"><span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields-sage" class="internal"><span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-desolve_rk4" class="internal"><span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#exercises-5" class="internal"><span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook04.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-eulers-method" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-error-bound" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-improving-euler" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-important-lessons" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#reading-questions-firstlook04" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#exercises-firstlook04" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-sage-project" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook05.html" class="internal"><span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mine-tailings" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-first-order-linear-de" class="internal"><span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mixing-models" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-finance-models" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Finance Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#subsection-33" class="internal"><span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-important-lessons" class="internal"><span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#reading-questions-firstlook05" class="internal"><span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#exercises-firstlook05" class="internal"><span class="codenumber">1.5.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook06.html" class="internal"><span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-existence" class="internal"><span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-picard" class="internal"><span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-important-lessons" class="internal"><span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#reading-questions-firstlook06" class="internal"><span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#exercises-firstlook06" class="internal"><span class="codenumber">1.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook07.html" class="internal"><span class="codenumber">1.7</span> <span class="title">Bifurcations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-logisitic-harvesting" class="internal"><span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-one-parameter-families" class="internal"><span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-important-lessons" class="internal"><span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#reading-questions-firstlook07" class="internal"><span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-exercises" class="internal"><span class="codenumber">1.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="firstlook08.html" class="internal"><span class="codenumber">1.8</span> <span class="title">Projects for First-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="systems01.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-predator-prey" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-spring-mass" class="internal"><span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-epidemics" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-important-lessons" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#reading-questions-system01" class="internal"><span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-exercises" class="internal"><span class="codenumber">2.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-sage" class="internal"><span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems02.html" class="internal"><span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-direction-fields" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-predator-prey" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-competing-species" class="internal"><span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-sage-direction-fields" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-phase-plane-analysis" class="internal"><span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-important-lessons" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#reading-questions-system02" class="internal"><span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-exercises" class="internal"><span class="codenumber">2.2.8</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#subsection-sytems02-sage" class="internal"><span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems03.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-duffing" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-eulers-method" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-taylor-series" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-existence-uniqueness" class="internal"><span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-important-lessons" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#reading-questions-system03" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-exercises" class="internal"><span class="codenumber">2.3.7</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="systems03.html#systems03-subsection-sage" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems with Euler's Method</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="systems03.html#exercises-13" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Sage Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems04.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-partially-coupled" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-sage-linear-systems" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-harmonic-oscillator" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-important-lessons" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#reading-questions-system04" class="internal"><span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-exercises" class="internal"><span class="codenumber">2.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="systems05.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Projects for Systems of Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear.html" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="linear01.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-matrices" class="internal"><span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-linear-independence" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-finding-eigenvalues" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-important-lessons" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#reading-questions-linear01" class="internal"><span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#exercises-linear01" class="internal"><span class="codenumber">3.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-sage-project" class="internal"><span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear02.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Planar Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-planar-systems" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-systems-of-de" class="internal"><span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-solving-systems" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-important-lessons" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#reading-questions-linear02" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-exercises" class="internal"><span class="codenumber">3.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear03.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-different-signs" class="internal"><span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-negative" class="internal"><span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-positive" class="internal"><span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-important-lessons" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#reading-questions-linear03" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-exercises" class="internal"><span class="codenumber">3.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear04.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-spiral-sinks-sources" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-quick-start" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-important-lessons" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#reading-questions-linear04" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-exercises" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear05.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-quick-start" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-important-lessons" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#reading-questions-linear05" class="internal"><span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#exercises-linear05" class="internal"><span class="codenumber">3.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="linear06.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-linear-maps" class="internal"><span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates" class="internal"><span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates-system" class="internal"><span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-distinct-real-eigenvalues" class="internal"><span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-important-lessons" class="internal"><span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#reading-questions-linear06" class="internal"><span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-exercises" class="internal"><span class="codenumber">3.6.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear07.html" class="internal"><span class="codenumber">3.7</span> <span class="title">The Trace-Determinant Plane</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-trace-determinant" class="internal"><span class="codenumber">3.7.1</span> <span class="title">The Trace-Determinant Plane</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-parameterized-families" class="internal"><span class="codenumber">3.7.2</span> <span class="title">Parameterized Families of Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-important-lessons" class="internal"><span class="codenumber">3.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#reading-questions-linear07" class="internal"><span class="codenumber">3.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-exercises" class="internal"><span class="codenumber">3.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear08.html" class="internal"><span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-higher-order-systems" class="internal"><span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-geometry" class="internal"><span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-double-spring-mass" class="internal"><span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-important-lessons" class="internal"><span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#reading-questions-linear08" class="internal"><span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-exercises" class="internal"><span class="codenumber">3.8.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear09.html" class="internal"><span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-matrix-exponential" class="internal"><span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-generalized-eigenvalues" class="internal"><span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-important-lessons" class="internal"><span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#reading-questions-linear09" class="internal"><span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-exercises" class="internal"><span class="codenumber">3.9.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder.html" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="secondorder01.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal"><span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-second-order-linear-de" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-harmonic-oscillators" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-important-lessons" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#reading-questions-secondorder01" class="internal"><span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises" class="internal"><span class="codenumber">4.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-sage" class="internal"><span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises-sage" class="internal"><span class="codenumber">4.1.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder02.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-nonhomogeneous-de" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-forcing" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-undetermined-coefficients" class="internal"><span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-strategy" class="internal"><span class="codenumber">4.2.4</span> <span class="title">A Strategy</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-important-lessons" class="internal"><span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#reading-questions-secondorder02" class="internal"><span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-exercises" class="internal"><span class="codenumber">4.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder03.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Sinusoidal Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-complexification" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Complexification</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-qualitative-analysis" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Qualitative Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-important-lessons" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#reading-questions-secondorder03" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-exercises" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder04.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-resonance" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Resonance</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-beats" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-forced-damped" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-important-lessons" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#reading-questions-secondorder04" class="internal"><span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-exercises" class="internal"><span class="codenumber">4.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="secondorder05.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Projects for Second-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear.html" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="nonlinear01.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Linearization</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-linearization-fails" class="internal"><span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-important-lessons" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#reading-questions-nonlinear01" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-exercises" class="internal"><span class="codenumber">5.1.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear02.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-pendulum" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-hamiltonian-systems" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-ideal-pendulum" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-important-lessons" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#reading-questions-nonlinear02" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-exercises" class="internal"><span class="codenumber">5.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear03.html" class="internal"><span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-pendulum-damping" class="internal"><span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-lyapunov-functions" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-gradient-systems" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-important-lessons" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#reading-questions-nonlinear03" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-exercises" class="internal"><span class="codenumber">5.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear04.html" class="internal"><span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-bifurcations" class="internal"><span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-hopf-bifurcation" class="internal"><span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-important-lessons" class="internal"><span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#reading-questions-nonlinear04" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-exercises" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="nonlinear05.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Projects</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace.html" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="laplace01.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-definitions" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-properties" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-finding-laplace-transforms" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-important-lessons" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#reading-questions-laplace01" class="internal"><span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-laplace01" class="internal"><span class="codenumber">6.1.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-sage" class="internal"><span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-34" class="internal"><span class="codenumber">6.1.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace02.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-derivatives" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-discontinuous-functions" class="internal"><span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-harmonic-oscillators" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-important-lessons" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#reading-questions-laplace02" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-exercises" class="internal"><span class="codenumber">6.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace03.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Delta Functions and Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-impulse-forcing" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Impulse Forcing</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-dirac-delta" class="internal"><span class="codenumber">6.3.2</span> <span class="title">The Laplace Transform of the Dirac Delta Function</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-important-lessons" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#reading-questions-laplace03" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-exercises" class="internal"><span class="codenumber">6.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace04.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Convolution</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-convolution" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Convolution</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-applying-convolution" class="internal"><span class="codenumber">6.4.2</span> <span class="title">Applying the Convolution Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-important-lessons" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#reading-questions-laplace04" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-exercises" class="internal"><span class="codenumber">6.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="laplace05.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Projects for Laplace Transforms</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="appendix-gfdl.html" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></div></li>
+<li><div class="toc-item"><a href="solutions-1.html" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="references-1.html" class="internal"><span class="title">Readings and References</span></a></div></li>
+<li><div class="toc-item"><a href="appendix-2.html" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="linear06"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span>
+</h2>
+<article class="objectives goal-like" id="objectives-17"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-343"><div class="para" id="p-1224">To understand that a linear map <span class="process-math">\(T\)</span> converts solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span> to solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> and, conversely, the inverse of a linear map <span class="process-math">\(T\)</span> takes solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\text{.}\)</span>
+</div></li>
+<li id="li-344"><div class="para logical" id="p-1225">
+<div class="para">To understand that a change of coordinates converts the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to one of the following special cases,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \mu
+\end{pmatrix},
+\begin{pmatrix}
+\alpha &amp;  \beta \\
+-\beta &amp; \alpha
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \lambda
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div></li>
+</ul></article><section class="introduction" id="introduction-81"><div class="para logical" id="p-1226">
+<div class="para">In the previous sections of this chapter, we outlined procedures for solving systems of linear differential equations of the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix}
+dx/dt \\ dy/dt
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d 
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+A
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">by determining the eigenvalues of <span class="process-math">\(A\text{.}\)</span> In this section we will consider the following special cases for <span class="process-math">\(A\text{,}\)</span>
+</div>
+<div class="displaymath process-math" id="linear06-equation-special-systems">
+\begin{equation}
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \mu
+\end{pmatrix},
+\begin{pmatrix}
+\alpha &amp;  \beta \\
+-\beta &amp; \alpha
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \lambda
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}.\tag{3.6.1}
+\end{equation}
+</div>
+<div class="para">Although it may seem that we have limited ourselves by attacking only a very small part of the problem of finding solutions for <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> we are actually very close to providing a complete classification of all solutions. We will now show that we can transform any <span class="process-math">\(2 \times 2 \)</span> system of first-order linear differential equations with constant coefficients into one of these special systems by using a change of coordinates.</div>
+</div></section><section class="subsection" id="linear06-subsection-linear-maps"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span>
+</h3>
+<div class="para logical" id="p-1227">
+<div class="para">First, we need to add a few things to our knowledge of matrices and linear algebra. A <dfn class="terminology">linear map</dfn> or <dfn class="terminology">linear transformation</dfn> on <span class="process-math">\({\mathbb R}^2\)</span> is a function <span class="process-math">\(T: {\mathbb R}^2 \to {\mathbb R}^2\)</span> that is defined by a matrix.  That is,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">When there is no confusion, we will think of the linear map <span class="process-math">\(T: {\mathbb R}^2 \to {\mathbb R}^2\)</span> and the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">as interchangeable.</div>
+</div>
+<div class="para logical" id="p-1228">
+<div class="para">We will say that <span class="process-math">\(T: {\mathbb R}^2 \to {\mathbb R}^2\)</span> is an <dfn class="terminology">invertible linear map</dfn> if we can find a second linear map <span class="process-math">\(S\)</span> such that <span class="process-math">\(T \circ S = S \circ T = I\text{,}\)</span> where <span class="process-math">\(I\)</span> is the identity transformation.  In terms of matrices, this means that we can find a matrix <span class="process-math">\(S\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+TS = ST = I,
+\end{equation*}
+</div>
+<div class="para">where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">is the <span class="process-math">\(2 \times 2\)</span> identity matrix.  We write <span class="process-math">\(T^{-1}\)</span> for the inverse matrix of <span class="process-math">\(T\text{.}\)</span> It is easy to check that the inverse of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} = \frac{1}{\det T} \begin{pmatrix} d &amp; - b \\ -c &amp; a \end{pmatrix}.
+\end{equation*}
+</div>
+</div>
+<article class="theorem theorem-like" id="linear06-theorem-invertible-linear-maps"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.6.1</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-1229">A linear map <span class="process-math">\(T\)</span> is invertible if and only if <span class="process-math">\(\det T \neq 0\text{.}\)</span>
+</div></article><article class="hiddenproof" id="proof-4"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-4"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-4"><article class="hiddenproof"><div class="para logical" id="p-1230">
+<div class="para">If <span class="process-math">\(\det T = 0\text{,}\)</span> then there are infinitely many nonzero vectors <span class="process-math">\({\mathbf x}\)</span> such that <span class="process-math">\(T {\mathbf x} = {\mathbf 0}\text{.}\)</span> Suppose that <span class="process-math">\(T^{-1}\)</span> exists and <span class="process-math">\({\mathbf x} \neq {\mathbf 0}\)</span> such that <span class="process-math">\(T {\mathbf x} = {\mathbf 0}\text{.}\)</span> Then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x} = T^{-1} T {\mathbf x} = T^{-1} {\mathbf 0} = {\mathbf 0},
+\end{equation*}
+</div>
+<div class="para">which is a contradiction. On the other hand, we can certainly compute <span class="process-math">\(T^{-1}\text{,}\)</span> at least in the <span class="process-math">\(2 \times 2\)</span> case, if the determinant is nonzero.</div>
+</div></article></div></section><section class="subsection" id="linear06-subsection-changing-coordinates"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span>
+</h3>
+<div class="para logical" id="p-1231">
+<div class="para">In <a href="linear01.html#linear01-subsection-linear-independence" class="internal" title="Subsection 3.1.2: Linear Independence">Subsection 3.1.2</a>, we discussed what a basis was along with the coordinates with respect to a particular basis.  The vectors <span class="process-math">\({\mathbf e}_1 = (1, 0)\)</span> and <span class="process-math">\({\mathbf e}_2 = (0, 1)\)</span> form a basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span> Indeed, if <span class="process-math">\({\mathbf z} = (-5, -4)\text{,}\)</span> then we can write</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-subsection-linear-independence.html">
+\begin{equation*}
+{\mathbf z} = -5 {\mathbf e}_1 - 4 {\mathbf e}_2.
+\end{equation*}
+</div>
+<div class="para">We say that the coordinates of <span class="process-math">\(\mathbf z\)</span> with respect to the basis <span class="process-math">\(\{ {\mathbf e}_1, {\mathbf e}_2 \}\)</span> are <span class="process-math">\((-5,-4)\text{.}\)</span>  Now consider the vectors <span class="process-math">\({\mathbf v}_1 = (2,1)\)</span> and <span class="process-math">\({\mathbf v}_2 = (3, 2)\text{.}\)</span> Since</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-subsection-linear-independence.html">
+\begin{equation*}
+\det
+\begin{pmatrix}
+2 &amp; 3 \\
+1 &amp; 2
+\end{pmatrix}
+\neq 0,
+\end{equation*}
+</div>
+<div class="para">these vectors are linearly independent form a different basis for <span class="process-math">\({\mathbb R}^2\text{.}\)</span> If <span class="process-math">\({\mathbf z} = (-5, -4)\text{,}\)</span> then we can write</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear01-subsection-linear-independence.html">
+\begin{equation*}
+{\mathbf z} = 2 {\mathbf v}_1 - 3 {\mathbf v}_2.
+\end{equation*}
+</div>
+<div class="para">The coordinates of <span class="process-math">\({\mathbf z}\)</span> with respect to the basis <span class="process-math">\(\{ {\mathbf v}_1, {\mathbf v}_2 \}\)</span> are <span class="process-math">\((2, -3)\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1232">
+<div class="para">Suppose we wish to convert the coordinates with repect to one basis to a new set of coordinates with respect to a different basis; that is, we wish to do a <dfn class="terminology">change of coordinates</dfn>. Observe that</div>
+<div class="displaymath process-math" id="md-304">
+\begin{align*}
+\mathbf v_1  &amp; = 2 \mathbf e_1 + \mathbf e_2\\
+\mathbf v_2 &amp; = 3 \mathbf e_1 + 2 \mathbf e_2.
+\end{align*}
+</div>
+<div class="para">It follows that</div>
+<div class="displaymath process-math" id="md-305">
+\begin{align*}
+c_1 \mathbf v_1 + c_2 \mathbf v_2   &amp; = c_1 (2 \mathbf e_1 + \mathbf e_2) + c_2( 3\mathbf e_1 + 2 \mathbf e_2)\\
+&amp; = (2c_1 + 3c_2 )\mathbf e_1 + (c_2 + 2c_2) \mathbf e_2.
+\end{align*}
+</div>
+<div class="para">Thus, the coordinates of <span class="process-math">\(c_1 \mathbf v_1 + c_2 \mathbf v_2\)</span> with respect to the basis <span class="process-math">\(\{ {\mathbf e}_1, {\mathbf e}_2 \}\)</span> can be determined by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix} 2c_1 + 3c_2 \\ c_2 + 2c_2 \end{pmatrix}
+=
+\begin{pmatrix} 2 &amp; 3 \\ 1 &amp; 2 \end{pmatrix}
+\begin{pmatrix} c_1 \\ c_2 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">If we let</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T = \begin{pmatrix} 2 &amp; 3 \\ 1 &amp; 2 \end{pmatrix} \quad \text{and} \quad \mathbf c = \begin{pmatrix} c_1 \\ c_2 \end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">then the coordinates with respect to the basis <span class="process-math">\(\{ {\mathbf e}_1, {\mathbf e}_2 \}\)</span> are given by <span class="process-math">\(\mathbf d = T \mathbf c\text{.}\)</span>  If we are given the coordinates with respect to the basis <span class="process-math">\(\{ {\mathbf v}_1, {\mathbf v}_2 \}\)</span> for a vector, we simply need to multiply by the matrix <span class="process-math">\(T\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1233">
+<div class="para">Now suppose that we wish to find the coordinates with respect to the basis <span class="process-math">\(\{ \mathbf v_1, \mathbf v_2\}\)</span> if we know that a vector <span class="process-math">\(\mathbf z = d_1 \mathbf e_1 + d_2 \mathbf e_2\text{.}\)</span>  Since <span class="process-math">\(\mathbf d = T \mathbf c\text{,}\)</span> we need only multiply both sides of the equation by <span class="process-math">\(T^{-1}\)</span> to get <span class="process-math">\(\mathbf c = T^{-1} \mathbf d\text{.}\)</span>  In our example,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} \mathbf d 
+= \begin{pmatrix} 2 &amp; - 3 \\ -1 &amp; 2\end{pmatrix} \begin{pmatrix} d_1 \\ d_2 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">In our particular example,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} \mathbf d  = \begin{pmatrix} 2 &amp; - 3 \\ -1 &amp; 2\end{pmatrix} \begin{pmatrix} -5 \\ -4 \end{pmatrix} = \begin{pmatrix} 2 \\ -3 \end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">which are the coordinates of <span class="process-math">\(\mathbf z\)</span> with respect to the basis <span class="process-math">\(\{ {\mathbf v}_1, {\mathbf v}_2 \}\text{.}\)</span>
+</div>
+</div></section><section class="subsection" id="linear06-subsection-changing-coordinates-system"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span>
+</h3>
+<div class="para" id="p-1234">The idea now is to use a change of coordinates to convert an arbitrary system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> into one of the special systems mentioned at the beginning of the section <a href="" class="xref" data-knowl="./knowl/linear06-equation-special-systems.html" title="Equation 3.6.1">(3.6.1)</a>, solve the new system, and then convert our new solution back to a solution of the original system using another change of coordinates.</div>
+<div class="para logical" id="p-1235">
+<div class="para">Suppose that we consider a linear system</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-equation-change-of-coordinates.html" id="linear06-equation-change-of-coordinates">
+\begin{equation}
+{\mathbf y}' = (T^{-1} A T) {\mathbf y}\tag{3.6.2}
+\end{equation}
+</div>
+<div class="para">where <span class="process-math">\(T\)</span> is an invertible matrix.  If <span class="process-math">\({\mathbf y}(t)\)</span> is a solution of <a href="" class="xref" data-knowl="./knowl/linear06-equation-change-of-coordinates.html" title="Equation 3.6.2">(3.6.2)</a>, we claim that <span class="process-math">\({\mathbf x}(t) = T {\mathbf y}(t)\)</span> solves the equation <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span> Indeed,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-equation-change-of-coordinates.html" id="md-306">
+\begin{align*}
+{\mathbf x}'(t) &amp; = (T {\mathbf y})'(t)\\
+&amp; = T {\mathbf y}'(t)\\
+&amp; = T( (T^{-1} A T) {\mathbf y}(t))\\
+&amp; = A (T {\mathbf y}(t))\\
+&amp; =  A {\mathbf x}(t).
+\end{align*}
+</div>
+<div class="para">We can think of this in two ways.</div>
+<ol class="decimal">
+<li id="li-345"><div class="para" id="p-1236">A linear map <span class="process-math">\(T\)</span> converts solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span> to solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span>
+</div></li>
+<li id="li-346"><div class="para" id="p-1237">The inverse of a linear map <span class="process-math">\(T\)</span> takes solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\text{.}\)</span>
+</div></li>
+</ol>
+<div class="para">We are now in a position to solve our problem of finding solutions of an arbitrary linear system</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-equation-change-of-coordinates.html">
+\begin{equation*}
+\begin{pmatrix}
+x' \\ y'
+\end{pmatrix}
+=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+=
+\begin{pmatrix}
+x \\ y 
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div></section><section class="subsection" id="linear06-subsection-distinct-real-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span>
+</h3>
+<div class="para logical" id="p-1238">
+<div class="para">Consider the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where <span class="process-math">\(A\)</span> has two real, distinct eigenvalues <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> with eigenvectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{,}\)</span> respectively. Let <span class="process-math">\(T\)</span> be the matrix with columns <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{.}\)</span> If <span class="process-math">\({\mathbf e}_1 = (1, 0)\)</span> and <span class="process-math">\({\mathbf e}_2 = (0, 1)\text{,}\)</span> then <span class="process-math">\(T {\mathbf e}_i = {\mathbf v}_i\)</span> for <span class="process-math">\(i = 1, 2\text{.}\)</span> Consequently, <span class="process-math">\(T^{-1} {\mathbf v}_i = {\mathbf e}_i\)</span> for <span class="process-math">\(i = 1, 2\text{.}\)</span>  Thus, we have</div>
+<div class="displaymath process-math" id="md-307">
+\begin{align*}
+(T^{-1} A T) {\mathbf e}_i &amp; = T^{-1} A  {\mathbf v}_i\\
+&amp; = T^{-1} (\lambda_i  {\mathbf v}_i)\\
+&amp; = \lambda_i T^{-1} {\mathbf v}_i\\
+&amp; = \lambda_i {\mathbf e}_i
+\end{align*}
+</div>
+<div class="para">for <span class="process-math">\(i = 1, 2\text{.}\)</span>  Therefore, the matrix <span class="process-math">\(T^{-1} A T\)</span> is in canonical form,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} A T = \begin{pmatrix} \lambda_1 &amp; 0 \\ 0 &amp; \lambda_2 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The eigenvalues of the matrix <span class="process-math">\(T^{-1} A T\)</span> are <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\)</span> with eigenvectors <span class="process-math">\((1, 0)\)</span> and <span class="process-math">\((0, 1)\text{,}\)</span> respectively. Thus, the general solution of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf y}' = (T^{-1}AT) {\mathbf y}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf y}(t) 
+=
+\alpha e^{\lambda_1 t} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+\beta e^{\lambda_2 t}
+\begin{pmatrix} 0\\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Hence, the general solution of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x}' = A {\mathbf x}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" id="md-308">
+\begin{align*}
+T {\mathbf y}(t)
+&amp; = T \left(
+\alpha e^{\lambda_1 t} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+\beta e^{\lambda_2 t}
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\right)\\
+&amp; =
+\alpha e^{\lambda_1 t} 
+T \begin{pmatrix} 1 \\ 0\end{pmatrix}
++
+\beta e^{\lambda_2 t}
+T \begin{pmatrix} 0 \\ 1 \end{pmatrix}\\
+&amp; =
+\alpha e^{\lambda_2 t} \mathbf v_1 + \beta e^{\lambda_2 t} \mathbf v_2.
+\end{align*}
+</div>
+</div>
+<article class="example example-like" id="example-47"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-47"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.6.2</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-47"><article class="example example-like"><div class="para logical" id="p-1239">
+<div class="para">Suppose <span class="process-math">\(d{\mathbf x}/dt = A {\mathbf x}\text{,}\)</span> where</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+A = \begin{pmatrix} 1 &amp; 2 \\ 4 &amp; 3 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda_1 = 5\)</span> and <span class="process-math">\(\lambda_2 = -1\)</span> and the associated eigenvectors are <span class="process-math">\((1, 2)\)</span> and <span class="process-math">\((1, -1)\text{,}\)</span> respectively. In this case, our matrix <span class="process-math">\(T\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+\begin{pmatrix} 1 &amp; 1 \\ 2 &amp; -1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">If <span class="process-math">\({\mathbf e}_1 = (1, 0)\)</span> and <span class="process-math">\({\mathbf e}_2 = (0, 1)\text{,}\)</span> then <span class="process-math">\(T {\mathbf e}_i = {\mathbf v}_i\)</span> for <span class="process-math">\(i = 1, 2\text{.}\)</span> Consequently, <span class="process-math">\(T^{-1} {\mathbf v}_i = {\mathbf e}_i\)</span> for <span class="process-math">\(i = 1, 2\text{,}\)</span> where</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+T^{-1} = \begin{pmatrix} 1/3 &amp; 1/3 \\ 2/3 &amp; -1/3 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Thus,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+T^{-1} A T
+=
+\begin{pmatrix}
+1/3 &amp; 1/3 \\
+2/3 &amp; -1/3
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 2 \\
+4 &amp; 3
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 1 \\
+2 &amp; -1
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The eigenvalues of the matrix</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+\begin{pmatrix} 5 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">are <span class="process-math">\(\lambda_1 = 5\)</span> and <span class="process-math">\(\lambda_2 = -1\)</span> with eigenvectors <span class="process-math">\((1, 0)\)</span> and <span class="process-math">\((0, 1)\text{,}\)</span> respectively. Thus, the general solution of</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+{\mathbf y}' = (T^{-1}AT) {\mathbf y}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+{\mathbf y}(t) 
+=
+\alpha e^{5t} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+\beta e^{-t}
+\begin{pmatrix} 0\\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Hence, the general solution of</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html">
+\begin{equation*}
+{\mathbf x}' = A {\mathbf x}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-change-of-coordinates-1.html ./knowl/linear06-figure-change-of-coordinates-2.html" id="md-309">
+\begin{align*}
+T {\mathbf y}(t)
+&amp; =
+\begin{pmatrix}
+1 &amp; 1 \\
+2 &amp; -1
+\end{pmatrix}
+\left(
+\alpha e^{5t} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+\beta e^{-t}
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\right)\\
+&amp; =
+\alpha e^{5t} 
+\begin{pmatrix} 1 \\ 2 \end{pmatrix}
++
+\beta e^{-t}
+\begin{pmatrix} 1 \\ -1 \end{pmatrix}
+\end{align*}
+</div>
+<div class="para">The linear map <span class="process-math">\(T\)</span> converts the phase portrait of the system <span class="process-math">\({\mathbf y}' = (T^{-1}AT) {\mathbf y}\)</span> (<a href="" class="xref" data-knowl="./knowl/linear06-figure-change-of-coordinates-1.html" title="Figure 3.6.3">Figure 3.6.3</a>) to the phase portrait of the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> (<a href="" class="xref" data-knowl="./knowl/linear06-figure-change-of-coordinates-2.html" title="Figure 3.6.4">Figure 3.6.4</a>).</div>
+</div> <figure class="figure figure-like" id="linear06-figure-change-of-coordinates-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear06-change-of-coordinates-1.svg" role="img" class="contained" alt="a direction field of slope arrows and solution curves in each quadrant with the solution curves approaching the horizontal and vertical axes for large values"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.6.3<span class="period">.</span></span><span class="space"> </span>Phase portrait for <span class="process-math">\({\mathbf y}' = (T^{-1}AT) {\mathbf y}\)</span></figcaption></figure> <figure class="figure figure-like" id="linear06-figure-change-of-coordinates-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear06-change-of-coordinates-2.svg" role="img" class="contained" alt="a direction field of slope arrows and solution curves that approach the straight-line solutions for large values"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.6.4<span class="period">.</span></span><span class="space"> </span>Phase portrait for <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span></figcaption></figure></article></div>
+<article class="activity project-like" id="activity-30"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.6.1</span><span class="period">.</span><span class="space"> </span><span class="title">Distinct Real Eigenvalues and Transformation of Coordinates.</span>
+</h4>
+<div class="introduction" id="introduction-82"><div class="para logical" id="p-1240">
+<div class="para">Consider the system of linear differential equations <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{,}\)</span> where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A  = \begin{pmatrix} 1 \amp 3 \\ 1 \amp -1 \end{pmatrix}.
+\end{equation*}
+</div>
+</div></div>
+<article class="task exercise-like" id="task-162"><h5 class="heading"><span class="codenumber">(a)</span></h5>
+<div class="para" id="p-1241">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  You should find distinct real eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\mu\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-163"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="para" id="p-1242">Find the general solution for <span class="process-math">\(d\mathbf x/dt = A \mathbf x\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-164"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="para" id="p-1243">Construct the <span class="process-math">\(2 \times 2\)</span> matrix <span class="process-math">\(T = (\mathbf v_1, \mathbf v_2)\)</span> and find <span class="process-math">\(T^{-1}\text{.}\)</span>
+</div></article><article class="task exercise-like" id="task-165"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="para logical" id="p-1244">
+<div class="para">Calculate <span class="process-math">\(T^{-1}AT\text{.}\)</span>  You should obtain the diagonal matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \mu
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">with eigenvectors <span class="process-math">\(\mathbf e_1 = (1,0)\)</span> and <span class="process-math">\(\mathbf e_2 = (0,1)\text{.}\)</span>
+</div>
+</div></article><article class="task exercise-like" id="task-166"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="para logical" id="p-1245">
+<div class="para">The general solution of</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-activity-distinct-real-eigenvalues.html">
+\begin{equation*}
+{\mathbf y}' = (T^{-1}AT) {\mathbf y}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear02-activity-distinct-real-eigenvalues.html">
+\begin{equation*}
+{\mathbf y}(t) 
+=
+\alpha e^{\lambda t} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}
++
+\beta e^{\mu t}
+\begin{pmatrix} 0\\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Now calculate <span class="process-math">\(T \mathbf y\)</span> and compare this solution with the one that you obtained in <a href="" class="xref" data-knowl="./knowl/linear02-activity-distinct-real-eigenvalues.html" title="Activity 3.2.1: Planar Systems with Distinct Real Eigenvalues">Activity 3.2.1</a>.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-36" id="fn-36"><sup> 1 </sup></a>
+</div>
+</div></article></article></section><section class="subsection" id="linear06-subsection-complex-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span>
+</h3>
+<div class="para logical" id="p-1246">
+<div class="para">Suppose the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = \begin{pmatrix} a \amp b \\ c \amp d \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">in system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> has complex eigenvalues. In this case, the characteristic polynomial <span class="process-math">\(p(\lambda) = \lambda^2 - (a + d)\lambda + (ad - bc)\)</span> will have roots <span class="process-math">\(\lambda = \alpha + i \beta\)</span> and <span class="process-math">\(\overline{\lambda} = \alpha - i \beta\text{,}\)</span> where</div>
+<div class="displaymath process-math" id="md-310">
+\begin{align*}
+\alpha \amp = \frac{a + d}{2}\\
+\beta \amp = \frac{\sqrt{4bc - (a - d)^2}}{2}.
+\end{align*}
+</div>
+<div class="para">The eigenvalues <span class="process-math">\(\lambda\)</span> and <span class="process-math">\(\overline{\lambda}\)</span> are complex conjugates. Now, suppose that the eigenvalue <span class="process-math">\(\lambda = \alpha + i \beta\)</span> has an eigenvector of the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\mathbf v = {\mathbf v}_ 1 + i {\mathbf v}_2,
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(\mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> are real vectors. Then <span class="process-math">\(\overline{\mathbf v} = {\mathbf v}_ 1 - i {\mathbf v}_2\)</span> is an eigenvector for <span class="process-math">\(\overline{\lambda}\text{,}\)</span> since</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A \overline{\mathbf v} = \overline{A \mathbf v} = \overline{\lambda \mathbf v} = \overline{\lambda} \overline{\mathbf v}.
+\end{equation*}
+</div>
+<div class="para">Consequently, if <span class="process-math">\(A\)</span> is a real matrix with complex eigenvalues, one of the eigenvalues determines the other.</div>
+</div>
+<article class="proposition theorem-like" id="proposition-1"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.6.5</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1247">
+<div class="para">If <span class="process-math">\(\lambda = \alpha + i \beta\)</span> is an eigenvalue of a real matrix <span class="process-math">\(A\)</span> with <span class="process-math">\(\beta \neq 0\)</span> and eigenvector the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf v}_ 1 + i {\mathbf v}_2,
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are real vectors, then the vectors <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly independent.</div>
+</div></article><article class="hiddenproof" id="proof-5"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-5"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-5"><article class="hiddenproof"><div class="para logical" id="p-1248">
+<div class="para">If <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are not linearly independent, then <span class="process-math">\({\mathbf v}_1 = c {\mathbf v}_2\)</span> for some <span class="process-math">\(c \in \mathbb R\text{.}\)</span> On one hand, we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A ({\mathbf v}_ 1 + i {\mathbf v}_2) = A (c {\mathbf v}_2 + i {\mathbf v}_2) = (c + i) A {\bf v}_2.
+\end{equation*}
+</div>
+<div class="para">However,</div>
+<div class="displaymath process-math" id="md-311">
+\begin{align*}
+A ({\mathbf v}_ 1 + i {\mathbf v}_2)  &amp; = (\alpha + i \beta) ( {\mathbf v}_ 1 + i {\mathbf v}_2)\\
+&amp; = (\alpha + i \beta) ( c + i) {\mathbf v}_2\\
+&amp; = ( c + i) (\alpha + i \beta)  {\mathbf v}_2
+\end{align*}
+</div>
+<div class="para">In other words, <span class="process-math">\(A {\mathbf v}_2 = (\alpha + i \beta)  {\mathbf v}_2\text{.}\)</span> However, this is a contradiction since the left-side of the equation says that we have real eigenvector while the right-side of the equation is complex. Thus, <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\)</span> are linearly independent.</div>
+</div></article></div>
+<article class="proposition theorem-like" id="proposition-2"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.6.6</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1249">
+<div class="para">Let <span class="process-math">\(A\)</span> be a real matrix with eigenvalue <span class="process-math">\(\lambda = \alpha + i \beta\text{,}\)</span> where <span class="process-math">\(\beta \neq 0\text{.}\)</span> If</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf v}_ 1 + i {\mathbf v}_2,
+\end{equation*}
+</div>
+<div class="para">is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then there exists a matrix <span class="process-math">\(T\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} AT = \begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.
+\end{equation*}
+</div>
+</div></article><article class="hiddenproof" id="proof-6"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-6"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-6"><article class="hiddenproof"><div class="para logical" id="p-1250">
+<div class="para">Since <span class="process-math">\({\mathbf v}_1 + i {\mathbf v}_2\)</span> is an eigenvector associated to the eigenvalue <span class="process-math">\(\alpha + i \beta\text{,}\)</span> we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A ( {\mathbf v}_1 + i {\mathbf v}_2) = (\alpha + i \beta) ({\mathbf v}_1 + i {\mathbf v}_2).
+\end{equation*}
+</div>
+<div class="para">Equating the real and imaginary parts, we find that</div>
+<div class="displaymath process-math" id="md-312">
+\begin{align*}
+A {\mathbf v}_1 &amp; = \alpha {\mathbf v}_1 - \beta {\mathbf v}_2\\
+A {\mathbf v}_2 &amp; = \beta {\mathbf v}_1 + \alpha {\mathbf v}_2.
+\end{align*}
+</div>
+<div class="para">If <span class="process-math">\(T\)</span> is the matrix with columns <span class="process-math">\({\mathbf v}_1\)</span> and <span class="process-math">\({\mathbf v}_2\text{,}\)</span> then</div>
+<div class="displaymath process-math" id="md-313">
+\begin{align*}
+T {\mathbf e}_1 &amp; = {\mathbf v}_1\\
+T {\mathbf e}_2 &amp; = {\mathbf v}_2.
+\end{align*}
+</div>
+<div class="para">Thus, we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(T^{-1} A T) {\mathbf e}_1 = T^{-1} (\alpha {\mathbf v}_1 - \beta {\mathbf v}_2) = \alpha {\mathbf e}_1 - \beta {\mathbf e}_2.
+\end{equation*}
+</div>
+<div class="para">Similarly,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(T^{-1} A T) {\mathbf e}_2 = \beta {\mathbf e}_1 + \alpha {\mathbf e}_2.
+\end{equation*}
+</div>
+<div class="para">Therefore, we can write the matrix <span class="process-math">\(T^{-1}A T\)</span> as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} AT = \begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.
+\end{equation*}
+</div>
+</div></article></div>
+<div class="para" id="p-1251">The system <span class="process-math">\({\mathbf y}' = (T^{-1} AT ) {\mathbf y}\)</span> is in one of the canonical forms and has a phase portrait that is a spiral sink (<span class="process-math">\(\alpha \lt 0\)</span>), a center (<span class="process-math">\(\alpha = 0\)</span>), or a spiral source (<span class="process-math">\(\alpha \gt 0\)</span>). After a change of coordinates, the phase portrait of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is equivalent to a sink, center, or source.</div>
+<article class="example example-like" id="example-48"><a href="" data-knowl="" class="id-ref example-knowl original has-image" data-refid="hk-example-48"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.6.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-48"><article class="example example-like"><div class="para logical" id="p-1252">
+<div class="para">Suppose that we wish to find the solutions of the second order equation</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+2x'' + 2x' + x = 0.
+\end{equation*}
+</div>
+<div class="para">This particular equation might model a damped harmonic oscillator. If we rewrite this second-order equation as a first-order system, we have</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html" id="md-314">
+\begin{align*}
+x' &amp; = y\\
+y' &amp; = - \frac{1}{2} x - y,
+\end{align*}
+</div>
+<div class="para">or equivalently <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+A = \begin{pmatrix} 0 &amp; 1 \\ - 1/2 &amp; - 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The eigenvalues of <span class="process-math">\(A\)</span> are</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+- \frac{1}{2} \pm i \frac{1}{2}.
+\end{equation*}
+</div>
+<div class="para">The eigenvalue <span class="process-math">\(\lambda = (1 + i)/2\)</span> has an eigenvector</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+\mathbf v =
+\begin{pmatrix}
+2 \\ -1 + i
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 \\ -1
+\end{pmatrix}
++
+i
+\begin{pmatrix}
+0 \\ 1
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">respectively. Therefore, we can take <span class="process-math">\(T\)</span> to be the matrix</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+T = \begin{pmatrix} 2 \amp 0 \\ -1 \amp 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Consequently,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+T^{-1} A T
+=
+\begin{pmatrix}
+1/2 &amp; 0 \\
+1/2 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+0 &amp; 1 \\
+-1/2 &amp; -1
+\end{pmatrix}
+\begin{pmatrix}
+2 &amp; 0 \\
+-1 &amp; 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+-1/2 &amp; 1/2 \\
+-1/2 &amp; -1/2
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">which is in the canonical form</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+\begin{pmatrix} \alpha &amp; \beta \\ - \beta &amp; \alpha \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The general solution to <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-complex-canonical.html">
+\begin{equation*}
+{\mathbf y}(t)
+=
+c_1 e^{-t/2} 
+\begin{pmatrix}
+\cos(t/2) \\ -\sin(t/2)
+\end{pmatrix}
++
+c_2 e^{-t/2}
+\begin{pmatrix}
+\sin(t/2) \\ \cos(t/2)
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The phase portrait of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span> is given in <a href="" class="xref" data-knowl="./knowl/linear06-figure-complex-canonical.html" title="Figure 3.6.8">Figure 3.6.8</a>.</div>
+</div> <figure class="figure figure-like" id="linear06-figure-complex-canonical"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear06-complex-canonical.svg" role="img" class="contained" alt="a direction field of slope arrows and solution curves that spiral towards the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.6.8<span class="period">.</span></span><span class="space"> </span>Phase portrait for <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span></figcaption></figure> <div class="para logical" id="p-1253">
+<div class="para">The general solution of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-figure-underdamped-harmonic-oscillator.html" id="md-315">
+\begin{align*}
+T {\mathbf y}(t)
+&amp; =
+\begin{pmatrix}
+2 &amp; 0 \\
+-1 &amp; 1
+\end{pmatrix}
+\left[
+c_1 e^{-t/2} 
+\begin{pmatrix}
+\cos(t/2) \\ -\sin(t/2)
+\end{pmatrix}
++
+c_2 e^{-t/2}
+\begin{pmatrix}
+\sin(t/2) \\ \cos(t/2)
+\end{pmatrix}
+\right]\\
+&amp; =
+c_1 e^{-t/2} 
+\begin{pmatrix}
+2 &amp; 0 \\
+-1 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+\cos(t/2) \\ -\sin(t/2)
+\end{pmatrix}
++
+c_2 e^{-t/2}
+\begin{pmatrix}
+2 &amp; 0 \\
+-1 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+\sin(t/2) \\ \cos(t/2)
+\end{pmatrix}\\
+&amp; =
+c_1 e^{-t/2} 
+\begin{pmatrix}
+2 \cos(t/2)  \\ - \cos(t/2) - \sin(t/2)
+\end{pmatrix}
++
+c_2 e^{-t/2}
+\begin{pmatrix}
+2 \sin(t/2) \\ - \sin(t/2) + \cos(t/2)
+\end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">The phase portrait for this system is given in <a href="" class="xref" data-knowl="./knowl/linear06-figure-underdamped-harmonic-oscillator.html" title="Figure 3.6.9">Figure 3.6.9</a>.</div>
+</div> <figure class="figure figure-like" id="linear06-figure-underdamped-harmonic-oscillator"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/linear06-underdamped-harmonic-oscillator.svg" role="img" class="contained" alt="a direction field of slope arrows and solution curves that spiral towards the origin"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.6.9<span class="period">.</span></span><span class="space"> </span>Phase portrait of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span></figcaption></figure></article></div>
+<article class="remark remark-like" id="remark-2"><h4 class="heading">
+<span class="type">Remark</span><span class="space"> </span><span class="codenumber">3.6.10</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1254">
+<div class="para">Of course, we have a much more efficient way of solving the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = \begin{pmatrix} 0 &amp; 1 \\ - 1/2 &amp; - 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Since <span class="process-math">\(A\)</span> has eigenvalue <span class="process-math">\(\lambda = (-1 + i)/2\)</span> with an eigenvector <span class="process-math">\(\mathbf v = (2, -1 + i)\text{,}\)</span> we can apply Euler's formula and write the solution as</div>
+<div class="displaymath process-math" id="md-316">
+\begin{align*}
+\mathbf x(t) \amp = e^{(-1 + i)t/2} \mathbf v \amp\\
+\amp = e^{-t/2} e^{it/2} \begin{pmatrix} 2 \\ -1 + i \end{pmatrix}\\
+\amp = e^{-t/2} (\cos(t/2) + i \sin(t/2)) \begin{pmatrix} 2 \\ -1 + i \end{pmatrix}\\
+\amp =e^{-t/2} \begin{pmatrix} 2 \cos(t/2) \\ - \cos(t/2) - \sin(t/2) \end{pmatrix} + i e^{-t/2}  \begin{pmatrix} 2 \sin(t/2) \\ -\sin(t/2) + \cos(t/2) \end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">Taking the real and the imaginary parts of the last expression, the general solution of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\mathbf x(t) = c_1 e^{-t/2} 
+\begin{pmatrix}
+2 \cos(t/2)  \\ - \cos(t/2) - \sin(t/2)
+\end{pmatrix}
++
+c_2 e^{-t/2}
+\begin{pmatrix}
+2 \sin(t/2) \\ - \sin(t/2) + \cos(t/2)
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">which agrees with the solution that we found by transforming coordinates.</div>
+</div></article></section><section class="subsection" id="linear06-subsection-repeated-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span>
+</h3>
+<div class="para" id="p-1255">Now suppose that <span class="process-math">\(A\)</span> has a single real eigenvalue <span class="process-math">\(\lambda\text{.}\)</span> Then the characteristic polynomial of <span class="process-math">\(A\)</span> is  <span class="process-math">\(p(\lambda) = \lambda^2 - (a + d)\lambda + (ad - bc)\text{,}\)</span> then <span class="process-math">\(A\)</span> has an eigenvalue <span class="process-math">\(\lambda = (a + d)/2\text{.}\)</span>
+</div>
+<article class="proposition theorem-like" id="proposition-3"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.6.11</span><span class="period">.</span>
+</h4>If  <span class="process-math">\(A\)</span> has a single eigenvalue and a pair of linearly independent eigenvectors, then <span class="process-math">\(A\)</span> must be of the form<div class="displaymath process-math">
+\begin{equation*}
+A = \begin{pmatrix} \lambda &amp; 0 \\ 0 &amp; \lambda \end{pmatrix}.
+\end{equation*}
+</div></article><article class="hiddenproof" id="proof-7"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-7"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-7"><article class="hiddenproof"><div class="para logical" id="p-1256">
+<div class="para">Suppose that <span class="process-math">\({\mathbf u}\)</span> and <span class="process-math">\({\mathbf v}\)</span> are linearly indeendent eigenvectors for <span class="process-math">\(A\text{,}\)</span> and let <span class="process-math">\(T\)</span> be the matrix whose first column is <span class="process-math">\({\mathbf u}\)</span> and second column is <span class="process-math">\({\mathbf v}\text{.}\)</span> That is, <span class="process-math">\(T {\mathbf e}_1 = {\mathbf u}\)</span> and <span class="process-math">\(T{\mathbf e}_2 = {\mathbf v}\text{.}\)</span> Since <span class="process-math">\({\mathbf u}\)</span> and <span class="process-math">\({\mathbf v}\)</span> are linearly independent, <span class="process-math">\(\det(T) \neq 0\)</span> and <span class="process-math">\(T\)</span> is invertible. So, it must be the case that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+AT = (A {\mathbf u}, A {\mathbf v}) = (\lambda {\mathbf u}, \lambda {\mathbf v}) = \lambda ({\mathbf u}, {\mathbf v}) = \lambda IT,
+\end{equation*}
+</div>
+<div class="para">or</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = \begin{pmatrix} \lambda &amp; 0 \\ 0 &amp; \lambda \end{pmatrix}.
+\end{equation*}
+</div>
+</div></article></div>
+<div class="para logical" id="p-1257">
+<div class="para">In this case, the system is uncoupled and is easily solved. That is, we can solve each equation in the system</div>
+<div class="displaymath process-math" id="md-317">
+\begin{align*}
+x' \amp = \lambda x\\
+y' \amp = \lambda y
+\end{align*}
+</div>
+<div class="para">separately to obtain the general solution</div>
+<div class="displaymath process-math" id="md-318">
+\begin{align*}
+x \amp = c_1 e^{\lambda t}\\
+y' \amp = c_2 e^{\lambda t}.
+\end{align*}
+</div>
+</div>
+<article class="proposition theorem-like" id="proposition-4"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.6.12</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1258">
+<div class="para">Suppose that <span class="process-math">\(A\)</span> has a single eigenvalue <span class="process-math">\(\lambda\text{.}\)</span> If <span class="process-math">\(\mathbf v\)</span> is an eigenvector for <span class="process-math">\(\lambda\)</span> and any other eigenvector for <span class="process-math">\(\lambda\)</span> is a multiple of <span class="process-math">\(\mathbf v\text{,}\)</span> then there exists a matrix <span class="process-math">\(T\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} A T
+=
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div></article><article class="hiddenproof" id="proof-8"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-8"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-8"><article class="hiddenproof"><div class="para logical" id="p-1259">
+<div class="para">If <span class="process-math">\({\mathbf w}\)</span> is another vector in <span class="process-math">\({\mathbb R}^2\)</span> such that <span class="process-math">\({\mathbf v}\)</span> and <span class="process-math">\({\mathbf w}\)</span> are linearly independent, then <span class="process-math">\(A \mathbf w\)</span> can be written as a linear combination of <span class="process-math">\(\mathbf v\)</span> and <span class="process-math">\(\mathbf w\text{,}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A {\mathbf w} = \alpha {\mathbf v} + \beta {\mathbf w}.
+\end{equation*}
+</div>
+<div class="para">We can assume that <span class="process-math">\(\alpha \neq 0\text{;}\)</span> otherwise, we would have a second linearly independent eigenvector. We claim that <span class="process-math">\(\beta = \lambda\text{.}\)</span> If this were not the case, then</div>
+<div class="displaymath process-math" id="md-319">
+\begin{align*}
+A
+\left(
+{\mathbf w} + 
+\left(
+\frac{\alpha}{\beta - \lambda}
+\right)
+{\mathbf v}
+\right)
+\amp =
+A {\mathbf w} + 
+\left(
+\frac{\alpha}{\beta - \lambda}
+\right)
+A {\mathbf v}\\
+\amp = \alpha {\mathbf v} + \beta {\mathbf w} + 
+\lambda \left(
+\frac{\alpha}{\beta - \lambda}
+\right)
+{\mathbf v}\\
+\amp =  \beta {\mathbf w} + 
+\alpha \left(1 + 
+\frac{\lambda}{\beta - \lambda}
+\right)
+{\mathbf v}\\
+\amp =  \beta {\mathbf w} + 
+\alpha \left(
+\frac{\beta - \lambda + \lambda}{\beta - \lambda}
+\right)
+{\mathbf v}\\
+\amp = \beta
+\left(
+{\mathbf w} + 
+\left(
+\frac{\alpha}{\beta - \lambda}
+\right)
+{\mathbf v}
+\right)
+\end{align*}
+</div>
+<div class="para">and <span class="process-math">\(\beta\)</span> would be an eigenvalue distinct from <span class="process-math">\(\lambda\text{.}\)</span> Thus, <span class="process-math">\(A {\mathbf w}  = \alpha {\mathbf v} + \lambda {\mathbf w}\text{.}\)</span> If we will let <span class="process-math">\({\mathbf u} = (1/ \alpha) {\mathbf w}\text{,}\)</span> then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A {\mathbf u} = {\mathbf v} + \frac{\lambda}{\alpha} {\mathbf w} = {\mathbf v} + \lambda {\mathbf u}.
+\end{equation*}
+</div>
+<div class="para">We now define <span class="process-math">\(T {\mathbf e}_1 = {\mathbf v}\)</span> and <span class="process-math">\(T{\mathbf e}_2 = {\mathbf u}\text{.}\)</span> Since</div>
+<div class="displaymath process-math" id="md-320">
+\begin{align*}
+AT \amp = A\mathbf u + A \mathbf v = \mathbf v + \lambda \mathbf u + \lambda \mathbf v\\
+T\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix} \amp = T (\lambda \mathbf e_1) + T \mathbf e_1 + T (\lambda \mathbf e_2) = \mathbf v + \lambda \mathbf u + \lambda \mathbf v,
+\end{align*}
+</div>
+<div class="para">we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+T^{-1} A T
+=
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Therefore, <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> is in canonical form after a change of coordinates.</div>
+</div></article></div>
+<article class="example example-like" id="example-49"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-49"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.6.13</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-49"><article class="example example-like"><div class="para logical" id="p-1260">
+<div class="para">Consider the system  <span class="process-math">\(\mathbf x' = A \mathbf x\text{,}\)</span> where</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+A = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The characteristic polynomial of <span class="process-math">\(A\)</span> is <span class="process-math">\(\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2\text{,}\)</span> we have only a single eigenvalue <span class="process-math">\(\lambda = 3\)</span> with eigenvector <span class="process-math">\(\mathbf v = (1, -2)\text{.}\)</span> Any other eigenvector for <span class="process-math">\(\lambda\)</span> is a multiple of <span class="process-math">\(\mathbf v\text{.}\)</span> If we choose <span class="process-math">\(\mathbf w = (1, 0)\text{,}\)</span> then <span class="process-math">\(\mathbf v\)</span> and <span class="process-math">\(\mathbf w\)</span> are linearly independent. Furthermore,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+A \mathbf w = \begin{pmatrix} 5 \\ - 4 \end{pmatrix} = 2 \begin{pmatrix} 1 \\ -2 \end{pmatrix} + \lambda \begin{pmatrix} 1 \\ 0 \end{pmatrix} = 2 \begin{pmatrix} 1 \\ -2 \end{pmatrix} + 3 \begin{pmatrix} 1 \\ 0 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">So we can let <span class="process-math">\(\mathbf u = (1/2) \mathbf w = (1/2, 0)\text{.}\)</span> Therefore, the matrix that we seek is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+T = \begin{pmatrix}  1 \amp 1/2 \\ -2 \amp 0 \end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+T^{-1} A T
+=
+\begin{pmatrix} -1/2 &amp; 2 \\ 1 &amp; 1 \end{pmatrix}
+\begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix}
+\begin{pmatrix}  1 \amp 1/2 \\ -2 \amp 0\end{pmatrix}
+=
+\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 3 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">From <a href="linear03.html" class="internal" title="Section 3.3: Phase Plane Analysis of Linear Systems">Section 3.3</a>, we know that the general solution to the system</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+\begin{pmatrix} dx/dt \\ dy/dt \end{pmatrix} = \begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 3 \end{pmatrix} \begin{pmatrix} x \\  y \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+\mathbf y(t) = c_1 e^{3t} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2 e^{3t} \begin{pmatrix} t \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Therefore, the general solution to</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html">
+\begin{equation*}
+\begin{pmatrix} dx/dt \\ dy/dt \end{pmatrix} = \begin{pmatrix} 5 &amp; 1 \\ -4 &amp; 1 \end{pmatrix} \begin{pmatrix} x \\  y \end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear03.html ./knowl/linear05-example-repeated-eigenvalues.html" id="md-321">
+\begin{align*}
+\mathbf x(t) \amp = T \mathbf y(t)\\
+\amp = c_1 e^{3t} T \begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2 e^{3t} T \begin{pmatrix} t \\ 1 \end{pmatrix}\\
+\amp = c_1 e^{3t} \begin{pmatrix} 1 \\ -2 \end{pmatrix} + c_2 e^{3t}  \begin{pmatrix} 1/2 + t \\ -2t \end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">This solution agrees with the solution that we found in <a href="" class="xref" data-knowl="./knowl/linear05-example-repeated-eigenvalues.html" title="Example 3.5.5">Example 3.5.5</a>.</div>
+</div></article></div>
+<div class="para" id="p-1261">In practice, we find solutions to linear systems using the methods that we outlined in <a href="linear02.html" class="internal" title="Section 3.2: Planar Systems">Sections 3.2–3.4</a>.  What we have demonstrated in this section is that those solutions are exactly the ones that we want.</div></section><section class="subsection" id="linear06-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span>
+</h3>
+<div class="para logical" id="p-1262"><ul class="disc">
+<li id="li-347"><div class="para" id="p-1263">A linear map <span class="process-math">\(T\)</span> is invertible if and only if <span class="process-math">\(\det T \neq 0\text{.}\)</span>
+</div></li>
+<li id="li-348"><div class="para" id="p-1264">A linear map <span class="process-math">\(T\)</span> converts solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\)</span> to solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{.}\)</span>
+</div></li>
+<li id="li-349"><div class="para" id="p-1265">The inverse of a linear map <span class="process-math">\(T\)</span> takes solutions of <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to solutions of <span class="process-math">\({\mathbf y}' = (T^{-1} A T) {\mathbf y}\text{.}\)</span>
+</div></li>
+<li id="li-350"><div class="para logical" id="p-1266">
+<div class="para">A change of coordinates converts the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\)</span> to one of the following special cases,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \mu
+\end{pmatrix},
+\begin{pmatrix}
+\alpha &amp;  \beta \\
+-\beta &amp; \alpha
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 0 \\
+0 &amp; \lambda
+\end{pmatrix},
+\begin{pmatrix}
+\lambda &amp; 1 \\
+0 &amp; \lambda
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div></li>
+</ul></div></section><section class="reading-questions" id="reading-questions-linear06"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear06-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para" id="p-1267">Explain what a change of coordinates is.</div></article><article class="exercise exercise-like" id="reading-questions-linear06-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-1268">Given a <span class="process-math">\(2 \times 2\)</span> linear system, what are the possible types of solutions?</div></article></section><section class="exercises" id="linear06-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.6.9</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="linear06-exercises-diagonalization">
+<h4 class="heading"><span class="title">Diagonalizing Matrices with Distinct Real Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-83"><div class="para" id="p-1269">For each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear06-exercises-diagonalization.html" title="Exercise Group 3.6.9.1–6: Diagonalizing Matrices with Distinct Real Eigenvalues">Exercise Group 3.6.9.1–6</a>, find (1) the eigenvalues, <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{;}\)</span> (2) for each eigenvalue <span class="process-math">\(\lambda_1\)</span> and <span class="process-math">\(\lambda_2\text{,}\)</span> find an eigenvector <span class="process-math">\(\mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\text{,}\)</span> respectively; and (3) construct the matrix <span class="process-math">\(T = (\mathbf v_1, \mathbf v_2)\)</span> and calculate <span class="process-math">\(T^{-1}AT\text{.}\)</span>
+</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-292"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="para" id="p-1270"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+7 &amp; 3 \\
+-4 &amp; 0
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-293"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="para" id="p-1271"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-3 &amp; -10 \\
+3 &amp; 8
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-294"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="para" id="p-1272"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+18 &amp; 11 \\
+-22 &amp; -15
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-295"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="para" id="p-1273"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-14 &amp; -12 \\
+18 &amp; 16
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-296"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="para" id="p-1274"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+35/3 &amp; 22 \\
+-22/3 &amp; -14
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-297"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="para" id="p-1275"><span class="process-math">\(\displaystyle A =
+\begin{pmatrix}
+31/2 &amp; 85/6 \\
+-17 &amp; -47/3
+\end{pmatrix}\)</span></div></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear06-exercises-complex">
+<h4 class="heading"><span class="title">Matrices with Complex Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-84"><div class="para" id="p-1276">For each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear06-exercises-complex.html" title="Exercise Group 3.6.9.7–12: Matrices with Complex Eigenvalues">Exercise Group 3.6.9.7–12</a>, find (1) an eigenvalue, <span class="process-math">\(\lambda\text{;}\)</span> (2) find an eigenvector <span class="process-math">\(\mathbf v = \mathbf v_{\text{Re}} + i \mathbf v_{\text{Im}}\)</span> for <span class="process-math">\(\lambda\text{;}\)</span> and (2) construct the matrix <span class="process-math">\(T = (\mathbf v_{\text{Re}} , \mathbf v_{\text{Im}})\)</span> and calculate <span class="process-math">\(T^{-1}AT\text{.}\)</span>  Compare your result to <span class="process-math">\(\lambda\text{.}\)</span>
+</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-298"><h5 class="heading"><span class="codenumber">7<span class="period">.</span></span></h5>
+<div class="para" id="p-1277"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+5 &amp; 2 \\
+-5 &amp; -1
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-299"><h5 class="heading"><span class="codenumber">8<span class="period">.</span></span></h5>
+<div class="para" id="p-1278"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+13 &amp; 4 \\
+-26 &amp; -7
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-300"><h5 class="heading"><span class="codenumber">9<span class="period">.</span></span></h5>
+<div class="para" id="p-1279"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-2 &amp; -2 \\
+25 &amp; 12
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-301"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5>
+<div class="para" id="p-1280"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-23/3 &amp; -5 \\
+13 &amp; 25/3
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-302"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5>
+<div class="para" id="p-1281"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+2 &amp; 2 \\
+-4 &amp; 6
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-303"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5>
+<div class="para" id="p-1282"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+-9 &amp; 26 \\
+-4 &amp; 11
+\end{pmatrix}\)</span></div></article>
+</div>
+</div>
+<div class="exercisegroup" id="linear06-exercises-repeated">
+<h4 class="heading"><span class="title">Matrices with Repeated Eigenvalues.</span></h4>
+<div class="introduction" id="introduction-85"><div class="para logical" id="p-1283">
+<div class="para">For each of the matrices <span class="process-math">\(A\)</span> in <a href="" class="xref" data-knowl="./knowl/linear06-exercises-repeated.html" title="Exercise Group 3.6.9.13–18: Matrices with Repeated Eigenvalues">Exercise Group 3.6.9.13–18</a>, find (1) the eigenvalue, <span class="process-math">\(\lambda\)</span> and an eigenvector <span class="process-math">\(\mathbf v\)</span> for <span class="process-math">\(\lambda\text{;}\)</span> (2) choose a vector <span class="process-math">\(\mathbf w\)</span> that is linearly independent of <span class="process-math">\(\mathbf v\)</span> and compute <span class="process-math">\((A - \lambda I)\mathbf w\text{.}\)</span>  You should find that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-exercises-repeated.html">
+\begin{equation*}
+(A - \lambda I)\mathbf w = \alpha \mathbf v
+\end{equation*}
+</div>
+<div class="para">for some real number <span class="process-math">\(\alpha\text{.}\)</span>  (3) Let <span class="process-math">\(\mathbf u = (1/\alpha) \mathbf w\)</span> and form the matrix <span class="process-math">\(T = (\mathbf v, \mathbf u)\text{.}\)</span>  (4) Calculate  <span class="process-math">\(T^{-1}AT\text{,}\)</span> which should be in the form</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear06-exercises-repeated.html">
+\begin{equation*}
+\begin{pmatrix} \lambda &amp; 1 \\ 0 &amp; \lambda \end{pmatrix}.
+\end{equation*}
+</div>
+</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-304"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5>
+<div class="para" id="p-1284"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+7 &amp; 4 \\
+-9 &amp; -5
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-305"><h5 class="heading"><span class="codenumber">14<span class="period">.</span></span></h5>
+<div class="para" id="p-1285"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+4 &amp; 4 \\
+-9 &amp; -8
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-306"><h5 class="heading"><span class="codenumber">15<span class="period">.</span></span></h5>
+<div class="para" id="p-1286"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+4 &amp; -4 \\
+1 &amp; 8
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-307"><h5 class="heading"><span class="codenumber">16<span class="period">.</span></span></h5>
+<div class="para" id="p-1287"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+6 &amp; 1 \\
+-4 &amp; 2
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-308"><h5 class="heading"><span class="codenumber">17<span class="period">.</span></span></h5>
+<div class="para" id="p-1288"><span class="process-math">\(\displaystyle A = 
+\begin{pmatrix}
+3 &amp; 1 \\
+-2 &amp; 0
+\end{pmatrix}\)</span></div></article><article class="exercise exercise-like" id="exercise-309"><h5 class="heading"><span class="codenumber">18<span class="period">.</span></span></h5>
+<div class="para" id="p-1289"><span class="process-math">\(\displaystyle A =
+\begin{pmatrix}
+1 &amp; -2 \\
+1 &amp; 3
+\end{pmatrix}\)</span></div></article>
+</div>
+</div></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-36"><div class="fn">Of couurse, we have much quicker ways of solving a system <span class="process-math">\(d\mathbf x/dt = A \mathbf x\)</span> with distinct real eigenvalues.  The goal of this section is show that we have covered all possible cases for <span class="process-math">\(2 \times 2\)</span> systems of linear differential equations and not to invent new methods of solution.</div></div>
+</div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="linear05.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="linear07.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

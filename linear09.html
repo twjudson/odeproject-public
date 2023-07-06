@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project The Matrix Exponential</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="linear08.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="linear.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="secondorder.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="dedication-1.html" class="internal"><span class="title">Dedication</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Preface</span></a></div></li>
+<li><div class="toc-item"><a href="acknowledgement-1.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook.html" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="firstlook01.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-exponential-growth" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-logistic-growth" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal"><span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-predator-prey" class="internal"><span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-modeling-hiv" class="internal"><span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-questions-for-thought" class="internal"><span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-important-lessons" class="internal"><span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#reading-questions-firstlook01" class="internal"><span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-exercises" class="internal"><span class="codenumber">1.1.9</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-sage" class="internal"><span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="firstlook01.html#firstlook01-sage-exercises" class="internal"><span class="codenumber">1.1.10</span> <span class="title"><em class="emphasis">Sage</em> Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook02.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-separable-de" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-newtons-law-cooling" class="internal"><span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-mixing-problem" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-retirement" class="internal"><span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-some-theory" class="internal"><span class="codenumber">1.2.5</span> <span class="title">Some Theory</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-what-can-go-wrong" class="internal"><span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-important-lessons" class="internal"><span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#reading-questions-firstlook02" class="internal"><span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-exercises-" class="internal"><span class="codenumber">1.2.9</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-sage" class="internal"><span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook03.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits" class="internal"><span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits-revisited" class="internal"><span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage-direction-fields" class="internal"><span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-autonomous-equations" class="internal"><span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-important-lessons" class="internal"><span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#reading-questions-firstlook03" class="internal"><span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-exercises" class="internal"><span class="codenumber">1.3.8</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage" class="internal"><span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields-sage" class="internal"><span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-desolve_rk4" class="internal"><span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#exercises-5" class="internal"><span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook04.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-eulers-method" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-error-bound" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-improving-euler" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-important-lessons" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#reading-questions-firstlook04" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#exercises-firstlook04" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-sage-project" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook05.html" class="internal"><span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mine-tailings" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-first-order-linear-de" class="internal"><span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mixing-models" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-finance-models" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Finance Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#subsection-33" class="internal"><span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-important-lessons" class="internal"><span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#reading-questions-firstlook05" class="internal"><span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#exercises-firstlook05" class="internal"><span class="codenumber">1.5.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook06.html" class="internal"><span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-existence" class="internal"><span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-picard" class="internal"><span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-important-lessons" class="internal"><span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#reading-questions-firstlook06" class="internal"><span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#exercises-firstlook06" class="internal"><span class="codenumber">1.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook07.html" class="internal"><span class="codenumber">1.7</span> <span class="title">Bifurcations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-logisitic-harvesting" class="internal"><span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-one-parameter-families" class="internal"><span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-important-lessons" class="internal"><span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#reading-questions-firstlook07" class="internal"><span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-exercises" class="internal"><span class="codenumber">1.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="firstlook08.html" class="internal"><span class="codenumber">1.8</span> <span class="title">Projects for First-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="systems01.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-predator-prey" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-spring-mass" class="internal"><span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-epidemics" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-important-lessons" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#reading-questions-system01" class="internal"><span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-exercises" class="internal"><span class="codenumber">2.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-sage" class="internal"><span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems02.html" class="internal"><span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-direction-fields" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-predator-prey" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-competing-species" class="internal"><span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-sage-direction-fields" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-phase-plane-analysis" class="internal"><span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-important-lessons" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#reading-questions-system02" class="internal"><span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-exercises" class="internal"><span class="codenumber">2.2.8</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#subsection-sytems02-sage" class="internal"><span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems03.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-duffing" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-eulers-method" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-taylor-series" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-existence-uniqueness" class="internal"><span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-important-lessons" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#reading-questions-system03" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-exercises" class="internal"><span class="codenumber">2.3.7</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="systems03.html#systems03-subsection-sage" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems with Euler's Method</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="systems03.html#exercises-13" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Sage Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems04.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-partially-coupled" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-sage-linear-systems" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-harmonic-oscillator" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-important-lessons" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#reading-questions-system04" class="internal"><span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-exercises" class="internal"><span class="codenumber">2.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="systems05.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Projects for Systems of Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear.html" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="linear01.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-matrices" class="internal"><span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-linear-independence" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-finding-eigenvalues" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-important-lessons" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#reading-questions-linear01" class="internal"><span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#exercises-linear01" class="internal"><span class="codenumber">3.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-sage-project" class="internal"><span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear02.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Planar Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-planar-systems" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-systems-of-de" class="internal"><span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-solving-systems" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-important-lessons" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#reading-questions-linear02" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-exercises" class="internal"><span class="codenumber">3.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear03.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-different-signs" class="internal"><span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-negative" class="internal"><span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-positive" class="internal"><span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-important-lessons" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#reading-questions-linear03" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-exercises" class="internal"><span class="codenumber">3.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear04.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-spiral-sinks-sources" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-quick-start" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-important-lessons" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#reading-questions-linear04" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-exercises" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear05.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-quick-start" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-important-lessons" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#reading-questions-linear05" class="internal"><span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#exercises-linear05" class="internal"><span class="codenumber">3.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear06.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-linear-maps" class="internal"><span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates" class="internal"><span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates-system" class="internal"><span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-distinct-real-eigenvalues" class="internal"><span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-important-lessons" class="internal"><span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#reading-questions-linear06" class="internal"><span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-exercises" class="internal"><span class="codenumber">3.6.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear07.html" class="internal"><span class="codenumber">3.7</span> <span class="title">The Trace-Determinant Plane</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-trace-determinant" class="internal"><span class="codenumber">3.7.1</span> <span class="title">The Trace-Determinant Plane</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-parameterized-families" class="internal"><span class="codenumber">3.7.2</span> <span class="title">Parameterized Families of Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-important-lessons" class="internal"><span class="codenumber">3.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#reading-questions-linear07" class="internal"><span class="codenumber">3.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-exercises" class="internal"><span class="codenumber">3.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear08.html" class="internal"><span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-higher-order-systems" class="internal"><span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-geometry" class="internal"><span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-double-spring-mass" class="internal"><span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-important-lessons" class="internal"><span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#reading-questions-linear08" class="internal"><span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-exercises" class="internal"><span class="codenumber">3.8.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="linear09.html" class="internal"><span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-matrix-exponential" class="internal"><span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-generalized-eigenvalues" class="internal"><span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-important-lessons" class="internal"><span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#reading-questions-linear09" class="internal"><span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-exercises" class="internal"><span class="codenumber">3.9.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder.html" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="secondorder01.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal"><span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-second-order-linear-de" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-harmonic-oscillators" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-important-lessons" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#reading-questions-secondorder01" class="internal"><span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises" class="internal"><span class="codenumber">4.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-sage" class="internal"><span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises-sage" class="internal"><span class="codenumber">4.1.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder02.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-nonhomogeneous-de" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-forcing" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-undetermined-coefficients" class="internal"><span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-strategy" class="internal"><span class="codenumber">4.2.4</span> <span class="title">A Strategy</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-important-lessons" class="internal"><span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#reading-questions-secondorder02" class="internal"><span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-exercises" class="internal"><span class="codenumber">4.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder03.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Sinusoidal Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-complexification" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Complexification</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-qualitative-analysis" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Qualitative Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-important-lessons" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#reading-questions-secondorder03" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-exercises" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder04.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-resonance" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Resonance</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-beats" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-forced-damped" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-important-lessons" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#reading-questions-secondorder04" class="internal"><span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-exercises" class="internal"><span class="codenumber">4.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="secondorder05.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Projects for Second-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear.html" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="nonlinear01.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Linearization</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-linearization-fails" class="internal"><span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-important-lessons" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#reading-questions-nonlinear01" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-exercises" class="internal"><span class="codenumber">5.1.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear02.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-pendulum" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-hamiltonian-systems" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-ideal-pendulum" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-important-lessons" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#reading-questions-nonlinear02" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-exercises" class="internal"><span class="codenumber">5.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear03.html" class="internal"><span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-pendulum-damping" class="internal"><span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-lyapunov-functions" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-gradient-systems" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-important-lessons" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#reading-questions-nonlinear03" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-exercises" class="internal"><span class="codenumber">5.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear04.html" class="internal"><span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-bifurcations" class="internal"><span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-hopf-bifurcation" class="internal"><span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-important-lessons" class="internal"><span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#reading-questions-nonlinear04" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-exercises" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="nonlinear05.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Projects</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace.html" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="laplace01.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-definitions" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-properties" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-finding-laplace-transforms" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-important-lessons" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#reading-questions-laplace01" class="internal"><span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-laplace01" class="internal"><span class="codenumber">6.1.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-sage" class="internal"><span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-34" class="internal"><span class="codenumber">6.1.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace02.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-derivatives" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-discontinuous-functions" class="internal"><span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-harmonic-oscillators" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-important-lessons" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#reading-questions-laplace02" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-exercises" class="internal"><span class="codenumber">6.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace03.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Delta Functions and Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-impulse-forcing" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Impulse Forcing</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-dirac-delta" class="internal"><span class="codenumber">6.3.2</span> <span class="title">The Laplace Transform of the Dirac Delta Function</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-important-lessons" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#reading-questions-laplace03" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-exercises" class="internal"><span class="codenumber">6.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace04.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Convolution</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-convolution" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Convolution</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-applying-convolution" class="internal"><span class="codenumber">6.4.2</span> <span class="title">Applying the Convolution Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-important-lessons" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#reading-questions-laplace04" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-exercises" class="internal"><span class="codenumber">6.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="laplace05.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Projects for Laplace Transforms</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="appendix-gfdl.html" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></div></li>
+<li><div class="toc-item"><a href="solutions-1.html" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="references-1.html" class="internal"><span class="title">Readings and References</span></a></div></li>
+<li><div class="toc-item"><a href="appendix-2.html" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="linear09"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span>
+</h2>
+<article class="objectives goal-like" id="objectives-20"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-376"><div class="para logical" id="p-1404">
+<div class="para">To understand  that <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-344">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0,
+\end{align*}
+</div>
+<div class="para">where <span class="process-math">\(e^{tA}\)</span> is the matrix exponential.</div>
+</div></li>
+<li id="li-377"><div class="para" id="p-1405">To understand that if <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix A and <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span>
+</div></li>
+<li id="li-378"><div class="para" id="p-1406">To understand and be able to apply the properties of the matrix exponential to <span class="process-math">\(n \times n\)</span> matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{.}\)</span>
+</div></li>
+<li id="li-379"><div class="para logical" id="p-1407">
+<div class="para">To understand and be able to use the matrix exponential to solve a linear system</div>
+<div class="displaymath process-math" id="md-345">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0.
+\end{align*}
+</div>
+</div></li>
+</ul></article><section class="introduction" id="introduction-94"><div class="para logical" id="p-1408">
+<div class="para">Consider the linear system</div>
+<div class="displaymath process-math" id="md-346">
+\begin{align*}
+x' &amp; = -17x -46y -7z\\
+y' &amp; = 8x + 21y + 3z\\
+z' &amp; = -7x - 15y - z
+\end{align*}
+</div>
+<div class="para">The matrix associated with this system is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A 
+=
+\begin{pmatrix}
+-17 &amp; -46 &amp; -7 \\
+8 &amp; 21 &amp; 3 \\
+-7 &amp; -15 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The characteristic polynomial of <span class="process-math">\(A\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+p(\lambda) = \det(A - \lambda I) = \lambda^3 - 3\lambda^2 + 3\lambda - 1 = (\lambda - 1)^3
+\end{equation*}
+</div>
+<div class="para">hence, there is only a single eigenvalue <span class="process-math">\(\lambda = 1\text{.}\)</span> Moreover, we can only find a single linearly independent eigenvector <span class="process-math">\((1, -1, 4)\text{.}\)</span>  Thus,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x}(t) = c e^{-t} \begin{pmatrix} 1 \\ -1 \\ 4\end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">is a solution to our system. However, this is not the general solution to the system. We can only solve initial value problems where the initial condition lies on the line through the origin containing the vector <span class="process-math">\((1, -1, 4)\text{.}\)</span> To construct a general solution to our system, we will need two other linearly independent solutions.</div>
+</div></section><section class="subsection" id="linear09-subsection-matrix-exponential"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span>
+</h3>
+<div class="para logical" id="p-1409">
+<div class="para">Our goal is to construct a solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-347">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0,
+\end{align*}
+</div>
+<div class="para">where <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix. Recalling that the solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-348">
+\begin{align*}
+x' &amp; = kx\\
+x(0) &amp; = x_0
+\end{align*}
+</div>
+<div class="para">is <span class="process-math">\(x(t) = x_0 e^{kt}\text{,}\)</span> we might guess that a solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-349">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+<div class="para">has the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x}(t) = e^{tA} {\mathbf x}_0
+\end{equation*}
+</div>
+<div class="para">if we can make sense of the expression <span class="process-math">\(e^{tA}\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1410">
+<div class="para">We will define the <dfn class="terminology">exponential</dfn> of <span class="process-math">\(A\)</span> using the power series for <span class="process-math">\(e^t\text{.}\)</span> Thus,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k,
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, where <span class="process-math">\(A^0 = I\)</span> by convention. Each term makes sense in our definition since each is an expression of <span class="process-math">\(n \times n\)</span> matrices; however, there are some issues surrounding the convergence of the power series. A series, even a series whose individual terms are matrix expressions, converges if and only if its partial sums,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+S_N =  \sum_{k=0}^N \frac{1}{k!} A^k
+\end{equation*}
+</div>
+<div class="para">converge. Although we shall not provide a proof, the matrix exponential <span class="process-math">\(e^A\)</span> converges for all <span class="process-math">\(A\text{.}\)</span>
+</div>
+</div>
+<article class="example example-like" id="linear09-example-exp-diag-matrix"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-linear09-example-exp-diag-matrix"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.1</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-linear09-example-exp-diag-matrix"><article class="example example-like"><div class="para logical" id="p-1411">
+<div class="para">Let us compute the exponential of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+s &amp; 0 \\
+0 &amp; t
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Actually, this is quite easy,</div>
+<div class="displaymath process-math" id="md-350">
+\begin{align*}
+e^A &amp; = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+\begin{pmatrix}
+s &amp; 0 \\
+0 &amp; t
+\end{pmatrix}
++
+\frac{1}{2!}
+\begin{pmatrix}
+s^2 &amp; 0 \\
+0 &amp; t^2
+\end{pmatrix}
++
+\frac{1}{3!}
+\begin{pmatrix}
+s^3 &amp; 0 \\
+0 &amp; t^3
+\end{pmatrix}
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 + s + s^2/2! + s^3/3! + \cdots &amp; 0 \\
+0 &amp; 1 + t + t^2/2! + t^3/3! + \cdots
+\end{pmatrix}\\
+&amp; =
+\begin{pmatrix}
+e^s &amp; 0 \\
+0 &amp; e^t
+\end{pmatrix}.
+\end{align*}
+</div>
+</div></article></div>
+<article class="theorem theorem-like" id="linear09-theorem-matrix-exponential"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.2</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1412">
+<div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{d}{dt} e^{tA} = A e^{tA}.
+\end{equation*}
+</div>
+</div></article><article class="hiddenproof" id="proof-11"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-11"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-11"><article class="hiddenproof"><div class="para logical" id="p-1413">
+<div class="para">We simply need to differentiate</div>
+<div class="displaymath process-math">
+\begin{equation*}
+e^{tA} = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3+ \cdots
+\end{equation*}
+</div>
+<div class="para">term by term.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-37" id="fn-37"><sup> 1 </sup></a> However,</div>
+<div class="displaymath process-math" id="md-351">
+\begin{align*}
+\frac{d}{dt} e^{tA} &amp; = \frac{d}{dt} \left( I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots \right)\\
+&amp; = A + tA^2 + \frac{t^2}{2!} A^3 + \cdots\\
+&amp; = A\left(I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} + \cdots\right)\\
+&amp; = Ae^{tA}.
+\end{align*}
+</div>
+</div></article></div>
+<article class="corollary theorem-like" id="linear09-corollary-matrix-exponential"><h4 class="heading">
+<span class="type">Corollary</span><span class="space"> </span><span class="codenumber">3.9.3</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1414">
+<div class="para">Let <span class="process-math">\(A\)</span> be an <span class="process-math">\(n \times n\)</span> matrix. Then <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-352">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+</div></article><article class="hiddenproof" id="proof-12"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-12"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-12"><article class="hiddenproof"><div class="para logical" id="p-1415">
+<div class="para">The corollary follows immediately from <a href="" class="xref" data-knowl="./knowl/linear09-theorem-matrix-exponential.html" title="Theorem 3.9.2">Theorem 3.9.2</a>. If <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\text{,}\)</span> then</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-theorem-matrix-exponential.html">
+\begin{equation*}
+{\mathbf x}'(t) 
+= \frac{d}{dt} \left( e^{tA}{\mathbf x}_0 \right)
+= \frac{d}{dt} \left( e^{tA} \right) {\mathbf x}_0
+= Ae^{tA} {\mathbf x}_0
+= A {\mathbf x}(t).
+\end{equation*}
+</div>
+</div></article></div>
+<div class="para" id="p-1416">Thus, solving linear systems is simply a matter of computing matrix exponentials. The problem is that matrix exponentials may not be so easy to compute.</div>
+<article class="example example-like" id="example-60"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-60"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.4</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-60"><article class="example example-like"><div class="para logical" id="p-1417">
+<div class="para">The matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = 
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">has repeated eigenvalues <span class="process-math">\(\lambda = -2\text{.}\)</span> If we try to compute <span class="process-math">\(e^{tA}\text{,}\)</span> then</div>
+<div class="displaymath process-math" id="md-353">
+\begin{align*}
+e^{tA} &amp; = I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!} A^3 + \cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+t\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
++
+\frac{t^2}{2!}
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}^2
++
+\frac{t^3}{3!}
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}^3
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
++
+t\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}
++
+\frac{t^2}{2!}
+\begin{pmatrix}
+-20 \amp -16 \\
+-36 \amp 28
+\end{pmatrix}
++
+\frac{t^3}{3!}
+\begin{pmatrix}
+64 \amp 48 \\
+-108 \amp -80
+\end{pmatrix}
++
+\cdots\\
+&amp; =
+\begin{pmatrix}
+1 + t - 20t^2/2! + 64t^3/3! + \cdots &amp;  4t - 16t^2/2! + 48t^3/ 3! + \cdots \\
+-9t - 36t^2/2! - 108t^3/3! + \cdots &amp; 1 - 8t + 28t^2/2! - 80t^3/3! + \cdots
+\end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">It is not at all clear that this series converges to a matrix whose entries can be expressed in terms of elementary functions.</div>
+</div></article></div>
+<div class="para" id="p-1418">Now let us see how we can use the matrix exponential to solve a linear system as well as invent a more direct way to compute the matrix exponential.</div>
+<article class="theorem theorem-like" id="linear09-theorem-compute-matrix-exponential-1"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.5</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-1419">Let <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix <span class="process-math">\(A\text{.}\)</span> If <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span>
+</div></article><article class="hiddenproof" id="proof-13"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-13"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-13"><article class="hiddenproof"><div class="para logical" id="p-1420">
+<div class="para">Since <span class="process-math">\({\mathbf v}\)</span> is an eigenvalue for <span class="process-math">\(\lambda\text{,}\)</span> we know that <span class="process-math">\(A{\mathbf v} = \lambda {\mathbf v}\text{.}\)</span> Using mathematical induction, we can show that <span class="process-math">\(A^n\)</span> has eigenvalue <span class="process-math">\(\lambda^n\)</span> with associated eigenvector <span class="process-math">\({\mathbf v}\text{.}\)</span> Indeed,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A^n {\mathbf v}
+=
+A (A^{n-1} {\mathbf v})
+=
+A(\lambda^{n-1} {\mathbf v})
+=
+\lambda^{n-1} A {\mathbf v}
+=
+\lambda^n {\mathbf v}.
+\end{equation*}
+</div>
+<div class="para">Hence,</div>
+<div class="displaymath process-math" id="md-354">
+\begin{align*}
+e^{tA} {\mathbf v}
+&amp; =
+\left(
+I + tA + \frac{t^2}{2!} A^2 + \frac{t^3}{3!}A^3 + \cdots
+\right) 
+{\mathbf v}\\
+&amp; = {\mathbf v} + tA{\mathbf v} + \frac{t^2}{2!} A^2{\mathbf v} + \frac{t^3}{3!} A^3{\mathbf v}+ \cdots\\
+&amp; = {\mathbf v} + t\lambda{\mathbf v} + \frac{t^2}{2!} \lambda^2{\mathbf v} + \frac{t^3}{3!} \lambda^3{\mathbf v}+ \cdots\\
+&amp; =
+\left(
+I + t\lambda + \frac{t^2}{2!} \lambda^2 + \frac{t^3}{3!}\lambda^3 + \cdots
+\right) 
+{\mathbf v}\\
+&amp; = e^{\lambda t} {\mathbf v}.
+\end{align*}
+</div>
+</div></article></div>
+<div class="para" id="p-1421">The matrix exponential shares several properties with the exponential function <span class="process-math">\(e^x\)</span> that we studied in calculus.</div>
+<article class="theorem theorem-like" id="linear09-theorem-matrix-exponential-properties"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.6</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1422">
+<div class="para">Let <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> be <span class="process-math">\(n \times n\)</span> matrices. Then</div>
+<ol class="decimal">
+<li id="li-380"><div class="para" id="p-derived-li-380"><span class="process-math">\(Ae^A = e^A A\text{;}\)</span></div></li>
+<li id="li-381"><div class="para" id="p-derived-li-381">if <span class="process-math">\(AB = BA\text{,}\)</span> then <span class="process-math">\(e^A e^B = e^{A+B}\text{;}\)</span>
+</div></li>
+<li id="li-382"><div class="para" id="p-derived-li-382">
+<span class="process-math">\(e^A\)</span> has inverse <span class="process-math">\(e^{-A}\text{.}\)</span>
+</div></li>
+</ol>
+</div></article><article class="hiddenproof" id="proof-14"><a href="" data-knowl="" class="id-ref proof-knowl original" data-refid="hk-proof-14"><h4 class="heading"><span class="type">Proof<span class="period">.</span></span></h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-proof-14"><article class="hiddenproof"><div class="para logical" id="p-1423">
+<div class="para">To prove (1), we can simply expand both sides of the equality in a power series,</div>
+<div class="displaymath process-math" id="md-355">
+\begin{align*}
+A e^A&amp; = A \left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right)\\
+&amp; =A + A^2 + \frac{1}{2!} A^3 + \frac{1}{3!} A^4 + \cdots\\
+&amp; =\left( I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots \right) A\\
+&amp; =e^A A.
+\end{align*}
+</div>
+<div class="para">Proving (2) is a only bit more complicated if we notice that the binomial expansion holds for matrices,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(A + B)^n  = \sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k},
+\end{equation*}
+</div>
+<div class="para">where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{pmatrix} n \\ k \end{pmatrix} = \frac{n!}{k! (n-k)!},
+\end{equation*}
+</div>
+<div class="para">providing <span class="process-math">\(AB = BA\text{.}\)</span>
+</div>
+<div class="displaymath process-math" id="md-356">
+\begin{align*}
+e^{A + B} &amp; = \sum_{n=0}^\infty \frac{1}{n!} (A + B)^n\\
+&amp; = \sum_{n=0}^\infty \frac{1}{n!} \left(\sum_{k = 0}^n \begin{pmatrix} n \\ k \end{pmatrix} A^k B^{n-k} \right)\\
+&amp; = \sum_{n=0}^\infty \left( \sum_{k = 0}^n \frac{1}{k!(n-k)!}  A^k B^{n-k} \right)\\
+&amp; =
+\left(
+\sum_{n=0}^\infty \frac{1}{n!} A^n
+\right)
+\left(
+\sum_{n=0}^\infty \frac{1}{n!} B^n
+\right)\\
+&amp; = e^A e^B.
+\end{align*}
+</div>
+<div class="para">Simply expand each series out to see that this is true. Part (3) follows directly from Part (2), since <span class="process-math">\(A\)</span> and <span class="process-math">\(-A\)</span> commute.</div>
+</div></article></div>
+<article class="example example-like" id="example-61"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-61"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.7</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-61"><article class="example example-like"><div class="para logical" id="p-1424">
+<div class="para">Now let us compute <span class="process-math">\(e^{tA}\)</span> once again for</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+4 \amp 4 \\
+-9 \amp -8
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">First notice that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A = \lambda I + (A - \lambda I).
+\end{equation*}
+</div>
+<div class="para">Since the identity matrix <span class="process-math">\(I\)</span> commutes with every matrix, we know that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+e^{t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t(A - \lambda I)}.
+\end{equation*}
+</div>
+<div class="para">We also know that <span class="process-math">\(e^{\lambda t I } = e^{\lambda t} I\)</span> by <a href="" class="xref" data-knowl="./knowl/linear09-example-exp-diag-matrix.html" title="Example 3.9.1">Example 3.9.1</a>.  Thus,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+e^{ t A} = e^{t(\lambda I + (A - \lambda I))} = e^{t\lambda I} e^{t (A - \lambda I)} = e^{\lambda t} e^{t (A - \lambda I)}.
+\end{equation*}
+</div>
+<div class="para">The matrix <span class="process-math">\(A\)</span> has repeated eigenvalue <span class="process-math">\(\lambda = -2\text{.}\)</span> Consequently,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html">
+\begin{equation*}
+A - \lambda I = A + 2I = \begin{pmatrix} 6 &amp; 4 \\ -9 &amp; -6 \end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">and <span class="process-math">\((A - \lambda I)^2\)</span> is the zero matrix. Thus,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-example-exp-diag-matrix.html" id="md-357">
+\begin{align*}
+e^{ t A} &amp; = e^{\lambda t} e^{t (A - \lambda I)}\\
+&amp; = e^{\lambda t} \left( I + t (A - \lambda I ) + \frac{t^2}{2!} (A - \lambda I )^2 +  \frac{t^2}{3!} (A - \lambda I )^3 + \cdots \right)\\
+&amp; =e^{- 2t} \left( I + t (A + 2I ) + \frac{t^2}{2!} (A + 2I )^2 +  \frac{t^2}{3!} (A + 2I )^3 + \cdots \right)\\
+&amp; =e^{- 2t} \left( I + t (A + 2I )  \right)\\
+&amp; =
+e^{-2t}
+\begin{pmatrix}
+1 + 6t \amp 4t \\
+-9t \amp -6t
+\end{pmatrix}.
+\end{align*}
+</div>
+</div></article></div>
+<div class="para" id="p-1425">Our example suggests at the following proposition. We leave the proof of this proposition as an exercise.</div>
+<article class="proposition theorem-like" id="linear09-proposition-compute-matrix-exponential-2"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.9.8</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1426">
+<div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then there exists a nonnegative integer <span class="process-math">\(k \lt n\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).
+\end{equation*}
+</div>
+</div></article><article class="example example-like" id="example-62"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-62"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.9</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-62"><article class="example example-like"><div class="para logical" id="p-1427">
+<div class="para">We are now ready to return to our original system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A 
+=
+\begin{pmatrix}
+-17 &amp; -46 &amp; -7 \\
+8 &amp; 21 &amp; 3 \\
+-7 &amp; -15 &amp; -1
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">This matrix has a single eigenvalue <span class="process-math">\(\lambda = 1\text{.}\)</span> It is easy to show that the only nonzero powers of <span class="process-math">\(A - \lambda I = A - I\)</span> are</div>
+<div class="displaymath process-math" id="md-358">
+\begin{align*}
+(A + I) &amp; = 
+\begin{pmatrix}
+-18 &amp; -46 &amp; -7 \\
+8 &amp; 20 &amp; 3 \\
+-7 &amp; -15 &amp; -2
+\end{pmatrix}\\
+(A + I)^2 &amp; = 
+\begin{pmatrix}
+5 &amp; 13 &amp; 2 \\
+-5 &amp; -13 &amp; -2 \\
+20 &amp; 52 &amp; 8
+\end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">Therefore,</div>
+<div class="displaymath process-math" id="md-359">
+\begin{align*}
+e^{tA} &amp; =
+e^{t} \left(
+I + t (A+I ) + \frac{t^2}{2!} (A + I )^2
+\right)\\
+&amp; =
+e^{t}
+\begin{pmatrix}
+1 - 18t + 5t^2/2 \amp -46t +13t^2/2 \amp - 7t + t^2 \\
+8t - 5t^2/2 \amp 1 + 20t -13t^2/2 \amp 3t - t^2 \\
+-7t + 10t^2 \amp -15t + 26t^2 \amp 1 - 2t + 4t^2
+\end{pmatrix}.
+\end{align*}
+</div>
+<div class="para">Now, to compute three linearly independent solutions for <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> we simply compute <span class="process-math">\(e^{t A} {\mathbf v}\)</span> for three linearly independent vectors. We will use the standard basis vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf e}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, 
+{\mathbf e}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, 
+{\mathbf e}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Thus,  the general solution to our system  is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1 
+e^{-t}
+\begin{pmatrix}
+1 - 18t + 5t^2/2  \\
+8t - 5t^2/2  \\
+-7t + 10t^2 
+\end{pmatrix}
++
+c_2
+e^{-t}
+\begin{pmatrix}
+-46t +13t^2/2 \\
+1 + 20t -13t^2/2 \\
+-15t + 26t^2
+\end{pmatrix}
++
+c_3
+e^{-t}
+\begin{pmatrix}
+- 7t + t^2 \\
+3t - t^2 \\
+1 - 2t + 4t^2
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div></article></div></section><section class="subsection" id="linear09-subsection-generalized-eigenvalues"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span>
+</h3>
+<article class="example example-like" id="example-63"><a href="" data-knowl="" class="id-ref example-knowl original" data-refid="hk-example-63"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.9.10</span><span class="period">.</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-example-63"><article class="example example-like"><div class="para logical" id="p-1428">
+<div class="para">Consider the system <span class="process-math">\({\mathbf x}' = A {\mathbf x}\text{,}\)</span> where</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+A
+=
+\begin{pmatrix}
+7 \amp -1 \amp 2 \\
+18 \amp -2 \amp 6 \\
+-9 \amp 2 \amp -1
+\end{pmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">The characteristic polynomial of <span class="process-math">\(A\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+\det(A - \lambda I) = \lambda^3 - 4\lambda^2 + 5 \lambda - 2 = (\lambda - 1)^2 (\lambda - 2).
+\end{equation*}
+</div>
+<div class="para">The eigenvalue <span class="process-math">\(\lambda_1 = 1\)</span> has eigenvector <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> and the eigenvalue <span class="process-math">\(\lambda_2 = 2\)</span> has eigenvector <span class="process-math">\(\mathbf v_2 = (1, 3, -1)\text{.}\)</span> Thus, we can find two linearly independent solutions in this case</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/linear09-proposition-compute-matrix-exponential-2.html">
+\begin{equation*}
+{\mathbf x}_1(t) = e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
+\qquad\text{and}\qquad
+{\mathbf x}_2(t) = e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Since <span class="process-math">\(\lambda_1 = 1\)</span> has multiplicity two and we can find only one linearly independent eigenvector, it is not possible to apply <a href="" class="xref" data-knowl="./knowl/linear09-proposition-compute-matrix-exponential-2.html" title="Proposition 3.9.8">Proposition 3.9.8</a> in this case.</div>
+</div> <div class="para logical" id="p-1429">
+<div class="para">If we consider the exponential</div>
+<div class="displaymath process-math" id="md-360">
+\begin{align*}
+e^{ t A} {\mathbf v} &amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v} + \frac{t^2}{2!} (A - \lambda_1 I )^2 {\mathbf v} +  \frac{t^2}{3!} (A - \lambda_1 I )^3 {\mathbf v} + \cdots \right)
+\end{align*}
+</div>
+<div class="para">where <span class="process-math">\(\mathbf v, \mathbf v_1\)</span> and <span class="process-math">\(\mathbf v_2\)</span> are linearly independent, our goal is to choose <span class="process-math">\({\mathbf v}\)</span> for which the series truncates. That is, we must look for vectors <span class="process-math">\({\mathbf v}\)</span> such that <span class="process-math">\((A - \lambda_1 I)^k {\mathbf v} = (A - I)^k{\mathbf v} = {\mathbf 0}\text{.}\)</span>  If <span class="process-math">\(k = 1\text{,}\)</span> then <span class="process-math">\((A - \lambda_1 I) {\mathbf v} = (A - I){\mathbf v} = {\mathbf 0}\text{,}\)</span> which means that <span class="process-math">\({\mathbf v}\)</span> is an eigenvector. Thus, <span class="process-math">\({\mathbf v}\)</span> must be a multiple of <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> in this case. Since we already know that the eigenspace associated with this eigenvector has dimension one and is generated by <span class="process-math">\(\mathbf v_1\text{,}\)</span> we must consider higher powers.</div>
+</div> <div class="para logical" id="p-1430">
+<div class="para">Since</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(A - \lambda I) = (A - I) = 
+\begin{pmatrix}
+6 \amp -1 \amp 2 \\
+18 \amp -3 \amp 6 \\
+-9 \amp 2 \amp -2
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(A - \lambda I)^2 = (A - I)^2 = 
+\begin{pmatrix}
+0 &amp; 1 &amp; 2 \\
+0 &amp; 3 &amp; 6 \\
+0 &amp; -1 &amp; -2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">The nullspace of this matrix has dimension two. Certainly, <span class="process-math">\(\mathbf v_1 = (2, 6, -3)\)</span> is in the nullspace of <span class="process-math">\((A - I)^2\text{,}\)</span> since it is the nullspace of <span class="process-math">\(A - I\text{.}\)</span> We wish to find a vector that is not a multiple of the vector <span class="process-math">\(\mathbf v_1\)</span> that is also in the nullspace of <span class="process-math">\((A - I)^2\text{.}\)</span> The vector <span class="process-math">\(\mathbf v = (0, 2, -1)\)</span> will do.  Now our series truncates,</div>
+<div class="displaymath process-math" id="md-361">
+\begin{align*}
+{\mathbf x}_3(t) &amp; = e^{ t A} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} e^{t (A - \lambda_1 I)} {\mathbf v}\\
+&amp; = e^{\lambda_1 t} \left(  {\mathbf v} + t (A - \lambda_1 I ){\mathbf v}  \right)\\
+&amp; = e^{\lambda_1 t} \left[  \begin{pmatrix} 0 \\ 2 \\ -1 \end{pmatrix} + t (A  -  I )\begin{pmatrix} 0 \\ 2 \\ -1 \end{pmatrix}  \right]\\
+&amp; = e^{t} \begin{pmatrix}  -4t \\ 2 - 12t \\ -1 + 6 t \end{pmatrix}
+\end{align*}
+</div>
+<div class="para">We now have a general solution for our system,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf x}(t)
+=
+c_1
+e^{t} \begin{pmatrix}  2 \\ 6 \\ -3 \end{pmatrix}
++
+c_2
+e^{2t} \begin{pmatrix} 1 \\ 3 \\ -1 \end{pmatrix}
++
+c_3
+e^{t} \begin{pmatrix}  -4t \\ 2 - 12t \\ -1 + 6 t \end{pmatrix}.
+\end{equation*}
+</div>
+</div></article></div>
+<div class="para" id="p-1431">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and <span class="process-math">\((A - \lambda I)^p {\mathbf v} = {\mathbf 0}\)</span> for some <span class="process-math">\(p \geq 1\text{,}\)</span> then <span class="process-math">\({\mathbf v}\)</span> is called a <dfn class="terminology">generalized eigenvector</dfn> of <span class="process-math">\(A\text{.}\)</span> When eigenvalues have algebraic multiplicity greater than one, we can compute extra solutions by looking for vectors in the nullspace of  <span class="process-math">\((A - \lambda I)^p\)</span> for <span class="process-math">\(p &gt; 1\text{.}\)</span> The following theorem tells us that this is always possible. We leave the proof of the theorem as an exercise in linear algebra.</div>
+<article class="theorem theorem-like" id="linear09-theorem-dimension-nullspace"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">3.9.11</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-1432">Suppose that <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with multiplicity <span class="process-math">\(q\text{.}\)</span> Then there exists an integer <span class="process-math">\(p \leq q\)</span> such that the dimension of the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> is <span class="process-math">\(q\text{.}\)</span>
+</div></article><div class="para logical" id="p-1433">
+<div class="para">We now have a procedure for finding <span class="process-math">\(q\)</span> linearly independent solutions corresponding to an eigenvalue <span class="process-math">\(\lambda\)</span> of multiplicity <span class="process-math">\(q\text{.}\)</span>
+</div>
+<ol class="decimal">
+<li id="li-383"><div class="para" id="p-1434">Find the smallest integer <span class="process-math">\(p\)</span> such that the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> has dimension <span class="process-math">\(q\text{.}\)</span>
+</div></li>
+<li id="li-384"><div class="para" id="p-1435">Find a basis <span class="process-math">\(\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}\)</span> for the nullspace of <span class="process-math">\((A - \lambda I)^p\text{.}\)</span>
+</div></li>
+<li id="li-385"><div class="para logical" id="p-1436">
+<div class="para">For each <span class="process-math">\({\mathbf v}_j\)</span> (<span class="process-math">\(j = 1, 2, \ldots, q\)</span>), we have the solution</div>
+<div class="displaymath process-math" id="md-362">
+\begin{align*}
+{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j\\
+&amp; =
+e^{\lambda t}
+\left(
+{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+\right).
+\end{align*}
+</div>
+</div></li>
+</ol>
+<div class="para">This procedure works for complex eigenvalues as well as real. If <span class="process-math">\(\lambda = \alpha + i \beta\)</span> has eigenvector <span class="process-math">\({\mathbf z} = \mathbf x + i \mathbf y\text{,}\)</span> then set <span class="process-math">\({\mathbf x} = \real{\mathbf z}\)</span> and <span class="process-math">\({\mathbf y} = \imaginary{\mathbf z}\text{.}\)</span>
+</div>
+</div></section><section class="subsection" id="linear09-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span>
+</h3>
+<div class="para logical" id="p-1437"><ul class="disc">
+<li id="li-386"><div class="para logical" id="p-1438">
+<div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, we define the <dfn class="terminology">exponential</dfn> of <span class="process-math">\(A\)</span> to be</div>
+<div class="displaymath process-math">
+\begin{equation*}
+e^A = I + A + \frac{1}{2!} A^2 + \frac{1}{3!} A^3 + \cdots = \sum_{k=0}^\infty \frac{1}{k!} A^k.
+\end{equation*}
+</div>
+</div></li>
+<li id="li-387"><div class="para logical" id="p-1439">
+<div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix, then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{d}{dt} e^{tA} = A e^{tA}.
+\end{equation*}
+</div>
+</div></li>
+<li id="li-388"><div class="para logical" id="p-1440">
+<div class="para">Let <span class="process-math">\(A\)</span> be an <span class="process-math">\(n \times n\)</span> matrix. Then <span class="process-math">\({\mathbf x}(t) = e^{tA}{\mathbf x}_0\)</span> is the solution to the initial value problem</div>
+<div class="displaymath process-math" id="md-363">
+\begin{align*}
+{\mathbf x}' &amp; = A {\mathbf x}\\
+{\mathbf x}(0) &amp; = {\mathbf x}_0
+\end{align*}
+</div>
+</div></li>
+<li id="li-389"><div class="para" id="p-1441">Let <span class="process-math">\(\lambda\)</span> be an eigenvalue of an <span class="process-math">\(n \times n\)</span> matrix A. If <span class="process-math">\({\mathbf v}\)</span> is an eigenvector for <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(e^{tA} {\mathbf v} = e^{\lambda t} {\mathbf v}\text{.}\)</span>
+</div></li>
+<li id="li-390"><div class="para logical" id="p-1442">
+<div class="para">Let <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> be <span class="process-math">\(n \times n\)</span> matrices. Then</div>
+<ul class="circle">
+<li id="li-391"><div class="para" id="p-1443"><span class="process-math">\(Ae^A = e^A A\text{;}\)</span></div></li>
+<li id="li-392"><div class="para" id="p-1444">if <span class="process-math">\(AB = BA\text{,}\)</span> then <span class="process-math">\(e^A e^B = e^{A+B}\text{;}\)</span>
+</div></li>
+<li id="li-393"><div class="para" id="p-1445">
+<span class="process-math">\(e^A\)</span> is nonsingular with inverse <span class="process-math">\(e^{-A}\text{.}\)</span>
+</div></li>
+</ul>
+</div></li>
+<li id="li-394"><div class="para logical" id="p-1446">
+<div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n \times n\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then there exists nonnegative integer <span class="process-math">\(k \lt n\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+e^{tA} = e^{\lambda t} \left( I + t(A - \lambda I) + \frac{t^2}{2!} (A - \lambda I)^2 + \cdots + \frac{t^k}{k!} (A - \lambda I)^k \right).
+\end{equation*}
+</div>
+</div></li>
+<li id="li-395"><div class="para" id="p-1447">Suppose that <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with multiplicity <span class="process-math">\(q\text{.}\)</span> Then there exists an integer <span class="process-math">\(p \leq q\)</span> such that the dimension of the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> is <span class="process-math">\(q\text{.}\)</span>
+</div></li>
+<li id="li-396"><div class="para logical" id="p-1448">
+<div class="para">The procedure for finding <span class="process-math">\(q\)</span> linearly independent solutions corresponding to an eigenvalue <span class="process-math">\(\lambda\)</span> of multiplicity <span class="process-math">\(q\)</span> is the following.</div>
+<ul class="circle">
+<li id="li-397"><div class="para" id="p-1449">Find the smallest integer <span class="process-math">\(p\)</span> such that the nullspace of <span class="process-math">\((A - \lambda I)^p\)</span> has dimension <span class="process-math">\(q\text{.}\)</span>
+</div></li>
+<li id="li-398"><div class="para" id="p-1450">Find a basis <span class="process-math">\(\{ {\mathbf v}_1, \ldots, {\mathbf v}_q \}\)</span> for the nullspace of <span class="process-math">\((A - \lambda I)^p\text{.}\)</span>
+</div></li>
+<li id="li-399"><div class="para logical" id="p-1451">
+<div class="para">For each <span class="process-math">\({\mathbf v}_j\)</span> (<span class="process-math">\(j = 1, 2, \ldots, q\)</span>), we have the solution</div>
+<div class="displaymath process-math" id="md-364">
+\begin{align*}
+{\mathbf x}_j(t) &amp; = e^{tA} {\mathbf v}_j\\
+&amp; =
+e^{\lambda t}
+\left(
+{\mathbf v}_j + t(A - \lambda I){\mathbf v}_j + \cdots + \frac{t^{p-1}}{(p-1)!}(A - \lambda I)^{p-1}{\mathbf v}_j.
+\right).
+\end{align*}
+</div>
+</div></li>
+</ul>
+<div class="para">The procedure works for complex eigenvalues as well as real. If <span class="process-math">\(\lambda = \alpha + i \beta\)</span> has eigenvector <span class="process-math">\({\mathbf z}\text{,}\)</span> then set <span class="process-math">\({\mathbf x} = \real{\mathbf z}\)</span> and <span class="process-math">\({\mathbf y} = \imaginary{\mathbf z}\text{.}\)</span>
+</div>
+</div></li>
+</ul></div></section><section class="reading-questions" id="reading-questions-linear09"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-linear09-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para" id="p-1452">What is the exponential of a matrix <span class="process-math">\(A\text{?}\)</span>
+</div></article><article class="exercise exercise-like" id="reading-questions-linear09-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-1453">Explain what a <dfn class="terminology">generalized eigenvector</dfn> for a matrix <span class="process-math">\(A\)</span> is.</div></article></section><section class="exercises" id="linear09-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">3.9.5</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-348"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1454">
+<div class="para">Solve the system</div>
+<div class="displaymath process-math" id="md-365">
+\begin{align*}
+x' &amp; = -5x + 15y - 4z\\
+y' &amp; = -x + 5y - z\\
+z' &amp; =4 x -6y + 3z\\
+x(0) &amp; = -1\\
+y(0) &amp; = 2\\
+z(0) &amp; = 0
+\end{align*}
+</div>
+</div></article><article class="exercise exercise-like" id="exercise-349"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1455">
+<div class="para">Find the general solution of the system</div>
+<div class="displaymath process-math" id="md-366">
+\begin{align*}
+x_1' &amp; = 6x_1 + 9x_2 + x_3 + 4 x_4\\
+x_2' &amp; = -x_1 + x_2 + x_3\\
+x_3' &amp; = 3x_1 + 8x_2 + 4x_3 + 4 x_4\\
+x_4' &amp; = -3x_1 - 8x_2 -7 x_3 - 5 x_4
+\end{align*}
+</div>
+</div></article><article class="exercise exercise-like" id="exercise-350"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para" id="p-1456">Prove <a href="" class="xref" data-knowl="./knowl/linear09-proposition-compute-matrix-exponential-2.html" title="Proposition 3.9.8">Proposition 3.9.8</a>.</div></article><article class="exercise exercise-like" id="exercise-351"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1457">
+<div class="para">Let <span class="process-math">\(a x'' + b x' + cx = 0\text{,}\)</span> where <span class="process-math">\(a \neq 0\)</span> and <span class="process-math">\(b^2 - 4ac = 0\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-400"><div class="para" id="p-1458">Show that <span class="process-math">\(x_1(t) = e^{-bt/2a}\)</span> is a solution to <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span>
+</div></li>
+<li id="li-401"><div class="para logical" id="p-1459">
+<div class="para">Assume that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = v(t) x_1(t) = v(t) e^{-bt/2a}
+\end{equation*}
+</div>
+<div class="para">is a solution to  <span class="process-math">\(a x'' + b x' + cx = 0\)</span> and show that <span class="process-math">\(v(t) = c_1  + c_2 t\text{.}\)</span>  Thus,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+x(t) = c_1  e^{-bt/2a} + c_2 t  e^{-bt/2a}
+\end{equation*}
+</div>
+<div class="para">is a general solution for <span class="process-math">\(a x'' + b x' + cx = 0\text{.}\)</span>
+</div>
+</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-352"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1460">
+<div class="para">Consider the equation</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y'' - (2 \alpha -1) y' + \alpha (\alpha - 1) y =0.
+\end{equation*}
+</div>
+<div class="para">Determine all values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all solutions tend toward zero as <span class="process-math">\(t \to \infty\text{.}\)</span>  Also, determine the values of <span class="process-math">\(\alpha\text{,}\)</span> if any, for which all nonzero solutions become unbounded as <span class="process-math">\(t \to \infty\text{.}\)</span>
+</div>
+</div></article><article class="exercise exercise-like" id="exercise-353"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1461">
+<div class="para">Solve each of the following initial value problems.</div>
+<ol class="lower-alpha">
+<li id="li-402"><div class="para logical" id="p-1462"><div class="displaymath process-math" id="md-367">
+\begin{align*}
+y'' - 2y' + 5y &amp; = 0\\
+y(\pi/2) &amp; = 0\\
+y'(\pi/2) &amp; = 2
+\end{align*}
+</div></div></li>
+<li id="li-403"><div class="para logical" id="p-1463"><div class="displaymath process-math" id="md-368">
+\begin{align*}
+9y'' - 12y' + 4y &amp; = 0\\
+y(0) &amp; = 2\\
+y'(0) &amp; = -1
+\end{align*}
+</div></div></li>
+<li id="li-404"><div class="para logical" id="p-1464"><div class="displaymath process-math" id="md-369">
+\begin{align*}
+y'' + 8y' -9y &amp; = 0\\
+y(1) &amp; = 1\\
+y'(1) &amp; = 0
+\end{align*}
+</div></div></li>
+<li id="li-405"><div class="para logical" id="p-1465"><div class="displaymath process-math" id="md-370">
+\begin{align*}
+y''  + 2ay' + (a^2 + 1)y &amp; = 0\\
+y(0) &amp; = 1\\
+y'(0) &amp; = 0
+\end{align*}
+</div></div></li>
+</ol>
+</div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-37"><div class="fn">Since we are differentiating an infinite series, we still need to show that differentiating term by term is something that can be done. We will, however, leave the details to a course in advanced calculus.</div></div>
+</div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="linear08.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="secondorder.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

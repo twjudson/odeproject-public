@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="ignore-math"><article class="example example-like"><div class="para logical">
+<div class="para">Now let us consider a harmonic oscillator with discontinuous forcing,</div>
+<div class="displaymath process-math">
+\begin{gather*}
+y'' + 2 y' + 5y = h(t)\\
+y(0) = y'(0) = 0,
+\end{gather*}
+</div>
+<div class="para">where <span class="process-math">\(h(t)\)</span> is given by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+h(t) 
+=
+\begin{cases}
+5 &amp; t \lt 7 \\
+0 &amp; t \geq 7.
+\end{cases}
+\end{equation*}
+</div>
+<div class="para">That is, <span class="process-math">\(h(t) = 5 (1 - u_7(t))\text{.}\)</span> We may consider this to be a mass-spring system sliding on a table, where the mass is one unit, the spring constant is 5, and the damping coefficient is 2. When <span class="process-math">\(t \lt 7\)</span> the table is tilted so that gravity provides a force of 5 units when stretching the spring. At time <span class="process-math">\(t = 7\text{,}\)</span> the table is suddenly returned to the level position.</div>
+</div> <div class="para logical">
+<div class="para">Taking the Laplace transform of both sides of <span class="process-math">\(y'' + 2 y' + 5y = h(t)\text{,}\)</span> we obtain</div>
+<div class="displaymath process-math">
+\begin{equation*}
+[s^2 Y(s) -sy(0) - y'(0)] + 2 [sY(s) - y(0)] + 5Y(s) = {\mathcal L}(h),
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\({\mathcal L}(y)(s) = Y(s)\text{.}\)</span>  Substituting the initial conditions and evaluating the Laplace transform on the right, we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(s^2 + 2s + 5)Y(s) = 5 \left( \frac{1}{s} - \frac{e^{-7s}}{s} \right).
+\end{equation*}
+</div>
+<div class="para">Solving for <span class="process-math">\(Y(s)\text{,}\)</span> we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Y(s) = \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = {\mathcal L}^{-1} \left(  \frac{5}{s(s^2 + 2s + 5)} - \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right).
+\end{equation*}
+</div>
+<div class="para">Using partial fractions, we can rewrite the first term as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{5}{s(s^2 + 2s + 5)} = \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5}.
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">The inverse Laplace transform of <span class="process-math">\(1/s\)</span> is 1. To find the inverse Laplace transform of the second term, we complete the square of the denominator,</div>
+<div class="displaymath process-math">
+\begin{align*}
+\frac{s + 2}{s^2 + 2s + 5} &amp; = \frac{s + 2}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{(s+ 1)^2 + 4}\\
+&amp; = \frac{s + 1}{(s+ 1)^2 + 4} + \frac{1}{2} \frac{2}{(s+ 1)^2 + 4}.
+\end{align*}
+</div>
+<div class="para">Consequently,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{s + 2}{s^2 + 2s + 5} \right) = e^{-t} \cos 2t + \frac{1}{2} e^{-t} \sin 2t = e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5}{s(s^2 + 2s + 5)} \right) = {\mathcal L}^{-1} \left( \frac{1}{s} - \frac{s + 2}{s^2 + 2s + 5} \right) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2} \sin 2t \right).
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">We can compute the inverse Laplace transform of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{5e^{-7s}}{s(s^2 + 2s + 5)}
+\end{equation*}
+</div>
+<div class="para">using the Heaviside function <span class="process-math">\(u_7(t)\)</span> and the inverse Laplace transform that we just calculated to obtain</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathcal L}^{-1} \left( \frac{5e^{-7s}}{s(s^2 + 2s + 5)} \right) = u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div>
+<div class="para">Therefore, the solution to our original initial value problem is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y(t) = 1 - e^{-t} \left( \cos 2t + \frac{1}{2}  \sin 2t \right) - u_7(t) \left(  1 - e^{-(t-7)} \left( \cos 2(t - 7) + \frac{1}{2} \sin 2(t - 7) \right) \right).
+\end{equation*}
+</div>
+</div></article></body>
+</html>

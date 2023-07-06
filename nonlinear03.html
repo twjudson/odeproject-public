@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ODE-Project More Nonlinear Mechanics</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="The Ordinary Differential Equations Project">
+<meta property="book:author" content="Thomas W. Judson">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_red.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="odeproject.html"><span class="title">The Ordinary Differential Equations Project</span></a></h1>
+<p class="byline">Thomas W. Judson</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="nonlinear02.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="nonlinear.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="nonlinear04.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\real}{\operatorname{Re}}
+\newcommand{\imaginary}{\operatorname{Im}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="dedication-1.html" class="internal"><span class="title">Dedication</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Preface</span></a></div></li>
+<li><div class="toc-item"><a href="acknowledgement-1.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook.html" class="internal"><span class="codenumber">1</span> <span class="title">A First Look at Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="firstlook01.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Modeling with Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-exponential-growth" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Exponential Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-logistic-growth" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Logistic Growth</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-spring-mass" class="internal"><span class="codenumber">1.1.3</span> <span class="title">A Spring-Mass Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-predator-prey" class="internal"><span class="codenumber">1.1.4</span> <span class="title">A Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-modeling-hiv" class="internal"><span class="codenumber">1.1.5</span> <span class="title">Modeling the HIV-1 Virus</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-questions-for-thought" class="internal"><span class="codenumber">1.1.6</span> <span class="title">Some Questions for Thought</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-important-lessons" class="internal"><span class="codenumber">1.1.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#reading-questions-firstlook01" class="internal"><span class="codenumber">1.1.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook01.html#firstlook01-exercises" class="internal"><span class="codenumber">1.1.9</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook01.html#firstlook01-subsection-sage" class="internal"><span class="codenumber">1.1.10</span> <span class="title">An Introduction to <em class="emphasis">Sage</em></span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="firstlook01.html#firstlook01-sage-exercises" class="internal"><span class="codenumber">1.1.10</span> <span class="title"><em class="emphasis">Sage</em> Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook02.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Separable Differential Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-separable-de" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Separable Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-newtons-law-cooling" class="internal"><span class="codenumber">1.2.2</span> <span class="title">Newton's Law of Cooling</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-mixing-problem" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Mixing Problems</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-retirement" class="internal"><span class="codenumber">1.2.4</span> <span class="title">A Retirement Model</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-some-theory" class="internal"><span class="codenumber">1.2.5</span> <span class="title">Some Theory</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-what-can-go-wrong" class="internal"><span class="codenumber">1.2.6</span> <span class="title">What Can Go Wrong</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-important-lessons" class="internal"><span class="codenumber">1.2.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#reading-questions-firstlook02" class="internal"><span class="codenumber">1.2.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-exercises-" class="internal"><span class="codenumber">1.2.9</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook02.html#firstlook02-subsection-sage" class="internal"><span class="codenumber">1.2.10</span> <span class="title">Sage—Quick Start Guide to Solving Ordinary Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook03.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Geometric and Quantitative Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits" class="internal"><span class="codenumber">1.3.1</span> <span class="title">RC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-rc-circuits-revisited" class="internal"><span class="codenumber">1.3.3</span> <span class="title">RC Circuits Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage-direction-fields" class="internal"><span class="codenumber">1.3.4</span> <span class="title">Plotting Direction Fields with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-autonomous-equations" class="internal"><span class="codenumber">1.3.5</span> <span class="title">Autonomous Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-important-lessons" class="internal"><span class="codenumber">1.3.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#reading-questions-firstlook03" class="internal"><span class="codenumber">1.3.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-exercises" class="internal"><span class="codenumber">1.3.8</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-sage" class="internal"><span class="codenumber">1.3.9</span> <span class="title">Sage—Plotting Direction Fields and Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-direction-fields-sage" class="internal"><span class="codenumber">1.3.9.1</span> <span class="title">Plotting direction fields</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#firstlook03-subsection-desolve_rk4" class="internal"><span class="codenumber">1.3.9.2</span> <span class="title">Plotting solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook03.html#exercises-5" class="internal"><span class="codenumber">1.3.9.3</span> <span class="title">Sage Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook04.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Analyzing Equations Numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-eulers-method" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-error-bound" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Finding an Error Bound</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-improving-euler" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Improving Euler's Method</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-important-lessons" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#reading-questions-firstlook04" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#exercises-firstlook04" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook04.html#firstlook04-subsection-sage-project" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Sage—Numerical Routines for solving ODEs</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook05.html" class="internal"><span class="codenumber">1.5</span> <span class="title">First-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mine-tailings" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Mine Tailings</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-first-order-linear-de" class="internal"><span class="codenumber">1.5.2</span> <span class="title">First-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-mixing-models" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Mixing Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-finance-models" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Finance Models</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#subsection-33" class="internal"><span class="codenumber">1.5.5</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#firstlook05-subsection-important-lessons" class="internal"><span class="codenumber">1.5.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#reading-questions-firstlook05" class="internal"><span class="codenumber">1.5.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook05.html#exercises-firstlook05" class="internal"><span class="codenumber">1.5.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook06.html" class="internal"><span class="codenumber">1.6</span> <span class="title">Existence and Uniqueness of Solutions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-existence" class="internal"><span class="codenumber">1.6.1</span> <span class="title">The Existence and Uniqueness Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-picard" class="internal"><span class="codenumber">1.6.2</span> <span class="title">Picard Iteration</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#firstlook06-subsection-important-lessons" class="internal"><span class="codenumber">1.6.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#reading-questions-firstlook06" class="internal"><span class="codenumber">1.6.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook06.html#exercises-firstlook06" class="internal"><span class="codenumber">1.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="firstlook07.html" class="internal"><span class="codenumber">1.7</span> <span class="title">Bifurcations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-logisitic-harvesting" class="internal"><span class="codenumber">1.7.1</span> <span class="title">The Logistic Model with Harvesting Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-one-parameter-families" class="internal"><span class="codenumber">1.7.2</span> <span class="title">One-Parameter Families</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-subsection-important-lessons" class="internal"><span class="codenumber">1.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#reading-questions-firstlook07" class="internal"><span class="codenumber">1.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="firstlook07.html#firstlook07-exercises" class="internal"><span class="codenumber">1.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="firstlook08.html" class="internal"><span class="codenumber">1.8</span> <span class="title">Projects for First-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of Differential Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="systems01.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Modeling with Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-predator-prey" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Predator-Prey Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-spring-mass" class="internal"><span class="codenumber">2.1.2</span> <span class="title">The Spring-Mass Model Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-epidemics" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Modeling Epidemics</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-important-lessons" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#reading-questions-system01" class="internal"><span class="codenumber">2.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-exercises" class="internal"><span class="codenumber">2.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems01.html#systems01-subsection-sage" class="internal"><span class="codenumber">2.1.7</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems02.html" class="internal"><span class="codenumber">2.2</span> <span class="title">The Geometry of Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-direction-fields" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Direction Fields</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-predator-prey" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Modified Predator-Prey System</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-competing-species" class="internal"><span class="codenumber">2.2.3</span> <span class="title">A Competing Species Model</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-sage-direction-fields" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Plotting Direction Fields with <em class="emphasis">Sage</em></span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-phase-plane-analysis" class="internal"><span class="codenumber">2.2.5</span> <span class="title">A Summary of Phase Plane Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-subsection-important-lessons" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#reading-questions-system02" class="internal"><span class="codenumber">2.2.7</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#systems02-exercises" class="internal"><span class="codenumber">2.2.8</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="systems02.html#subsection-sytems02-sage" class="internal"><span class="codenumber">2.2.9</span> <span class="title">Plotting Nullclines with <em class="emphasis">Sage</em></span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems03.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Numerical Techniques for Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-duffing" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Duffing's Equation</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-eulers-method" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Euler's Method for Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-taylor-series" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Taylor Series Methods</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-existence-uniqueness" class="internal"><span class="codenumber">2.3.4</span> <span class="title">A Word about Existence and Uniqueness</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-subsection-important-lessons" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#reading-questions-system03" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems03.html#systems03-exercises" class="internal"><span class="codenumber">2.3.7</span> <span class="title">Exercises</span></a></div></li>
+<li>
+<div class="toc-item"><a href="systems03.html#systems03-subsection-sage" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Systems with Euler's Method</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="systems03.html#exercises-13" class="internal"><span class="codenumber">2.3.8</span> <span class="title">Sage Exercises</span></a></div></li></ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="systems04.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Solving Systems Analytically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-partially-coupled" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Partially Coupled Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-sage-linear-systems" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Using <em class="emphasis">Sage</em> to Solve Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-harmonic-oscillator" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-subsection-important-lessons" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#reading-questions-system04" class="internal"><span class="codenumber">2.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="systems04.html#systems04-exercises" class="internal"><span class="codenumber">2.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="systems05.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Projects for Systems of Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear.html" class="internal"><span class="codenumber">3</span> <span class="title">Linear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="linear01.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Linear Algebra in a Nutshell</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-matrices" class="internal"><span class="codenumber">3.1.1</span> <span class="title">Matrices and Systems of Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-linear-independence" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Linear Independence</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-finding-eigenvalues" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Finding Eigenvalues and Eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-important-lessons" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#reading-questions-linear01" class="internal"><span class="codenumber">3.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#exercises-linear01" class="internal"><span class="codenumber">3.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="linear01.html#linear01-subsection-sage-project" class="internal"><span class="codenumber">3.1.7</span> <span class="title">Finding Eigenvalues and Eigenvectors with Sage</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear02.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Planar Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-planar-systems" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Planar Systems and <span class="process-math">\(2 \times 2\)</span> Matrices</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-systems-of-de" class="internal"><span class="codenumber">3.2.2</span> <span class="title">Systems of Differential Equations</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-solving-systems" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Solving Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-subsection-important-lessons" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#reading-questions-linear02" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear02.html#linear02-exercises" class="internal"><span class="codenumber">3.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear03.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Phase Plane Analysis of Linear Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-different-signs" class="internal"><span class="codenumber">3.3.1</span> <span class="title">The Case <span class="process-math">\(\lambda_1 \lt 0 \lt \lambda_2\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-negative" class="internal"><span class="codenumber">3.3.2</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \lt \lambda_2 \lt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-eigenvalues-positive" class="internal"><span class="codenumber">3.3.3</span> <span class="title">The Case <span class="process-math">\(\lambda_1  \gt \lambda_2 \gt 0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-subsection-important-lessons" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#reading-questions-linear03" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear03.html#linear03-exercises" class="internal"><span class="codenumber">3.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear04.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Complex Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-spiral-sinks-sources" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Spiral Sinks and Sources</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-quick-start" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Solving Systems with Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-subsection-important-lessons" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#reading-questions-linear04" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear04.html#linear04-exercises" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear05.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Repeated Eigenvalues</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-quick-start" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Solving Systems with Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#linear05-subsection-important-lessons" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#reading-questions-linear05" class="internal"><span class="codenumber">3.5.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear05.html#exercises-linear05" class="internal"><span class="codenumber">3.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear06.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Changing Coordinates</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-linear-maps" class="internal"><span class="codenumber">3.6.1</span> <span class="title">Linear Maps</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates" class="internal"><span class="codenumber">3.6.2</span> <span class="title">Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-changing-coordinates-system" class="internal"><span class="codenumber">3.6.3</span> <span class="title">Systems and Changing Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-distinct-real-eigenvalues" class="internal"><span class="codenumber">3.6.4</span> <span class="title">Distinct Real Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-complex-eigenvalues" class="internal"><span class="codenumber">3.6.5</span> <span class="title">Complex Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-repeated-eigenvalues" class="internal"><span class="codenumber">3.6.6</span> <span class="title">Repeated Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-subsection-important-lessons" class="internal"><span class="codenumber">3.6.7</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#reading-questions-linear06" class="internal"><span class="codenumber">3.6.8</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear06.html#linear06-exercises" class="internal"><span class="codenumber">3.6.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear07.html" class="internal"><span class="codenumber">3.7</span> <span class="title">The Trace-Determinant Plane</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-trace-determinant" class="internal"><span class="codenumber">3.7.1</span> <span class="title">The Trace-Determinant Plane</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-parameterized-families" class="internal"><span class="codenumber">3.7.2</span> <span class="title">Parameterized Families of Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-subsection-important-lessons" class="internal"><span class="codenumber">3.7.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#reading-questions-linear07" class="internal"><span class="codenumber">3.7.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear07.html#linear07-exercises" class="internal"><span class="codenumber">3.7.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear08.html" class="internal"><span class="codenumber">3.8</span> <span class="title">Linear Systems in Higher Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-higher-order-systems" class="internal"><span class="codenumber">3.8.1</span> <span class="title">Higher-Order Linear Systems</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-geometry" class="internal"><span class="codenumber">3.8.2</span> <span class="title">The Geometry of Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-double-spring-mass" class="internal"><span class="codenumber">3.8.3</span> <span class="title">The Double Spring-Mass Systems Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-subsection-important-lessons" class="internal"><span class="codenumber">3.8.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#reading-questions-linear08" class="internal"><span class="codenumber">3.8.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear08.html#linear08-exercises" class="internal"><span class="codenumber">3.8.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="linear09.html" class="internal"><span class="codenumber">3.9</span> <span class="title">The Matrix Exponential</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-matrix-exponential" class="internal"><span class="codenumber">3.9.1</span> <span class="title">The Exponential of a Matrix</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-generalized-eigenvalues" class="internal"><span class="codenumber">3.9.2</span> <span class="title">Generalized Eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-subsection-important-lessons" class="internal"><span class="codenumber">3.9.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#reading-questions-linear09" class="internal"><span class="codenumber">3.9.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="linear09.html#linear09-exercises" class="internal"><span class="codenumber">3.9.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder.html" class="internal"><span class="codenumber">4</span> <span class="title">Second-Order Linear Equations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="secondorder01.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Homogeneous Linear Equations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-rlc-circuit" class="internal"><span class="codenumber">4.1.1</span> <span class="title">RLC Circuits</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-second-order-linear-de" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Second-Order Linear Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-harmonic-oscillators" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Classifying Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-important-lessons" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#reading-questions-secondorder01" class="internal"><span class="codenumber">4.1.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises" class="internal"><span class="codenumber">4.1.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-subsection-sage" class="internal"><span class="codenumber">4.1.7</span> <span class="title">Solving Second Order Linear Equations with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder01.html#secondorder01-exercises-sage" class="internal"><span class="codenumber">4.1.8</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder02.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-nonhomogeneous-de" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Nonhomogeneous Equations</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-forcing" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Forcing Terms</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-undetermined-coefficients" class="internal"><span class="codenumber">4.2.3</span> <span class="title">The Method of Undetermined Coefficients</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-strategy" class="internal"><span class="codenumber">4.2.4</span> <span class="title">A Strategy</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-subsection-important-lessons" class="internal"><span class="codenumber">4.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#reading-questions-secondorder02" class="internal"><span class="codenumber">4.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder02.html#secondorder02-exercises" class="internal"><span class="codenumber">4.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder03.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Sinusoidal Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-complexification" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Complexification</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-qualitative-analysis" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Qualitative Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-subsection-important-lessons" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#reading-questions-secondorder03" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder03.html#secondorder03-exercises" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="secondorder04.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Forcing and Resonance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-resonance" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Resonance</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-beats" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Beats or the Case <span class="process-math">\(\omega \neq \omega_0\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-forced-damped" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Forced Damped Harmonic Motion</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-subsection-important-lessons" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#reading-questions-secondorder04" class="internal"><span class="codenumber">4.4.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="secondorder04.html#secondorder04-exercises" class="internal"><span class="codenumber">4.4.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="secondorder05.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Projects for Second-Order Differential Equations</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear.html" class="internal"><span class="codenumber">5</span> <span class="title">Nonlinear Systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="nonlinear01.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Linearization</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.1.1</span> <span class="title">Equilibrium Solutions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-linearization-fails" class="internal"><span class="codenumber">5.1.2</span> <span class="title">When Linearization Fails</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-subsection-important-lessons" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#reading-questions-nonlinear01" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear01.html#nonlinear01-exercises" class="internal"><span class="codenumber">5.1.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear02.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Hamiltonian Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-pendulum" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The Nonlinear Pendulum</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-hamiltonian-systems" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-ideal-pendulum" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The Ideal Pendulum Revisited</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-equilibrium-solutions" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Equilibrium Solutions of Hamiltonian Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-subsection-important-lessons" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#reading-questions-nonlinear02" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear02.html#nonlinear02-exercises" class="internal"><span class="codenumber">5.2.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="nonlinear03.html" class="internal"><span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-pendulum-damping" class="internal"><span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-lyapunov-functions" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-gradient-systems" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-subsection-important-lessons" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#reading-questions-nonlinear03" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear03.html#nonlinear03-exercises" class="internal"><span class="codenumber">5.3.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="nonlinear04.html" class="internal"><span class="codenumber">5.4</span> <span class="title">The Hopf Bifurcation</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-bifurcations" class="internal"><span class="codenumber">5.4.1</span> <span class="title">Bifurcations</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-hopf-bifurcation" class="internal"><span class="codenumber">5.4.2</span> <span class="title">The Hopf Bifurcation</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-subsection-important-lessons" class="internal"><span class="codenumber">5.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#reading-questions-nonlinear04" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="nonlinear04.html#nonlinear04-exercises" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="nonlinear05.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Projects</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace.html" class="internal"><span class="codenumber">6</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="laplace01.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The Laplace Transform</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-definitions" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Definition of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-properties" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Properties of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-existence-and-uniqueness" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Existence and Uniqueness of the Laplace Transform</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-finding-laplace-transforms" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Finding Laplace Transforms and Inverse Transforms</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-important-lessons" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#reading-questions-laplace01" class="internal"><span class="codenumber">6.1.6</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-laplace01" class="internal"><span class="codenumber">6.1.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#laplace01-subsection-sage" class="internal"><span class="codenumber">6.1.8</span> <span class="title">Laplace Transforms with Sage</span></a></div></li>
+<li><div class="toc-item"><a href="laplace01.html#exercises-34" class="internal"><span class="codenumber">6.1.9</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace02.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Solving Initial Value Problems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-derivatives" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Laplace Transforms of the Derivative</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-discontinuous-functions" class="internal"><span class="codenumber">6.2.2</span> <span class="title">Discontinuous Functions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-harmonic-oscillators" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Forced Harmonic Oscillators</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-subsection-important-lessons" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#reading-questions-laplace02" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace02.html#laplace02-exercises" class="internal"><span class="codenumber">6.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace03.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Delta Functions and Forcing</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-impulse-forcing" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Impulse Forcing</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-dirac-delta" class="internal"><span class="codenumber">6.3.2</span> <span class="title">The Laplace Transform of the Dirac Delta Function</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-subsection-important-lessons" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#reading-questions-laplace03" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace03.html#laplace03-exercises" class="internal"><span class="codenumber">6.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="laplace04.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Convolution</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-convolution" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Convolution</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-applying-convolution" class="internal"><span class="codenumber">6.4.2</span> <span class="title">Applying the Convolution Theorem</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-subsection-important-lessons" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Important Lessons</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#reading-questions-laplace04" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Reading Questions</span></a></div></li>
+<li><div class="toc-item"><a href="laplace04.html#laplace04-exercises" class="internal"><span class="codenumber">6.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="laplace05.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Projects for Laplace Transforms</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="appendix-gfdl.html" class="internal"><span class="codenumber">A</span> <span class="title">GNU Free Documentation License</span></a></div></li>
+<li><div class="toc-item"><a href="solutions-1.html" class="internal"><span class="codenumber">B</span> <span class="title">Hints and Answers to Selected Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="references-1.html" class="internal"><span class="title">Readings and References</span></a></div></li>
+<li><div class="toc-item"><a href="appendix-2.html" class="internal"><span class="codenumber">C</span> <span class="title">Notation</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="nonlinear03"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.3</span> <span class="title">More Nonlinear Mechanics</span>
+</h2>
+<article class="objectives goal-like" id="objectives-27"><h3 class="heading"><span class="type">Objectives</span></h3>
+<ul class="disc">
+<li id="li-549"><div class="para" id="p-derived-li-549">To understand that the equation for the nonlinear pendulum with damping<div class="displaymath process-math" id="md-530">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>can be analyzed by examining <span class="process-math">\(dH/dt\text{,}\)</span> where <span class="process-math">\(H\)</span> is the Hamiltonian function for the ideal pendulum. The function <span class="process-math">\(H\)</span> for this system is an example of a <dfn class="terminology">Lyapunov function</dfn>.</div></li>
+<li id="li-550"><div class="para" id="p-1893">To understand how to use Lyapunov functions to determine the stability of an equilibrium solution for a nonlinear system.</div></li>
+<li id="li-551"><div class="para" id="p-1894">To understand gradient systems and the types of solutions for gradient systems.</div></li>
+</ul></article><section class="introduction" id="introduction-129"><div class="para logical" id="p-1895">
+<div class="para">The equation for the nonlinear pendulum with damping is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{d^2 \theta}{dt^2} + \frac{b}{m} \frac{d \theta}{dt} + \frac{g}{L} \sin \theta = 0.
+\end{equation*}
+</div>
+<div class="para">As a system, we can model the pendulum as</div>
+<div class="displaymath process-math" id="mdn-22">
+\begin{align}
+\frac{d \theta}{dt} &amp; = v\tag{5.3.1}\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.\tag{5.3.2}
+\end{align}
+</div>
+<div class="para">This system is not Hamiltonian since</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{\partial v}{\partial \theta} = 0,
+\end{equation*}
+</div>
+<div class="para">but</div>
+<div class="displaymath process-math">
+\begin{equation*}
+-\frac{\partial }{\partial v}  \left(  - \frac{b}{m} v - \frac{g}{L} \sin \theta \right) = \frac{b}{m} \neq 0.
+\end{equation*}
+</div>
+<div class="para">We shall have to invent new techniques to analyze such systems.</div>
+</div></section><section class="subsection" id="nonlinear03-subsection-pendulum-damping"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.1</span> <span class="title">The Nonlinear Pendulum and Damping</span>
+</h3>
+<div class="para logical" id="p-1896">
+<div class="para">To find the nullclines of the nonlinear pendulum, let</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html" id="md-531">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v = 0\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta = 0.
+\end{align*}
+</div>
+<div class="para">The <span class="process-math">\(\theta\)</span>-nullcline is <span class="process-math">\(v = 0\text{,}\)</span> while the <span class="process-math">\(v\)</span>-nullcline is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+v = -\frac{mg}{bL} \sin \theta.
+\end{equation*}
+</div>
+<div class="para">It follows that the equilibrium solutions for the nonlinear pendulum occur at</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+(\theta, v) = (0,0), (\pm \pi, 0), (\pm 2\pi, 0), \ldots.
+\end{equation*}
+</div>
+<div class="para">This makes sense since the pendulum should not move if the bob is initially hanging downward (<span class="process-math">\(\theta = 2 \pi n\)</span>) or is at the very top or the very bottom of a swing (<span class="process-math">\(\theta = (2n + 1)\pi\)</span>). Since our first goal is to determine the nature of each equilibrium solution, we will compute the Jacobian of the system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html" title="Equation 5.3.1">(5.3.1)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html" title="Equation 5.3.2">(5.3.2)</a>. This is just</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+\begin{pmatrix}
+0 &amp; 1 \\
+-(g/L) \cos \theta &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">At the equilibrium solutions <span class="process-math">\((\theta, v) = (0,0), (\pm 2\pi, 0), (\pm 4\pi, 0), \ldots\text{,}\)</span> the pendulum is hanging downward, and the Jacobian matrix becomes</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+J_1
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+-g/L &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">On the other hand, if <span class="process-math">\((\theta, v) = (\pm \pi, 0),  (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots\text{,}\)</span> the pendulum is at the top of its swing, and the Jacobian matrix is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-nonlinear-damped-pend-1.html ./knowl/nonlinear03-equation-nonlinear-damped-pend-2.html">
+\begin{equation*}
+J_2
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+g/L &amp; - b/m
+\end{pmatrix}.
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1897">
+<div class="para">We will first examine the case where the pendulum is hanging downward. The characteristic polynomial of <span class="process-math">\(J_1\)</span> is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html">
+\begin{equation*}
+\lambda^2 + \frac{b}{m} \lambda + \frac{g}{L}.
+\end{equation*}
+</div>
+<div class="para">Thus, the eigenvalues of <span class="process-math">\(J_1\)</span> are</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" id="nonlinear03-equation-mechanics-1">
+\begin{equation}
+\lambda = -\frac{b}{2m} \pm \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.\tag{5.3.3}
+\end{equation}
+</div>
+<div class="para">We can analyze the nature of these eigenvalues by examining the sign of</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-mechanics-1.html ./knowl/nonlinear03-figure-damped-pendulum-nullclines.html">
+\begin{equation*}
+\Delta = \left(  \frac{b}{2m} \right)^2 - \frac{g}{L}.
+\end{equation*}
+</div>
+<ul class="disc">
+<li id="li-552"><div class="para" id="p-derived-li-552">If <span class="process-math">\(\Delta \lt 0\text{,}\)</span> the eigenvalues of the Jacobian are complex. Since the real part of <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-mechanics-1.html" title="Equation 5.3.3">(5.3.3)</a> is negative, these equilibrium solutions are spiral sinks.</div></li>
+<li id="li-553"><div class="para" id="p-derived-li-553">If <span class="process-math">\(\Delta \gt 0\text{,}\)</span> we have two distinct real eigenvalues. Since<div class="displaymath process-math">
+\begin{equation*}
+\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} \lt \left(  \frac{b}{2m} \right)^2,
+\end{equation*}
+</div>we know that<div class="displaymath process-math">
+\begin{equation*}
+\left(  \frac{b}{2m} \right) \gt \sqrt{\left(  \frac{b}{2m} \right)^2 - \frac{g}{L} }.
+\end{equation*}
+</div>Thus, both of our eigenvalues must be negative.  Therefore, we have a nodal sink.</div></li>
+<li id="li-554"><div class="para" id="p-derived-li-554">If <span class="process-math">\(\Delta = 0\text{,}\)</span> we have a single real negative eigenvalue. Thus, we also have a sink.</div></li>
+</ul>
+<div class="para">Consequently, if we assume that <span class="process-math">\(b\)</span> is small, then <span class="process-math">\(\Delta \lt 0\)</span> and we will only have spiral sinks (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" title="Figure 5.3.1">Figure 5.3.1</a>).</div>
+</div>
+<figure class="figure figure-like" id="nonlinear03-figure-damped-pendulum-nullclines"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-damped-pendulum-nullclines.svg" role="img" class="contained" alt="solution curves for the damped pendulum on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.1<span class="period">.</span></span><span class="space"> </span>Nullclines of the damped pendulum</figcaption></figure><div class="para logical" id="p-1898">
+<div class="para">Now let us consider the type of equilibrium solutions that we will obtain when the pendulum is standing upright. These solutions will occur at <span class="process-math">\((\theta, v) = (\pm \pi, 0), (\pm 3\pi, 0), (\pm 5\pi, 0), \ldots\text{.}\)</span>  The characteristic polynomial of the Jacobian matrix <span class="process-math">\(J_2\)</span> at these points is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\lambda^2 + \frac{b}{m} \lambda - \frac{g}{L};
+\end{equation*}
+</div>
+<div class="para">hence, the eigenvalues of <span class="process-math">\(J_2\)</span> are</div>
+<div class="displaymath process-math" id="nonlinear03-equation-mechanics-2">
+\begin{equation}
+\lambda  = -\frac{b}{2m} \pm \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} }.\tag{5.3.4}
+\end{equation}
+</div>
+<div class="para">Furthermore, we have distinct real eigenvalues since</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\left(  \frac{b}{2m} \right)^2 + \frac{g}{L} \gt 0.
+\end{equation*}
+</div>
+<div class="para">In fact, the eigenvalues will have opposite sign</div>
+<div class="displaymath process-math" id="md-532">
+\begin{align*}
+\lambda_1 &amp; = -\frac{b}{2m} + \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \gt 0\\
+\lambda_2 &amp; = -\frac{b}{2m} - \sqrt{\left( \frac{b}{2m} \right)^2 + \frac{g}{L} } \lt 0.
+\end{align*}
+</div>
+<div class="para">Thus, the equilibrium solutions are saddles.</div>
+</div></section><section class="subsection" id="nonlinear03-subsection-lyapunov-functions"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.2</span> <span class="title">Lyapunov Functions</span>
+</h3>
+<div class="para logical" id="p-1899">
+<div class="para">The function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+H(\theta, v) = \frac{1}{2} v^2 - \frac{g}{L} \cos \theta 
+\end{equation*}
+</div>
+<div class="para">is a Hamiltonian function for the ideal pendulum</div>
+<div class="displaymath process-math" id="md-533">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{g}{L} \sin \theta,
+\end{align*}
+</div>
+<div class="para">since <span class="process-math">\(d H/ dt = 0\text{.}\)</span> However, if <span class="process-math">\(b \gt 0\text{,}\)</span> then our system</div>
+<div class="displaymath process-math" id="md-534">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>
+<div class="para">has damping and</div>
+<div class="displaymath process-math" id="md-535">
+\begin{align*}
+\frac{dH}{dt} &amp; =\frac{\partial H}{\partial \theta} \frac{d \theta}{dt} + \frac{\partial H}{\partial v} \frac{dv}{dt}\\
+&amp; = \left( \frac{g}{L} \sin \theta \right) v + v\left(  -\frac{b}{m} v - \frac{g}{L} \sin \theta \right)\\
+&amp; = - \frac{b}{m} v^2 \leq 0.
+\end{align*}
+</div>
+<div class="para">Thus, <span class="process-math">\(H\)</span> is decreasing whenever <span class="process-math">\(v \neq 0\text{.}\)</span> Hence, solution curves in the <span class="process-math">\(\theta v\)</span>-plane cross the level sets of <span class="process-math">\(H\)</span> moving from larger to smaller <span class="process-math">\(H\)</span> values.</div>
+</div>
+<div class="para" id="p-1900">We can now devise a strategy for sketching the phase plane of the damped pendulum. If <span class="process-math">\(b/m\)</span>  and <span class="process-math">\(v\)</span> are both small, the value of <span class="process-math">\(H\)</span> decreases slowly along the solutions (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-damped-pendulum-nullclines.html" title="Figure 5.3.1">Figure 5.3.1</a>).</div>
+<div class="para logical" id="p-1901">
+<div class="para">The function <span class="process-math">\(H\)</span> in the case of the damped pendulum is an example of a Lyapunov function. Specifically, a function <span class="process-math">\(L(x, y)\)</span> is called a <dfn class="terminology">Lyapunov function</dfn> for the system</div>
+<div class="displaymath process-math" id="md-536">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<div class="para">if for every solution of the system, <span class="process-math">\((x(t), y(t))\text{,}\)</span> that is not an equilibrium solution of the system,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dL}{dt} \leq  0,
+\end{equation*}
+</div>
+<div class="para">with strict inequality except possible for a discrete set of <span class="process-math">\(t\)</span>s.</div>
+</div>
+<div class="para logical" id="p-1902">
+<div class="para">As an example, let us return to the damped harmonic oscillator</div>
+<div class="displaymath process-math" id="md-537">
+\begin{align*}
+\frac{dy}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - qy - pv.
+\end{align*}
+</div>
+<div class="para">If <span class="process-math">\(p = 0\text{,}\)</span> then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+H(y, v) = \frac{1}{2} v^2 + \frac{q}{2} y^2
+\end{equation*}
+</div>
+<div class="para">is a Hamiltonian function for our system.  Recall that we also call <span class="process-math">\(H\)</span> the energy function of the system. However, if <span class="process-math">\(p \gt 0\)</span> and <span class="process-math">\((y(t), v(t))\)</span> is a solution for our system, we have</div>
+<div class="displaymath process-math" id="md-538">
+\begin{align*}
+\frac{dH}{dt}(y, v) &amp; = \frac{\partial H}{\partial y} \frac{dy}{dt} + \frac{\partial H}{\partial v} \frac{dy}{dt}\\
+&amp; = (qy)v + v(-qy - pv)\\
+&amp; = -pv^2 \leq 0.
+\end{align*}
+</div>
+<div class="para">Consequently, <span class="process-math">\(H(y(t), v(t))\)</span> decreases at a nonzero rate (except when <span class="process-math">\(v = 0\)</span>), and <span class="process-math">\(H\)</span> is a Lyapunov function. The level sets of <span class="process-math">\(H\)</span> are ellipses in the <span class="process-math">\(yv\)</span>-plane.  As <span class="process-math">\(H\)</span> decreases, the energy dissipates and the ellipses become spiral sinks.</div>
+</div>
+<div class="para logical" id="p-1903">
+<div class="para">It is easy to see that the system</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" id="mdn-23">
+\begin{align}
+\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)\tag{5.3.5}\\
+\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2)\tag{5.3.6}
+\end{align}
+</div>
+<div class="para">has an equilibrium solution at the origin no matter what the value of <span class="process-math">\(\alpha\)</span> is. The Jacobian of this system is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J
+=
+\begin{pmatrix}
+3 \alpha x^2 + \alpha y^2 &amp; 1 + 2 \alpha xy \\
+-1 + 2 \alpha x y &amp; \alpha x^2 + 3 \alpha y^2
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Since our equilibrium solution is the origin,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+0 &amp; 1 \\
+-1 &amp; 0
+\end{pmatrix}
+\end{equation*}
+</div>
+<div class="para">and the linearization of our system at the origin is</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" id="md-539">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = -x.
+\end{align*}
+</div>
+<div class="para">Since the eigenvalues of</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-figure-linearization-solution-curves-1.html">
+\begin{equation*}
+J =
+\begin{pmatrix}
+0 &amp; 1 \\
+-1 &amp; 0
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">are <span class="process-math">\(\pm i\text{,}\)</span> the linearization has a center at the origin. The phase plane consists of circles about the origin (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-1.html" title="Figure 5.3.2">Figure 5.3.2</a>).  Notice that the linearization does not depend on <span class="process-math">\(\alpha\text{.}\)</span>
+</div>
+</div>
+<figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-1"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-1.svg" role="img" class="contained" alt="a closed circular solution curve on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.2<span class="period">.</span></span><span class="space"> </span>Solution curves for the linearization.</figcaption></figure><div class="para" id="p-1904">Now let us consider what happens to system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-1.html" title="Equation 5.3.5">(5.3.5)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-2.html" title="Equation 5.3.6">(5.3.6)</a> if we consider different values of <span class="process-math">\(\alpha\text{.}\)</span> If <span class="process-math">\(\alpha = 5\text{,}\)</span> the situation is quite different than the linearization of our system. A solution curve spirals out from the origin as <span class="process-math">\(t \to \infty\)</span> (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-2.html" title="Figure 5.3.3">Figure 5.3.3</a>). As <span class="process-math">\(t \to - \infty\text{,}\)</span> the solution curve spirals back into the origin, but it seems to stop before actually reaching the origin. If <span class="process-math">\(\alpha = -5\)</span> on the other hand, we seem to have the opposite behavior with the solution curves spiraling into the origin as <span class="process-math">\(t \to \infty\text{.}\)</span> As before, the solutions do not seem to reach the origin (<a href="" class="xref" data-knowl="./knowl/nonlinear03-figure-linearization-solution-curves-3.html" title="Figure 5.3.4">Figure 5.3.4</a>).</div>
+<figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-2"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-2.svg" role="img" class="contained" alt="a solution curve with a downward trajectory on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.3<span class="period">.</span></span><span class="space"> </span>Solution curves <span class="process-math">\(\alpha = 5\text{.}\)</span></figcaption></figure><figure class="figure figure-like" id="nonlinear03-figure-linearization-solution-curves-3"><div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="generated/sageplot/nonlinear03-linearization-solution-curves-3.svg" role="img" class="contained" alt="a solution curve with a upward trajectory on a direction field of slope arrows"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.4<span class="period">.</span></span><span class="space"> </span>Solution curves for <span class="process-math">\(\alpha = -5\text{.}\)</span></figcaption></figure><div class="para logical" id="p-1905">
+<div class="para">Suppose that <span class="process-math">\((x(t), y(t))\)</span> is a solution to the nonlinear system. The function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+r(t) = \sqrt{x(t)^2 + y(t)^2}
+\end{equation*}
+</div>
+<div class="para">is the distance of a point on the solution curve  to the origin in the <span class="process-math">\(xy\)</span>-plane. To see how <span class="process-math">\(r\)</span> changes as <span class="process-math">\(t \to \pm \infty\text{,}\)</span> we can compute the derivative of <span class="process-math">\(r\text{.}\)</span> Actually, it is easier to work with the equation <span class="process-math">\(r(t)^2 = x(t)^2 + y(t)^2\text{.}\)</span>  Thus,</div>
+<div class="displaymath process-math" id="md-540">
+\begin{align*}
+\frac{d}{dt} r^2 &amp; = \frac{d}{dt} (x(t)^2 + y(t)^2)\\
+&amp; = 2 x \frac{dx}{dt} + 2y \frac{dy}{dt}\\
+&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))\\
+&amp; = 2 \alpha (x^2 + y^2)^2\\
+&amp; = 2 \alpha r^4.
+\end{align*}
+</div>
+<div class="para">Since <span class="process-math">\((r^2)' = 2r r'\text{,}\)</span> we have</div>
+<div class="displaymath process-math" id="nonlinear03-equation-lyapunov-3">
+\begin{equation}
+r' = \alpha r^3\tag{5.3.7}
+\end{equation}
+</div>
+<div class="para">for <span class="process-math">\(r \neq 0\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1906">
+<div class="para">Equation <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-3.html" title="Equation 5.3.7">(5.3.7)</a> is separable, and it is quite easy to determine the solution as</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-equation-lyapunov-3.html ./knowl/nonlinear03-equation-lyapunov-3.html ./knowl/nonlinear03-equation-lyapunov-1.html ./knowl/nonlinear03-equation-lyapunov-2.html">
+\begin{equation*}
+r(t) = \frac{1}{\sqrt{C - 2 \alpha t}}.
+\end{equation*}
+</div>
+<div class="para">However, we do not need to know this solution  to determine the nature of the equilibrium solution at the origin. If <span class="process-math">\(\alpha \gt 0\)</span> and <span class="process-math">\(t \to -\infty\text{,}\)</span> equation <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-3.html" title="Equation 5.3.7">(5.3.7)</a> tells us that <span class="process-math">\(r(t) \to 0\text{.}\)</span> Thus, any solution to the system <a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-1.html" title="Equation 5.3.5">(5.3.5)</a>–<a href="" class="xref" data-knowl="./knowl/nonlinear03-equation-lyapunov-2.html" title="Equation 5.3.6">(5.3.6)</a> we have a spiral sink at the origin if <span class="process-math">\(\alpha = -5\text{.}\)</span>  Even though linearization fails to tell us the nature of the equilibrium solution at the origin, we were able to determine the nature of the equilibrium solution with further analysis.</div>
+</div>
+<div class="para logical" id="p-1907">
+<div class="para">We will now try to exploit what we have learned from our last example and from Hamiltonian systems to see if it is possible to analyze more general systems. If we consider solutions, <span class="process-math">\((x(t), y(t))\text{,}\)</span> of the system</div>
+<div class="displaymath process-math" id="md-541">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y),
+\end{align*}
+</div>
+<div class="para">we might ask how a function <span class="process-math">\(V(x, y)\)</span> varies along the solution curve. We already have an answer if our system is Hamiltonian, and <span class="process-math">\(V\)</span> is the corresponding Hamiltonian function. In this case <span class="process-math">\(dV/dt = 0\text{.}\)</span>  In general, we  know that</div>
+<div class="displaymath process-math" id="md-542">
+\begin{align*}
+\frac{dV}{dt} (x(t), y(t)) &amp; = \frac{\partial V}{\partial x} \frac{dx}{dt} + \frac{\partial V}{\partial y} \frac{dy}{dt}\\
+&amp; =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y).
+\end{align*}
+</div>
+<div class="para">Thus, if we let</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\dot{V} =\frac{\partial V}{\partial x} f(x, y) + \frac{\partial V}{\partial y} g(x, y),
+\end{equation*}
+</div>
+<div class="para">we know that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dV}{dt}(x(t), y(t)) = \dot{V} (x(t), y(t)).
+\end{equation*}
+</div>
+<div class="para">Thus, <span class="process-math">\(V\)</span> is increasing along a solution curve if <span class="process-math">\(\dot{V}(x, y) \gt 0\)</span> and decreasing along a solution curve if <span class="process-math">\(\dot{V}(x, y) \lt 0\text{.}\)</span> Our example suggests that we can determine this information without finding the solution.</div>
+</div>
+<div class="para logical" id="p-1908">
+<div class="para">Recall that the gradient of a function <span class="process-math">\(V: {\mathbb R}^2 \rightarrow {\mathbb R}\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\nabla V = \left(\frac{\partial V}{\partial x}, \frac{\partial V}{\partial y}\right).
+\end{equation*}
+</div>
+<div class="para">If</div>
+<div class="displaymath process-math">
+\begin{equation*}
+{\mathbf F}(x, y) =
+\begin{pmatrix}
+f(x, y) \\ g(x, y)
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\dot{V} = \nabla V \cdot {\mathbf F},
+\end{equation*}
+</div>
+<div class="para">is the directional derivative of <span class="process-math">\(V\)</span> in the direction of <span class="process-math">\({\mathbf F}\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1909">
+<div class="para">Let us use this new information about <span class="process-math">\(V\)</span> to obtain information about equilibrium solutions of our system. We do know that <span class="process-math">\(V(x, y)\)</span> graphs as a surface in <span class="process-math">\({\mathbb R}^3\)</span> and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+V(x, y) = \text{constant}
+\end{equation*}
+</div>
+<div class="para">gives the contour lines or level curves of the surface in the <span class="process-math">\(xy\)</span>-plane.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-44" id="fn-44"><sup> 1 </sup></a>  We also know that the gradient of <span class="process-math">\(V\)</span> points in the direction that <span class="process-math">\(V\)</span> is increasing the fastest and that the gradient is orthogonal to the level curves of <span class="process-math">\(V\text{.}\)</span>  Thus, if <span class="process-math">\(\dot{V}(x, y) \gt 0\text{,}\)</span> we know that <span class="process-math">\(V\)</span> is increasing in the direction of the vector field <span class="process-math">\({\mathbf F}\)</span> and the elevation of the solution curve through <span class="process-math">\((x, y)\)</span> in <span class="process-math">\({\mathbb R}^3\)</span> is increasing. That is, the solution curve is traveling uphill.  Similarly, if <span class="process-math">\(\dot{V}(x, y) \lt 0\text{,}\)</span> we know that the solution curve at <span class="process-math">\((x, y)\)</span> is going downhill.<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-45" id="fn-45"><sup> 2 </sup></a>
+</div>
+</div>
+<div class="para" id="p-1910">Now suppose that <span class="process-math">\(V\)</span> is a real-valued function defined on a set <span class="process-math">\(S\)</span> in the <span class="process-math">\(xy\)</span>-plane, where the point <span class="process-math">\({\mathbf x}_0 = (x_0, y_0)\)</span> is in <span class="process-math">\(S\text{.}\)</span> We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive definite</dfn> if <span class="process-math">\(V({\mathbf x}) \gt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{,}\)</span> and <span class="process-math">\(V\)</span> is <dfn class="terminology">positive semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \geq 0\text{.}\)</span> Similarly, we say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative definite</dfn> and <dfn class="terminology">negative semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \lt 0\)</span> and <span class="process-math">\(V({\mathbf x}) \leq 0\text{,}\)</span> respectively.</div>
+<div class="para logical" id="p-1911">
+<div class="para">For example, if we consider the system for a harmonic oscillator</div>
+<div class="displaymath process-math" id="md-543">
+\begin{align*}
+y' &amp; = v\\
+v' &amp; = -\frac{k}{m} y - \frac{b}{m} v,
+\end{align*}
+</div>
+<div class="para">then the energy function,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+E(y, v) = \frac{1}{2} mv^2 + \frac{1}{2} ky^2,
+\end{equation*}
+</div>
+<div class="para">is positive definite.</div>
+</div>
+<article class="theorem theorem-like" id="nonlinear03-theorem-lyapunov"><h4 class="heading">
+<span class="type">Theorem</span><span class="space"> </span><span class="codenumber">5.3.5</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-1912">
+<div class="para">Suppose that the system</div>
+<div class="displaymath process-math" id="md-544">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<div class="para">has an equilibrium solution at <span class="process-math">\((x_0, y_0)\text{.}\)</span>  Let <span class="process-math">\(V\)</span> be a continuously differentiable function defined on a neighborhood <span class="process-math">\(U\)</span> of <span class="process-math">\((x_0, y_0)\)</span> that is positive definite with minimum at <span class="process-math">\((x_0, y_0)\text{.}\)</span>
+</div>
+<ol class="decimal">
+<li id="li-555"><div class="para" id="p-derived-li-555">If <span class="process-math">\(\dot{V}\)</span> is negative semidefinite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</div></li>
+<li id="li-556"><div class="para" id="p-derived-li-556">If <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is an asymptotically stable equilibrium solution or a sink.</div></li>
+</ol>
+</div></article><div class="para logical" id="p-1913">
+<div class="para">Recall our example,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-theorem-lyapunov.html" id="md-545">
+\begin{align*}
+\frac{dx}{dt} &amp; = y + \alpha x(x^2 + y^2)\\
+\frac{dy}{dt} &amp; = -x + \alpha y(x^2 + y^2).
+\end{align*}
+</div>
+<div class="para">The function <span class="process-math">\(V(x, y) = x^2 + y^2\)</span> is positive definite on <span class="process-math">\({\mathbb R}^2\text{,}\)</span> with an isolated minimum at the origin.  We can compute</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/nonlinear03-theorem-lyapunov.html" id="md-546">
+\begin{align*}
+\dot{V}&amp; = \frac{\partial V}{\partial x}(x, y)  f(x, y) + \frac{\partial V}{\partial y}(x, y) g(x, y)\\
+&amp; = 2x (y + \alpha x(x^2 + y^2) ) + 2y( -x + \alpha y(x^2 + y^2))\\
+&amp; = 2 \alpha (x^2 + y^2)^2.
+\end{align*}
+</div>
+<div class="para">If <span class="process-math">\(\alpha \lt 0\text{,}\)</span> then <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\({\mathbb R}^2\text{.}\)</span> <a href="" class="xref" data-knowl="./knowl/nonlinear03-theorem-lyapunov.html" title="Theorem 5.3.5">Theorem 5.3.5</a> tells us that the origin is a stable equilibrium point.</div>
+</div>
+<div class="para" id="p-1914">The function <span class="process-math">\(V\)</span> in <a href="" class="xref" data-knowl="./knowl/nonlinear03-theorem-lyapunov.html" title="Theorem 5.3.5">Theorem 5.3.5</a> is called a <dfn class="terminology">Lyapunov function</dfn>. If we compare Theorem 1 to using linearization to determine stability of an equilibrium solution, we will find that we can apply this result where linearization fails.  Also, Lyapunov functions are defined on a domain <span class="process-math">\(U\text{,}\)</span> where linearization only tells us what happens on a small neighborhood around the equilibrium solution. Unfortunately, there are no general ways of finding Lyapunov functions.</div></section><section class="subsection" id="nonlinear03-subsection-gradient-systems"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.3</span> <span class="title">Gradient Systems</span>
+</h3>
+<div class="para logical" id="p-1915">
+<div class="para">Let <span class="process-math">\(S\)</span> be a real-valued function on the <span class="process-math">\(xy\)</span>-plane. The gradient of <span class="process-math">\(S\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\nabla S = \left(  \frac{\partial S}{\partial x}, \frac{\partial S}{\partial y} \right).
+\end{equation*}
+</div>
+<div class="para">The system</div>
+<div class="displaymath process-math" id="md-547">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<div class="para">is a <dfn class="terminology">gradient system</dfn> if</div>
+<div class="displaymath process-math" id="md-548">
+\begin{align*}
+f(x, y) &amp; = \frac{\partial S}{\partial x}\\
+g(x, y) &amp; = \frac{\partial S}{\partial y}.
+\end{align*}
+</div>
+<div class="para">For example, the system</div>
+<div class="displaymath process-math" id="md-549">
+\begin{align*}
+\frac{dx}{dt} &amp; = x - x^3\\
+\frac{dy}{dt} &amp; = -y
+\end{align*}
+</div>
+<div class="para">is a gradient system, where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+S(x, y) = \frac{x^2}{2} - \frac{x^4}{4} - \frac{y^2}{2} + 8.
+\end{equation*}
+</div>
+<div class="para">Now, let us see what happens on the solution curves of this gradient system. If <span class="process-math">\((x(t), y(t))\)</span> is a solution curve,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dS}{dt} = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = (x - x^3)^2 + y^2 \geq 0.
+\end{equation*}
+</div>
+<div class="para">Thus, <span class="process-math">\(S\)</span> increases at the point on the solution curve where the gradient of <span class="process-math">\(S\)</span> is nonzero. That is, <span class="process-math">\(S\)</span> increases at every point on the solution curve except at the equilibrium points.</div>
+</div>
+<div class="para logical" id="p-1916">
+<div class="para">In general, suppose that</div>
+<div class="displaymath process-math" id="md-550">
+\begin{align*}
+\frac{dx}{dt} &amp; =  \frac{\partial S}{\partial x}\\
+\frac{dy}{dt} &amp; =  \frac{\partial S}{\partial y}
+\end{align*}
+</div>
+<div class="para">is a gradient system.  Since</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{dS}{dt} (x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} = \left( \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,
+\end{equation*}
+</div>
+<div class="para">we know that <span class="process-math">\(S\)</span> increases on every solution to the system except at the critical points of <span class="process-math">\(S(x(t), y(t))\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1917">
+<div class="para">Let us see what this means in terms of the linearization of the system. The Jacobian matrix of <span class="process-math">\((f, g)\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+J =
+\begin{pmatrix}
+f_x &amp; f_y \\
+g_x &amp; g_y
+\end{pmatrix}
+=
+\begin{pmatrix}
+S_{xx} &amp; S_{xy} \\
+S_{yx} &amp; S_{yy}
+\end{pmatrix}.
+\end{equation*}
+</div>
+<div class="para">Since <span class="process-math">\(S_{xy} = S_{yx}\text{,}\)</span> the matrix <span class="process-math">\(J\)</span> must have the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+J=
+\begin{pmatrix}
+\alpha &amp; \beta \\
+\beta &amp; \gamma
+\end{pmatrix},
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(\alpha = S_{xx}\text{,}\)</span> <span class="process-math">\(\beta = S_{xy}\text{,}\)</span> and <span class="process-math">\(\gamma = S_{yy}\text{.}\)</span> The characteristic polynomial of <span class="process-math">\(J\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\lambda^2 - (\alpha + \gamma) \lambda + \alpha \gamma - \beta^2.
+\end{equation*}
+</div>
+<div class="para">Therefore, the eigenvalues are</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\lambda = \frac{1}{2}( \alpha + \beta) \pm \frac{1}{2} \sqrt{(\alpha - \gamma)^2 + 4 \beta^2}.
+\end{equation*}
+</div>
+<div class="para">Since we have real eigenvalues, a gradient system can have no spiral sources, spiral sinks, or centers.</div>
+</div>
+<div class="para logical" id="p-1918">
+<div class="para">For example, <span class="process-math">\(x^2 + y^2\)</span> is a Lyapunov function for the system</div>
+<div class="displaymath process-math" id="md-551">
+\begin{align*}
+\frac{dx}{dt} &amp; =  -x + y\\
+\frac{dy}{dt} &amp; = -x - y.
+\end{align*}
+</div>
+<div class="para">However, the origin is a spiral sink, so this system cannot be a gradient system.</div>
+</div></section><section class="subsection" id="nonlinear03-subsection-important-lessons"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">5.3.4</span> <span class="title">Important Lessons</span>
+</h3>
+<div class="para logical" id="p-1919"><ul class="disc">
+<li id="li-557"><div class="para" id="p-derived-li-557">The equation for the nonlinear pendulum with damping<div class="displaymath process-math" id="md-552">
+\begin{align*}
+\frac{d \theta}{dt} &amp; = v\\
+\frac{dv}{dt} &amp; = - \frac{b}{m} v - \frac{g}{L} \sin \theta.
+\end{align*}
+</div>can be analyzed by examining <span class="process-math">\(dH/dt\text{,}\)</span> where <span class="process-math">\(H\)</span> is the Hamiltonian function for the ideal pendulum. The function <span class="process-math">\(H\)</span> for this system is an example of a <dfn class="terminology">Lyapunov function</dfn>.</div></li>
+<li id="li-558"><div class="para logical" id="p-1920">
+<div class="para">Let <span class="process-math">\(V\)</span> be a real-valued function defined on a set <span class="process-math">\(S\)</span> in the <span class="process-math">\(xy\)</span>-plane such that the point <span class="process-math">\({\mathbf x}_0 = (x_0, y_0)\)</span> is in <span class="process-math">\(S\)</span> and <span class="process-math">\(V({\mathbf x}_0) = 0\text{.}\)</span>
+</div>
+<ul class="circle">
+<li id="li-559"><div class="para" id="p-derived-li-559">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive definite</dfn> if <span class="process-math">\(V({\mathbf x}) \gt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{.}\)</span>
+</div></li>
+<li id="li-560"><div class="para" id="p-derived-li-560">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">positive semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \geq 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{.}\)</span>
+</div></li>
+<li id="li-561"><div class="para" id="p-derived-li-561">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative definite</dfn> if <span class="process-math">\(V({\mathbf x}) \lt 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{,}\)</span> where <span class="process-math">\({\mathbf x} \neq {\mathbf x}_0\text{.}\)</span>
+</div></li>
+<li id="li-562"><div class="para" id="p-derived-li-562">We say that <span class="process-math">\(V\)</span> is <dfn class="terminology">negative semidefinite</dfn> if <span class="process-math">\(V({\mathbf x}) \leq 0\)</span> for all <span class="process-math">\({\mathbf x}\)</span> in <span class="process-math">\(S\text{.}\)</span>
+</div></li>
+</ul>
+</div></li>
+<li id="li-563"><div class="para logical" id="p-1921">
+<div class="para">Suppose that the system</div>
+<div class="displaymath process-math" id="md-553">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>
+<div class="para">has an equilibrium solution at <span class="process-math">\((x_0, y_0)\text{.}\)</span> Let <span class="process-math">\(V\)</span> be a continuously differentiable function defined on a neighborhood <span class="process-math">\(U\)</span> of <span class="process-math">\((x_0, y_0)\)</span> that is positive definite with minimum at <span class="process-math">\((x_0, y_0)\text{.}\)</span>
+</div>
+<ol class="decimal">
+<li id="li-564"><div class="para" id="p-derived-li-564">If <span class="process-math">\(\dot{V}\)</span> is negative semidefinite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is a stable equilibrium solution. That is, any solution that starts near the equilibrium solution will stay near the equilibrium solution.</div></li>
+<li id="li-565"><div class="para" id="p-derived-li-565">If <span class="process-math">\(\dot{V}\)</span> is negative definite on <span class="process-math">\(U\text{,}\)</span> then <span class="process-math">\((x_0, y_0)\)</span> is an asymptotically stable equilibrium solution or a sink.</div></li>
+</ol>
+<div class="para">We can use these results to analyze the behavior of equilibrium solutions where linearization fails. The function <span class="process-math">\(V\)</span> is called a <dfn class="terminology">Lyapunov function</dfn>. We have no general methods for finding Lyapunov functions.</div>
+</div></li>
+<li id="li-566"><div class="para" id="p-derived-li-566">The system<div class="displaymath process-math" id="md-554">
+\begin{align*}
+\frac{dx}{dt} &amp; = f(x, y)\\
+\frac{dy}{dt} &amp; = g(x, y)
+\end{align*}
+</div>is a <dfn class="terminology">gradient system</dfn> if<div class="displaymath process-math" id="md-555">
+\begin{align*}
+f(x, y) &amp; = \frac{\partial S}{\partial x}\\
+g(x, y) &amp; = \frac{\partial S}{\partial y},
+\end{align*}
+</div>where <span class="process-math">\(S\)</span> is a real-valued function on the <span class="process-math">\(xy\)</span>-plane. Since<div class="displaymath process-math">
+\begin{equation*}
+\frac{dS}{dt} (x(t), y(t)) = \left(  \frac{\partial S}{\partial x} \right)^2 + \left( \frac{\partial S}{\partial y} \right)^2 \geq 0,
+\end{equation*}
+</div>
+<span class="process-math">\(S\)</span> increases on every solution to the system except at the critical points of <span class="process-math">\(S(x(t), y(t))\text{.}\)</span> Since the eigenvalues of a gradient system are real, a gradient system has no spiral sources, spiral sinks, or centers.</div></li>
+</ul></div></section><section class="reading-questions" id="reading-questions-nonlinear03"><h3 class="heading hide-type">
+<span class="type">Reading Questions</span> <span class="codenumber">5.3.5</span> <span class="title">Reading Questions</span>
+</h3>
+<article class="exercise exercise-like" id="reading-questions-nonlinear03-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para" id="p-1922">Explain in your own words what a Lyapunov function is.</div></article><article class="exercise exercise-like" id="reading-questions-nonlinear03-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-1923">Explain in your own words what a gradient system is.</div></article></section><section class="exercises" id="nonlinear03-exercises"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">5.3.6</span> <span class="title">Exercises</span>
+</h3>
+<div class="exercisegroup" id="nonlinear03-exercises-positive-definite">
+<h4 class="heading"><span class="title">Positive Definite Functions.</span></h4>
+<div class="introduction" id="introduction-130"><div class="para" id="p-1924">Consider each of the functions in <a href="" class="xref" data-knowl="./knowl/nonlinear03-exercises-positive-definite.html" title="Exercise Group 5.3.6.1–6: Positive Definite Functions">Exercise Group 5.3.6.1–6</a> on a neighborhood of <span class="process-math">\((0,0)\text{.}\)</span> Determine if the function is positive definite, positive semidefinite, negative definite, negative semidefinite, or none of the previous. Justify your conclusion.</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-496"><h5 class="heading"><span class="codenumber">1<span class="period">.</span></span></h5>
+<div class="para" id="p-1925"><span class="process-math">\(V(x, y) = 2x^2 + y^2\)</span></div></article><article class="exercise exercise-like" id="exercise-497"><h5 class="heading"><span class="codenumber">2<span class="period">.</span></span></h5>
+<div class="para" id="p-1926"><span class="process-math">\(V(x, y) = - 3x^2\)</span></div></article><article class="exercise exercise-like" id="exercise-498"><h5 class="heading"><span class="codenumber">3<span class="period">.</span></span></h5>
+<div class="para" id="p-1927"><span class="process-math">\(V(x, y) = x^2 + y\)</span></div></article><article class="exercise exercise-like" id="exercise-499"><h5 class="heading"><span class="codenumber">4<span class="period">.</span></span></h5>
+<div class="para" id="p-1928"><span class="process-math">\(V(x, y) = 9x^2 - 6xy + y^2\)</span></div></article><article class="exercise exercise-like" id="exercise-500"><h5 class="heading"><span class="codenumber">5<span class="period">.</span></span></h5>
+<div class="para" id="p-1929"><span class="process-math">\(V(x, y) = -2x^2 - y^2\)</span></div></article><article class="exercise exercise-like" id="exercise-501"><h5 class="heading"><span class="codenumber">6<span class="period">.</span></span></h5>
+<div class="para" id="p-1930"><span class="process-math">\(V(x, y) = -(x + y)^2\)</span></div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-502"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1931">
+<div class="para">Consider the system</div>
+<div class="displaymath process-math" id="md-556">
+\begin{align*}
+\frac{dx}{dt} &amp; = -x + y^2\\
+\frac{dy}{dt} &amp; = 3x^2 - 2y.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-567"><div class="para" id="p-1932">Find the equilibrium solutions of the system.  Which one of the equilibrium solutions is stable?</div></li>
+<li id="li-568"><div class="para logical" id="p-1933">
+<div class="para">Verify that the function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+V(x, y) = \frac{x^2}{2} + \frac{y^2}{4}
+\end{equation*}
+</div>
+<div class="para">is a Lyapunov function for the system, and calculate <span class="process-math">\(\dot{V}(x,y)\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-569"><div class="para" id="p-1934">Sketch the level sets of <span class="process-math">\(V\text{.}\)</span>
+</div></li>
+<li id="li-570"><div class="para" id="p-1935">Sketch the phase portrait of the system.</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-503"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1936">
+<div class="para">Consider the system</div>
+<div class="displaymath process-math" id="md-557">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = - \sin x.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-571"><div class="para logical" id="p-1937">
+<div class="para">Verify that the function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+V(x, y) = \frac{y^2}{2} - \cos x + 1
+\end{equation*}
+</div>
+<div class="para">is a Lyapunov function for the system, and calculate <span class="process-math">\(\dot{V}(x,y)\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-572"><div class="para" id="p-1938">Sketch the level sets of <span class="process-math">\(V\text{.}\)</span>
+</div></li>
+<li id="li-573"><div class="para" id="p-1939">Sketch the phase portrait of the system.</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-504"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1940">
+<div class="para">Consider the system</div>
+<div class="displaymath process-math" id="md-558">
+\begin{align*}
+\frac{dx}{dt} &amp; = y\\
+\frac{dy}{dt} &amp; = -x - \frac{y}{4} + x^2.
+\end{align*}
+</div>
+<ol class="lower-alpha">
+<li id="li-574"><div class="para logical" id="p-1941">
+<div class="para">Verify that the function</div>
+<div class="displaymath process-math">
+\begin{equation*}
+V(x, y) = \frac{y^2}{2} + \frac{x^2}{2} - \frac{x^3}{3}
+\end{equation*}
+</div>
+<div class="para">is a Lyapunov function for the system.</div>
+</div></li>
+<li id="li-575"><div class="para" id="p-1942">Sketch the level sets of <span class="process-math">\(V\text{.}\)</span>
+</div></li>
+<li id="li-576"><div class="para" id="p-1943">Sketch the phase portrait of the system.</div></li>
+</ol>
+</div></article><div class="exercisegroup" id="nonlinear03-exercises-gradient-systems">
+<h4 class="heading"><span class="title">Gradient Systems.</span></h4>
+<div class="introduction" id="introduction-131"><div class="para" id="p-1944">Which of the systems in <a href="" class="xref" data-knowl="./knowl/nonlinear03-exercises-gradient-systems.html" title="Exercise Group 5.3.6.10–13: Gradient Systems">Exercise Group 5.3.6.10–13</a> are gradient systems.  If the system is a gradient system, find a gradient function.</div></div>
+<div class="exercisegroup-exercises cols2">
+<article class="exercise exercise-like" id="exercise-505"><h5 class="heading"><span class="codenumber">10<span class="period">.</span></span></h5> <div class="para logical" id="p-1945"><div class="displaymath process-math" id="md-559">
+\begin{align*}
+\frac{dx}{dt} &amp; = 12x^2 - 6 xy^2\\
+\frac{dy}{dt} &amp; = -6x^2y + 2y
+\end{align*}
+</div></div></article><article class="exercise exercise-like" id="exercise-506"><h5 class="heading"><span class="codenumber">11<span class="period">.</span></span></h5> <div class="para logical" id="p-1946"><div class="displaymath process-math" id="md-560">
+\begin{align*}
+\frac{dx}{dt} &amp; = 10xy - y \cot x\\
+\frac{dy}{dt} &amp; = 5x^2 - \tan x
+\end{align*}
+</div></div></article><article class="exercise exercise-like" id="exercise-507"><h5 class="heading"><span class="codenumber">12<span class="period">.</span></span></h5> <div class="para logical" id="p-1947"><div class="displaymath process-math" id="md-561">
+\begin{align*}
+\frac{dx}{dt} &amp; = 2 \cos x \cos y\\
+\frac{dy}{dt} &amp; = - 2 \sin x \sin y.
+\end{align*}
+</div></div></article><article class="exercise exercise-like" id="exercise-508"><h5 class="heading"><span class="codenumber">13<span class="period">.</span></span></h5> <div class="para logical" id="p-1948"><div class="displaymath process-math" id="md-562">
+\begin{align*}
+\frac{dx}{dt} &amp; = 3x + 4y\\
+\frac{dy}{dt} &amp; = -4x + 3y
+\end{align*}
+</div></div></article>
+</div>
+</div>
+<article class="exercise exercise-like" id="exercise-509"><h4 class="heading"><span class="codenumber">14<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1949">
+<div class="para">Suppose that <span class="process-math">\(S = x^2 + 2y^3\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-577"><div class="para" id="p-1950">What is the gradient system with the vector field given by the gradient of <span class="process-math">\(S\text{?}\)</span>
+</div></li>
+<li id="li-578"><div class="para" id="p-1951">Sketch graph of <span class="process-math">\(S\)</span> and the level sets of <span class="process-math">\(S\)</span> for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+<li id="li-579"><div class="para" id="p-1952">Sketch the phase portrait of the system that you found in (a) for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-510"><h4 class="heading"><span class="codenumber">15<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1953">
+<div class="para">Suppose that <span class="process-math">\(S = x^3 - 2xy^2\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-580"><div class="para" id="p-1954">What is the gradient system with the vector field given by the gradient of <span class="process-math">\(S\text{?}\)</span>
+</div></li>
+<li id="li-581"><div class="para" id="p-1955">Sketch graph of <span class="process-math">\(S\)</span> and the level sets of <span class="process-math">\(S\)</span> for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+<li id="li-582"><div class="para" id="p-1956">Sketch the phase portrait of the system that you found in (a) for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-511"><h4 class="heading"><span class="codenumber">16<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1957">
+<div class="para">Suppose that <span class="process-math">\(S = x\cos y + y \cos x\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-583"><div class="para" id="p-1958">What is the gradient system with the vector field given by the gradient of <span class="process-math">\(S\text{?}\)</span>
+</div></li>
+<li id="li-584"><div class="para" id="p-1959">Sketch graph of <span class="process-math">\(S\)</span> and the level sets of <span class="process-math">\(S\)</span> for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+<li id="li-585"><div class="para" id="p-1960">Sketch the phase portrait of the system that you found in (a) for <span class="process-math">\(-5 \leq x \leq 5\)</span> and <span class="process-math">\(-5 \leq y \leq 5\text{.}\)</span>
+</div></li>
+</ol>
+</div></article><article class="exercise exercise-like" id="exercise-512"><h4 class="heading">
+<span class="codenumber">17<span class="period">.</span></span><span class="space"> </span><span class="title">Lobster Navigation.</span>
+</h4>
+<div class="para" id="p-1961">Lobsters are a family (Nephropidae, synonym Homaridae) of marine crustaceans. They have long bodies with muscular tails and live in crevices or burrows  on rocky, sandy, or muddy bottoms from the shoreline to beyond the edge of the continental shelf.  Lobsters are omnivores and typically eat live prey such as fish, mollusks, other crustaceans, worms, and some plant life. They scavange if necessary.  Because lobsters live in murky environments at the bottom of the ocean, they mostly use their antennae as sensors. Lobsters can "smell" their food by using four small antennae on the front of their heads and tiny sensing hairs that cover their bodies.</div> <div class="para logical" id="p-1962">
+<div class="para">Let us assume that a lobster moves in a plane.  If the position of the lobster is <span class="process-math">\((x(t), y(t))\)</span> at time <span class="process-math">\(t\text{,}\)</span> then the lobster will head in the direction of a velocity vector, <span class="process-math">\((x'(t), y'(t))\text{,}\)</span> at time <span class="process-math">\(t\text{.}\)</span>  If <span class="process-math">\(S(x,y)\)</span> is the concentration of the chemicals emanating from a potential food source, say a dead fish, then the lobster will move in the direction of the greatest increase <span class="process-math">\(S\text{.}\)</span>  However, this direction is just the gradient vector of <span class="process-math">\(S\text{,}\)</span> <span class="process-math">\((\partial S/\partial x, \partial S/\partial y)\text{.}\)</span>  Therefore, the motion of the lobster is described by the system</div>
+<div class="displaymath process-math" id="md-563">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial S}{\partial x}\\
+\frac{dy}{dt} &amp; = \frac{\partial S}{\partial y}.
+\end{align*}
+</div>
+</div> <div class="para logical" id="p-1963">
+<div class="para">Suppose that <span class="process-math">\(S(x, y)\)</span> is defined on the rectangle <span class="process-math">\(-3 \leq x \leq 3\)</span> and <span class="process-math">\(-3 \leq y \leq 3\)</span> by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+S(x,y) = \frac{y^2}{2} - \frac{y^4}{4} - \frac{x^2}{2} + 6.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-586"><div class="para" id="p-1964">What is the gradient system for <span class="process-math">\(S\text{?}\)</span>
+</div></li>
+<li id="li-587"><div class="para logical" id="p-1965">
+<div class="para">Show that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\frac{d}{dt} S(x(t), y(t)) = \frac{\partial S}{\partial x} \frac{dx}{dt} + \frac{\partial S}{\partial y} \frac{dy}{dt} \geq 0.
+\end{equation*}
+</div>
+<div class="para">Hence, we can deduce that <span class="process-math">\(S\)</span> is increasing whenever <span class="process-math">\(\nabla S \neq 0\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-588"><div class="para" id="p-1966">Sketch the level sets of <span class="process-math">\(S\)</span> for <span class="process-math">\(-3 \leq x \leq 3\)</span> and <span class="process-math">\(-3 \leq y\ leq 3\text{.}\)</span>
+</div></li>
+<li id="li-589"><div class="para logical" id="p-1967">
+<div class="para">Sketch the vector field given by</div>
+<div class="displaymath process-math" id="md-564">
+\begin{align*}
+\frac{dx}{dt} &amp; = \frac{\partial S}{\partial x}\\
+\frac{dy}{dt} &amp; = \frac{\partial S}{\partial y}.
+\end{align*}
+</div>
+<div class="para">What do you notice about the two plots?</div>
+</div></li>
+<li id="li-590"><div class="para logical" id="p-1968">
+<div class="para">If</div>
+<div class="displaymath process-math">
+\begin{equation*}
+S(x,y) = x^2 + y^2 - \frac{x^4 + y^4}{4} - 5x^2y^2 + 50,
+\end{equation*}
+</div>
+<div class="para">how many dead fish will there be?  Where are the dead fish located?</div>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-24" id="hint-24"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-24"><div class="hint solution-like"><div class="para" id="p-1969">You may find Sage useful.</div></div></div>
+</div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-44"><div class="fn">See Figures 1 and 2 in John Polking, Albert Boggess, and David Arnold. {\it Differential Equations}.  Prentice Hall, Upper Saddle River, NJ, 2001, p. 611.</div></div>
+<div class="hidden-content tex2jax_ignore" id="hk-fn-45"><div class="fn">The argument that we have made here also works in higher dimensions.</div></div>
+</div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="nonlinear02.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="nonlinear04.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>
