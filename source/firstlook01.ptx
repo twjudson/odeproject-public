@@ -87,21 +87,15 @@
             <usage><m>x'(t) = f(t, x), x(0) = x_0</m></usage>
             <description>first-order initial value problem</description>
         </notation>
-
+        
         <figure xml:id="firstlook01-figure-integral-curves">
-            <image width="60%" xml:id="firstlook01-integral-curves">
-                <description>a family of curves that approach zero going left and postive or negative infinity going right</description>
-                <sageplot>
-                    p = plot(exp(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005, axes_labels=['$t$','$x(t)$'], fontsize=12)
-                    for n in range(1,4):
-                        f(x) = exp(n*x)
-                        p += plot(f(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005)
-                        p += plot(-f(x), (x, -2.1, 2.1), xmax=4, ymin = -350, ymax = 350, color='blue', aspect_ratio=0.005)
-                    p += text('$x(t) = Ce^{kt}$', (-1.5, 100), color='black', fontsize=14)
-                    p
-                </sageplot>
-            </image>
-            <caption>Integral curves</caption>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook01-integral-curves">
+                          <xi:include href="prefigure/firstlook01-integral-curves.xml"/>
+                    </prefigure>
+              </image>
+              <caption>Integral curves</caption>
         </figure>
 
         <activity>
@@ -190,19 +184,14 @@
             The graph of our solution certainly fits the situation that we are modeling (<xref ref="firstlook01-figure-logistic-growth"/>).  We will learn how to solve initial value problems such as the one described here in <xref ref="firstlook02"/>. For the time being, we will be satisfied with being able to verify the fact that we have a solution.</p>
 
             <figure xml:id="firstlook01-figure-logistic-growth">
-
-                <image width="60%" xml:id="firstlook01-logistic-growth">
-                    <description>a curve that first increases steeply and then begins to level off just below one thousand</description>
-                    <sageplot>
-                        f(x) = 1000/(9*exp(-0.8109 * x) + 1)
-                        p = plot(f(x), (x, 0, 16), xmax=16, ymin = -100, ymax = 1100, color='blue', thickness=2, aspect_ratio=0.01, axes_labels=['$t$','$P(t)$'], fontsize=12)
-                        p
-                    </sageplot>
-                </image>
-
-                <caption>Logistic growth</caption>
-
-            </figure>
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-firstlook01-figure-logistic-growth">
+                              <xi:include href="prefigure/firstlook01-logistic-growth.xml"/>
+                        </prefigure>
+                  </image>
+                  <caption>Logistic Growth</caption>
+              </figure>
 
         </example>
 
@@ -435,21 +424,13 @@
         Our graphical solution is obtained using a numerical algorithm (see <xref ref="firstlook04"/> and <xref ref="systems03"/>). Notice that the predator population, <m>L</m>, begins to grow and reaches a peak after the prey population, <m>H</m> reaches its peak. As the prey population declines, the predator population also declines. Once the predator population is smaller, the prey population has a chance to recover, and the cycle begins again.<fn>An excellent account of the actual lynx and snowshoe hare data and model can be found in <xref ref="bauer-2001"/>.</fn></p>
 
         <figure xml:id="firstlook01-figure-lynx-snowshoe-hare">
-            <image width="60%" xml:id="firstlook01-lynx-snowshoe-hare">
-                <description>two curves  with the curve for the hares oscillating between forty-four and eighty and the curves for the lynx oscillating betwee fifty-four and thirty with the maximum amplitudes lagging behind the maximum amplitudes of the curve for the hares</description>
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_system_rk4
-                    H,L,t = var('H L t')
-                    F = [0.4*H - 0.01*H*L, -0.3*L + 0.005*H*L]
-                    P=desolve_system_rk4(F,[H,L],ics=[0,70,50],ivar=t,end_points=100)
-                    Q=[ [i, j] for i,j,k in P]
-                    R=[ [i, k] for i,j,k in P]
-                    p = line(Q, color='red', axes_labels=['$t$','$H(t), L(t)$'], legend_label='$H(t)$', legend_color='red')
-                    p += line(R, color='blue', legend_label='$L(t)$', legend_color='blue')
-                    p
-                </sageplot>
-            </image>
-            <caption>The predator-prey relationship between the lynx and the snowshoe hare</caption>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook01-lynx-snowshoe-hare">
+                          <xi:include href="prefigure/firstlook01-lynx-snowshoe-hare.xml"/>
+                    </prefigure>
+              </image>
+              <caption>The predator-prey relationship between the lynx and the snowshoe hare</caption>
         </figure>
     
     </subsection>
