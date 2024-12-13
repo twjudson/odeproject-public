@@ -28,18 +28,15 @@
         <title>RC Circuits</title>
 
         <p>Suppose that we wish to analyze how an electric current flows through a circuit. An <term>RC circuit</term><idx>RC circuit</idx> is a very simple circuit might contain a voltage source, a capacitor, and a resistor (<xref ref="firstlook03-figure-rc-circuit" />). A battery or generator is an example of a voltage source. The glowing red heating element in a toaster or an electric stove is an example of something that provides resistance in a circuit. A capacitor stores an electrical charge and can be made by separating two metal plates with an insulating material. Capacitors are used to power the electronic flashes for cameras. Current, <m>I(t)</m>, is the rate at which a charge flows through this circuit and is measured in amperes or amps (A). We assign a direction to the current. A current flowing in the opposite direction will be given negative values.</p>
-    
+
         <figure xml:id="firstlook03-figure-rc-circuit">
-
-            <!-- Replaced figure with tikz figure - TWJ 6/11/2010 -->
-            <image width="70%" xml:id="firstlook03-rc-circuit">
-                <description>an electrical circuit containing a voltage source and  a resistor and a capacitor</description>
-                <latex-image>
-                    <xi:include href="tikz/firstlook03-rc-circuit.tex" parse="text"/>
-                </latex-image>
-            </image>
-
-            <caption>An RC circuit</caption>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-rc-circuit">
+                          <xi:include href="prefigure/firstlook03-rc-circuit.xml"/>
+                    </prefigure>
+              </image>
+              <caption>An RC circuit</caption>
         </figure>
   
         <p>The source voltage, <m>E(t)</m>, is measured in volts (V). <term>Kirchhoff's Second Law</term><idx>Kirchhoff's Second Law</idx> tells us that the impressed voltage in a closed circuit is equal to the sum of the voltage drops in the rest of the circuit. Thus, we need only compute the voltage drop across the resistor, <m>E_R</m>, and the voltage drop across the capacitor, <m>E_C</m>. According to Kirchhoff's Law, this is
@@ -66,23 +63,13 @@
         <p>For example, consider the differential equation <m>y' = y^2/2 - t</m>. The direction field for this equation is given in <xref ref="firstlook03-figure-direction-field" /> along with several solution curves.</p>
                 
         <figure xml:id="firstlook03-figure-direction-field">
-
-            <image width="60%" xml:id="firstlook03-direction-field">
-                <description>a direction field of slope arrows and three curves following the arrows</description>
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    f(t, y) = y^2/2 - t
-                    p = plot_slope_field(f, (t,-1,5), (y,-5,10), headaxislength=3, headlength=3, axes_labels=['$t$','$y(t)$'])
-                    p += desolve_rk4(f,y,ics=[-1,0],ivar=t,output='plot',end_points=[-1,5],thickness=3)
-                    p += desolve_rk4(f,y,ics=[-1,-1],ivar=t,output='plot',end_points=[-1,5],thickness=3, color = "red")
-                    p += desolve_rk4(f,y,ics=[-1,0.3292],ivar=t,output='plot',end_points=[-1,5],thickness=3, color = "green")
-                    p
-                </sageplot>
-            </image>
-
-            <caption>The direction field for <m>y' = y^2/2 - t</m></caption>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-direction-field">
+                          <xi:include href="prefigure/firstlook03-direction-field.xml"/>
+                    </prefigure>
+              </image>
+              <caption>The direction field for <m>y' = y^2/2 - t</m></caption>
         </figure>
 
         <p>Although direction fields can be tedious to compute using pencil and paper, we can easily generate direction fields for any differential equation with the use of computer software. Most computer algebra systems, including <em>Sage</em>, have facilities for generating and graphing direction fields. For example, the following <em>Sage</em> cell will generate the direction field for <m>y' = y^2/2 - t</m> using the command <c>plot_slope_field</c>. We will learn how to add solution curves at the end of this section.</p>
@@ -144,29 +131,15 @@
         where <m>v_0 = E_C(0)</m>.</p>
 
         <figure xml:id="firstlook03-figure-no-current">
-
-            <image width="60%" xml:id="firstlook03-no-current">
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    R = 1
-                    C = 1
-                    E(t) = 0
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p = plot_slope_field(f, (t,0,10), (y,-10,10), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
-                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,10],thickness=2)
-                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
-                    p += desolve_rk4(f,y,ics=[0,10],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "green")
-                    p += desolve_rk4(f,y,ics=[0,-10],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "cyan")
-                    p
-                </sageplot>
-                <description>a direction field of slope arrows and three curves following the arrows with the curves approaching zero</description>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-no-current">
+                          <xi:include href="prefigure/firstlook03-no-current.xml"/>
+                    </prefigure>
+              </image>
             <caption>The direction field for no current</caption>
-
         </figure>
-
+        
         <p>If we assume that we have a nonzero constant source of voltage, <m>E(t) = K</m>, in our circuit such as a battery, then we obtain the separable differential equation
             <me>\frac{d E_C}{dt} = K - E_C.</me>
         The direction field for this differential equation for <m>K = 10</m> is given in <xref ref="firstlook03-figure-constant-current" />.</p>
