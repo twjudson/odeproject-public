@@ -174,32 +174,18 @@
             10     &amp; 0 \leq t \leq 4, \\
             0     &amp; t \gt 4,
             \end{cases}</me>
-        we will obtain a different direction field (<xref ref="firstlook03-figure-single-pulse" />).</p>
+        we will obtain a different direction field (<xref ref="firstlook03-figure-single-pulse-current" />).</p>
 
-        <figure xml:id="firstlook03-figure-single-pulse">
-            <description>a direction field of slope arrows and three curves following the arrows with the curves approaching ten and then to zero once the time is four</description>
-            <image width="60%" xml:id="firstlook03-single-pulse-current">
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    R = 1
-                    C = 1
-                    E(t) = 10
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p = plot_slope_field(f, (t,0,3.9), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'])
-                    p += desolve_rk4(f,y,ics=[0,0],ivar=t,output='plot',end_points=[0,4],thickness=2)
-                    p += desolve_rk4(f,y,ics=[0,20],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "red")
-                    E(t) = 0
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p += plot_slope_field(f, (t,4.1,8), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'])
-                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2)
-                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2, color = "red")
-                    p
-                </sageplot>
-            </image>
+        <figure xml:id="firstlook03-figure-single-pulse-current">
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-single-pulse-current">
+                          <xi:include href="prefigure/firstlook03-single-pulse-current.xml"/>
+                    </prefigure>
+              </image>
             <caption>The direction field for a single pulse</caption>
-            
         </figure>
+
 
         <p>If our voltage source emits a series of pulses, say
             <me>E(t) =
@@ -249,27 +235,13 @@
         <p>Finally, if we use a generator for a voltage source, the voltage source might be given by a function such as <m>E(t) = \sin(\pi t /2)</m>. The direction field for this circuit is given in <xref ref="firstlook03-figure-oscillating-voltage" />.</p>
 
         <figure xml:id="firstlook03-figure-oscillating-voltage">
-
-            <image width="60%" xml:id="firstlook03-oscillating-voltage">
-                <description>a direction field of slope arrows and three curves following the arrows and eventually converging to the same oscillating curve</description>
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    R = 1
-                    C = 1
-                    E(t) = sin(pi*t/2)
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p = plot_slope_field(f, (t,0,10), (y,-3,3), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
-                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,10],thickness=2)
-                    p += desolve_rk4(f,y,ics=[0,0],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
-                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "green")
-                    p += desolve_rk4(f,y,ics=[0,2],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "cyan")
-                    p
-                </sageplot>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-oscillating-voltage">
+                          <xi:include href="prefigure/firstlook03-oscillating-voltage.xml"/>
+                    </prefigure>
+              </image>
             <caption>The direction field for an oscillating voltage</caption>
-            
         </figure>
             
     </subsection>
