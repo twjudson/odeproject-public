@@ -161,37 +161,18 @@
                 \end{pmatrix}.</me>
             If <m>c_1 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_1(t)</m> as <m>t \to \infty</m>. If <m>c_2 \neq 0</m>, we have <m>{\mathbf x}(t) \to {\mathbf x}_2(t)</m> as <m>t \to -\infty</m>. Thus, we have the phase portrait in <xref ref="linear03-figure-saddle-phase-portrait-2" />.</p>
 
-           <figure xml:id="linear03-figure-saddle-phase-portrait-2">
-                <image width="60%" xml:id="linear03-saddle-phase-portrait-2">
-                    <description>a direction field of slope arrows and curves approaching the straight-line solutions for large values</description>
-                    <sageplot>
-                        x, y ,t = var('x y t')
-                        F = [x + 3*y, x - y]
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                        P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.9],ivar=t,end_points=1.86,step=0.1)
-                        P2=desolve_system_rk4(F,[x,y],ics=[0,-2.9,3],ivar=t,end_points=1.86,step=0.1)
-                        P3=desolve_system_rk4(F,[x,y],ics=[0,3,-2.9],ivar=t,end_points=1.86,step=0.1)
-                        P4=desolve_system_rk4(F,[x,y],ics=[0,2.9,-3],ivar=t,end_points=1.86,step=0.1)
-                        S1=[ [j, k] for i,j,k in P1]
-                        S2=[ [j, k] for i,j,k in P2]
-                        S3=[ [j, k] for i,j,k in P3]
-                        S4=[ [j, k] for i,j,k in P4]
-                        p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        p += line(S2, thickness=2)
-                        p += line(S3, thickness=2)
-                        p += line(S4, thickness=2)
-                        p += line([(-3,-1), (3,1)], thickness = 2, color="red")
-                        p += line([(-3,3), (3,-3)], thickness = 2, color="red")
-                        p
-                    </sageplot>
-                </image>
-                <caption>Saddle phase portrait</caption>
-            </figure>            
+        <figure xml:id="linear03-figure-saddle-phase-portrait-2">
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-linear03-saddle-phase-portrait-2">
+                          <xi:include href="prefigure/linear03-saddle-phase-portrait-2.xml"/>
+                    </prefigure>
+              </image>
+              <caption>Saddle phase portrait</caption>
+        </figure>
+
         </example>
 
- 
-            
         <p>For the general case, where <m>A</m> has eigenvalues <m>\lambda_1 \lt 0 \lt \lambda_2</m>, we always have a stable line of solutions and an unstable line of solutions. All other solutions approach the unstable line as <m>t \to \infty</m> and the stable line as <m>t \to - \infty</m>.</p>
 
         <activity>
@@ -260,33 +241,18 @@
             =
             \frac{\lambda_2 c_2}{\lambda_1c_1 } e^{(\lambda_2 - \lambda_1) t}.</me>
         Since <m>\lambda_2 - \lambda_1 \gt 0</m>, the derivative, <m>dy/dx</m>, must approach <m>\pm \infty</m>, provided <m>c_2 \neq 0</m>. Therefore, the solutions tend towards the origin tangentially to the <m>y</m>-axis (<xref ref="linear03-figure-sink-phase-portrait-2" />). We say that the equilibrium point for this system is a <term>sink</term><idx><h>equilibrium solution</h><h>sink</h></idx>.</p>
-
+  
         <figure xml:id="linear03-figure-sink-phase-portrait-2">
-            <image width="60%" xml:id="linear03-sink-phase-portrait-2">
-                <description>a direction field of slope arrows with solution curves approaching the origin with the horizontal approach faster than the vertical approach</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    F = [-2*x, -y]
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    P1=desolve_system_rk4(F,[x,y],ics=[0,-3,2.7],ivar=t,end_points=5,step=0.1)
-                    P2=desolve_system_rk4(F,[x,y],ics=[0,-3,-2.7],ivar=t,end_points=5,step=0.1)
-                    P3=desolve_system_rk4(F,[x,y],ics=[0,3,2.7],ivar=t,end_points=5,step=0.1)
-                    P4=desolve_system_rk4(F,[x,y],ics=[0,3,-2.7],ivar=t,end_points=5,step=0.1)
-                    S1=[ [j, k] for i,j,k in P1]
-                    S2=[ [j, k] for i,j,k in P2]
-                    S3=[ [j, k] for i,j,k in P3]
-                    S4=[ [j, k] for i,j,k in P4]
-                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    p += line(S2, thickness=2)
-                    p += line(S3, thickness=2)
-                    p += line(S4, thickness=2)
-                    p
-                </sageplot>
-            </image>
-            <caption>Sink phase portrait</caption>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-linear03-sink-phase-portrait-2">
+                          <xi:include href="prefigure/linear03-sink-phase-portrait-2.xml"/>
+                    </prefigure>
+              </image>
+              <caption>Sink phase portrait</caption>
         </figure>
-                
+
+
         <p>Since  <m>\lambda_1  \lt \lambda_2 \lt 0</m>, we say that <m>\lambda_1</m> is the <term>dominant eigenvalue</term><idx><h>eigenvalue</h><h>dominant</h></idx>. The <m>x</m>-coordinates of the solutions approach the origin much faster than the <m>y</m>-coordinates.</p>
 
         <p>To see what happens in the general case, suppose that <m>\lambda_1  \lt \lambda_2 \lt 0</m>, the eigenvectors associated with <m>\lambda_1</m> and <m>\lambda_2</m> are <m>(u_1, u_2)</m> and <m>(v_1, v_2)</m>, respectively. The general solution of our system is
@@ -319,37 +285,15 @@
             The eigenvalues of this system are <m>\lambda_1 = -6</m> and <m>\lambda_2 = -3</m> with eigenvectors <m>\mathbf v_1 = (2,1 )</m> and <m>\mathbf v_2 = (1, -1)</m>, respectively.  Since the dominant eigenvalue is <m>\lambda_1 = -6</m>, solutions tend towards the straight-line solution containing the vector <m>\mathbf v_1 = (2,1 )</m> more quickly (<xref ref="linear03-figure-nodal-sink-phase-portrait" />).</p>
 
             <figure xml:id="linear03-figure-nodal-sink-phase-portrait">
-                <image width="60%" xml:id="linear03-nodal-sink-phase-portrait">
-                    <description>a direction field of slope arrows with straight-line solutions and solution curves approaching the origin</description>
-                    <sageplot>
-                        x, y ,t = var('x y t')
-                        f = -5*x - 2*y
-                        g = -x - 4*y
-                        n = sqrt(f^2 + g^2)
-                        xmin = -4
-                        xmax = 4
-                        ymin = -4
-                        ymax = 4
-                        p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                        p += line([(xmin,-2), (xmax,2)], thickness = 2, color="red")
-                        p += line([(xmin,ymax), (xmax,ymin)], thickness = 2, color="red")
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-4,1],ivar=t,end_points=5,step=0.1)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-2,-4],ivar=t,end_points=5,step=0.1)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,2,4],ivar=t,end_points=5,step=0.1)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,4,-1],ivar=t,end_points=5,step=0.1)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        p
-                    </sageplot>
-                </image>
-                <caption>Sink phase portrait</caption>
-            </figure>            
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-linear03-nodal-sink-phase-portrait">
+                              <xi:include href="prefigure/linear03-nodal-sink-phase-portrait.xml"/>
+                        </prefigure>
+                  </image>
+                  <caption>Sink phase portrait</caption>
+            </figure>
+
         </example>
 
 
