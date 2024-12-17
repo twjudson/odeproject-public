@@ -79,45 +79,14 @@
                 </md>
             we can quickly conclude that the only equilibrium solution to the system is <m>(0, 0)</m>. The phase portrait for this system is given in <xref ref="nonlinear01-figure-example-1" />. If we have the initial conditions <m>x(0) = 1</m> and <m>y(0) = 1</m>, we can see that the solution tends toward the origin as <m>t \to \infty</m>. However, it is unclear from the phase portrait if the solution curves of all initial value problems with initial conditions near the origin tend towards the equilibrium solution as <m>t \to \infty</m>.</p>
 
-            <figure xml:id="nonlinear01-figure-example-1">
-                <image width="60%" xml:id="nonlinear01-example-1">
-                    <description>a direction field of slope arrows with one solution curve approaching the origin and a second solution curve moving away from the origin</description>
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        xmin = -2
-                        xmax = 2
-                        ymin = -2
-                        ymax = 2
-                        f = x - 3*y + x*y^2
-                        g = 2*x - 4*y - x^2*y
-                        n = sqrt(f^2 + g^2)
-                        p = plot_vector_field( (f/n,g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                        start_x = 1
-                        start_y = 1
-                        start_t = 0
-                        end_t = 20
-                        step_size = 0.1
-                        points = [ (start_x, start_y) ] 
-                        P = desolve_system_rk4([f,g],[x, y],ics=[start_t,start_x,start_y],ivar=t,end_points=end_t,step=step_size)
-                        Q = [ [j,k] for i,j,k in P]
-                        p += line(Q, axes_labels=['$x(t)$','$y(t)$'])
-                        p += point(points[0], pointsize=50)
-                        p += arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4)
-                        start_x = -0.5
-                        start_y = 1
-                        start_t = 0
-                        end_t = 1.9
-                        step_size = 0.1
-                        points = [ (start_x, start_y) ] 
-                        P = desolve_system_rk4([f,g],[x, y],ics=[start_t,start_x,start_y],ivar=t,end_points=end_t,step=step_size)
-                        Q = [ [j,k] for i,j,k in P]
-                        p += line(Q, color="red")
-                        p += point(points[0], pointsize=50, color="red")
-                        p += arrow(Q[int(len(Q))-2], Q[int(len(Q))-1], width=1, arrowsize=4, color="red")
-                        p
-                    </sageplot>
-                </image>
-                <caption>Phase Portrait for <m>x' = x - 3y + xy^2</m> and <m>2x - 4y - x^2y</m></caption>
+           <figure xml:id="nonlinear01-figure-example-1">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-example-1">
+                              <xi:include href="prefigure/nonlinear01-example-1.xml"/>
+                        </prefigure>
+                  </image>
+                  <caption>Phase Portrait for <m>x' = x - 3y + xy^2</m> and <m>2x - 4y - x^2y</m></caption>
             </figure>
 
             <p>Since the nonlinear terms of the system do not contribute much towards <m>dx/dt</m> and <m>dy/dt</m> for values of <m>x</m> and <m>y</m> near zero, we can determine the nature of the equilibrium solution by examining the system consisting of only linear terms on the right-hand side of the equation,
@@ -156,54 +125,14 @@
                 </mdn>
             It is easy to see that  the four equilibrium solutions: <m>(0,0)</m>, <m>(0,3)</m>, <m>(2,0)</m>, and <m>(1, 1)</m>.  We can view the direction field, the phase plane, and some solution curves for this system in <xref ref="nonlinear01-figure-competing-species" />.</p>
 
-            <figure xml:id="nonlinear01-figure-competing-species">
-                <image width="60%" xml:id="nonlinear01-competing-species">
-                    <description>a direction field of slope arrows and nullclines with two solution curves aproaching an equilibrium solution on the horizontal axis and a third solution curve approaching an equilibrium solution on the vertical axis</description>
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        F = [2*x*(1-x/2) - x*y, 3*y*(1 - y/3) - 2*x*y]
-                        xmin = 0
-                        xmax = 4.5
-                        ymin = 0
-                        ymax = 4.5
-                        start_x = 0.3
-                        start_y = 0.1
-                        start_t = 0
-                        sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=15,step=0.01)
-                        S = [[j, k] for i,j,k in sol]
-                        p = line(S, axes_labels=['$x(t)$','$y(t)$'])
-                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        points = [ (start_x, start_y) ]
-                        p += point(points[0], pointsize=50)
-                        start_x = 3.75
-                        start_y = 2
-                        start_t = 0
-                        sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=15,step=0.01)
-                        S = [[j, k] for i,j,k in sol]
-                        p += line(S)
-                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        points = [ (start_x, start_y) ]
-                        p += point(points[0], pointsize=50)
-                        start_x = 2.5
-                        start_y = 4
-                        start_t = 0
-                        sol = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=10,step=0.01)
-                        S = [[j, k] for i,j,k in sol]
-                        p += line(S)
-                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        points = [ (start_x, start_y) ]
-                        p += point(points[0], pointsize=50)
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-                        xnullcline = implicit_plot(F[0], (x,xmin, xmax), (y, ymin, ymax), color='green')
-                        ynullcline = implicit_plot(F[1], (x,xmin, xmax), (y, ymin, ymax), color='red')
-                        p += xnullcline + ynullcline
-                        p += line([(1.5,0),(4.5,0)], color='red')
-                        p += line([(0,2),(0,4.5)], color='green')
-                        p
-                    </sageplot>
-                </image>
-                <caption>A Competing Species Model</caption>
+           <figure xml:id="nonlinear01-figure-competing-species">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-competing-species">
+                              <xi:include href="prefigure/nonlinear01-competing-species.xml"/>
+                        </prefigure>
+                  </image>
+                  <caption>A Competing Species Model</caption>
             </figure>
 
             <p>Let us analyze what happens at the equilibrium solution <m>(1, 1)</m>. If we decide on an appropriate change of variables, we can translate the entire system so that this equilibrium solution is at the origin. If we let 
@@ -268,52 +197,27 @@
                 </md>
                 See <xref ref="nonlinear01-figure-linearization-phase-portrait" />.</p>       
 
-
-            <figure xml:id="nonlinear01-figure-nonpoly-phase-portrait">
-                <image width="60%" xml:id="nonlinear01-nonpoly-phase-portrait">
-                    <description>a direction field of slope arrows with one solution curve approaching the origin and a second solution curve moving away from the origin</description>
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        F = [y, -y - sin(x)]
-                        P = desolve_system_rk4(F,[x, y],ics=[0,0.5,4],ivar=t,end_points=5,step=0.01)
-                        Q = [ [j,k] for i,j,k in P]
-                        p = line(Q, axes_labels=['$x(t)$','$y(t)$'], thickness=3, aspect_ratio=1)
-                        p += arrow(Q[int(len(Q)/3)], Q[int(len(Q)/3) + 1])
-                        P1=desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
-                        Q1=[ [j,k] for i,j,k in P1]
-                        p += line(Q1, axes_labels=['$x(t)$','$y(t)$'], thickness=3,color="red")
-                        p += arrow(Q1[int(len(Q1)/2)], Q1[int(len(Q1)/2) + 1],color="red")
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        F_unit = [F[0]/n, F[1]/n]
-                        p += plot_vector_field(F_unit, (x, -5, 5), (y, -5,5), axes_labels=['$x(t)$','$y(t)$'])
-                        p
-                    </sageplot>
-                </image>
+           <figure xml:id="nonlinear01-figure-nonpoly-phase-portrait">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-nonpoly-phase-portrait">
+                              <xi:include href="prefigure/nonlinear01-nonpoly-phase-portrait.xml"/>
+                        </prefigure>
+                  </image>
                 <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - \sin x</m></caption>
             </figure>
 
-            <figure xml:id="nonlinear01-figure-linearization-phase-portrait">
-                <image width="60%" xml:id="nonlinear01-linearization-phase-portrait">
-                    <description>a direction field of slope arrows with two solution curves spiraling into the origin</description>
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        F = [y, - y - x]
-                        P = desolve_system_rk4(F,[x, y],ics=[0,0.5,4],ivar=t,end_points=5,step=0.01)
-                        Q = [[j,k] for i,j,k in P]
-                        p = line(Q, axes_labels=['$x(t)$','$y(t)$'], aspect_ratio=1, thickness=3)
-                        p += arrow(Q[int(len(Q)/2)], Q[int(len(Q)/2) + 1])
-                        P1 = desolve_system_rk4(F,[x, y],ics=[0,1,-4],ivar=t,end_points=10,step=0.01)
-                        Q1 = [[j,k] for i,j,k in P1]
-                        p += line(Q1, thickness=3,color="red")
-                        p += arrow(Q1[int(len(Q1)/3)], Q1[int(len(Q1)/3) + 1],color="red")
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        F_unit = [F[0]/n, F[1]/n]
-                        p += plot_vector_field(F_unit, (x, -5, 5), (y, -5,5), axes_labels=['$x(t)$','$y(t)$'])
-                        p
-                    </sageplot>
-                </image>
+           <figure xml:id="nonlinear01-figure-linearization-phase-portrait">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-linearization-phase-portrait">
+                              <xi:include href="prefigure/nonlinear01-linearization-phase-portrait.xml"/>
+                        </prefigure>
+                  </image>
                 <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - x</m></caption>
             </figure>
+
+
         </example>
         <example xml:id="nonlinear01-example-poly">
             <p>For example, consider the system
@@ -323,35 +227,16 @@
                 </mdn>
             The <m>x</m> and <m>y</m>-nullclines of this system are the curves <m>y = x^2 - 4x + 4</m> and <m>y = x^3</m>, respectively. Since the two nullclines intersect only at <m>(1, 1)</m>, we have a single equilibrium solution. From the phase plane, it appears that <m>(1, 1)</m> is a stable equilibrium solution. That is, all solution curves starting sufficiently close to <m>(1, 1)</m> will approach the equilibrium solution as <m>t \to \infty</m> (<xref ref="nonlinear01-figure-example-poly-plot" />).</p>
 
-            <figure xml:id="nonlinear01-figure-example-poly-plot">
-                <image width="60%" xml:id="nonlinear01-example-poly-plot">
-                    <description>a direction field of slope arrows and nullclines with a solution curve approaching an equilibrium solution</description>
-                    <sageplot>
-                        x, y, t = var('x y t')
-                        F = [x^2 - 4*x - y + 4, x^3 - y]
-                        xmin = -1
-                        xmax = 3
-                        ymin = -1
-                        ymax = 3
-                        start_x = 2
-                        start_y = 2
-                        start_t = 0
-                        P = desolve_system_rk4(F,[x,y],ics=[start_t, start_x, start_y],ivar=t,end_points=2,step=0.01)
-                        S = [[j, k] for i,j,k in P]
-                        p = line(S, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        points = [ (start_x, start_y) ]
-                        p += point(points[0], pointsize=50)
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin, xmax), (y, ymin, ymax), aspect_ratio=1)
-                        xnullcline = implicit_plot(F[0], (x,xmin, xmax), (y, ymin, ymax), color='green')
-                        ynullcline = implicit_plot(F[1], (x,xmin, xmax), (y, ymin, ymax), color='red')
-                        p += xnullcline + ynullcline
-                        p
-                    </sageplot>
-                </image>
+          <figure xml:id="nonlinear01-figure-example-poly-plot">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-example-poly-plot">
+                              <xi:include href="prefigure/nonlinear01-example-poly-plot.xml"/>
+                        </prefigure>
+                  </image>
                 <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-1" /><ndash /><xref ref="nonlinear01-equation-example-poly-2" /></caption>
-            </figure>
+            </figure> 
+
 
             <p>Making the substitution <m>u = x - 1</m> and <m>v = y - 1</m>, simply translates the entire system to the origin, and we obtain the system
                 <mdn>
@@ -391,6 +276,17 @@
                 </image>
                 <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-3" /><ndash /><xref ref="nonlinear01-equation-example-poly-4" /></caption>
             </figure>
+<!--
+          <figure xml:id="nonlinear01-figure-example-poly-phase">
+                 <image width="60%">
+                        <prefigure xmlns="https://prefigure.org"
+                                   label="prefigure-nonlinear01-example-poly-phase">
+                              <xi:include href="prefigure/nonlinear01-example-poly-phase.xml"/>
+                        </prefigure>
+                  </image>
+                <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-3" /><ndash /><xref ref="nonlinear01-equation-example-poly-4" /></caption>
+            </figure>
+-->
         </example>
 
         <p>In general, our goal is to approximate a nonlinear system
@@ -546,6 +442,7 @@
             \end{pmatrix},</me>
         are <m>\lambda = \pm i</m>. Thus, the solution curves of the linear system are simply circles about the origin. However, the nonlinear system acts quite differently. In the nonlinear system, solutions spiral out slowly from the origin (<xref ref="nonlinear01-figure-linearization-fails" />). This system has no periodic solutions.</p>
 
+<!--
         <figure xml:id="nonlinear01-figure-linearization-fails">
             <image width="60%" xml:id="nonlinear01-linearization-fails">
                 <description>a direction field of slope arrows with a solution curve spiraling out from the origin towards a circular trajectory</description>
@@ -564,6 +461,17 @@
             </image>
             <caption>When linearization fails</caption>
         </figure>
+-->
+
+      <figure xml:id="nonlinear01-figure-linearization-fails">
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-nonlinear01-linearization-fails">
+                          <xi:include href="prefigure/nonlinear01-linearization-fails.xml"/>
+                    </prefigure>
+              </image>
+            <caption>When linearization fails</caption>
+        </figure> 
 
     </subsection>
 
