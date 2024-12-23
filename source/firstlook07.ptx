@@ -37,21 +37,12 @@
         There are two equilibrium solutions for this equation, <m>P_1 = 160</m> (a sink) and <m>P_2 = 40</m> (a source). If the population of the pond falls below 40, then the fish will die out unless the pond is restocked or fishing is banned (<xref ref="firstlook07-figure-logistic-harvesting-sink-source" />).</p>
 
         <figure xml:id="firstlook07-figure-logistic-harvesting-sink-source">
-
-            <image width="60%" xml:id="firstlook07-harvesting-sink-source">
-                <description>a direction field of slope arrows with two curves approaching 160 and one curve aproaching zero</description>
-                <sageplot>
-                    k=1
-                    N = 200
-                    H = 32
-                    P, t=var('P, t')
-                    p = plot_slope_field(k*P*(1 - P/N) - H, (t,-0,10), (P,0,200), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,200],ivar=t,output='plot',end_points=[0, 10],thickness=2, color='blue')
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 10],thickness=2, color='red')
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,39],ivar=t,output='plot',end_points=[0, 5.8],thickness=2, color='green')
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook07-harvesting-sink-source">
+                          <xi:include href="prefigure/firstlook07-harvesting-sink-source.xml"/>
+                    </prefigure>
+              </image>
             <caption>Harvesting with <m>H = 32</m></caption>
         </figure>
 
@@ -64,47 +55,28 @@
         which means that equation <xref ref="firstlook07-equation-over-harvesting" /> has no real solutions and that we have no equilibrium solutions. Furthermore, <m>dP/dt \lt 0</m> for all values of <m>P</m>.  This means that no matter how many fish are in the pond initially, the trout population will eventually die out due to overfishing  (<xref ref="firstlook07-figure-over-harvesting" />).</p>
 
         <figure xml:id="firstlook07-figure-over-harvesting">
-
-            <image width="60%" xml:id="firstlook07-over-harvesting">
-                <description>a direction field of slope arrows with three curves decreasing to zero</description>
-                <sageplot>
-                    k = 1
-                    N = 200
-                    H = 100
-                    P, t=var('P, t')
-                    p = desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,150],ivar=t,output='slope_field',end_points=[0, 2.5],thickness=2, color='blue',axes_labels=['$t$','$P(t)$'], fontsize=12)
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 1.55],thickness=2, color='red')
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,50],ivar=t,output='plot',end_points=[0, 0.65],thickness=2, color='green')
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook07-over-harvesting">
+                          <xi:include href="prefigure/firstlook07-over-harvesting.xml"/>
+                    </prefigure>
+              </image>
             <caption>Harvesting with <m>H = 100</m></caption>
-            
         </figure>
+
 
         <p>Finally, we will let <m>H = 50</m>. In this case, we must solve 
             <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 50 = 0</me>
         in order to determine any equilibrium solutions. We now obtain a single equilibrium solution at <m>P = 100</m>. In fact, <m>P = 100</m> will be a node. For values of <m>P \gt 100</m> as well as values of <m>P \lt 100</m>, we have <m>dP/dt \lt 0</m>, and the number of fish in the pond will decrease (<xref ref="firstlook07-figure-logistic-harvesting-bifurcation" />).</p>
 
         <figure xml:id="firstlook07-figure-logistic-harvesting-bifurcation">
-             <image width="60%" xml:id="firstlook07-harvesting-bifurcation">
-                <description>a direction field of slope arrows with one curve decreasing towards one hundred and a horizontal line at one hundread and a curve the begins below one hundred and decreases</description>
-                <sageplot>
-                    k=1
-                    N = 200
-                    H = 50
-                    N^2/4 - H*N/k
-                    P, t=var('P, t')
-                    p = plot_slope_field(k*P*(1 - P/N) - H, (t,0,20), (P,0,200), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,200],ivar=t,output='plot',end_points=[0, 20],thickness=2, color='blue')
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,100],ivar=t,output='plot',end_points=[0, 20],thickness=2, color='red')
-                    p += desolve_rk4(k*P*(1 - P/N) - H,P,ics=[0,90],ivar=t,output='plot',end_points=[0, 18],thickness=2, color='green')
-                    p
-                </sageplot>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook07-logistic-harvesting-bifurcation">
+                          <xi:include href="prefigure/firstlook07-logistic-harvesting-bifurcation.xml"/>
+                    </prefigure>
+              </image>
             <caption>Harvesting with <m>H = 50</m></caption>
-
         </figure>
 
         <p>To better understand what is happening, we will generalize our model. Suppose that a population with a limited carrying capacity <m>N</m> is modeled with the logistic equation
