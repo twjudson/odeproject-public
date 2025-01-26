@@ -145,27 +145,13 @@
         The direction field for this differential equation for <m>K = 10</m> is given in <xref ref="firstlook03-figure-constant-current" />.</p>
 
         <figure xml:id="firstlook03-figure-constant-current">
-
-            <image width="60%" xml:id="firstlook03-constant-current">
-                <description>a direction field of slope arrows and three curves following the arrows with the curves approaching two</description>
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    R = 1
-                    C = 1
-                    E(t) = 10
-                    f(t, y) = (E(t) - 5*y)/(R*C)
-                    p = plot_slope_field(f, (t,0,4), (y,-10,10), headaxislength=3, headlength=3, axes_labels=['$t$','$E(t)$'])
-                    p += desolve_rk4(f,y,ics=[0,1],ivar=t,output='plot',end_points=[0,4],thickness=2)
-                    p += desolve_rk4(f,y,ics=[0,-1],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "red")
-                    p += desolve_rk4(f,y,ics=[0,10],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "green")
-                    p += desolve_rk4(f,y,ics=[0,-10],ivar=t,output='plot',end_points=[0,4],thickness=2, color = "cyan")
-                    p
-                </sageplot>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-constant-current">
+                          <xi:include href="prefigure/firstlook03-constant-current.xml"/>
+                    </prefigure>
+              </image>
             <caption>The direction field for a constant current</caption>
-
         </figure>
 
        <p>If we attach a battery to our circuit at time <m>t = 0</m> and then disconnect the battery at <m>t = 4</m>, then we obtain a different solution. For example, if
@@ -197,39 +183,14 @@
             \end{cases}</me>
         then the direction field for our differential equation is given in <xref ref="firstlook03-figure-series-pulses" />.</p>
 
- <!--Todo Do a better Sage plot.--> 
-
         <figure xml:id="firstlook03-figure-series-pulses">
-
-            <image width="60%" xml:id="firstlook03-series-pulses">
-                <description>a direction field of slope arrows and a curve following the arrows with the curve decreasing to ten and then to zero and then increasing to ten and then decreasing</description>
-                <sageplot>
-                    from sage.calculus.desolvers import desolve_rk4
-                    t, y = var('t, y')
-                    R = 1
-                    C = 1
-                    E(t) = 10
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p = plot_slope_field(f, (t,0,3.9), (y,0,20), headaxislength=2, headlength=2, axes_labels=['$t$','$E(t)$'], fontsize=12,aspect_ratio=1,plot_points=10)
-                    p += desolve_rk4(f,y,ics=[0,15],ivar=t,output='plot',end_points=[0,4],thickness=2)
-                    E(t) = 0
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p += plot_slope_field(f, (t,4.1,7.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
-                    p += desolve_rk4(f,y,ics=[4,10],ivar=t,output='plot',end_points=[4,8],thickness=2)
-                    E(t) = 10
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p += plot_slope_field(f, (t,8.1,11.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
-                    p += desolve_rk4(f,y,ics=[8,0],ivar=t,output='plot',end_points=[8,12],thickness=2)
-                    E(t) = 0
-                    f(t, y) = (E(t) - y)/(R*C)
-                    p += plot_slope_field(f, (t,12.1,15.9), (y,0,20), headaxislength=2, headlength=2,plot_points=10)
-                    p += desolve_rk4(f,y,ics=[12,10],ivar=t,output='plot',end_points=[12,16],thickness=2)
-                    p
-                </sageplot>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-series-pulses">
+                          <xi:include href="prefigure/firstlook03-series-pulses.xml"/>
+                    </prefigure>
+              </image>
             <caption>The direction field for a series of pulses</caption>
-
         </figure>
 
         <p>Finally, if we use a generator for a voltage source, the voltage source might be given by a function such as <m>E(t) = \sin(\pi t /2)</m>. The direction field for this circuit is given in <xref ref="firstlook03-figure-oscillating-voltage" />.</p>
@@ -297,29 +258,17 @@
             where <m>t</m> is the time in years. If we allow the fish to be harvested at a constant rate of 32 per year, our equation becomes
                 <me>\frac{dP}{dt} = P\left(1 - \frac{P}{200} \right) - 32.</me>
             The direction field for this equation is given in <xref ref="firstlook03-figure-logistic-direction-field" />.</p>
+        
+        <figure xml:id="firstlook03-figure-logistic-direction-field">
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-logistic-direction-field">
+                          <xi:include href="prefigure/firstlook03-logistic-direction-field.xml"/>
+                    </prefigure>
+              </image>
+              <caption>Logistic growth with harvesting</caption>
+        </figure>
 
-            <figure xml:id="firstlook03-figure-logistic-direction-field">
-
-                <image width="60%" xml:id="firstlook03-logistic-direction-field">
-                    <description>a direction field of slope arrows with two  curves approaching 160 and one curve aproaching zero</description>
-                    <sageplot>
-                        from sage.calculus.desolvers import desolve_rk4
-                        t, P = var('t, P')
-                        N = 200
-                        H = 32
-                        f(t, P) = P*(1 - P/N) - H
-                        plt = plot_slope_field(f, (t,0,10), (P,0,250), headaxislength=3, headlength=3, axes_labels=['$t$','$P(t)$'], fontsize=12)
-                        plt += desolve_rk4(f,P,ics=[0,240],ivar=t,output='plot',end_points=[0,10],thickness=2)
-                        plt += desolve_rk4(f,P,ics=[0,50],ivar=t,output='plot',end_points=[0,10],thickness=2, color = "red")
-                        plt += desolve_rk4(f,P,ics=[0,39],ivar=t,output='plot',end_points=[0,5.6],thickness=2, color = "green")
-                        plt
-                    </sageplot>
-                </image>
-
-                <caption>Logistic growth with harvesting</caption>
-
-            </figure>
-            
             <p>One of the basic questions that we can ask of our model is whether or not we have a sustainable population in our trout pond given this harvest rate. If so, under what conditions for sustainablility?</p>
 
         </example>  
@@ -329,14 +278,12 @@
         is an autonomous differential equation, the direction field does not depend on <m>t</m>. Consequently, we need only keep track of what happens on the vertical axis.  We can do this with a <term>phase line</term><idx>phase line</idx>.  Instead of drawing the entire direction field, we can draw a single line containing the same information (<xref ref="firstlook03-figure-phase-line" />).</p>  
 
         <figure xml:id="firstlook03-figure-phase-line">
-
-            <image width="40%" xml:id="firstlook03-phase-line">
-                <description>a vertical line with arrows approaching a sink at 160 and diverging from a source at 40</description>
-                <latex-image>
-                    <xi:include href="tikz/firstlook03-phase-line.tex" parse="text"/>
-                </latex-image>
-            </image>
-
+             <image width="55%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-phase-line">
+                          <xi:include href="prefigure/firstlook03-phase-line.xml"/>
+                    </prefigure>
+              </image>
             <caption>Phase line diagram</caption>
         </figure>
 
@@ -353,32 +300,24 @@
         The graph of <m>f(y) = y^4 - 4y^2</m> is given in <xref ref="firstlook03-figure-sinks-sources-nodes" />. If <m>y = -2</m>, we have a sink.  If <m>y = 2</m>, we have a source.  Finally, if <m>y = 0</m>, we have a node.</p>
 
         <figure xml:id="firstlook03-figure-sinks-sources-nodes">
-
-            <image width="60%" xml:id="firstlook03-sinks-sources-nodes">
-                <description>a fourth degree polynomial curve with two local minimums and one local maximum</description>
-                <sageplot>
-                    y = var('y')
-                    f(y) = y^2*(y + 2)*(y - 2)
-                    p = plot(f, (y,-3,3), ymin = -4, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$dy/dt$'])
-                    p
-                </sageplot>
-            </image>
-
+             <image width="55%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-sinks-sources-nodes">
+                          <xi:include href="prefigure/firstlook03-sinks-sources-nodes.xml"/>
+                    </prefigure>
+              </image>
             <caption>Sinks, sources, and nodes</caption>
-
         </figure>
 
         <p>It is easy to generate a phase line diagram for equation<nbsp /><xref ref="firstlook03-equation-sinks-sources-nodes" /> from the graph of <m>f(y) = y^2(y + 2)(y - 2)</m> (<xref ref="firstlook03-figure-sinks-sources-nodes" />). If the graph is above the <m>y</m>-axis, then <m>y</m> is increasing. If the graph is below the <m>y</m>-axis, then <m>y</m> is decreasing. Therefore, the phase line is easy to sketch (<xref ref="firstlook03-figure-phase-line-1" />).</p>
 
         <figure xml:id="firstlook03-figure-phase-line-1">
-
-            <image width="30%" xml:id="firstlook03-phase-line-1">
-                <description>a vertical line with arrows diverging from a source at two and approaching a sink at negative two with zero being a node</description>
-                <latex-image>
-                    <xi:include href="tikz/firstlook03-phase-line-1.tex" parse="text"/>
-                </latex-image>
-            </image>
-
+             <image width="55%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-phase-line-1">
+                          <xi:include href="prefigure/firstlook03-phase-line-1.xml"/>
+                    </prefigure>
+              </image>
             <caption>Phase line diagram for <m>y' = y^2(y + 2)(y - 2)</m></caption>
         </figure>
 
@@ -606,14 +545,27 @@
             <exercise>
                 <statement>
                     <!--<sidebyside width="100%" margins="auto">-->
-                        <image width="100%" xml:id="firstlook03-exercise-derivative-graphs-1">
-                            <description>a parabola opening up and intersecting the horizontal axis at two and minus two</description>
-                            <sageplot>
-                                y = var('y')
-                                f(y) = (y + 2)*(y - 2)
-                                p = plot(f, (y,-3,3), ymin = -4, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$f(y)$'])
-                                p
-                            </sageplot>
+
+                        <image width="55%">
+                            <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-derivative-graphs-1">
+                                <xi:include href="prefigure/firstlook03-derivative-graphs-1.xml"/>
+                             </prefigure>
+                        </image>
+
+                    <!--</sidebyside>-->
+
+
+                </statement>
+            </exercise>
+            <exercise>
+                <statement>
+                    <!--<sidebyside width="100%" margins="auto">-->
+                        <image width="55%">
+                            <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-derivative-graphs-2">
+                                <xi:include href="prefigure/firstlook03-derivative-graphs-2.xml"/>
+                             </prefigure>
                         </image>
                     <!--</sidebyside>-->
                 </statement>
@@ -621,14 +573,11 @@
             <exercise>
                 <statement>
                     <!--<sidebyside width="100%" margins="auto">-->
-                        <image width="100%" xml:id="firstlook03-exercise-derivative-graphs-2">
-                            <description>a curve that decreases intersecting the horizontal axis at minus three halves then increasing to intersect the horizontal axis at one where it immediately decreases and finally increases to intersect the horizontal axis at five halves</description>
-                            <sageplot>
-                                y = var('y')
-                                f(y) = (1/3)*(y + 3/2)*(y - 1)*(y - 5/2)^2
-                                p = plot(f, (y,-3,3), ymin = -6, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$f(y)$'])
-                                p
-                            </sageplot>
+                        <image width="55%">
+                            <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-derivative-graphs-3">
+                                <xi:include href="prefigure/firstlook03-derivative-graphs-3.xml"/>
+                             </prefigure>
                         </image>
                     <!--</sidebyside>-->
                 </statement>
@@ -636,29 +585,11 @@
             <exercise>
                 <statement>
                     <!--<sidebyside width="100%" margins="auto">-->
-                        <image width="100%" xml:id="firstlook03-exercise-derivative-graphs-3">
-                            <description>a fourth degree polynomial curve with two local maximums and one local minimum that intersects the horizontal axis at two and minus two</description>
-                            <sageplot>
-                                y = var('y')
-                                f(y) = -y^2*(y + 2)*(y - 2)/2+3
-                                p = plot(f, (y,-3,3), ymin = -4, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$f(y)$'])
-                                p
-                            </sageplot>
-                        </image>
-                    <!--</sidebyside>-->
-                </statement>
-            </exercise>
-            <exercise>
-                <statement>
-                    <!--<sidebyside width="100%" margins="auto">-->
-                        <image width="100%" xml:id="firstlook03-exercise-derivative-graphs-4">
-                            <description>a curve that increases and intersects the horizontal axis at minus two then decreases intersecting the horizontal axis at minus one then increases to one after which it immediately decreases  and then increases to intersect the x axis at five halves</description>
-                            <sageplot>
-                                y = var('y')
-                                f(y) = (y + 2)*(y + 1)*(y - 1)^2*(y-5/2)/2
-                                p = plot(f, (y,-3,3), ymin = -4, ymax = 6, color='blue', thickness=2, aspect_ratio=0.2, axes_labels=['$y$','$f(y)$'])
-                                p
-                            </sageplot>
+                        <image width="55%">
+                            <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-firstlook03-derivative-graphs-4">
+                                <xi:include href="prefigure/firstlook03-derivative-graphs-4.xml"/>
+                             </prefigure>
                         </image>
                     <!--</sidebyside>-->
                 </statement>
@@ -786,6 +717,7 @@
         </exercises>
 
     </subsection>           
+
 
 </section>
 
