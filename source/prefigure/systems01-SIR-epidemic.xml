@@ -1,0 +1,22 @@
+<prefigure xmlns="https://prefigure.org"
+             label="modified-SIR-epidemic">
+
+<diagram dimensions="(300,300)" margins="30">
+<definition> alpha = 0.005</definition>
+<definition> beta = 0.08</definition>
+ <definition>f(t,y) = (-alpha*y[0]*y[1],alpha*y[0]*y[1] - beta*y[1])</definition>
+  <coordinates bbox="[0,0,80,100]">
+    <grid-axes xlabel="t" ylabel="S(t),I(t)"/>
+    <de-solve function="f" t0="0" t1="80" y0="(100,1)" name="predatorprey"/>
+    <plot-de-solution at="predator" solution="predatorprey" axes="(t,y0)"/>
+    <plot-de-solution at="prey" solution="predatorprey" axes="(t,y1)" stroke="red"/>
+
+      <legend anchor="(bbox[2]-1, bbox[3]-1)"
+      alignment="sw" scale="0.8" opacity="0.5">
+      <item ref="prey"><m>I(t)</m></item>
+      <item ref="predator"><m>S(t)</m></item>
+      </legend>
+  </coordinates>
+</diagram>
+
+</prefigure>

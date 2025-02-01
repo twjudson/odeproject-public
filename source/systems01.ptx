@@ -74,25 +74,6 @@
             </md>
         we can apply a numerical algorithm to generate a solution for our system.<fn>You will find technology extremely useful when analyzing systems. We will introduce <em>Sage</em> commands for analyzing systems of equations at the end of this section.</fn> The graphs of the solutions for <m>R(t)</m> and <m>F(t)</m> are given in <xref ref="systems01-figure-simple-predator-prey-system" />. Notice that the solutions are periodic with the same period. Observe that a peak in the rabbit population is followed by a peak in the fox population.</p>
 
-<!--
-        <figure xml:id="systems01-figure-simple-predator-prey-system">
-            <image width="60%" xml:id="systems01-simple-predator-prey-system">
-                <description>two oscillating curves with the curve for the foxes reaching a lower peak after the higher peak for the rabbit population</description>
-                <sageplot>
-                    Rabbit,Fox,t = var('Rabbit Fox t')
-                    F = [2*Rabbit - Rabbit*Fox, -5*Fox + Rabbit*Fox]
-                    P=desolve_system_rk4(F,[Rabbit,Fox],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
-                    Q=[ [i, j] for i,j,k in P]
-                    R=[ [i, k] for i,j,k in P]
-                    p = line(Q, color='red', axes_labels=['$t$','$R(t), F(t)$'], legend_label='$R(t)$', legend_color='red', fontsize = 12, thickness=2)
-                    p += line(R, color='blue', legend_label='$F(t)$', legend_color='blue', thickness=2)
-                    p
-                </sageplot>
-            </image>
-
-            <caption>A simple predator-prey system</caption>
-        </figure>
--->
         <figure xml:id="systems01-figure-simple-predator-prey-system">
              <image width="60%">
                     <prefigure xmlns="https://prefigure.org"
@@ -103,50 +84,26 @@
             <caption>A simple predator-prey system</caption>
         </figure>
 
-
         <p>We can graph the solution to our system in a different manner<mdash />we can construct a parametric plot of our solution in the <m>RF</m>-plane. Thus, a point on the graph is given by <m>(R(t), F(t))</m> at time <m>t</m>. We can view the solution curve of our system in the <m>RF</m>-plane in <xref ref="systems01-figure-solution-curve-predator-prey" />. The <m>RF</m>-plane is called the <term>phase plane</term><idx>phase plane</idx> for our system of differential equations and is analogous to the phase line that we used during our investigation of slope fields for autonomous differential equations. We can plot many solutions to our predator-prey system and even plot direction fields in the phase plane (<xref ref="systems01-figure-phase-plane-predator-prey" />).</p>
 
         <figure xml:id="systems01-figure-solution-curve-predator-prey">
-            <image width="60%" xml:id="systems01-solution-curve-predator-prey">
-                <description>a closed loop where the horizontal axis is the rabbit population and the vertical axis is the fox population</description>
-                <sageplot>
-                    H,L,t = var('H L t')
-                    F = [2*H - H*L, -5*L + H*L]
-                    P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=4,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    p = line(S, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
-                    p += arrow(S[int(len(S)/2)], S[int(len(S)/2) + 1])
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems01-solution-curve-predator-prey">
+                          <xi:include href="prefigure/systems01-solution-curve-predator-prey.xml"/>
+                    </prefigure>
+              </image>
             <caption>A solution curve in the <m>RF</m>-plane</caption>
-        </figure>       
-        
+        </figure>
+
         <figure xml:id="systems01-figure-phase-plane-predator-prey">
-            <image width="60%" xml:id="systems01-phase-plane-predator-prey">
-                <description>a closed loop on a direction field of slope arrows with the rabbit population plotted against the fox population</description>
-                <sageplot>
-                    H,L,t = var('H L t')
-                    F = [2*H - H*L, -5*L + H*L]
-                    P1=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=4,step=0.01)
-                    P2=desolve_system_rk4(F,[H,L],ics=[0,2,2],ivar=t,end_points=4,step=0.01)
-                    P3=desolve_system_rk4(F,[H,L],ics=[0,1.5,1.5],ivar=t,end_points=4,step=0.01)
-                    S1=[ [j, k] for i,j,k in P1]
-                    S2=[ [j, k] for i,j,k in P2]
-                    S3=[ [j, k] for i,j,k in P3]
-                    p = line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
-                    p += line(S2, thickness=2)
-                    p += line(S3, thickness=2)
-                    p += arrow(S1[int(len(S1)/2)], S1[int(len(S1)/2) + 1])
-                    p += arrow(S2[int(len(S2)/2)], S2[int(len(S2)/2) + 1])
-                    p += arrow(S3[int(len(S3)/2)], S3[int(len(S3)/2) + 1])
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p += plot_vector_field((F[0]/n, F[1]/n), (H,0,15.5), (L,0,10))
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems01-phase-plane-predator-prey">
+                          <xi:include href="prefigure/systems01-phase-plane-predator-prey.xml"/>
+                    </prefigure>
+              </image>
             <caption>The phase plane for a predator-prey system</caption>
-            
         </figure>
 
         <p>We will now modify our system by assuming that the rabbit population will grow logistically if there are no predators present. The system can now be written as
@@ -164,66 +121,25 @@
 
 
         <figure xml:id="systems01-figure-modified-predator-prey">
-            <image width="60%" xml:id="systems01-modified-predator-prey">
-                <description>two oscillating curves that approach a constant value with the higher valued curve representing the rabbit population</description>
-                <sageplot>
-                    H,L,t = var('H L t')
-                    F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
-                    P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
-                    Q=[ [i, j] for i,j,k in P]
-                    R=[ [i, k] for i,j,k in P]
-                    p = line(Q, color='red', axes_labels=['$t$','$R(t), F(t)$'], legend_label='$R(t)$', legend_color='red', fontsize=12)
-                    p += line(R, color='blue', legend_label='$F(t)$', legend_color='blue')
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems01-modified-predator-prey">
+                          <xi:include href="prefigure/systems01-modified-predator-prey.xml"/>
+                    </prefigure>
+              </image>
             <caption>Solutions for a modified predator-prey system</caption>
         </figure>
 
-<!--
-        <figure xml:id="systems01-figure-modified-predator-prey-solutions">
-            <image width="60%" xml:id="systems01-modified-predator-prey-solutions">
-                <sageplot>
-                    H,L,t = var('H L t')
-                    F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
-                    P=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    LP=line(S, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=14)
-                    P_arrow = arrow(S[int(len(S)/2)], S[int(len(S)/2) + 1])
-                    p = LP + P_arrow
-                    p
-                </sageplot>
-            </image>
-            <caption>Solution for a Modified Predator-Prey System in the <m>HL</m>-plane</caption>
-        </figure>
--->
         <figure xml:id="systems01-figure-modified-predator-prey-phase-plane">
-            <image width="60%" xml:id="systems01-modified-predator-prey-phase-plane">
-                <description>three curves on a direction field of slope arrows with the curves spiraling in towards an equilibrium solution</description>
-                <sageplot>
-                    H,L,t = var('H L t')
-                    F = [2*H*(1 - H/10) - H*L, -5*L + H*L]
-                    P1=desolve_system_rk4(F,[H,L],ics=[0,1,1],ivar=t,end_points=10,step=0.01)
-                    P2=desolve_system_rk4(F,[H,L],ics=[0,2,2],ivar=t,end_points=10,step=0.01)
-                    P3=desolve_system_rk4(F,[H,L],ics=[0,1.5,1.5],ivar=t,end_points=10,step=0.01)
-                    S1=[ [j, k] for i,j,k in P1]
-                    S2=[ [j, k] for i,j,k in P2]
-                    S3=[ [j, k] for i,j,k in P3]
-                    p = line(S1, thickness=2, axes_labels=['$R(t)$','$F(t)$'], fontsize=12)
-                    p += line(S2, thickness=2)
-                    p += line(S3, thickness=2)
-                    p += arrow(S1[int(len(S1)/3)], S1[int(len(S1)/3) + 1])
-                    p += arrow(S2[int(len(S2)/3)], S2[int(len(S2)/3) + 1])
-                    p += arrow(S3[int(len(S3)/3)], S3[int(len(S3)/3) + 1])
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p += plot_vector_field((F[0]/n, F[1]/n), (H,0,9), (L,0,3))
-                    p
-                </sageplot>
-            </image>
-
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems01-modified-predator-prey-phase-plane">
+                          <xi:include href="prefigure/systems01-modified-predator-prey-phase-plane.xml"/>
+                    </prefigure>
+              </image>
             <caption>Phase plane for a modified predator-prey system</caption>
-
         </figure>
+
 
         <activity>
             <title>Modifying Predator-Prey Systems</title>
@@ -367,23 +283,15 @@
         Letting <m>\alpha = 0.005</m> and <m>\beta = 0.08</m>, we can see how the susceptible and infected populations interact in an SIR epidemic in <xref ref="systems01-figure-SIR-epidemic" />.</p>
 
         <figure xml:id="systems01-figure-SIR-epidemic">
-            <image width="60%" xml:id="systems01-SIR-epidemic">
-                <description>susceptible and infected populations plotted against time with the susceptible population decreasing to zero and the infected population increasing to a peak and then decreasing to zero</description>
-                <sageplot>
-                    S, Infected, t = var('S, Infected, t')
-                    alpha = 0.005
-                    beta = 0.08
-                    F = [-alpha*S*Infected, alpha*S*Infected - beta*Infected]
-                    P=desolve_system_rk4(F,[S, Infected],ics=[0,100,1],ivar=t,end_points=80,step=0.1)
-                    Q=[ [i, j] for i,j,k in P]
-                    R=[ [i, k] for i,j,k in P]
-                    p = line(Q, color='red', axes_labels=['$t$','$S(t), I(t)$'], legend_label='$S(t)$', legend_color='red', fontsize=12, thickness=2)
-                    p += line(R, color='blue', legend_label='$I(t)$', legend_color='blue', thickness=2)
-                    p
-                </sageplot>
-            </image>
+             <image width="60%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems01-SIR-epidemic">
+                          <xi:include href="prefigure/systems01-SIR-epidemic.xml"/>
+                    </prefigure>
+              </image>
             <caption>The susceptible and removed populations for an SIR epidemic</caption>
         </figure>
+
 
         <p>There are many questions associated with epidemic models.
             <ul>
