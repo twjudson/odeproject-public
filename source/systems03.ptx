@@ -83,31 +83,22 @@
         <p>The constants <m>c_1</m> and <m>c_2</m> can be determined if we know the initial position and initial velocity of the end of the crane's boom. We show several solutions to our equation in <xref ref="systems03-figure-solutions-crane" />.</p>
 
         <figure xml:id="systems03-figure-solutions-crane">
-            <image width="60%" xml:id="systems03-solutions-crane">
-                <description>position and velocity curves with the amplitude of the oscillations decreasing as time increases</description>
-                <sageplot>
-                    x, v, t = var('x v t')
-                    b = 0.1
-                    k = 0.3
-                    F = [v, -k*x - b*v]
-                    P1 = [desolve_system_rk4(F,[x, v],ics=[0,0+0.2*n,1+0.2*n],ivar=t,end_points=80,step=0.05) for n in range(5)]
-                    S1 = [[ [i, j] for i,j,k in P1[n]] for n in range(5)]
-                    S2 = [[ [i, k] for i,j,k in P1[n]] for n in range(5)]
-                    p = line(S1[0], axes_labels=['$t$','$x(t)$, $v(t)$'], fontsize=12, color='blue', legend_label='$x(t)$', legend_color='blue')
-                    p += line(S2[0], fontsize=12, color='red', legend_label='$v(t)$', legend_color='red')
-                    LP1 = [line(S1[n], color='blue') for n in range(5)]
-                    LP2 = [line(S2[n], color='red') for n in range(5)]
-                    for n in range(1,5):
-                        p += LP1[n] + LP2[n]
-                    p
-                </sageplot>
-            </image>
+             <image width="50%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems03-solutions-crane">
+                          <xi:include href="prefigure/systems03-solutions-crane.xml"/>
+                    </prefigure>
+              </image>
             <caption>Solutions to <m>x'' + 0.1x' + 0.3 x = 0</m></caption>
         </figure>
 
-        <p>Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <m>x(t)</m> is large, part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane and will cause the crane to bend even further. We can model this effect by setting the equation for our harmonic oscillator equal to a factor of <m>x^3</m>,
+
+        <p>Modeling the swaying motion of a crane with a harmonic oscillator might work only if the side-to-side motion is small. If the motion is larger, we must account for the effect of gravity in our model. When <m>x(t)</m> is large,
+         part of the crane will not be above any other part of the crane. Thus, gravity will pull downward on that part of the crane and will cause the crane to bend even further. We can model this effect by setting the equation for our 
+         harmonic oscillator equal to a factor of <m>x^3</m>,
             <men xml:id="systems03-equation-duffing">\frac{d^2 x}{dt^2}  + 0.1 \frac{dx}{dt} + 0.3 x = 0.02 x^3.</men>
-        When <m>x</m> is small, this forcing term will not contribute much to the motion of the crane. However, when <m>x</m> is large, the term will contribute a great deal. The equation <m>x'' + 0.1 x' + 0.3 x = 0.02 x^3</m> is an example of <term>Duffing's equation</term><idx>Duffing's equation</idx>.</p>
+        When <m>x</m> is small, this forcing term will not contribute much to the motion of the crane. However, when <m>x</m> is large, the term will contribute a great deal. The equation <m>x'' + 0.1 x' + 0.3 x = 0.02 x^3</m> is
+         an example of <term>Duffing's equation</term><idx>Duffing's equation</idx>.</p>
 
         <p>We can rewrite equation<nbsp /><xref ref="systems03-equation-duffing" /> as a system of first-order differential equations by letting <m>dx/dt = v</m>,
             <mdn>
@@ -121,51 +112,22 @@
     <subsection xml:id="systems03-subsection-eulers-method">
         <title>Euler's Method for Systems</title>
 
-        <p>The system of equations <xref ref="systems03-equation-duffing-system-1" /><ndash /><xref ref="systems03-equation-duffing-system-2" /> is nonlinear due the <m>x^3</m> term. There is little hope to finding an analytic solution to such a system. We can use software to plot the phase plane in order to learn something about the solutions (<xref ref="systems03-figure-duffings-equation-phase-plane" />). However, we still need to numerically generate solutions in order to plot the phase plane.</p>
+        <p>The system of equations <xref ref="systems03-equation-duffing-system-1" /><ndash /><xref ref="systems03-equation-duffing-system-2" /> is nonlinear due the <m>x^3</m> term. There is little hope to
+         finding an analytic solution to such a system. We can use software to plot the phase plane in order to learn something about the solutions (<xref ref="systems03-figure-duffings-equation-phase-plane" />).
+          However, we still need to numerically generate solutions in order to plot the phase plane.</p>   
+        
 
         <figure xml:id="systems03-figure-duffings-equation-phase-plane">
-            <image width="60%" xml:id="systems03-duffings-equation-phase-plane">
-                <description>three curves on a field of slope arrows with two curves approaching an equilibrium solution at the origin and the remaining curve approaching infinity</description>
-                <sageplot>
-                    x, v, t = var('x v t')
-                    xmin = -5
-                    xmax = 5
-                    ymin = -5
-                    ymax = 5
-                    b = 0.1
-                    k = 0.3
-                    F = [v, -k*x - b*v + 0.02*x^3]
-                    start1_x = -4
-                    start1_y = 0.5
-                    P1 = desolve_system_rk4(F,[x, v],ics=[0,start1_x,start1_y],ivar=t,end_points=25,step=0.01)
-                    S1 = [ [j, k] for i,j,k in P1]
-                    p = line(S1, thickness=2, axes_labels=['$x(t)$','$v(t)$'], fontsize=12, color='blue')
-                    points_1 = [ (start1_x, start1_y) ]
-                    p += point(points_1[0], pointsize=50)
-                    p += arrow(S1[int(len(S1))-2], S1[int(len(S1))-1], width=1, arrowsize=4, color = "blue")
-                    start2_x = -4
-                    start2_y = 1.5
-                    P2 = desolve_system_rk4(F,[x, v],ics=[0,start2_x,start2_y],ivar=t,end_points=10,step=0.01)
-                    S2 = [ [j, k] for i,j,k in P2]
-                    p += line(S2, thickness=2, color='red')
-                    points_2 = [ (start2_x, start2_y) ]
-                    p += point(points_2[0], pointsize=50, color="red")
-                    p += arrow(S2[int(len(S2))-2], S2[int(len(S2))-1], width=1, arrowsize=4, color = "red")
-                    start3_x = -4
-                    start3_y = 1
-                    P3 = desolve_system_rk4(F,[x, v],ics=[0,start3_x,start3_y],ivar=t,end_points=30,step=0.01)
-                    S3 = [ [j, k] for i,j,k in P3]
-                    p += line(S3, thickness=2, color='green')
-                    points_3 = [ (start3_x, start3_y) ]
-                    p += point(points_3[0], pointsize=50, color="green")
-                    p += arrow(S3[int(len(S3))-2], S3[int(len(S3))-1], width=1, arrowsize=4, color = "green")
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p += plot_vector_field((F[0]/n, F[1]/n), (x,xmin,xmax), (v,ymin,ymax), aspect_ratio=1)
-                    p
-                </sageplot>
-            </image>
+             <image width="50%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems03-duffings-equation-phase-plane">
+                          <xi:include href="prefigure/systems03-duffings-equation-phase-plane.xml"/>
+                    </prefigure>
+              </image>
             <caption>The phase plane for Duffing's equation</caption>
         </figure>
+    
+
 
         <p>Let us see how we might find a numerical solution for a system. Consider the system
             <md>
@@ -202,44 +164,32 @@
                     <mrow>\frac{dx}{dt} &amp; = v,</mrow>
                     <mrow>\frac{dv}{dt} &amp; = - 0.3 x + 0.02x^3 - 0.1 v,</mrow>
                 </md>
-            with initial conditions <m>(t_0, x_0, v_0) = (0, 0, 1.7652)</m>.  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" />).</p>
-        
-        
-            <figure xml:id="systems03-figure-duffings-equation-solutions-1">
-                <image width="60%" xml:id="systems03-duffings-equation-solutions-1">
-                    <description>a position and a velocity curve that both approach zero with smaller and smaller oscillations</description>
-                    <sageplot>
-                        x, v, t = var('x v t')
-                        F = [v, -0.3*x + 0.02*x^3 - 0.1*v]
-                        P1=desolve_system_rk4(F,[x, v],ics=[0,0,1.7652],ivar=t,end_points=50,step=0.01)
-                        S1=[ [i, j] for i,j,k in P1]
-                        S2=[ [i, k] for i,j,k in P1]
-                        p = line(S1, thickness=2, axes_labels=['$t$',''], color='blue', legend_label='$x(t)$', legend_color='blue')
-                        p += line(S2, thickness=2, color='red',legend_label='$v(t)$', legend_color='red')
-                        p
-                    </sageplot>
-                </image>
-                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7652</m></caption>
-            </figure>
+            with initial conditions <m>(t_0, x_0, v_0) = (0, 0, 1.7669)</m>.  Using a numerical algorithm, we can generate enough points to generate a graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" />).</p>
 
-            <p>The surprising thing about Duffing's equation is that it is extremely sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. If we change the initial velocity to <m>v(0) = 1.7653</m>, we obtain a very different graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" /> ).  For small initial velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
+        <figure xml:id="systems03-figure-duffings-equation-solutions-1">
+             <image width="50%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems03-duffings-equation-solutions-1">
+                          <xi:include href="prefigure/systems03-duffings-equation-solutions-1.xml"/>
+                    </prefigure>
+              </image>
+            <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7669</m></caption>
+        </figure>
 
-            <figure xml:id="systems03-figure-duffings-equation-solutions-2">
-                <image width="60%" xml:id="systems03-duffings-equation-solutions-2">
-                    <description>a position and a velocity curve that both approach positive infinity</description>
-                    <sageplot>
-                        x, v, t = var('x v t')
-                        F = [v, -0.3*x + 0.02*x^3 - 0.1*v]
-                        P1 = desolve_system_rk4(F,[x, v],ics=[0,0,1.7653],ivar=t,end_points=18,step=0.01)
-                        S1 = [ [i, j] for i,j,k in P1]
-                        S2 = [ [i, k] for i,j,k in P1]
-                        p = line(S1, thickness=2, axes_labels=['$t$',''], color='blue', legend_label='$x(t)$', legend_color='blue')
-                        p += line(S2, thickness=2, color='red',legend_label='$v(t)$', legend_color='red')
-                        p
-                    </sageplot>
-                </image>
-                <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7653</m></caption>
-            </figure>
+
+            <p>The surprising thing about Duffing's equation is that it is extremely sensitive to initial conditions. A slight change in the initial conditions can yield dramatically different solutions. 
+            If we change the initial velocity to <m>v(0) = 1.7670</m>, we obtain a very different graph of the solution (<xref ref="systems03-figure-duffings-equation-solutions-1" /> ).  For small initial 
+            velocities, solutions spiral towards the origin. However, a larger initial velocity will send the solution in the phase plane away from the origin. If the crane sways too violently, we will have a disaster.</p>
+
+        <figure xml:id="systems03-figure-duffings-equation-solutions-2">
+             <image width="50%">
+                    <prefigure xmlns="https://prefigure.org"
+                               label="prefigure-systems03-duffings-equation-solutions-2">
+                          <xi:include href="prefigure/systems03-duffings-equation-solutions-2.xml"/>
+                    </prefigure>
+              </image>
+            <caption>Solutions for Duffing's equation with initial conditions <m>x(0) = 0</m> and <m>v(0) = 1.7670</m></caption>
+        </figure>
 
         </example>
 
