@@ -77,10 +77,7 @@
 
             <figure xml:id="linear03-figure-saddle-phase-portrait-0">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-linear03-saddle-phase-portrait-0">
                               <xi:include href="prefigure/linear03-saddle-phase-portrait-0.xml"/>
-                        </prefigure>
                   </image>
                     <caption>Straight-line solutions</caption>
             </figure>
@@ -113,10 +110,7 @@
 
         <figure xml:id="linear03-figure-saddle-phase-portrait-1">
              <image width="60%">
-                    <prefigure xmlns="https://prefigure.org"
-                               label="prefigure-linear03-saddle-phase-portrait-1">
                           <xi:include href="prefigure/linear03-saddle-phase-portrait-1.xml"/>
-                    </prefigure>
               </image>
               <caption>Saddle phase portrait</caption>
         </figure>
@@ -163,10 +157,7 @@
 
         <figure xml:id="linear03-figure-saddle-phase-portrait-2">
              <image width="60%">
-                    <prefigure xmlns="https://prefigure.org"
-                               label="prefigure-linear03-saddle-phase-portrait-2">
                           <xi:include href="prefigure/linear03-saddle-phase-portrait-2.xml"/>
-                    </prefigure>
               </image>
               <caption>Saddle phase portrait</caption>
         </figure>
@@ -244,10 +235,7 @@
   
         <figure xml:id="linear03-figure-sink-phase-portrait-2">
              <image width="60%">
-                    <prefigure xmlns="https://prefigure.org"
-                               label="prefigure-linear03-sink-phase-portrait-2">
                           <xi:include href="prefigure/linear03-sink-phase-portrait-2.xml"/>
-                    </prefigure>
               </image>
               <caption>Sink phase portrait</caption>
         </figure>
@@ -286,10 +274,7 @@
 
             <figure xml:id="linear03-figure-nodal-sink-phase-portrait">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-linear03-nodal-sink-phase-portrait">
                               <xi:include href="prefigure/linear03-nodal-sink-phase-portrait.xml"/>
-                        </prefigure>
                   </image>
                   <caption>Sink phase portrait</caption>
             </figure>
@@ -340,29 +325,10 @@
         <p>If <m>\lambda_1 \gt \lambda_2 \gt 0</m>, we can regard our direction field as the negative of the direction field of the previous case. The general solution and the direction field are the same, but the arrows are reversed (<xref ref="linear03-figure-nodal-source-phase-portrait" />). In this case, we say that the equilibrium point is a <term>source</term><idx><h>equilibrium solution</h><h>source</h></idx>.</p>
 
         <figure xml:id="linear03-figure-nodal-source-phase-portrait">
-            <image width="60%" xml:id="linear03-nodal-source-phase-portrait">
-                <description>a direction field of slope arrows with solution curves approaching infinity with the horizontal approach faster than the vertical approach</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    F = [2*x, y]
-                    n = sqrt(F[0]^2 + F[1]^2)
-                    p = plot_vector_field((F[0]/n, F[1]/n), (x,-3,3), (y,-3,3), aspect_ratio=1)
-                    P1=desolve_system_rk4(F,[x,y],ics=[0,0.01,0.1],ivar=t,end_points=2.9,step=0.1)
-                    P2=desolve_system_rk4(F,[x,y],ics=[0,-0.01,0.1],ivar=t,end_points=2.9,step=0.1)
-                    P3=desolve_system_rk4(F,[x,y],ics=[0,0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
-                    P4=desolve_system_rk4(F,[x,y],ics=[0,-0.01,-0.1],ivar=t,end_points=2.9,step=0.1)
-                    S1=[ [j, k] for i,j,k in P1]
-                    S2=[ [j, k] for i,j,k in P2]
-                    S3=[ [j, k] for i,j,k in P3]
-                    S4=[ [j, k] for i,j,k in P4]
-                    p += line(S1, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                    p += line(S2, thickness=2)
-                    p += line(S3, thickness=2)
-                    p += line(S4, thickness=2)
-                    p
-                </sageplot>
-            </image>
-            <caption>Source phase portrait</caption>
+             <image width="60%">
+                          <xi:include href="prefigure/linear03-nodal-source-phase-portrait.xml"/>
+              </image>
+              <caption>Source phase portrait</caption>
         </figure>
 
         <example>
@@ -380,38 +346,14 @@
                 \end{pmatrix}.</me>
             The eigenvalues of this system are <m>\lambda_1 = 5</m> and <m>\lambda_2 = 1</m> with eigenvectors <m>\mathbf v_1 = (3, -1)</m> and <m>\mathbf v_2 = (1, 1)</m>, respectively. Since the dominant eigenvalue is <m>\lambda_1 = 5</m>, solutions are closer to  the straight-line solution containing the vector <m>\mathbf v_2 = (3, -1)</m> more as <m>t \to \infty</m> (<xref ref="linear03-figure-nodal-source-phase-portrait-1" />).</p>
 
-            <figure xml:id="linear03-figure-nodal-source-phase-portrait-1">
-                <image width="60%" xml:id="linear03-nodal-source-phase-portrait-1">
-                    <description>a direction field of slope arrows with straight-line solutions and solution curves approaching infinity</description>
-                    <sageplot>
-                        x, y ,t = var('x y t')
-                        f = 4*x - 3*y
-                        g = -x + 2*y
-                        n = sqrt(f^2 + g^2)
-                        xmin = -4
-                        xmax = 4
-                        ymin = -4
-                        ymax = 4
-                        p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                        p += line([(-4,-4), (4,4)], thickness = 2, color="red")
-                        p += line([(-4,4/3), (4, -4/3)], thickness = 2, color="red")
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,0.02,0.0199999],ivar=t,end_points=3.53,step=0.01)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,0.0199999,0.02],ivar=t,end_points=3.6,step=0.01)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.0199999,-0.02],ivar=t,end_points=3.6,step=0.01)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        P=desolve_system_rk4([f,g],[x,y],ics=[0,-0.02,-0.0199999],ivar=t,end_points=3.53,step=0.01)
-                        S=[ [j, k] for i,j,k in P]
-                        p += line(S, thickness=2)
-                        p
-                    </sageplot>
-                </image>
+                    <figure xml:id="linear03-figure-nodal-source-phase-portrait-1">
+             <image width="60%">
+                          <xi:include href="prefigure/linear03-nodal-source-phase-portrait-1.xml"/>
+              </image>
                 <caption>Source phase portrait</caption>
-            </figure>           
+        </figure>
+
+
         </example>
 
 
