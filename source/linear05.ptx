@@ -30,32 +30,14 @@
             \end{pmatrix}.</men>
         The characteristic polynomial of the system <xref ref="linear05-equation-repeated-eigenvalues" /> is <m>\lambda^2 - 6\lambda + 9</m> and <m>\lambda^2 - 6 \lambda + 9 = (\lambda - 3)^2</m>. This polynomial has a single root <m>\lambda = 3</m> with eigenvector <m>\mathbf v = (1, 1)</m>. There is a single straight-line solution for this system (<xref ref="linear05-figure-one-straight-line-solution" />). The strategy that we used to find the general solution to a system with distinct real eigenvalues will clearly have to be modified if we are to find a general solution to a system with a single eigenvalue.</p>
 
-        <figure xml:id="linear05-figure-one-straight-line-solution">
-
-            <image width="60%" xml:id="linear05-one-straight-line-solution">
-                <description>a direction field of slope arrows with one straight-line solution and a solution curve that approaches infinity</description>
-                <sageplot>
-                    x, y ,t = var('x y t')
-                    f = 2*x + y
-                    g = -x + 4*y
-                    n = sqrt(f^2 + g^2)
-                    xmin = -4
-                    xmax = 4
-                    ymin = -4
-                    ymax = 4
-                    p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                    P=desolve_system_rk4([f,g],[x,y],ics=[0,0.1,0.05],ivar=t,end_points=1.6,step=0.01)
-                    S=[ [j, k] for i,j,k in P]
-                    p +=line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'])
-                    p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                    p += arrow((0,0), (1,1), color="red", arrowsize=3, width = 4)
-                    p += line([(-4,-4), (4,4)])
-                    p
-                </sageplot>
-            </image>
+         <figure xml:id="linear05-figure-one-straight-line-solution">
+             <image width="60%">
+                          <xi:include href="prefigure/linear05-one-straight-line-solution.xml"/>
+              </image>
             <caption>A system with one straight-line solution</caption>
-        </figure>
- 
+        </figure> 
+
+
     </introduction>
     
     <subsection xml:id="linear05-subsection-repeated-eigenvalues">
@@ -135,33 +117,13 @@
             Notice that we have only one straight-line solution (<xref ref="linear05-figure-repeated-phase-portrait" />).</p>
 
             <figure xml:id="linear05-figure-repeated-phase-portrait">
-                    <image width="60%" xml:id="linear05-repeated-phase-portrait">
-                        <description>a direction field of slope arrows with one straight-line solution on the horizontal axis and a solution curve that approaches the origin</description>
-                        <sageplot>
-                            x, y ,t = var('x y t')
-                            f = -x + y
-                            g = -y
-                            start_x = 1
-                            start_y = 3
-                            xmin = -4
-                            xmax = 4
-                            ymin = -4
-                            ymax = 4
-                            n = sqrt(f^2 + g^2)
-                            p = plot_vector_field((f/n, g/n), (x,xmin,xmax), (y,ymin,ymax), aspect_ratio=1)
-                            P=desolve_system_rk4([f,g],[x,y],ics=[0,start_x,start_y],ivar=t,end_points=5,step=0.1)
-                            S=[ [j, k] for i,j,k in P]
-                            p += line(S, thickness=2, axes_labels=['$x(t)$','$y(t)$'], fontsize=12)
-                            points = [ (start_x, start_y) ]
-                            p += point(points[0], pointsize=50)
-                            p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                            p += arrow((0,0), (1,0), color="red", arrowsize=3, width = 4)
-                            p += line([(-4,0), (4,0)], thickness=2)
-                            p
-                        </sageplot>
-                    </image>
+                <image width="60%">
+                            <xi:include href="prefigure/linear05-repeated-phase-portrait.xml"/>
+                </image>
                 <caption>Phase portrait for repeated eigenvalues</caption>
-            </figure>
+            </figure> 
+
+
         </example>
 
     
