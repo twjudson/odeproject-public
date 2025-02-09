@@ -112,22 +112,14 @@
             </ul>
         If <m>T^2 - 4D = 0</m> or equivalently if <m>D = T^2/4</m>, we have repeated eigenvalues. In fact, we can represent those systems with repeated eigenvalues by graphing the parabola <m>D= T^2/4</m> on the <m>TD</m>-plane or <term>trace-determinant plane</term> (<xref ref="linear07-figure-trace-determinant-plane" />). Therefore, points on the parabola correspond to systems with repeated eigenvalues, points above the parabola (<m>D \gt T^2/4</m> or equivalently <m>T^2 - 4D \lt 0</m>) correspond to systems with complex eigenvalues, and points below the parabola  (<m>D \lt T^2/4</m> or equivalently <m>T^2 - 4D  \gt 0</m>) correspond to systems with real eigenvalues.</p>
 
-        <figure xml:id="linear07-figure-trace-determinant-plane">
 
-            <image width="60%" xml:id="linear07-trace-determinant-plane">
-                <description>a plot of the trace-determinant plane with complex eigenvalues above the parabola and repeated eigenvalues on the parabola and real distinct eigenvalues below the parabola</description>
-                <sageplot>
-                    T, D = var('T, D')
-                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
-                    p += text("Complex Eigenvalues", (0, 0.5), fontstyle="oblique", color='black')
-                    p += text("Distinct Real Eigenvalues", (0, -0.3), fontstyle="oblique", color='black')
-                    p += text("Repeated Eigenvalues", (1.2, 0.3), fontstyle="oblique", color='black')
-                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                    p
-                </sageplot>
-            </image>
-            <caption>The trace-determinant plane</caption>
-        </figure>
+            <figure xml:id="linear07-figure-trace-determinant-plane">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-trace-determinant-plane.xml"/>
+                  </image>
+                <caption>The trace-determinant plane</caption>
+            </figure>
+
 
         <theorem xml:id="linear07-theorem-trace-determinant-coordinates">
             <statement>
@@ -180,21 +172,13 @@
             <me>\lambda = \frac{T \pm \sqrt{T^2 - 4D}}{2}.</me> 
         If <m>T^2 - 4D \lt 0</m>, then we have a complex eigenvalues, and the type of equilibrium point depends on the real part of the eigenvalue.  The sign of the real part is determined solely by <m>T</m>.  If <m>T \gt 0</m> we have a source.  If <m>T \lt 0</m>, we have a sink.  If <m>T = 0</m>, we have a center.  See <xref ref="linear07-figure-trace-determinant-complex" />.</p>
 
-        <figure xml:id="linear07-figure-trace-determinant-complex">
-            <image width="60%" xml:id="linear07-trace-determinant-plane-complex">
-                <description>the trace-determinant plane with spiral sources above the parabola and to the right of the vertical axis and centers on the positive vertical axis and spiral sinks above the parabola and to the left of the vertical axis</description>
-                <sageplot>
-                    T, D = var('T, D')
-                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
-                    p += text("Center", (0, 0.75), fontstyle="oblique", color='black')
-                    p += text("Spiral Source", (1.2, 0.75), fontstyle="oblique", color='black')
-                    p += text("Spiral Sink", (-1.2, 0.75), fontstyle="oblique", color='black')
-                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                    p
-                </sageplot>
-            </image>
-            <caption><m>D \gt T^2/4</m></caption>
-        </figure>
+            <figure xml:id="linear07-figure-trace-determinant-complex">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-trace-determinant-complex.xml"/>
+                  </image>
+                <caption><m>D \gt T^2/4</m></caption>
+            </figure>
+
 
         <p>The situation for distinct real eigenvalues is a bit more complicated. Suppose that we have a system
             <me>{\mathbf x}'
@@ -231,51 +215,23 @@
 
         <p>One the other hand, suppose that <m>T \lt 0</m>. Then the eigenvalue <m>(T - \sqrt{T^2 - 4D}\,)/2</m> is always negative, and we need to determine if other eigenvalue is positive or negative.  If <m>D \lt 0</m>, then <m>T^2 - 4D \gt T^2</m> and <m>\sqrt{T^2 - 4D} \gt T</m>. Therefore, the other eigenvalue <m>(T - \sqrt{T^2 - 4D}\,)/2</m> is positive, telling us that any point in the fourth quadrant must correspond to a saddle. If <m>D \gt 0</m>, then <m>\sqrt{T^2 - 4D} \lt T</m> and the second eigenvalue is negative. In this case, we will have a <term>nodal sink</term><idx><h>equilibrium solution</h><h>nodal sink</h></idx>. We summarize our findings in <xref ref="linear07-figure-trace-determinant-real" />.</p>
 
-        <figure xml:id="linear07-figure-trace-determinant-real">
-            <image width="60%" xml:id="linear07-trace-determinant-plane-real">
-                <description>the trace-determinant plane with spiral sources, sinks, and centers above the parabola, nodal sources below the parabola and above the positive horizontal axis and nodal sinks below the parabola and above the negative horizontal axis</description>
-                <sageplot>
-                    T, D = var('T, D')
-                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
-                    p += text("Center", (0, 0.85), fontstyle="oblique", color='black')
-                    p += text("Spiral Source", (1.2, 0.85), fontstyle="oblique", color='black')
-                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
-                    p += text("Nodal Source", (1.85, 0.3), fontstyle="oblique", color='black')
-                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
-                    p += text("Saddle", (0, -0.3), fontstyle="oblique", color='black')
-                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                    p
-                </sageplot>
-            </image>
+            <figure xml:id="linear07-figure-trace-determinant-real">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-trace-determinant-real.xml"/>
+                  </image>
+                 <caption>The trace-determinant plane for real and complex eigenvalues</caption>
+            </figure>
 
-            <caption>The trace-determinant plane for real and complex eigenvalues</caption>
-        </figure>
-        
         <p>For repeated eigenvalues, the analysis depends only on <m>T</m>.  Since
             <me>T^2 - 4D = 0,</me>
         the only eigenvalue is <m>T/2</m>. Thus, we have sources if <m>T > 0</m> and sinks if <m>T \lt 0</m> (<xref ref="linear07-figure-trace-determinant-repeated" />).</p>
 
-        <figure xml:id="linear07-figure-trace-determinant-repeated">
-            <image width="60%" xml:id="linear07-trace-determinant-plane-repeated">
-                <description>the trace-determinant plane with spiral sources, sinks, and centers above the parabola, nodal sources and nodal sinks below the parabola and above the horizontal axis and saddles below the horizontal axis</description>
-                <sageplot>
-                    T, D = var('T, D')
-                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]],aspect_ratio=2)
-                    p += text("Center", (0, 0.85), fontstyle="oblique", color='black')
-                    p += text("Spiral Source", (1.2, 0.85), fontstyle="oblique", color='black')
-                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
-                    p += text("Nodal Source", (1.85, 0.3), fontstyle="oblique", color='black')
-                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
-                    p += text("Source (unstable line)", (1.6, 0.55), fontstyle="oblique", color='black')
-                    p += text("Sink (stable line)", (-1.6, 0.55), fontstyle="oblique", color='black')
-                    p += text("Saddle", (0, -0.3), fontstyle="oblique", color='black')
-                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                    p
-                </sageplot>
-            </image>
-
-            <caption><m>D = T^2/4</m></caption>
-        </figure>
+            <figure xml:id="linear07-figure-trace-determinant-repeated">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-trace-determinant-repeated.xml"/>
+                  </image>
+                 <caption><m>D = T^2/4</m></caption>
+            </figure>
 
         <example>
             <p>Let us return to the mixing problem that we proposed at the beginning of this section. The problem could be modeled by the system of equations
@@ -316,22 +272,14 @@
             {\mathbf x}.</me>
         Thus, for the harmonic oscillator <m>T = -b/m</m> and <m>D= k/m</m>. If we use the trace-determinant plane to analyze the harmonic oscillator, we need only concern ourselves with the second quadrant (Figure <xref ref="linear07-figure-one-parameter-harmonic" />).</p>
 
-        <figure xml:id="linear07-figure-one-parameter-harmonic">
-            <image width="60%" xml:id="linear07-one-parameter-harmonic">
-                <description>the trace-determinant plane for a harmonic oscillator</description>
-                <sageplot>
-                    T, D = var('T, D')
-                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[]], aspect_ratio=2)
-                    p += text("Under Damped", (-1.2, 0.85), fontstyle="oblique", color='black')
-                    p += text("Over Damped", (-1.6, 0.2), fontstyle="oblique", color='black')
-                    p += text("Critically Damped", (-1.6, 0.55), fontstyle="oblique", color='black')
-                    p += text("Undamped", (0, 0.5), fontstyle="oblique", color='black')
-                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                    p
-                </sageplot>
-            </image>
-            <caption>A one-parameter family for a harmonic oscillator</caption>
-        </figure>
+            <figure xml:id="linear07-figure-one-parameter-harmonic">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-one-parameter-harmonic.xml"/>
+                  </image>
+                <caption>A one-parameter family for a harmonic oscillator</caption>
+            </figure>
+
+
 
         <p>If <m>(T, D) = (-b/m, k/m)</m> lies above the parabola, we have an underdamped oscillator. If <m>(T, D) = (-b/m, k/m)</m> lies below the parabola, we have an overdamped oscillator. If <m>(T, D) = (-b/m, k/m)</m> lies on the parabola, we have a critically damped oscillator. If <m>b = 0</m>, we have an undamped oscillator.</p>
 
@@ -344,23 +292,12 @@
             Thus, <m>T = -b</m> and <m>D = 3</m>.  We can see how the phase portrait varies with the parameter <m>b</m> in Figure  <xref ref="linear07-figure-varying-damping" />.</p>
 
             <figure xml:id="linear07-figure-varying-damping">
-                <image width="60%" xml:id="linear07-varying-damping">
-                    <description>the trace-determinant plane for a harmonic oscillator with a horizontal line at three</description>
-                    <sageplot>
-                        T, D = var('T, D')
-                        p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[],[0.7]], tick_formatter=[[],["3"]], aspect_ratio=2)
-                        p += text("Under Damped", (-1.2, 0.85), fontstyle="oblique", color='black')
-                        p += text("Over Damped", (-1.6, 0.2), fontstyle="oblique", color='black')
-                        p += text("Critically Damped", (-1.6, 0.55), fontstyle="oblique", color='black')
-                        p += text("Undamped", (0, 0.5), fontstyle="oblique", color='black')
-                        p += text("$D = T^2/4$", (2, 1.2), color='blue')
-                        p += line([(0,0.7), (-2,0.7)], color="red", thickness=4)
-                        p
-                    </sageplot>
-                </image>
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-varying-damping.xml"/>
+                  </image>
                 <caption>The trace-determinant plane for varying damping</caption>
             </figure>
-            
+
             <p>The line <m>D = 3</m> in the trace-determinant plane crosses the repeated eigenvalue parabola, <m>D = T^2/4</m> if <m>b^2 = 12</m> or when <m>b = 2 \sqrt{3}</m>. If <m>b = 0</m>, we have purely imaginary eigenvalues.  This is the undamped harmonic oscillator. If <m>0 \lt b \lt 2 \sqrt{3}</m>, the eigenvalues are complex with a nonzero real part<mdash />the underdamped case. If <m>b = 2 \sqrt{3}</m>, the eigenvalues are negative and repeated<mdash />the critically damped case. Finally, if <m>b \gt 2 \sqrt{3}</m>, we have the overdamped case. In this case, the eigenvalues are real, distinct, and negative. A <terminology>bifurcation</terminology> occurs at <m>b = 2 \sqrt{3}</m>.</p>
         </example>
        
@@ -409,24 +346,14 @@
                 <me>T^2 - 4D = 4 - 8a = 0 \qquad \text{or}\qquad a = \frac{1}{2}.</me>
             Thus, a bifurcation occurs at <m>a = 1/2</m>.  If <m>a \gt 1/2</m>, we have a spiral sink. If <m>a \lt 1/2</m>, we have a sink with real eigenvalues. Further more, if <m>a \lt 0</m>, our sink becomes a saddle (<xref ref="linear07-figure-one-parameter-family" />).</p>
 
-	        <figure xml:id="linear07-figure-one-parameter-family">
-	            <image width="60%" xml:id="linear07-one-parameter-family">
-	                <description>the trace-determinant plane with a vertical line at minus two</description>
-	                <sageplot>
-	                    T, D = var('T, D')
-	                    p = plot(T^2/4, (T, -2, 2), thickness=3, axes_labels=['$T$','$D$'], ticks=[[-0.6],[]], tick_formatter=[["$-2$"],[]], aspect_ratio=2)
-	                    p += text("Spiral Sink", (-1.2, 0.85), fontstyle="oblique", color='black')
-	                    p += text("Nodal Sink", (-1.85, 0.3), fontstyle="oblique", color='black')
-	                    p += text("Sink (stable line)", (-1.6, 0.55), fontstyle="oblique", color='black')
-	                    p += text("Saddle", (-1.2, -0.3), fontstyle="oblique", color='black')
-	                    p += text("$D = T^2/4$", (2, 1.2), color='blue')
-	                    p += line([(-0.6,0.05), (-0.6,1)], color="red", thickness=4)
-	                    p += line([(-0.6,-0.5), (-0.6,-0.12)], color="red", thickness=4)
-	                    p
-	                </sageplot>
-	            </image>
-	            <caption>A one-parameter family of linear systems</caption>
-	        </figure>
+            <figure xml:id="linear07-figure-one-parameter-family">
+                 <image width="60%">
+                              <xi:include href="prefigure/linear07-one-parameter-family.xml"/>
+                  </image>
+                <caption>A one-parameter family of linear systems</caption>
+            </figure>
+
+
 	    </example>
 
 
