@@ -170,18 +170,12 @@
 	         		</md>
 	         	where <m>\theta = \arctan(B/A)</m> (<xref ref="secondorder05-figure-trig-triangle" />).  The angle <m>\theta</m> is called the <term>phase shift</term>.</p>
 
-		        <figure xml:id="secondorder05-figure-trig-triangle">
-
-
-		            <image width="50%" xml:id="secondorder05-trig-triangle">
-		                <description>a triangle with legs A and B and hypotenuse square root of A squared plus B squared.  The angle between the leg A and the hypotenuse is theta</description>
-		                <latex-image>
-		                    <xi:include href="tikz/secondorder05-trig-triangle.tex" parse="text"/>
-		                </latex-image>
-		            </image>
-
-		            <caption>A triangle diagram that is used in obtaining a single phase shifted solution from the sum of sine and cosine terms in solution</caption>
-		        </figure>
+				<figure xml:id="secondorder05-figure-trig-triangle">
+					<image width="60%">
+						<xi:include href="prefigure/secondorder05-trig-triangle.xml"/>
+					</image>
+					<caption>A triangle diagram that is used in obtaining a single phase shifted solution from the sum of sine and cosine terms in solution</caption>
+				</figure>
 
 		        <p>The differential equation
 		        	<me>y'' + 6y' + 25y = 0, \quad y(0) = 1, \quad y'(0) = 0</me>
@@ -195,26 +189,12 @@
 		        	</md>
 		        where <m>\omega =4</m> and <m>\theta = \arctan(4/3) = 0.231824</m> radians.</p>
 
-		        <figure xml:id="secondorder05-figure-phase-shift">
-
-		            <image width="100%" xml:id="secondorder05-phase-shift">
-		                <sageplot>
-							t = var('t')
-							p = plot(sin(4*t), (t, 0,2), legend_label='$\\sin(4t)$', thickness=3, legend_color='blue', axes_labels=['$t$', '$y$'])
-							p += plot(3 *sin(4*t) + 4 *cos(4*t), (t, 0,2), color="red", thickness=3, legend_label='$3\\sin(4t) + 4 \\cos(4t)$', legend_color='red')
-							p += line([[3*pi/8,-6], [3*pi/8,6]], color="black")
-							p += line([[3*pi/8-0.231824,-6], [3*pi/8-0.231824,6]], color="black")
-							p += arrow((3*pi/8-0.231824,4), (3*pi/8,4), width=1, arrowsize=2, color="black")
-							p += arrow((3*pi/8,4), (3*pi/8-0.231824,4), width=1, arrowsize=2, color="black")
-							p += text("$0.231824$",(1.065,3.5), color="black")
-							p
-		                </sageplot>
-		                <description>a plot of the undamped oscillating portion 3 sin(4t) + 4 cos(4t) and the simple frequency curve sin(omega t)</description>
-		            </image>
-
-		            <caption>A plot of the oscillating portion (not damped), <m>3 \sin(4t) + 4 \cos(4t)</m>, of the solution <xref ref="secondorder05-equation-trig-phase-angle-omega" /> with its simple frequency curve <m>\sin(\omega t)</m>. Notice the phase angle here of <m>0.2318</m> radians from bottom to bottom illustrating what we mean by out of phase by a phase angle of <m>0.2318</m> radians.</caption>
-
-		        </figure>
+				<figure xml:id="secondorder05-figure-phase-shift">
+					<image width="50%">
+						<xi:include href="prefigure/secondorder05-phase-shift.xml"/>
+					</image>
+					<caption>A plot of the oscillating portion (not damped), <m>3 \sin(4t) + 4 \cos(4t)</m>, of the solution <xref ref="secondorder05-equation-trig-phase-angle-omega" /> with its simple frequency curve <m>\sin(\omega t)</m>. Notice the phase angle here of <m>0.2318</m> radians from bottom to bottom illustrating what we mean by out of phase by a phase angle of <m>0.2318</m> radians.</caption>
+				</figure>
 
 		    </introduction>
 
@@ -251,33 +231,12 @@
 
 	         	<p>Let us fix <m>R</m> at <m>1</m> ohm and <m>L</m> at <m>1</m> henry and see what gain is in this case as a function of <m>C</m> over a range of <m>\omega</m> values. Let us <q>tune</q> this circuit by changing <m>C</m>, the size of the capacitance in the circuit and see how gain changes as input voltage frequency, <m>\omega</m>, changes.</p>
 
-		        <figure xml:id="secondorder05-figure-gain">
-
-		            <image width="100%" xml:id="secondorder05-gain">
-		                <sageplot>
-							omega = var('omega')
-							R = 1
-							L = 1
-							C = 0.0005
-							gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
-							p = plot(gain(omega), (omega, 0,50), legend_label='$C = 0.0005$', legend_color='blue', axes_labels=['input frequency - $\\omega$', 'gain'])
-							C = 0.005
-							gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
-							p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.005$', legend_color='green', color='green')
-							C = 0.05
-							gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
-							p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.05$', legend_color='magenta', color='magenta')
-							C = 0.5
-							gain(omega) = R*sqrt((C^2*omega^2)/(C^2*L^2*omega^4 + (C^2*R*2 - 2*C*L)*omega^2+1))
-							p += plot(gain(omega), (omega, 0,50), legend_label='$C = 0.5$', legend_color='red', color='red')                   
-							p
-		                </sageplot>
-		                <description>plots of the gain with peaks at </description>
-		            </image>
-
-		            <caption>Plot of gain as a function of input frequency, <m>\omega</m>, for various values of capacitance, <m>C = 0.5</m>, <m>0.05</m>, <m>0.005</m>, <m>0.0005</m> farads in with <m>R = 1</m> ohm and <m>L = 1</m> henry.</caption>
-
-		        </figure>
+				<figure xml:id="secondorder05-figure-gain">
+					<image width="60%">
+						<xi:include href="prefigure/secondorder05-gain.xml"/>
+					</image>
+					<caption>Plot of gain as a function of input frequency, <m>\omega</m>, for various values of capacitance, <m>C = 0.5</m>, <m>0.05</m>, <m>0.005</m>, <m>0.0005</m> farads in with <m>R = 1</m> ohm and <m>L = 1</m> henry.</caption>
+				</figure>
 
 		        <p><xref ref="secondorder05-figure-gain" /> illustrates the power of differential equation modeling. For we can alter parameters in our equation and see the results in a physical (in this case electrical) system. Indeed, we see in this plot that for a capacitance of <m>C = 0.0005</m> farads if we have an input voltage with a frequency around <m>\omega = 45</m> (<m>44.7214</m> to be precise) then the gain is greatest. Optimization is a calculus problem and we merely have to take the derivative of gain with respect to <m>\omega</m> and find where it is <m>0</m>. All other frequencies give smaller gain for this particular capacitance. In fact, we can say that as we decrease our capacitance the optimal frequency; i.e., frequency which gives highest gain, decreases and we might want to look into this for a more exact relationship. We shall do that in <xref ref="secondorder05-task-tune-the-radio" />.</p>
 
