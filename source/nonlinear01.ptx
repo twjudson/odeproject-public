@@ -81,10 +81,7 @@
 
            <figure xml:id="nonlinear01-figure-example-1">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-example-1">
-                              <xi:include href="prefigure/nonlinear01-example-1.xml"/>
-                        </prefigure>
+                        <xi:include href="prefigure/nonlinear01-example-1.xml"/>
                   </image>
                   <caption>Phase Portrait for <m>x' = x - 3y + xy^2</m> and <m>2x - 4y - x^2y</m></caption>
             </figure>
@@ -127,10 +124,7 @@
 
            <figure xml:id="nonlinear01-figure-competing-species">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-competing-species">
-                              <xi:include href="prefigure/nonlinear01-competing-species.xml"/>
-                        </prefigure>
+                    <xi:include href="prefigure/nonlinear01-competing-species.xml"/>
                   </image>
                   <caption>A Competing Species Model</caption>
             </figure>
@@ -199,20 +193,14 @@
 
            <figure xml:id="nonlinear01-figure-nonpoly-phase-portrait">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-nonpoly-phase-portrait">
-                              <xi:include href="prefigure/nonlinear01-nonpoly-phase-portrait.xml"/>
-                        </prefigure>
+                        <xi:include href="prefigure/nonlinear01-nonpoly-phase-portrait.xml"/>
                   </image>
                 <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - \sin x</m></caption>
             </figure>
 
            <figure xml:id="nonlinear01-figure-linearization-phase-portrait">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-linearization-phase-portrait">
-                              <xi:include href="prefigure/nonlinear01-linearization-phase-portrait.xml"/>
-                        </prefigure>
+                    <xi:include href="prefigure/nonlinear01-linearization-phase-portrait.xml"/>
                   </image>
                 <caption>Phase portrait of <m>x' = y</m> and <m>y' = -y - x</m></caption>
             </figure>
@@ -229,10 +217,7 @@
 
           <figure xml:id="nonlinear01-figure-example-poly-plot">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-example-poly-plot">
-                              <xi:include href="prefigure/nonlinear01-example-poly-plot.xml"/>
-                        </prefigure>
+                    <xi:include href="prefigure/nonlinear01-example-poly-plot.xml"/>
                   </image>
                 <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-1" /><ndash /><xref ref="nonlinear01-equation-example-poly-2" /></caption>
             </figure> 
@@ -245,48 +230,13 @@
                 </mdn>
             Our new system has <m>u</m> and <m>v</m>-nullclines <m>v = u(u - 2)</m> and <m>v = u(u^2 + 3u + 3)</m>, respectively. Notice that we have simply moved the phase portrait of the original system so that our equilibrium solution is now at the origin.  Furthermore, we can approximate the <m>u</m> and <m>v</m>-nullclines by their tangent lines <m>v = -2u</m> and <m>v = 3u</m>, respectively. From <xref ref="nonlinear01-figure-example-poly-plot" />, it appears that we are approximating our original system with a linear system.</p>
 
-            <figure xml:id="nonlinear01-figure-example-poly-phase">
-                <image width="60%" xml:id="nonlinear01-example-poly-phase">
-                    <description>a direction field of slope arrows and nullclines with a solution curve approaching the origin</description>
-                    <sageplot>
-                        u, v, t = var('u, v, t')
-                        F = [u^2 - 2*u - v, u*(u^2 + 3*u + 3) - v]
-                        umin = -2
-                        umax = 2
-                        vmin = -2
-                        vmax = 2
-                        start_u = 1
-                        start_v = 1
-                        start_t = 0
-                        P = desolve_system_rk4(F,[u, v],ics=[start_t, start_u, start_v],ivar=t,end_points=2,step=0.01)
-                        S = [[j, k] for i,j,k in P]
-                        p = line(S, axes_labels=['$u(t)$','$v(t)$'], fontsize=12)
-                        p += arrow(S[int(len(S))-2], S[int(len(S))-1], width=1, arrowsize=4)
-                        points = [ (start_u, start_v) ]
-                        p += point(points[0], pointsize=50)
-                        n = sqrt(F[0]^2 + F[1]^2)
-                        p += plot_vector_field((F[0]/n, F[1]/n), (u, umin, umax), (v, vmin, vmax), aspect_ratio=1)
-                        xnullcline = implicit_plot(F[0], (u, umin, umax), (v, vmin, vmax), color='green')
-                        ynullcline = implicit_plot(F[1], (u, umin, umax), (v, vmin, vmax), color='red')
-                        p += xnullcline + ynullcline
-                        p += plot(-2*u, (u,-1,1), color="purple")
-                        p += plot(3*u, (u,-2/3, 2/3), color="purple")
-                        p
-                    </sageplot>
-                </image>
-                <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-3" /><ndash /><xref ref="nonlinear01-equation-example-poly-4" /></caption>
-            </figure>
-<!--
           <figure xml:id="nonlinear01-figure-example-poly-phase">
                  <image width="60%">
-                        <prefigure xmlns="https://prefigure.org"
-                                   label="prefigure-nonlinear01-example-poly-phase">
-                              <xi:include href="prefigure/nonlinear01-example-poly-phase.xml"/>
-                        </prefigure>
+                    <xi:include href="prefigure/nonlinear01-example-poly-phase.xml"/>
                   </image>
-                <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-3" /><ndash /><xref ref="nonlinear01-equation-example-poly-4" /></caption>
-            </figure>
--->
+                <caption>Phase portrait for the system <xref ref="nonlinear01-equation-example-poly-1" /><ndash /><xref ref="nonlinear01-equation-example-poly-2" /></caption>
+            </figure> 
+
         </example>
 
         <p>In general, our goal is to approximate a nonlinear system
@@ -465,10 +415,7 @@
 
       <figure xml:id="nonlinear01-figure-linearization-fails">
              <image width="60%">
-                    <prefigure xmlns="https://prefigure.org"
-                               label="prefigure-nonlinear01-linearization-fails">
-                          <xi:include href="prefigure/nonlinear01-linearization-fails.xml"/>
-                    </prefigure>
+                 <xi:include href="prefigure/nonlinear01-linearization-fails.xml"/>
               </image>
             <caption>When linearization fails</caption>
         </figure> 
