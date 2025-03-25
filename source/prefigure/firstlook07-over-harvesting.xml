@@ -1,16 +1,27 @@
 <prefigure xmlns="https://prefigure.org"
              label="over-harvesting">
 
-<diagram dimensions="(300,300)" margins="25">
+<diagram dimensions="(300,300)" margins="(90,5,20,25)">
     <definition>k = 1</definition>
     <definition>N = 200</definition>
     <definition>H = 100</definition>
     <definition>f(t,P) = k*P*(1 - P/N) - H</definition>
-    <coordinates bbox="[-0.25,-1,2.5,150]">
-    <grid-axes xlabel="t" ylabel="P(t)"/>
+    <coordinates bbox="[-0.1,-0.1,2.5,151]">
+
+      <grid />
+      <axes vlabels="(0, 50, 150)" decorations="no"/>
     
+
+      <label anchor="(bbox[2],0)" alignment="e" offset="(8,0)">
+        <m>t</m>
+      </label>
+
+      <label anchor="(-0.1,75)" offset="(-10,5)" rotate="90">
+        <m>P(t)</m>
+      </label>
+
     <definition>gap = 1/4</definition>
-    <slope-field function="f" stroke="black" spacings="((-0.05,gap,10),(-0.05,gap*50,200))" arrows="yes" arrow-width="5" arrow-angles="(30,75)"
+    <slope-field function="f" stroke="black" spacings="((0,gap,2.5),(0,gap*50,150))" arrows="yes" 
          thickness="1" />
 
     <de-solve function="f" t0="0" y0="150" t1="10" name="linear"/>
@@ -19,5 +30,12 @@
     <plot-de-solution function="f" t0="0" y0="50" t1="10" stroke="red"/>
 
   </coordinates>
+
+  <!--
+  <annotations>
+    <annotation ref="figure"
+      text="Integral curve of the differential equation P prime equals P times the quantity one minus P divided by 200 minus 100"/>
+  </annotations>
+  -->
 </diagram>
 </prefigure>
