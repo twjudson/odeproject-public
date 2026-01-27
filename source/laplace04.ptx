@@ -226,27 +226,72 @@
                 <statement>
                     <p><m>f(t) = 2</m> and <m>g(t) = t</m></p>
                 </statement>
+                 <solution component="odeproject-instructors">
+                <p>
+                    By definition,
+                    <me>
+                    (f*g)(t)=\int_0^t 2(t-\tau)\,d\tau.
+                    </me>
+                </p>
+
+                <p>
+                    Evaluating,
+                    <me>
+                    (f*g)(t)=2\int_0^t (t-\tau)\,d\tau
+                    =t^2.
+                    </me>
+                </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
                     <p><m>f(t) = t</m> and <m>g(t) = t</m></p>
                 </statement>
-            </exercise>            <exercise>
+                 <solution component="odeproject-instructors">
+                    <p>
+                        
+                    </p>
+                </solution>
+            </exercise>            
+            <exercise>
                 <statement>
                     <p><m>f(t) = t</m> and <m>g(t) = e^{3t}</m></p>
                 </statement>
-            </exercise>            <exercise>
+                 <solution component="odeproject-instructors">
+                    <p>
+                        
+                    </p>
+                </solution>
+            </exercise>            
+            <exercise>
                 <statement>
                     <p><m>f(t) = t</m> and <m>g(t) = \sin t</m></p>
                 </statement>
-            </exercise>            <exercise>
+                 <solution component="odeproject-instructors">
+                    <p>
+                        
+                    </p>
+                </solution>
+            </exercise>            
+            <exercise>
                 <statement>
                     <p><m>f(t) = e^{2t}</m> and <m>g(t) = e^{3t}</m></p>
                 </statement>
-            </exercise>            <exercise>
+                 <solution component="odeproject-instructors">
+                    <p>
+                        
+                    </p>
+                </solution>
+            </exercise>            
+            <exercise>
                 <statement>
                     <p><m>f(t) = e^{3t}</m> and <m>g(t) = e^{2t}</m></p>
                 </statement>
+                 <solution component="odeproject-instructors">
+                    <p>
+                        
+                    </p>
+                </solution>
             </exercise>
         </exercisegroup>
 
@@ -322,26 +367,202 @@
         </exercisegroup>
        <exercise>
             <statement>
-                <p>Prove that the distributive property holds for the convolution product. That is, show that <m>f*g = g*f</m>.</p>
+                <p>Prove that the commutative property holds for the convolution product. That is, show that <m>f*g = g*f</m>.</p>
             </statement>
+             <solution component="odeproject-instructors">
+            <p>
+                By definition, the convolution of <m>f</m> and <m>g</m> is
+                <me>
+                (f*g)(t)=\int_0^t f(\tau)g(t-\tau)\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Make the change of variables
+                <me>
+                u=t-\tau, \quad d u=-d\tau.
+                </me>
+                When <m>\tau=0</m>, <m>u=t</m>, and when <m>\tau=t</m>, <m>u=0</m>.
+            </p>
+
+            <p>
+                Then
+                <me>
+                (f*g)(t)
+                =\int_t^0 f(t-u)g(u)(-du)
+                =\int_0^t g(u)f(t-u)\,du.
+                </me>
+            </p>
+
+            <p>
+                Renaming the variable,
+                <me>
+                (f*g)(t)=\int_0^t g(\tau)f(t-\tau)\,d\tau
+                =(g*f)(t).
+                </me>
+            </p>
+
+            <p>
+                Therefore,
+                <me>
+                f*g=g*f.
+                </me>
+            </p>
+            </solution>
         </exercise>
 
         <exercise>
             <statement>
                 <p>Prove that the convolution product of two functions <m>f</m> and <m>g</m> distributes multiplication over addition. That is, show that <m>f*(g + h) = f*g + f*h</m> for functions <m>f</m>, <m>g</m>, and <m>h</m>.</p>
             </statement>
+             <solution component="odeproject-instructors">
+            <p>
+                By definition of convolution,
+                <me>
+                (f*(g+h))(t)
+                =\int_0^t f(\tau)(g+h)(t-\tau)\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Using the distributive property inside the integral,
+                <me>
+                (f*(g+h))(t)
+                =\int_0^t f(\tau)\bigl[g(t-\tau)+h(t-\tau)\bigr]\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Splitting the integral,
+                <me>
+                (f*(g+h))(t)
+                =\int_0^t f(\tau)g(t-\tau)\,d\tau
+                +\int_0^t f(\tau)h(t-\tau)\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                By definition of convolution,
+                <me>
+                (f*(g+h))(t)=(f*g)(t)+(f*h)(t).
+                </me>
+            </p>
+
+            <p>
+                Therefore,
+                <me>
+                f*(g+h)=f*g+f*h.
+                </me>
+            </p>
+            </solution>
         </exercise>     
 
         <exercise>
             <statement>
                 <p>Prove that the convolution product is associative. In other words, show that <m>f*(g*h) = (f*g)*h</m> for functions <m>f</m>, <m>g</m>, and <m>h</m>.</p>
             </statement>
+             <solution component="odeproject-instructors">
+            <p>
+                By definition of convolution,
+                <me>
+                (f*(g*h))(t)
+                =\int_0^t f(\tau)(g*h)(t-\tau)\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Using the definition of <m>g*h</m>,
+                <me>
+                (f*(g*h))(t)
+                =\int_0^t f(\tau)
+                \left(\int_0^{t-\tau} g(u)h(t-\tau-u)\,du\right)d\tau.
+                </me>
+            </p>
+
+            <p>
+                By Fubini’s Theorem, we may change the order of integration:
+                <me>
+                (f*(g*h))(t)
+                =\int_0^t\int_0^{t-\tau}
+                f(\tau)g(u)h(t-\tau-u)\,du\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Interchanging the order,
+                <me>
+                (f*(g*h))(t)
+                =\int_0^t\int_0^{t-u}
+                f(\tau)g(u)h(t-u-\tau)\,d\tau\,du.
+                </me>
+            </p>
+
+            <p>
+                Using the definition of convolution again,
+                <me>
+                \int_0^{t-u} f(\tau)h(t-u-\tau)\,d\tau
+                =(f*h)(t-u).
+                </me>
+            </p>
+
+            <p>
+                Therefore,
+                <me>
+                (f*(g*h))(t)
+                =\int_0^t g(u)(f*h)(t-u)\,du
+                =( (f*h)*g )(t).
+                </me>
+            </p>
+
+            <p>
+                By commutativity of convolution,
+                <me>
+                ( (f*h)*g )(t)=( (f*g)*h )(t).
+                </me>
+            </p>
+
+            <p>
+                Hence,
+                <me>
+                f*(g*h)=(f*g)*h.
+                </me>
+            </p>
+            </solution>
         </exercise>
 
         <exercise>
             <statement>
                 <p>Prove that <m>0 *f = f*0 = 0</m>.</p>
             </statement>
+             <solution component="odeproject-instructors">
+            <p>
+                Let <m>0(t)=0</m> for all <m>t\ge0</m>. By definition of convolution,
+                <me>
+                (0*f)(t)=\int_0^t 0(\tau)f(t-\tau)\,d\tau.
+                </me>
+            </p>
+
+            <p>
+                Since <m>0(\tau)=0</m> for all <m>\tau</m>,
+                <me>
+                (0*f)(t)=\int_0^t 0\,d\tau=0.
+                </me>
+            </p>
+
+            <p>
+                Similarly,
+                <me>
+                (f*0)(t)=\int_0^t f(\tau)0(t-\tau)\,d\tau=0.
+                </me>
+            </p>
+
+            <p>
+                Therefore,
+                <me>
+                0*f=f*0=0.
+                </me>
+            </p>
+            </solution>
         </exercise>
 
     </exercises>
