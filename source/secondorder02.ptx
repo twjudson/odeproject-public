@@ -522,9 +522,66 @@
                     <me>\frac{d}{dt} \left( \frac{f}{g} \right) = \frac{f'  g - f g'}{g^2} = - \frac{W(f,g)}{g^2} = 0,</me>
                 and <m>f/g</m> is constant on the interval <m>(c, d)</m>.  Thus, <m>f(t_0) = c g(t_0)</m> and <m>f'(t_0) = c g'(t_0)</m>.  Since <m>f</m> and <m>cg</m> are both solutions to the differential equation <m>y'' + p y' + q y = 0</m> and have the same initial condition, <m>f(t) = cg(t)</m> for all <m>t \in (a, b)</m> by the existence and uniqueness theorem.  Consequently, <m>f</m> and <m>g</m> are linearly dependent.</p>
 
-            </hint>         
+            </hint>    
+            <solution component="instructors">
+        <p>
+        Let <m>f</m> and <m>g</m> be solutions of
+        <me>
+            y''+p(t)y'+q(t)y=0
+        </me>
+        on <m>I=(a,b)</m>, and define the Wronskian
+        <me>
+            W(t)=W[f,g](t)=f(t)g'(t)-g(t)f'(t).
+        </me>
+        </p>
 
+        <p>
+        (<em>Only if</em>) If <m>f</m> and <m>g</m> are linearly dependent on <m>I</m>, then <m>g=Cf</m> for some constant <m>C</m>.
+        Then <m>g'=Cf'</m>, so
+        <me>
+            W(t)=f\cdot(Cf')-(Cf)\cdot f'=0
+        </me>
+        for all <m>t\in I</m>. Hence linear dependence implies <m>W\equiv 0</m>.
+        </p>
 
+        <p>
+        (<em>If</em>) Assume <m>W(t)\equiv 0</m> on <m>I</m>.  Fix <m>t_0\in I</m> and define
+        <me>
+            h(t)=g(t_0)f(t)-f(t_0)g(t).
+        </me>
+        Since the differential equation is linear and homogeneous, <m>h</m> is also a solution.
+        Moreover,
+        <me>
+            h(t_0)=g(t_0)f(t_0)-f(t_0)g(t_0)=0.
+        </me>
+        Also,
+        <me>
+            h'(t)=g(t_0)f'(t)-f(t_0)g'(t),
+        </me>
+        so using <m>W(t_0)=0</m>, i.e. <m>f(t_0)g'(t_0)-g(t_0)f'(t_0)=0</m>, we obtain
+        <me>
+            h'(t_0)=g(t_0)f'(t_0)-f(t_0)g'(t_0)=0.
+        </me>
+        </p>
+
+        <p>
+        By the existence and uniqueness theorem for the second-order initial value problem, the only solution satisfying
+        <m>h(t_0)=0</m> and <m>h'(t_0)=0</m> is the zero solution. Hence <m>h(t)\equiv 0</m> on <m>I</m>, so
+        <me>
+            g(t_0)f(t)-f(t_0)g(t)=0\quad\text{for all }t\in I.
+        </me>
+        If <m>f(t_0)\neq 0</m>, then
+        <me>
+            g(t)=\frac{g(t_0)}{f(t_0)}\,f(t),
+        </me>
+        so <m>g</m> is a constant multiple of <m>f</m> and they are linearly dependent. If <m>f(t_0)=0</m>, choose a point in <m>I</m>
+        where <m>f</m> is nonzero (since <m>f</m> is not identically zero), and the same argument applies.
+        </p>
+
+        <p>
+        Therefore, <m>f</m> and <m>g</m> are linearly dependent on <m>I</m> if and only if <m>W[f,g](t)\equiv 0</m>.
+        </p>
+        </solution>
         </exercise>     
 
           <notation>
@@ -573,8 +630,79 @@
                         <me>W(t) = c \exp\left( - \int p(t) \, dt \right).</me></li>
 
                 </ol></p>
-            </hint>
-            
+            </hint>             
+            <solution component="instructors">
+            <ol>
+
+                <li>
+                <p>
+                First write the equation in standard form:
+                <me>
+                    2t^2y''+3ty'-y=0
+                    \;\Rightarrow\;
+                    y''+\frac{3}{2t}y'-\frac{1}{2t^2}y=0,\qquad t&gt;0.
+                </me>
+                Thus <m>p(t)=\frac{3}{2t}</m>.  By Abel's Theorem,
+                <me>
+                    W(t)=c\exp\!\left(-\int \frac{3}{2t}\,dt\right)
+                    =c\exp\!\left(-\frac{3}{2}\ln t\right)
+                    =c\,t^{-3/2},\qquad t&gt;0.
+                </me>
+                So the Wronskian is <m>W(t)=c\,t^{-3/2}</m> up to a constant multiple.
+                </p>
+                </li>
+
+                <li>
+                <p>
+                (<em>Proof of Abel's Theorem</em>) Let <m>y_1</m> and <m>y_2</m> solve
+                <me>
+                    y''+p(t)y'+q(t)y=0
+                </me>
+                on <m>I=(a,b)</m>, where <m>p</m> and <m>q</m> are continuous.
+                Define the Wronskian
+                <me>
+                    W(t)=W[y_1,y_2](t)=y_1y_2'-y_2y_1'.
+                </me>
+                Differentiate:
+                <me>
+                    W'(t)=y_1'y_2'+y_1y_2''-y_2'y_1'-y_2y_1''
+                    =y_1y_2''-y_2y_1''.
+                </me>
+                </p>
+
+                <p>
+                Using the differential equation,
+                <me>
+                    y_1''=-p y_1'-q y_1,\qquad y_2''=-p y_2'-q y_2.
+                </me>
+                Substitute into <m>W'</m>:
+                <me>
+                    W'=y_1(-p y_2'-q y_2)-y_2(-p y_1'-q y_1)
+                    =-p(y_1y_2'-y_2y_1')
+                    =-p(t)\,W.
+                </me>
+                Thus <m>W</m> satisfies the first-order linear equation
+                <me>
+                    W'+p(t)W=0.
+                </me>
+                </p>
+
+                <p>
+                Solve by separation:
+                <me>
+                    \frac{W'}{W}=-p(t)
+                    \;\Rightarrow\;
+                    \ln|W|=-\int p(t)\,dt + C
+                    \;\Rightarrow\;
+                    W(t)=c\exp\!\left(-\int p(t)\,dt\right),
+                </me>
+                where <m>c\neq 0</m> (or <m>c=0</m>) is a constant depending on <m>y_1</m> and <m>y_2</m> but not on <m>t</m>.
+                This is Abel's Theorem.
+                </p>
+                </li>
+
+            </ol>
+            </solution>
         </exercise>     
             
         <exercise>
@@ -671,6 +799,167 @@
 
                 </ol></p>
             </hint>
+            <solution component="instructors">
+            <ol>
+
+                <li>
+                <p>
+                Assume
+                <me>
+                    y_p=u_1y_1+u_2y_2,
+                    \qquad
+                    u_1'y_1+u_2'y_2=0.
+                </me>
+                Then
+                <me>
+                    y_p'=u_1'y_1+u_1y_1'+u_2'y_2+u_2y_2'=u_1y_1'+u_2y_2'
+                </me>
+                and
+                <me>
+                    y_p''=u_1'y_1'+u_1y_1''+u_2'y_2'+u_2y_2''.
+                </me>
+                Substitute into the left-hand side of <m>y''+py'+qy</m>:
+                <me>
+                    y_p''+py_p'+qy_p
+                    =(u_1'y_1'+u_2'y_2')+u_1(y_1''+py_1'+qy_1)+u_2(y_2''+py_2'+qy_2).
+                </me>
+                Since <m>y_1</m> and <m>y_2</m> solve the homogeneous equation, the last two terms vanish, so
+                <me>
+                    y_p''+py_p'+qy_p=u_1'y_1'+u_2'y_2'.
+                </me>
+                Because <m>y_p</m> is a particular solution of <m>y''+py'+qy=f</m>, we obtain
+                <me>
+                    u_1'y_1'+u_2'y_2'=f(t).
+                </me>
+                </p>
+                </li>
+
+                <li>
+                <p>
+                The functions <m>u_1'</m> and <m>u_2'</m> satisfy the linear system
+                <me>
+                    \begin{pmatrix}
+                    y_1 &amp; y_2\\
+                    y_1' &amp; y_2'
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                    u_1'\\
+                    u_2'
+                    \end{pmatrix}
+                    =
+                    \begin{pmatrix}
+                    0\\
+                    f
+                    \end{pmatrix}.
+                </me>
+                The determinant of the coefficient matrix is the Wronskian
+                <me>
+                    W[y_1,y_2]=y_1y_2'-y_2y_1'.
+                </me>
+                By Cramer's rule,
+                <me>
+                    u_1'=
+                    \frac{\det\begin{pmatrix}0 &amp; y_2\\ f &amp; y_2'\end{pmatrix}}{W}
+                    =\frac{-y_2f}{W},
+                    \qquad
+                    u_2'=
+                    \frac{\det\begin{pmatrix}y_1 &amp; 0\\ y_1' &amp; f\end{pmatrix}}{W}
+                    =\frac{y_1f}{W}.
+                </me>
+                </p>
+                </li>
+
+                <li>
+                <p>
+                If <m>p</m>, <m>q</m>, and <m>f</m> are continuous on <m>I</m>, then <m>y_1,y_2</m> are differentiable and
+                <m>W[y_1,y_2](t)\neq 0</m> on <m>I</m> (since they are linearly independent).  Integrating the formulas in (b),
+                for any <m>t_0\in I</m>,
+                <me>
+                    u_1(t)=u_1(t_0)+\int_{t_0}^t u_1'(s)\,ds
+                    =u_1(t_0)-\int_{t_0}^t \frac{y_2(s)f(s)}{W[y_1,y_2](s)}\,ds,
+                </me>
+                <me>
+                    u_2(t)=u_2(t_0)+\int_{t_0}^t u_2'(s)\,ds
+                    =u_2(t_0)+\int_{t_0}^t \frac{y_1(s)f(s)}{W[y_1,y_2](s)}\,ds.
+                </me>
+                Choosing <m>u_1(t_0)=u_2(t_0)=0</m> gives
+                <me>
+                    u_1(t)=-\int_{t_0}^t \frac{y_2(s)f(s)}{W[y_1,y_2](s)}\,ds,
+                    \qquad
+                    u_2(t)=\int_{t_0}^t \frac{y_1(s)f(s)}{W[y_1,y_2](s)}\,ds,
+                </me>
+                and hence
+                <me>
+                    y_p(t)=-y_1(t)\int_{t_0}^t \frac{y_2(s)f(s)}{W[y_1,y_2](s)}\,ds
+                    +y_2(t)\int_{t_0}^t \frac{y_1(s)f(s)}{W[y_1,y_2](s)}\,ds.
+                </me>
+                </p>
+                </li>
+
+                <li>
+                <p>
+                Solve
+                <me>
+                    y''+4y=3\csc t.
+                </me>
+                The homogeneous solutions are <m>y_1=\cos 2t</m>, <m>y_2=\sin 2t</m>.
+                Their Wronskian is
+                <me>
+                    W=y_1y_2'-y_2y_1'
+                    =(\cos 2t)(2\cos 2t)-(\sin 2t)(-2\sin 2t)
+                    =2(\cos^2 2t+\sin^2 2t)=2.
+                </me>
+                Here <m>f(t)=3\csc t</m>.  From (b),
+                <me>
+                    u_1'=\frac{-y_2f}{W}
+                    =-\frac{\sin 2t\cdot 3\csc t}{2}
+                    =-\frac{3}{2}\frac{\sin 2t}{\sin t}
+                    =-\frac{3}{2}(2\cos t)=-3\cos t,
+                </me>
+                so <m>u_1=-3\sin t</m> (take the constant <m>0</m>). Also,
+                <me>
+                    u_2'=\frac{y_1f}{W}
+                    =\frac{\cos 2t\cdot 3\csc t}{2}
+                    =\frac{3}{2}\frac{\cos 2t}{\sin t}.
+                </me>
+                Using <m>\cos 2t=1-2\sin^2 t</m>,
+                <me>
+                    u_2'=\frac{3}{2}\left(\csc t-2\sin t\right),
+                    \qquad
+                    u_2=\frac{3}{2}\int \csc t\,dt-3\int \sin t\,dt
+                    =\frac{3}{2}\ln\left|\tan\frac{t}{2}\right|+3\cos t,
+                </me>
+                again taking the constant <m>0</m>.
+                </p>
+
+                <p>
+                Then
+                <me>
+                    y_p=u_1y_1+u_2y_2
+                    =(-3\sin t)\cos 2t+\left(\frac{3}{2}\ln\left|\tan\frac{t}{2}\right|+3\cos t\right)\sin 2t.
+                </me>
+                The terms without the logarithm simplify:
+                <me>
+                    -3\sin t\cos 2t+3\cos t\sin 2t
+                    =3\bigl(-\sin t\cos 2t+\cos t\sin 2t\bigr)
+                    =3\sin(t).
+                </me>
+                Hence one convenient particular solution is
+                <me>
+                    y_p(t)=3\sin t+\frac{3}{2}\sin 2t\;\ln\left|\tan\frac{t}{2}\right|.
+                </me>
+                </p>
+
+                <p>
+                Therefore the general solution is
+                <me>
+                    y(t)=c_1\cos 2t+c_2\sin 2t+3\sin t+\frac{3}{2}\sin 2t\;\ln\left|\tan\frac{t}{2}\right|.
+                </me>
+                </p>
+                </li>
+
+            </ol>
+            </solution>
         </exercise>     
 
     </exercises>
