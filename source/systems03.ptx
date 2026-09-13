@@ -580,6 +580,86 @@
 
                     </ol></p>
             </statement>
+            <solution component="instructors">
+  <p><em>Part (a).</em>
+  At <m>t=0</m>: <m>x(0) = 0</m> and <m>y(0) = 1</m> ✓.
+  Differentiating and substituting,
+    <md>
+      <mrow>x + 3y
+        &amp;= \tfrac{3}{4}e^{2t} - \tfrac{3}{4}e^{-2t}
+         + 3(\tfrac{1}{4}e^{2t} + \tfrac{3}{4}e^{-2t})
+         = \tfrac{3}{2}e^{2t} + \tfrac{3}{2}e^{-2t} = x'(t),
+     </mrow>
+      <mrow>x - y
+        &amp;= \tfrac{3}{4}e^{2t} - \tfrac{3}{4}e^{-2t}
+         - \tfrac{1}{4}e^{2t} - \tfrac{3}{4}e^{-2t}
+         = \tfrac{1}{2}e^{2t} - \tfrac{3}{2}e^{-2t} = y'(t).
+     </mrow>
+    </md>
+  </p>
+
+  <p><em>Parts (b) and (c).</em>
+  The Euler iteration is
+    <md>
+      <mrow>x_{k+1} &amp;= x_k + \Delta t\,(x_k + 3y_k),</mrow>
+      <mrow>y_{k+1} &amp;= y_k + \Delta t\,(x_k - y_k),</mrow>
+    </md>
+  starting from <m>(0,1)</m>. With <m>\Delta t = 0.5</m> the first
+  four steps give <m>(x,y) = (1.5,0.5) \to (3,1) \to (6,2) \to
+  (12,4)</m> at <m>t=2</m>, and both components continue to double
+  each step. With <m>\Delta t = 0.1</m> the iteration is run for
+  <m>20</m>, <m>40</m>, and <m>60</m> steps using Sage.
+  </p>
+
+  <table>
+    <title>Euler approximations vs exact solution</title>
+    <tabular halign="center" top="medium">
+      <row header="yes" bottom="medium">
+        <cell><m>t</m></cell>
+        <cell><m>x_k</m> (<m>\Delta t=0.5</m>)</cell>
+        <cell><m>x_k</m> (<m>\Delta t=0.1</m>)</cell>
+        <cell><m>x(t)</m> (exact)</cell>
+        <cell><m>y_k</m> (<m>\Delta t=0.5</m>)</cell>
+        <cell><m>y_k</m> (<m>\Delta t=0.1</m>)</cell>
+        <cell><m>y(t)</m> (exact)</cell>
+      </row>
+      <row>
+        <cell><m>0</m></cell>
+        <cell>0.0000</cell><cell>0.0000</cell><cell>0.0000</cell>
+        <cell>1.0000</cell><cell>1.0000</cell><cell>1.0000</cell>
+      </row>
+      <row>
+        <cell><m>2</m></cell>
+        <cell>12.0000</cell><cell>28.6920</cell><cell>40.9358</cell>
+        <cell>4.0000</cell><cell>9.5640</cell><cell>13.6453</cell>
+      </row>
+      <row>
+        <cell><m>4</m></cell>
+        <cell>192.0000</cell><cell>1564.8</cell><cell>2235.7</cell>
+        <cell>64.0000</cell><cell>521.6</cell><cell>745.2</cell>
+      </row>
+      <row bottom="medium">
+        <cell><m>6</m></cell>
+        <cell>3072.0000</cell><cell>85306</cell><cell>122066</cell>
+        <cell>1024.0000</cell><cell>28435</cell><cell>40689</cell>
+      </row>
+    </tabular>
+  </table>
+
+  <p><em>Part (d).</em>
+  Both approximations underestimate the true solution because Euler's
+  method uses only the slope at the start of each interval, and the
+  true solution curves upward (growing like <m>e^{2t}</m>), so the
+  tangent-line approximation always falls short. This per-step error
+  compounds exponentially, causing the absolute error to grow without
+  bound. The smaller step size <m>\Delta t = 0.1</m> substantially
+  reduces the error (e.g., from <m>28.9</m> to <m>12.2</m> in
+  <m>x</m> at <m>t=2</m>), but large errors persist for large
+  <m>t</m> due to the rapid exponential growth of the solution. A
+  higher-order method such as Runge-Kutta would give much better
+  accuracy.
+  </p>
+</solution>
         </exercise>
 
         <exercise>
@@ -604,190 +684,7 @@
 
                     </ol></p>
             </statement>
-                <solution component="instructors">
-                  <p><em>Part (a): Verification.</em>
-                  We check initial conditions and that the differential equations are
-                  satisfied. At <m>t = 0</m>:
-                    <md>x(0) = \frac{3}{4}e^0 - \frac{3}{4}e^0 = 0, \qquad
-                        y(0) = \frac{1}{4}e^0 + \frac{3}{4}e^0 = 1,</md>
-                  so the initial conditions hold. Differentiating,
-                    <md>
-                      <mrow>x'(t) &amp;= \frac{3}{2}e^{2t} + \frac{3}{2}e^{-2t},</mrow>
-                      <mrow>y'(t) &amp;= \frac{1}{2}e^{2t} - \frac{3}{2}e^{-2t}.</mrow>
-                    </md>
-                  Computing the right-hand sides of the system:
-                    <md>
-                      <mrow>x + 3y
-                          &amp;= \frac{3}{4}e^{2t} - \frac{3}{4}e^{-2t}
-                           + 3\!\left(\frac{1}{4}e^{2t} + \frac{3}{4}e^{-2t}\right)</mrow>
-                           <mrow>
-                            &amp;= \frac{3}{2}e^{2t} + \frac{3}{2}e^{-2t} = x'(t),
-                           \quad\checkmark</mrow>
-                      <mrow>x - y
-                          &amp;= \frac{3}{4}e^{2t} - \frac{3}{4}e^{-2t}
-                           - \frac{1}{4}e^{2t} - \frac{3}{4}e^{-2t}</mrow>
-                           <mrow>
-                            &amp; = \frac{1}{2}e^{2t} - \frac{3}{2}e^{-2t} = y'(t).
-                           \quad\checkmark</mrow>
-                    </md>
-                  Therefore <m>\mathbf{x}(t)</m> satisfies the initial value problem.
-                  <m>\square</m>
-                  </p>
-
-                  <p><em>Part (b): Euler's method with <m>\Delta t = 0.5</m>.</em>
-                  With <m>f(x,y) = x + 3y</m> and <m>g(x,y) = x - y</m>, the Euler
-                  iteration is
-                    <md>
-                      <mrow>x_{k+1} &amp;= x_k + 0.5(x_k + 3y_k),</mrow>
-                      <mrow>y_{k+1} &amp;= y_k + 0.5(x_k - y_k),</mrow>
-                    </md>
-                  starting from <m>(x_0, y_0) = (0, 1)</m>. The steps to reach
-                  <m>t = 2</m> are:
-                    <md>
-                      <mrow>t = 0.5\colon\quad
-                          x_1 &amp;= 0 + 0.5(0 + 3) = 1.5, &amp;
-                          y_1 &amp;= 1 + 0.5(0 - 1) = 0.5,</mrow>
-                      <mrow>t = 1.0\colon\quad
-                          x_2 &amp;= 1.5 + 0.5(1.5 + 1.5) = 3.0, &amp;
-                          y_2 &amp;= 0.5 + 0.5(1.5 - 0.5) = 1.0,</mrow>
-                      <mrow>t = 1.5\colon\quad
-                          x_3 &amp;= 3.0 + 0.5(3.0 + 3.0) = 6.0, &amp;
-                          y_3 &amp;= 1.0 + 0.5(3.0 - 1.0) = 2.0,</mrow>
-                      <mrow>t = 2.0\colon\quad
-                          x_4 &amp;= 6.0 + 0.5(6.0 + 6.0) = 12.0, &amp;
-                          y_4 &amp;= 2.0 + 0.5(6.0 - 2.0) = 4.0.</mrow>
-                    </md>
-                  Continuing in the same fashion to <m>t = 4</m> and <m>t = 6</m>
-                  (each step doubles both components), we obtain the values in the
-                  following table. The exact values use
-                  <m>x(t) = \tfrac{3}{4}(e^{2t} - e^{-2t})</m> and
-                  <m>y(t) = \tfrac{1}{4}e^{2t} + \tfrac{3}{4}e^{-2t}</m>.
-                  </p>
-
-                  <table>
-                    <title>Euler approximation (<m>\Delta t = 0.5</m>) vs exact solution
-                    </title>
-                    <tabular halign="center" top="medium">
-                      <row header="yes" bottom="medium">
-                        <cell><m>t</m></cell>
-                        <cell><m>x_k</m> (Euler)</cell>
-                        <cell><m>x(t)</m> (exact)</cell>
-                        <cell>error in <m>x</m></cell>
-                        <cell><m>y_k</m> (Euler)</cell>
-                        <cell><m>y(t)</m> (exact)</cell>
-                        <cell>error in <m>y</m></cell>
-                      </row>
-                      <row>
-                        <cell><m>0</m></cell>
-                        <cell>0.0000</cell><cell>0.0000</cell><cell>0.0000</cell>
-                        <cell>1.0000</cell><cell>1.0000</cell><cell>0.0000</cell>
-                      </row>
-                      <row>
-                        <cell><m>2</m></cell>
-                        <cell>12.0000</cell><cell>40.9358</cell>
-                        <cell><m>-28.9358</m></cell>
-                        <cell>4.0000</cell><cell>13.6453</cell>
-                        <cell><m>-9.6453</m></cell>
-                      </row>
-                      <row>
-                        <cell><m>4</m></cell>
-                        <cell>192.0000</cell><cell>2235.7164</cell>
-                        <cell><m>-2043.7164</m></cell>
-                        <cell>64.0000</cell><cell>745.2388</cell>
-                        <cell><m>-681.2388</m></cell>
-                      </row>
-                      <row bottom="medium">
-                        <cell><m>6</m></cell>
-                        <cell>3072.0000</cell><cell>122065.9</cell>
-                        <cell><m>-119\,000</m></cell>
-                        <cell>1024.0000</cell><cell>40688.6</cell>
-                        <cell><m>-39\,665</m></cell>
-                      </row>
-                    </tabular>
-                  </table>
-
-                  <p><em>Part (c): Euler's method with <m>\Delta t = 0.1</m>.</em>
-                  With the smaller step size the iteration is
-                    <md>
-                      <mrow>x_{k+1} &amp;= x_k + 0.1(x_k + 3y_k),</mrow>
-                      <mrow>y_{k+1} &amp;= y_k + 0.1(x_k - y_k),</mrow>
-                    </md>
-                  again starting from <m>(0, 1)</m>. After <m>20</m> steps
-                  (<m>t = 2</m>), <m>40</m> steps (<m>t = 4</m>), and <m>60</m> steps
-                  (<m>t = 6</m>), we obtain the values below (computed using Sage).
-                  </p>
-
-                  <table>
-                    <title>Euler approximation (<m>\Delta t = 0.1</m>) vs exact solution
-                    </title>
-                    <tabular halign="center" top="medium">
-                      <row header="yes" bottom="medium">
-                        <cell><m>t</m></cell>
-                        <cell><m>x_k</m> (Euler)</cell>
-                        <cell><m>x(t)</m> (exact)</cell>
-                        <cell>error in <m>x</m></cell>
-                        <cell><m>y_k</m> (Euler)</cell>
-                        <cell><m>y(t)</m> (exact)</cell>
-                        <cell>error in <m>y</m></cell>
-                      </row>
-                      <row>
-                        <cell><m>0</m></cell>
-                        <cell>0.0000</cell><cell>0.0000</cell><cell>0.0000</cell>
-                        <cell>1.0000</cell><cell>1.0000</cell><cell>0.0000</cell>
-                      </row>
-                      <row>
-                        <cell><m>2</m></cell>
-                        <cell>28.6920</cell><cell>40.9358</cell>
-                        <cell><m>-12.2438</m></cell>
-                        <cell>9.5640</cell><cell>13.6453</cell>
-                        <cell><m>-4.0813</m></cell>
-                      </row>
-                      <row>
-                        <cell><m>4</m></cell>
-                        <cell>1564.8</cell><cell>2235.7</cell>
-                        <cell><m>-670.9</m></cell>
-                        <cell>521.6</cell><cell>745.2</cell>
-                        <cell><m>-223.6</m></cell>
-                      </row>
-                      <row bottom="medium">
-                        <cell><m>6</m></cell>
-                        <cell>85306</cell><cell>122066</cell>
-                        <cell><m>-36\,760</m></cell>
-                        <cell>28435</cell><cell>40689</cell>
-                        <cell><m>-12\,254</m></cell>
-                      </row>
-                    </tabular>
-                  </table>
-
-                  <p><em>Part (d): Discussion.</em>
-                  Both Euler approximations grow in the same direction as the true
-                  solution but consistently underestimate it, with the error growing
-                  larger as <m>t</m> increases. There are two compounding reasons for
-                  this.
-                  </p>
-                  <p>First, Euler's method approximates the solution over each time step
-                  using only the slope at the beginning of the interval. Because the
-                  true solution curves upward (it grows like <m>e^{2t}</m>), the
-                  tangent-line approximation always falls below the true curve, and this
-                  shortfall accumulates at every step.
-                  </p>
-                  <p>Second, because the true solution grows exponentially, even a small
-                  relative error at one step is amplified by the rapid growth over
-                  subsequent steps. The result is that the absolute error grows
-                  exponentially in <m>t</m>, as seen in both tables.
-                  </p>
-                  <p>Comparing the two step sizes, <m>\Delta t = 0.1</m> gives
-                  substantially better results than <m>\Delta t = 0.5</m>: at
-                  <m>t = 2</m> the error in <m>x</m> drops from about <m>28.9</m> to
-                  about <m>12.2</m>, and at <m>t = 6</m> from roughly
-                  <m>119\,000</m> to <m>37\,000</m>. Nevertheless, because the
-                  solution grows so rapidly, even the finer step size produces large
-                  absolute errors for large <m>t</m>. A higher-order method such as
-                  Runge-Kutta would reduce the per-step error and yield far more
-                  accurate approximations over long time intervals.
-                  </p>
-
-                </solution>
+                
         </exercise>
 
         <exercise>
