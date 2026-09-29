@@ -817,6 +817,100 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+            <solution component="instructors">
+              <p><em>Part (a): Eigenvalues.</em>
+              The characteristic polynomial of
+                <md>
+                  <mrow>A = \begin{pmatrix}4&amp;3&amp;-1\\-1&amp;0&amp;-1\\
+                       1&amp;1&amp;2\end{pmatrix}</mrow>
+                </md>
+              is
+                <md>
+                  <mrow>\det(A - \lambda I)
+                      = -(\lambda - 1)(\lambda^2 - 5\lambda + 8) = 0.</mrow>
+                </md>
+              The real eigenvalue is <m>\lambda_1 = 1</m>, and the quadratic
+              <m>\lambda^2 - 5\lambda + 8 = 0</m> gives the complex conjugate
+              pair
+                <md>
+                  <mrow>\lambda_{2,3} = \frac{5 \pm i\sqrt{7}}{2}.</mrow>
+                </md>
+              </p>
+
+              <p><em>Part (b): Eigenvectors.</em>
+              For <m>\lambda_1 = 1</m>: solving
+              <m>(A - I)\mathbf{v} = \mathbf{0}</m>,
+                <md>
+                  <mrow>\begin{pmatrix}3&amp;3&amp;-1\\-1&amp;-1&amp;-1\\
+                       1&amp;1&amp;1\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                </md>
+              The second and third rows give <m>v_1 + v_2 + v_3 = 0</m>, and
+              the first row combined with this gives <m>v_1 = -v_2</m>,
+              <m>v_3 = 0</m>. Taking <m>v_2 = 1</m>,
+                <md>
+                  <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                </md>
+              For <m>\lambda_{2,3} = \tfrac{5 \pm i\sqrt{7}}{2}</m>: solving
+              <m>(A - \lambda_{2}I)\mathbf{v} = \mathbf{0}</m> (via Sage) gives
+              a complex eigenvector
+                <md>
+                  <mrow>\mathbf{v}_2
+                      = \mathbf{p} + i\mathbf{q}
+                      = \begin{pmatrix}3\\-1\\0\end{pmatrix}
+                      + i\begin{pmatrix}0\\\tfrac{\sqrt{7}}{2}\\
+                        -\tfrac{\sqrt{7}}{2}\end{pmatrix},</mrow>
+                </md>
+              with <m>\mathbf{v}_3 = \overline{\mathbf{v}_2}</m>.
+              </p>
+
+              <p><em>Part (c): General solution.</em>
+              The real eigenvalue contributes the straight-line solution
+              <m>c_1 e^{t}\mathbf{v}_1</m>. The complex pair
+              <m>\alpha \pm i\beta = \tfrac{5}{2} \pm i\tfrac{\sqrt{7}}{2}</m>
+              contributes two real solutions built from <m>\mathbf{p}</m> and
+              <m>\mathbf{q}</m>. The general solution is
+                <md>
+                  <mrow>\mathbf{x}(t)
+                      &amp;= c_1 e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                  <mrow>&amp;
+                      + e^{5t/2}\!\left[
+                        c_2\!\left(\mathbf{p}\cos\frac{\sqrt{7}\,t}{2}
+                                  - \mathbf{q}\sin\frac{\sqrt{7}\,t}{2}\right)</mrow>
+                      <mrow>+ c_3\!\left(\mathbf{p}\sin\frac{\sqrt{7}\,t}{2}
+                                  + \mathbf{q}\cos\frac{\sqrt{7}\,t}{2}\right)
+                      \right],</mrow>
+                </md>
+              where
+                <md>
+                  <mrow>\mathbf{p} = \begin{pmatrix}3\\-1\\0\end{pmatrix},
+                  \qquad
+                  \mathbf{q} = \begin{pmatrix}0\\\tfrac{\sqrt{7}}{2}\\
+                               -\tfrac{\sqrt{7}}{2}\end{pmatrix}.</mrow>
+                </md>
+              </p>
+
+              <p><em>Part (d): Nature of the solution space in
+              <m>\mathbb{R}^3</m>.</em>
+              The system has three distinct eigenvalues:
+              <ul>
+                <li><p><m>\lambda_1 = 1 \gt 0</m>: the real eigenvalue gives an
+                <em>unstable line</em> in the direction of
+                <m>\mathbf{v}_1 = (-1,1,0)^T</m>. Solutions starting on this
+                line move away from the origin along this direction.</p></li>
+                <li><p><m>\lambda_{2,3} = \tfrac{5}{2} \pm i\tfrac{\sqrt{7}}{2}</m>:
+                the complex pair has real part <m>\alpha = 5/2 \gt 0</m>, so
+                these modes also grow. They contribute a two-dimensional
+                <em>unstable spiraling plane</em> spanned by <m>\mathbf{p}</m>
+                and <m>\mathbf{q}</m>, on which solutions spiral outward.</p></li>
+              </ul>
+              Since all eigenvalues have positive real parts, <em>the origin is
+              a completely unstable equilibrium</em>: every non-trivial solution
+              diverges to infinity. There are no stable lines or stable planes.
+              The only invariant structures are the unstable line along
+              <m>\mathbf{v}_1</m> and the unstable spiraling plane of the
+              complex modes.
+              </p>
+            </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -829,6 +923,91 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+            <solution component="instructors">
+              <p><em>Part (a): Eigenvalues.</em>
+              The characteristic polynomial of
+                <md>
+                  <mrow>A = \begin{pmatrix}-2&amp;-3&amp;4\\4&amp;5&amp;-4\\
+                       5&amp;5&amp;-3\end{pmatrix}</mrow>
+                </md>
+              is
+                <md>
+                  <mrow>\det(A - \lambda I)
+                      = -\lambda^3 + 7\lambda - 6
+                      = -(\lambda-1)(\lambda-2)(\lambda+3) = 0,</mrow>
+                </md>
+              giving three distinct real eigenvalues
+                <md>
+                  <mrow>\lambda_1 = 1, \qquad \lambda_2 = 2, \qquad
+                       \lambda_3 = -3.</mrow>
+                </md>
+              </p>
+
+              <p><em>Part (b): Eigenvectors.</em>
+              For <m>\lambda_1 = 1</m>: solving
+              <m>(A - I)\mathbf{v} = \mathbf{0}</m>, the system reduces to
+              <m>v_3 = 0</m> and <m>v_1 = -v_2</m>, giving
+                <md>
+                  <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                </md>
+              For <m>\lambda_2 = 2</m>: solving
+              <m>(A - 2I)\mathbf{v} = \mathbf{0}</m>, the system reduces to
+              <m>v_2 = 0</m> and <m>v_3 = v_1</m>, giving
+                <md>
+                  <mrow>\mathbf{v}_2 = \begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                </md>
+              For <m>\lambda_3 = -3</m>: solving
+              <m>(A + 3I)\mathbf{v} = \mathbf{0}</m>, the system reduces to
+              <m>v_1 = -v_2</m> and <m>v_3 = v_2</m>, giving
+                <md>
+                  <mrow>\mathbf{v}_3 = \begin{pmatrix}-1\\1\\1\end{pmatrix}.</mrow>
+                </md>
+              </p>
+
+              <p><em>Part (c): General solution.</em>
+              Since the three eigenvalues are distinct, the general solution is
+                <md>
+                  <mrow>\mathbf{x}(t)
+                      = c_1 e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                      + c_2 e^{2t}\begin{pmatrix}1\\0\\1\end{pmatrix}
+                      + c_3 e^{-3t}\begin{pmatrix}-1\\1\\1\end{pmatrix},</mrow>
+                </md>
+              where <m>c_1</m>, <m>c_2</m>, and <m>c_3</m> are arbitrary
+              constants.
+              </p>
+
+              <p><em>Part (d): Nature of the solution space.</em>
+              The three eigenvalues and their eigenvectors determine the
+              geometry of the solution space in <m>\mathbb{R}^3</m>:
+              <ul>
+                <li><p><m>\lambda_3 = -3 \lt 0</m>: the eigenvector
+                <m>\mathbf{v}_3 = (-1,1,1)^T</m> spans a
+                <em>stable line</em>. Solutions starting on this line
+                (i.e., with <m>c_1 = c_2 = 0</m>) decay to the origin
+                exponentially as <m>t \to \infty</m>.</p></li>
+                <li><p><m>\lambda_1 = 1 \gt 0</m>: the eigenvector
+                <m>\mathbf{v}_1 = (-1,1,0)^T</m> spans an
+                <em>unstable line</em>. Solutions on this line diverge
+                from the origin.</p></li>
+                <li><p><m>\lambda_2 = 2 \gt 0</m>: the eigenvector
+                <m>\mathbf{v}_2 = (1,0,1)^T</m> spans a second
+                <em>unstable line</em>.</p></li>
+                <li><p>The two unstable eigenvectors <m>\mathbf{v}_1</m> and
+                <m>\mathbf{v}_2</m> together span an <em>unstable plane</em>.
+                Solutions starting in this plane (with <m>c_3 = 0</m>) diverge
+                to infinity.</p></li>
+                <li><p>For a generic initial condition (<m>c_3 \neq 0</m>), the
+                <m>e^{-3t}</m> term decays while the growing terms dominate, so
+                all solutions except those on the stable line eventually diverge.
+                The origin is a <em>saddle point</em> in
+                <m>\mathbb{R}^3</m>.</p></li>
+              </ul>
+              In summary, there is one <em>stable line</em> (along
+              <m>\mathbf{v}_3</m>), one <em>unstable plane</em> (spanned by
+              <m>\mathbf{v}_1</m> and <m>\mathbf{v}_2</m>), and no stable
+              planes.
+              </p>
+            </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -841,6 +1020,87 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+            <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  Expanding the characteristic polynomial by expanding along the
+                  second row,
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          \amp = (2-\lambda)\det\begin{pmatrix}4-\lambda&amp;0\\2&amp;2-\lambda
+                            \end{pmatrix}</mrow>
+                          <mrow> \amp = (2-\lambda)^2(4-\lambda) = 0,</mrow>
+                    </md>
+                  giving eigenvalues
+                    <md>
+                      <mrow>\lambda_1 = 2 \text{ (multiplicity 2)}, \qquad
+                           \lambda_2 = 4 \text{ (multiplicity 1)}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = 2</m>: solving
+                  <m>(A - 2I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}2&amp;2&amp;0\\0&amp;0&amp;0\\
+                           2&amp;2&amp;0\end{pmatrix}\mathbf{v} = \mathbf{0},</mrow>
+                    </md>
+                  the only constraint is <m>v_1 = -v_2</m> with <m>v_3</m> free.
+                  This gives a <em>two-dimensional eigenspace</em> spanned by
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix},
+                           \qquad
+                           \mathbf{v}_2 = \begin{pmatrix}0\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  Since the geometric multiplicity equals the algebraic multiplicity,
+                  <m>\lambda_1 = 2</m> is <em>semisimple</em> (not defective).
+                  </p>
+                  <p>For <m>\lambda_2 = 4</m>: solving
+                  <m>(A - 4I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}0&amp;2&amp;0\\0&amp;-2&amp;0\\
+                           2&amp;2&amp;-2\end{pmatrix}\mathbf{v} = \mathbf{0},</mrow>
+                    </md>
+                  the constraints are <m>v_2 = 0</m> and <m>v_1 = v_3</m>, giving
+                    <md>
+                      <mrow>\mathbf{v}_3 = \begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  Since all three eigenvalues yield independent eigenvectors, the
+                  general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + c_2 e^{2t}\begin{pmatrix}0\\0\\1\end{pmatrix}
+                          + c_3 e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix},</mrow>
+                    </md>
+                  where <m>c_1</m>, <m>c_2</m>, and <m>c_3</m> are arbitrary
+                  constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  Both eigenvalues are positive, so the origin is a completely
+                  unstable equilibrium and all non-trivial solutions diverge as
+                  <m>t \to \infty</m>. There are no stable lines or planes.
+                  The invariant structures are:
+                  <ul>
+                    <li><p><em>Unstable line</em> along <m>\mathbf{v}_3 = (1,0,1)^T</m>:
+                    solutions with <m>c_1 = c_2 = 0</m> move along this line,
+                    growing like <m>e^{4t}</m>.</p></li>
+                    <li><p><em>Unstable plane</em> spanned by <m>\mathbf{v}_1</m>
+                    and <m>\mathbf{v}_2</m>: solutions with <m>c_3 = 0</m> remain
+                    in this plane and grow like <m>e^{2t}</m>. Because
+                    <m>\lambda_1 = 2</m> is semisimple, trajectories in this plane
+                    move along straight rays rather than curving (no Jordan block
+                    structure).</p></li>
+                    <li><p>For generic initial conditions (<m>c_3 \neq 0</m>), the
+                    faster mode <m>e^{4t}</m> dominates and solutions diverge
+                    along directions asymptotically parallel to
+                    <m>\mathbf{v}_3</m>.</p></li>
+                  </ul>
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -853,6 +1113,97 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+            <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  The characteristic polynomial of
+                    <md>
+                      <mrow>A = \begin{pmatrix}0&amp;-2&amp;-2\\4&amp;6&amp;-1\\
+                           6&amp;6&amp;-2\end{pmatrix}</mrow>
+                    </md>
+                  is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda - 2)(\lambda^2 - 2\lambda + 10) = 0.</mrow>
+                    </md>
+                  The real eigenvalue is <m>\lambda_1 = 2</m>, and the quadratic
+                  gives the complex conjugate pair
+                    <md>
+                      <mrow>\lambda_{2,3} = 1 \pm 3i.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = 2</m>: solving
+                  <m>(A - 2I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}-2&amp;-2&amp;-2\\4&amp;4&amp;-1\\
+                           6&amp;6&amp;-4\end{pmatrix}\mathbf{v} = \mathbf{0},</mrow>
+                    </md>
+                  the system reduces to <m>v_3 = 0</m> and <m>v_1 = -v_2</m>,
+                  giving
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  For <m>\lambda_2 = 1 + 3i</m>: solving
+                  <m>(A - (1+3i)I)\mathbf{v} = \mathbf{0}</m> and taking
+                  <m>v_3 = 2</m> gives <m>v_1 = 2i</m> and <m>v_2 = 1-i</m>, so
+                  the complex eigenvector separates as
+                    <md>
+                      <mrow>\mathbf{v}_2
+                          = \begin{pmatrix}2i\\1-i\\2\end{pmatrix}
+                          = \underbrace{\begin{pmatrix}0\\1\\2\end{pmatrix}}_{\mathbf{p}}
+                          + i\underbrace{\begin{pmatrix}2\\-1\\0\end{pmatrix}}_{\mathbf{q}},</mrow>
+                    </md>
+                  with <m>\mathbf{v}_3 = \overline{\mathbf{v}_2}</m>.
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  The real eigenvalue <m>\lambda_1 = 2</m> gives a straight-line
+                  solution, and the complex pair <m>\alpha \pm i\beta = 1 \pm 3i</m>
+                  gives two real oscillatory solutions. The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad + e^{t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 3t
+                                      - \mathbf{q}\sin 3t\right)
+                          + c_3\!\left(\mathbf{p}\sin 3t
+                                      + \mathbf{q}\cos 3t\right)
+                          \right],</mrow>
+                    </md>
+                  where
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}0\\1\\2\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}2\\-1\\0\end{pmatrix},</mrow>
+                    </md>
+                  and <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  All eigenvalues have positive real parts
+                  (<m>\lambda_1 = 2 \gt 0</m> and
+                  <m>\operatorname{Re}(\lambda_{2,3}) = 1 \gt 0</m>), so the origin
+                  is a completely unstable equilibrium. There are no stable lines or
+                  stable planes. The invariant structures are:
+                  <ul>
+                    <li><p><em>Unstable line</em> along
+                    <m>\mathbf{v}_1 = (-1,1,0)^T</m>: solutions with
+                    <m>c_2 = c_3 = 0</m> move along this line, growing like
+                    <m>e^{2t}</m>.</p></li>
+                    <li><p><em>Unstable spiraling plane</em> spanned by
+                    <m>\mathbf{p}</m> and <m>\mathbf{q}</m>: solutions with
+                    <m>c_1 = 0</m> remain in this plane, spiraling outward with
+                    angular frequency <m>\beta = 3</m> while growing like
+                    <m>e^{t}</m>.</p></li>
+                    <li><p>For generic initial conditions, all three modes grow and
+                    the solution diverges to infinity. The dominant mode is
+                    <m>e^{2t}</m>, so generic solutions eventually align
+                    asymptotically with the direction of
+                    <m>\mathbf{v}_1</m>.</p></li>
+                  </ul>
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -865,6 +1216,99 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  The characteristic polynomial of
+                    <md>
+                      <mrow>A = \begin{pmatrix}11&amp;14&amp;-9\\-5&amp;-8&amp;7\\
+                           4&amp;4&amp;2\end{pmatrix}</mrow>
+                    </md>
+                  is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda + 3)(\lambda^2 - 8\lambda + 20) = 0.</mrow>
+                    </md>
+                  The real eigenvalue is <m>\lambda_1 = -3</m>, and the quadratic
+                  gives the complex conjugate pair
+                    <md>
+                      <mrow>\lambda_{2,3} = 4 \pm 2i.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = -3</m>: solving
+                  <m>(A + 3I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}14&amp;14&amp;-9\\-5&amp;-5&amp;7\\
+                           4&amp;4&amp;5\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                    </md>
+                  The second and third rows together force <m>v_3 = 0</m>, after
+                  which all rows reduce to <m>v_1 = -v_2</m>. Taking <m>v_2 = 1</m>,
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  For <m>\lambda_2 = 4 + 2i</m>: solving
+                  <m>(A-(4+2i)I)\mathbf{v} = \mathbf{0}</m> and taking
+                  <m>v_3 = 2</m> gives <m>v_2 = 1 - i</m> and <m>v_1 = 2i</m>,
+                  so the complex eigenvector separates as
+                    <md>
+                      <mrow>\mathbf{v}_2
+                          = \begin{pmatrix}2i\\1-i\\2\end{pmatrix}
+                          = \underbrace{\begin{pmatrix}0\\1\\2\end{pmatrix}}_{\mathbf{p}}
+                          + i\underbrace{\begin{pmatrix}2\\-1\\0\end{pmatrix}}_{\mathbf{q}},</mrow>
+                    </md>
+                  with <m>\mathbf{v}_3 = \overline{\mathbf{v}_2}</m>.
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  The real eigenvalue gives a decaying straight-line solution, and
+                  the complex pair <m>\alpha \pm i\beta = 4 \pm 2i</m> gives two
+                  real growing oscillatory solutions. The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{-3t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad
+                          + e^{4t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 2t
+                                      - \mathbf{q}\sin 2t\right)
+                          + c_3\!\left(\mathbf{p}\sin 2t
+                                      + \mathbf{q}\cos 2t\right)
+                          \right],</mrow>
+                    </md>
+                  where
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}0\\1\\2\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}2\\-1\\0\end{pmatrix},</mrow>
+                    </md>
+                  and <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  The system has mixed stability:
+                  <ul>
+                    <li><p><m>\lambda_1 = -3 \lt 0</m>: the eigenvector
+                    <m>\mathbf{v}_1 = (-1,1,0)^T</m> spans a
+                    <em>stable line</em>. Solutions with <m>c_2 = c_3 = 0</m>
+                    decay exponentially to the origin along this direction.</p></li>
+                    <li><p><m>\lambda_{2,3} = 4 \pm 2i</m>: the real part
+                    <m>\alpha = 4 \gt 0</m> means the complex modes grow. They
+                    span an <em>unstable spiraling plane</em> in the directions of
+                    <m>\mathbf{p}</m> and <m>\mathbf{q}</m>, with angular
+                    frequency <m>\beta = 2</m>.</p></li>
+                    <li><p>For generic initial conditions (<m>c_2^2 + c_3^2
+                    \neq 0</m>), the growing <m>e^{4t}</m> modes dominate and
+                    solutions spiral away from the origin. The stable line is the
+                    only direction in which solutions approach the origin; in all
+                    other directions solutions diverge. The origin is therefore a
+                    <em>saddle</em> in <m>\mathbb{R}^3</m>.</p></li>
+                  </ul>
+                  In summary, there is one <em>stable line</em> (along
+                  <m>\mathbf{v}_1</m>), one <em>unstable spiraling plane</em>
+                  (spanned by <m>\mathbf{p}</m> and <m>\mathbf{q}</m>), and no
+                  stable planes.
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -877,6 +1321,99 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  The characteristic polynomial of
+                    <md>
+                      <mrow>A = \begin{pmatrix}11&amp;13&amp;-6\\-6&amp;-8&amp;6\\
+                           1&amp;-2&amp;4\end{pmatrix}</mrow>
+                    </md>
+                  is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda - 5)(\lambda^2 - 2\lambda + 10) = 0.</mrow>
+                    </md>
+                  The real eigenvalue is <m>\lambda_1 = 5</m>, and the quadratic
+                  gives the complex conjugate pair
+                    <md>
+                      <mrow>\lambda_{2,3} = 1 \pm 3i.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = 5</m>: solving
+                  <m>(A - 5I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}6&amp;13&amp;-6\\-6&amp;-13&amp;6\\
+                           1&amp;-2&amp;-1\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                    </md>
+                  Rows 1 and 2 are multiples; row 3 gives <m>v_1 = v_3</m> and
+                  substituting into row 1 forces <m>v_2 = 0</m>. Taking
+                  <m>v_3 = 1</m>,
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  For <m>\lambda_2 = 1 + 3i</m>: solving
+                  <m>(A - (1+3i)I)\mathbf{v} = \mathbf{0}</m> and taking
+                  <m>v_3 = 1</m> gives <m>v_2 = 1 - i</m> and
+                  <m>v_1 = -1 + i</m>, so the complex eigenvector separates as
+                    <md>
+                      <mrow>\mathbf{v}_2
+                          = \begin{pmatrix}-1+i\\1-i\\1\end{pmatrix}
+                          = \underbrace{\begin{pmatrix}-1\\1\\1\end{pmatrix}}_{\mathbf{p}}
+                          + i\underbrace{\begin{pmatrix}1\\-1\\0\end{pmatrix}}_{\mathbf{q}},</mrow>
+                    </md>
+                  with <m>\mathbf{v}_3 = \overline{\mathbf{v}_2}</m>.
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  The real eigenvalue gives a growing straight-line solution, and the
+                  complex pair <m>\alpha \pm i\beta = 1 \pm 3i</m> gives two real
+                  oscillatory solutions decaying slower than the real mode grows.
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{5t}\begin{pmatrix}1\\0\\1\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad
+                          + e^{t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 3t
+                                      - \mathbf{q}\sin 3t\right)
+                          + c_3\!\left(\mathbf{p}\sin 3t
+                                      + \mathbf{q}\cos 3t\right)
+                          \right],</mrow>
+                    </md>
+                  where
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}-1\\1\\1\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}1\\-1\\0\end{pmatrix},</mrow>
+                    </md>
+                  and <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  All eigenvalues have positive real parts
+                  (<m>\lambda_1 = 5 \gt 0</m> and
+                  <m>\operatorname{Re}(\lambda_{2,3}) = 1 \gt 0</m>), so the origin
+                  is a completely unstable equilibrium and all non-trivial solutions
+                  diverge. There are no stable lines or stable planes. The invariant
+                  structures are:
+                  <ul>
+                    <li><p><em>Unstable line</em> along
+                    <m>\mathbf{v}_1 = (1,0,1)^T</m>: solutions with
+                    <m>c_2 = c_3 = 0</m> move along this line, growing like
+                    <m>e^{5t}</m>.</p></li>
+                    <li><p><em>Unstable spiraling plane</em> spanned by
+                    <m>\mathbf{p}</m> and <m>\mathbf{q}</m>: solutions with
+                    <m>c_1 = 0</m> remain in this plane, spiraling outward with
+                    angular frequency <m>\beta = 3</m> while growing like
+                    <m>e^{t}</m>.</p></li>
+                    <li><p>For generic initial conditions, the dominant mode is
+                    <m>e^{5t}</m>, so solutions eventually align asymptotically
+                    with <m>\mathbf{v}_1</m> as <m>t \to \infty</m>.</p></li>
+                  </ul>
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -889,6 +1426,96 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  The characteristic polynomial of
+                    <md>
+                      <mrow>A = \begin{pmatrix}0&amp;5&amp;2\\4&amp;-10&amp;-5\\
+                           -6&amp;21&amp;10\end{pmatrix}</mrow>
+                    </md>
+                  is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda - 1)^2(\lambda + 2) = 0,</mrow>
+                    </md>
+                  giving eigenvalues
+                    <md>
+                      <mrow>\lambda_1 = 1 \text{ (multiplicity 2)}, \qquad
+                           \lambda_2 = -2 \text{ (multiplicity 1)}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = 1</m>: solving
+                  <m>(A - I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}-1&amp;5&amp;2\\4&amp;-11&amp;-5\\
+                           -6&amp;21&amp;9\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                    </md>
+                  Row reduction gives rank 2, so the nullity is 1 and
+                  <m>\lambda_1 = 1</m> is <em>defective</em>. The single eigenvector
+                  is
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\-3\end{pmatrix}.</mrow>
+                    </md>
+                  A generalized eigenvector satisfying
+                  <m>(A - I)\mathbf{w} = \mathbf{v}_1</m> is found from
+                    <md>
+                      <mrow>\begin{pmatrix}-1&amp;5&amp;2\\4&amp;-11&amp;-5\\
+                           -6&amp;21&amp;9\end{pmatrix}\mathbf{w}
+                           = \begin{pmatrix}-1\\1\\-3\end{pmatrix}
+                           \implies
+                           \mathbf{w} = \begin{pmatrix}-1\\0\\-1\end{pmatrix}.</mrow>
+                    </md>
+                  For <m>\lambda_2 = -2</m>: solving
+                  <m>(A + 2I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}2&amp;5&amp;2\\4&amp;-8&amp;-5\\
+                           -6&amp;21&amp;12\end{pmatrix}\mathbf{v} = \mathbf{0}
+                           \implies
+                           \mathbf{v}_2 = \begin{pmatrix}-1\\2\\-4\end{pmatrix}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  The defective eigenvalue <m>\lambda_1 = 1</m> contributes a
+                  straight-line solution and a generalized solution; the simple
+                  eigenvalue <m>\lambda_2 = -2</m> contributes a decaying solution.
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          \amp = c_1 e^{t}\begin{pmatrix}-1\\1\\-3\end{pmatrix}
+                          + c_2 e^{t}\!\left(t\begin{pmatrix}-1\\1\\-3\end{pmatrix}</mrow>
+                          <mrow>+ \begin{pmatrix}-1\\0\\-1\end{pmatrix}\right)
+                          + c_3 e^{-2t}\begin{pmatrix}-1\\2\\-4\end{pmatrix},</mrow>
+                    </md>
+                  where <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  The system has mixed stability:
+                  <ul>
+                    <li><p><m>\lambda_2 = -2 \lt 0</m>: the eigenvector
+                    <m>\mathbf{v}_2 = (-1,2,-4)^T</m> spans a
+                    <em>stable line</em>. Solutions with <m>c_1 = c_2 = 0</m>
+                    decay to the origin like <m>e^{-2t}</m>.</p></li>
+                    <li><p><m>\lambda_1 = 1 \gt 0</m> (defective): the eigenvector
+                    <m>\mathbf{v}_1</m> spans an <em>unstable line</em>, and the
+                    generalized eigenvector <m>\mathbf{w}</m> together with
+                    <m>\mathbf{v}_1</m> spans an <em>unstable plane</em>. Solutions
+                    in this plane grow like <m>te^{t}</m> (from the Jordan block)
+                    rather than pure exponentials, so they diverge faster than a
+                    non-defective unstable node would.</p></li>
+                    <li><p>For generic initial conditions (<m>c_2 \neq 0</m>), the
+                    <m>te^{t}</m> term dominates for large <m>t</m> and solutions
+                    diverge in the direction of <m>\mathbf{v}_1</m>.</p></li>
+                  </ul>
+                  In summary, there is one <em>stable line</em> (along
+                  <m>\mathbf{v}_2</m>), one <em>unstable plane</em> (spanned by
+                  <m>\mathbf{v}_1</m> and <m>\mathbf{w}</m>), and no stable
+                  planes.
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -901,6 +1528,99 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p><em>Part (a): Eigenvalues.</em>
+                  The characteristic polynomial of
+                    <md>
+                      <mrow>A = \begin{pmatrix}5&amp;7&amp;-1\\-1&amp;-3&amp;1\\
+                           6&amp;6&amp;-2\end{pmatrix}</mrow>
+                    </md>
+                  is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda + 2)^2(\lambda - 4) = 0,</mrow>
+                    </md>
+                  giving eigenvalues
+                    <md>
+                      <mrow>\lambda_1 = -2 \text{ (multiplicity 2)}, \qquad
+                           \lambda_2 = 4 \text{ (multiplicity 1)}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (b): Eigenvectors.</em>
+                  For <m>\lambda_1 = -2</m>: solving
+                  <m>(A + 2I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}7&amp;7&amp;-1\\-1&amp;-1&amp;1\\
+                           6&amp;6&amp;0\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                    </md>
+                  Row reduction gives rank 2, so the nullity is 1 and
+                  <m>\lambda_1 = -2</m> is <em>defective</em>. The single eigenvector
+                  is
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  A generalized eigenvector satisfying
+                  <m>(A + 2I)\mathbf{w} = \mathbf{v}_1</m> is found from
+                    <md>
+                      <mrow>\begin{pmatrix}7&amp;7&amp;-1\\-1&amp;-1&amp;1\\
+                           6&amp;6&amp;0\end{pmatrix}\mathbf{w}
+                           = \begin{pmatrix}-1\\1\\0\end{pmatrix}
+                           \implies
+                           \mathbf{w} = \begin{pmatrix}0\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  For <m>\lambda_2 = 4</m>: solving
+                  <m>(A - 4I)\mathbf{v} = \mathbf{0}</m>,
+                    <md>
+                      <mrow>\begin{pmatrix}1&amp;7&amp;-1\\-1&amp;-7&amp;1\\
+                           6&amp;6&amp;-6\end{pmatrix}\mathbf{v} = \mathbf{0}
+                           \implies
+                           \mathbf{v}_2 = \begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  </p>
+
+                  <p><em>Part (c): General solution.</em>
+                  The defective eigenvalue <m>\lambda_1 = -2</m> contributes a
+                  decaying straight-line solution and a generalized decaying solution;
+                  the simple eigenvalue <m>\lambda_2 = 4</m> contributes a growing
+                  solution. The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{-2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + c_2 e^{-2t}\!\left(t\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                          <mrow>+ \begin{pmatrix}0\\0\\1\end{pmatrix}\right)
+                          + c_3 e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix},</mrow>
+                    </md>
+                  where <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
+                  </p>
+
+                  <p><em>Part (d): Nature of the solution space.</em>
+                  The system has mixed stability:
+                  <ul>
+                    <li><p><m>\lambda_1 = -2 \lt 0</m> (defective): the eigenvector
+                    <m>\mathbf{v}_1 = (-1,1,0)^T</m> spans a
+                    <em>stable line</em>. Solutions on this line decay like
+                    <m>e^{-2t}</m>. The generalized eigenvector <m>\mathbf{w}</m>
+                    together with <m>\mathbf{v}_1</m> spans a <em>stable plane</em>:
+                    solutions with <m>c_3 = 0</m> decay to the origin (the
+                    <m>te^{-2t}</m> term still decays since
+                    <m>te^{-2t} \to 0</m>), though more slowly than those on the
+                    stable line alone.</p></li>
+                    <li><p><m>\lambda_2 = 4 \gt 0</m>: the eigenvector
+                    <m>\mathbf{v}_2 = (1,0,1)^T</m> spans an
+                    <em>unstable line</em>. Solutions with <m>c_1 = c_2 = 0</m>
+                    grow like <m>e^{4t}</m>.</p></li>
+                    <li><p>For generic initial conditions (<m>c_3 \neq 0</m>), the
+                    growing mode <m>e^{4t}</m> dominates and solutions diverge along
+                    the direction of <m>\mathbf{v}_2</m>. The origin is a
+                    <em>saddle</em> in <m>\mathbb{R}^3</m>.</p></li>
+                  </ul>
+                  In summary, there is one <em>stable plane</em> (spanned by
+                  <m>\mathbf{v}_1</m> and <m>\mathbf{w}</m>), one <em>stable
+                  line</em> (along <m>\mathbf{v}_1</m>), and one <em>unstable
+                  line</em> (along <m>\mathbf{v}_2</m>).
+                  </p>
+                </solution>
             </exercise>        
         </exercisegroup>
 
@@ -918,6 +1638,55 @@
                     <mrow>z(0) \amp = 0</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}4&amp;3&amp;-1\\-1&amp;0&amp;-1\\
+                           1&amp;1&amp;2\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}-1\\1\\0\end{pmatrix},</mrow>
+                    </md>
+                  the characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda-1)(\lambda^2 - 5\lambda + 8) = 0,</mrow>
+                    </md>
+                  giving real eigenvalue <m>\lambda_1 = 1</m> and complex pair
+                  <m>\lambda_{2,3} = \tfrac{5 \pm i\sqrt{7}}{2}</m>. For
+                  <m>\lambda_1 = 1</m>, solving <m>(A - I)\mathbf{v} = \mathbf{0}</m>
+                  gives the eigenvector
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  We observe that the initial condition satisfies
+                    <md>
+                      <mrow>\mathbf{x}(0) = \begin{pmatrix}-1\\1\\0\end{pmatrix}
+                           = 1 \cdot \mathbf{v}_1,</mrow>
+                    </md>
+                  so the initial condition lies exactly on the stable straight-line
+                  solution corresponding to <m>\lambda_1 = 1</m>. Therefore
+                  <m>c_1 = 1</m> and <m>c_2 = c_3 = 0</m>, and the solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix},</mrow>
+                    </md>
+                  i.e.,
+                    <md>
+                      <mrow>x(t) &amp;= -e^{t},</mrow>
+                      <mrow>y(t) &amp;= e^{t},</mrow>
+                      <mrow>z(t) &amp;= 0.</mrow>
+                    </md>
+                  </p>
+                  <p>We verify: <m>x' = -e^t</m> and
+                  <m>4x + 3y - z = -4e^t + 3e^t = -e^t</m> ✓;
+                  <m>y' = e^t</m> and <m>-x - z = e^t</m> ✓;
+                  <m>z' = 0</m> and <m>x + y + 2z = -e^t + e^t = 0</m> ✓.
+                  The initial conditions <m>x(0) = -1</m>, <m>y(0) = 1</m>,
+                  <m>z(0) = 0</m> are also satisfied. Since
+                  <m>\lambda_1 = 1 \gt 0</m>, the solution grows exponentially and
+                  diverges from the origin as <m>t \to \infty</m>.
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -930,6 +1699,64 @@
                     <mrow>z(0) \amp = -1</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}-2&amp;-3&amp;4\\4&amp;5&amp;-4\\
+                           5&amp;5&amp;-3\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}2\\-1\\-1\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda-1)(\lambda-2)(\lambda+3) = 0,</mrow>
+                    </md>
+                  giving eigenvalues <m>\lambda_1 = 1</m>, <m>\lambda_2 = 2</m>,
+                  <m>\lambda_3 = -3</m> with corresponding eigenvectors
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix},
+                           \qquad
+                           \mathbf{v}_2 = \begin{pmatrix}1\\0\\1\end{pmatrix},
+                           \qquad
+                           \mathbf{v}_3 = \begin{pmatrix}-1\\1\\1\end{pmatrix}.</mrow>
+                    </md>
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + c_2 e^{2t}\begin{pmatrix}1\\0\\1\end{pmatrix}
+                          + c_3 e^{-3t}\begin{pmatrix}-1\\1\\1\end{pmatrix}.</mrow>
+                    </md>
+                  Applying the initial condition
+                  <m>c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + c_3\mathbf{v}_3
+                  = (2,-1,-1)^T</m> gives the system
+                    <md>
+                      <mrow>-c_1 + c_2 - c_3 &amp;= 2,</mrow>
+                      <mrow>c_1 \phantom{{}+ c_2{}} + c_3 &amp;= -1,</mrow>
+                      <mrow>c_2 + c_3 &amp;= -1.</mrow>
+                    </md>
+                  From the third equation <m>c_2 = -1 - c_3</m>; from the second
+                  <m>c_1 = -1 - c_3</m>; substituting into the first gives
+                  <m>c_3 = -2</m>, then <m>c_1 = 1</m> and <m>c_2 = 1</m>.
+                  The solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + e^{2t}\begin{pmatrix}1\\0\\1\end{pmatrix}
+                          - 2e^{-3t}\begin{pmatrix}-1\\1\\1\end{pmatrix},</mrow>
+                    </md>
+                  i.e.,
+                    <md>
+                      <mrow>x(t) &amp;= -e^{t} + e^{2t} + 2e^{-3t},</mrow>
+                      <mrow>y(t) &amp;= e^{t} - 2e^{-3t},</mrow>
+                      <mrow>z(t) &amp;= e^{2t} - 2e^{-3t}.</mrow>
+                    </md>
+                  As <m>t \to \infty</m> the dominant term is <m>e^{2t}</m>, so the
+                  solution diverges. As <m>t \to -\infty</m> the dominant term is
+                  <m>e^{-3t}</m>.
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -942,6 +1769,63 @@
                     <mrow>z(0) \amp = 1</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}4&amp;2&amp;0\\0&amp;2&amp;0\\
+                           2&amp;2&amp;2\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}1\\1\\1\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(2-\lambda)^2(4-\lambda) = 0,</mrow>
+                    </md>
+                  giving eigenvalue <m>\lambda_1 = 2</m> (algebraic multiplicity 2,
+                  semisimple) with two independent eigenvectors, and
+                  <m>\lambda_2 = 4</m>:
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix},
+                           \qquad
+                           \mathbf{v}_2 = \begin{pmatrix}0\\0\\1\end{pmatrix},
+                           \qquad
+                           \mathbf{v}_3 = \begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + c_2 e^{2t}\begin{pmatrix}0\\0\\1\end{pmatrix}
+                          + c_3 e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  Applying the initial condition
+                  <m>c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + c_3\mathbf{v}_3
+                  = (1,1,1)^T</m> gives the system
+                    <md>
+                      <mrow>-c_1 + c_3 &amp;= 1,</mrow>
+                      <mrow>c_1 &amp;= 1,</mrow>
+                      <mrow>c_2 + c_3 &amp;= 1.</mrow>
+                    </md>
+                  From the second equation <m>c_1 = 1</m>; from the first
+                  <m>c_3 = 2</m>; from the third <m>c_2 = -1</m>. The solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = e^{2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          - e^{2t}\begin{pmatrix}0\\0\\1\end{pmatrix}
+                          + 2e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix},</mrow>
+                    </md>
+                  i.e.,
+                    <md>
+                      <mrow>x(t) &amp;= -e^{2t} + 2e^{4t},</mrow>
+                      <mrow>y(t) &amp;= e^{2t},</mrow>
+                      <mrow>z(t) &amp;= -e^{2t} + 2e^{4t}.</mrow>
+                    </md>
+                  Since both eigenvalues are positive, the solution grows without
+                  bound as <m>t \to \infty</m>, with the <m>e^{4t}</m> term
+                  dominating.
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -954,6 +1838,60 @@
                     <mrow>z(0) \amp = 3</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}0&amp;-2&amp;-2\\4&amp;6&amp;-1\\
+                           6&amp;6&amp;-2\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}1\\2\\3\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda-2)(\lambda^2-2\lambda+10) = 0,</mrow>
+                    </md>
+                  giving real eigenvalue <m>\lambda_1 = 2</m> with eigenvector
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix},</mrow>
+                    </md>
+                  and complex pair <m>\lambda_{2,3} = 1 \pm 3i</m> with
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}0\\1\\2\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}2\\-1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad
+                          + e^{t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 3t - \mathbf{q}\sin 3t\right)
+                          + c_3\!\left(\mathbf{p}\sin 3t + \mathbf{q}\cos 3t\right)
+                          \right].</mrow>
+                    </md>
+                  Writing out components and applying <m>\mathbf{x}(0) = (1,2,3)^T</m>:
+                    <md>
+                      <mrow>x(0) = -c_1 + 2c_3 &amp;= 1,</mrow>
+                      <mrow>y(0) = c_1 + c_2 - c_3 &amp;= 2,</mrow>
+                      <mrow>z(0) = 2c_2 &amp;= 3.</mrow>
+                    </md>
+                  From the third equation <m>c_2 = \tfrac{3}{2}</m>; from the first
+                  <m>c_1 = 2c_3 - 1</m>; substituting into the second gives
+                  <m>c_3 = \tfrac{3}{2}</m> and then <m>c_1 = 2</m>.
+                  The solution is
+                    <md>
+                      <mrow>x(t) &amp;= -2e^{2t} + 3e^{t}(\cos 3t - \sin 3t),</mrow>
+                      <mrow>y(t) &amp;= 2e^{2t} + 3e^{t}\sin 3t,</mrow>
+                      <mrow>z(t) &amp;= 3e^{t}(\cos 3t + \sin 3t).</mrow>
+                    </md>
+                  Since <m>\operatorname{Re}(\lambda_{2,3}) = 1 \gt 0</m> and
+                  <m>\lambda_1 = 2 \gt 0</m>, all modes grow and the solution
+                  diverges as <m>t \to \infty</m>, with the <m>e^{2t}</m> term
+                  eventually dominating.
+                  </p>
+                </solution>
             </exercise>
             <exercise>
                 <statement>
@@ -966,6 +1904,62 @@
                     <mrow>z(0) \amp = -3</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}11&amp;14&amp;-9\\-5&amp;-8&amp;7\\
+                           4&amp;4&amp;2\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}-1\\-2\\-3\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda+3)(\lambda^2 - 8\lambda + 20) = 0,</mrow>
+                    </md>
+                  giving real eigenvalue <m>\lambda_1 = -3</m> with eigenvector
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix},</mrow>
+                    </md>
+                  and complex pair <m>\lambda_{2,3} = 4 \pm 2i</m> with
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}0\\1\\2\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}2\\-1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{-3t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad
+                          + e^{4t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 2t - \mathbf{q}\sin 2t\right)
+                          + c_3\!\left(\mathbf{p}\sin 2t + \mathbf{q}\cos 2t\right)
+                          \right].</mrow>
+                    </md>
+                  Writing out components and applying
+                  <m>\mathbf{x}(0) = (-1,-2,-3)^T</m>:
+                    <md>
+                      <mrow>x(0) = -c_1 + 2c_3 &amp;= -1,</mrow>
+                      <mrow>y(0) = c_1 + c_2 - c_3 &amp;= -2,</mrow>
+                      <mrow>z(0) = 2c_2 &amp;= -3.</mrow>
+                    </md>
+                  From the third equation <m>c_2 = -\tfrac{3}{2}</m>; from the first
+                  <m>c_1 = 2c_3 + 1</m>; substituting into the second gives
+                  <m>c_3 = -\tfrac{3}{2}</m> and then <m>c_1 = -2</m>.
+                  The solution is
+                    <md>
+                      <mrow>x(t) &amp;= 2e^{-3t}
+                                     - 3e^{4t}(\cos 2t - \sin 2t),</mrow>
+                      <mrow>y(t) &amp;= -2e^{-3t} - 3e^{4t}\sin 2t,</mrow>
+                      <mrow>z(t) &amp;= -3e^{4t}(\cos 2t + \sin 2t).</mrow>
+                    </md>
+                  Since <m>\lambda_1 = -3 \lt 0</m> the first term decays, but
+                  <m>\operatorname{Re}(\lambda_{2,3}) = 4 \gt 0</m> so the
+                  oscillating <m>e^{4t}</m> modes grow and dominate as
+                  <m>t \to \infty</m>.
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -978,6 +1972,66 @@
                     <mrow>z(0) \amp = 0</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}11&amp;13&amp;-6\\-6&amp;-8&amp;6\\
+                           1&amp;-2&amp;4\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}-2\\2\\0\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda-5)(\lambda^2 - 2\lambda + 10) = 0,</mrow>
+                    </md>
+                  giving real eigenvalue <m>\lambda_1 = 5</m> with eigenvector
+                    <md>
+                      <mrow>\mathbf{v}_1 = \begin{pmatrix}1\\0\\1\end{pmatrix},</mrow>
+                    </md>
+                  and complex pair <m>\lambda_{2,3} = 1 \pm 3i</m> with
+                    <md>
+                      <mrow>\mathbf{p} = \begin{pmatrix}-1\\1\\1\end{pmatrix},
+                           \qquad
+                           \mathbf{q} = \begin{pmatrix}1\\-1\\0\end{pmatrix}.</mrow>
+                    </md>
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          &amp;= c_1 e^{5t}\begin{pmatrix}1\\0\\1\end{pmatrix}</mrow>
+                      <mrow>&amp;\quad
+                          + e^{t}\!\left[
+                            c_2\!\left(\mathbf{p}\cos 3t - \mathbf{q}\sin 3t\right)
+                          + c_3\!\left(\mathbf{p}\sin 3t + \mathbf{q}\cos 3t\right)
+                          \right].</mrow>
+                    </md>
+                  Writing out components and applying
+                  <m>\mathbf{x}(0) = (-2,2,0)^T</m>:
+                    <md>
+                      <mrow>x(0) = c_1 - c_2 + c_3 &amp;= -2,</mrow>
+                      <mrow>y(0) = c_2 - c_3 &amp;= 2,</mrow>
+                      <mrow>z(0) = c_2 &amp;= 0.</mrow>
+                    </md>
+                  From the third equation <m>c_2 = 0</m>; from the second
+                  <m>c_3 = -2</m>; from the first <m>c_1 = 0</m>.
+                  The solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = -2e^{t}\!\left(\mathbf{p}\sin 3t
+                            + \mathbf{q}\cos 3t\right),</mrow>
+                    </md>
+                  i.e.,
+                    <md>
+                      <mrow>x(t) &amp;= e^{t}(2\sin 3t - 2\cos 3t),</mrow>
+                      <mrow>y(t) &amp;= e^{t}(-2\sin 3t + 2\cos 3t),</mrow>
+                      <mrow>z(t) &amp;= -2e^{t}\sin 3t.</mrow>
+                    </md>
+                  Since <m>c_1 = 0</m> the <m>e^{5t}</m> mode is absent; the
+                  solution is purely oscillatory with exponentially growing amplitude
+                  governed by <m>\operatorname{Re}(\lambda_{2,3}) = 1 \gt 0</m>, so
+                  it diverges as <m>t \to \infty</m>.
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -990,6 +2044,53 @@
                     <mrow>z(0) \amp = 3</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}0&amp;5&amp;2\\4&amp;-10&amp;-5\\
+                           -6&amp;21&amp;10\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}1\\1\\3\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda-1)^2(\lambda+2) = 0,</mrow>
+                    </md>
+                  giving defective eigenvalue <m>\lambda_1 = 1</m> (multiplicity 2)
+                  with eigenvector <m>\mathbf{v}_1 = (-1,1,-3)^T</m> and generalized
+                  eigenvector <m>\mathbf{w} = (-1,0,-1)^T</m>, and simple eigenvalue
+                  <m>\lambda_2 = -2</m> with eigenvector
+                  <m>\mathbf{v}_2 = (-1,2,-4)^T</m>.
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{t}\begin{pmatrix}-1\\1\\-3\end{pmatrix} </mrow>
+                          <mrow>+ c_2 e^{t}\!\left(t\begin{pmatrix}-1\\1\\-3\end{pmatrix}
+                          + \begin{pmatrix}-1\\0\\-1\end{pmatrix}\right)
+                          + c_3 e^{-2t}\begin{pmatrix}-1\\2\\-4\end{pmatrix}.</mrow>
+                    </md>
+                  Applying the initial condition <m>\mathbf{x}(0) = (1,1,3)^T</m>:
+                    <md>
+                      <mrow>-c_1 - c_2 - c_3 &amp;= 1,</mrow>
+                      <mrow>c_1 + 2c_3 &amp;= 1,</mrow>
+                      <mrow>-3c_1 - c_2 - 4c_3 &amp;= 3.</mrow>
+                    </md>
+                  From the second equation <m>c_1 = 1 - 2c_3</m>; substituting into
+                  the first gives <m>c_2 = c_3 - 2</m>; substituting both into the
+                  third gives <m>c_3 = 4</m>, then <m>c_2 = 2</m> and
+                  <m>c_1 = -7</m>. The solution is
+                    <md>
+                      <mrow>x(t) &amp;= e^{t}(5 - 2t) - 4e^{-2t},</mrow>
+                      <mrow>y(t) &amp;= e^{t}(-7 + 2t) + 8e^{-2t},</mrow>
+                      <mrow>z(t) &amp;= e^{t}(19 - 6t) - 16e^{-2t}.</mrow>
+                    </md>
+                  Since <m>\lambda_1 = 1 \gt 0</m> and the <m>te^t</m> terms grow
+                  without bound, the solution diverges as <m>t \to \infty</m>.
+                  The <m>e^{-2t}</m> mode decays and becomes negligible for large
+                  <m>t</m>.
+                  </p>
+                </solution>
             </exercise>            
             <exercise>
                 <statement>
@@ -1002,6 +2103,51 @@
                     <mrow>z(0) \amp = 2</mrow>
                 </md></p>
                 </statement>
+                <solution component="instructors">
+                  <p>Writing the system in matrix form
+                  <m>\mathbf{x}' = A\mathbf{x}</m> with
+                    <md>
+                      <mrow>A = \begin{pmatrix}5&amp;7&amp;-1\\-1&amp;-3&amp;1\\
+                           6&amp;6&amp;-2\end{pmatrix}, \qquad
+                           \mathbf{x}(0) = \begin{pmatrix}-1\\0\\2\end{pmatrix}.</mrow>
+                    </md>
+                  The characteristic polynomial is
+                    <md>
+                      <mrow>\det(A - \lambda I)
+                          = -(\lambda+2)^2(\lambda-4) = 0,</mrow>
+                    </md>
+                  giving defective eigenvalue <m>\lambda_1 = -2</m> (multiplicity 2)
+                  with eigenvector <m>\mathbf{v}_1 = (-1,1,0)^T</m> and generalized
+                  eigenvector <m>\mathbf{w} = (0,0,1)^T</m>, and simple eigenvalue
+                  <m>\lambda_2 = 4</m> with eigenvector
+                  <m>\mathbf{v}_2 = (1,0,1)^T</m>.
+                  The general solution is
+                    <md>
+                      <mrow>\mathbf{x}(t)
+                          = c_1 e^{-2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                          <mrow>+ c_2 e^{-2t}\!\left(t\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + \begin{pmatrix}0\\0\\1\end{pmatrix}\right)
+                          + c_3 e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix}.</mrow>
+                    </md>
+                  Applying the initial condition <m>\mathbf{x}(0) = (-1,0,2)^T</m>:
+                    <md>
+                      <mrow>-c_1 + c_3 &amp;= -1,</mrow>
+                      <mrow>c_1 &amp;= 0,</mrow>
+                      <mrow>c_2 + c_3 &amp;= 2.</mrow>
+                    </md>
+                  From the second equation <m>c_1 = 0</m>; from the first
+                  <m>c_3 = -1</m>; from the third <m>c_2 = 3</m>. The solution is
+                    <md>
+                      <mrow>x(t) &amp;= -3te^{-2t} - e^{4t},</mrow>
+                      <mrow>y(t) &amp;= 3te^{-2t},</mrow>
+                      <mrow>z(t) &amp;= 3e^{-2t} - e^{4t}.</mrow>
+                    </md>
+                  Since <m>\lambda_2 = 4 \gt 0</m>, the <m>e^{4t}</m> mode grows
+                  and dominates as <m>t \to \infty</m>. The defective
+                  <m>e^{-2t}</m> modes (including the <m>te^{-2t}</m> term) decay
+                  to zero since <m>te^{-2t} \to 0</m> as <m>t \to \infty</m>.
+                  </p>
+                </solution>
             </exercise>        
         </exercisegroup>
 
