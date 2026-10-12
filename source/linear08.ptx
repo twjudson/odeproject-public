@@ -797,15 +797,20 @@
     <exercises xml:id="linear08-exercises"  filenamebase="linear08">
     <title>Exercises</title>
 
+
          <exercisegroup cols="2" xml:id="linear08-exercises-solving-linear-systems">
             <title>Finding Solutions of <m> 3 \times 3</m> Systems</title>
-            <introduction><p>For each of the linear systems <m>d\mathbf x/dt = A \mathbf x</m> in <xref ref="linear08-exercises-solving-linear-systems"/>
+           <introduction><p>For each of the linear systems <m>d\mathbf x/dt = A \mathbf x</m> in 
+           <xref ref="linear08-exercises-solving-linear-systems"/>
                 <ol>
                     <li><p>Find the eigenvalues of <m>A</m>. You may find <em>Sage</em> useful.</p></li>
                     <li><p>Find the eigenvectors for each eigenvalue of <m>A</m>.</p></li>
                     <li><p>What is the general solution of <m>d\mathbf x/dt = A \mathbf x</m>?</p></li>
                     <li><p>Describe the nature of the nature of the solution space in <m>\mathbb R^3</m>.  Are there stable lines or planes?</p></li>
-                </ol></p></introduction>
+                </ol>
+            </p></introduction>
+
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -817,23 +822,25 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
             <solution component="instructors">
+
               <p><em>Part (a): Eigenvalues.</em>
               The characteristic polynomial of
-                <md>
-                  <mrow>A = \begin{pmatrix}4&amp;3&amp;-1\\-1&amp;0&amp;-1\\
-                       1&amp;1&amp;2\end{pmatrix}</mrow>
+                <md>A = 
+                    \begin{pmatrix}4&amp;3&amp;-1\\-1&amp;0&amp;-1\\
+                       1&amp;1&amp;2\end{pmatrix}
                 </md>
               is
                 <md>
-                  <mrow>\det(A - \lambda I)
-                      = -(\lambda - 1)(\lambda^2 - 5\lambda + 8) = 0.</mrow>
+                  \det(A - \lambda I)
+                      = -(\lambda - 1)(\lambda^2 - 5\lambda + 8) = 0.
                 </md>
               The real eigenvalue is <m>\lambda_1 = 1</m>, and the quadratic
               <m>\lambda^2 - 5\lambda + 8 = 0</m> gives the complex conjugate
               pair
                 <md>
-                  <mrow>\lambda_{2,3} = \frac{5 \pm i\sqrt{7}}{2}.</mrow>
+                  \lambda_{2,3} = \frac{5 \pm i\sqrt{7}}{2}.
                 </md>
               </p>
 
@@ -841,24 +848,25 @@
               For <m>\lambda_1 = 1</m>: solving
               <m>(A - I)\mathbf{v} = \mathbf{0}</m>,
                 <md>
-                  <mrow>\begin{pmatrix}3&amp;3&amp;-1\\-1&amp;-1&amp;-1\\
-                       1&amp;1&amp;1\end{pmatrix}\mathbf{v} = \mathbf{0}.</mrow>
+                  \begin{pmatrix}3&amp;3&amp;-1\\-1&amp;-1&amp;-1\\
+                       1&amp;1&amp;1\end{pmatrix}\mathbf{v} 
+                       = \mathbf{0}.
                 </md>
               The second and third rows give <m>v_1 + v_2 + v_3 = 0</m>, and
               the first row combined with this gives <m>v_1 = -v_2</m>,
               <m>v_3 = 0</m>. Taking <m>v_2 = 1</m>,
                 <md>
-                  <mrow>\mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.</mrow>
+                  \mathbf{v}_1 = \begin{pmatrix}-1\\1\\0\end{pmatrix}.
                 </md>
               For <m>\lambda_{2,3} = \tfrac{5 \pm i\sqrt{7}}{2}</m>: solving
               <m>(A - \lambda_{2}I)\mathbf{v} = \mathbf{0}</m> (via Sage) gives
               a complex eigenvector
                 <md>
-                  <mrow>\mathbf{v}_2
+                  \mathbf{v}_2
                       = \mathbf{p} + i\mathbf{q}
                       = \begin{pmatrix}3\\-1\\0\end{pmatrix}
                       + i\begin{pmatrix}0\\\tfrac{\sqrt{7}}{2}\\
-                        -\tfrac{\sqrt{7}}{2}\end{pmatrix},</mrow>
+                        -\tfrac{\sqrt{7}}{2}\end{pmatrix},
                 </md>
               with <m>\mathbf{v}_3 = \overline{\mathbf{v}_2}</m>.
               </p>
@@ -871,22 +879,28 @@
               <m>\mathbf{q}</m>. The general solution is
                 <md>
                   <mrow>\mathbf{x}(t)
-                      &amp;= c_1 e^{t}\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
+                      &amp; = c_1 e^{t}
+                      \begin{pmatrix}
+                      -1\\1\\0
+                      \end{pmatrix}</mrow>
                   <mrow>&amp;
-                      + e^{5t/2}\!\left[
+                      + e^{5t/2}\!
+                      \left[
                         c_2\!\left(\mathbf{p}\cos\frac{\sqrt{7}\,t}{2}
-                                  - \mathbf{q}\sin\frac{\sqrt{7}\,t}{2}\right)</mrow>
-                      <mrow>+ c_3\!\left(\mathbf{p}\sin\frac{\sqrt{7}\,t}{2}
-                                  + \mathbf{q}\cos\frac{\sqrt{7}\,t}{2}\right)
-                      \right],</mrow>
+                                  - \mathbf{q}\sin\frac{\sqrt{7}\,t}{2}
+                                  \right)
+                       + c_3\!\left(\mathbf{p}\sin\frac{\sqrt{7}\,t}{2}
+                                  + \mathbf{q}\cos\frac{\sqrt{7}\,t}{2}\right) \right],</mrow>
                 </md>
+
               where
                 <md>
-                  <mrow>\mathbf{p} = \begin{pmatrix}3\\-1\\0\end{pmatrix},
+                  \mathbf{p} = \begin{pmatrix}3\\-1\\0\end{pmatrix},
                   \qquad
                   \mathbf{q} = \begin{pmatrix}0\\\tfrac{\sqrt{7}}{2}\\
-                               -\tfrac{\sqrt{7}}{2}\end{pmatrix}.</mrow>
+                               -\tfrac{\sqrt{7}}{2}\end{pmatrix}.
                 </md>
+            
               </p>
 
               <p><em>Part (d): Nature of the solution space in
@@ -897,11 +911,13 @@
                 <em>unstable line</em> in the direction of
                 <m>\mathbf{v}_1 = (-1,1,0)^T</m>. Solutions starting on this
                 line move away from the origin along this direction.</p></li>
+
                 <li><p><m>\lambda_{2,3} = \tfrac{5}{2} \pm i\tfrac{\sqrt{7}}{2}</m>:
                 the complex pair has real part <m>\alpha = 5/2 \gt 0</m>, so
                 these modes also grow. They contribute a two-dimensional
                 <em>unstable spiraling plane</em> spanned by <m>\mathbf{p}</m>
                 and <m>\mathbf{q}</m>, on which solutions spiral outward.</p></li>
+
               </ul>
               Since all eigenvalues have positive real parts, <em>the origin is
               a completely unstable equilibrium</em>: every non-trivial solution
@@ -910,8 +926,12 @@
               <m>\mathbf{v}_1</m> and the unstable spiraling plane of the
               complex modes.
               </p>
+          
             </solution>
+        
             </exercise>
+
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -923,6 +943,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
             <solution component="instructors">
               <p><em>Part (a): Eigenvalues.</em>
               The characteristic polynomial of
@@ -1008,6 +1029,7 @@
               planes.
               </p>
             </solution>
+        
             </exercise>
             <exercise>
                 <statement>
@@ -1020,6 +1042,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
             <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   Expanding the characteristic polynomial by expanding along the
@@ -1101,7 +1124,9 @@
                   </ul>
                   </p>
                 </solution>
+            
             </exercise>
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -1113,6 +1138,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
             <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   The characteristic polynomial of
@@ -1204,7 +1230,10 @@
                   </ul>
                   </p>
                 </solution>
+            
             </exercise>
+ 
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -1216,6 +1245,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
                 <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   The characteristic polynomial of
@@ -1309,7 +1339,9 @@
                   stable planes.
                   </p>
                 </solution>
-            </exercise>            
+            
+            </exercise>  
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -1321,6 +1353,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
                 <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   The characteristic polynomial of
@@ -1414,7 +1447,9 @@
                   </ul>
                   </p>
                 </solution>
-            </exercise>            
+            
+            </exercise>   
+      
             <exercise>
                 <statement>
                     <p><md>A
@@ -1426,6 +1461,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
                 <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   The characteristic polynomial of
@@ -1485,8 +1521,8 @@
                     <md>
                       <mrow>\mathbf{x}(t)
                           \amp = c_1 e^{t}\begin{pmatrix}-1\\1\\-3\end{pmatrix}
-                          + c_2 e^{t}\!\left(t\begin{pmatrix}-1\\1\\-3\end{pmatrix}</mrow>
-                          <mrow>+ \begin{pmatrix}-1\\0\\-1\end{pmatrix}\right)
+                          + c_2 e^{t}\!\left(t\begin{pmatrix}-1\\1\\-3\end{pmatrix}
+                          + \begin{pmatrix}-1\\0\\-1\end{pmatrix}\right)
                           + c_3 e^{-2t}\begin{pmatrix}-1\\2\\-4\end{pmatrix},</mrow>
                     </md>
                   where <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
@@ -1516,7 +1552,9 @@
                   planes.
                   </p>
                 </solution>
-            </exercise>            
+            
+            </exercise>     
+
             <exercise>
                 <statement>
                     <p><md>A
@@ -1528,6 +1566,7 @@
                         \end{pmatrix}
                     </md></p>
                 </statement>
+                
                 <solution component="instructors">
                   <p><em>Part (a): Eigenvalues.</em>
                   The characteristic polynomial of
@@ -1587,8 +1626,8 @@
                     <md>
                       <mrow>\mathbf{x}(t)
                           = c_1 e^{-2t}\begin{pmatrix}-1\\1\\0\end{pmatrix}
-                          + c_2 e^{-2t}\!\left(t\begin{pmatrix}-1\\1\\0\end{pmatrix}</mrow>
-                          <mrow>+ \begin{pmatrix}0\\0\\1\end{pmatrix}\right)
+                          + c_2 e^{-2t}\!\left(t\begin{pmatrix}-1\\1\\0\end{pmatrix}
+                          + \begin{pmatrix}0\\0\\1\end{pmatrix}\right)
                           + c_3 e^{4t}\begin{pmatrix}1\\0\\1\end{pmatrix},</mrow>
                     </md>
                   where <m>c_1</m>, <m>c_2</m>, <m>c_3</m> are arbitrary constants.
@@ -1621,7 +1660,9 @@
                   line</em> (along <m>\mathbf{v}_2</m>).
                   </p>
                 </solution>
-            </exercise>        
+            
+            </exercise>   
+
         </exercisegroup>
 
         <exercisegroup cols="2" xml:id="linear08-exercises-solving-ivps">
