@@ -306,6 +306,75 @@
 
                     </ol></p>  
             </statement>
+            <solution component="instructors">
+              <ol>
+                <li>
+                  <p><m>L(0,0) = 0</m>, and near the origin the dominant
+                  terms <m>x^2/2 + y^2/2</m> are positive, so <m>L</m>
+                  is positive definite in a neighborhood of <m>(0,0)</m>.
+                  Computing <m>\dot{L}</m> along trajectories:
+                    <md>
+                      <mrow>\dot{L}
+                          &amp;= (x - x^2)\,y
+                           + y\!\left(-x - \frac{y}{4} + x^2\right)</mrow>
+                      <mrow>&amp;= xy - x^2y - xy - \frac{y^2}{4} + x^2y
+                           = -\frac{y^2}{4} \leq 0.</mrow>
+                    </md>
+                  Since <m>L</m> is positive definite and
+                  <m>\dot{L} \leq 0</m>, <m>L</m> is a Lyapunov function,
+                  confirming that <m>(0,0)</m> is stable.
+                  </p>
+                </li>
+
+                <li>
+
+                    <image width="65%">
+                      <prefigure xmlns="https://prefigure.org"
+                                 label="lyapunov-L-levelsets">
+                          <diagram dimensions="(300,300)" margins="25">
+                            <coordinates bbox="[-4,-4,4,4]">
+                              <grid-axes xlabel="x(t)" ylabel="y(t)"/>
+
+                              <definition>S(x,y) = x^2/2 + y^2/2 - x^2/3</definition>
+                              <implicit-curve function="S" k="1" stroke="red" />
+                              <implicit-curve function="S" k="2" stroke="green" />
+                              <implicit-curve function="S" k="3" stroke="purple" />
+                              <implicit-curve function="S" k="4" stroke="orange" />
+                              <implicit-curve function="S" k="5" stroke="blue" />
+                            </coordinates>
+
+                            
+                          </diagram>
+                      </prefigure>
+                  </image>
+
+                </li>
+
+                <li>
+                  <p>From the Lyapunov function analysis and the level sets
+                  we can conclude:
+                  <ul>
+                    <li><p>The origin <m>(0,0)</m> is a <em>stable
+                    equilibrium</em>. Since <m>\dot{L} = -y^2/4 \leq 0</m>,
+                    trajectories cannot cross level sets of <m>L</m>
+                    outward; they move inward or along level sets.</p></li>
+                    <li><p>The level set <m>L = 1/6</m> passes through
+                    the saddle point <m>(1,0)</m>. The region
+                    <m>\{(x,y) : L(x,y) \lt 1/6\}</m> is an estimate
+                    of the <em>basin of attraction</em> of the origin:
+                    any trajectory starting inside this region must
+                    remain inside and approach <m>(0,0)</m>.</p></li>
+                    <li><p>Since <m>\dot{L} = 0</m> only on the
+                    <m>x</m>-axis (<m>y = 0</m>) and trajectories do
+                    not remain on the <m>x</m>-axis (since
+                    <m>x' = y = 0</m> only at equilibria), by
+                    LaSalle's invariance principle the origin is in fact
+                    <em>asymptotically stable</em>.</p></li>
+                  </ul>
+                  </p>
+                </li>
+              </ol>
+            </solution>
         </exercise>
 
         <exercise>
@@ -321,6 +390,66 @@
 
                     </ol></p>  
             </statement>
+            <solution component="instructors">
+              <ol>
+                <li>
+                  <p>The gradient system with potential function
+                  <m>G = x^3 - 3xy^2</m> is
+                    <md>
+                      <mrow>\frac{dx}{dt} &amp;= \frac{\partial G}{\partial x}
+                           = 3x^2 - 3y^2,</mrow>
+                      <mrow>\frac{dy}{dt} &amp;= \frac{\partial G}{\partial y}
+                           = -6xy.</mrow>
+                    </md>
+                  </p>
+                </li>
+
+                <li>
+                  <p>Note that <m>G = x^3 - 3xy^2 = \operatorname{Re}(x+iy)^3</m>,
+                  so <m>G</m> has three-fold rotational symmetry. The level
+                  set <m>G = 0</m> consists of the three lines <m>x = 0</m>
+                  and <m>y = \pm x/\sqrt{3}</m>, which divide the plane
+                  into six sectors where <m>G</m> alternates in sign.
+                  </p>
+                    <image width="65%">
+                      <prefigure xmlns="https://prefigure.org"
+                                 label="gradient-G-phase">
+                      <diagram dimensions="(300,300)" margins="25">
+                        <definition>f(t,y) = (3*y[0]^2 - 3*y[1]^2, - 6*y[0]*y[1])</definition>
+                        <coordinates bbox="[-4,-4,4,4]">
+                          <grid-axes xlabel="x(t)" ylabel="y(t)"/>
+
+                          <definition>gap = 1/2</definition>
+                          <slope-field function="f" system="yes" stroke="black"
+                           arrows="yes" thickness="1" spacings="((-4,gap,4),(-4,gap,4))"/>
+
+                          <definition>S(x,y) = x^3 - 3*x*y^2</definition>
+                          <implicit-curve function="S" k="1" stroke="red" />
+                          <implicit-curve function="S" k="2" stroke="green" />
+                          <implicit-curve function="S" k="3" stroke="purple" />
+                          <implicit-curve function="S" k="4" stroke="orange" />
+                          <implicit-curve function="S" k="5" stroke="blue" />
+                        </coordinates>
+
+                        
+                      </diagram>
+                      </prefigure>
+                    </image>
+                </li>
+
+                <li>
+                  <p>The only equilibrium is <m>(0,0)</m>, where the
+                  Jacobian is the zero matrix — a fully degenerate
+                  non-hyperbolic equilibrium. Trajectories flow
+                  perpendicular to the level sets of <m>G</m> in the
+                  direction of increasing <m>G</m>, creating a six-sector
+                  pattern reflecting the symmetry of <m>G</m>.
+                  </p>
+
+
+                </li>
+              </ol>
+            </solution>
         </exercise>
 
         <exercise>
@@ -367,6 +496,44 @@
                     <md>V(x, y) = ax^2 + 2bxy + cy^2</md>
                 is positive definite with minimum at <m>(x, y) = (0, 0)</m> if and only if <m>a \gt 0</m> and <m>ac - b^2 \gt 0</m>.</p>  
             </statement>
+             <solution component="instructors">
+              <p>We complete the square in <m>V</m>. Assuming <m>a \neq 0</m>,
+                <md>
+                  <mrow>V(x,y) \amp = ax^2 + 2bxy + cy^2</mrow>
+                       <mrow>\amp = a\!\left(x + \frac{b}{a}y\right)^2
+                         + \left(c - \frac{b^2}{a}\right)y^2</mrow>
+                       <mrow> \amp = a\!\left(x + \frac{b}{a}y\right)^2
+                         + \frac{ac - b^2}{a}\,y^2.</mrow>
+                </md>
+              Clearly <m>V(0,0) = 0</m>. We now show the equivalence.
+              </p>
+
+              <p><em>(<m>\Rightarrow</m>) Suppose <m>V</m> is positive
+              definite.</em> Setting <m>y = 0</m> gives
+              <m>V(x,0) = ax^2</m>, which must be positive for
+              <m>x \neq 0</m>, so <m>a \gt 0</m>. Setting
+              <m>x = -by/a</m> gives
+              <m>V = \tfrac{ac-b^2}{a}\,y^2</m>, which must be
+              positive for <m>y \neq 0</m>. Since <m>a \gt 0</m> this
+              requires <m>ac - b^2 \gt 0</m>.
+              </p>
+
+              <p><em>(<m>\Leftarrow</m>) Suppose <m>a \gt 0</m> and
+              <m>ac - b^2 \gt 0</m>.</em> From the completed-square form,
+                <md>
+                  <mrow>V(x,y) = a\!\left(x + \frac{b}{a}y\right)^2
+                       + \frac{ac-b^2}{a}\,y^2.</mrow>
+                </md>
+              Both coefficients <m>a \gt 0</m> and
+              <m>(ac-b^2)/a \gt 0</m> are positive, so both terms are
+              nonnegative. If <m>V(x,y) = 0</m> then both terms vanish:
+              <m>y = 0</m> (from the second term) and then
+              <m>ax^2 = 0</m> (from the first), giving <m>x = 0</m>.
+              Therefore <m>V(x,y) \gt 0</m> for all
+              <m>(x,y) \neq (0,0)</m>, and <m>V</m> is positive definite
+              with minimum at the origin. <m>\square</m>
+              </p>
+            </solution>
         </exercise>
 
         <exercise>
@@ -378,6 +545,25 @@
                     </md>
                 has an asymptotically stable equilibrium solution at  <m>(x, y) = (0, 0)</m>.</p>  
             </statement>
+            <solution component="instructors">
+              <p>Let <m>V(x,y) = x^2 + y^2</m>. Then <m>V(0,0) = 0</m>
+              and <m>V(x,y) \gt 0</m> for <m>(x,y) \neq (0,0)</m>, so
+              <m>V</m> is positive definite. Computing <m>\dot{V}</m>
+              along trajectories of the system:
+                <md>
+                  <mrow>\dot{V}
+                      &amp;= 2x\,x' + 2y\,y'</mrow>
+                  <mrow>&amp;= 2x(-x - 2y^2) + 2y(2xy - y^3)</mrow>
+                  <mrow>&amp;= -2x^2 - 4xy^2 + 4xy^2 - 2y^4</mrow>
+                  <mrow>&amp;= -2x^2 - 2y^4.</mrow>
+                </md>
+              Since <m>-2x^2 - 2y^4 \lt 0</m> for all
+              <m>(x,y) \neq (0,0)</m>, <m>\dot{V}</m> is negative
+              definite. By Lyapunov's theorem, since <m>V</m> is positive
+              definite and <m>\dot{V}</m> is negative definite, the
+              equilibrium <m>(0,0)</m> is <em>asymptotically stable</em>.
+              </p>
+            </solution>
         </exercise>
 
     </exercises>
